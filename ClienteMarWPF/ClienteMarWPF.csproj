@@ -13,7 +13,6 @@
     <Folder Include="DataProviders\DataProviders\" />
     <Folder Include="DataProviders\Services\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Models\Business\" />
     <Folder Include="Modules\" />
     <Folder Include="StartUp\Images\" />
     <Folder Include="StartUp\Resources\" />
