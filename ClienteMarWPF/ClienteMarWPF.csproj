@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Converters\" />
+    <Folder Include="DataProviders\DataControllers\" />
+    <Folder Include="DataProviders\Interfaces\" />
+    <Folder Include="DataProviders\DataProviders\" />
+    <Folder Include="DataProviders\Services\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Models\Business\" />
+    <Folder Include="Modules\" />
+    <Folder Include="StartUp\Images\" />
+    <Folder Include="StartUp\Resources\" />
+    <Folder Include="ViewModels\Business\Collections\" />
+    <Folder Include="ViewModels\Business\Delegates\" />
+    <Folder Include="ViewModels\Business\Enums\" />
+    <Folder Include="ViewModels\Business\Interfaces\" />
+    <Folder Include="ViewModels\Commands\" />
+    <Folder Include="Views\AttachedProperties\" />
+    <Folder Include="Views\Controls\" />
+    <Folder Include="Views\Business\" />
+  </ItemGroup>
+
+</Project>
