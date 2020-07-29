@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="DataControllers\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="DataProviders\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
