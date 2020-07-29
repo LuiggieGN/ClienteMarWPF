@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteMarWPF", "ClienteMarWPF\ClienteMarWPF.csproj", "{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.UI", "ClienteMarWPF.UI\ClienteMarWPF.UI.csproj", "{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.Domain", "ClienteMarWPF.Domain\ClienteMarWPF.Domain.csproj", "{0E2ED624-67BC-4470-83C1-7C7D4E552569}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteMarWPF.DataProviders", "ClienteMarWPF.DataProviders\ClienteMarWPF.DataProviders.csproj", "{DED348E5-E09C-40B5-8C89-82DB58343BC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E2ED624-67BC-4470-83C1-7C7D4E552569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E2ED624-67BC-4470-83C1-7C7D4E552569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E2ED624-67BC-4470-83C1-7C7D4E552569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E2ED624-67BC-4470-83C1-7C7D4E552569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DED348E5-E09C-40B5-8C89-82DB58343BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DED348E5-E09C-40B5-8C89-82DB58343BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DED348E5-E09C-40B5-8C89-82DB58343BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DED348E5-E09C-40B5-8C89-82DB58343BC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

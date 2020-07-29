@@ -8,10 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Converters\" />
-    <Folder Include="DataProviders\DataControllers\" />
-    <Folder Include="DataProviders\Interfaces\" />
-    <Folder Include="DataProviders\DataProviders\" />
-    <Folder Include="DataProviders\Services\" />
     <Folder Include="Extensions\" />
     <Folder Include="Modules\" />
     <Folder Include="StartUp\Images\" />
@@ -24,6 +20,11 @@
     <Folder Include="Views\AttachedProperties\" />
     <Folder Include="Views\Controls\" />
     <Folder Include="Views\Business\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClienteMarWPF.DataProviders\ClienteMarWPF.DataProviders.csproj" />
+    <ProjectReference Include="..\ClienteMarWPF.Domain\ClienteMarWPF.Domain.csproj" />
   </ItemGroup>
 
 </Project>
