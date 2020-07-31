@@ -16,7 +16,6 @@
     <Folder Include="ViewModels\Business\Delegates\" />
     <Folder Include="ViewModels\Business\Enums\" />
     <Folder Include="ViewModels\Business\Interfaces\" />
-    <Folder Include="ViewModels\Commands\" />
     <Folder Include="Views\AttachedProperties\" />
     <Folder Include="Views\Controls\" />
     <Folder Include="Views\Business\" />

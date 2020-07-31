@@ -1,6 +1,6 @@
 ﻿ 
 
-namespace ClienteMarWPF.Domain.Models.Business
+namespace ClienteMarWPF.Domain.Models.Dtos
 {
     public class Login
     {
