@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Converters\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Modules\" />
     <Folder Include="StartUp\Images\" />
     <Folder Include="StartUp\Resources\" />
     <Folder Include="ViewModels\Business\Collections\" />
