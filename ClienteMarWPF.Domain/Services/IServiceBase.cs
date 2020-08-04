@@ -7,9 +7,9 @@ using System.Collections.Generic;
 
 using ClienteMarWPF.Domain.Models.Base;
 
-namespace ClienteMarWPF.Domain.Services.Base
-{
-    public interface IServiceBase<T, TId> where T : IDataKeyBase<TId>
+namespace ClienteMarWPF.Domain.Services
+{   
+    public interface IServiceBase<T, TId> where T : IDataKeyBase<TId> 
     { 
         Task<T> Get(TId id);
         Task<IEnumerable<T>> GetAll();

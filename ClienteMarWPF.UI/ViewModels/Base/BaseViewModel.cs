@@ -28,4 +28,5 @@ namespace ClienteMarWPF.UI.ViewModels.Base
 
 
     }// fin de clase
+
 }// fin de namespace

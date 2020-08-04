@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.UI", "Cliente
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.Domain", "ClienteMarWPF.Domain\ClienteMarWPF.Domain.csproj", "{0E2ED624-67BC-4470-83C1-7C7D4E552569}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.DataProviders", "ClienteMarWPF.DataProviders\ClienteMarWPF.DataProviders.csproj", "{DED348E5-E09C-40B5-8C89-82DB58343BC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.DataAccess", "ClienteMarWPF.DataAccess\ClienteMarWPF.DataAccess.csproj", "{DED348E5-E09C-40B5-8C89-82DB58343BC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

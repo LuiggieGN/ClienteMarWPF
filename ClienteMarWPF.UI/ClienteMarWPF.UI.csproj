@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClienteMarWPF.DataProviders\ClienteMarWPF.DataProviders.csproj" />
+    <ProjectReference Include="..\ClienteMarWPF.DataAccess\ClienteMarWPF.DataAccess.csproj" />
     <ProjectReference Include="..\ClienteMarWPF.Domain\ClienteMarWPF.Domain.csproj" />
   </ItemGroup>
 
