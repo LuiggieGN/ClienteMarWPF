@@ -9,15 +9,13 @@ namespace ClienteMarWPF.UI.Extensions
 
         public static void AgregaListadoCadaElemento<T>( this List<T> listadoActual, List<T> nuevoListado ) 
         {
-            if (listadoActual != null && listadoActual.Count > 0)
+            if (nuevoListado != null && nuevoListado.Count > 0)
             {
-                foreach (var item in nuevoListado)
+                foreach (T item in nuevoListado)
                 {
                     listadoActual.Add(item);
-                }                     
-
-            }  
-        
+                }
+            }       
         }
 
 

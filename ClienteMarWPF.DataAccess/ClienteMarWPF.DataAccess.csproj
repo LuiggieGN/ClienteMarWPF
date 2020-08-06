@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DataControllers\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="DataProviders\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\ClienteMarWPF.Domain\ClienteMarWPF.Domain.csproj" />
   </ItemGroup>
 
 </Project>

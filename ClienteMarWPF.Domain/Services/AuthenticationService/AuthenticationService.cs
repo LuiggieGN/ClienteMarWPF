@@ -6,29 +6,29 @@ using Microsoft.AspNetCore.Identity;
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
 using ClienteMarWPF.Domain.Exceptions;
-
-using ClienteMarWPF.Domain.Services.CuentaUsuarioService;
+using ClienteMarWPF.Domain.Services.AccountService;
 
 
 namespace ClienteMarWPF.Domain.Services.AuthenticationService
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly ICuentaUsuarioService _cuentaServicio;
+        private readonly IAccountService _accountService;
         private readonly IPasswordHasher<Usuario> _passwordHasher;
 
-        public AuthenticationService(ICuentaUsuarioService cuentaServicio, IPasswordHasher<Usuario> passwordHasher)
+        public AuthenticationService(IAccountService accountService,
+                                     IPasswordHasher<Usuario> passwordHasher)
         {
-            _cuentaServicio = cuentaServicio;
+            _accountService = accountService;
             _passwordHasher = passwordHasher;
         }
 
         public async Task<CuentaUsuario> Login(string username, string password)
         {
 
-            CuentaUsuario cuentaUsuario = await _cuentaServicio.ConsultaCuentaUsuarioPorNombreUsuario(username);
+            CuentaUsuario cuentaUsuario = await _accountService.GetByUserName(username);
 
-            if (cuentaUsuario == null)
+            if (cuentaUsuario == null)  
             {
                 throw new UserNotFoundException(username);
             }
