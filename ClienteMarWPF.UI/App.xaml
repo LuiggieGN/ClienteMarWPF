@@ -1,9 +1,36 @@
-﻿<Application x:Class="ClienteMarWPF.UI.App"
+﻿<Application 
+             x:Class="ClienteMarWPF.UI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ClienteMarWPF.UI"
-             StartupUri="MainWindow.xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"            
+             xmlns:moduloHome="clr-namespace:ClienteMarWPF.UI.Modules.Home"
+             xmlns:moduloLogin="clr-namespace:ClienteMarWPF.UI.Modules.Login"
+             xmlns:moduloModulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"   
+             xmlns:local="clr-namespace:ClienteMarWPF.UI"   
+                
+             >
     <Application.Resources>
-         
-    </Application.Resources>
+        <ResourceDictionary>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.LightBlue.xaml" /> 
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type  moduloHome:HomeViewModel}">
+                <moduloHome:HomeView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type  moduloModulo:ModuloViewModel}">
+                <moduloModulo:ModuloView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type moduloLogin:LoginViewModel}">
+                <moduloLogin:LoginView  LoginCommand="{Binding LoginCommand}"    />
+            </DataTemplate>
+            
+            
+        </ResourceDictionary>        
+    </Application.Resources>    
 </Application>

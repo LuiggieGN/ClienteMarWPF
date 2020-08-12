@@ -3,10 +3,93 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:ClienteMarWPF.UI"
+        xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Mar Punto de Ventas" Height="700"  Width="900"  MinWidth="600" WindowStartupLocation="CenterScreen"   >
+    <Grid Background="#FFF0F0F0">
+        <ContentPresenter Content="{Binding}"> 
 
+            <ContentPresenter.Resources>           
+                
+                <DataTemplate x:Key="LoginPresentacion">                    
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ContentControl Content="{Binding CurrentViewModel}"/>                                     
+                    </Grid>                       
+                </DataTemplate>  
+                
+                <DataTemplate x:Key="ClientePresentacion">         
+                    
+                    <Grid>                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition  Height="50" />
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                            <materialDesign:ColorZone  Mode="PrimaryMid"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 0 1 3">
+                                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10"/>
+                            </materialDesign:ColorZone>
+                        </Grid>
+
+                        <Grid Grid.Row="1" HorizontalAlignment="Stretch"  Background="{StaticResource PrimaryHueMidBrush}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="190"/>
+                                <RowDefinition Height="326*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Background="#FFE0DCDC">                          
+                                <Image Source="/ClienteMarWPF.UI;component/StartUp/Images/Logo/MateoNetLogo.jpg" Stretch="Uniform" Margin="5"/>                              
+                            </Grid>
+                            <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">                                
+                                <controls:BarraNavegacionControl  />                               
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Grid Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                        
+                                        <ContentControl Content="{Binding CurrentViewModel}"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        
+                    </Grid>
+                    
+                </DataTemplate> 
+                
+            </ContentPresenter.Resources>
+
+            <ContentPresenter.Style>
+                <Style TargetType="{x:Type ContentPresenter}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                            <Setter Property="ContentTemplate" Value="{StaticResource LoginPresentacion}" />                 
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
+                            <Setter Property="ContentTemplate" Value="{StaticResource ClientePresentacion}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentPresenter.Style>
+
+
+        </ContentPresenter>
     </Grid>
 </Window>

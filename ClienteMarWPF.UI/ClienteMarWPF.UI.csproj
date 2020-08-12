@@ -7,16 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Converters\" />
-    <Folder Include="StartUp\Images\" />
+    <Compile Remove="Modules\Login\LoginView.xaml.cs~RF56dc669d.TMP\**" />
+    <EmbeddedResource Remove="Modules\Login\LoginView.xaml.cs~RF56dc669d.TMP\**" />
+    <None Remove="Modules\Login\LoginView.xaml.cs~RF56dc669d.TMP\**" />
+    <Page Remove="Modules\Login\LoginView.xaml.cs~RF56dc669d.TMP\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ViewModels\Commands\AsyncCommandBase.cs~RF57082cca.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="StartUp\Resources\" />
-    <Folder Include="ViewModels\Business\Collections\" />
-    <Folder Include="ViewModels\Business\Delegates\" />
-    <Folder Include="ViewModels\Business\Enums\" />
-    <Folder Include="ViewModels\Business\Interfaces\" />
     <Folder Include="Views\AttachedProperties\" />
-    <Folder Include="Views\Controls\" />
-    <Folder Include="Views\Business\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="1.2.6" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>

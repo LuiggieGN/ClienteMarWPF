@@ -1,6 +1,7 @@
-﻿
+﻿ 
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -13,6 +14,11 @@ namespace ClienteMarWPF.DataAccess.Services
 {
     public class AccountDataService : IAccountService
     {
+        public static List<CuentaUsuario> sampleDb = new List<CuentaUsuario>()
+        {
+           new CuentaUsuario(){ Id = 1, UsuarioHolder = new Usuario { Id = 1 , UserName = "luiggie", Password = "luiggie", PasswordHash="sdfafe" } }
+        };
+
         public Task<CuentaUsuario> Get(int id)
         {
             throw new NotImplementedException();
@@ -23,9 +29,15 @@ namespace ClienteMarWPF.DataAccess.Services
             throw new NotImplementedException();
         }
 
-        public Task<CuentaUsuario> GetByUserName(string username)
+        public async Task<CuentaUsuario> GetByUserName(string username)
         {
-            throw new NotImplementedException();
+            CuentaUsuario cuenta = await Task.Run(() =>
+            {
+                return sampleDb.Where(x => x.UsuarioHolder.UserName == username).FirstOrDefault();
+            });
+
+
+            return cuenta;
         }
 
 
@@ -44,7 +56,7 @@ namespace ClienteMarWPF.DataAccess.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<CuentaUsuario>> AddRange(List<CuentaUsuario> entities)
+        public Task<bool> AddRange(List<CuentaUsuario> entities)
         {
             throw new NotImplementedException();
         }

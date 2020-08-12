@@ -7,7 +7,7 @@ namespace ClienteMarWPF.Domain.Models.Base
     public abstract class DataKeyBase<TId> :IDataKeyBase<TId>
     {
 
-        public virtual TId Id { get; protected set; }
+        public virtual TId Id { get;  set; }
 
         int? _requestedHashCode;
 

@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ClienteMarWPF.UI.Modules.VentasModule
+namespace ClienteMarWPF.UI.Modules.Home
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class HomeView : UserControl
     {
-        public UserControl1()
+        public HomeView()
         {
             InitializeComponent();
         }

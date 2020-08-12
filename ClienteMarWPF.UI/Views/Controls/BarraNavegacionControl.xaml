@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="ClienteMarWPF.UI.Views.Controls.BarraNavegacionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClienteMarWPF.UI.Views.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:nav="clr-namespace:ClienteMarWPF.Domain.Enums;assembly=ClienteMarWPF.Domain"
+             xmlns:converters="clr-namespace:ClienteMarWPF.UI.Converters"            
+             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:ClienteMarWPF.UI"
+             xmlns:home="clr-namespace:ClienteMarWPF.UI.Modules.Home"              
+             xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"              
+             >
+    <UserControl.Resources>
+        <converters:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter"/>
+        <Style x:Key="OverrideRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Background" Value="#F4F4F4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border  HorizontalAlignment="Left" x:Name="borderTemplate" Background="Transparent" VerticalAlignment="Center">
+                            <ContentPresenter x:Name="contentPresenter" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="borderTemplate" Value="#FFE4E4E4"/>
+                                <Setter Property="HorizontalAlignment" TargetName="contentPresenter" Value="Center"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="borderTemplate" Value="#FFA1A1A1"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type RadioButton}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <BulletDecorator Background="Transparent">
+                            <BulletDecorator.Bullet>                                
+                                <StackPanel x:Name="rad" Orientation="Horizontal" VerticalAlignment="Stretch">
+                                    <!--<Grid Width="0" Height="0">
+                                        <Ellipse Name="MainEllipse" Width="40" Height="40">
+                                            <Ellipse.Fill>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFC8C8C8" Offset="0"/>
+                                                    <GradientStop Color="#FFF7F7F7" Offset="0.991"/>
+                                                </LinearGradientBrush>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Ellipse Margin="10,10,10,10"    Fill="#C0C0C0" Width="Auto" Height="Auto">
+                                        </Ellipse>
+                                        <Ellipse x:Name="Selected" Margin="10,10,10,10"     Width="Auto" Height="Auto" >
+                                            <Ellipse.Fill>
+                                                <SolidColorBrush Color="Navy"   />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </Grid>-->
+                                    <ContentPresenter  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </BulletDecorator.Bullet>
+                        </BulletDecorator>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="rad" Property="Background"  Value="LightBlue"/>
+                            </Trigger>-->
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter TargetName="rad" Property="Background" Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="rad" Property="Background" Value="#98cbf3"/>
+                            </Trigger>                            
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel x:Name="StackPanelMain" HorizontalAlignment="Stretch" Margin="5">
+        <Grid Height="30" Margin="0 5">
+            <RadioButton  
+                     GroupName="MenuGroup"
+            
+                     IsChecked="{Binding CurrentViewModel, Mode=OneWay,Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type home:HomeViewModel}}" 
+                     Command="{Binding UpdateCurrentViewModelCommand}" 
+                     CommandParameter="{x:Static nav:ViewTypeEnum.Home}"
+                     Width="210" >
+                <RadioButton.Content>
+                    <StackPanel Orientation="Horizontal" Width="188"   >
+                        <materialDesign:PackIcon Kind="Home" Width="20" Height="20" Margin="2 5" Foreground="White"/>
+                        <TextBlock Text="Inicio" Margin="1 2"  Foreground="White" FontSize="20" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton.Content>
+            </RadioButton>
+        </Grid>
+        <Grid Height="30" Margin="0 5">
+            <RadioButton  
+                     GroupName="MenuGroup"
+            
+                     IsChecked="{Binding CurrentViewModel, Mode=OneWay,Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type modulo:ModuloViewModel}}" 
+                     Command="{Binding UpdateCurrentViewModelCommand}" 
+                     CommandParameter="{x:Static nav:ViewTypeEnum.Modulo}"
+                     Width="210" >
+                <RadioButton.Content>
+                    <StackPanel Orientation="Horizontal" Width="188"   >
+                        <materialDesign:PackIcon Kind="ViewModule" Width="20" Height="20" Margin="2 5" Foreground="White"/>
+                        <TextBlock Text="Modulo" Margin="1 2"  Foreground="White" FontSize="20" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton.Content>
+            </RadioButton>
+        </Grid>
+    </StackPanel>    
+</UserControl>

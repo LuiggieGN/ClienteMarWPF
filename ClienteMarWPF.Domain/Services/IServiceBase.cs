@@ -13,7 +13,7 @@ namespace ClienteMarWPF.Domain.Services
     { 
         Task<T> Get(TId id);
         Task<IEnumerable<T>> GetAll();
-        Task<IEnumerable<T>> AddRange(List<T> entities);
+        Task<bool> AddRange(List<T> entities);
         Task<T> Create(T entity);
         Task<bool> Delete(T entity);
         Task<bool> Update(T entity); 

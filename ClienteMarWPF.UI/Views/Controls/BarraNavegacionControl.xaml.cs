@@ -8,16 +8,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ClienteMarWPF.UI.Views
+namespace ClienteMarWPF.UI.Views.Controls
 {
     /// <summary>
-    /// Interaction logic for ShellView.xaml
+    /// Interaction logic for BarraNavegacionControl.xaml
     /// </summary>
-    public partial class ShellView : Window
+    public partial class BarraNavegacionControl : UserControl
     {
-        public ShellView()
+        public BarraNavegacionControl()
         {
             InitializeComponent();
         }
