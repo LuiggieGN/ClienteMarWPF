@@ -22,9 +22,9 @@
                     </Grid>                       
                 </DataTemplate>  
                 
-                <DataTemplate x:Key="ClientePresentacion">         
-                    
-                    <Grid>                        
+                <DataTemplate x:Key="ClientePresentacion">
+
+                    <Grid Background="#f1f2f5">                        
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="50" />
                             <RowDefinition Height="*"/>
@@ -36,7 +36,24 @@
 
                         <Grid Grid.Row="0" Grid.ColumnSpan="2">
                             <materialDesign:ColorZone  Mode="PrimaryMid"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 0 1 3">
-                                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10"/>
+                                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
+                                    <StackPanel Width="170">
+                                        <Button Content="Configuraciones"/> 
+                                        <Button Content="Ayuda"/>
+                                        <Separator/>
+                                        <Button Click="CerrarAplicacion_Click">
+                                            <WrapPanel>
+                                                <materialDesign:PackIcon Kind="Power" Width="20" Height="20" Margin="2 0"  />
+                                                <TextBlock> Cerrar Aplicaciòn</TextBlock>
+                                            </WrapPanel>
+                                        </Button>                                        
+                                        <Button Command="{Binding LogoutCommand}">                                            
+                                            <WrapPanel>
+                                                <materialDesign:PackIcon Kind="Login" Width="20" Height="20" Margin="2 0"  /> <TextBlock> Cerrar Sesiòn</TextBlock>
+                                            </WrapPanel>                                       
+                                        </Button>
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
                             </materialDesign:ColorZone>
                         </Grid>
 
@@ -45,11 +62,11 @@
                                 <RowDefinition Height="190"/>
                                 <RowDefinition Height="326*"/>
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Background="#FFE0DCDC">                          
+                            <Grid Grid.Row="0" Background="#FFF">                          
                                 <Image Source="/ClienteMarWPF.UI;component/StartUp/Images/Logo/MateoNetLogo.jpg" Stretch="Uniform" Margin="5"/>                              
                             </Grid>
                             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">                                
-                                <controls:BarraNavegacionControl  />                               
+                                <controls:BarraNavegacionControl HorizontalAlignment="Stretch" />                               
                             </ScrollViewer>
                         </Grid>
 
@@ -62,8 +79,7 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                                        
+                                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">                                        
                                         <ContentControl Content="{Binding CurrentViewModel}"/>
                                     </ScrollViewer>
                                 </Grid>

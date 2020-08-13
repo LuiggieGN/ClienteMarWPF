@@ -11,6 +11,7 @@
              xmlns:vm="clr-namespace:ClienteMarWPF.UI"
              xmlns:home="clr-namespace:ClienteMarWPF.UI.Modules.Home"              
              xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"              
+             xmlns:reporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"              
              >
     <UserControl.Resources>
         <converters:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter"/>
@@ -63,7 +64,7 @@
                                             </Ellipse.Fill>
                                         </Ellipse>
                                     </Grid>-->
-                                    <ContentPresenter  Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                    <ContentPresenter  Margin="0,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </BulletDecorator.Bullet>
                         </BulletDecorator>
@@ -84,38 +85,56 @@
         </Style>
     </UserControl.Resources>
 
-    <StackPanel x:Name="StackPanelMain" HorizontalAlignment="Stretch" Margin="5">
-        <Grid Height="30" Margin="0 5">
+    <StackPanel x:Name="StackPanelMain" Width="234" Margin="0 20"  >
+        <Grid Height="40" Margin="10 5"  HorizontalAlignment="Stretch" >
             <RadioButton  
-                     GroupName="MenuGroup"
-            
+                     GroupName="MenuGroup"            
                      IsChecked="{Binding CurrentViewModel, Mode=OneWay,Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type home:HomeViewModel}}" 
                      Command="{Binding UpdateCurrentViewModelCommand}" 
                      CommandParameter="{x:Static nav:ViewTypeEnum.Home}"
-                     Width="210" >
+                     Width="210" VerticalAlignment="Stretch" 
+                >
                 <RadioButton.Content>
-                    <StackPanel Orientation="Horizontal" Width="188"   >
-                        <materialDesign:PackIcon Kind="Home" Width="20" Height="20" Margin="2 5" Foreground="White"/>
-                        <TextBlock Text="Inicio" Margin="1 2"  Foreground="White" FontSize="20" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Width="205" Height="40">
+                        <materialDesign:PackIcon Kind="Home" Width="20" Height="20" Margin="2 11" Foreground="White"/>
+                        <TextBlock Text="Inicio" Margin="7 2"  Foreground="White" FontSize="20" VerticalAlignment="Center"/>
                     </StackPanel>
                 </RadioButton.Content>
             </RadioButton>
         </Grid>
-        <Grid Height="30" Margin="0 5">
+        <Grid Height="40" Margin="10 5">
             <RadioButton  
-                     GroupName="MenuGroup"
-            
+                     GroupName="MenuGroup"            
                      IsChecked="{Binding CurrentViewModel, Mode=OneWay,Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type modulo:ModuloViewModel}}" 
                      Command="{Binding UpdateCurrentViewModelCommand}" 
                      CommandParameter="{x:Static nav:ViewTypeEnum.Modulo}"
-                     Width="210" >
+                     Width="210" 
+                     VerticalAlignment="Stretch"
+                >
                 <RadioButton.Content>
-                    <StackPanel Orientation="Horizontal" Width="188"   >
-                        <materialDesign:PackIcon Kind="ViewModule" Width="20" Height="20" Margin="2 5" Foreground="White"/>
-                        <TextBlock Text="Modulo" Margin="1 2"  Foreground="White" FontSize="20" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Width="205" Height="40" >
+                        <materialDesign:PackIcon Kind="ViewModule" Width="20" Height="20" Margin="2 11" Foreground="White"/>
+                        <TextBlock Text="Modulo" Margin="7 2"  Foreground="White" FontSize="20" VerticalAlignment="Center"/>
                     </StackPanel>
                 </RadioButton.Content>
             </RadioButton>
         </Grid>
+        <Grid Height="40" Margin="10 5">
+            <RadioButton  
+                     GroupName="MenuGroup"            
+                     IsChecked="{Binding CurrentViewModel, Mode=OneWay,Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type reporte:ReporteViewModel}}" 
+                     Command="{Binding UpdateCurrentViewModelCommand}" 
+                     CommandParameter="{x:Static nav:ViewTypeEnum.Reporte}"
+                     Width="210" 
+                     VerticalAlignment="Stretch"
+                >
+                <RadioButton.Content>
+                    <StackPanel Orientation="Horizontal" Width="205" Height="40" >
+                        <materialDesign:PackIcon Kind="FileReport" Width="20" Height="20" Margin="2 11" Foreground="White"/>
+                        <TextBlock Text="Reporte" Margin="7 2"  Foreground="White" FontSize="20" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </RadioButton.Content>
+            </RadioButton>
+        </Grid>        
     </StackPanel>    
 </UserControl>

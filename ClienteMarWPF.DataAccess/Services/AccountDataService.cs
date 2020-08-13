@@ -16,7 +16,7 @@ namespace ClienteMarWPF.DataAccess.Services
     {
         public static List<CuentaUsuario> sampleDb = new List<CuentaUsuario>()
         {
-           new CuentaUsuario(){ Id = 1, UsuarioHolder = new Usuario { Id = 1 , UserName = "luiggie", Password = "luiggie", PasswordHash="sdfafe" } }
+           new CuentaUsuario(){ Id = 1, UsuarioHolder = new Usuario { Id = 1 , UserName = "10", Password = "10", PasswordHash="sdfafe" } }
         };
 
         public Task<CuentaUsuario> Get(int id)
@@ -31,6 +31,9 @@ namespace ClienteMarWPF.DataAccess.Services
 
         public async Task<CuentaUsuario> GetByUserName(string username)
         {
+            /// Flujo.Service Desde aqui se va acceder al Asmx
+            /// Que el asmx este disponible para consumir desde esta capa 
+
             CuentaUsuario cuenta = await Task.Run(() =>
             {
                 return sampleDb.Where(x => x.UsuarioHolder.UserName == username).FirstOrDefault();
