@@ -15,6 +15,8 @@ using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
 using ClienteMarWPF.UI.Modules.Modulo;
+using ClienteMarWPF.UI.Modules.Reporte;
+
 using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
 using ClienteMarWPF.UI.ViewModels.Factories;
@@ -51,6 +53,7 @@ namespace ClienteMarWPF.UI
 
 
             //@@ Registrando Servicios del Dominio (ClienteMarWPF.Domain)
+
             
             services.AddSingleton<IAccountService, AccountDataService>();
             services.AddSingleton<IPasswordHasher<Usuario>, PersonalizedPasswordHasher>();
@@ -59,6 +62,8 @@ namespace ClienteMarWPF.UI
 
 
             ///@@ Registrando Servicio de Factoria de ViewModel y de los ( ViewModels de los modulos)
+
+
 
             services.AddSingleton<IViewModelFactory, ViewModelFactory>();
             services.AddSingleton<HomeViewModel>(
@@ -69,7 +74,14 @@ namespace ClienteMarWPF.UI
                 services => new ModuloViewModel()
             );
 
+            services.AddSingleton<ReporteViewModel>(
+                services => new ReporteViewModel()
+            );
+
+
             ///@@ Habilta Navegacion entre modulos de la aplicacion
+
+
 
             services.AddSingleton<CreateViewModel<HomeViewModel>>(services =>
             {
@@ -80,6 +92,13 @@ namespace ClienteMarWPF.UI
             {
                 return () => services.GetRequiredService<ModuloViewModel>();
             });
+
+            services.AddSingleton<CreateViewModel<ReporteViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<ReporteViewModel>();
+            });
+
+
 
 
             services.AddSingleton<Renavigator<HomeViewModel>>();
@@ -103,9 +122,10 @@ namespace ClienteMarWPF.UI
 
 
 
-    }// fin de clase App
+    }// fin de Clase App
+
 }// fin de namespace ClienteMarWPF.UI
 
 
 
-//services.AddSingleton<IServiceBase<CuentaUsuario, int>, AccountDataService>(); // IAccountService
+ 

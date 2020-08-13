@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="StartUp\Images\Logo\MateoNetLogo.jpg" />
     <None Remove="ViewModels\Commands\AsyncCommandBase.cs~RF57082cca.TMP" />
   </ItemGroup>
 
@@ -32,6 +33,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ClienteMarWPF.DataAccess\ClienteMarWPF.DataAccess.csproj" />
     <ProjectReference Include="..\ClienteMarWPF.Domain\ClienteMarWPF.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="StartUp\Images\Logo\MateoNetLogo.jpg" />
   </ItemGroup>
 
 </Project>
