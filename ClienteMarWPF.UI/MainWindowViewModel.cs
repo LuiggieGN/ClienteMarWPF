@@ -26,11 +26,14 @@ namespace ClienteMarWPF.UI
         public bool IsLoggedIn => _authenticator?.IsLoggedIn??false;
         public BaseViewModel CurrentViewModel => _navigator.CurrentViewModel;
         public ICommand UpdateCurrentViewModelCommand { get; }
+        public ICommand LogoutCommand { get; }
 
 
         public MainWindowViewModel(INavigator navigator, IViewModelFactory viewModelFactory, IAuthenticator authenticator)
         {
-            
+            LogoutCommand = new LogoutCommand(authenticator, navigator, viewModelFactory);
+
+
             _viewModelFactory = viewModelFactory;
             _navigator = navigator;
             _authenticator = authenticator;
