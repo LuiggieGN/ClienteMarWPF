@@ -5,6 +5,7 @@
              xmlns:moduloHome="clr-namespace:ClienteMarWPF.UI.Modules.Home"
              xmlns:moduloLogin="clr-namespace:ClienteMarWPF.UI.Modules.Login"
              xmlns:moduloModulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"   
+             xmlns:moduloReporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"   
              xmlns:local="clr-namespace:ClienteMarWPF.UI"   
                 
              >
@@ -26,6 +27,11 @@
                 <moduloModulo:ModuloView />
             </DataTemplate>
 
+
+            <DataTemplate DataType="{x:Type  moduloReporte:ReporteViewModel}">
+                <moduloReporte:ReporteView />
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type moduloLogin:LoginViewModel}">
                 <moduloLogin:LoginView  LoginCommand="{Binding LoginCommand}"    />
             </DataTemplate>
