@@ -6,6 +6,7 @@
              xmlns:moduloLogin="clr-namespace:ClienteMarWPF.UI.Modules.Login"
              xmlns:moduloModulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"   
              xmlns:moduloReporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"   
+             xmlns:moduloSorteos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:local="clr-namespace:ClienteMarWPF.UI"   
                 
              >
@@ -16,8 +17,24 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.LightBlue.xaml" /> 
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- background  -->
+            <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="#181818"/>
+            <SolidColorBrush x:Key="PrimaryBackgroundForegroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="SecondaryBackgroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="SecondaryBackgroundForegroundBrush" Color="#181818"/>
+            <!-- primary hues  --><!--
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="LightBlue"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="Black"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Blue"/>
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="DarkBlue"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="White"/>
+            --><!--  accent --><!--
+            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="Yellow"/>
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="Black"/>-->
 
             <DataTemplate DataType="{x:Type  moduloHome:HomeViewModel}">
                 <moduloHome:HomeView />
@@ -31,6 +48,11 @@
             <DataTemplate DataType="{x:Type  moduloReporte:ReporteViewModel}">
                 <moduloReporte:ReporteView />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type  moduloSorteos:SorteosViewModel}">
+                <moduloSorteos:SorteosView />
+            </DataTemplate>
+
             
             <DataTemplate DataType="{x:Type moduloLogin:LoginViewModel}">
                 <moduloLogin:LoginView  LoginCommand="{Binding LoginCommand}"    />

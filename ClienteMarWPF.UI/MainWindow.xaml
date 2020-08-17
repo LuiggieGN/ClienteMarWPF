@@ -8,8 +8,32 @@
         xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls"
         mc:Ignorable="d"
         Title="Mar Punto de Ventas" Height="700"  Width="900"  MinWidth="600" WindowStartupLocation="CenterScreen"   >
-    <Grid Background="#FFF0F0F0">
-        <ContentPresenter Content="{Binding}"> 
+    <Window.Resources>
+        <Storyboard x:Key="OpenMenuStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenuStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="60"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <!--<Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="OpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenuStoryboard}"/>
+        </EventTrigger>
+    </Window.Triggers>-->
+    
+    <Grid>
+       
+        <ContentPresenter Content="{Binding}" Grid.Row="1"> 
 
             <ContentPresenter.Resources>           
                 
@@ -24,18 +48,24 @@
                 
                 <DataTemplate x:Key="ClientePresentacion">
 
+                  
                     <Grid Background="#f1f2f5">                        
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="50" />
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Row="0" Grid.ColumnSpan="2">
-                            <materialDesign:ColorZone  Mode="PrimaryMid"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 0 1 3">
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition  />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:ColorZone Grid.ColumnSpan="3" Mode="Dark"  Background="{StaticResource PrimaryBackgroundBrush}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
                                     <StackPanel Width="170">
                                         <Button Content="Configuraciones"/> 
@@ -55,16 +85,42 @@
                                     </StackPanel>
                                 </materialDesign:PopupBox>
                             </materialDesign:ColorZone>
+                            <Label Content="Nombre Ventana" VerticalAlignment="Center" FontSize="16" FontWeight="Medium" Foreground="{StaticResource PrimaryBackgroundForegroundBrush}"/>
+                            <Label x:Name="lbMain_BancaBalanceActual" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#28A745" Content="Balance: $ 0.00"   FontSize="18" FontWeight="Bold"  Foreground="White"   ></Label>
                         </Grid>
 
-                        <Grid Grid.Row="1" HorizontalAlignment="Stretch"  Background="{StaticResource PrimaryHueMidBrush}">
+                        <Grid x:Name="GridMenu" Grid.Row="0" Panel.ZIndex="50" Width="60" Grid.RowSpan="2" HorizontalAlignment="Stretch"  Background="{StaticResource PrimaryBackgroundBrush}">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="190"/>
-                                <RowDefinition Height="326*"/>
+                                <RowDefinition Height="50"/> 
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Background="#FFF">                          
-                                <Image Source="/ClienteMarWPF.UI;component/StartUp/Images/Logo/MateoNetLogo.jpg" Stretch="Uniform" Margin="5"/>                              
-                            </Grid>
+
+                            <!--<Grid.Effect>
+                                <DropShadowEffect BlurRadius="30" ShadowDepth="10" Color="#FFAEAEAE"/>
+                            </Grid.Effect>-->
+
+                            <DockPanel Background="{StaticResource PrimaryHueDarkBrush}" >
+                                <Button  x:Name="OpenMenuSTB" DockPanel.Dock="Right" Click="OpenMenu_Click" Background="Transparent" BorderBrush="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" >
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="ButtonBase.Click">
+                                            <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                    <materialDesign:PackIcon Kind="Menu" Foreground="White" Width="30" Height="30"/>
+                                </Button>
+                                <Button x:Name="CloseMenuSTB" DockPanel.Dock="Right" Click="CloseMenu_Click" Background="Transparent" BorderBrush="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed">
+                                    <Button.Triggers>
+                                        <EventTrigger RoutedEvent="ButtonBase.Click">
+                                            <BeginStoryboard Storyboard="{StaticResource CloseMenuStoryboard}"/>
+                                        </EventTrigger>
+                                    </Button.Triggers>
+                                    <materialDesign:PackIcon Kind="ArrowLeft" Foreground="White" Width="30" Height="30"/>
+                                </Button>
+                                <Label Content="MAR Cliente" Foreground="White" Margin="5 0" FontSize="20" FontWeight="Bold" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+
+                            </DockPanel>
+
                             <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">                                
                                 <controls:BarraNavegacionControl HorizontalAlignment="Stretch" />                               
                             </ScrollViewer>
