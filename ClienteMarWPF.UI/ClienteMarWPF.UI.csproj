@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="StartUp\Resources\" />
     <Folder Include="Views\AttachedProperties\" />
   </ItemGroup>
 

@@ -17,14 +17,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" /> 
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Resources/Style/ButtonsCustom.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- background  -->
-            <SolidColorBrush x:Key="PrimaryBackgroundBrush" Color="#181818"/>
-            <SolidColorBrush x:Key="PrimaryBackgroundForegroundBrush" Color="White"/>
-            <SolidColorBrush x:Key="SecondaryBackgroundBrush" Color="White"/>
-            <SolidColorBrush x:Key="SecondaryBackgroundForegroundBrush" Color="#181818"/>
             <!-- primary hues  --><!--
             <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="LightBlue"/>
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="Black"/>
