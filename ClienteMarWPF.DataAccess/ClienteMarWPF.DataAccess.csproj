@@ -5,7 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ClienteMarWPF.Domain\ClienteMarWPF.Domain.csproj" />
+    <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MAR.Config">
+      <HintPath>..\ConfigLibrary\MAR.Config.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
   </ItemGroup>
 
 </Project>

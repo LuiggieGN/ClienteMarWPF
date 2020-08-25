@@ -18,10 +18,10 @@ namespace ClienteMarWPF.Domain.Enums
     /// <summary>
     ///  Definicion global de funciones contenidas en el servicio de flujo efectibo
     /// </summary>
-    public enum FlujoEfectivoServicioEnum
+    public enum FlujoEfectivoRoutingFunctions
     {
-
-
+        GetBancaCajaId = 16,
+        GetCajaBalanceActual = 30
     }
 
     /// <summary>

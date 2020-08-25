@@ -29,6 +29,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using ClienteMarWPF.UI.Modules.Sorteos;
+using ClienteMarWPF.Domain.Services.BancaService;
 
 namespace ClienteMarWPF.UI
 {
@@ -58,6 +59,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IAccountService, AccountDataService>();
             services.AddSingleton<IPasswordHasher<Usuario>, PersonalizedPasswordHasher>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
+            services.AddSingleton<IBancaService, BancaDataService>();
 
 
 
@@ -71,7 +73,7 @@ namespace ClienteMarWPF.UI
             );
 
             services.AddSingleton<ModuloViewModel>(
-                services => new ModuloViewModel()
+                services => new ModuloViewModel( services.GetRequiredService<IBancaService>())
             );
 
             services.AddSingleton<ReporteViewModel>(

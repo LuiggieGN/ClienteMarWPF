@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/" />
+  <xs:element name="AutorizaJugadaObj">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strDataXml" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutorizaJugadaObjResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="AutorizaJugadaObjResult" nillable="true" type="q1:RespuestaAuth" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutorizaJugadaXml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strDataXml" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutorizaJugadaXmlResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AutorizaJugadaXmlResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutorizaJugadaJson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strDataJson" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AutorizaJugadaJsonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AutorizaJugadaJsonResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnulaJugadaObj">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strAutorizacion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnulaJugadaObjResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="AnulaJugadaObjResult" nillable="true" type="q2:RespuestaAuth" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnulaJugadaXml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strAutorizacion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnulaJugadaXmlResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AnulaJugadaXmlResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnulaJugadaJson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strAutorizacion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnulaJugadaJsonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AnulaJugadaJsonResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaJugadasFechaXml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strFecha" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pPagina" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaJugadasFechaXmlResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConsultaJugadasFechaXmlResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaJugadasFechaJson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strFecha" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pPagina" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaJugadasFechaJsonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConsultaJugadasFechaJsonResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResultadoSorteos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strFecha" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formato" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResultadoSorteosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ResultadoSorteosResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BingoProximoXml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="intNumSorteo" type="xs:int" />
+        <xs:element minOccurs="0" name="strDataXml" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BingoProximoXmlResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="BingoProximoXmlResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SorteosBingo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strFormatoSalida" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SorteosBingoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SorteosBingoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PagoTicketBingo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strTicket" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ValorPagado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strFormatoSalida" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PagoTicketBingoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PagoTicketBingoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GanadoresBingoPorFecha">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strFormatoSalida" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GanadoresBingoPorFechaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GanadoresBingoPorFechaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GanadorBingoPorTicket">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="strConsorcio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strTicket" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strFormatoSalida" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GanadorBingoPorTicketResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GanadorBingoPorTicketResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Check">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/" minOccurs="0" name="CheckResult" nillable="true" type="q3:RespuestaAuth" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
