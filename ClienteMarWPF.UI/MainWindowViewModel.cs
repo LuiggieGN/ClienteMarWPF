@@ -19,6 +19,8 @@ namespace ClienteMarWPF.UI
 {
     public class MainWindowViewModel : BaseViewModel
     {
+        public static FlujoServices.MAR_Session MarSession = new FlujoServices.MAR_Session();
+
         private readonly IViewModelFactory _viewModelFactory;
         private readonly INavigator _navigator;
         private readonly IAuthenticator _authenticator;

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="/Imports">
+      <xsd:import schemaLocation="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd3" />
+      <xsd:import schemaLocation="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ILotteryAuthServiceWeb_ResultadoSorteosRest_InputMessage">
+    <wsdl:part name="parameters" element="ResultadoSorteosRest" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthServiceWeb_ResultadoSorteosRest_OutputMessage">
+    <wsdl:part name="parameters" element="ResultadoSorteosRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthServiceWeb_AutorizaJugadaJsonRest_InputMessage">
+    <wsdl:part name="parameters" element="AutorizaJugadaJsonRest" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthServiceWeb_AutorizaJugadaJsonRest_OutputMessage">
+    <wsdl:part name="parameters" element="AutorizaJugadaJsonRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthServiceWeb_AnulaJugadaJsonRest_InputMessage">
+    <wsdl:part name="parameters" element="AnulaJugadaJsonRest" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthServiceWeb_AnulaJugadaJsonRest_OutputMessage">
+    <wsdl:part name="parameters" element="AnulaJugadaJsonRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthServiceWeb_SorteosBingo_InputMessage">
+    <wsdl:part name="parameters" element="SorteosBingo" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthServiceWeb_SorteosBingo_OutputMessage">
+    <wsdl:part name="parameters" element="SorteosBingoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ILotteryAuthServiceWeb">
+    <wsdl:operation name="ResultadoSorteosRest">
+      <wsdl:input wsaw:Action="urn:ILotteryAuthServiceWeb/ResultadoSorteosRest" message="ILotteryAuthServiceWeb_ResultadoSorteosRest_InputMessage" />
+      <wsdl:output wsaw:Action="urn:ILotteryAuthServiceWeb/ResultadoSorteosRestResponse" message="ILotteryAuthServiceWeb_ResultadoSorteosRest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AutorizaJugadaJsonRest">
+      <wsdl:input wsaw:Action="urn:ILotteryAuthServiceWeb/AutorizaJugadaJsonRest" message="ILotteryAuthServiceWeb_AutorizaJugadaJsonRest_InputMessage" />
+      <wsdl:output wsaw:Action="urn:ILotteryAuthServiceWeb/AutorizaJugadaJsonRestResponse" message="ILotteryAuthServiceWeb_AutorizaJugadaJsonRest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AnulaJugadaJsonRest">
+      <wsdl:input wsaw:Action="urn:ILotteryAuthServiceWeb/AnulaJugadaJsonRest" message="ILotteryAuthServiceWeb_AnulaJugadaJsonRest_InputMessage" />
+      <wsdl:output wsaw:Action="urn:ILotteryAuthServiceWeb/AnulaJugadaJsonRestResponse" message="ILotteryAuthServiceWeb_AnulaJugadaJsonRest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SorteosBingo">
+      <wsdl:input wsaw:Action="urn:ILotteryAuthServiceWeb/SorteosBingo" message="ILotteryAuthServiceWeb_SorteosBingo_InputMessage" />
+      <wsdl:output wsaw:Action="urn:ILotteryAuthServiceWeb/SorteosBingoResponse" message="ILotteryAuthServiceWeb_SorteosBingo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

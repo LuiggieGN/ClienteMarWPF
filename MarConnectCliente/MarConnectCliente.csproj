@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{39D7C21A-614A-4878-8502-65AB3A8178B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MarConnectCliente</RootNamespace>
+    <AssemblyName>MarConnectCliente</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLogic\ShareFuntions\SharedFunctionsLogic.cs" />
+    <Compile Include="ClienteHTTP.cs" />
+    <Compile Include="Enums\MetodosEnum.cs" />
+    <Compile Include="Helpers\ApuestaHelper.cs" />
+    <Compile Include="IndividualModels\ConsultaCodigoOperacion.cs" />
+    <Compile Include="IndividualModels\ConsultaConsorcioSorteoDia.cs" />
+    <Compile Include="IndividualModels\ConsultaHacEstadoDia.cs" />
+    <Compile Include="IndividualModels\ConsultaRFSorteoDia.cs" />
+    <Compile Include="IndividualModels\JsonEsquema.cs" />
+    <Compile Include="IndividualModels\JuegosNuevosModel.cs" />
+    <Compile Include="IndividualModels\Jugador.cs" />
+    <Compile Include="IndividualModels\ParametrosVerificacion.cs" />
+    <Compile Include="IndividualModels\TransCodigoOpeRepetido.cs" />
+    <Compile Include="Mappers\InicioDiaMapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestModels\AnulacionRequestModel.cs" />
+    <Compile Include="RequestModels\ConsultaPremiosRequestModel.cs" />
+    <Compile Include="RequestModels\LotoDom\ConsultaGanadorLotoDomRequestModel.cs" />
+    <Compile Include="RequestModels\LotoDom\AnulacionLotoDomRequestModel.cs" />
+    <Compile Include="RequestModels\LotoDom\AcumuladoLotoDomRequestModel.cs" />
+    <Compile Include="RequestModels\LotoDom\ApuestaLotoDomRequestModel.cs" />
+    <Compile Include="RequestModels\ApuestaRequestModel.cs" />
+    <Compile Include="RequestModels\BaseRequestModel.cs" />
+    <Compile Include="RequestModels\CierreDiaRequestModel.cs" />
+    <Compile Include="RequestModels\CierreSorteoRequestModel.cs" />
+    <Compile Include="RequestModels\CompraFondosRequestModel.cs" />
+    <Compile Include="RequestModels\ConsultaSacoRequestModel.cs" />
+    <Compile Include="RequestModels\ConsultaPagoGanadorRequestModel.cs" />
+    <Compile Include="RequestModels\InicioDiaRequestModel.cs" />
+    <Compile Include="RequestModels\PagoGanadorRequestModel.cs" />
+    <Compile Include="RequestModels\VentaCompraMayoreoRequestModel.cs" />
+    <Compile Include="ResponseModels\AnulacionResponseModel.cs" />
+    <Compile Include="ResponseModels\ConsultaPremiosResponseModel.cs" />
+    <Compile Include="ResponseModels\LotoDom\ConsultaGanadorLotoDomResponseModel.cs" />
+    <Compile Include="ResponseModels\LotoDom\AnulacionLotoDomResponseModel.cs" />
+    <Compile Include="ResponseModels\LotoDom\AcumuladoLotoDomResponseModel.cs" />
+    <Compile Include="ResponseModels\LotoDom\ApuestaLotoDomResponseModel.cs" />
+    <Compile Include="ResponseModels\ApuestaResponseModel.cs" />
+    <Compile Include="ResponseModels\BaseResponseModel.cs" />
+    <Compile Include="ResponseModels\CierreDiaResponseModel.cs" />
+    <Compile Include="ResponseModels\CierreSorteoResponseModel.cs" />
+    <Compile Include="ResponseModels\CompraFondosResponseModel.cs" />
+    <Compile Include="ResponseModels\ConsultaSacoResponseModel.cs" />
+    <Compile Include="ResponseModels\ConsultaPagoGanadorResponseModel.cs" />
+    <Compile Include="ResponseModels\InicioDiaReponseModel.cs" />
+    <Compile Include="ResponseModels\PagoGanadoresResponseModel.cs" />
+    <Compile Include="ResponseModels\TicketResponseModel.cs" />
+    <Compile Include="ResponseModels\VentaCompraMayoreoResponseModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Flujo.DataAccess\Flujo.DataAccess.csproj">
+      <Project>{68d7e119-83ef-46d7-89ab-4b60f31570a2}</Project>
+      <Name>Flujo.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj">
+      <Project>{7a839d18-0fee-4a3d-b284-690dea9dab4f}</Project>
+      <Name>MAR.AppLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
