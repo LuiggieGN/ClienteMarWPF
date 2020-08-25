@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LoteryAuthService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="" location="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?wsdl=wsdl0" />
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ILotteryAuthService_AutorizaJugadaObj_InputMessage">
+    <wsdl:part name="parameters" element="tns:AutorizaJugadaObj" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AutorizaJugadaObj_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AutorizaJugadaObjResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AutorizaJugadaXml_InputMessage">
+    <wsdl:part name="parameters" element="tns:AutorizaJugadaXml" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AutorizaJugadaXml_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AutorizaJugadaXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AutorizaJugadaJson_InputMessage">
+    <wsdl:part name="parameters" element="tns:AutorizaJugadaJson" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AutorizaJugadaJson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AutorizaJugadaJsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AnulaJugadaObj_InputMessage">
+    <wsdl:part name="parameters" element="tns:AnulaJugadaObj" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AnulaJugadaObj_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AnulaJugadaObjResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AnulaJugadaXml_InputMessage">
+    <wsdl:part name="parameters" element="tns:AnulaJugadaXml" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AnulaJugadaXml_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AnulaJugadaXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AnulaJugadaJson_InputMessage">
+    <wsdl:part name="parameters" element="tns:AnulaJugadaJson" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_AnulaJugadaJson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AnulaJugadaJsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_ConsultaJugadasFechaXml_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaJugadasFechaXml" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_ConsultaJugadasFechaXml_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaJugadasFechaXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_ConsultaJugadasFechaJson_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaJugadasFechaJson" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_ConsultaJugadasFechaJson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaJugadasFechaJsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_ResultadoSorteos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResultadoSorteos" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_ResultadoSorteos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResultadoSorteosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_BingoProximoXml_InputMessage">
+    <wsdl:part name="parameters" element="tns:BingoProximoXml" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_BingoProximoXml_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BingoProximoXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_SorteosBingo_InputMessage">
+    <wsdl:part name="parameters" element="tns:SorteosBingo" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_SorteosBingo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SorteosBingoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_PagoTicketBingo_InputMessage">
+    <wsdl:part name="parameters" element="tns:PagoTicketBingo" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_PagoTicketBingo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PagoTicketBingoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_GanadoresBingoPorFecha_InputMessage">
+    <wsdl:part name="parameters" element="tns:GanadoresBingoPorFecha" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_GanadoresBingoPorFecha_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GanadoresBingoPorFechaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_GanadorBingoPorTicket_InputMessage">
+    <wsdl:part name="parameters" element="tns:GanadorBingoPorTicket" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_GanadorBingoPorTicket_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GanadorBingoPorTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_Check_InputMessage">
+    <wsdl:part name="parameters" element="tns:Check" />
+  </wsdl:message>
+  <wsdl:message name="ILotteryAuthService_Check_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ILotteryAuthService">
+    <wsdl:operation name="AutorizaJugadaObj">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/AutorizaJugadaObj" message="tns:ILotteryAuthService_AutorizaJugadaObj_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/AutorizaJugadaObjResponse" message="tns:ILotteryAuthService_AutorizaJugadaObj_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AutorizaJugadaXml">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/AutorizaJugadaXml" message="tns:ILotteryAuthService_AutorizaJugadaXml_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/AutorizaJugadaXmlResponse" message="tns:ILotteryAuthService_AutorizaJugadaXml_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AutorizaJugadaJson">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/AutorizaJugadaJson" message="tns:ILotteryAuthService_AutorizaJugadaJson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/AutorizaJugadaJsonResponse" message="tns:ILotteryAuthService_AutorizaJugadaJson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AnulaJugadaObj">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/AnulaJugadaObj" message="tns:ILotteryAuthService_AnulaJugadaObj_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/AnulaJugadaObjResponse" message="tns:ILotteryAuthService_AnulaJugadaObj_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AnulaJugadaXml">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/AnulaJugadaXml" message="tns:ILotteryAuthService_AnulaJugadaXml_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/AnulaJugadaXmlResponse" message="tns:ILotteryAuthService_AnulaJugadaXml_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AnulaJugadaJson">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/AnulaJugadaJson" message="tns:ILotteryAuthService_AnulaJugadaJson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/AnulaJugadaJsonResponse" message="tns:ILotteryAuthService_AnulaJugadaJson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaJugadasFechaXml">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/ConsultaJugadasFechaXml" message="tns:ILotteryAuthService_ConsultaJugadasFechaXml_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/ConsultaJugadasFechaXmlResponse" message="tns:ILotteryAuthService_ConsultaJugadasFechaXml_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaJugadasFechaJson">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/ConsultaJugadasFechaJson" message="tns:ILotteryAuthService_ConsultaJugadasFechaJson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/ConsultaJugadasFechaJsonResponse" message="tns:ILotteryAuthService_ConsultaJugadasFechaJson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResultadoSorteos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/ResultadoSorteos" message="tns:ILotteryAuthService_ResultadoSorteos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/ResultadoSorteosResponse" message="tns:ILotteryAuthService_ResultadoSorteos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BingoProximoXml">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/BingoProximoXml" message="tns:ILotteryAuthService_BingoProximoXml_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/BingoProximoXmlResponse" message="tns:ILotteryAuthService_BingoProximoXml_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SorteosBingo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/SorteosBingo" message="tns:ILotteryAuthService_SorteosBingo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/SorteosBingoResponse" message="tns:ILotteryAuthService_SorteosBingo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PagoTicketBingo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/PagoTicketBingo" message="tns:ILotteryAuthService_PagoTicketBingo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/PagoTicketBingoResponse" message="tns:ILotteryAuthService_PagoTicketBingo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GanadoresBingoPorFecha">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/GanadoresBingoPorFecha" message="tns:ILotteryAuthService_GanadoresBingoPorFecha_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/GanadoresBingoPorFechaResponse" message="tns:ILotteryAuthService_GanadoresBingoPorFecha_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GanadorBingoPorTicket">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/GanadorBingoPorTicket" message="tns:ILotteryAuthService_GanadorBingoPorTicket_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/GanadorBingoPorTicketResponse" message="tns:ILotteryAuthService_GanadorBingoPorTicket_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Check">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILotteryAuthService/Check" message="tns:ILotteryAuthService_Check_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILotteryAuthService/CheckResponse" message="tns:ILotteryAuthService_Check_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPEndPoint" type="tns:ILotteryAuthService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AutorizaJugadaObj">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/AutorizaJugadaObj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutorizaJugadaXml">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/AutorizaJugadaXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutorizaJugadaJson">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/AutorizaJugadaJson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnulaJugadaObj">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/AnulaJugadaObj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnulaJugadaXml">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/AnulaJugadaXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnulaJugadaJson">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/AnulaJugadaJson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaJugadasFechaXml">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/ConsultaJugadasFechaXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaJugadasFechaJson">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/ConsultaJugadasFechaJson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResultadoSorteos">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/ResultadoSorteos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BingoProximoXml">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/BingoProximoXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SorteosBingo">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/SorteosBingo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PagoTicketBingo">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/PagoTicketBingo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GanadoresBingoPorFecha">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/GanadoresBingoPorFecha" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GanadorBingoPorTicket">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/GanadorBingoPorTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Check">
+      <soap:operation soapAction="http://tempuri.org/ILotteryAuthService/Check" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LoteryAuthService">
+    <wsdl:port name="SOAPEndPoint" binding="tns:SOAPEndPoint">
+      <soap:address location="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
