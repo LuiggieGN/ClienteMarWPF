@@ -1,0 +1,1746 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="accountId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Response">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Logout">
+        <s:complexType />
+      </s:element>
+      <s:element name="LogoutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogoutResult" type="tns:Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaquetico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="carrierId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaqueticoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaqueticoResult" type="tns:PaqueticoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaqueticoResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ListaPaqueteData" type="tns:ArrayOfPaqueteData" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Result">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Details" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPaqueteData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaqueteData" nillable="true" type="tns:PaqueteData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaqueteData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdOferta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Detalle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Duracion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Precio" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BuyPaquetico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="packageId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuyPaqueticoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuyPaqueticoResult" type="tns:TransactionResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransactionResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionDateTime" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AuthorizationNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PinNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SerialNumber" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="Buy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuyResult" type="tns:TransactionResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Buy_SPResult" type="tns:TransactionResultSp" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransactionResultSp">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransactionResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="NewBalance" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Did" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="Buy_SP_Pinless">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="favorites" type="tns:ArrayOfFavorites" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscribers" type="tns:ArrayOfSubscribers" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFavorites">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Favorites" nillable="true" type="tns:Favorites" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Favorites">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionData" type="tns:ExtensionDataObject" />
+          <s:element minOccurs="1" maxOccurs="1" name="accessnumber_id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="account_id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="destination" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="spdial_id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ExtensionDataObject" />
+      <s:complexType name="ArrayOfSubscribers">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Subscribers" nillable="true" type="tns:Subscribers" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Subscribers">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionData" type="tns:ExtensionDataObject" />
+          <s:element minOccurs="0" maxOccurs="1" name="sb" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Buy_SP_PinlessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Buy_SP_PinlessResult" type="tns:TransactionResultSp" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP_Pinless_MiPais">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="favorites" type="tns:ArrayOfFavorites" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscribers" type="tns:ArrayOfSubscribers" />
+            <s:element minOccurs="0" maxOccurs="1" name="distributor" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP_Pinless_MiPaisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Buy_SP_Pinless_MiPaisResult" type="tns:TransactionResultSp" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP_Pinless_MiPais_New">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="favorites" type="tns:ArrayOfFavorites" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscribers" type="tns:ArrayOfSubscribers" />
+            <s:element minOccurs="0" maxOccurs="1" name="distributor" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisMerchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisProvCityId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCityId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCityPrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCountryIso2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisDnis" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP_Pinless_MiPais_NewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Buy_SP_Pinless_MiPais_NewResult" type="tns:TransactionResultSp" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP_Pinless_MiPais_Dm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="favorites" type="tns:ArrayOfFavorites" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscribers" type="tns:ArrayOfSubscribers" />
+            <s:element minOccurs="0" maxOccurs="1" name="distributor" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisMerchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisProvCityId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCityId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCityPrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCountryIso2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisDnis" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contactNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP_Pinless_MiPais_DmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Buy_SP_Pinless_MiPais_DmResult" type="tns:TransactionResultSp" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP_Pinless_MiPais_Dm_New">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="favorites" type="tns:ArrayOfFavorites" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscribers" type="tns:ArrayOfSubscribers" />
+            <s:element minOccurs="0" maxOccurs="1" name="distributor" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisMerchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisProvCityId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCityId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCityPrefix" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisCountryIso2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="miPaisDnis" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contactNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="spLanguage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SP_Pinless_MiPais_Dm_NewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Buy_SP_Pinless_MiPais_Dm_NewResult" type="tns:TransactionResultSp" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuySms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BuySmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BuySmsResult" type="tns:TransactionResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SR">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchantName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_SRResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Buy_SRResult" type="tns:IrTransaction" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IrTransaction">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:GeneralTransactionResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ProductId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductName" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="GeneralTransactionResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransactionResult">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Cost" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProviderId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProviderDescription" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="Buy_RP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Buy_RPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Buy_RPResult" type="tns:GeneralTransactionResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Void">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="transactionId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VoidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VoidResult" type="tns:Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VoidByReference">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="oldReference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newReference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VoidByReferenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VoidByReferenceResult" type="tns:Response" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryBill">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryBillResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryBillResult" type="tns:InvoiceInformation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="InvoiceInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MinimumAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InvoiceDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionDateTime" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GeneralInvoiceInformation">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:InvoiceInformation">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="RequestMsg" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ResponseMsg" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProviderId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProviderDescription" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Cost" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="PayBill">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="merchant" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PayBillResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PayBillResult" type="tns:PaymentInformation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthorizationNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionDateTime" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GeneralPaymentInformation">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:PaymentInformation">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="RequestMsg" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ResponseMsg" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProviderId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProviderDescription" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Cost" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetBalance">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetBalanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBalanceResult" type="tns:BalanceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BalanceResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Response">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Balance" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="QueryTransactionsByPhone">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="phone" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryTransactionsByPhoneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryTransactionsByPhoneResult" type="tns:AccountTransactionResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AccountTransactionResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Response">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AccountTransactions" type="tns:ArrayOfAccountTransactions" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAccountTransactions">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccountTransactions" nillable="true" type="tns:AccountTransactions" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccountTransactions">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Merchant" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductTypeId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResponseCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthorizationNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransationTypeId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionTypeName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="QueryTransactionsById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="transactionId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryTransactionsByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryTransactionsByIdResult" type="tns:AccountTransactionResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryTransactionsByReference">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reference" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryTransactionsByReferenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryTransactionsByReferenceResult" type="tns:AccountTransactionResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProducts">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductsResult" type="tns:AccountsProductResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AccountsProductResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AccountProducts" type="tns:ArrayOfAccProduct" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAccProduct">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccProduct" nillable="true" type="tns:AccProduct" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccProduct">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MaxAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TypeId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CityId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCountries">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCountriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCountriesResult" type="tns:AccCountryResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AccCountryResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Country" type="tns:ArrayOfAccCountry" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAccCountry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccCountry" nillable="true" type="tns:AccCountry" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccCountry">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Iso2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Iso3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetResponseCodes">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetResponseCodesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetResponseCodesResult" type="tns:ResponseCodeResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResponseCodeResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Result">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ResponseCode" type="tns:ArrayOfResponseCode" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfResponseCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ResponseCode" nillable="true" type="tns:ResponseCode" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResponseCode">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProductTypes">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProductTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductTypesResult" type="tns:ProductTypeResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProductTypeResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Response">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="ProductTypes" type="tns:ArrayOfProductTypes" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfProductTypes">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductTypes" nillable="true" type="tns:ProductTypes" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductTypes">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCurrencies">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCurrenciesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCurrenciesResult" type="tns:CurrenciesResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CurrenciesResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Response">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Currencies" type="tns:ArrayOfCurrencies" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCurrencies">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Currencies" nillable="true" type="tns:Currencies" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Currencies">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Abbreviation" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCarriers">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCarriersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCarriersResult" type="tns:CarriersResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CarriersResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Response">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Carriers" type="tns:ArrayOfCarriers" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCarriers">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Carriers" nillable="true" type="tns:Carriers" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Carriers">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Abbreviation" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="countryId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCitiesResult" type="tns:CitiesResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CitiesResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Response">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Cities" type="tns:ArrayOfCities" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCities">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cities" nillable="true" type="tns:Cities" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cities">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Abbreviation" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ValidateProviderProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="productId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateProviderProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateProviderProductResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Test">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="seconds" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestResult" type="tns:Result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="LoginSoapIn">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="LoginSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapIn">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapOut">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaqueticoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaquetico" />
+  </wsdl:message>
+  <wsdl:message name="GetPaqueticoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaqueticoResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuyPaqueticoSoapIn">
+    <wsdl:part name="parameters" element="tns:BuyPaquetico" />
+  </wsdl:message>
+  <wsdl:message name="BuyPaqueticoSoapOut">
+    <wsdl:part name="parameters" element="tns:BuyPaqueticoResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuySoapIn">
+    <wsdl:part name="parameters" element="tns:Buy" />
+  </wsdl:message>
+  <wsdl:message name="BuySoapOut">
+    <wsdl:part name="parameters" element="tns:BuyResponse" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SPSoapIn">
+    <wsdl:part name="parameters" element="tns:Buy_SP" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SPSoapOut">
+    <wsdl:part name="parameters" element="tns:Buy_SPResponse" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_PinlessSoapIn">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_PinlessSoapOut">
+    <wsdl:part name="parameters" element="tns:Buy_SP_PinlessResponse" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_Pinless_MiPaisSoapIn">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless_MiPais" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_Pinless_MiPaisSoapOut">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless_MiPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_Pinless_MiPais_NewSoapIn">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless_MiPais_New" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_Pinless_MiPais_NewSoapOut">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless_MiPais_NewResponse" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_Pinless_MiPais_DmSoapIn">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless_MiPais_Dm" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_Pinless_MiPais_DmSoapOut">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless_MiPais_DmResponse" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_Pinless_MiPais_Dm_NewSoapIn">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless_MiPais_Dm_New" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SP_Pinless_MiPais_Dm_NewSoapOut">
+    <wsdl:part name="parameters" element="tns:Buy_SP_Pinless_MiPais_Dm_NewResponse" />
+  </wsdl:message>
+  <wsdl:message name="BuySmsSoapIn">
+    <wsdl:part name="parameters" element="tns:BuySms" />
+  </wsdl:message>
+  <wsdl:message name="BuySmsSoapOut">
+    <wsdl:part name="parameters" element="tns:BuySmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SRSoapIn">
+    <wsdl:part name="parameters" element="tns:Buy_SR" />
+  </wsdl:message>
+  <wsdl:message name="Buy_SRSoapOut">
+    <wsdl:part name="parameters" element="tns:Buy_SRResponse" />
+  </wsdl:message>
+  <wsdl:message name="Buy_RPSoapIn">
+    <wsdl:part name="parameters" element="tns:Buy_RP" />
+  </wsdl:message>
+  <wsdl:message name="Buy_RPSoapOut">
+    <wsdl:part name="parameters" element="tns:Buy_RPResponse" />
+  </wsdl:message>
+  <wsdl:message name="VoidSoapIn">
+    <wsdl:part name="parameters" element="tns:Void" />
+  </wsdl:message>
+  <wsdl:message name="VoidSoapOut">
+    <wsdl:part name="parameters" element="tns:VoidResponse" />
+  </wsdl:message>
+  <wsdl:message name="VoidByReferenceSoapIn">
+    <wsdl:part name="parameters" element="tns:VoidByReference" />
+  </wsdl:message>
+  <wsdl:message name="VoidByReferenceSoapOut">
+    <wsdl:part name="parameters" element="tns:VoidByReferenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryBillSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryBill" />
+  </wsdl:message>
+  <wsdl:message name="QueryBillSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="PayBillSoapIn">
+    <wsdl:part name="parameters" element="tns:PayBill" />
+  </wsdl:message>
+  <wsdl:message name="PayBillSoapOut">
+    <wsdl:part name="parameters" element="tns:PayBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBalanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBalance" />
+  </wsdl:message>
+  <wsdl:message name="GetBalanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionsByPhoneSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsByPhone" />
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionsByPhoneSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsByPhoneResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionsByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsById" />
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionsByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionsByReferenceSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsByReference" />
+  </wsdl:message>
+  <wsdl:message name="QueryTransactionsByReferenceSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryTransactionsByReferenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProducts" />
+  </wsdl:message>
+  <wsdl:message name="GetProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCountriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCountries" />
+  </wsdl:message>
+  <wsdl:message name="GetCountriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCountriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetResponseCodesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetResponseCodes" />
+  </wsdl:message>
+  <wsdl:message name="GetResponseCodesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetResponseCodesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductTypes" />
+  </wsdl:message>
+  <wsdl:message name="GetProductTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCurrenciesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCurrencies" />
+  </wsdl:message>
+  <wsdl:message name="GetCurrenciesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCurrenciesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCarriersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCarriers" />
+  </wsdl:message>
+  <wsdl:message name="GetCarriersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCarriersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCities" />
+  </wsdl:message>
+  <wsdl:message name="GetCitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidateProviderProductSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateProviderProduct" />
+  </wsdl:message>
+  <wsdl:message name="ValidateProviderProductSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateProviderProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapIn">
+    <wsdl:part name="parameters" element="tns:Test" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapOut">
+    <wsdl:part name="parameters" element="tns:TestResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginSoapIn" />
+      <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input message="tns:LogoutSoapIn" />
+      <wsdl:output message="tns:LogoutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaquetico">
+      <wsdl:input message="tns:GetPaqueticoSoapIn" />
+      <wsdl:output message="tns:GetPaqueticoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyPaquetico">
+      <wsdl:input message="tns:BuyPaqueticoSoapIn" />
+      <wsdl:output message="tns:BuyPaqueticoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy">
+      <wsdl:input message="tns:BuySoapIn" />
+      <wsdl:output message="tns:BuySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP">
+      <wsdl:input message="tns:Buy_SPSoapIn" />
+      <wsdl:output message="tns:Buy_SPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless">
+      <wsdl:input message="tns:Buy_SP_PinlessSoapIn" />
+      <wsdl:output message="tns:Buy_SP_PinlessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais">
+      <wsdl:input message="tns:Buy_SP_Pinless_MiPaisSoapIn" />
+      <wsdl:output message="tns:Buy_SP_Pinless_MiPaisSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_New">
+      <wsdl:input message="tns:Buy_SP_Pinless_MiPais_NewSoapIn" />
+      <wsdl:output message="tns:Buy_SP_Pinless_MiPais_NewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_Dm">
+      <wsdl:input message="tns:Buy_SP_Pinless_MiPais_DmSoapIn" />
+      <wsdl:output message="tns:Buy_SP_Pinless_MiPais_DmSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_Dm_New">
+      <wsdl:input message="tns:Buy_SP_Pinless_MiPais_Dm_NewSoapIn" />
+      <wsdl:output message="tns:Buy_SP_Pinless_MiPais_Dm_NewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BuySms">
+      <wsdl:input message="tns:BuySmsSoapIn" />
+      <wsdl:output message="tns:BuySmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SR">
+      <wsdl:input message="tns:Buy_SRSoapIn" />
+      <wsdl:output message="tns:Buy_SRSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Buy_RP">
+      <wsdl:input message="tns:Buy_RPSoapIn" />
+      <wsdl:output message="tns:Buy_RPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Void">
+      <wsdl:input message="tns:VoidSoapIn" />
+      <wsdl:output message="tns:VoidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VoidByReference">
+      <wsdl:input message="tns:VoidByReferenceSoapIn" />
+      <wsdl:output message="tns:VoidByReferenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryBill">
+      <wsdl:input message="tns:QueryBillSoapIn" />
+      <wsdl:output message="tns:QueryBillSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PayBill">
+      <wsdl:input message="tns:PayBillSoapIn" />
+      <wsdl:output message="tns:PayBillSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <wsdl:input message="tns:GetBalanceSoapIn" />
+      <wsdl:output message="tns:GetBalanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsByPhone">
+      <wsdl:input message="tns:QueryTransactionsByPhoneSoapIn" />
+      <wsdl:output message="tns:QueryTransactionsByPhoneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsById">
+      <wsdl:input message="tns:QueryTransactionsByIdSoapIn" />
+      <wsdl:output message="tns:QueryTransactionsByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsByReference">
+      <wsdl:input message="tns:QueryTransactionsByReferenceSoapIn" />
+      <wsdl:output message="tns:QueryTransactionsByReferenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProducts">
+      <wsdl:input message="tns:GetProductsSoapIn" />
+      <wsdl:output message="tns:GetProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCountries">
+      <wsdl:input message="tns:GetCountriesSoapIn" />
+      <wsdl:output message="tns:GetCountriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetResponseCodes">
+      <wsdl:input message="tns:GetResponseCodesSoapIn" />
+      <wsdl:output message="tns:GetResponseCodesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductTypes">
+      <wsdl:input message="tns:GetProductTypesSoapIn" />
+      <wsdl:output message="tns:GetProductTypesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrencies">
+      <wsdl:input message="tns:GetCurrenciesSoapIn" />
+      <wsdl:output message="tns:GetCurrenciesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriers">
+      <wsdl:input message="tns:GetCarriersSoapIn" />
+      <wsdl:output message="tns:GetCarriersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCities">
+      <wsdl:input message="tns:GetCitiesSoapIn" />
+      <wsdl:output message="tns:GetCitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateProviderProduct">
+      <wsdl:input message="tns:ValidateProviderProductSoapIn" />
+      <wsdl:output message="tns:ValidateProviderProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <wsdl:input message="tns:TestSoapIn" />
+      <wsdl:output message="tns:TestSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://tempuri.org/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaquetico">
+      <soap:operation soapAction="http://tempuri.org/GetPaquetico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyPaquetico">
+      <soap:operation soapAction="http://tempuri.org/BuyPaquetico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy">
+      <soap:operation soapAction="http://tempuri.org/Buy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP">
+      <soap:operation soapAction="http://tempuri.org/Buy_SP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless">
+      <soap:operation soapAction="http://tempuri.org/Buy_SP_Pinless" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais">
+      <soap:operation soapAction="http://tempuri.org/Buy_SP_Pinless_MiPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_New">
+      <soap:operation soapAction="http://tempuri.org/Buy_SP_Pinless_MiPais_New" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_Dm">
+      <soap:operation soapAction="http://tempuri.org/Buy_SP_Pinless_MiPais_Dm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_Dm_New">
+      <soap:operation soapAction="http://tempuri.org/Buy_SP_Pinless_MiPais_Dm_New" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuySms">
+      <soap:operation soapAction="http://tempuri.org/BuySms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SR">
+      <soap:operation soapAction="http://tempuri.org/Buy_SR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_RP">
+      <soap:operation soapAction="http://tempuri.org/Buy_RP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Void">
+      <soap:operation soapAction="http://tempuri.org/Void" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VoidByReference">
+      <soap:operation soapAction="http://tempuri.org/VoidByReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryBill">
+      <soap:operation soapAction="http://tempuri.org/QueryBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PayBill">
+      <soap:operation soapAction="http://tempuri.org/PayBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <soap:operation soapAction="http://tempuri.org/GetBalance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsByPhone">
+      <soap:operation soapAction="http://tempuri.org/QueryTransactionsByPhone" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsById">
+      <soap:operation soapAction="http://tempuri.org/QueryTransactionsById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsByReference">
+      <soap:operation soapAction="http://tempuri.org/QueryTransactionsByReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProducts">
+      <soap:operation soapAction="http://tempuri.org/GetProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountries">
+      <soap:operation soapAction="http://tempuri.org/GetCountries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResponseCodes">
+      <soap:operation soapAction="http://tempuri.org/GetResponseCodes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductTypes">
+      <soap:operation soapAction="http://tempuri.org/GetProductTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrencies">
+      <soap:operation soapAction="http://tempuri.org/GetCurrencies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriers">
+      <soap:operation soapAction="http://tempuri.org/GetCarriers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCities">
+      <soap:operation soapAction="http://tempuri.org/GetCities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateProviderProduct">
+      <soap:operation soapAction="http://tempuri.org/ValidateProviderProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap:operation soapAction="http://tempuri.org/Test" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap12:operation soapAction="http://tempuri.org/Logout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaquetico">
+      <soap12:operation soapAction="http://tempuri.org/GetPaquetico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyPaquetico">
+      <soap12:operation soapAction="http://tempuri.org/BuyPaquetico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy">
+      <soap12:operation soapAction="http://tempuri.org/Buy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP">
+      <soap12:operation soapAction="http://tempuri.org/Buy_SP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless">
+      <soap12:operation soapAction="http://tempuri.org/Buy_SP_Pinless" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais">
+      <soap12:operation soapAction="http://tempuri.org/Buy_SP_Pinless_MiPais" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_New">
+      <soap12:operation soapAction="http://tempuri.org/Buy_SP_Pinless_MiPais_New" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_Dm">
+      <soap12:operation soapAction="http://tempuri.org/Buy_SP_Pinless_MiPais_Dm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SP_Pinless_MiPais_Dm_New">
+      <soap12:operation soapAction="http://tempuri.org/Buy_SP_Pinless_MiPais_Dm_New" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuySms">
+      <soap12:operation soapAction="http://tempuri.org/BuySms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_SR">
+      <soap12:operation soapAction="http://tempuri.org/Buy_SR" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Buy_RP">
+      <soap12:operation soapAction="http://tempuri.org/Buy_RP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Void">
+      <soap12:operation soapAction="http://tempuri.org/Void" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VoidByReference">
+      <soap12:operation soapAction="http://tempuri.org/VoidByReference" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryBill">
+      <soap12:operation soapAction="http://tempuri.org/QueryBill" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PayBill">
+      <soap12:operation soapAction="http://tempuri.org/PayBill" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <soap12:operation soapAction="http://tempuri.org/GetBalance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsByPhone">
+      <soap12:operation soapAction="http://tempuri.org/QueryTransactionsByPhone" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsById">
+      <soap12:operation soapAction="http://tempuri.org/QueryTransactionsById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryTransactionsByReference">
+      <soap12:operation soapAction="http://tempuri.org/QueryTransactionsByReference" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProducts">
+      <soap12:operation soapAction="http://tempuri.org/GetProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountries">
+      <soap12:operation soapAction="http://tempuri.org/GetCountries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResponseCodes">
+      <soap12:operation soapAction="http://tempuri.org/GetResponseCodes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductTypes">
+      <soap12:operation soapAction="http://tempuri.org/GetProductTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrencies">
+      <soap12:operation soapAction="http://tempuri.org/GetCurrencies" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarriers">
+      <soap12:operation soapAction="http://tempuri.org/GetCarriers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCities">
+      <soap12:operation soapAction="http://tempuri.org/GetCities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateProviderProduct">
+      <soap12:operation soapAction="http://tempuri.org/ValidateProviderProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap12:operation soapAction="http://tempuri.org/Test" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://23.21.194.70:9191/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://23.21.194.70:9191/Service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

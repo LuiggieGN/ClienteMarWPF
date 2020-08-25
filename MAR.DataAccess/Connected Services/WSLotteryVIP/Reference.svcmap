@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9e8543ab-6f1a-4932-bcda-41ba097f8a2c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="LotteryAuthService.disco" MetadataType="Disco" ID="77d19d41-c14f-4020-a681-bc978cc4dc62" SourceId="1" SourceUrl="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?disco" />
+    <MetadataFile FileName="LotteryAuthService.xsd" MetadataType="Schema" ID="a5815456-3f91-4f74-997c-c51d5efee270" SourceId="1" SourceUrl="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd0" />
+    <MetadataFile FileName="LotteryAuthService1.xsd" MetadataType="Schema" ID="b3f5306b-3c1a-434d-b2d0-c30149e5ce0b" SourceId="1" SourceUrl="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd1" />
+    <MetadataFile FileName="LotteryAuthService2.xsd" MetadataType="Schema" ID="4fdcfe56-976b-42d9-b860-7106eb588c1f" SourceId="1" SourceUrl="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd2" />
+    <MetadataFile FileName="LotteryAuthService3.xsd" MetadataType="Schema" ID="19db550b-e64c-4800-88aa-43673b659388" SourceId="1" SourceUrl="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?xsd=xsd3" />
+    <MetadataFile FileName="LoteryAuthService.wsdl" MetadataType="Wsdl" ID="ccb6fdd1-25df-4ce1-864d-f7d0e8a941f3" SourceId="1" SourceUrl="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?wsdl" />
+    <MetadataFile FileName="LotteryAuthService.wsdl" MetadataType="Wsdl" ID="3e62429e-d9f3-41bb-9dc8-bc225045472a" SourceId="1" SourceUrl="http://lotteryvip-desarrollo.azurewebsites.net/LotteryAuthService.svc?wsdl=wsdl0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{68D7E119-83EF-46D7-89AB-4B60F31570A2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Flujo.DataAccess</RootNamespace>
+    <AssemblyName>Flujo.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net40\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="MAR.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ConfigLibrary\MAR.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\BancaRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\CajaRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\DashBoardRepositoriocs.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\FlujoTipoRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\MovimientoRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\PagingRepository.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\ReportRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\RutaRepository.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\TarjetaRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WebClient\DapperRepositories\UsuarioRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WebClient\Helpers\LinqExtensions.cs" />
+    <Compile Include="FlujoRepositories\WebClient\Helpers\SelectView.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\DapperRepositories\BancaRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\DapperRepositories\CajaRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\DapperRepositories\CuadreRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\DapperRepositories\MovimientoRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\DapperRepositories\PagerRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\DapperRepositories\TokenSeguridadRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\DapperRepositories\UsuarioRepositorio.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\Helpers\LinqExtensions.cs" />
+    <Compile Include="FlujoRepositories\WpfClient\Helpers\SelectView.cs" />
+    <Compile Include="Hacienda\CertificadoRepository.cs" />
+    <Compile Include="Helpers\DALHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj">
+      <Project>{41bbcca4-1318-4234-a855-83958f1e5ff2}</Project>
+      <Name>Flujo.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CincoMinutosRepository\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
