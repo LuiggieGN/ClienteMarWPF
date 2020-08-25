@@ -7,7 +7,7 @@ using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
 using ClienteMarWPF.UI.Modules.Modulo;
 using ClienteMarWPF.UI.Modules.Reporte;
-
+using ClienteMarWPF.UI.Modules.Sorteos;
 using ClienteMarWPF.UI.State.Navigators;
 
 using ClienteMarWPF.UI.ViewModels.Base;
@@ -21,18 +21,21 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         private readonly CreateViewModel<LoginViewModel> _createLoginViewModel;
         private readonly CreateViewModel<ModuloViewModel> _createModuloViewModel;
         private readonly CreateViewModel<ReporteViewModel> _createReporteViewModel;
+        private readonly CreateViewModel<SorteosViewModel> _createSorteosViewModel;
 
         public ViewModelFactory(
            CreateViewModel<HomeViewModel> createHomeViewModel,
            CreateViewModel<LoginViewModel> createLoginViewModel,
            CreateViewModel<ModuloViewModel> createModuloViewModel,
-           CreateViewModel<ReporteViewModel> createReporteViewModel
+           CreateViewModel<ReporteViewModel> createReporteViewModel,
+           CreateViewModel<SorteosViewModel> createSorteosViewModel
         )
         {
             _createHomeViewModel = createHomeViewModel;
             _createLoginViewModel = createLoginViewModel;
             _createModuloViewModel = createModuloViewModel;
             _createReporteViewModel = createReporteViewModel;
+            _createSorteosViewModel = createSorteosViewModel;
         }
 
         /// <summary>
@@ -49,7 +52,9 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
                 case ViewTypeEnum.Modulo:
                     return _createModuloViewModel();
                 case ViewTypeEnum.Reporte:
-                    return _createReporteViewModel();
+                    return _createReporteViewModel();                
+                case ViewTypeEnum.Sorteos:
+                    return _createSorteosViewModel();
                 default:
                     throw new ArgumentException("El ViewType no tiene ViewModel.", "viewType");
             }

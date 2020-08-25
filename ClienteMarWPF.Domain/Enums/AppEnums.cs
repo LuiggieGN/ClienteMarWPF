@@ -11,7 +11,8 @@ namespace ClienteMarWPF.Domain.Enums
         Home = 0,
         Login = 1,
         Modulo = 2,
-        Reporte = 3
+        Reporte = 3,
+        Sorteos = 4
     }
 
     /// <summary>

@@ -28,6 +28,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ClienteMarWPF.UI.Modules.Sorteos;
 using ClienteMarWPF.Domain.Services.BancaService;
 
 namespace ClienteMarWPF.UI
@@ -79,6 +80,10 @@ namespace ClienteMarWPF.UI
                 services => new ReporteViewModel()
             );
 
+            services.AddSingleton<SorteosViewModel>(
+                services => new SorteosViewModel()
+            );
+
 
             ///@@ Habilta Navegacion entre modulos de la aplicacion
 
@@ -97,6 +102,11 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<CreateViewModel<ReporteViewModel>>(services =>
             {
                 return () => services.GetRequiredService<ReporteViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<SorteosViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<SorteosViewModel>();
             });
 
 

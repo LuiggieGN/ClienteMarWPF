@@ -14,12 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="StartUp\Images\LogoMAR_OriginalBlancoPeq.png" />
     <None Remove="StartUp\Images\Logo\MateoNetLogo.jpg" />
+    <None Remove="StartUp\Images\splashscreen-MarCliente-empty.jpg" />
     <None Remove="ViewModels\Commands\AsyncCommandBase.cs~RF57082cca.TMP" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="StartUp\Resources\" />
     <Folder Include="Views\AttachedProperties\" />
   </ItemGroup>
 
@@ -36,7 +37,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="StartUp\Images\LogoMAR_OriginalBlancoPeq.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="StartUp\Images\Logo\MateoNetLogo.jpg" />
+    <Resource Include="StartUp\Images\splashscreen-MarCliente-empty.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

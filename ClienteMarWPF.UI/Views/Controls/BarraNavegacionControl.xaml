@@ -11,7 +11,8 @@
              xmlns:vm="clr-namespace:ClienteMarWPF.UI"
              xmlns:home="clr-namespace:ClienteMarWPF.UI.Modules.Home"              
              xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"              
-             xmlns:reporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"              
+             xmlns:reporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte" 
+             xmlns:sorteos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos" 
              >
     <UserControl.Resources>
         <converters:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter"/>
@@ -85,8 +86,49 @@
         </Style>
     </UserControl.Resources>
 
-    <StackPanel x:Name="StackPanelMain" Width="234" Margin="0 20"  >
-        <Grid Height="40" Margin="10 5"  HorizontalAlignment="Stretch" >
+    <StackPanel x:Name="StackPanelMain" >
+
+        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Home}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Home" Width="30" Height="30" Foreground="White"/>
+                <Label Content="Inicio" VerticalContentAlignment="Center" Margin="15 0" Foreground="White"  FontSize="15"/>
+            </StackPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Modulo}">
+            <StackPanel Orientation="Horizontal" >
+                <materialDesign:PackIcon Kind="ViewModule" Width="30" Height="30" Foreground="White"/>
+                <Label  Content="Modulo" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Reporte}">
+            <StackPanel Orientation="Horizontal" >
+                <materialDesign:PackIcon Kind="FileReport" Width="30" Height="30" Foreground="White"/>
+                <TextBlock Text="Reportes" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <Expander Background="Transparent" Width="200" BorderBrush="Transparent" IsExpanded="False" Foreground="White" >
+            <Expander.Header>
+                <BulletDecorator Margin="-7 0 0 0">
+                    <BulletDecorator.Bullet>
+                        <materialDesign:PackIcon Kind="Store" Width="30" Height="30" Foreground="White"/>
+                    </BulletDecorator.Bullet>
+                    <TextBlock Text="Ventas" Margin="15 0" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
+                </BulletDecorator>
+            </Expander.Header>
+            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Sorteos}">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="Dice6Outline" Width="30" Height="30" Foreground="White"/>
+                        <TextBlock Text="Sorteos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Expander>
+
+        <!--<Grid Height="40" Margin="10 5"  HorizontalAlignment="Stretch" >
             <RadioButton  
                      GroupName="MenuGroup"            
                      IsChecked="{Binding CurrentViewModel, Mode=OneWay,Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type home:HomeViewModel}}" 
@@ -135,6 +177,6 @@
                     </StackPanel>
                 </RadioButton.Content>
             </RadioButton>
-        </Grid>        
+        </Grid>-->        
     </StackPanel>    
 </UserControl>
