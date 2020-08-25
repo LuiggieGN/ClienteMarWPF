@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{19C6AAEB-206F-44FB-B45C-8F2C29A63505}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MAR.BusinessLogic</RootNamespace>
+    <AssemblyName>MAR.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="MAR.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ConfigLibrary\MAR.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\Code\BancasLogic.cs" />
+    <Compile Include="Admin\Code\PreciosLogic.cs" />
+    <Compile Include="Admin\Code\LoteriasLogic.cs" />
+    <Compile Include="Admin\Code\PremiosLogic.cs" />
+    <Compile Include="Admin\Code\RiferosLogic.cs" />
+    <Compile Include="Admin\Models\Enums\DBEnums.cs" />
+    <Compile Include="Admin\Models\RequestModels\BancasRequestModels.cs" />
+    <Compile Include="Admin\Models\RequestModels\LoteriaModels\CrearLoteriaModel.cs" />
+    <Compile Include="Admin\Models\RequestModels\Precios\CrearPreciosModel.cs" />
+    <Compile Include="Admin\Models\RequestModels\RiferosRequestModels.cs" />
+    <Compile Include="Admin\Models\ResponseModels\BancasResponseModels.cs" />
+    <Compile Include="Admin\Models\ResponseModels\RiferosResponseModels.cs" />
+    <Compile Include="Admin\Models\ViewModels\BancasViewModel.cs" />
+    <Compile Include="Admin\Models\ViewModels\RiferosViewModels.cs" />
+    <Compile Include="Admin\SharedFuntions\Autorizaciones.cs" />
+    <Compile Include="Code\BingoIndexLogic.cs" />
+    <Compile Include="Code\CuentasLogic.cs" />
+    <Compile Include="Code\BancaConfigLogic.cs" />
+    <Compile Include="Code\BaseBusinessLogic.cs" />
+    <Compile Include="Code\EmailLogic.cs" />
+    <Compile Include="Code\Hacienda\AnulacionFueraLineaLogic.cs" />
+    <Compile Include="Code\Hacienda\AnulacionLogic.cs" />
+    <Compile Include="Code\Hacienda\ApuestaFueraDeLineaLogic.cs" />
+    <Compile Include="Code\Hacienda\ApuestaLogic.cs" />
+    <Compile Include="Code\Hacienda\CierreDiaLogic.cs" />
+    <Compile Include="Code\Hacienda\CierreSorteoLogic.cs" />
+    <Compile Include="Code\Hacienda\CompraFondosLogic.cs" />
+    <Compile Include="Code\Hacienda\InicioDiaLogic.cs" />
+    <Compile Include="Code\Hacienda\MayoreoVentaLogic.cs" />
+    <Compile Include="Code\Hacienda\PagoGanadorLogic.cs" />
+    <Compile Include="Code\Hacienda\Scheduller.cs" />
+    <Compile Include="Code\Hacienda\SharedOperations\BaseRequestLogic.cs" />
+    <Compile Include="Code\Hacienda\SharedOperations\NAUTLogic.cs" />
+    <Compile Include="Code\JuegaMasIndexLogic.cs" />
+    <Compile Include="Code\PrintJobs\JuegosNuevosPrintJob.cs" />
+    <Compile Include="Code\PrintJobs\CincoMinutosPrintJob.cs" />
+    <Compile Include="Code\PrintJobs\Pega4PrintJob.cs" />
+    <Compile Include="Code\RFCode\JuegosNuevosIndexLogic.cs" />
+    <Compile Include="Code\RFCode\LoteriasNuevasIndexLogic.cs" />
+    <Compile Include="Code\RFCode\Pega4IndexLogic.cs" />
+    <Compile Include="Code\PrintJobs\JuegaMasPrintJob.cs" />
+    <Compile Include="Code\PrintJobs\PolizasPrintJob.cs" />
+    <Compile Include="Code\PrintJobs\PagaFacilPrintJob.cs" />
+    <Compile Include="Code\ProductosConfigLogic.cs" />
+    <Compile Include="Code\ReportesNewIndexLogic.cs" />
+    <Compile Include="Code\PagaFacilIndexLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\PolizasSegurosIndexLogic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\PrintJobs\ReportesPrintJob.cs" />
+    <Compile Include="Code\GlogalLayoutLogic.cs" />
+    <Compile Include="Code\SeguridadLogic.cs" />
+    <Compile Include="Code\BilleteIndexLogic.cs" />
+    <Compile Include="Code\PrintJobs\BilletePrintJob.cs" />
+    <Compile Include="Code\ProductosLogic.cs" />
+    <Compile Include="Code\SorteosLotoDom\AnulacionLogic.cs" />
+    <Compile Include="Code\SorteosLotoDom\ApuestaLogic.cs" />
+    <Compile Include="Code\SorteosLotoDom\PagoGanadorLogic.cs" />
+    <Compile Include="Code\SorteosLotoDom\SharedOperations\BaseRequestLogic.cs" />
+    <Compile Include="Code\SorteosLotoDom\SharedOperations\NAUTLogic.cs" />
+    <Compile Include="Code\SorteosMar\AnulacionLogic.cs" />
+    <Compile Include="Code\SorteosMar\ApuestaLogic.cs" />
+    <Compile Include="Code\SorteosMar\PagoGanadorLogic.cs" />
+    <Compile Include="Code\SorteosMar\SorteosMarIndexLogic.cs" />
+    <Compile Include="Code\SorteosNuevos\ApuestaLogic.cs" />
+    <Compile Include="Code\SorteosNuevos\InicioDiaLogic.cs" />
+    <Compile Include="Enums\BancaConfigEnum.cs" />
+    <Compile Include="Enums\ProductosEnum.cs" />
+    <Compile Include="Flujo\WebClient\Code\BancaLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\CajaLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\DashBoardLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\FlujoTipoLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\MovimientoLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\ReporteLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\RutaLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\UsuarioLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\UsuarioTokenLogic.cs" />
+    <Compile Include="Flujo\WebClient\Code\Validations\MovimientoValidacion.cs" />
+    <Compile Include="Flujo\WebClient\Code\Validations\RutasValidacion.cs" />
+    <Compile Include="Flujo\WebClient\Code\Validations\TarjetaValidacion.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\BancasPager.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\Base\Pager.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\Base\PagerFromProcedure.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\Base\PagerFromQuery.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\CajasBalancePager.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\FechaHelper.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\MovimientosPager.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\SubSetBancasBalace.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\SubSetMensajerosBalance.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\SubSetMovimientoAdministrativos.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\SubSetSobranteFaltante.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\SubSetUsuario.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\TarjetaPager.cs" />
+    <Compile Include="Flujo\WebClient\Helpers\UniqueTokenHelper.cs" />
+    <Compile Include="Models\Mappers\JuegosNuevosMapper.cs" />
+    <Compile Include="Models\Mappers\Pega4Mapper.cs" />
+    <Compile Include="Models\Mappers\EstatusDiasMapper.cs" />
+    <Compile Include="Models\RequestModel\JuegosNuevosRequestModel.cs" />
+    <Compile Include="Models\RequestModel\SegurosRequestModel.cs" />
+    <Compile Include="Models\RequestModel\Pega4RequestModel.cs" />
+    <Compile Include="Models\ResponseModel\JuegosNuevosResponseModel.cs" />
+    <Compile Include="Models\ResponseModel\Pega4ResponseModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Flujo.DataAccess\Flujo.DataAccess.csproj">
+      <Project>{68d7e119-83ef-46d7-89ab-4b60f31570a2}</Project>
+      <Name>Flujo.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj">
+      <Project>{41bbcca4-1318-4234-a855-83958f1e5ff2}</Project>
+      <Name>Flujo.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj">
+      <Project>{7a839d18-0fee-4a3d-b284-690dea9dab4f}</Project>
+      <Name>MAR.AppLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MAR.DataAccess\MAR.DataAccess.csproj">
+      <Project>{7c6c4701-be38-4cfe-b65b-01a31263e105}</Project>
+      <Name>MAR.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MarConnectCliente\MarConnectCliente.csproj">
+      <Project>{39d7c21a-614a-4878-8502-65ab3a8178b3}</Project>
+      <Name>MarConnectCliente</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\ViewModels\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
