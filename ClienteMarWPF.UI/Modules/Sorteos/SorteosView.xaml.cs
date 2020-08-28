@@ -21,6 +21,25 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         public SorteosView()
         {
             InitializeComponent();
+
+            var listaJugadas = new List<Jugadas>
+            {
+                new Jugadas { TipoJugada = "Quiniela", Jugada="01", Monto= 300},
+                new Jugadas { TipoJugada = "Quiniela", Jugada="25", Monto= 200},
+                new Jugadas { TipoJugada = "Pale", Jugada="01-25", Monto= 500},
+                new Jugadas { TipoJugada = "Pale", Jugada="25-01", Monto= 65},
+                new Jugadas { TipoJugada = "Tripleta", Jugada="25-01-25", Monto= 500}
+            };
+
+            TableJugadas.ItemsSource = listaJugadas;
+
         }
+    }
+
+    public class Jugadas
+    {
+        public string TipoJugada { get; set; }
+        public string Jugada { get; set; }
+        public int Monto { get; set; }
     }
 }
