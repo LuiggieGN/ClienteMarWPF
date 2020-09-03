@@ -16,9 +16,9 @@ namespace ClienteMarWPF.UI.Modules.CincoMinutos
     /// <summary>
     /// Interaction logic for CincoMinutos.xaml
     /// </summary>
-    public partial class CincoMinutos : UserControl
+    public partial class CincoMinutosView : UserControl
     {
-        public CincoMinutos()
+        public CincoMinutosView()
         {
             InitializeComponent();
         }

@@ -16,6 +16,16 @@
   <ItemGroup>
     <None Remove="StartUp\Images\LogoMAR_OriginalBlancoPeq.png" />
     <None Remove="StartUp\Images\Logo\MateoNetLogo.jpg" />
+    <None Remove="StartUp\Images\Operador\AlticeB_logo.png" />
+    <None Remove="StartUp\Images\Operador\AlticeT_logo.png" />
+    <None Remove="StartUp\Images\Operador\Claro_logo.png" />
+    <None Remove="StartUp\Images\Operador\Digice_logo.jpg" />
+    <None Remove="StartUp\Images\Operador\NatcomT_logo.png" />
+    <None Remove="StartUp\Images\Operador\NatcomW_logo.jpg" />
+    <None Remove="StartUp\Images\Operador\Orange_logo.png" />
+    <None Remove="StartUp\Images\Operador\Tricom_logo.jpeg" />
+    <None Remove="StartUp\Images\Operador\VivaT_logo.png" />
+    <None Remove="StartUp\Images\Operador\Wind_logo.png" />
     <None Remove="StartUp\Images\splashscreen-MarCliente-empty.jpg" />
     <None Remove="ViewModels\Commands\AsyncCommandBase.cs~RF57082cca.TMP" />
   </ItemGroup>
@@ -41,6 +51,36 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="StartUp\Images\Logo\MateoNetLogo.jpg" />
+    <Resource Include="StartUp\Images\Operador\AlticeB_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\AlticeT_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\Claro_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\Digice_logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\NatcomT_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\NatcomW_logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\Orange_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\Tricom_logo.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\VivaT_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="StartUp\Images\Operador\Wind_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="StartUp\Images\splashscreen-MarCliente-empty.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

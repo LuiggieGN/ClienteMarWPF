@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:ClienteMarWPF.UI"
         xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls"
         mc:Ignorable="d"
-        Title="Mar Punto de Ventas" Height="600"  Width="800" MinHeight="600"  MinWidth="800" WindowStartupLocation="CenterScreen"   >
+        Title="Mar Punto de Ventas" Height="600"  Width="800" MinHeight="600"  MinWidth="800" WindowStartupLocation="CenterScreen"
+        >
     <Window.Resources>
         <Storyboard x:Key="OpenMenuStoryboard">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -32,7 +33,21 @@
     </Window.Triggers>-->
     
     <Grid>
-       
+
+        <!-- ALERTAS-->
+        <Border x:Name="bxMensaje" HorizontalAlignment="Right" VerticalAlignment="Top"     Visibility="Hidden" Panel.ZIndex="150" Width="400" CornerRadius="3" Height="110" Padding="10" Margin="2 42" Grid.Column="1">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="310" Color="#ABB2B9" RenderingBias="Quality"  />
+            </Border.Effect>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon x:Name="bxIcon" Kind="AlertBox"  Foreground="White" Width="30" Height="30"/>
+                    <Label x:Name="bxTitle" Content="Alerta" FontSize="18" Foreground="White" FontWeight="Bold"/>
+                </StackPanel>
+                <TextBlock x:Name="bxBody" TextWrapping="Wrap" FontSize="16" Foreground="White"  TextAlignment="Left" Text=""  />
+            </StackPanel>
+        </Border>
+        
         <ContentPresenter Content="{Binding}" Grid.Row="1"> 
 
             <ContentPresenter.Resources>           
@@ -65,8 +80,11 @@
                                 <ColumnDefinition  />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <materialDesign:ColorZone Grid.ColumnSpan="3" Mode="Dark"  Background="{DynamicResource GradientPrimaryLinealHorizontal}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
+                            <materialDesign:ColorZone Grid.ColumnSpan="3" Mode="Dark"  Background="{DynamicResource MenuTopBackground}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                <materialDesign:ColorZone.Effect>
+                                        <DropShadowEffect BlurRadius="20" Opacity="0.50" ShadowDepth="-50"/>
+                                </materialDesign:ColorZone.Effect>
+                            <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
                                     <StackPanel Width="170">
                                         <Button Content="Configuraciones"/> 
                                         <Button Content="Ayuda"/>
@@ -86,21 +104,20 @@
                                 </materialDesign:PopupBox>
                             </materialDesign:ColorZone>
                             <!--<Label Content="Nombre Ventana" VerticalAlignment="Center" FontSize="16" FontWeight="Medium" Foreground="{StaticResource PrimaryBackgroundForegroundBrush}"/>-->
-                            <Border Grid.Column="1" Background="{DynamicResource WhiteForegroundOpacity30}"  VerticalAlignment="Center" MaxWidth="300"  CornerRadius="20 20 20 20" Padding="3" >
+                            <Border Grid.Column="1" Background="{DynamicResource WhiteForegroundOpacity30}" BorderThickness="2" BorderBrush="White"  VerticalAlignment="Center" MaxWidth="300"  CornerRadius="20 20 20 20" Padding="3" >
                                 <Label x:Name="lbMain_BancaBalanceActual" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Balance: $ 94,845,56"   FontSize="18" FontWeight="Bold"  Foreground="White"   ></Label>
                             </Border>
                         </Grid>
 
-                        <Grid x:Name="GridMenu" Panel.ZIndex="50" Background="{DynamicResource GradientPrimaryLinealVertical}" Grid.Row="0"  Width="60" Grid.RowSpan="2" HorizontalAlignment="Stretch"  >
+                        <Grid x:Name="GridMenu" Panel.ZIndex="50" Background="{DynamicResource MenuLeftBackground}" Grid.Row="0"  Width="60" Grid.RowSpan="2" HorizontalAlignment="Stretch"  >
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/> 
+                                <RowDefinition Height="50"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-
-                            <!--<Grid.Effect>
-                                <DropShadowEffect BlurRadius="30" ShadowDepth="10" Color="#FFAEAEAE"/>
-                            </Grid.Effect>-->
+                            <Grid.Effect>
+                                <DropShadowEffect BlurRadius="50" Opacity="0.50" ShadowDepth="-50"/>
+                            </Grid.Effect>
 
                             <DockPanel Background="{DynamicResource DarkForegroundOpacity30}">
                                 <Button  x:Name="OpenMenuSTB" DockPanel.Dock="Right" Click="OpenMenu_Click" Background="Transparent" BorderBrush="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" >
@@ -128,21 +145,11 @@
                             </ScrollViewer>
                         </Grid>
 
-                        <Grid Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="1">
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">                                        
-                                        <ContentControl Content="{Binding CurrentViewModel}"/>
-                                    </ScrollViewer>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+
+                        <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">                                        
+                            <ContentControl Content="{Binding CurrentViewModel}"/>
+                        </ScrollViewer>
+
                         
                     </Grid>
                     

@@ -7,6 +7,10 @@
              xmlns:moduloModulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"   
              xmlns:moduloReporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"   
              xmlns:moduloSorteos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
+             xmlns:moduloCincoMinutos="clr-namespace:ClienteMarWPF.UI.Modules.CincoMinutos"   
+             xmlns:moduloRecargas="clr-namespace:ClienteMarWPF.UI.Modules.Recargas"   
+             xmlns:moduloMensajeria="clr-namespace:ClienteMarWPF.UI.Modules.Mensajeria"   
+             xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:local="clr-namespace:ClienteMarWPF.UI"   
                 
              >
@@ -18,7 +22,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Resources/Style/ButtonsCustom.xaml" /> 
+                <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Resources/Style/ButtonsCustom.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Resources/Style/ControlsCustom.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
 
             <!-- primary hues  --><!--
@@ -44,11 +49,26 @@
             <DataTemplate DataType="{x:Type  moduloReporte:ReporteViewModel}">
                 <moduloReporte:ReporteView />
             </DataTemplate>
+            
 
             <DataTemplate DataType="{x:Type  moduloSorteos:SorteosViewModel}">
                 <moduloSorteos:SorteosView />
             </DataTemplate>
 
+
+            <DataTemplate DataType="{x:Type  moduloCincoMinutos:CincoMinutosViewModel}">
+                <moduloCincoMinutos:CincoMinutosView />
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type  moduloRecargas:RecargasViewModel}">
+                <moduloRecargas:RecargasView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type  moduloMensajeria:MensajeriaViewModel}">
+                <moduloMensajeria:MensajeriaView />
+            </DataTemplate>
+            
             
             <DataTemplate DataType="{x:Type moduloLogin:LoginViewModel}">
                 <moduloLogin:LoginView  LoginCommand="{Binding LoginCommand}"    />

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ClienteMarWPF.UI
 {
@@ -94,5 +95,34 @@ namespace ClienteMarWPF.UI
                 }
             }
         }
+
+        public void MensajesAlerta(string mensajeIn, string title = "Alerta", string color = "#FFA00101", int time = 3000)
+        {
+            bxBody.Text = mensajeIn;
+            bxTitle.Content = title;
+            bxMensaje.Visibility = Visibility.Visible;
+            try
+            {
+                SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+                mySolidColorBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(color));
+                bxMensaje.Background = mySolidColorBrush;
+            }
+            catch (Exception)
+            {
+
+                bxMensaje.Background = Brushes.Red;
+            }
+
+            
+
+            var aTimer = new System.Timers.Timer(time);
+            aTimer.Elapsed += (sender, e) => {
+
+                Dispatcher.Invoke(new Action(() => { bxMensaje.Visibility = Visibility.Hidden; }), DispatcherPriority.ContextIdle);
+            };
+            aTimer.AutoReset = false;
+            aTimer.Enabled = true;
+        }
+
     }
 }
