@@ -61,7 +61,7 @@
                         </ListBox.Resources>
                 </ListBox>
             </Grid>
-                <Grid Visibility="{Binding IsChecked, ElementName=rbTab2, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Visibility="{Binding IsChecked, ElementName=rbTab2, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ListBox x:Name="listBancas" ItemsSource="{Binding}" PreviewMouseLeftButtonUp="listView_Click">
                         <ListBox.Resources>
                             <Style  TargetType="{x:Type ListBoxItem}"  >

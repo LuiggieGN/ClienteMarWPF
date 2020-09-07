@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClienteMarWPF.UI.ViewModels.ModelObservable
 {
-    public class Mensajes : BaseViewModel
+    public class MensajesObservable : BaseViewModel
     {
 
         private int _mensajeID;

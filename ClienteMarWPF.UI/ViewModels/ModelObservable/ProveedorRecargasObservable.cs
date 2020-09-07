@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClienteMarWPF.UI.ViewModels.ModelObservable
 {
-    public class ProveedorRecargas: BaseViewModel
+    public class ProveedorRecargasObservable: BaseViewModel
     {
 
         private int _operadorID;
