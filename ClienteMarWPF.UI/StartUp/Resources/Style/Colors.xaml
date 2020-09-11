@@ -12,26 +12,50 @@
     <SolidColorBrush x:Key="BtnLightBackgroundBrush" Color="#F8F9FA"/>
     <SolidColorBrush x:Key="BtnDarkBackgroundBrush" Color="#343A40"/>
     <SolidColorBrush x:Key="WhiteForeground" Color="White"/>
-    <SolidColorBrush x:Key="DarkForeground" Color="#181818"/>
-    
+    <SolidColorBrush x:Key="DarkForeground" Color="#181818"/>    
+    <SolidColorBrush x:Key="WhiteForegroundOpacity50" Color="White" Opacity="0.5"/>
+    <SolidColorBrush x:Key="DarkForegroundOpacity50" Color="Black" Opacity="0.5"/>
+    <SolidColorBrush x:Key="WhiteForegroundOpacity30" Color="White" Opacity="0.3"/>
+    <SolidColorBrush x:Key="DarkForegroundOpacity30" Color="Black" Opacity="0.3"/>
+    <SolidColorBrush x:Key="AppBackgroundBrush" Color="#EEEEEE"/>
+    <SolidColorBrush x:Key="AppSecondaryBackgroundBrush" Color="White"/>
+
     <!--COLORES PARA FONDOS-->
-    <SolidColorBrush x:Key="BackgroundPrimary" Color="#181818"/>
-    <SolidColorBrush x:Key="ForegroundPrimary" Color="White"/>
-    <SolidColorBrush x:Key="BackgroundSecondary" Color="#F8F9FA"/>
-    <SolidColorBrush x:Key="ForegroundSecondary" Color="#181818"/>
+    <SolidColorBrush x:Key="BackgroundOne" Color="#00A8E8"/>
+    <SolidColorBrush x:Key="BackgroundTwo" Color="#007EA7"/>
+    <SolidColorBrush x:Key="BackgroundThree" Color="#003459"/>
+    <SolidColorBrush x:Key="BackgroundFour" Color="#00171F"/>
+    
+    <!--COLORES  PARA MENU-->
+    <SolidColorBrush x:Key="MenuLeftBackground" Color="#00171F"/>
+    <SolidColorBrush x:Key="MenuTopBackground" Color="#00A8E8"/>
 
-    <Style x:Key="BackgroundGradientPrimary" TargetType="Grid">
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush>
-                    <LinearGradientBrush.GradientStops>
-                        <GradientStop Offset="0.1" Color="#2C3E50" />
-                        <GradientStop Offset="1.0" Color="#17202A" />
-                    </LinearGradientBrush.GradientStops>
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <LinearGradientBrush x:Key="GradientPrimaryLinealHorizontal" StartPoint="0,0.5" EndPoint="1,0.5">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.1" Color="#003040" />
+            <GradientStop Offset="1.0" Color="#00171F" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
 
+    <LinearGradientBrush x:Key="GradientPrimaryLinealVertical" StartPoint="0.5,0" EndPoint="0.5,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.1" Color="#003040" />
+            <GradientStop Offset="1.0" Color="#00171F" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="GradientPrimaryDiagonal" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.1" Color="#003040" />
+            <GradientStop Offset="1.0" Color="#00171F" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GradientPrimaryDiagonalInvert" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="1.0" Color="#003040" />
+            <GradientStop Offset="0.1" Color="#00171F" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
 
 </ResourceDictionary>

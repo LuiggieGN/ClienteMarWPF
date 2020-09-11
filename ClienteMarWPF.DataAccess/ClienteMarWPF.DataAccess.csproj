@@ -17,17 +17,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MAR.Config">
-      <HintPath>..\ConfigLibrary\MAR.Config.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Connected Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MAR.Config">
+      <HintPath>..\..\..\..\..\Desktop\Config Remote\Medelo2020\MAR.Config.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
