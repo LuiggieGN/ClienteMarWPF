@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:converters="clr-namespace:ClienteMarWPF.UI.Converters"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d">
     <UserControl.Resources>
         <DataTemplate x:Key="ListCheckBoxTemplate">
-            <CheckBox>
+            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Click="CheckBox_Click" >
                 <CheckBox.Resources>
                     <Style TargetType="{x:Type CheckBox}">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -47,7 +47,7 @@
             </CheckBox>
         </DataTemplate>
         <DataTemplate x:Key="ListRadioButton">
-            <RadioButton GroupName="SorteosList">
+            <RadioButton GroupName="SorteosList" IsChecked="{Binding IsSelected, Mode=TwoWay}">
                 <RadioButton.Resources>
                     <Style TargetType="{x:Type RadioButton}">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -226,7 +226,7 @@
                 </StackPanel>
 
 
-                <ListBox x:Name="listSorteo"   ItemsSource="{Binding}"  BorderThickness="0 0 0 1"  VerticalAlignment="Top"  Height="400"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled">
+                <ListBox x:Name="listSorteo"   ItemsSource="{Binding}"  BorderThickness="0 0 0 1"  VerticalAlignment="Top"  Height="400"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
                     <ListBox.Resources>
                         <Style TargetType="ListBox">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

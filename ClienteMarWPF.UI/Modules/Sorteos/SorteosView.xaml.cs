@@ -21,7 +21,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
     /// </summary>
     public partial class SorteosView : UserControl
     {
-        public ObservableCollection<SorteosObservable> SorteosBinding;
+        public List<SorteosObservable> SorteosBinding;
 
         public SorteosView()
         {
@@ -50,7 +50,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
 
             ltJugada.ItemsSource = listaJugadas;
 
-            SorteosBinding = new ObservableCollection<SorteosObservable> {
+            SorteosBinding = new List<SorteosObservable> {
                 new SorteosObservable(){ LoteriaID=1, IsSelected=false, IsSuper = false, Loteria="La Fecha Dia", Image = "WbSunny" },
                 new SorteosObservable(){ LoteriaID=2, IsSelected=false, IsSuper = false, Loteria="La Fecha Noche", Image = "Brightness3" },
                 new SorteosObservable(){ LoteriaID=3, IsSelected=false, IsSuper = false, Loteria="Loteka Dia", Image = "WbSunny" },
@@ -69,6 +69,22 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         }
 
         // #region LOGICA PARA SORTEOS
+        private void ValidateSelectOnlyTwo()
+        {
+            int count = 0;
+            foreach (var item in SorteosBinding)
+            {
+                if (count <= 1 && item.IsSelected)
+                {
+                    count++;
+                }
+                else
+                {
+                    item.IsSelected = false;
+                }
+            }
+        }
+
 
         // #endregion
 
@@ -170,6 +186,16 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void listSorteo_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            ValidateSelectOnlyTwo();
+        }
+
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            ValidateSelectOnlyTwo();
+        }
     }
 
     // ESTA CLASE SOLO ES DE EJEMPLO MOVER DONDE VA
