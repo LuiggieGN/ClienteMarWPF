@@ -23,14 +23,6 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    <!--<Window.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="OpenMenu">
-            <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseMenu">
-            <BeginStoryboard Storyboard="{StaticResource CloseMenuStoryboard}"/>
-        </EventTrigger>
-    </Window.Triggers>-->
     
     <Grid>
 
