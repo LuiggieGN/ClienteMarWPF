@@ -15,7 +15,8 @@ namespace ClienteMarWPF.Domain.Enums
         Sorteos = 4,
         CincoMinutos = 5,
         Recargas = 6,
-        Mensajeria = 7
+        Mensajeria = 7,
+        PagoServicios = 8
     }
 
     /// <summary>
