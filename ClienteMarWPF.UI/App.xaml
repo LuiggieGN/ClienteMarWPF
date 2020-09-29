@@ -10,6 +10,7 @@
              xmlns:moduloCincoMinutos="clr-namespace:ClienteMarWPF.UI.Modules.CincoMinutos"   
              xmlns:moduloRecargas="clr-namespace:ClienteMarWPF.UI.Modules.Recargas"   
              xmlns:moduloMensajeria="clr-namespace:ClienteMarWPF.UI.Modules.Mensajeria"   
+             xmlns:moduloPagoServicios="clr-namespace:ClienteMarWPF.UI.Modules.PagoServicios"   
              xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:local="clr-namespace:ClienteMarWPF.UI"   
                 
@@ -67,6 +68,10 @@
 
             <DataTemplate DataType="{x:Type  moduloMensajeria:MensajeriaViewModel}">
                 <moduloMensajeria:MensajeriaView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type  moduloPagoServicios:PagoServiciosViewModel}">
+                <moduloPagoServicios:PagoServiciosView />
             </DataTemplate>
             
             

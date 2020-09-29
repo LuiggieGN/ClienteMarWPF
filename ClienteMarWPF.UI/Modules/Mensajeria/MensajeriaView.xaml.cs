@@ -47,9 +47,7 @@ namespace ClienteMarWPF.UI.Modules.Mensajeria
             };
 
 
-            // listMensajes.DataContext = MensajeriaBinding.Where(x => x.IsRead == false).ToList();
-            listMensajes.DataContext = MensajeriaBinding;
-            listBancas.DataContext = MensajeriaBinding;
+
             listMensajeChat.DataContext = MensajeriaBinding;
         }
 
@@ -63,10 +61,6 @@ namespace ClienteMarWPF.UI.Modules.Mensajeria
             txtChatMensaje.Text = "";
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            modalChat.Visibility = Visibility.Collapsed;
-        }
 
         private void btnChatEnviar(object sender, RoutedEventArgs e)
         {
@@ -91,18 +85,10 @@ namespace ClienteMarWPF.UI.Modules.Mensajeria
 
         }
 
-
-        private void listView_Click(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var item = (sender as ListBox).SelectedItem;
-            if (item != null)
-            {
-                modalChat.Visibility = Visibility.Visible;
-               listMensajeChat.Items.MoveCurrentToLast();
-               listMensajeChat.ScrollIntoView(listMensajeChat.Items.CurrentItem);
-            }
+            listMensajeChat.ScrollIntoView(listMensajeChat.Items.CurrentItem);
         }
-
 
     }
 }
