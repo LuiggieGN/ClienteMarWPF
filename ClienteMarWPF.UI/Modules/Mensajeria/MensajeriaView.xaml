@@ -9,86 +9,71 @@
              >
     <Grid>
         <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-        
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
         <Border Background="{DynamicResource MenuLeftBackground}" Height="40">
             <Label Content="Mensajeria instantanea" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
         </Border>
 
-        <Grid x:Name="modalChat" Grid.Row="1" >
-            <Border  Background="White" VerticalAlignment="Top"  Margin="0 10">
-                <DockPanel >
-                    <!--<Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>-->
+        <ListBox x:Name="listMensajeChat" Grid.Row="1"   Background="#EEEEEE" ItemsSource="{Binding}"  ScrollViewer.CanContentScroll="True" Padding="10" >
+            <ListBox.Resources>
 
+                <Style TargetType="{x:Type ListBoxItem}"  >
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="fondoC"   Background="White" Margin="5" Padding="10" CornerRadius="5" MaxWidth="500" >
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="10" Opacity="0.2"/>
+                                    </Border.Effect>
+                                    <StackPanel >
+                                        <TextBlock x:Name="txt1" Text="{Binding Remitente}" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
+                                        <TextBlock x:Name="txt3" Text="Tu" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
+                                        <TextBlock x:Name="txt2"  TextWrapping="Wrap" FontSize="14" Text="{Binding Mensaje}"/>
+                                    </StackPanel>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsMe}" Value="true">
+                                        <Setter TargetName="fondoC" Property="HorizontalAlignment" Value="Right" />
+                                        <Setter TargetName="fondoC" Property="Background" Value="#00A8E8" />
+                                        <Setter TargetName="txt1" Property="Foreground" Value="White" />
+                                        <Setter TargetName="txt2" Property="Foreground" Value="White" />
+                                        <Setter TargetName="txt1" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
 
-                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="White">
-                        <Label x:Name="txtchatRemitente" Foreground="{DynamicResource DarkForeground}" Content="Javier de Jesus" FontSize="18" Margin="5" FontWeight="DemiBold"/>
-                     </StackPanel>
+                                    <DataTrigger Binding="{Binding IsMe}" Value="false">
+                                        <Setter TargetName="fondoC" Property="HorizontalAlignment" Value="Left" />
+                                        <Setter TargetName="txt3" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.Resources>
 
-                        <ListBox x:Name="listMensajeChat" DockPanel.Dock="Top" Background="#EEEEEE" ItemsSource="{Binding}" Padding="10" >
-                            <ListBox.Resources>
-                                <Style TargetType="{x:Type ListBoxItem}"  >
-                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                <Border x:Name="fondoC"   Background="White" Margin="5" Padding="10" CornerRadius="5" MaxWidth="1000" >
-                                                    <Border.Effect>
-                                                        <DropShadowEffect BlurRadius="10" Opacity="0.2"/>
-                                                    </Border.Effect>
-                                                    <StackPanel >
-                                                        <TextBlock x:Name="txt1" Text="{Binding Destinatario}" Margin="0 0 0 5" FontSize="14" FontWeight="DemiBold"/>
-                                                        <TextBlock x:Name="txt2"  TextWrapping="Wrap" Text="{Binding Mensaje}"/>
-                                                    </StackPanel>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <!--<Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="fondoC" Property="Background" Value="#009BFF"/>
-                                <Setter TargetName="txt1" Property="Foreground" Value="White"/>
-                                    <Setter TargetName="txt2" Property="Foreground" Value="White"/>
-                                </Trigger>-->
-                                                    <MultiTrigger>
-                                                        <MultiTrigger.Conditions>
-                                                            <Condition Property="IsMouseOver" Value="True"/>
-                                                            <!--<Condition Property="IsChecked" Value="False"/>-->
-                                                        </MultiTrigger.Conditions>
-                                                        <!--<Setter TargetName="fondoC" Property="Background" Value="{x:Null}"/>-->
-                                                    </MultiTrigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListBox.Resources>
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel  IsItemsHost="True" />
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                        </ListBox>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" Height="350"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            
 
+        </ListBox>
+        
+        <StackPanel  Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="10" Height="60">
+                <TextBox x:Name="txtChatMensaje" Width="500"  Height="50" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" AcceptsReturn="True"  VerticalScrollBarVisibility="Auto" SpellCheck.IsEnabled="True"  materialDesign:HintAssist.Hint="Escriba el mensaje" />
+                <Button Style="{DynamicResource btn-primary}" Click="btnChatEnviar" Height="50" Margin="10 0" Foreground="White"   VerticalAlignment="Center" >
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Enviar Mensaje" Foreground="White" FontSize="18"/>
+                        <materialDesign:PackIcon Kind="Send" Width="20" Height="20" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+         </StackPanel>
 
-                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Height="50" Panel.ZIndex="500">
-                        <TextBox x:Name="txtChatMensaje" Width="400"  Height="50" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" AcceptsReturn="True"  VerticalScrollBarVisibility="Auto" SpellCheck.IsEnabled="True"  materialDesign:HintAssist.Hint="Escriba el mensaje" />
-                            <Button Style="{DynamicResource btn-primary}" Click="btnChatEnviar" Height="50" Foreground="White"  Margin="10 0" VerticalAlignment="Bottom" >
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Enviar Mensaje" Foreground="White" FontSize="18"/>
-                                    <materialDesign:PackIcon Kind="Send" Width="20" Height="20" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
-
-
-
-                </DockPanel>
-            </Border>
         </Grid>
-
-    </Grid>
 </UserControl>

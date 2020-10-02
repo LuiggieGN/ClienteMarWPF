@@ -13,7 +13,7 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         private string _remitente;
         private string _destinatario { get; set; }
         private string _mensaje { get; set; }
-        private bool _isSelected { get; set; }
+        private bool _isMe { get; set; }
         private bool _isRead { get; set; }
 
         public int MensajeID
@@ -46,10 +46,10 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             set { _mensaje = value; NotifyPropertyChanged(nameof(Mensaje)); }
         }
 
-        public bool IsSelected
+        public bool IsMe
         {
-            get { return _isSelected; }
-            set { _isSelected = value; NotifyPropertyChanged(nameof(IsSelected)); }
+            get { return _isMe; }
+            set { _isMe = value; NotifyPropertyChanged(nameof(IsMe)); }
         }
 
         public bool IsRead
