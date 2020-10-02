@@ -28,7 +28,12 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ClienteMarWPF.UI.Modules.Sorteos;
 using ClienteMarWPF.Domain.Services.BancaService;
+using ClienteMarWPF.UI.Modules.CincoMinutos;
+using ClienteMarWPF.UI.Modules.Recargas;
+using ClienteMarWPF.UI.Modules.Mensajeria;
+using ClienteMarWPF.UI.Modules.PagoServicios;
 
 namespace ClienteMarWPF.UI
 {
@@ -79,6 +84,26 @@ namespace ClienteMarWPF.UI
                 services => new ReporteViewModel()
             );
 
+            services.AddSingleton<SorteosViewModel>(
+                services => new SorteosViewModel()
+            );
+
+            services.AddSingleton<CincoMinutosViewModel>(
+                services => new CincoMinutosViewModel()
+            );
+
+            services.AddSingleton<RecargasViewModel>(
+                services => new RecargasViewModel()
+            );
+
+            services.AddSingleton<MensajeriaViewModel>(
+                services => new MensajeriaViewModel()
+            );
+
+            services.AddSingleton<PagoServiciosViewModel>(
+                services => new PagoServiciosViewModel()
+            );
+
 
             ///@@ Habilta Navegacion entre modulos de la aplicacion
 
@@ -97,6 +122,31 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<CreateViewModel<ReporteViewModel>>(services =>
             {
                 return () => services.GetRequiredService<ReporteViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<SorteosViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<SorteosViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<CincoMinutosViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<CincoMinutosViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<RecargasViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<RecargasViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<MensajeriaViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<MensajeriaViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<PagoServiciosViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<PagoServiciosViewModel>();
             });
 
 

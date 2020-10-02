@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+
+    <!--COLORES BOTONES SIMILAR A BOOTSTRAP-->
+    <SolidColorBrush x:Key="BtnPrimaryBackgroundBrush" Color="#007BFF"/>
+    <SolidColorBrush x:Key="BtnSecondaryBackgroundBrush" Color="#6C757D"/>
+    <SolidColorBrush x:Key="BtnSuccessBackgroundBrush" Color="#28A745"/>
+    <SolidColorBrush x:Key="BtnDangerBackgroundBrush" Color="#DC3545"/>
+    <SolidColorBrush x:Key="BtnWarningBackgroundBrush" Color="#FFC107"/>
+    <SolidColorBrush x:Key="BtnInfoBackgroundBrush" Color="#17A2B8"/>
+    <SolidColorBrush x:Key="BtnLightBackgroundBrush" Color="#F8F9FA"/>
+    <SolidColorBrush x:Key="BtnDarkBackgroundBrush" Color="#343A40"/>
+    <SolidColorBrush x:Key="WhiteForeground" Color="White"/>
+    <SolidColorBrush x:Key="DarkForeground" Color="#181818"/>    
+    <SolidColorBrush x:Key="WhiteForegroundOpacity50" Color="White" Opacity="0.5"/>
+    <SolidColorBrush x:Key="DarkForegroundOpacity50" Color="Black" Opacity="0.5"/>
+    <SolidColorBrush x:Key="WhiteForegroundOpacity30" Color="White" Opacity="0.3"/>
+    <SolidColorBrush x:Key="DarkForegroundOpacity30" Color="Black" Opacity="0.3"/>
+    <SolidColorBrush x:Key="AppBackgroundBrush" Color="#EEEEEE"/>
+    <SolidColorBrush x:Key="AppSecondaryBackgroundBrush" Color="White"/>
+
+    <!--COLORES PARA FONDOS-->
+    <SolidColorBrush x:Key="BackgroundOne" Color="#00A8E8"/>
+    <SolidColorBrush x:Key="BackgroundTwo" Color="#007EA7"/>
+    <SolidColorBrush x:Key="BackgroundThree" Color="#003459"/>
+    <SolidColorBrush x:Key="BackgroundFour" Color="#00171F"/>
+    
+    <!--COLORES  PARA MENU-->
+    <SolidColorBrush x:Key="MenuLeftBackground" Color="#00171F"/>
+    <SolidColorBrush x:Key="MenuTopBackground" Color="#00A8E8"/>
+
+    <LinearGradientBrush x:Key="GradientPrimaryLinealHorizontal" StartPoint="0,0.5" EndPoint="1,0.5">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.1" Color="#003040" />
+            <GradientStop Offset="1.0" Color="#00171F" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GradientPrimaryLinealVertical" StartPoint="0.5,0" EndPoint="0.5,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.1" Color="#003040" />
+            <GradientStop Offset="1.0" Color="#00171F" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="GradientPrimaryDiagonal" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="0.1" Color="#003040" />
+            <GradientStop Offset="1.0" Color="#00171F" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GradientPrimaryDiagonalInvert" StartPoint="0,0" EndPoint="1,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Offset="1.0" Color="#003040" />
+            <GradientStop Offset="0.1" Color="#00171F" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+</ResourceDictionary>
