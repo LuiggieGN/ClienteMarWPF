@@ -132,7 +132,7 @@
 
                             </DockPanel>
 
-                            <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">                                
+                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">                                
                                 <controls:BarraNavegacionControl HorizontalAlignment="Stretch" />                               
                             </ScrollViewer>
                         </Grid>

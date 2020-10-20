@@ -4,13 +4,144 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
-    <DockPanel Height="400" Margin="40" Background="#fff">
-        <Button DockPanel.Dock="Top" Height="50">Reporte</Button>
-        <Button DockPanel.Dock="Bottom" Height="50">Bottom</Button>
-        <Button DockPanel.Dock="Left" Width="100">Left</Button>
-        <Button DockPanel.Dock="Right" Width="100">Right</Button>
-        <Button Width="300">Center</Button>
-    </DockPanel>
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="ListRadioButton">
+                <RadioButton GroupName="SorteosList" IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                    <RadioButton.Resources>
+                        <Style TargetType="{x:Type RadioButton}">
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                                        <Border x:Name="fondoC" Width="150" Height="40"  Background="LightGray" CornerRadius="2" Padding="5">
+                                            <StackPanel Orientation="Horizontal">
+                                                <!--<materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />-->
+                                                <Label x:Name="title"   Content="{Binding Loteria}" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                            </StackPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="fondoC" Property="Background" Value="#00171F"/>
+                                                <Setter TargetName="title" Property="Foreground" Value="White"/>
+                                                <!--<Setter TargetName="faicon2" Property="Foreground" Value="White"/>-->
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect  BlurRadius="15" Direction="310" Color="#ABB2B9" RenderingBias="Quality" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="IsMouseOver" Value="True"/>
+                                                    <Condition Property="IsChecked" Value="False"/>
+                                                </MultiTrigger.Conditions>
+                                            </MultiTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </RadioButton.Resources>
+                </RadioButton>
+            </DataTemplate>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Background="{DynamicResource MenuLeftBackground}" Height="40">
+            <Label Content="Reportes" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.ColumnSpan="2">
+                <DatePicker Width="200" Margin="20 0"  materialDesign:HintAssist.Hint="Selecionar Fecha"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                <Button  Style="{DynamicResource btn-primary}" Foreground="White" Width="200"  Margin="20 0">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="Printer" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                        <TextBlock Text="Imprimir reporte" Foreground="White" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+
+            <ListBox x:Name="listReportes" Grid.Row="1" >
+                
+                <ListBoxItem>
+                    <RadioButton Content="Reportes de Ventas" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem>  
+                
+                <ListBoxItem>
+                    <RadioButton Content="Lista de Numeros" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem> 
+                
+                <ListBoxItem>
+                    <RadioButton Content="Lista de Tickets" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem>   
+                
+                <ListBoxItem>
+                    <RadioButton Content="Reportes Ganadores" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem>  
+                
+                <ListBoxItem>
+                    <RadioButton Content="Lista de Tarjetas" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem>    
+                
+                <ListBoxItem>
+                    <RadioButton Content="Suma de Ventas" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem> 
+                
+                <ListBoxItem>
+                    <RadioButton Content="Ventas por Fecha" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem>   
+                
+                <ListBoxItem>
+                    <RadioButton Content="Pagos Remotos" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem>  
+                
+                <ListBoxItem>
+                    <RadioButton Content="Lista de Premios" GroupName="reportes" FontSize="16" Style="{StaticResource MaterialDesignRadioButton}"/>
+                </ListBoxItem>
+                
+            </ListBox>
+
+            <ListBox x:Name="listSorteo" ItemsSource="{Binding}"  BorderThickness="0 0 0 1" Grid.Row="1"  Grid.Column="1"  Height="400"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" >
+                <ListBox.Resources>
+                    <Style TargetType="ListBox">
+                        <Setter Property="ItemTemplate" Value="{StaticResource ListRadioButton}" />
+                    </Style>
+
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Style>
+                </ListBox.Resources>
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel  IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+
+            </ListBox>
+
+
+        </Grid>
+        
+        </Grid>
 </UserControl>

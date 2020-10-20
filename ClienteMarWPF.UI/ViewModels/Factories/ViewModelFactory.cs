@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using ClienteMarWPF.Domain.Enums;
 using ClienteMarWPF.UI.Modules.CincoMinutos;
+using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
 using ClienteMarWPF.UI.Modules.Mensajeria;
@@ -30,6 +31,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         private readonly CreateViewModel<RecargasViewModel> _createRecargasViewModel;
         private readonly CreateViewModel<MensajeriaViewModel> _createMensajeriaViewModel;
         private readonly CreateViewModel<PagoServiciosViewModel> _createPagoServiciosViewModel;
+        private readonly CreateViewModel<ConfiguracionViewModel> _createConfiguracionViewModel;
 
         public ViewModelFactory(
            CreateViewModel<HomeViewModel> createHomeViewModel,
@@ -40,7 +42,8 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
            CreateViewModel<CincoMinutosViewModel> createCincoMinutosViewModel,
            CreateViewModel<RecargasViewModel> createRecargasViewModel,
            CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel,
-           CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel
+           CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel,
+           CreateViewModel<ConfiguracionViewModel> createConfiguracionViewModel
         )
         {
             _createHomeViewModel = createHomeViewModel;
@@ -52,6 +55,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
             _createRecargasViewModel = createRecargasViewModel;
             _createMensajeriaViewModel = createMensajeriaViewModel;
             _createPagoServiciosViewModel = createPagoServiciosViewModel;
+            _createConfiguracionViewModel = createConfiguracionViewModel;
         }
 
         /// <summary>
@@ -78,7 +82,9 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
                 case ViewTypeEnum.Mensajeria:
                     return _createMensajeriaViewModel(); 
                 case ViewTypeEnum.PagoServicios:
-                    return _createPagoServiciosViewModel();
+                    return _createPagoServiciosViewModel();                
+                case ViewTypeEnum.Configuracion:
+                    return _createConfiguracionViewModel();
                 default:
                     throw new ArgumentException("El ViewType no tiene ViewModel.", "viewType");
             }

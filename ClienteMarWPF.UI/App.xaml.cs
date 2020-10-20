@@ -34,6 +34,7 @@ using ClienteMarWPF.UI.Modules.CincoMinutos;
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Mensajeria;
 using ClienteMarWPF.UI.Modules.PagoServicios;
+using ClienteMarWPF.UI.Modules.Configuracion;
 
 namespace ClienteMarWPF.UI
 {
@@ -104,6 +105,10 @@ namespace ClienteMarWPF.UI
                 services => new PagoServiciosViewModel()
             );
 
+            services.AddSingleton<ConfiguracionViewModel>(
+                services => new ConfiguracionViewModel()
+            );
+
 
             ///@@ Habilta Navegacion entre modulos de la aplicacion
 
@@ -147,6 +152,11 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<CreateViewModel<PagoServiciosViewModel>>(services =>
             {
                 return () => services.GetRequiredService<PagoServiciosViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<ConfiguracionViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<ConfiguracionViewModel>();
             });
 
 
