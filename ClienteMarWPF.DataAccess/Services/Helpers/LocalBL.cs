@@ -23,7 +23,7 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
         public string ServiceHostIP { get; set; }
 
 
-        public FlujoServices.mar_flujoSoapClient GetFlujoServiceClient(bool pUseBackupConnection, int flujoTimeoutSeconds = 50)
+        public FlujoServices.mar_flujoSoapClient GetFlujoServiceClient(bool pUseBackupConnection, int flujoTimeoutSeconds = 30)
         {
             try
             {

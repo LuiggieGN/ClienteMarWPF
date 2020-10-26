@@ -15,13 +15,13 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
     public class LoginCommand : AsyncCommandBase
     {
         private readonly LoginViewModel _loginViewModel;
-        private readonly IAuthenticator _authenticator;
+        private readonly IAuthenticator _autenticador;
         private readonly IRenavigator _renavigator;
 
-        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, IRenavigator renavigator)
+        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator autenticador, IRenavigator renavigator)
         {
             _loginViewModel = loginViewModel;
-            _authenticator = authenticator;
+            _autenticador = autenticador;
             _renavigator = renavigator;
         }
         
@@ -34,8 +34,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
 
             try
             {
-                await _authenticator.Login(_loginViewModel.Username, parameter.ToString());
-             
+                await _autenticador.Login(_loginViewModel.Username, parameter.ToString());
+              
                 _renavigator.Renavigate();
 
             }

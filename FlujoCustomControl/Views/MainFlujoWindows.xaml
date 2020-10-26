@@ -1,0 +1,371 @@
+﻿<Window x:Class="FlujoCustomControl.Views.MainFlujoWindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlujoCustomControl"
+        xmlns:viewmodels="clr-namespace:FlujoCustomControl.ViewModels"
+        xmlns:views="clr-namespace:FlujoCustomControl.Views.UsersControls"
+        mc:Ignorable="d"
+        Title="MAR Flujo" Height="600" Width="800" MinHeight="600" MinWidth="800"   
+        ResizeMode="NoResize" WindowStyle="None"  WindowState="Maximized" Closing="Window_Closing" AllowsTransparency="True"  >
+
+    <Window.Resources>
+        <BitmapImage  x:Key="MoneyInput"  UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/MoneyInput.ico" />
+        <DataTemplate x:Name="ProcesarMovimientoViewTemplate" DataType="{x:Type viewmodels:ProcesarMovimientoViewModel }">
+            <views:ProcesarMovimientoUserControl DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="ConsultaMovimientoViewTemplate" DataType="{x:Type viewmodels:ConsultaMovimientoViewModel }">
+            <views:ConsultaMovimientoUserControl DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="CincoMinutosViewTemplate" DataType="{x:Type viewmodels:CincoMinutosViewModel }">
+            <views:CincoMinutosUserControl DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="IniciaFlujoEfectivoViewTemplate" DataType="{x:Type  views:IniciaFlujoEfectivoUserControl}" >
+            <views:IniciaFlujoEfectivoUserControl DataContext="{Binding}"/>
+        </DataTemplate>
+        <Image  x:Key="Close"  Source="pack://application:,,,/FlujoCustomControl;component/Resources/Images/Close.png"  Width="20"/>
+        <Image  x:Key="Maximize"  Source="pack://application:,,,/FlujoCustomControl;component/Resources/Images/Maximize.png" Width="20" />
+        <Image  x:Key="Minimize"  Source="pack://application:,,,/FlujoCustomControl;component/Resources/Images/Minimize.png" Width="20" />
+
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#FFDDDDDD"/>
+            <Setter Property="BorderBrush" Value="#FF707070"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+        </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#FFDDDDDD"/>
+            <Setter Property="BorderBrush" Value="#FF707070"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                <Setter Property="Foreground" Value="#FF838383"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyleBar" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="#FFDDDDDD"/>
+            <Setter Property="BorderBrush" Value="#FF707070"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True" Background="#FF566573">
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF4B5F72"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#7F1C1F23"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                <Setter Property="Foreground" Value="#FF838383"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" >
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <DockPanel Background="#17202A" >
+            <Label Content="MAR" DockPanel.Dock="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="36" />
+
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ListBox ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListBox.Resources>
+                        <Style TargetType="{x:Type Expander}">
+                            <Setter Property="IsExpanded"
+           Value="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"/>
+                        </Style>
+                    </ListBox.Resources>
+                    <ListBox.Template>
+                        <ControlTemplate TargetType="{x:Type ListBox}">
+                            <ItemsPresenter/>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <!--<Expander >
+                        <Expander.Header>
+                            <BulletDecorator>
+                                -->
+                    <!--<BulletDecorator.Bullet>
+                                    <Image Source="Iconos/Pedidos.png" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </BulletDecorator.Bullet>-->
+                    <!--
+                                <TextBlock Margin="10,0,0,0" Text="Loterias" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
+                            </BulletDecorator>
+                        </Expander.Header>
+                        <StackPanel Margin="0 10">
+                            <Button Click="Button_Click" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Jugadas" FontSize="14"/>
+
+                        </StackPanel>
+                    </Expander>-->
+             
+                    <Expander Background="#273746" IsExpanded="True" >
+                        <Expander.Header>
+                            <BulletDecorator Height="40">
+                                <!--<BulletDecorator.Bullet>
+                                    <Image Source="Iconos/Pedidos.png" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </BulletDecorator.Bullet>-->
+                                <TextBlock Margin="10,0,0,0" Text="Ventas" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
+                            </BulletDecorator>
+                        </Expander.Header>
+                        <StackPanel Margin="0 10">
+                            <Button Click="btnAbrirVentasMenu_Click" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Sorteos" FontSize="14"/>
+                            <Button Visibility="Collapsed" Click="btnAbrirVentasMenu_Click" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Recargas" FontSize="14"/>
+                            <Button Visibility="Collapsed" Click="btnAbrirVentasMenu_Click" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Reportes" FontSize="14"/>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Background="#273746" IsExpanded="True">
+                        <Expander.Header>
+                            <BulletDecorator Height="40">
+                                <!--<BulletDecorator.Bullet>
+                                    <Image Source="Iconos/Pedidos.png" Width="64" Height="64" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </BulletDecorator.Bullet>-->
+                                <TextBlock Margin="10,0,0,0" Text="Flujo" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
+                            </BulletDecorator>
+                        </Expander.Header>
+                        <StackPanel Margin="0 10">
+                            <Button Name="BotonCuadre" Click="Button_RealizarCuadreClick" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Cuadre del Dia" FontSize="14"/>
+                            <Button Name="btnProcesarMovimiento" Click="btnProcesarMovimiento_Click" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Movimientos" FontSize="14"/>
+                            <Button Name="btnConsultaDeMovimientos" Click="btnConsultaDeMovimientos_Click" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Reportes" FontSize="14"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <Button Click="BtnDesgloseTab" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Desglose de Caja" FontSize="14"/>
+                    
+                    <Button Click="BtnClose" Style="{DynamicResource ButtonStyleBar}" Foreground="white" Height="40" Content="Salir" FontSize="14"/>
+
+
+                </ListBox>
+            </Grid>
+
+            <!--<StackPanel Margin="0 10" Width="152">
+
+
+                <Button Visibility="Visible"   Padding="10"  Margin="0 5" HorizontalContentAlignment="Left" Name="btnVentasMenu" Click="btnAbrirVentasMenu_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource ButtonStyle2}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="136">
+                    <Button.Content >
+                        <TextBlock Width="125" Height="16" TextWrapping="WrapWithOverflow" FontSize="14" >Ventas</TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button  Padding="10" HorizontalContentAlignment="Left"   Margin="0 5" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource ButtonStyle2}" Click="Button_RealizarCuadreClick" HorizontalAlignment="Left" Width="137">
+                    <Button.Content>
+                        <TextBlock Width="125" Height="16" TextWrapping="Wrap" FontSize="14" >Cuadre del Dia</TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button HorizontalContentAlignment="Left"  Padding="10" Margin="0,5,-8,5" Name="btnProcesarMovimiento" Click="btnProcesarMovimiento_Click" Style="{DynamicResource ButtonStyle1}" Template="{DynamicResource ButtonBaseControlTemplate1}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" HorizontalAlignment="Left" Width="160" Height="41" >
+                    <Button.Resources>
+                        <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
+                            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Button.IsDefaulted" Value="True">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" TargetName="border">
+                                        <Setter.Value>
+                                            <SolidColorBrush Color="Black" Opacity="0.5"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{x:Null}"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="Button.IsDefault" Value="False"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                                </Trigger>
+                                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                                    <Setter Property="Foreground" Value="#FF838383"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Resources>
+                    <Button.Content>
+                        <TextBlock Width="139" Height="26" TextWrapping="Wrap" FontSize="14" >Registro Movimientos</TextBlock>
+                    </Button.Content>
+                </Button>
+
+                <Button HorizontalContentAlignment="Left"   Padding="10"  Margin="0 5" Name="btnConsultaDeMovimientos" Click="btnConsultaDeMovimientos_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource ButtonStyle2}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="140">
+                    <Button.Content>
+                        <TextBlock Width="125" Height="16" TextWrapping="Wrap" >Reportes</TextBlock>
+                    </Button.Content>
+                </Button>
+            </StackPanel>-->
+        </DockPanel>
+
+
+
+        <DockPanel Grid.Column="1"  >
+            <!--<Border Background="#FF032B44" Height="40"  DockPanel.Dock="Top" Margin="0,0,-5,0">
+                <DockPanel>
+                    <Label x:Name="lbMain_Title" DockPanel.Dock="Left" FontSize="16" FontWeight="Bold"  Foreground="White" FontFamily="Yu Gothic Medium" HorizontalAlignment="Center" Padding="17,5,5,5"></Label>
+                    <Label x:Name="lbMain_BancaBalanceActual" Content="Balance: $ 0.00"  HorizontalContentAlignment="Right" FontSize="16" FontWeight="Bold"  Foreground="White" FontFamily="Yu Gothic Medium" Padding="5,5,17,5"  ></Label>
+                </DockPanel>                
+            </Border>-->
+            <Grid Background="#273746" Height="40"  DockPanel.Dock="Top"  MouseDown="Grid_MouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="230"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label x:Name="lbMain_Title"  VerticalContentAlignment="Center"  FontSize="16" FontWeight="Bold"  Foreground="White" FontFamily="Yu Gothic Medium"></Label>
+                <Label x:Name="lbMain_BancaBalanceActual" Grid.Column="1" HorizontalContentAlignment="Center" Background="#28A745" Content="Balance: $ 0.00"   FontSize="18" FontWeight="Bold"  Foreground="White"   ></Label>
+                <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+                    <Button  x:Name="BtnManimize" Style="{DynamicResource ButtonStyleBar}" Width="40" Content="{StaticResource Minimize}" FontWeight="ExtraBlack" FontSize="18" Click="MinimizeButton"/>
+                    <Button  x:Name="BtnMaximize" Visibility="Collapsed" Style="{DynamicResource ButtonStyleBar}" Width="40" Content="{StaticResource Maximize}" FontWeight="ExtraBlack"  FontSize="18"  Click="MaximizeButton"/>
+                    <Button  Style="{DynamicResource ButtonStyleBar}" Width="40"  Content="{StaticResource Close}" Foreground="White" FontWeight="ExtraBlack"  FontSize="18" Click="CloseButton"/>
+                </StackPanel>
+
+            </Grid>
+            <ContentControl x:Name="ControlContent"     Content="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+        </DockPanel>
+
+
+
+
+
+        <!--<DockPanel Grid.Column="1" >
+            <Border Background="#FF032B44" Height="40"  DockPanel.Dock="Top">
+                <DockPanel>
+                    <Label x:Name="lbMain_Title" DockPanel.Dock="Left" FontSize="16" FontWeight="Bold"  Foreground="White" FontFamily="Yu Gothic Medium" HorizontalAlignment="Center" Padding="17,5,5,5"></Label>
+                    <Label x:Name="lbMain_BancaBalanceActual" Content="Balance: $ 0.00" DockPanel.Dock="Right" HorizontalContentAlignment="Right" FontSize="16" FontWeight="Bold"  Foreground="White" FontFamily="Yu Gothic Medium" Padding="5,5,17,5"  ></Label>
+                </DockPanel>
+            </Border>
+            <ContentControl   HorizontalAlignment="Stretch"  Content="{Binding}" DockPanel.Dock="Top" />
+        </DockPanel>-->
+
+
+
+
+
+
+
+    </Grid>
+</Window>

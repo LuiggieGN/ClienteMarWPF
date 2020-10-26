@@ -19,13 +19,13 @@ namespace ClienteMarWPF.DataAccess.Services
 {
     public class BancaDataService : IBancaService
     {
-        public static LocalBL lcvr;
-        private static FlujoServices.mar_flujoSoapClient flujoSvr;
+        public static LocalBL soapClienteRepository;
+        private static FlujoServices.mar_flujoSoapClient flujoCliente;
 
         static BancaDataService()
         {
-            lcvr = new LocalBL();
-            flujoSvr = lcvr.GetFlujoServiceClient(false);
+            soapClienteRepository = new LocalBL();
+            flujoCliente = soapClienteRepository.GetFlujoServiceClient(false);
         }
 
 
@@ -66,7 +66,7 @@ namespace ClienteMarWPF.DataAccess.Services
                 FlujoServices.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
                 {
                     return
-                           flujoSvr.CallFlujoIndexFunctionAsync(
+                           flujoCliente.CallFlujoIndexFunctionAsync(
                                (int)FlujoEfectivoRoutingFunctions.GetBancaCajaId,
                                 sesion,
                                 colleccionParametros
@@ -107,7 +107,7 @@ namespace ClienteMarWPF.DataAccess.Services
                 FlujoServices.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
                 {
                     return
-                           flujoSvr.CallFlujoIndexFunctionAsync(
+                           flujoCliente.CallFlujoIndexFunctionAsync(
                                (int)FlujoEfectivoRoutingFunctions.GetCajaBalanceActual,
                                 sesion,
                                 colleccionParametros

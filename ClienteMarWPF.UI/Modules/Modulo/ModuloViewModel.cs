@@ -48,7 +48,6 @@ namespace ClienteMarWPF.UI.Modules.Modulo
 
 
         public ICommand BancaBalanceConsultaCommand { get; }
-
         public ICommand OtroBancaIdCommand { get; }
 
 
@@ -62,17 +61,11 @@ namespace ClienteMarWPF.UI.Modules.Modulo
               
               
             this.BancaBalanceConsultaCommand = new BancaBalanceConsultaCommand(this, bancaService, MainWindowViewModel.MarSession);
-            this.OtroBancaIdCommand = new ActionCommand( x => OtroBancaId() );
+            this.OtroBancaIdCommand = new GeneraOtroBancaIdCommand(this);
         }
 
 
-        protected void OtroBancaId() 
-        {
-            Random rnd = new Random();
-            this.BancaId = rnd.Next(1, 13);
-            this.BancaMensaje = $"Balance de Bancas Id = {this.BancaId}";
-            this.BalanceConsultado = "Balance  ... ";
-        }
+ 
 
 
 

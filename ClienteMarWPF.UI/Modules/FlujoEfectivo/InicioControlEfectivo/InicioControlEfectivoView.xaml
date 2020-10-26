@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo.InicioControlEfectivoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"               
+             d:DesignHeight="680" d:DesignWidth="800">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"  />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Image Source="pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Images/fondo.png" />
+            <Label Content="Comienza cuadrando tu caja." FontSize="28" Margin="5" HorizontalAlignment="Center"/>
+            <!--<Button  Name="btnProcesar" Width="170" Height="46" Margin="5" BorderBrush="{x:Null}" FontFamily="Segoe UI Historic" Foreground="White" Background="#FF53C157" FontSize="16" Click="Procesar" >-->
+            <Button  Name="btnProcesar" Width="170" Height="46" Margin="5" BorderBrush="{x:Null}" FontFamily="Segoe UI Historic" Foreground="White" Background="#FF53C157" FontSize="16"   >
+                    Iniciar Flujo Efectivo
+            </Button>
+        </StackPanel>
+        <!--<WrapPanel Grid.Column="1" Grid.Row="1" >
+            <Button  Name="btnProcesar" Width="170" Height="46" Margin="5" BorderBrush="{x:Null}" FontFamily="Segoe UI Historic" Foreground="White" Background="#FF53C157" FontSize="16" Click="Procesar" >
+                Iniciar Flujo Efectivo
+            </Button>
+        </WrapPanel>-->
+
+        <!--Info Dialogo-->
+        <Grid x:Name="modalInfo" Panel.ZIndex="100"  Grid.ColumnSpan="1" Grid.RowSpan="1" Background="#83000000" Visibility="Collapsed" >
+            <StackPanel x:Name="token" Width="400" Height="200"  Margin=" 0 100"  Orientation="Vertical"  Background="White" HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <TextBlock x:Name="txtBlock"  FontSize="18" Margin="34,30,28,10"  HorizontalAlignment="Center" Width="338"  TextWrapping="WrapWithOverflow" Height="87">Usted tiene un balance de tanto en base a la ventas y los pagos a ganadores del dia de Hoy.</TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Margin="10">
+                    <!--<Button x:Name="BotonCancelar" Style="{DynamicResource btnCancelIcon}" Content="Cancelar" Foreground="White" Width="120"  Click="Cancelar"/>
+                    <Button x:Name="BotonAceptar" Style="{DynamicResource btnAcceptIcon}" Content="Aceptar" Foreground="White" Width="120"  Click="Aceptar"/>-->                    
+                    <Button x:Name="BotonCancelar" Style="{DynamicResource btnCancelIcon}" Content="Cancelar" Foreground="White" Width="120"   />
+                    <Button x:Name="BotonAceptar" Style="{DynamicResource btnAcceptIcon}" Content="Aceptar" Foreground="White" Width="120"  />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+
+    </Grid>    
+    
+    <!--<DockPanel Margin="40,75,40,0" Background="#fff">
+        <Button DockPanel.Dock="Top" Height="50">MODULO</Button>
+
+        <StackPanel Orientation="Vertical" Margin="0 30 0 0" Width="413" HorizontalAlignment="Left">
+
+
+            <TextBlock HorizontalAlignment="Left"  Text="{Binding BancaMensaje, UpdateSourceTrigger=PropertyChanged}"  Width="342" Margin="20 20 0 10" Background="Gray" Foreground="#FFF" Height="30" FontSize="18"  Padding="0 3 0 0"/>
+
+            <TextBlock  HorizontalAlignment="Left" Text="{Binding BalanceConsultado, UpdateSourceTrigger=PropertyChanged}"  Width="341" Margin="20"  Background="Gray"    Foreground="#FFF" Height="30" FontSize="18" Padding="0 3 0 0"/>
+
+            <Button  HorizontalAlignment="Left" Command="{Binding BancaBalanceConsultaCommand}" Content="Consultar Balance desde Servicio"   FontSize="18" Width="340" Background="#CCEEBD" Foreground="#000" BorderBrush="#FF307CD6" Margin="20,30" Height="50" />
+
+            <Button  HorizontalAlignment="Right" Command="{Binding OtroBancaIdCommand}" Content="Buscar Otro Banca ID"   FontSize="18" Width="215" Background="red" Foreground="#FFF" BorderBrush="#FF307CD6" Margin="50,10" Height="50" />
+
+
+        </StackPanel>
+
+    </DockPanel>-->
+
+</UserControl>

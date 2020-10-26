@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="mar.do" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="mar.do" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="mar.do">
+      <s:element name="CallFlujoIndexFunction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pMetodo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pSesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Session">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sesion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastTck" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastPin" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrinterSize" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrinterHeader" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrinterFooter" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_FlujoResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OK" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CallFlujoIndexFunctionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CallFlujoIndexFunctionResult" type="tns:MAR_FlujoResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CallFlujoIndexFunctionSoapIn">
+    <wsdl:part name="parameters" element="tns:CallFlujoIndexFunction" />
+  </wsdl:message>
+  <wsdl:message name="CallFlujoIndexFunctionSoapOut">
+    <wsdl:part name="parameters" element="tns:CallFlujoIndexFunctionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="mar_flujoSoap">
+    <wsdl:operation name="CallFlujoIndexFunction">
+      <wsdl:input message="tns:CallFlujoIndexFunctionSoapIn" />
+      <wsdl:output message="tns:CallFlujoIndexFunctionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="mar_flujoSoap" type="tns:mar_flujoSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CallFlujoIndexFunction">
+      <soap:operation soapAction="mar.do/CallFlujoIndexFunction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="mar_flujoSoap12" type="tns:mar_flujoSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CallFlujoIndexFunction">
+      <soap12:operation soapAction="mar.do/CallFlujoIndexFunction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="mar_flujo">
+    <wsdl:port name="mar_flujoSoap" binding="tns:mar_flujoSoap">
+      <soap:address location="http://localhost:14217/mar-flujo.asmx" />
+    </wsdl:port>
+    <wsdl:port name="mar_flujoSoap12" binding="tns:mar_flujoSoap12">
+      <soap12:address location="http://localhost:14217/mar-flujo.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

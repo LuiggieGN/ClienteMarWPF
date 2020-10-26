@@ -150,12 +150,12 @@
             </ContentPresenter.Resources>
 
             <ContentPresenter.Style>
-                <Style TargetType="{x:Type ContentPresenter}">
+                <Style TargetType="{x:Type ContentPresenter}" >
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                        <DataTrigger Binding="{Binding EstaLogueado}" Value="False">
                             <Setter Property="ContentTemplate" Value="{StaticResource LoginPresentacion}" />                 
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="True">
+                        <DataTrigger Binding="{Binding EstaLogueado}" Value="True">
                             <Setter Property="ContentTemplate" Value="{StaticResource ClientePresentacion}" />
                         </DataTrigger>
                     </Style.Triggers>

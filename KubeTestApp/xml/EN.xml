@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfLocalizeLabelItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LocalizeLabelItem>
+    <key>Money</key>
+    <value>EUR</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>TotalStake</key>
+    <value>Total:</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>TotalPrice</key>
+    <value>Total price:</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>MaxReturn</key>
+    <value>Max return:</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>PlaceDate</key>
+    <value>Sold on</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>PlaceTime</key>
+    <value>at</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>User</key>
+    <value>Operator</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>TerminalID</key>
+    <value>Terminal</value>
+  </LocalizeLabelItem>
+</ArrayOfLocalizeLabelItem>

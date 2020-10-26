@@ -5,8 +5,11 @@ namespace ClienteMarWPF.UI.ViewModels.Commands
 {
     public class ActionCommand : ICommand
     {
-        private readonly Action<object> _action;
-        private readonly Predicate<object> _canExecute;
+        private Action<object> _action;
+        private Predicate<object> _canExecute;
+
+
+        public ActionCommand() { }
 
         public ActionCommand(Action<object> action): this(action, null) { }
 
@@ -14,6 +17,17 @@ namespace ClienteMarWPF.UI.ViewModels.Commands
         {
             _action = action;
             _canExecute = canExecute;        
+        }
+
+        protected virtual void SetAction(Action<object>action)
+        {
+            SetAction(action, null);
+        }
+
+        protected virtual void SetAction(Action<object> action, Predicate<object> canExecute) 
+        {
+            _action = action;
+            _canExecute = canExecute;
         }
 
         public event  EventHandler CanExecuteChanged 
