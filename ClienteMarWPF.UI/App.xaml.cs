@@ -33,8 +33,10 @@ using ClienteMarWPF.UI.Modules.Sorteos;
 using ClienteMarWPF.Domain.Services.BancaService;
 using ClienteMarWPF.UI.Modules.CincoMinutos;
 using ClienteMarWPF.UI.Modules.Recargas;
-using ClienteMarWPF.UI.Modules.Mensajeria;
+using ClienteMarWPF.UI.Modules.Mensajeria; 
+using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
+ 
 
 namespace ClienteMarWPF.UI
 {
@@ -96,10 +98,18 @@ namespace ClienteMarWPF.UI
                 services => new MensajeriaViewModel()
             );
 
+
+            services.AddSingleton<PagoServiciosViewModel>(
+                services => new PagoServiciosViewModel()
+            );
+
+
             services.AddSingleton<InicioControlEfectivoViewModel>(
                 services => new InicioControlEfectivoViewModel(
                 )
             );
+
+ 
 
             ///@@ Habilta Navegacion entre modulos de la aplicacion
 
@@ -139,13 +149,18 @@ namespace ClienteMarWPF.UI
             {
                 return () => services.GetRequiredService<MensajeriaViewModel>();
             });
-
+ 
+            services.AddSingleton<CreateViewModel<PagoServiciosViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<PagoServiciosViewModel>();
+            });
+            
+            
             services.AddSingleton<CreateViewModel<InicioControlEfectivoViewModel>>(services =>
             {
                 return () => services.GetRequiredService<InicioControlEfectivoViewModel>();
             });
-
-
+ 
 
             services.AddSingleton<Renavigator<HomeViewModel>>();
             services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>

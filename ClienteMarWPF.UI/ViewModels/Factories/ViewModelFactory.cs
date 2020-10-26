@@ -8,6 +8,7 @@ using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
 using ClienteMarWPF.UI.Modules.Mensajeria;
 using ClienteMarWPF.UI.Modules.Modulo;
+using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Reporte;
 using ClienteMarWPF.UI.Modules.Sorteos;
@@ -29,8 +30,10 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         private readonly CreateViewModel<SorteosViewModel> _createSorteosViewModel;
         private readonly CreateViewModel<CincoMinutosViewModel> _createCincoMinutosViewModel;
         private readonly CreateViewModel<RecargasViewModel> _createRecargasViewModel;
-        private readonly CreateViewModel<MensajeriaViewModel> _createMensajeriaViewModel;
-        private readonly CreateViewModel<InicioControlEfectivoViewModel> _createInicioControlEfectivoViewModel;
+        private readonly CreateViewModel<MensajeriaViewModel> _createMensajeriaViewModel; 
+        private readonly CreateViewModel<PagoServiciosViewModel> _createPagoServiciosViewModel;
+        private readonly CreateViewModel<InicioControlEfectivoViewModel> _createInicioControlEfectivoViewModel;       
+ 
 
         public ViewModelFactory(
            CreateViewModel<HomeViewModel> createHomeViewModel,
@@ -40,8 +43,10 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
            CreateViewModel<SorteosViewModel> createSorteosViewModel,
            CreateViewModel<CincoMinutosViewModel> createCincoMinutosViewModel,
            CreateViewModel<RecargasViewModel> createRecargasViewModel,
-           CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel,
+           CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel, 
+           CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel,
            CreateViewModel<InicioControlEfectivoViewModel> createInicioControlEfectivoViewModel
+ 
         )
         {
             _createHomeViewModel = createHomeViewModel;
@@ -51,8 +56,10 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
             _createSorteosViewModel = createSorteosViewModel;
             _createCincoMinutosViewModel = createCincoMinutosViewModel;
             _createRecargasViewModel = createRecargasViewModel;
-            _createMensajeriaViewModel = createMensajeriaViewModel;
+            _createMensajeriaViewModel = createMensajeriaViewModel; 
+            _createPagoServiciosViewModel = createPagoServiciosViewModel;
             _createInicioControlEfectivoViewModel = createInicioControlEfectivoViewModel;
+ 
         }
 
         /// <summary>
@@ -78,8 +85,10 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
                     return _createRecargasViewModel();               
                 case ViewTypeEnum.Mensajeria:
                     return _createMensajeriaViewModel();
+                case ViewTypeEnum.PagoServicios:
+                    return _createPagoServiciosViewModel();
                 case ViewTypeEnum.InicioControlEfectivo:
-                    return _createInicioControlEfectivoViewModel();
+                    return _createInicioControlEfectivoViewModel(); 
                 default:
                     throw new ArgumentException("El ViewType no tiene ViewModel.", "viewType");
             }

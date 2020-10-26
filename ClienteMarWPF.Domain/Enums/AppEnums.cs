@@ -16,8 +16,9 @@ namespace ClienteMarWPF.Domain.Enums
         CincoMinutos = 5,
         Recargas = 6,
         Mensajeria = 7,
-
-        InicioControlEfectivo = 100,
+        PagoServicios = 8,
+        InicioControlEfectivo = 100        
+ 
     }
 
     /// <summary>

@@ -142,9 +142,9 @@
                         <materialDesign:PackIcon Kind="MobilePhone" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                         <TextBlock Text="Recargas" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                     </StackPanel>
-                </Button>      
-                
-                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
+                </Button>
+
+                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.PagoServicios}">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="AttachMoney" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                         <TextBlock Text="Paga Facil" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
