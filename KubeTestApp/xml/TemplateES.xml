@@ -1,0 +1,99 @@
+<Commands Path="xml" Language="ES">
+  <!-- Reset -->
+  <Command name="Reset"/>
+  <!-- Print company logo -->
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="DefineImage" Filename="image\logo.png"/>
+  <Command name="PrintImageDefined" PrintMode="normal"/>
+  <Command name="NewLine" />
+  <!-- Starting sets and print receiptID (barcode) -->
+  <Command name="LineFeed" Line="1" />
+  <Command name="SetFont" Font="Large" />
+  <Command name="SetLeftMargin" Margin="20" />
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="SetCharSize" X="2" Y="1" />
+  <Command name="PrintString" Mapping="ReceiptID" LineFeed="Yes" />
+  <Command name="SetCharSize" X="1" Y="1" />
+  <Command name="SetHAlign" Align="Left" />
+  <Command name="LineFeed" Line="2" />
+  <Command name="SetFont" Font="Small" />
+  <Command name="SetLeftMargin" Margin="20" />
+  <!-- Print legs info -->
+  <Command name="Loop" On="Legs">
+    <Command name="PrintString" Mapping="EventDescription" LineFeed="No" />
+    <Command name="SetPosition" X="400" />
+    <Command name="PrintString" Mapping="EventDate" Format="dd.MM.yy HH:mm" LineFeed="Yes" />
+    <Command name="PrintString" Mapping="MarketDescription" LineFeed="Yes" />
+    <Command name="PrintString" String="(" LineFeed="No" />
+    <Command name="PrintString" Mapping="SelectionDescription" LineFeed="No" />
+    <Command name="PrintString" String="): " LineFeed="No" />
+    <Command name="SetPosition" X="400" />
+    <Command name="PrintString"  Mapping="Price" Format="0.00" LineFeed="No" />
+    <Command name="UnitFeed" Unit="2" />
+    <Command name="PrintString" String="______________________________________________________" LineFeed="Yes" />
+    <!--<Command name="PrintString" Mapping="EventDescription" LineFeed="No" />
+    <Command name="SetPosition" X="400" />
+    <Command name="PrintString" Mapping="MarketDescription" LineFeed="Yes" />
+    <Command name="PrintString" Mapping="EventDate" Format="dd.MM.yy HH:mm" LineFeed="No" />
+    <Command name="PrintString" String="		(" LineFeed="No" />
+    <Command name="PrintString" Mapping="SelectionDescription" LineFeed="No" />
+    <Command name="PrintString" String="):		" LineFeed="No" />
+    <Command name="PrintString" Mapping="Price" Format="0.00" LineFeed="No" />
+    <Command name="UnitFeed" Unit="2" />
+    <Command name="PrintString" String="_________________________________________________" LineFeed="Yes" />-->
+  </Command>
+  <!-- Print summary info -->
+  <Command name="LineFeed" Line="1" />
+  <Command name="SetHAlign" Align="Left" />
+  <!-- total stake -->
+  <Command name="PrintLabel" LabelKey="TotalStake" LineFeed="No" />
+  <Command name="SetPosition" X="230" />
+  <Command name="PrintMoney" Mapping="Amount" ShowCurrency="Yes" LineFeed="Yes" FixedLen="15" FillOnLeft="true"  />
+  <!-- total price -->
+  <Command name="PrintLabel" LabelKey="TotalPrice" LineFeed="No" />
+  <Command name="SetPosition" X="230" />
+  <Command name="PrintMoney" Mapping="FinalPrice" ShowCurrency="No" LineFeed="Yes" FixedLen="11" FillOnLeft="true"  />
+  <!-- total price -->
+  <Command name="PrintLabel" LabelKey="MaxReturn" LineFeed="No" />
+  <Command name="SetPosition" X="230" />
+  <Command name="PrintMoney" Mapping="PossibleReturn" ShowCurrency="Yes" LineFeed="Yes" FixedLen="15" FillOnLeft="true" />
+  <Command name="LineFeed" Line="1" />
+  <!-- place date time -->
+  <Command name="SetHAlign" Align="Left" />
+  <Command name="PrintLabel" LabelKey="PlaceDate" LineFeed="No" />
+  <Command name="PrintString" Mapping="PlaceDate" Format="dd.MM.yy" LineFeed="No" />
+  <Command name="PrintLabel" LabelKey="PlaceTime" LineFeed="No" />
+  <Command name="PrintString" Mapping="PlaceDate" Format="HH:mm:ss" LineFeed="No" />
+  <Command name="PrintString" String=" h" LineFeed="Yes" />
+  <!-- company info -->
+  <Command name="SetLeftMargin" Margin="60" />
+  <Command name="PrintString" String="MyBet España, S.A.   CIF:XXXXXX" LineFeed="Yes" />
+  <Command name="PrintString" String="C/ Mayor, 1° - 28000 Madrid" LineFeed="Yes" />
+  <Command name="PrintString" String="N° de registro del juego CAM: AP-000000" LineFeed="Yes" />
+  <!-- terminal -->
+  <Command name="PrintString" String="Sucursal " LineFeed="No" />
+  <Command name="PrintString" Mapping="TerminalID" LineFeed="No" />
+  <Command name="PrintString" String=" " LineFeed="No" />
+  <Command name="PrintLabel" LabelKey="TerminalID" LineFeed="Yes" />
+  <Command name="PrintString" String="Apuesta Contrapartida - " LineFeed="No" />
+  <Command name="PrintString" Mapping="BetType" LineFeed="Yes" />
+  <!-- user -->
+  <Command name="SetLeftMargin" Margin="20" />
+  <Command name="PrintLabel" LabelKey="User" LineFeed="No" />
+  <Command name="PrintString" Mapping="UserName" LineFeed="Yes" />
+  <!-- Print receiptID as barcode -->
+  <Command name="LineFeed" Line="1" />
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="PrintBarCode" Mapping="ReceiptID" Font="Large" TextPosition="Down" Height="162" Barcode="CODE93"/>
+  <Command name="SetHAlign" Align="Left" />
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="NewLine" />
+  <!-- Print company logo -->
+  <Command name="LineFeed" Line="3" />
+  <!--<Command name="DefineImage" Filename="image\winnerslogoBN.bmp"/>
+  <Command name="PrintImageDefined" PrintMode="normal"/>
+  <Command name="NewLine" />
+  <Command name="SetHAlign" Align="Left" />-->
+  <!-- Cut paper -->
+  <Command name="CutPaper"/>
+</Commands>

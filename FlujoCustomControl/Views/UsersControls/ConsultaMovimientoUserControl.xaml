@@ -1,0 +1,300 @@
+﻿<UserControl x:Class="FlujoCustomControl.Views.UsersControls.ConsultaMovimientoUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlujoCustomControl"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d" Background="#fff" FontSize="14" FontFamily="Segoe UI Emoji"  >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+        <local:RadioConverter x:Key="RadioConverter"/>
+        <BooleanToVisibilityConverter  x:Key="BooleanToVisibilityConverter" />
+        <local:CellTipoMovimientoConverter x:Key="CellTipoMovimientoConverter" />
+        <Image x:Key="ResetICon"  Source="pack://application:,,,/FlujoCustomControl;component/Resources/Images/Reset.ico" />
+        <BitmapImage  x:Key="MoneyInput"  UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/MoneyInput.ico" />
+        <BitmapImage x:Key="MoneyOutput"  UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/MoneyOutput.ico" />
+        <BitmapImage x:Key="SearchIcon"  UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/Search.ico" />
+        <BitmapImage x:Key="RefreshIcon"  UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/RefreshIco.ico" />
+        <BitmapImage x:Key="BackIcon"  UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/Back.ico" />
+
+        <BitmapImage x:Key="FirstPageIcon"  UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/FirstPage.ico" />
+        <BitmapImage x:Key="LastPageIcon"   UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/LastPage.ico" />
+        <BitmapImage x:Key="RightArrowIcon" UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/RightArrow.ico"  />
+        <BitmapImage x:Key="LeftArrowIcon"  UriSource="pack://application:,,,/FlujoCustomControl;component/Resources/Images/LeftArrow.ico" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/FlujoCustomControl;component/Themes/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="rootElement"  RenderTransformOrigin="0.495,0.339" 
+        >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+
+            <Style x:Key="inlineTextBox" TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="10,5,10,0"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+
+            <Style x:Key="inlineText" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="10,5,10,0"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style x:Key="titleText" TargetType="{x:Type TextBlock}">
+                <Setter Property="DockPanel.Dock" Value="Top"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="10,5,10,0"/>
+            </Style>
+            <Style x:Key="btnStandard"  TargetType="{x:Type Button}">
+                <Setter Property="Margin" Value="10,5,10,0"/>
+                <Setter Property="Width" Value="60"/>
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="10,5,10,0"/>
+            </Style>
+            <Style x:Key="CentrarContenidoCelda"  TargetType="{x:Type  DataGridCell}" >
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="toogleStyle"  BasedOn="{StaticResource { x:Type   ToggleButton}}"  TargetType="{x:Type RadioButton}">
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="true">
+                        <Setter Property="Background" Value="#eee"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="FrameworkElement" x:Key="VisibleAnimation">
+                <Setter Property="Visibility" Value="Collapsed"/>
+                <Setter Property="Opacity" Value="0"/>
+                <Style.Triggers>
+                    <Trigger Property="Visibility" Value="Visible">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                          From="0.0" To="1.0" Duration="0:0:0.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="SelectedRemoved" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                <Setter Property="Foreground" Value="Black" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{x:Null}" />
+                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+        </Grid.Resources>
+        
+        <!--Rango de fecha-->
+        <StackPanel Grid.Row="1"   Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 15">
+            <StackPanel Orientation="Horizontal" Visibility="{Binding Path= IsVisibleSeccionRangoFecha,  Converter= {StaticResource BooleanToVisibilityConverter} }" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <Button Name="btnCerrarFiltro" Margin="5 0"  Command="{Binding Path=BtnCerrarFiltroCommand}" Style="{DynamicResource Info}" CommandParameter="Cerrar filtro"  Width="40">
+                    <DockPanel>
+                        <fa:ImageAwesome Icon="ArrowCircleLeft" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="20" />
+                    </DockPanel>
+                </Button>
+
+                <TextBlock  Text="Desde " Margin="5 0" FontSize="12" VerticalAlignment="Center" />
+
+                <DatePicker Name="pickerFecaInicio"  
+                            Height="28" 
+                            Width="167"   
+                            Margin="5 0"
+                            SelectedDate="{Binding  FechaInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat = {}{0:dd-MM-yyyy}}" >
+
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="PART_TextBox" Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd-MM-yyyy}, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" Height="26" Margin="2,0,0,0" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+
+                </DatePicker>
+
+
+
+                <TextBlock  Text="Hasta " Margin="5 0" FontSize="12" VerticalAlignment="Center" />
+                <DatePicker Name="pickerFechaCierre" 
+                            Height="28"
+                            Width="170"  
+                            Margin="5 0"
+                            SelectedDate="{Binding FechaFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat = {}{0:dd-MM-yyyy}}">
+
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="PART_TextBox" Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd-MM-yyyy}, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" Height="30" Margin="1,0,0,0" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+
+                </DatePicker>
+
+
+                <Button Name="btnFiltarPorRangoFecha" Margin="5 0" Style="{DynamicResource Secondary}" Width="40" Command="{Binding Path=BtnFiltrarPorRangoFechaCommand}" CommandParameter="Buscar" >
+                    <DockPanel>
+                        <fa:ImageAwesome Icon="Search" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="15" />
+                    </DockPanel>
+                </Button>
+
+            </StackPanel>
+            <WrapPanel  Visibility="{Binding Path=IsVisibleSeccionPeriodoCombobox, Converter={StaticResource BooleanToVisibilityConverter} }">
+                <ComboBox  
+                   Name="cbxSeleccionPeriodo"
+                   ItemsSource="{Binding Path=ColeccionPeriodosDeTiempo}"
+                   SelectedItem="{Binding Path=PeriodoTiempo, Mode=TwoWay}"
+                   DisplayMemberPath="PeriodoDescripcion"
+                   Margin="5 0" 
+                    Style="{DynamicResource Select}"
+                   Width="177" Height="33" 
+                   VerticalContentAlignment="Center" 
+                    ></ComboBox>
+
+                <Button Name="btnRefrescar" Style="{DynamicResource Secondary}" Width="40" Command="{Binding Path=BtnRefrescarCommand}" CommandParameter="Refrescar"  ToolTip="Refrescar">
+                    <DockPanel>
+                        <fa:ImageAwesome Icon="Refresh" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="15" />
+                    </DockPanel>
+                </Button>
+            </WrapPanel>
+        </StackPanel>
+
+
+        <!--Tabla de Contenido-->
+
+        <DataGrid Grid.Row="1"  Margin="12,70,4,209"  ItemsSource="{Binding MovimientoPagerView.ColeccionElementos}" IsReadOnly="True" AutoGenerateColumns="false"  CellStyle="{StaticResource SelectedRemoved}"  AlternatingRowBackground="#FFE4F1F5"   CanUserDeleteRows="False" CanUserSortColumns="False" Height="407">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Height" Value="Auto"/>
+                    <Setter Property="MinHeight" Value="40"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <!--<DataGridTextColumn  Header="#"            Binding="{Binding Path=Orden}" MinWidth="40" CellStyle="{StaticResource CentrarContenidoCelda}"   Foreground="Black"     />-->
+                <DataGridTemplateColumn Header="Concepto" MinWidth="140" MaxWidth="143">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                <TextBlock   Text="{Binding Path=CategoriaConcepto}"  TextWrapping="Wrap" TextAlignment="Left" Margin="0,2,0,0" Foreground="Black" FontSize="12"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Descripción" MinWidth="190" MaxWidth="197">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                <TextBlock    Text="{Binding Path=Descripcion}"    TextWrapping="Wrap" TextAlignment="Left" Margin="0,2,0,0" Foreground="Black"/>
+                                <TextBlock    Text="{Binding Path=ReferenciaFormato}"  TextWrapping="Wrap" TextAlignment="Left"  FontSize="12" Foreground="#c1c1c1"  Margin="0,2,0,2"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Entrada/Salida"    Binding="{Binding Path= EntradaOSalidaEnFormato}" CellStyle="{StaticResource CentrarContenidoCelda}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource CellTipoMovimientoConverter}">
+                                        <Binding Path="Categoria"></Binding>
+                                        <Binding Path="EntradaOSalida"></Binding>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Fecha" MinWidth="140" MaxWidth="143">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                <TextBlock    Text="{Binding Path=FechaEnFormato}"  TextWrapping="Wrap" TextAlignment="Left" Margin="0,2,0,0" Foreground="Black" FontSize="12"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridTextColumn  Header="Balance" Binding="{Binding Path=BalanceEnFormato}"    CellStyle="{StaticResource CentrarContenidoCelda}"  MinWidth="100"  Foreground="Black" />-->
+            </DataGrid.Columns>
+        </DataGrid>
+
+       
+
+
+        <!-- Pagination Controsl-->
+        <StackPanel Grid.Row="1"  Margin="10,486,20,152" Orientation="Horizontal"  Width="752" >
+            <Button     Style="{DynamicResource Dark}" Foreground="White" Margin="10 0"    Command="{Binding MovimientoPagerView.FirstCommand}" Padding="7,1" >
+                <DockPanel>
+                    <!--<Image DockPanel.Dock="Left" Source="{StaticResource  FirstPageIcon}"  Width="22"  />-->
+                    <TextBlock Text="Primera Pagina  " />
+                    <fa:ImageAwesome Icon="Backward" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="15" />
+                </DockPanel>
+            </Button>
+            <Button     Style="{DynamicResource Secondary}" Foreground="White"   Margin="10 0"    Command="{Binding MovimientoPagerView.PreviousCommand}" Padding="10">
+                <DockPanel>
+                    <!--<TextBlock DockPanel.Dock="Left" Text="&lt;"  Width="16"  />-->
+                    <fa:ImageAwesome Icon="CaretLeft" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="10" />
+                </DockPanel>
+            </Button>
+            <StackPanel  VerticalAlignment="Center" Margin=" 10 15 10 0 "   Orientation="Horizontal">
+                <TextBlock   Text="{Binding MovimientoPagerView.Start, Mode=OneWay}"/>
+                <TextBlock   Text=" al "/>
+                <TextBlock   Text="{Binding MovimientoPagerView.End, Mode=OneWay}"/>
+                <TextBlock     Text=" de " Height="34"/>
+                <TextBlock   Text="{Binding MovimientoPagerView.TotalItems, Mode=OneWay}"/>
+            </StackPanel>
+            <Button    Style="{DynamicResource Secondary}" Foreground="White" Margin="10 0"   Command="{Binding MovimientoPagerView.NextCommand}" Padding="10">
+                <DockPanel>
+                    <!--<TextBlock DockPanel.Dock="Left"  Text="&gt;"  Width="16"  />-->
+                    <fa:ImageAwesome Icon="CaretRight" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="10" />
+                </DockPanel>
+            </Button>
+            <Button   Style="{DynamicResource Dark}" Foreground="White" Margin="10 0"   Command="{Binding MovimientoPagerView.LastCommand}" Padding="7,1">
+                <DockPanel>
+                    <fa:ImageAwesome Icon="Forward" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Width="15" />
+                    <TextBlock Text="  Última Página"/>
+                </DockPanel>
+            </Button>
+        </StackPanel>
+        <!--End Pagination Control -->
+
+    </Grid>
+</UserControl>

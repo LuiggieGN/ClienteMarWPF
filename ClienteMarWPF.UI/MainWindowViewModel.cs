@@ -11,52 +11,70 @@ using ClienteMarWPF.UI.ViewModels.Commands;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.ViewModels.Factories;
- 
 
-
+using ClienteMarWPF.UI.State.Configurators;
+using ClienteMarWPF.Domain.Models.Dtos;
 
 namespace ClienteMarWPF.UI
 {
     public class MainWindowViewModel : BaseViewModel
     {
         public static FlujoServices.MAR_Session MarSession = new FlujoServices.MAR_Session();
+        private readonly IViewModelFactory factoriaViewModel;
+        private readonly INavigator navegadordeModulos;
+        private readonly IAuthenticator autenticador;
 
-        private readonly IViewModelFactory _viewModelFactory;
-        private readonly INavigator _navigator;
-        private readonly IAuthenticator _authenticator;
+        public bool EstaLogueado => autenticador?.IsLoggedIn??false;
+        
 
-        public bool IsLoggedIn => _authenticator?.IsLoggedIn??false;
-        public BaseViewModel CurrentViewModel => _navigator.CurrentViewModel;
+
+        public BaseViewModel CurrentViewModel => navegadordeModulos.CurrentViewModel;
+        public BancaConfiguracion BancaConfiguracion => autenticador?.BancaConfiguracion;
+
+
+
         public ICommand UpdateCurrentViewModelCommand { get; }
         public ICommand LogoutCommand { get; }
 
 
-        public MainWindowViewModel(INavigator navigator, IViewModelFactory viewModelFactory, IAuthenticator authenticator)
+        public MainWindowViewModel(INavigator navegadordeModulos, IViewModelFactory factoriaViewModel, IAuthenticator autenticador)
         {
-            LogoutCommand = new LogoutCommand(authenticator, navigator, viewModelFactory);
+            LogoutCommand = new LogoutCommand(autenticador, navegadordeModulos, factoriaViewModel);
+
+            this.factoriaViewModel = factoriaViewModel;       
+            
+            this.autenticador = autenticador;
+            this.autenticador.CurrentAccountStateChanged += Authenticator_AccountStateChanged;
+            this.autenticador.CurrentBancaConfiguracionStateChanged += Authenticator_BancaConfiguracionStateChanged;
+
+            this.navegadordeModulos = navegadordeModulos;
+            this.navegadordeModulos.StateChanged += Navigator_StateChanged;
 
 
-            _viewModelFactory = viewModelFactory;
-            _navigator = navigator;
-            _authenticator = authenticator;
-
-            _navigator.StateChanged += Navigator_StateChanged;
-            _authenticator.StateChanged += Authenticator_StateChanged;
-
-            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navigator, _viewModelFactory);
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navegadordeModulos, factoriaViewModel);
             UpdateCurrentViewModelCommand.Execute(ViewTypeEnum.Login);
         }
 
 
-        private void Authenticator_StateChanged()
+        private void Authenticator_AccountStateChanged()
         {
-            NotifyPropertyChanged(nameof(IsLoggedIn));
+            NotifyPropertyChanged(nameof(EstaLogueado));
+        }
+
+        private void Authenticator_BancaConfiguracionStateChanged()
+        {
+            NotifyPropertyChanged(nameof(BancaConfiguracion));
         }
 
         private void Navigator_StateChanged()
         {
             NotifyPropertyChanged(nameof(CurrentViewModel));
         }
+
+      
+
+
+
 
 
 

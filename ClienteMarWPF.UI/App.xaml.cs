@@ -11,6 +11,7 @@ using ClienteMarWPF.DataAccess.Services;
 using ClienteMarWPF.UI.State.Accounts;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
+using ClienteMarWPF.UI.State.Configurators;
 
 using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
@@ -33,6 +34,7 @@ using ClienteMarWPF.Domain.Services.BancaService;
 using ClienteMarWPF.UI.Modules.CincoMinutos;
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Mensajeria;
+using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
 
 namespace ClienteMarWPF.UI
 {
@@ -56,9 +58,7 @@ namespace ClienteMarWPF.UI
             IServiceCollection services = new ServiceCollection();
 
 
-            //@@ Registrando Servicios del Dominio (ClienteMarWPF.Domain)
-
-            
+            //@@ Registrando Servicios del Dominio (ClienteMarWPF.Domain)            
             services.AddSingleton<IAccountService, AccountDataService>();
             services.AddSingleton<IPasswordHasher<Usuario>, PersonalizedPasswordHasher>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
@@ -67,9 +67,6 @@ namespace ClienteMarWPF.UI
 
 
             ///@@ Registrando Servicio de Factoria de ViewModel y de los ( ViewModels de los modulos)
-
-
-
             services.AddSingleton<IViewModelFactory, ViewModelFactory>();
             services.AddSingleton<HomeViewModel>(
                 services => new HomeViewModel()
@@ -99,6 +96,10 @@ namespace ClienteMarWPF.UI
                 services => new MensajeriaViewModel()
             );
 
+            services.AddSingleton<InicioControlEfectivoViewModel>(
+                services => new InicioControlEfectivoViewModel(
+                )
+            );
 
             ///@@ Habilta Navegacion entre modulos de la aplicacion
 
@@ -139,6 +140,10 @@ namespace ClienteMarWPF.UI
                 return () => services.GetRequiredService<MensajeriaViewModel>();
             });
 
+            services.AddSingleton<CreateViewModel<InicioControlEfectivoViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<InicioControlEfectivoViewModel>();
+            });
 
 
 
@@ -154,6 +159,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<IAuthenticator, Authenticator>();
             services.AddSingleton<IAccountStore, AccountStore>();
+            services.AddSingleton<IConfiguratorStore, ConfiguratorStore>();
 
             services.AddScoped<MainWindowViewModel>();
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainWindowViewModel>()));

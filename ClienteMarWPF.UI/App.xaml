@@ -9,7 +9,8 @@
              xmlns:moduloSorteos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:moduloCincoMinutos="clr-namespace:ClienteMarWPF.UI.Modules.CincoMinutos"   
              xmlns:moduloRecargas="clr-namespace:ClienteMarWPF.UI.Modules.Recargas"   
-             xmlns:moduloMensajeria="clr-namespace:ClienteMarWPF.UI.Modules.Mensajeria"   
+             xmlns:moduloMensajeria="clr-namespace:ClienteMarWPF.UI.Modules.Mensajeria"  
+             xmlns:moflujoInicioControlEfectivo="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo"
              xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:local="clr-namespace:ClienteMarWPF.UI"   
                 
@@ -67,12 +68,16 @@
 
             <DataTemplate DataType="{x:Type  moduloMensajeria:MensajeriaViewModel}">
                 <moduloMensajeria:MensajeriaView />
-            </DataTemplate>
-            
+            </DataTemplate>            
             
             <DataTemplate DataType="{x:Type moduloLogin:LoginViewModel}">
-                <moduloLogin:LoginView  LoginCommand="{Binding LoginCommand}"    />
+                <moduloLogin:LoginView  LoginCommand="{Binding LoginCommand}"   />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type  moflujoInicioControlEfectivo:InicioControlEfectivoViewModel}">
+                <moflujoInicioControlEfectivo:InicioControlEfectivoView />
+            </DataTemplate>
+
             
             
         </ResourceDictionary>        

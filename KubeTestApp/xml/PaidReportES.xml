@@ -1,0 +1,43 @@
+<Commands Path="xml" Language="ES">
+  <!-- Reset -->
+  <Command name="Reset"/>
+  <!-- Starting sets and print header -->
+  <Command name="LineFeed" Line="1" />
+  <Command name="SetFont" Font="Large" />
+  <Command name="SetLeftMargin" Margin="20" />
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="SetCharSize" X="2" Y="1" />
+  <Command name="PrintString" String="Boletos pagados" LineFeed="Yes" />
+  <Command name="SetCharSize" X="1" Y="1" />
+  <Command name="PrintString" Mapping="PrintDate" Format="dd.MM.yy HH:mm" LineFeed="Yes" />
+  <Command name="SetHAlign" Align="Left" />
+  <Command name="LineFeed" Line="1" />
+  <Command name="SetFont" Font="Small" />
+  <Command name="SetLeftMargin" Margin="20" />
+  <!-- Print general info -->
+  <Command name="PrintString" String="Operador: " LineFeed="No" />
+  <Command name="PrintString" Mapping="UserName" LineFeed="Yes" />
+  <Command name="PrintString" String="Terminal de venta: " LineFeed="No" />
+  <Command name="PrintString" Mapping="TerminalID" LineFeed="Yes" />
+  <Command name="PrintString" String="Tienda: " LineFeed="No" />
+  <Command name="PrintString" Mapping="ShopID" LineFeed="Yes" />
+  <!-- Print paid info -->
+  <Command name="SetHAlign" Align="Right" />
+  <Command name="LineFeed" Line="1" />
+  <Command name="Loop" On="PaidList">
+    <Command name="PrintString" Mapping="ReceiptID" LineFeed="No" />
+    <Command name="PrintString" String="  " LineFeed="No" />
+    <Command name="PrintMoney" Mapping="PaidAmount" ShowCurrency="Yes" LineFeed="Yes" />
+  </Command>
+  <Command name="LineFeed" Line="1" />
+  <Command name="PrintString" String="Total:  " LineFeed="No" />
+  <Command name="PrintMoney" Mapping="TotalPaid" ShowCurrency="Yes" LineFeed="Yes" />
+  <Command name="LineFeed" Line="4" />
+  <!-- Print company logo -->
+  <!-- <Command name="DefineImage" Filename="image\logo.png"/>
+  <Command name="PrintImageDefined" PrintMode="normal"/>
+  <Command name="NewLine" />
+  <Command name="SetHAlign" Align="Left" />-->
+  <!-- Cut paper -->
+  <Command name="CutPaper"/>
+</Commands>

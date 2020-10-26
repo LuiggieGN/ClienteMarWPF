@@ -12,10 +12,14 @@ namespace ClienteMarWPF.UI.State.Authenticators
     public interface IAuthenticator
     {
         CuentaUsuario CurrentAccount { get; }
-        
+
+        BancaConfiguracion BancaConfiguracion { get; }
+
         bool IsLoggedIn { get; }
 
-        event Action StateChanged;
+        event Action CurrentAccountStateChanged;
+
+        event Action CurrentBancaConfiguracionStateChanged;
 
         Task Login(string username, string password);
 

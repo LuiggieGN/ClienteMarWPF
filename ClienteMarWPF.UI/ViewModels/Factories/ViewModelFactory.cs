@@ -11,7 +11,9 @@ using ClienteMarWPF.UI.Modules.Modulo;
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Reporte;
 using ClienteMarWPF.UI.Modules.Sorteos;
+using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
 using ClienteMarWPF.UI.State.Navigators;
+
 
 using ClienteMarWPF.UI.ViewModels.Base;
 
@@ -28,6 +30,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         private readonly CreateViewModel<CincoMinutosViewModel> _createCincoMinutosViewModel;
         private readonly CreateViewModel<RecargasViewModel> _createRecargasViewModel;
         private readonly CreateViewModel<MensajeriaViewModel> _createMensajeriaViewModel;
+        private readonly CreateViewModel<InicioControlEfectivoViewModel> _createInicioControlEfectivoViewModel;
 
         public ViewModelFactory(
            CreateViewModel<HomeViewModel> createHomeViewModel,
@@ -37,7 +40,8 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
            CreateViewModel<SorteosViewModel> createSorteosViewModel,
            CreateViewModel<CincoMinutosViewModel> createCincoMinutosViewModel,
            CreateViewModel<RecargasViewModel> createRecargasViewModel,
-           CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel
+           CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel,
+           CreateViewModel<InicioControlEfectivoViewModel> createInicioControlEfectivoViewModel
         )
         {
             _createHomeViewModel = createHomeViewModel;
@@ -48,14 +52,15 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
             _createCincoMinutosViewModel = createCincoMinutosViewModel;
             _createRecargasViewModel = createRecargasViewModel;
             _createMensajeriaViewModel = createMensajeriaViewModel;
+            _createInicioControlEfectivoViewModel = createInicioControlEfectivoViewModel;
         }
 
         /// <summary>
         ///    Factoria de viewmodels
         /// </summary>
-        public BaseViewModel CreateViewModel(ViewTypeEnum viewType)
+        public BaseViewModel CreateViewModel(ViewTypeEnum view)
         {
-            switch (viewType)
+            switch (view)
             {
                 case ViewTypeEnum.Home:
                     return _createHomeViewModel();
@@ -73,6 +78,8 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
                     return _createRecargasViewModel();               
                 case ViewTypeEnum.Mensajeria:
                     return _createMensajeriaViewModel();
+                case ViewTypeEnum.InicioControlEfectivo:
+                    return _createInicioControlEfectivoViewModel();
                 default:
                     throw new ArgumentException("El ViewType no tiene ViewModel.", "viewType");
             }

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="StartUp\Images\fondo.png" />
     <None Remove="StartUp\Images\LogoMAR_OriginalBlancoPeq.png" />
     <None Remove="StartUp\Images\Logo\MateoNetLogo.jpg" />
     <None Remove="StartUp\Images\Operador\AlticeB_logo.png" />
@@ -31,6 +32,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="StartUp\Images\fondo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Commands\FlujoEfectivo\" />
     <Folder Include="Views\AttachedProperties\" />
   </ItemGroup>
 
@@ -39,6 +47,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />
+    <PackageReference Include="System.Data.OleDb" Version="4.7.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,6 +93,18 @@
     <Resource Include="StartUp\Images\splashscreen-MarCliente-empty.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Modules\FlujoEfectivo\InicioControlEfectivo\InicioControlEfectivoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Modules\FlujoEfectivo\InicioControlEfectivo\InicioControlEfectivoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

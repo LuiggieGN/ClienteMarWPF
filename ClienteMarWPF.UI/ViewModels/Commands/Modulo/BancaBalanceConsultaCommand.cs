@@ -13,6 +13,9 @@ using System.Windows.Input;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Modulo
 {
+
+    // USO DE COMANDOS ASINCRONOS
+
     public class BancaBalanceConsultaCommand : AsyncCommandBase
     {
         private readonly ModuloViewModel _moduloViewModel;
@@ -48,6 +51,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Modulo
  
         }
 
+
+          
 
 
 

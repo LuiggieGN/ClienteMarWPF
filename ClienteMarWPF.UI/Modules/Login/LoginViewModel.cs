@@ -42,9 +42,9 @@ namespace ClienteMarWPF.UI.Modules.Login
 
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel(IAuthenticator authenticator, IRenavigator renavigator)
+        public LoginViewModel(IAuthenticator autenticador, IRenavigator renavigator)
         {
-            ErrorMessageViewModel = new MessageViewModel();  LoginCommand = new LoginCommand(this, authenticator, renavigator);
+            ErrorMessageViewModel = new MessageViewModel();  LoginCommand = new LoginCommand(this, autenticador, renavigator);
         }
 
 
