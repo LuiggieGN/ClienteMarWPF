@@ -51,6 +51,9 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                     splitaddress = _serverAddress.Split('/');
                 }
 
+          
+
+
                 splitaddress[splitaddress.Length - 1] = "mar-ptovta.asmx";
 
                 endpoint = new EndpointAddress(string.Join("/", splitaddress));

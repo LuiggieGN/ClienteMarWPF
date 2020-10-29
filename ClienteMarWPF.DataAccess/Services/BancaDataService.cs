@@ -11,7 +11,7 @@ using ClienteMarWPF.Domain.Enums;
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
 using ClienteMarWPF.Domain.Services.BancaService;
-
+  
 
 using ClienteMarWPF.DataAccess.Services.Helpers;
 
@@ -19,12 +19,13 @@ namespace ClienteMarWPF.DataAccess.Services
 {
     public class BancaDataService : IBancaService
     {
-        public static LocalBL soapClienteRepository;
+        public  static LocalBL soapClienteRepository;
         private static FlujoServices.mar_flujoSoapClient flujoCliente;
-
+        private static MarPuntoVentaServiceReference.PtoVtaSoapClient clientePuntoDeVenta;
         static BancaDataService()
         {
             soapClienteRepository = new LocalBL();
+            clientePuntoDeVenta = soapClienteRepository.GetPuntoDeVentaServiceClient(false);
             flujoCliente = soapClienteRepository.GetFlujoEfectivoServiceClient(false);
         }
 
