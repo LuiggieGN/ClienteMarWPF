@@ -17,7 +17,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Modulo
         {
             //                           :: (1) Este es el viewmodel que se va a modificar
             this.viewmodel = viewmodel;           
-
+                
             //                           :: (2) Esta es la accion que lo modificara
             
             Action<object> comando = new Action<object>(DameOtroBancaId);

@@ -23,24 +23,30 @@ namespace ClienteMarWPF.Domain.Services.AuthenticationService
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<CuentaUsuario> Login(string username, string password)
+        public CuentaDTO Login(string usuario, string clave, int bancaid, string ipaddress)
         {
 
-            CuentaUsuario cuentaUsuario = await _accountService.GetByUserName(username);
+            CuentaDTO cuentaDto = _accountService.Logon2(usuario, clave, bancaid, ipaddress);
 
-            if (cuentaUsuario == null)  
+            if (cuentaDto == null ||
+                cuentaDto.MAR_Setting2 == null ||
+                cuentaDto.MAR_Setting2.Sesion == null ||
+                cuentaDto.MAR_Setting2.Sesion.Err != null
+                )
             {
-                throw new UserNotFoundException(username);
+                throw new UserNotFoundException(cuentaDto?.MAR_Setting2?.Sesion?.Err ?? "No se pudo establecer conexión al servicio de MAR.", usuario);
             }
 
-            PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(cuentaUsuario.UsuarioHolder, string.Empty, string.Empty);
 
-            if (passwordResult != PasswordVerificationResult.Success)
-            {
-                throw new InvalidPasswordException(username, password);
-            }
 
-            return cuentaUsuario;
+            //PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(cuentaUsuario.UsuarioHolder, string.Empty, string.Empty);
+
+            //if (passwordResult != PasswordVerificationResult.Success)
+            //{
+            //    throw new InvalidPasswordException(username, password);
+            //}
+
+            return cuentaDto;
 
         }// fin de metodo Login( )
 

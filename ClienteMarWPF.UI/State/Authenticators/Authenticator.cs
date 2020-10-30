@@ -30,7 +30,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
             _configuratorStore = configuratorStore;
         }
 
-        public CuentaUsuario CurrentAccount
+        public CuentaDTO CurrentAccount
         {
             get
             {
@@ -43,7 +43,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
             }
         }
 
-        public BancaConfiguracion BancaConfiguracion
+        public BancaConfiguracionDTO BancaConfiguracion
         {
             get
             {
@@ -63,9 +63,9 @@ namespace ClienteMarWPF.UI.State.Authenticators
         public event Action CurrentBancaConfiguracionStateChanged;
 
 
-        public async Task Login(string username, string password)
+        public void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress)
         {
-            CurrentAccount = await _authenticationService.Login(username, password);
+            CurrentAccount = _authenticationService.Login(usuario, clave, bancaid, ipaddress);
 
             definirObtenerConfiguracionesDeBanca();
         }
@@ -75,11 +75,11 @@ namespace ClienteMarWPF.UI.State.Authenticators
         {
             //!! pendiente Si la banca no tiene caja hay que crearsela desde aqui
 
-            BancaConfiguracion = new BancaConfiguracion()
+            BancaConfiguracion = new BancaConfiguracionDTO()
             {
                 BancaId = 6,
-                BancaCajaId = 42,  
-                BancaControlEfectivoConfig = new BancaControlEfectivoConfig()
+                BancaCajaId = 42,
+                BancaControlEfectivoConfig = new BancaControlEfectivoConfigDTO()
                 {
                     ControlEfectivoEstaActivo = true,
                     BancaInicioFlujoEfectivo = false         //-- equivale a posee cuadre inicial
@@ -89,7 +89,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         }
 
 
-        public void Logout()
+        public void CerrarSesion()
         {
             CurrentAccount = null;
         }

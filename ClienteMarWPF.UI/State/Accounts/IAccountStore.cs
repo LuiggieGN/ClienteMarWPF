@@ -9,7 +9,7 @@ namespace ClienteMarWPF.UI.State.Accounts
 {
     public interface IAccountStore
     {
-        CuentaUsuario CurrentAccount { get; set; }
+        CuentaDTO CurrentAccount { get; set; }
         event Action StateChanged;
     }
 }

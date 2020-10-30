@@ -19,12 +19,12 @@ namespace ClienteMarWPF.DataAccess.Services
 {
     public class BancaDataService : IBancaService
     {
-        public  static LocalBL soapClienteRepository;
-        private static FlujoServices.mar_flujoSoapClient flujoCliente;
+        public  static SoapClientRepository soapClienteRepository;
+        private static FlujoService.mar_flujoSoapClient flujoCliente;
         private static MarPuntoVentaServiceReference.PtoVtaSoapClient clientePuntoDeVenta;
         static BancaDataService()
         {
-            soapClienteRepository = new LocalBL();
+            soapClienteRepository = new SoapClientRepository();
             clientePuntoDeVenta = soapClienteRepository.GetPuntoDeVentaServiceClient(false);
             flujoCliente = soapClienteRepository.GetFlujoEfectivoServiceClient(false);
         }
@@ -55,16 +55,16 @@ namespace ClienteMarWPF.DataAccess.Services
             throw new NotImplementedException();
         }
 
-        public async Task<int> BuscaSuCajaId(int bancaid, FlujoServices.MAR_Session sesion)
+        public async Task<int> BuscaSuCajaId(int bancaid, FlujoService.MAR_Session sesion)
         {
             try
             {
                 string bancaidStr = JSONHelper.SerializeToJSON(bancaid);
 
-                FlujoServices.ArrayOfAnyType colleccionParametros = new FlujoServices.ArrayOfAnyType();
+                FlujoService.ArrayOfAnyType colleccionParametros = new FlujoService.ArrayOfAnyType();
                 colleccionParametros.Add(bancaidStr);
 
-                FlujoServices.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
+                FlujoService.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
                 {
                     return
                            flujoCliente.CallFlujoIndexFunctionAsync(
@@ -90,7 +90,7 @@ namespace ClienteMarWPF.DataAccess.Services
 
 
 
-        public async Task<decimal> GetBalance(int bancaid, FlujoServices.MAR_Session sesion)
+        public async Task<decimal> GetBalance(int bancaid, FlujoService.MAR_Session sesion)
         {
             try
             {
@@ -102,10 +102,10 @@ namespace ClienteMarWPF.DataAccess.Services
                 }
 
                 string cajaidStr = JSONHelper.SerializeToJSON(cajaid);
-                FlujoServices.ArrayOfAnyType colleccionParametros = new FlujoServices.ArrayOfAnyType();
+                FlujoService.ArrayOfAnyType colleccionParametros = new FlujoService.ArrayOfAnyType();
                 colleccionParametros.Add(cajaidStr);
 
-                FlujoServices.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
+                FlujoService.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
                 {
                     return
                            flujoCliente.CallFlujoIndexFunctionAsync(

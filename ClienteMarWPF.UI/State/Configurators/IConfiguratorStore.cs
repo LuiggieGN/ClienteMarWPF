@@ -9,7 +9,7 @@ namespace ClienteMarWPF.UI.State.Configurators
 {
     public interface IConfiguratorStore
     {
-        BancaConfiguracion CurrentBancaConfiguracion { get; set; }
+        BancaConfiguracionDTO CurrentBancaConfiguracion { get; set; }
         event Action StateChanged;
     }
 }

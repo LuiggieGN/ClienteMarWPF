@@ -19,17 +19,15 @@ namespace ClienteMarWPF.UI
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        public static FlujoServices.MAR_Session MarSession = new FlujoServices.MAR_Session();
+        public static FlujoService.MAR_Session MarSession = new FlujoService.MAR_Session();
         private readonly IViewModelFactory factoriaViewModel;
         private readonly INavigator navegadordeModulos;
         private readonly IAuthenticator autenticador;
 
         public bool EstaLogueado => autenticador?.IsLoggedIn??false;
         
-
-
         public BaseViewModel CurrentViewModel => navegadordeModulos.CurrentViewModel;
-        public BancaConfiguracion BancaConfiguracion => autenticador?.BancaConfiguracion;
+        public BancaConfiguracionDTO BancaConfiguracion => autenticador?.BancaConfiguracion;
 
 
 

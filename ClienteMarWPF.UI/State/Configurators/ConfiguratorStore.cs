@@ -7,8 +7,8 @@ namespace ClienteMarWPF.UI.State.Configurators
 {
     public class ConfiguratorStore : IConfiguratorStore
     {
-        private BancaConfiguracion _currentBancaConfiguracion;   
-        public BancaConfiguracion CurrentBancaConfiguracion { 
+        private BancaConfiguracionDTO _currentBancaConfiguracion;   
+        public BancaConfiguracionDTO CurrentBancaConfiguracion { 
             get => _currentBancaConfiguracion; 
             set { 
                 _currentBancaConfiguracion = value;

@@ -11,9 +11,9 @@ namespace ClienteMarWPF.UI.State.Authenticators
 {
     public interface IAuthenticator
     {
-        CuentaUsuario CurrentAccount { get; }
+        CuentaDTO CurrentAccount { get; }
 
-        BancaConfiguracion BancaConfiguracion { get; }
+        BancaConfiguracionDTO BancaConfiguracion { get; }
 
         bool IsLoggedIn { get; }
 
@@ -21,9 +21,9 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
         event Action CurrentBancaConfiguracionStateChanged;
 
-        Task Login(string username, string password);
+        void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress);
 
-        void Logout();
+        void CerrarSesion();
 
 
 

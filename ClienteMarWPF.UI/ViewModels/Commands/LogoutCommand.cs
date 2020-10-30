@@ -38,7 +38,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands
         {
             if (_authenticator != null && _navigator != null && _viewModelFactory != null)
             {
-                _authenticator.Logout();
+                _authenticator.CerrarSesion();
                 _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(ViewTypeEnum.Login);
             }
         }

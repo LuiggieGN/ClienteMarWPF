@@ -7,18 +7,18 @@ using System.Text;
 using MAR.Config;
 using MAR.AppLogic.Encryption;
 
-//using static MAR.AppLogic.MARHelpers.DapperDBHelper;
+ 
 
 namespace ClienteMarWPF.DataAccess.Services.Helpers
 {
-    public class LocalBL
+    public class SoapClientRepository
     {
         string _serverAddress = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceURL));
         string _serverBackUpAddress = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceLocalURL));
 
         // Clientes Soap
         MarPuntoVentaServiceReference.PtoVtaSoapClient _clientePuntoDeVenta ;
-        FlujoServices.mar_flujoSoapClient _clienteFlujoEfectivo;
+        FlujoService.mar_flujoSoapClient _clienteFlujoEfectivo;
 
 
 
@@ -65,7 +65,8 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 binding.CloseTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
                 binding.SendTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
 
-                _clientePuntoDeVenta = new MarPuntoVentaServiceReference.PtoVtaSoapClient(binding, endpoint);
+                _clientePuntoDeVenta = new MarPuntoVentaServiceReference.PtoVtaSoapClient(binding, endpoint);        
+            
             }
             catch 
             {
@@ -76,8 +77,7 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
 
         }//fin de metodo GetPuntoDeVentaServiceClient()
 
-
-        public FlujoServices.mar_flujoSoapClient GetFlujoEfectivoServiceClient(bool pUseBackupConnection, int flujoTimeoutSeconds = 30)
+        public FlujoService.mar_flujoSoapClient GetFlujoEfectivoServiceClient(bool pUseBackupConnection, int flujoTimeoutSeconds = 30)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 binding.CloseTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
                 binding.SendTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
 
-                _clienteFlujoEfectivo = new FlujoServices.mar_flujoSoapClient(binding, endpoint);
+                _clienteFlujoEfectivo = new FlujoService.mar_flujoSoapClient(binding, endpoint);
 
             }
             catch  

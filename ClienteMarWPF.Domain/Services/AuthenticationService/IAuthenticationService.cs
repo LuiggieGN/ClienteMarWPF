@@ -11,6 +11,6 @@ namespace ClienteMarWPF.Domain.Services.AuthenticationService
 {
     public interface IAuthenticationService
     {
-        Task<CuentaUsuario> Login(string username, string password);
+         CuentaDTO Login(string usuario, string clave, int bancaid, string ipaddress);
     }
 }
