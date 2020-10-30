@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands
 {
-    public abstract class AsyncCommandBase : ICommand
+    public abstract class ActionCommandAsync : ICommand
     {
         private bool _isExecuting;
         public bool IsExecuting

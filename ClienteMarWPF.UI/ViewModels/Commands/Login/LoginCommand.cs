@@ -9,49 +9,60 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+ 
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Login
 {
-    public class LoginCommand : AsyncCommandBase
+    public class LoginCommand : ActionCommand
     {
-        private readonly LoginViewModel _loginViewModel;
-        private readonly IAuthenticator _autenticador;
-        private readonly IRenavigator _renavigator;
+        private readonly LoginViewModel viewmodellogin;
+        private readonly IAuthenticator autenticador;
+        private readonly IRenavigator navegaAppVistaInicial;
+ 
 
-        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator autenticador, IRenavigator renavigator)
+        public LoginCommand(LoginViewModel viewmodellogin, IAuthenticator autenticador, IRenavigator renavigator) : base()
         {
-            _loginViewModel = loginViewModel;
-            _autenticador = autenticador;
-            _renavigator = renavigator;
+            this.viewmodellogin = viewmodellogin;
+            this.autenticador = autenticador;
+            this.navegaAppVistaInicial = renavigator; 
+
+            Action<object> comando = new Action<object>(IniciarSesion);
+            base.SetAction(comando);
         }
         
 
-        public override async Task ExecuteAsync(object parameter)
+        public void IniciarSesion(object password)
         {
-
-            _loginViewModel.ErrorMessage = string.Empty;
+            viewmodellogin.ErrorMessage = string.Empty;
 
 
             try
             {
-                await _autenticador.Login(_loginViewModel.Username, parameter.ToString());
-              
-                _renavigator.Renavigate();
+                int bancaid = 6;                   //@Pendiente definir logica para obtener banca id;
+                string ipaddress = "172.10.10.2";  //@Pendiente definir logica para obtener ipaddress;
+
+
+                autenticador.IniciarSesion(viewmodellogin.Username, $"{password}" , bancaid, ipaddress );
+                navegaAppVistaInicial.Renavigate();
+
+ 
 
             }
-            catch (UserNotFoundException)
+            catch (UserNotFoundException ex)
             {
-                _loginViewModel.ErrorMessage = "Credenciales inválidas";
+                viewmodellogin.ErrorMessage = ex.Message;
             }
-            catch (InvalidPasswordException) 
+            catch (InvalidPasswordException)
             {
-                _loginViewModel.ErrorMessage = "Credenciales inválidas";
+                viewmodellogin.ErrorMessage = "Credenciales inválidas";
             }
             catch (Exception)
             {
-                _loginViewModel.ErrorMessage = "Verificar conexión de internet";
+                viewmodellogin.ErrorMessage = "Verificar conexión de internet";
             }
         }
+
+ 
 
 
 

@@ -16,10 +16,6 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
-        
-
-
 
         <Border Background="{DynamicResource BackgroundFour}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -41,10 +37,10 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
                 <materialDesign:PackIcon Kind="Key" VerticalAlignment="Center" Width="30" Height="30" Foreground="{DynamicResource BackgroundFour}"/>
-                <PasswordBox x:Name="passwordBoxInicioSesion" materialDesign:HintAssist.Hint="Contraseña" FontSize="16" Width="250" Margin="10 0"/>
+                <PasswordBox x:Name="PasswordControl" materialDesign:HintAssist.Hint="Contraseña" FontSize="16" Width="250" Margin="10 0"/>
             </StackPanel>
 
-            <Button  HorizontalAlignment="Center" FontSize="18" Height="40" Width="250" Margin="0 30 0 10 " Style="{DynamicResource btn-dark}" Click="IniciarSesion_Click"  Content="Iniciar Sesión" />
+            <Button  HorizontalAlignment="Center" FontSize="18" Height="40" Width="250" Margin="0 30 0 10 " Style="{DynamicResource btn-dark}" Click="Login"  Content="Iniciar Sesión" />
 
             <Label HorizontalContentAlignment="Center" FontSize="15"   Foreground="{DynamicResource BtnDangerBackgroundBrush}"  DataContext="{Binding ErrorMessageViewModel}" Content="{Binding Message}"  Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
 

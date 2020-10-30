@@ -16,14 +16,14 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Modulo
 
     // USO DE COMANDOS ASINCRONOS
 
-    public class BancaBalanceConsultaCommand : AsyncCommandBase
+    public class BancaBalanceConsultaCommand : ActionCommandAsync
     {
         private readonly ModuloViewModel _moduloViewModel;
         private readonly IBancaService   _bancaService;
-        private readonly FlujoServices.MAR_Session _sesion;
+        private readonly FlujoService.MAR_Session _sesion;
         
 
-        public BancaBalanceConsultaCommand(ModuloViewModel moduloViewModel, IBancaService bancaService, FlujoServices.MAR_Session sesion)
+        public BancaBalanceConsultaCommand(ModuloViewModel moduloViewModel, IBancaService bancaService, FlujoService.MAR_Session sesion)
         {
             _moduloViewModel = moduloViewModel;
             _bancaService = bancaService;

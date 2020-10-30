@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using ClienteMarWPF.Domain.Models.Base;
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
+using MarPuntoVentaServiceReference;
 
 
 
 namespace ClienteMarWPF.Domain.Services.AccountService
 {
-    public interface IAccountService : IServiceBase<CuentaUsuario,int>
+    public interface IAccountService 
     {
-        static List<CuentaUsuario> sampleDb;
-        Task<CuentaUsuario> GetByUserName(string username);
+        CuentaDTO Logon2(string usuario, string clave, int bancaid, string ipaddress); 
     }
 }

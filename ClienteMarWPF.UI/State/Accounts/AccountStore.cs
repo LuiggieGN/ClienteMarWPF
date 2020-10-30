@@ -9,9 +9,9 @@ namespace ClienteMarWPF.UI.State.Accounts
 {
     public class AccountStore : IAccountStore
     {
-        private CuentaUsuario _currentAccount;
+        private CuentaDTO _currentAccount;
             
-        public CuentaUsuario CurrentAccount { 
+        public CuentaDTO CurrentAccount { 
             get => _currentAccount;
             set {
                 _currentAccount = value;

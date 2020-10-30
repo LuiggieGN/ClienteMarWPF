@@ -65,7 +65,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IPasswordHasher<Usuario>, PersonalizedPasswordHasher>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IBancaService, BancaDataService>();
-
+ 
 
 
             ///@@ Registrando Servicio de Factoria de ViewModel y de los ( ViewModels de los modulos)
@@ -167,7 +167,7 @@ namespace ClienteMarWPF.UI
             {
                 return () => new LoginViewModel(
                    services.GetRequiredService<IAuthenticator>(),
-                   services.GetRequiredService<Renavigator<HomeViewModel>>()
+                   services.GetRequiredService<Renavigator<HomeViewModel>>()                   
                 );
             });
 

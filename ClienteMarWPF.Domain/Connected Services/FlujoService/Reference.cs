@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlujoServices
+namespace FlujoService
 {
     using System.Runtime.Serialization;
     
@@ -229,15 +229,19 @@ namespace FlujoServices
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="mar.do", ConfigurationName="FlujoServices.mar_flujoSoap")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="mar.do", ConfigurationName="FlujoService.mar_flujoSoap")]
     public interface mar_flujoSoap
     {
         
+        // CODEGEN: Generating message contract since element name pSesion from namespace mar.do is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/CallFlujoIndexFunction", ReplyAction="*")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoServices.MAR_Session))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoServices.ArrayOfAnyType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoServices.MAR_FlujoResponse))]
-        System.Threading.Tasks.Task<FlujoServices.CallFlujoIndexFunctionResponse> CallFlujoIndexFunctionAsync(FlujoServices.CallFlujoIndexFunctionRequest request);
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoService.MAR_Session))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoService.ArrayOfAnyType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoService.MAR_FlujoResponse))]
+        FlujoService.CallFlujoIndexFunctionResponse CallFlujoIndexFunction(FlujoService.CallFlujoIndexFunctionRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/CallFlujoIndexFunction", ReplyAction="*")]
+        System.Threading.Tasks.Task<FlujoService.CallFlujoIndexFunctionResponse> CallFlujoIndexFunctionAsync(FlujoService.CallFlujoIndexFunctionRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -248,13 +252,13 @@ namespace FlujoServices
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="CallFlujoIndexFunction", Namespace="mar.do", Order=0)]
-        public FlujoServices.CallFlujoIndexFunctionRequestBody Body;
+        public FlujoService.CallFlujoIndexFunctionRequestBody Body;
         
         public CallFlujoIndexFunctionRequest()
         {
         }
         
-        public CallFlujoIndexFunctionRequest(FlujoServices.CallFlujoIndexFunctionRequestBody Body)
+        public CallFlujoIndexFunctionRequest(FlujoService.CallFlujoIndexFunctionRequestBody Body)
         {
             this.Body = Body;
         }
@@ -271,16 +275,16 @@ namespace FlujoServices
         public int pMetodo;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
-        public FlujoServices.MAR_Session pSesion;
+        public FlujoService.MAR_Session pSesion;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
-        public FlujoServices.ArrayOfAnyType pParams;
+        public FlujoService.ArrayOfAnyType pParams;
         
         public CallFlujoIndexFunctionRequestBody()
         {
         }
         
-        public CallFlujoIndexFunctionRequestBody(int pMetodo, FlujoServices.MAR_Session pSesion, FlujoServices.ArrayOfAnyType pParams)
+        public CallFlujoIndexFunctionRequestBody(int pMetodo, FlujoService.MAR_Session pSesion, FlujoService.ArrayOfAnyType pParams)
         {
             this.pMetodo = pMetodo;
             this.pSesion = pSesion;
@@ -296,13 +300,13 @@ namespace FlujoServices
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="CallFlujoIndexFunctionResponse", Namespace="mar.do", Order=0)]
-        public FlujoServices.CallFlujoIndexFunctionResponseBody Body;
+        public FlujoService.CallFlujoIndexFunctionResponseBody Body;
         
         public CallFlujoIndexFunctionResponse()
         {
         }
         
-        public CallFlujoIndexFunctionResponse(FlujoServices.CallFlujoIndexFunctionResponseBody Body)
+        public CallFlujoIndexFunctionResponse(FlujoService.CallFlujoIndexFunctionResponseBody Body)
         {
             this.Body = Body;
         }
@@ -316,26 +320,26 @@ namespace FlujoServices
     {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public FlujoServices.MAR_FlujoResponse CallFlujoIndexFunctionResult;
+        public FlujoService.MAR_FlujoResponse CallFlujoIndexFunctionResult;
         
         public CallFlujoIndexFunctionResponseBody()
         {
         }
         
-        public CallFlujoIndexFunctionResponseBody(FlujoServices.MAR_FlujoResponse CallFlujoIndexFunctionResult)
+        public CallFlujoIndexFunctionResponseBody(FlujoService.MAR_FlujoResponse CallFlujoIndexFunctionResult)
         {
             this.CallFlujoIndexFunctionResult = CallFlujoIndexFunctionResult;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public interface mar_flujoSoapChannel : FlujoServices.mar_flujoSoap, System.ServiceModel.IClientChannel
+    public interface mar_flujoSoapChannel : FlujoService.mar_flujoSoap, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    public partial class mar_flujoSoapClient : System.ServiceModel.ClientBase<FlujoServices.mar_flujoSoap>, FlujoServices.mar_flujoSoap
+    public partial class mar_flujoSoapClient : System.ServiceModel.ClientBase<FlujoService.mar_flujoSoap>, FlujoService.mar_flujoSoap
     {
         
         /// <summary>
@@ -372,19 +376,36 @@ namespace FlujoServices
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<FlujoServices.CallFlujoIndexFunctionResponse> FlujoServices.mar_flujoSoap.CallFlujoIndexFunctionAsync(FlujoServices.CallFlujoIndexFunctionRequest request)
+        FlujoService.CallFlujoIndexFunctionResponse FlujoService.mar_flujoSoap.CallFlujoIndexFunction(FlujoService.CallFlujoIndexFunctionRequest request)
+        {
+            return base.Channel.CallFlujoIndexFunction(request);
+        }
+        
+        public FlujoService.MAR_FlujoResponse CallFlujoIndexFunction(int pMetodo, FlujoService.MAR_Session pSesion, FlujoService.ArrayOfAnyType pParams)
+        {
+            FlujoService.CallFlujoIndexFunctionRequest inValue = new FlujoService.CallFlujoIndexFunctionRequest();
+            inValue.Body = new FlujoService.CallFlujoIndexFunctionRequestBody();
+            inValue.Body.pMetodo = pMetodo;
+            inValue.Body.pSesion = pSesion;
+            inValue.Body.pParams = pParams;
+            FlujoService.CallFlujoIndexFunctionResponse retVal = ((FlujoService.mar_flujoSoap)(this)).CallFlujoIndexFunction(inValue);
+            return retVal.Body.CallFlujoIndexFunctionResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<FlujoService.CallFlujoIndexFunctionResponse> FlujoService.mar_flujoSoap.CallFlujoIndexFunctionAsync(FlujoService.CallFlujoIndexFunctionRequest request)
         {
             return base.Channel.CallFlujoIndexFunctionAsync(request);
         }
         
-        public System.Threading.Tasks.Task<FlujoServices.CallFlujoIndexFunctionResponse> CallFlujoIndexFunctionAsync(int pMetodo, FlujoServices.MAR_Session pSesion, FlujoServices.ArrayOfAnyType pParams)
+        public System.Threading.Tasks.Task<FlujoService.CallFlujoIndexFunctionResponse> CallFlujoIndexFunctionAsync(int pMetodo, FlujoService.MAR_Session pSesion, FlujoService.ArrayOfAnyType pParams)
         {
-            FlujoServices.CallFlujoIndexFunctionRequest inValue = new FlujoServices.CallFlujoIndexFunctionRequest();
-            inValue.Body = new FlujoServices.CallFlujoIndexFunctionRequestBody();
+            FlujoService.CallFlujoIndexFunctionRequest inValue = new FlujoService.CallFlujoIndexFunctionRequest();
+            inValue.Body = new FlujoService.CallFlujoIndexFunctionRequestBody();
             inValue.Body.pMetodo = pMetodo;
             inValue.Body.pSesion = pSesion;
             inValue.Body.pParams = pParams;
-            return ((FlujoServices.mar_flujoSoap)(this)).CallFlujoIndexFunctionAsync(inValue);
+            return ((FlujoService.mar_flujoSoap)(this)).CallFlujoIndexFunctionAsync(inValue);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

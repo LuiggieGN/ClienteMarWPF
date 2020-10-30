@@ -8,61 +8,45 @@ using System.Collections.Generic;
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
 
-using ClienteMarWPF.Domain.Services.AccountService; 
+using ClienteMarWPF.Domain.Services.AccountService;
+using ClienteMarWPF.DataAccess.Services.Helpers;
+
+using MarPuntoVentaServiceReference;
 
 namespace ClienteMarWPF.DataAccess.Services
 {
     public class AccountDataService : IAccountService
     {
-        public static List<CuentaUsuario> sampleDb = new List<CuentaUsuario>()
-        {
-           new CuentaUsuario(){ Id = 1, UsuarioHolder = new Usuario { Id = 1 , UserName = "10", Password = "10", PasswordHash="sdfafe" } }
-        };
 
-        public Task<CuentaUsuario> Get(int id)
+        public  static SoapClientRepository SoapClientesRepository; 
+        private static PtoVtaSoapClient clientePuntoDeVenta;
+        static AccountDataService()
         {
-            throw new NotImplementedException();
+            SoapClientesRepository = new SoapClientRepository();
+            clientePuntoDeVenta = SoapClientesRepository.GetPuntoDeVentaServiceClient(false);  
         }
 
-        public Task<IEnumerable<CuentaUsuario>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task<CuentaUsuario> GetByUserName(string username)
+        public CuentaDTO Logon2(string usuario, string clave, int bancaid, string ipaddress)
         {
-            /// Flujo.Service Desde aqui se va acceder al Asmx
-            /// Que el asmx este disponible para consumir desde esta capa 
+            CuentaDTO cuenta = new CuentaDTO();
+            cuenta.UsuarioDTO = new UsuarioDTO();
+            cuenta.UsuarioDTO.UsuUserName = usuario;
+            cuenta.UsuarioDTO.UsuClave = clave;
 
-            CuentaUsuario cuenta = await Task.Run(() =>
+            try
             {
-                return sampleDb.Where(x => x.UsuarioHolder.UserName == username).FirstOrDefault();
-            });
-
+                cuenta.MAR_Setting2 = clientePuntoDeVenta.Logon2(usuario, clave, bancaid, ipaddress);
+            }
+            catch  
+            {
+                cuenta.MAR_Setting2 = null;
+            }
 
             return cuenta;
         }
 
-
-        public Task<CuentaUsuario> Create(CuentaUsuario entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Delete(CuentaUsuario entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Update(CuentaUsuario entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> AddRange(List<CuentaUsuario> entities)
-        {
-            throw new NotImplementedException();
-        }
+ 
 
 
     }

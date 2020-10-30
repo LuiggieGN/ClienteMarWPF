@@ -3833,143 +3833,331 @@ namespace MarPuntoVentaServiceReference
     public interface PtoVtaSoap
     {
         
+        // CODEGEN: Generating message contract since element name cmd from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/StrCmd", ReplyAction="*")]
+        MarPuntoVentaServiceReference.StrCmdResponse StrCmd(MarPuntoVentaServiceReference.StrCmdRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/StrCmd", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.StrCmdResponse> StrCmdAsync(MarPuntoVentaServiceReference.StrCmdRequest request);
+        
+        // CODEGEN: Generating message contract since element name Llave from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/LogonWinBrowser", ReplyAction="*")]
+        MarPuntoVentaServiceReference.LogonWinBrowserResponse LogonWinBrowser(MarPuntoVentaServiceReference.LogonWinBrowserRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/LogonWinBrowser", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.LogonWinBrowserResponse> LogonWinBrowserAsync(MarPuntoVentaServiceReference.LogonWinBrowserRequest request);
         
+        // CODEGEN: Generating message contract since element name Usuario from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Logon2", ReplyAction="*")]
+        MarPuntoVentaServiceReference.Logon2Response Logon2(MarPuntoVentaServiceReference.Logon2Request request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Logon2", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Logon2Response> Logon2Async(MarPuntoVentaServiceReference.Logon2Request request);
+        
+        // CODEGEN: Generating message contract since element name Usuario from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Logon", ReplyAction="*")]
+        MarPuntoVentaServiceReference.LogonResponse Logon(MarPuntoVentaServiceReference.LogonRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Logon", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.LogonResponse> LogonAsync(MarPuntoVentaServiceReference.LogonRequest request);
         
+        // CODEGEN: Generating message contract since element name Direccion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Init2", ReplyAction="*")]
+        MarPuntoVentaServiceReference.Init2Response Init2(MarPuntoVentaServiceReference.Init2Request request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Init2", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Init2Response> Init2Async(MarPuntoVentaServiceReference.Init2Request request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Init4", ReplyAction="*")]
+        MarPuntoVentaServiceReference.Init4Response Init4(MarPuntoVentaServiceReference.Init4Request request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Init4", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Init4Response> Init4Async(MarPuntoVentaServiceReference.Init4Request request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Logoff", ReplyAction="*")]
+        MarPuntoVentaServiceReference.LogoffResponse Logoff(MarPuntoVentaServiceReference.LogoffRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Logoff", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.LogoffResponse> LogoffAsync(MarPuntoVentaServiceReference.LogoffRequest request);
+        
+        // CODEGEN: Generating message contract since element name HardwareKey from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Init3", ReplyAction="*")]
+        MarPuntoVentaServiceReference.Init3Response Init3(MarPuntoVentaServiceReference.Init3Request request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Init3", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Init3Response> Init3Async(MarPuntoVentaServiceReference.Init3Request request);
         
+        // CODEGEN: Generating message contract since element name Direccion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Init", ReplyAction="*")]
+        MarPuntoVentaServiceReference.InitResponse Init(MarPuntoVentaServiceReference.InitRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Init", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.InitResponse> InitAsync(MarPuntoVentaServiceReference.InitRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceMultiBet", ReplyAction="*")]
+        MarPuntoVentaServiceReference.PlaceMultiBetResponse PlaceMultiBet(MarPuntoVentaServiceReference.PlaceMultiBetRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceMultiBet", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceMultiBetResponse> PlaceMultiBetAsync(MarPuntoVentaServiceReference.PlaceMultiBetRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceBet", ReplyAction="*")]
+        MarPuntoVentaServiceReference.PlaceBetResponse PlaceBet(MarPuntoVentaServiceReference.PlaceBetRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceBet", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceBetResponse> PlaceBetAsync(MarPuntoVentaServiceReference.PlaceBetRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetProducts", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GetProductsResponse GetProducts(MarPuntoVentaServiceReference.GetProductsRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetProducts", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetProductsResponse> GetProductsAsync(MarPuntoVentaServiceReference.GetProductsRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/ValidWinner", ReplyAction="*")]
+        MarPuntoVentaServiceReference.ValidWinnerResponse ValidWinner(MarPuntoVentaServiceReference.ValidWinnerRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/ValidWinner", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ValidWinnerResponse> ValidWinnerAsync(MarPuntoVentaServiceReference.ValidWinnerRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/ConfirmTck", ReplyAction="*")]
+        MarPuntoVentaServiceReference.ConfirmTckResponse ConfirmTck(MarPuntoVentaServiceReference.ConfirmTckRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/ConfirmTck", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ConfirmTckResponse> ConfirmTckAsync(MarPuntoVentaServiceReference.ConfirmTckRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/ConfirmMultiTck", ReplyAction="*")]
+        MarPuntoVentaServiceReference.ConfirmMultiTckResponse ConfirmMultiTck(MarPuntoVentaServiceReference.ConfirmMultiTckRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/ConfirmMultiTck", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ConfirmMultiTckResponse> ConfirmMultiTckAsync(MarPuntoVentaServiceReference.ConfirmMultiTckRequest request);
+        
+        // CODEGEN: Generating message contract since element name VFuera from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/SetVentaFuera", ReplyAction="*")]
+        MarPuntoVentaServiceReference.SetVentaFueraResponse SetVentaFuera(MarPuntoVentaServiceReference.SetVentaFueraRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/SetVentaFuera", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.SetVentaFueraResponse> SetVentaFueraAsync(MarPuntoVentaServiceReference.SetVentaFueraRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetMensajeDestinos", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GetMensajeDestinosResponse GetMensajeDestinos(MarPuntoVentaServiceReference.GetMensajeDestinosRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetMensajeDestinos", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetMensajeDestinosResponse> GetMensajeDestinosAsync(MarPuntoVentaServiceReference.GetMensajeDestinosRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceAdmMsj", ReplyAction="*")]
+        MarPuntoVentaServiceReference.PlaceAdmMsjResponse PlaceAdmMsj(MarPuntoVentaServiceReference.PlaceAdmMsjRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceAdmMsj", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceAdmMsjResponse> PlaceAdmMsjAsync(MarPuntoVentaServiceReference.PlaceAdmMsjRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceMensaje", ReplyAction="*")]
+        MarPuntoVentaServiceReference.PlaceMensajeResponse PlaceMensaje(MarPuntoVentaServiceReference.PlaceMensajeRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceMensaje", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceMensajeResponse> PlaceMensajeAsync(MarPuntoVentaServiceReference.PlaceMensajeRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetMensaje", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GetMensajeResponse GetMensaje(MarPuntoVentaServiceReference.GetMensajeRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetMensaje", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetMensajeResponse> GetMensajeAsync(MarPuntoVentaServiceReference.GetMensajeRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceMensaje2", ReplyAction="*")]
+        MarPuntoVentaServiceReference.PlaceMensaje2Response PlaceMensaje2(MarPuntoVentaServiceReference.PlaceMensaje2Request request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceMensaje2", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceMensaje2Response> PlaceMensaje2Async(MarPuntoVentaServiceReference.PlaceMensaje2Request request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetMensaje2", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GetMensaje2Response GetMensaje2(MarPuntoVentaServiceReference.GetMensaje2Request request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetMensaje2", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetMensaje2Response> GetMensaje2Async(MarPuntoVentaServiceReference.GetMensaje2Request request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/CuentaMensaje", ReplyAction="*")]
+        MarPuntoVentaServiceReference.CuentaMensajeResponse CuentaMensaje(MarPuntoVentaServiceReference.CuentaMensajeRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/CuentaMensaje", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.CuentaMensajeResponse> CuentaMensajeAsync(MarPuntoVentaServiceReference.CuentaMensajeRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Ganadores", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GanadoresResponse Ganadores(MarPuntoVentaServiceReference.GanadoresRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Ganadores", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GanadoresResponse> GanadoresAsync(MarPuntoVentaServiceReference.GanadoresRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Ganadores2", ReplyAction="*")]
+        MarPuntoVentaServiceReference.Ganadores2Response Ganadores2(MarPuntoVentaServiceReference.Ganadores2Request request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Ganadores2", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Ganadores2Response> Ganadores2Async(MarPuntoVentaServiceReference.Ganadores2Request request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Ganadores3", ReplyAction="*")]
+        MarPuntoVentaServiceReference.Ganadores3Response Ganadores3(MarPuntoVentaServiceReference.Ganadores3Request request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Ganadores3", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Ganadores3Response> Ganadores3Async(MarPuntoVentaServiceReference.Ganadores3Request request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/ListaTickets", ReplyAction="*")]
+        MarPuntoVentaServiceReference.ListaTicketsResponse ListaTickets(MarPuntoVentaServiceReference.ListaTicketsRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/ListaTickets", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ListaTicketsResponse> ListaTicketsAsync(MarPuntoVentaServiceReference.ListaTicketsRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/ListaPines", ReplyAction="*")]
+        MarPuntoVentaServiceReference.ListaPinesResponse ListaPines(MarPuntoVentaServiceReference.ListaPinesRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/ListaPines", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ListaPinesResponse> ListaPinesAsync(MarPuntoVentaServiceReference.ListaPinesRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/RptVenta", ReplyAction="*")]
+        MarPuntoVentaServiceReference.RptVentaResponse RptVenta(MarPuntoVentaServiceReference.RptVentaRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/RptVenta", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.RptVentaResponse> RptVentaAsync(MarPuntoVentaServiceReference.RptVentaRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/RptSumaVta", ReplyAction="*")]
+        MarPuntoVentaServiceReference.RptSumaVtaResponse RptSumaVta(MarPuntoVentaServiceReference.RptSumaVtaRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/RptSumaVta", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.RptSumaVtaResponse> RptSumaVtaAsync(MarPuntoVentaServiceReference.RptSumaVtaRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/RptSumaVtaFec", ReplyAction="*")]
+        MarPuntoVentaServiceReference.RptSumaVtaFecResponse RptSumaVtaFec(MarPuntoVentaServiceReference.RptSumaVtaFecRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/RptSumaVtaFec", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.RptSumaVtaFecResponse> RptSumaVtaFecAsync(MarPuntoVentaServiceReference.RptSumaVtaFecRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/RptSumaVtaFec2", ReplyAction="*")]
+        MarPuntoVentaServiceReference.RptSumaVtaFec2Response RptSumaVtaFec2(MarPuntoVentaServiceReference.RptSumaVtaFec2Request request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/RptSumaVtaFec2", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.RptSumaVtaFec2Response> RptSumaVtaFec2Async(MarPuntoVentaServiceReference.RptSumaVtaFec2Request request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/VentaNumero", ReplyAction="*")]
+        MarPuntoVentaServiceReference.VentaNumeroResponse VentaNumero(MarPuntoVentaServiceReference.VentaNumeroRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/VentaNumero", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.VentaNumeroResponse> VentaNumeroAsync(MarPuntoVentaServiceReference.VentaNumeroRequest request);
+        
+        // CODEGEN: Generating message contract since element name HardwareKey from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/VentaNumero3", ReplyAction="*")]
+        MarPuntoVentaServiceReference.VentaNumero3Response VentaNumero3(MarPuntoVentaServiceReference.VentaNumero3Request request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/VentaNumero3", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.VentaNumero3Response> VentaNumero3Async(MarPuntoVentaServiceReference.VentaNumero3Request request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/ListaTicketPagoRemoto", ReplyAction="*")]
+        MarPuntoVentaServiceReference.ListaTicketPagoRemotoResponse ListaTicketPagoRemoto(MarPuntoVentaServiceReference.ListaTicketPagoRemotoRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/ListaTicketPagoRemoto", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ListaTicketPagoRemotoResponse> ListaTicketPagoRemotoAsync(MarPuntoVentaServiceReference.ListaTicketPagoRemotoRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceLocalBet", ReplyAction="*")]
+        MarPuntoVentaServiceReference.PlaceLocalBetResponse PlaceLocalBet(MarPuntoVentaServiceReference.PlaceLocalBetRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/PlaceLocalBet", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceLocalBetResponse> PlaceLocalBetAsync(MarPuntoVentaServiceReference.PlaceLocalBetRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/RePrint", ReplyAction="*")]
+        MarPuntoVentaServiceReference.RePrintResponse RePrint(MarPuntoVentaServiceReference.RePrintRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/RePrint", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.RePrintResponse> RePrintAsync(MarPuntoVentaServiceReference.RePrintRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetBet", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GetBetResponse GetBet(MarPuntoVentaServiceReference.GetBetRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetBet", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetBetResponse> GetBetAsync(MarPuntoVentaServiceReference.GetBetRequest request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Anula", ReplyAction="*")]
+        MarPuntoVentaServiceReference.AnulaResponse Anula(MarPuntoVentaServiceReference.AnulaRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Anula", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.AnulaResponse> AnulaAsync(MarPuntoVentaServiceReference.AnulaRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/Anula2", ReplyAction="*")]
+        MarPuntoVentaServiceReference.Anula2Response Anula2(MarPuntoVentaServiceReference.Anula2Request request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/Anula2", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Anula2Response> Anula2Async(MarPuntoVentaServiceReference.Anula2Request request);
         
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetSuplidores", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GetSuplidoresResponse GetSuplidores(MarPuntoVentaServiceReference.GetSuplidoresRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetSuplidores", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetSuplidoresResponse> GetSuplidoresAsync(MarPuntoVentaServiceReference.GetSuplidoresRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetUsuarios", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GetUsuariosResponse GetUsuarios(MarPuntoVentaServiceReference.GetUsuariosRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetUsuarios", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetUsuariosResponse> GetUsuariosAsync(MarPuntoVentaServiceReference.GetUsuariosRequest request);
         
+        // CODEGEN: Generating message contract since element name sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetRecarga", ReplyAction="*")]
+        MarPuntoVentaServiceReference.GetRecargaResponse GetRecarga(MarPuntoVentaServiceReference.GetRecargaRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/GetRecarga", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetRecargaResponse> GetRecargaAsync(MarPuntoVentaServiceReference.GetRecargaRequest request);
+        
+        // CODEGEN: Generating message contract since element name Sesion from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/ConfirmRecarga", ReplyAction="*")]
+        MarPuntoVentaServiceReference.ConfirmRecargaResponse ConfirmRecarga(MarPuntoVentaServiceReference.ConfirmRecargaRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/ConfirmRecarga", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ConfirmRecargaResponse> ConfirmRecargaAsync(MarPuntoVentaServiceReference.ConfirmRecargaRequest request);
         
+        // CODEGEN: Generating message contract since element name Source from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/ReverseRecarga", ReplyAction="*")]
+        MarPuntoVentaServiceReference.ReverseRecargaResponse ReverseRecarga(MarPuntoVentaServiceReference.ReverseRecargaRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/ReverseRecarga", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ReverseRecargaResponse> ReverseRecargaAsync(MarPuntoVentaServiceReference.ReverseRecargaRequest request);
         
+        // CODEGEN: Generating message contract since element name Source from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/BalanceRecarga", ReplyAction="*")]
+        MarPuntoVentaServiceReference.BalanceRecargaResponse BalanceRecarga(MarPuntoVentaServiceReference.BalanceRecargaRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/BalanceRecarga", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.BalanceRecargaResponse> BalanceRecargaAsync(MarPuntoVentaServiceReference.BalanceRecargaRequest request);
+        
+        // CODEGEN: Generating message contract since element name Source from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/BalanceRecargaRifero", ReplyAction="*")]
+        MarPuntoVentaServiceReference.BalanceRecargaRiferoResponse BalanceRecargaRifero(MarPuntoVentaServiceReference.BalanceRecargaRiferoRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/BalanceRecargaRifero", ReplyAction="*")]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.BalanceRecargaRiferoResponse> BalanceRecargaRiferoAsync(MarPuntoVentaServiceReference.BalanceRecargaRiferoRequest request);
@@ -8007,6 +8195,21 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.StrCmdResponse MarPuntoVentaServiceReference.PtoVtaSoap.StrCmd(MarPuntoVentaServiceReference.StrCmdRequest request)
+        {
+            return base.Channel.StrCmd(request);
+        }
+        
+        public string StrCmd(string cmd)
+        {
+            MarPuntoVentaServiceReference.StrCmdRequest inValue = new MarPuntoVentaServiceReference.StrCmdRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.StrCmdRequestBody();
+            inValue.Body.cmd = cmd;
+            MarPuntoVentaServiceReference.StrCmdResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).StrCmd(inValue);
+            return retVal.Body.StrCmdResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.StrCmdResponse> MarPuntoVentaServiceReference.PtoVtaSoap.StrCmdAsync(MarPuntoVentaServiceReference.StrCmdRequest request)
         {
             return base.Channel.StrCmdAsync(request);
@@ -8018,6 +8221,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body = new MarPuntoVentaServiceReference.StrCmdRequestBody();
             inValue.Body.cmd = cmd;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).StrCmdAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.LogonWinBrowserResponse MarPuntoVentaServiceReference.PtoVtaSoap.LogonWinBrowser(MarPuntoVentaServiceReference.LogonWinBrowserRequest request)
+        {
+            return base.Channel.LogonWinBrowser(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_ExistingSession LogonWinBrowser(int Banca, int Sesion, string Llave)
+        {
+            MarPuntoVentaServiceReference.LogonWinBrowserRequest inValue = new MarPuntoVentaServiceReference.LogonWinBrowserRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.LogonWinBrowserRequestBody();
+            inValue.Body.Banca = Banca;
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Llave = Llave;
+            MarPuntoVentaServiceReference.LogonWinBrowserResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).LogonWinBrowser(inValue);
+            return retVal.Body.LogonWinBrowserResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8034,6 +8254,24 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.Llave = Llave;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).LogonWinBrowserAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.Logon2Response MarPuntoVentaServiceReference.PtoVtaSoap.Logon2(MarPuntoVentaServiceReference.Logon2Request request)
+        {
+            return base.Channel.Logon2(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Setting2 Logon2(string Usuario, string Clave, int Banca, string Direccion)
+        {
+            MarPuntoVentaServiceReference.Logon2Request inValue = new MarPuntoVentaServiceReference.Logon2Request();
+            inValue.Body = new MarPuntoVentaServiceReference.Logon2RequestBody();
+            inValue.Body.Usuario = Usuario;
+            inValue.Body.Clave = Clave;
+            inValue.Body.Banca = Banca;
+            inValue.Body.Direccion = Direccion;
+            MarPuntoVentaServiceReference.Logon2Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Logon2(inValue);
+            return retVal.Body.Logon2Result;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8054,6 +8292,24 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.LogonResponse MarPuntoVentaServiceReference.PtoVtaSoap.Logon(MarPuntoVentaServiceReference.LogonRequest request)
+        {
+            return base.Channel.Logon(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Setting Logon(string Usuario, string Clave, int Banca, string Direccion)
+        {
+            MarPuntoVentaServiceReference.LogonRequest inValue = new MarPuntoVentaServiceReference.LogonRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.LogonRequestBody();
+            inValue.Body.Usuario = Usuario;
+            inValue.Body.Clave = Clave;
+            inValue.Body.Banca = Banca;
+            inValue.Body.Direccion = Direccion;
+            MarPuntoVentaServiceReference.LogonResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Logon(inValue);
+            return retVal.Body.LogonResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.LogonResponse> MarPuntoVentaServiceReference.PtoVtaSoap.LogonAsync(MarPuntoVentaServiceReference.LogonRequest request)
         {
             return base.Channel.LogonAsync(request);
@@ -8068,6 +8324,22 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Banca = Banca;
             inValue.Body.Direccion = Direccion;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).LogonAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.Init2Response MarPuntoVentaServiceReference.PtoVtaSoap.Init2(MarPuntoVentaServiceReference.Init2Request request)
+        {
+            return base.Channel.Init2(request);
+        }
+        
+        public string Init2(int Banca, string Direccion)
+        {
+            MarPuntoVentaServiceReference.Init2Request inValue = new MarPuntoVentaServiceReference.Init2Request();
+            inValue.Body = new MarPuntoVentaServiceReference.Init2RequestBody();
+            inValue.Body.Banca = Banca;
+            inValue.Body.Direccion = Direccion;
+            MarPuntoVentaServiceReference.Init2Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Init2(inValue);
+            return retVal.Body.Init2Result;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8086,6 +8358,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.Init4Response MarPuntoVentaServiceReference.PtoVtaSoap.Init4(MarPuntoVentaServiceReference.Init4Request request)
+        {
+            return base.Channel.Init4(request);
+        }
+        
+        public bool Init4(MarPuntoVentaServiceReference.MAR_Session Sesion, string Code)
+        {
+            MarPuntoVentaServiceReference.Init4Request inValue = new MarPuntoVentaServiceReference.Init4Request();
+            inValue.Body = new MarPuntoVentaServiceReference.Init4RequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Code = Code;
+            MarPuntoVentaServiceReference.Init4Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Init4(inValue);
+            return retVal.Body.Init4Result;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Init4Response> MarPuntoVentaServiceReference.PtoVtaSoap.Init4Async(MarPuntoVentaServiceReference.Init4Request request)
         {
             return base.Channel.Init4Async(request);
@@ -8098,6 +8386,21 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.Code = Code;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Init4Async(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.LogoffResponse MarPuntoVentaServiceReference.PtoVtaSoap.Logoff(MarPuntoVentaServiceReference.LogoffRequest request)
+        {
+            return base.Channel.Logoff(request);
+        }
+        
+        public bool Logoff(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.LogoffRequest inValue = new MarPuntoVentaServiceReference.LogoffRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.LogoffRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.LogoffResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Logoff(inValue);
+            return retVal.Body.LogoffResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8115,6 +8418,21 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.Init3Response MarPuntoVentaServiceReference.PtoVtaSoap.Init3(MarPuntoVentaServiceReference.Init3Request request)
+        {
+            return base.Channel.Init3(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Setting Init3(string HardwareKey)
+        {
+            MarPuntoVentaServiceReference.Init3Request inValue = new MarPuntoVentaServiceReference.Init3Request();
+            inValue.Body = new MarPuntoVentaServiceReference.Init3RequestBody();
+            inValue.Body.HardwareKey = HardwareKey;
+            MarPuntoVentaServiceReference.Init3Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Init3(inValue);
+            return retVal.Body.Init3Result;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Init3Response> MarPuntoVentaServiceReference.PtoVtaSoap.Init3Async(MarPuntoVentaServiceReference.Init3Request request)
         {
             return base.Channel.Init3Async(request);
@@ -8126,6 +8444,22 @@ namespace MarPuntoVentaServiceReference
             inValue.Body = new MarPuntoVentaServiceReference.Init3RequestBody();
             inValue.Body.HardwareKey = HardwareKey;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Init3Async(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.InitResponse MarPuntoVentaServiceReference.PtoVtaSoap.Init(MarPuntoVentaServiceReference.InitRequest request)
+        {
+            return base.Channel.Init(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Array Init(int Banca, string Direccion)
+        {
+            MarPuntoVentaServiceReference.InitRequest inValue = new MarPuntoVentaServiceReference.InitRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.InitRequestBody();
+            inValue.Body.Banca = Banca;
+            inValue.Body.Direccion = Direccion;
+            MarPuntoVentaServiceReference.InitResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Init(inValue);
+            return retVal.Body.InitResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8144,6 +8478,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.PlaceMultiBetResponse MarPuntoVentaServiceReference.PtoVtaSoap.PlaceMultiBet(MarPuntoVentaServiceReference.PlaceMultiBetRequest request)
+        {
+            return base.Channel.PlaceMultiBet(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_MultiBet PlaceMultiBet(MarPuntoVentaServiceReference.MAR_Session Sesion, MarPuntoVentaServiceReference.MAR_MultiBet MultiApuesta)
+        {
+            MarPuntoVentaServiceReference.PlaceMultiBetRequest inValue = new MarPuntoVentaServiceReference.PlaceMultiBetRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.PlaceMultiBetRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.MultiApuesta = MultiApuesta;
+            MarPuntoVentaServiceReference.PlaceMultiBetResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceMultiBet(inValue);
+            return retVal.Body.PlaceMultiBetResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceMultiBetResponse> MarPuntoVentaServiceReference.PtoVtaSoap.PlaceMultiBetAsync(MarPuntoVentaServiceReference.PlaceMultiBetRequest request)
         {
             return base.Channel.PlaceMultiBetAsync(request);
@@ -8156,6 +8506,24 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.MultiApuesta = MultiApuesta;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceMultiBetAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.PlaceBetResponse MarPuntoVentaServiceReference.PtoVtaSoap.PlaceBet(MarPuntoVentaServiceReference.PlaceBetRequest request)
+        {
+            return base.Channel.PlaceBet(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Bet PlaceBet(MarPuntoVentaServiceReference.MAR_Session Sesion, MarPuntoVentaServiceReference.MAR_Bet Apuesta, double Solicitud, bool ParaPasar)
+        {
+            MarPuntoVentaServiceReference.PlaceBetRequest inValue = new MarPuntoVentaServiceReference.PlaceBetRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.PlaceBetRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Apuesta = Apuesta;
+            inValue.Body.Solicitud = Solicitud;
+            inValue.Body.ParaPasar = ParaPasar;
+            MarPuntoVentaServiceReference.PlaceBetResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceBet(inValue);
+            return retVal.Body.PlaceBetResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8176,6 +8544,21 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GetProductsResponse MarPuntoVentaServiceReference.PtoVtaSoap.GetProducts(MarPuntoVentaServiceReference.GetProductsRequest request)
+        {
+            return base.Channel.GetProducts(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Producto[] GetProducts(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.GetProductsRequest inValue = new MarPuntoVentaServiceReference.GetProductsRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.GetProductsRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.GetProductsResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetProducts(inValue);
+            return retVal.Body.GetProductsResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetProductsResponse> MarPuntoVentaServiceReference.PtoVtaSoap.GetProductsAsync(MarPuntoVentaServiceReference.GetProductsRequest request)
         {
             return base.Channel.GetProductsAsync(request);
@@ -8187,6 +8570,24 @@ namespace MarPuntoVentaServiceReference
             inValue.Body = new MarPuntoVentaServiceReference.GetProductsRequestBody();
             inValue.Body.Sesion = Sesion;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetProductsAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.ValidWinnerResponse MarPuntoVentaServiceReference.PtoVtaSoap.ValidWinner(MarPuntoVentaServiceReference.ValidWinnerRequest request)
+        {
+            return base.Channel.ValidWinner(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_ValWiner ValidWinner(MarPuntoVentaServiceReference.MAR_Session Sesion, string TckNumero, string TicPin, bool Pagar)
+        {
+            MarPuntoVentaServiceReference.ValidWinnerRequest inValue = new MarPuntoVentaServiceReference.ValidWinnerRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.ValidWinnerRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.TckNumero = TckNumero;
+            inValue.Body.TicPin = TicPin;
+            inValue.Body.Pagar = Pagar;
+            MarPuntoVentaServiceReference.ValidWinnerResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ValidWinner(inValue);
+            return retVal.Body.ValidWinnerResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8207,6 +8608,20 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.ConfirmTckResponse MarPuntoVentaServiceReference.PtoVtaSoap.ConfirmTck(MarPuntoVentaServiceReference.ConfirmTckRequest request)
+        {
+            return base.Channel.ConfirmTck(request);
+        }
+        
+        public void ConfirmTck(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.ConfirmTckRequest inValue = new MarPuntoVentaServiceReference.ConfirmTckRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.ConfirmTckRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.ConfirmTckResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ConfirmTck(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ConfirmTckResponse> MarPuntoVentaServiceReference.PtoVtaSoap.ConfirmTckAsync(MarPuntoVentaServiceReference.ConfirmTckRequest request)
         {
             return base.Channel.ConfirmTckAsync(request);
@@ -8218,6 +8633,21 @@ namespace MarPuntoVentaServiceReference
             inValue.Body = new MarPuntoVentaServiceReference.ConfirmTckRequestBody();
             inValue.Body.Sesion = Sesion;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ConfirmTckAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.ConfirmMultiTckResponse MarPuntoVentaServiceReference.PtoVtaSoap.ConfirmMultiTck(MarPuntoVentaServiceReference.ConfirmMultiTckRequest request)
+        {
+            return base.Channel.ConfirmMultiTck(request);
+        }
+        
+        public void ConfirmMultiTck(MarPuntoVentaServiceReference.MAR_Session Sesion, MarPuntoVentaServiceReference.ArrayOfInt Tcks)
+        {
+            MarPuntoVentaServiceReference.ConfirmMultiTckRequest inValue = new MarPuntoVentaServiceReference.ConfirmMultiTckRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.ConfirmMultiTckRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Tcks = Tcks;
+            MarPuntoVentaServiceReference.ConfirmMultiTckResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ConfirmMultiTck(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8236,6 +8666,21 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.SetVentaFueraResponse MarPuntoVentaServiceReference.PtoVtaSoap.SetVentaFuera(MarPuntoVentaServiceReference.SetVentaFueraRequest request)
+        {
+            return base.Channel.SetVentaFuera(request);
+        }
+        
+        public string SetVentaFuera(MarPuntoVentaServiceReference.MAR_VentaFuera VFuera)
+        {
+            MarPuntoVentaServiceReference.SetVentaFueraRequest inValue = new MarPuntoVentaServiceReference.SetVentaFueraRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.SetVentaFueraRequestBody();
+            inValue.Body.VFuera = VFuera;
+            MarPuntoVentaServiceReference.SetVentaFueraResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).SetVentaFuera(inValue);
+            return retVal.Body.SetVentaFueraResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.SetVentaFueraResponse> MarPuntoVentaServiceReference.PtoVtaSoap.SetVentaFueraAsync(MarPuntoVentaServiceReference.SetVentaFueraRequest request)
         {
             return base.Channel.SetVentaFueraAsync(request);
@@ -8250,6 +8695,21 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GetMensajeDestinosResponse MarPuntoVentaServiceReference.PtoVtaSoap.GetMensajeDestinos(MarPuntoVentaServiceReference.GetMensajeDestinosRequest request)
+        {
+            return base.Channel.GetMensajeDestinos(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Bancas GetMensajeDestinos(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.GetMensajeDestinosRequest inValue = new MarPuntoVentaServiceReference.GetMensajeDestinosRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.GetMensajeDestinosRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.GetMensajeDestinosResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetMensajeDestinos(inValue);
+            return retVal.Body.GetMensajeDestinosResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetMensajeDestinosResponse> MarPuntoVentaServiceReference.PtoVtaSoap.GetMensajeDestinosAsync(MarPuntoVentaServiceReference.GetMensajeDestinosRequest request)
         {
             return base.Channel.GetMensajeDestinosAsync(request);
@@ -8261,6 +8721,22 @@ namespace MarPuntoVentaServiceReference
             inValue.Body = new MarPuntoVentaServiceReference.GetMensajeDestinosRequestBody();
             inValue.Body.Sesion = Sesion;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetMensajeDestinosAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.PlaceAdmMsjResponse MarPuntoVentaServiceReference.PtoVtaSoap.PlaceAdmMsj(MarPuntoVentaServiceReference.PlaceAdmMsjRequest request)
+        {
+            return base.Channel.PlaceAdmMsj(request);
+        }
+        
+        public int PlaceAdmMsj(MarPuntoVentaServiceReference.MAR_Session Sesion, MarPuntoVentaServiceReference.MAR_Mensaje Mensaje)
+        {
+            MarPuntoVentaServiceReference.PlaceAdmMsjRequest inValue = new MarPuntoVentaServiceReference.PlaceAdmMsjRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.PlaceAdmMsjRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Mensaje = Mensaje;
+            MarPuntoVentaServiceReference.PlaceAdmMsjResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceAdmMsj(inValue);
+            return retVal.Body.PlaceAdmMsjResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8279,6 +8755,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.PlaceMensajeResponse MarPuntoVentaServiceReference.PtoVtaSoap.PlaceMensaje(MarPuntoVentaServiceReference.PlaceMensajeRequest request)
+        {
+            return base.Channel.PlaceMensaje(request);
+        }
+        
+        public int PlaceMensaje(MarPuntoVentaServiceReference.MAR_Session Sesion, string Mensaje)
+        {
+            MarPuntoVentaServiceReference.PlaceMensajeRequest inValue = new MarPuntoVentaServiceReference.PlaceMensajeRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.PlaceMensajeRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Mensaje = Mensaje;
+            MarPuntoVentaServiceReference.PlaceMensajeResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceMensaje(inValue);
+            return retVal.Body.PlaceMensajeResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceMensajeResponse> MarPuntoVentaServiceReference.PtoVtaSoap.PlaceMensajeAsync(MarPuntoVentaServiceReference.PlaceMensajeRequest request)
         {
             return base.Channel.PlaceMensajeAsync(request);
@@ -8291,6 +8783,21 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.Mensaje = Mensaje;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceMensajeAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GetMensajeResponse MarPuntoVentaServiceReference.PtoVtaSoap.GetMensaje(MarPuntoVentaServiceReference.GetMensajeRequest request)
+        {
+            return base.Channel.GetMensaje(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Mensajes GetMensaje(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.GetMensajeRequest inValue = new MarPuntoVentaServiceReference.GetMensajeRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.GetMensajeRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.GetMensajeResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetMensaje(inValue);
+            return retVal.Body.GetMensajeResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8308,6 +8815,23 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.PlaceMensaje2Response MarPuntoVentaServiceReference.PtoVtaSoap.PlaceMensaje2(MarPuntoVentaServiceReference.PlaceMensaje2Request request)
+        {
+            return base.Channel.PlaceMensaje2(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Mensajes2 PlaceMensaje2(MarPuntoVentaServiceReference.MAR_Session Sesion, string Mensaje, int DestinoBancaID)
+        {
+            MarPuntoVentaServiceReference.PlaceMensaje2Request inValue = new MarPuntoVentaServiceReference.PlaceMensaje2Request();
+            inValue.Body = new MarPuntoVentaServiceReference.PlaceMensaje2RequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Mensaje = Mensaje;
+            inValue.Body.DestinoBancaID = DestinoBancaID;
+            MarPuntoVentaServiceReference.PlaceMensaje2Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceMensaje2(inValue);
+            return retVal.Body.PlaceMensaje2Result;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.PlaceMensaje2Response> MarPuntoVentaServiceReference.PtoVtaSoap.PlaceMensaje2Async(MarPuntoVentaServiceReference.PlaceMensaje2Request request)
         {
             return base.Channel.PlaceMensaje2Async(request);
@@ -8321,6 +8845,24 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Mensaje = Mensaje;
             inValue.Body.DestinoBancaID = DestinoBancaID;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceMensaje2Async(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GetMensaje2Response MarPuntoVentaServiceReference.PtoVtaSoap.GetMensaje2(MarPuntoVentaServiceReference.GetMensaje2Request request)
+        {
+            return base.Channel.GetMensaje2(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Mensajes2 GetMensaje2(MarPuntoVentaServiceReference.MAR_Session Sesion, bool SoloSinLeer, System.Nullable<int> SoloDestinoBancaId, bool IncluirDestinos)
+        {
+            MarPuntoVentaServiceReference.GetMensaje2Request inValue = new MarPuntoVentaServiceReference.GetMensaje2Request();
+            inValue.Body = new MarPuntoVentaServiceReference.GetMensaje2RequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.SoloSinLeer = SoloSinLeer;
+            inValue.Body.SoloDestinoBancaId = SoloDestinoBancaId;
+            inValue.Body.IncluirDestinos = IncluirDestinos;
+            MarPuntoVentaServiceReference.GetMensaje2Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetMensaje2(inValue);
+            return retVal.Body.GetMensaje2Result;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8341,6 +8883,21 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.CuentaMensajeResponse MarPuntoVentaServiceReference.PtoVtaSoap.CuentaMensaje(MarPuntoVentaServiceReference.CuentaMensajeRequest request)
+        {
+            return base.Channel.CuentaMensaje(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_MensajesCount CuentaMensaje(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.CuentaMensajeRequest inValue = new MarPuntoVentaServiceReference.CuentaMensajeRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.CuentaMensajeRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.CuentaMensajeResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).CuentaMensaje(inValue);
+            return retVal.Body.CuentaMensajeResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.CuentaMensajeResponse> MarPuntoVentaServiceReference.PtoVtaSoap.CuentaMensajeAsync(MarPuntoVentaServiceReference.CuentaMensajeRequest request)
         {
             return base.Channel.CuentaMensajeAsync(request);
@@ -8352,6 +8909,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body = new MarPuntoVentaServiceReference.CuentaMensajeRequestBody();
             inValue.Body.Sesion = Sesion;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).CuentaMensajeAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GanadoresResponse MarPuntoVentaServiceReference.PtoVtaSoap.Ganadores(MarPuntoVentaServiceReference.GanadoresRequest request)
+        {
+            return base.Channel.Ganadores(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Ganadores Ganadores(MarPuntoVentaServiceReference.MAR_Session Sesion, int Loteria, string Fecha)
+        {
+            MarPuntoVentaServiceReference.GanadoresRequest inValue = new MarPuntoVentaServiceReference.GanadoresRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.GanadoresRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Loteria = Loteria;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.GanadoresResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Ganadores(inValue);
+            return retVal.Body.GanadoresResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8371,6 +8945,23 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.Ganadores2Response MarPuntoVentaServiceReference.PtoVtaSoap.Ganadores2(MarPuntoVentaServiceReference.Ganadores2Request request)
+        {
+            return base.Channel.Ganadores2(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Ganadores Ganadores2(MarPuntoVentaServiceReference.MAR_Session Sesion, int Loteria, string Fecha)
+        {
+            MarPuntoVentaServiceReference.Ganadores2Request inValue = new MarPuntoVentaServiceReference.Ganadores2Request();
+            inValue.Body = new MarPuntoVentaServiceReference.Ganadores2RequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Loteria = Loteria;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.Ganadores2Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Ganadores2(inValue);
+            return retVal.Body.Ganadores2Result;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.Ganadores2Response> MarPuntoVentaServiceReference.PtoVtaSoap.Ganadores2Async(MarPuntoVentaServiceReference.Ganadores2Request request)
         {
             return base.Channel.Ganadores2Async(request);
@@ -8384,6 +8975,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Loteria = Loteria;
             inValue.Body.Fecha = Fecha;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Ganadores2Async(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.Ganadores3Response MarPuntoVentaServiceReference.PtoVtaSoap.Ganadores3(MarPuntoVentaServiceReference.Ganadores3Request request)
+        {
+            return base.Channel.Ganadores3(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Ganadores Ganadores3(MarPuntoVentaServiceReference.MAR_Session Sesion, int Loteria, string Fecha)
+        {
+            MarPuntoVentaServiceReference.Ganadores3Request inValue = new MarPuntoVentaServiceReference.Ganadores3Request();
+            inValue.Body = new MarPuntoVentaServiceReference.Ganadores3RequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Loteria = Loteria;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.Ganadores3Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Ganadores3(inValue);
+            return retVal.Body.Ganadores3Result;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8403,6 +9011,23 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.ListaTicketsResponse MarPuntoVentaServiceReference.PtoVtaSoap.ListaTickets(MarPuntoVentaServiceReference.ListaTicketsRequest request)
+        {
+            return base.Channel.ListaTickets(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Ganadores ListaTickets(MarPuntoVentaServiceReference.MAR_Session Sesion, int Loteria, string Fecha)
+        {
+            MarPuntoVentaServiceReference.ListaTicketsRequest inValue = new MarPuntoVentaServiceReference.ListaTicketsRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.ListaTicketsRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Loteria = Loteria;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.ListaTicketsResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ListaTickets(inValue);
+            return retVal.Body.ListaTicketsResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ListaTicketsResponse> MarPuntoVentaServiceReference.PtoVtaSoap.ListaTicketsAsync(MarPuntoVentaServiceReference.ListaTicketsRequest request)
         {
             return base.Channel.ListaTicketsAsync(request);
@@ -8419,6 +9044,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.ListaPinesResponse MarPuntoVentaServiceReference.PtoVtaSoap.ListaPines(MarPuntoVentaServiceReference.ListaPinesRequest request)
+        {
+            return base.Channel.ListaPines(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Pines ListaPines(MarPuntoVentaServiceReference.MAR_Session Sesion, string Fecha)
+        {
+            MarPuntoVentaServiceReference.ListaPinesRequest inValue = new MarPuntoVentaServiceReference.ListaPinesRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.ListaPinesRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.ListaPinesResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ListaPines(inValue);
+            return retVal.Body.ListaPinesResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ListaPinesResponse> MarPuntoVentaServiceReference.PtoVtaSoap.ListaPinesAsync(MarPuntoVentaServiceReference.ListaPinesRequest request)
         {
             return base.Channel.ListaPinesAsync(request);
@@ -8431,6 +9072,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.Fecha = Fecha;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ListaPinesAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.RptVentaResponse MarPuntoVentaServiceReference.PtoVtaSoap.RptVenta(MarPuntoVentaServiceReference.RptVentaRequest request)
+        {
+            return base.Channel.RptVenta(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_RptVenta RptVenta(MarPuntoVentaServiceReference.MAR_Session Sesion, int Loteria, string Fecha)
+        {
+            MarPuntoVentaServiceReference.RptVentaRequest inValue = new MarPuntoVentaServiceReference.RptVentaRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.RptVentaRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Loteria = Loteria;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.RptVentaResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).RptVenta(inValue);
+            return retVal.Body.RptVentaResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8450,6 +9108,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.RptSumaVtaResponse MarPuntoVentaServiceReference.PtoVtaSoap.RptSumaVta(MarPuntoVentaServiceReference.RptSumaVtaRequest request)
+        {
+            return base.Channel.RptSumaVta(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_RptSumaVta RptSumaVta(MarPuntoVentaServiceReference.MAR_Session Sesion, string Fecha)
+        {
+            MarPuntoVentaServiceReference.RptSumaVtaRequest inValue = new MarPuntoVentaServiceReference.RptSumaVtaRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.RptSumaVtaRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.RptSumaVtaResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).RptSumaVta(inValue);
+            return retVal.Body.RptSumaVtaResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.RptSumaVtaResponse> MarPuntoVentaServiceReference.PtoVtaSoap.RptSumaVtaAsync(MarPuntoVentaServiceReference.RptSumaVtaRequest request)
         {
             return base.Channel.RptSumaVtaAsync(request);
@@ -8462,6 +9136,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.Fecha = Fecha;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).RptSumaVtaAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.RptSumaVtaFecResponse MarPuntoVentaServiceReference.PtoVtaSoap.RptSumaVtaFec(MarPuntoVentaServiceReference.RptSumaVtaFecRequest request)
+        {
+            return base.Channel.RptSumaVtaFec(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_RptSumaVta RptSumaVtaFec(MarPuntoVentaServiceReference.MAR_Session Sesion, string FecDesde, string FecHasta)
+        {
+            MarPuntoVentaServiceReference.RptSumaVtaFecRequest inValue = new MarPuntoVentaServiceReference.RptSumaVtaFecRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.RptSumaVtaFecRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.FecDesde = FecDesde;
+            inValue.Body.FecHasta = FecHasta;
+            MarPuntoVentaServiceReference.RptSumaVtaFecResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).RptSumaVtaFec(inValue);
+            return retVal.Body.RptSumaVtaFecResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8481,6 +9172,23 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.RptSumaVtaFec2Response MarPuntoVentaServiceReference.PtoVtaSoap.RptSumaVtaFec2(MarPuntoVentaServiceReference.RptSumaVtaFec2Request request)
+        {
+            return base.Channel.RptSumaVtaFec2(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_RptSumaVta2 RptSumaVtaFec2(MarPuntoVentaServiceReference.MAR_Session Sesion, string FecDesde, string FecHasta)
+        {
+            MarPuntoVentaServiceReference.RptSumaVtaFec2Request inValue = new MarPuntoVentaServiceReference.RptSumaVtaFec2Request();
+            inValue.Body = new MarPuntoVentaServiceReference.RptSumaVtaFec2RequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.FecDesde = FecDesde;
+            inValue.Body.FecHasta = FecHasta;
+            MarPuntoVentaServiceReference.RptSumaVtaFec2Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).RptSumaVtaFec2(inValue);
+            return retVal.Body.RptSumaVtaFec2Result;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.RptSumaVtaFec2Response> MarPuntoVentaServiceReference.PtoVtaSoap.RptSumaVtaFec2Async(MarPuntoVentaServiceReference.RptSumaVtaFec2Request request)
         {
             return base.Channel.RptSumaVtaFec2Async(request);
@@ -8494,6 +9202,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.FecDesde = FecDesde;
             inValue.Body.FecHasta = FecHasta;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).RptSumaVtaFec2Async(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.VentaNumeroResponse MarPuntoVentaServiceReference.PtoVtaSoap.VentaNumero(MarPuntoVentaServiceReference.VentaNumeroRequest request)
+        {
+            return base.Channel.VentaNumero(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_VentaNumero VentaNumero(MarPuntoVentaServiceReference.MAR_Session Sesion, int Loteria, string Fecha)
+        {
+            MarPuntoVentaServiceReference.VentaNumeroRequest inValue = new MarPuntoVentaServiceReference.VentaNumeroRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.VentaNumeroRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Loteria = Loteria;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.VentaNumeroResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).VentaNumero(inValue);
+            return retVal.Body.VentaNumeroResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8513,6 +9238,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.VentaNumero3Response MarPuntoVentaServiceReference.PtoVtaSoap.VentaNumero3(MarPuntoVentaServiceReference.VentaNumero3Request request)
+        {
+            return base.Channel.VentaNumero3(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_VentaNumero VentaNumero3(string HardwareKey, int Loteria)
+        {
+            MarPuntoVentaServiceReference.VentaNumero3Request inValue = new MarPuntoVentaServiceReference.VentaNumero3Request();
+            inValue.Body = new MarPuntoVentaServiceReference.VentaNumero3RequestBody();
+            inValue.Body.HardwareKey = HardwareKey;
+            inValue.Body.Loteria = Loteria;
+            MarPuntoVentaServiceReference.VentaNumero3Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).VentaNumero3(inValue);
+            return retVal.Body.VentaNumero3Result;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.VentaNumero3Response> MarPuntoVentaServiceReference.PtoVtaSoap.VentaNumero3Async(MarPuntoVentaServiceReference.VentaNumero3Request request)
         {
             return base.Channel.VentaNumero3Async(request);
@@ -8528,6 +9269,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.ListaTicketPagoRemotoResponse MarPuntoVentaServiceReference.PtoVtaSoap.ListaTicketPagoRemoto(MarPuntoVentaServiceReference.ListaTicketPagoRemotoRequest request)
+        {
+            return base.Channel.ListaTicketPagoRemoto(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Ganadores ListaTicketPagoRemoto(MarPuntoVentaServiceReference.MAR_Session Sesion, string Fecha)
+        {
+            MarPuntoVentaServiceReference.ListaTicketPagoRemotoRequest inValue = new MarPuntoVentaServiceReference.ListaTicketPagoRemotoRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.ListaTicketPagoRemotoRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Fecha = Fecha;
+            MarPuntoVentaServiceReference.ListaTicketPagoRemotoResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ListaTicketPagoRemoto(inValue);
+            return retVal.Body.ListaTicketPagoRemotoResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ListaTicketPagoRemotoResponse> MarPuntoVentaServiceReference.PtoVtaSoap.ListaTicketPagoRemotoAsync(MarPuntoVentaServiceReference.ListaTicketPagoRemotoRequest request)
         {
             return base.Channel.ListaTicketPagoRemotoAsync(request);
@@ -8540,6 +9297,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.Fecha = Fecha;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ListaTicketPagoRemotoAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.PlaceLocalBetResponse MarPuntoVentaServiceReference.PtoVtaSoap.PlaceLocalBet(MarPuntoVentaServiceReference.PlaceLocalBetRequest request)
+        {
+            return base.Channel.PlaceLocalBet(request);
+        }
+        
+        public string PlaceLocalBet(MarPuntoVentaServiceReference.MAR_Session Sesion, MarPuntoVentaServiceReference.MAR_Bet Apuesta, double Solicitud)
+        {
+            MarPuntoVentaServiceReference.PlaceLocalBetRequest inValue = new MarPuntoVentaServiceReference.PlaceLocalBetRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.PlaceLocalBetRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Apuesta = Apuesta;
+            inValue.Body.Solicitud = Solicitud;
+            MarPuntoVentaServiceReference.PlaceLocalBetResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).PlaceLocalBet(inValue);
+            return retVal.Body.PlaceLocalBetResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8559,6 +9333,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.RePrintResponse MarPuntoVentaServiceReference.PtoVtaSoap.RePrint(MarPuntoVentaServiceReference.RePrintRequest request)
+        {
+            return base.Channel.RePrint(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Bet RePrint(MarPuntoVentaServiceReference.MAR_Session Sesion, int Ticket)
+        {
+            MarPuntoVentaServiceReference.RePrintRequest inValue = new MarPuntoVentaServiceReference.RePrintRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.RePrintRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.Ticket = Ticket;
+            MarPuntoVentaServiceReference.RePrintResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).RePrint(inValue);
+            return retVal.Body.RePrintResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.RePrintResponse> MarPuntoVentaServiceReference.PtoVtaSoap.RePrintAsync(MarPuntoVentaServiceReference.RePrintRequest request)
         {
             return base.Channel.RePrintAsync(request);
@@ -8571,6 +9361,22 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.Ticket = Ticket;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).RePrintAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GetBetResponse MarPuntoVentaServiceReference.PtoVtaSoap.GetBet(MarPuntoVentaServiceReference.GetBetRequest request)
+        {
+            return base.Channel.GetBet(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Bet GetBet(MarPuntoVentaServiceReference.MAR_Session Sesion, string TicketNo)
+        {
+            MarPuntoVentaServiceReference.GetBetRequest inValue = new MarPuntoVentaServiceReference.GetBetRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.GetBetRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.TicketNo = TicketNo;
+            MarPuntoVentaServiceReference.GetBetResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetBet(inValue);
+            return retVal.Body.GetBetResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8589,6 +9395,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.AnulaResponse MarPuntoVentaServiceReference.PtoVtaSoap.Anula(MarPuntoVentaServiceReference.AnulaRequest request)
+        {
+            return base.Channel.Anula(request);
+        }
+        
+        public string Anula(MarPuntoVentaServiceReference.MAR_Session Sesion, string TicketNo)
+        {
+            MarPuntoVentaServiceReference.AnulaRequest inValue = new MarPuntoVentaServiceReference.AnulaRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.AnulaRequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.TicketNo = TicketNo;
+            MarPuntoVentaServiceReference.AnulaResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Anula(inValue);
+            return retVal.Body.AnulaResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.AnulaResponse> MarPuntoVentaServiceReference.PtoVtaSoap.AnulaAsync(MarPuntoVentaServiceReference.AnulaRequest request)
         {
             return base.Channel.AnulaAsync(request);
@@ -8601,6 +9423,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Sesion = Sesion;
             inValue.Body.TicketNo = TicketNo;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).AnulaAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.Anula2Response MarPuntoVentaServiceReference.PtoVtaSoap.Anula2(MarPuntoVentaServiceReference.Anula2Request request)
+        {
+            return base.Channel.Anula2(request);
+        }
+        
+        public string Anula2(MarPuntoVentaServiceReference.MAR_Session Sesion, string TicketNo, string Pin)
+        {
+            MarPuntoVentaServiceReference.Anula2Request inValue = new MarPuntoVentaServiceReference.Anula2Request();
+            inValue.Body = new MarPuntoVentaServiceReference.Anula2RequestBody();
+            inValue.Body.Sesion = Sesion;
+            inValue.Body.TicketNo = TicketNo;
+            inValue.Body.Pin = Pin;
+            MarPuntoVentaServiceReference.Anula2Response retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).Anula2(inValue);
+            return retVal.Body.Anula2Result;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8620,6 +9459,21 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GetSuplidoresResponse MarPuntoVentaServiceReference.PtoVtaSoap.GetSuplidores(MarPuntoVentaServiceReference.GetSuplidoresRequest request)
+        {
+            return base.Channel.GetSuplidores(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Suplidor[] GetSuplidores(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.GetSuplidoresRequest inValue = new MarPuntoVentaServiceReference.GetSuplidoresRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.GetSuplidoresRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.GetSuplidoresResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetSuplidores(inValue);
+            return retVal.Body.GetSuplidoresResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetSuplidoresResponse> MarPuntoVentaServiceReference.PtoVtaSoap.GetSuplidoresAsync(MarPuntoVentaServiceReference.GetSuplidoresRequest request)
         {
             return base.Channel.GetSuplidoresAsync(request);
@@ -8634,6 +9488,21 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GetUsuariosResponse MarPuntoVentaServiceReference.PtoVtaSoap.GetUsuarios(MarPuntoVentaServiceReference.GetUsuariosRequest request)
+        {
+            return base.Channel.GetUsuarios(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Usuario[] GetUsuarios(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.GetUsuariosRequest inValue = new MarPuntoVentaServiceReference.GetUsuariosRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.GetUsuariosRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.GetUsuariosResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetUsuarios(inValue);
+            return retVal.Body.GetUsuariosResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.GetUsuariosResponse> MarPuntoVentaServiceReference.PtoVtaSoap.GetUsuariosAsync(MarPuntoVentaServiceReference.GetUsuariosRequest request)
         {
             return base.Channel.GetUsuariosAsync(request);
@@ -8645,6 +9514,27 @@ namespace MarPuntoVentaServiceReference
             inValue.Body = new MarPuntoVentaServiceReference.GetUsuariosRequestBody();
             inValue.Body.Sesion = Sesion;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetUsuariosAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.GetRecargaResponse MarPuntoVentaServiceReference.PtoVtaSoap.GetRecarga(MarPuntoVentaServiceReference.GetRecargaRequest request)
+        {
+            return base.Channel.GetRecarga(request);
+        }
+        
+        public MarPuntoVentaServiceReference.MAR_Pin GetRecarga(MarPuntoVentaServiceReference.MAR_Session sesion, int Usuario, string Clave, int Suplidor, string Numero, double Monto, int Solicitud)
+        {
+            MarPuntoVentaServiceReference.GetRecargaRequest inValue = new MarPuntoVentaServiceReference.GetRecargaRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.GetRecargaRequestBody();
+            inValue.Body.sesion = sesion;
+            inValue.Body.Usuario = Usuario;
+            inValue.Body.Clave = Clave;
+            inValue.Body.Suplidor = Suplidor;
+            inValue.Body.Numero = Numero;
+            inValue.Body.Monto = Monto;
+            inValue.Body.Solicitud = Solicitud;
+            MarPuntoVentaServiceReference.GetRecargaResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).GetRecarga(inValue);
+            return retVal.Body.GetRecargaResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8668,6 +9558,20 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.ConfirmRecargaResponse MarPuntoVentaServiceReference.PtoVtaSoap.ConfirmRecarga(MarPuntoVentaServiceReference.ConfirmRecargaRequest request)
+        {
+            return base.Channel.ConfirmRecarga(request);
+        }
+        
+        public void ConfirmRecarga(MarPuntoVentaServiceReference.MAR_Session Sesion)
+        {
+            MarPuntoVentaServiceReference.ConfirmRecargaRequest inValue = new MarPuntoVentaServiceReference.ConfirmRecargaRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.ConfirmRecargaRequestBody();
+            inValue.Body.Sesion = Sesion;
+            MarPuntoVentaServiceReference.ConfirmRecargaResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ConfirmRecarga(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.ConfirmRecargaResponse> MarPuntoVentaServiceReference.PtoVtaSoap.ConfirmRecargaAsync(MarPuntoVentaServiceReference.ConfirmRecargaRequest request)
         {
             return base.Channel.ConfirmRecargaAsync(request);
@@ -8679,6 +9583,22 @@ namespace MarPuntoVentaServiceReference
             inValue.Body = new MarPuntoVentaServiceReference.ConfirmRecargaRequestBody();
             inValue.Body.Sesion = Sesion;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ConfirmRecargaAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.ReverseRecargaResponse MarPuntoVentaServiceReference.PtoVtaSoap.ReverseRecarga(MarPuntoVentaServiceReference.ReverseRecargaRequest request)
+        {
+            return base.Channel.ReverseRecarga(request);
+        }
+        
+        public string ReverseRecarga(string Source, int Solicitud)
+        {
+            MarPuntoVentaServiceReference.ReverseRecargaRequest inValue = new MarPuntoVentaServiceReference.ReverseRecargaRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.ReverseRecargaRequestBody();
+            inValue.Body.Source = Source;
+            inValue.Body.Solicitud = Solicitud;
+            MarPuntoVentaServiceReference.ReverseRecargaResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).ReverseRecarga(inValue);
+            return retVal.Body.ReverseRecargaResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -8697,6 +9617,22 @@ namespace MarPuntoVentaServiceReference
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.BalanceRecargaResponse MarPuntoVentaServiceReference.PtoVtaSoap.BalanceRecarga(MarPuntoVentaServiceReference.BalanceRecargaRequest request)
+        {
+            return base.Channel.BalanceRecarga(request);
+        }
+        
+        public string BalanceRecarga(string Source, string Tipo)
+        {
+            MarPuntoVentaServiceReference.BalanceRecargaRequest inValue = new MarPuntoVentaServiceReference.BalanceRecargaRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.BalanceRecargaRequestBody();
+            inValue.Body.Source = Source;
+            inValue.Body.Tipo = Tipo;
+            MarPuntoVentaServiceReference.BalanceRecargaResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).BalanceRecarga(inValue);
+            return retVal.Body.BalanceRecargaResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.Threading.Tasks.Task<MarPuntoVentaServiceReference.BalanceRecargaResponse> MarPuntoVentaServiceReference.PtoVtaSoap.BalanceRecargaAsync(MarPuntoVentaServiceReference.BalanceRecargaRequest request)
         {
             return base.Channel.BalanceRecargaAsync(request);
@@ -8709,6 +9645,23 @@ namespace MarPuntoVentaServiceReference
             inValue.Body.Source = Source;
             inValue.Body.Tipo = Tipo;
             return ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).BalanceRecargaAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        MarPuntoVentaServiceReference.BalanceRecargaRiferoResponse MarPuntoVentaServiceReference.PtoVtaSoap.BalanceRecargaRifero(MarPuntoVentaServiceReference.BalanceRecargaRiferoRequest request)
+        {
+            return base.Channel.BalanceRecargaRifero(request);
+        }
+        
+        public string BalanceRecargaRifero(string Source, string Tipo, int pRiferoID)
+        {
+            MarPuntoVentaServiceReference.BalanceRecargaRiferoRequest inValue = new MarPuntoVentaServiceReference.BalanceRecargaRiferoRequest();
+            inValue.Body = new MarPuntoVentaServiceReference.BalanceRecargaRiferoRequestBody();
+            inValue.Body.Source = Source;
+            inValue.Body.Tipo = Tipo;
+            inValue.Body.pRiferoID = pRiferoID;
+            MarPuntoVentaServiceReference.BalanceRecargaRiferoResponse retVal = ((MarPuntoVentaServiceReference.PtoVtaSoap)(this)).BalanceRecargaRifero(inValue);
+            return retVal.Body.BalanceRecargaRiferoResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
