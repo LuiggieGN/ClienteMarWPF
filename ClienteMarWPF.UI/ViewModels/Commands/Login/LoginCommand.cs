@@ -2,14 +2,10 @@
 using ClienteMarWPF.Domain.Exceptions;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
+using ClienteMarWPF.UI.State.LocalClientSetting;
 using ClienteMarWPF.UI.Modules.Login;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
- 
+using System; 
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Login
 {
@@ -18,13 +14,15 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
         private readonly LoginViewModel viewmodellogin;
         private readonly IAuthenticator autenticador;
         private readonly IRenavigator navegaAppVistaInicial;
- 
+        private readonly ILocalClientSettingStore localclientsettings;
 
-        public LoginCommand(LoginViewModel viewmodellogin, IAuthenticator autenticador, IRenavigator renavigator) : base()
+
+        public LoginCommand(LoginViewModel viewmodellogin, IAuthenticator autenticador, IRenavigator renavigator, ILocalClientSettingStore localclientsettings) : base()
         {
             this.viewmodellogin = viewmodellogin;
             this.autenticador = autenticador;
-            this.navegaAppVistaInicial = renavigator; 
+            this.navegaAppVistaInicial = renavigator;
+            this.localclientsettings = localclientsettings;
 
             Action<object> comando = new Action<object>(IniciarSesion);
             base.SetAction(comando);
@@ -35,19 +33,24 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
         {
             viewmodellogin.ErrorMessage = string.Empty;
 
-
             try
             {
-                int bancaid = 6;                   //@Pendiente definir logica para obtener banca id;
-                string ipaddress = "172.10.10.2";  //@Pendiente definir logica para obtener ipaddress;
+                //int bancaid = 6;                   //@Pendiente definir logica para obtener banca id;
+                //string ipaddress = "172.10.10.2";  //@Pendiente definir logica para obtener ipaddress;
 
 
-                autenticador.IniciarSesion(viewmodellogin.Username, $"{password}" , bancaid, ipaddress );
+                localclientsettings.ReadDektopLocalSetting(); //@leo el archivo .ini que contiene el ipadress y el banca id
+
+                autenticador.IniciarSesion(viewmodellogin.Username, $"{password}" , localclientsettings.LocalClientSettings.BancaId , localclientsettings.LocalClientSettings.Direccion );
                 navegaAppVistaInicial.Renavigate();
 
  
 
             }
+            catch (MarFileReadException ex)
+            {
+                viewmodellogin.ErrorMessage = ex.Message;
+            } 
             catch (UserNotFoundException ex)
             {
                 viewmodellogin.ErrorMessage = ex.Message;

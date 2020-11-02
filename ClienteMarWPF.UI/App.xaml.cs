@@ -12,6 +12,7 @@ using ClienteMarWPF.UI.State.Accounts;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.State.Configurators;
+using ClienteMarWPF.UI.State.LocalClientSetting;
 
 using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
@@ -177,7 +178,8 @@ namespace ClienteMarWPF.UI
             {
                 return () => new LoginViewModel(
                    services.GetRequiredService<IAuthenticator>(),
-                   services.GetRequiredService<Renavigator<HomeViewModel>>()                   
+                   services.GetRequiredService<Renavigator<HomeViewModel>>(),
+                   services.GetRequiredService<ILocalClientSettingStore>()
                 );
             });
 
@@ -185,6 +187,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IAuthenticator, Authenticator>();
             services.AddSingleton<IAccountStore, AccountStore>();
             services.AddSingleton<IConfiguratorStore, ConfiguratorStore>();
+            services.AddSingleton<ILocalClientSettingStore, LocalClientSettingStore>();
 
             services.AddScoped<MainWindowViewModel>();
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainWindowViewModel>()));

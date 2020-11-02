@@ -17,14 +17,12 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
         string _serverBackUpAddress = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceLocalURL));
 
         // Clientes Soap
-        MarPuntoVentaServiceReference.PtoVtaSoapClient _clientePuntoDeVenta ;
+        MarPuntoVentaServiceReference.PtoVtaSoapClient _clientePuntoDeVenta;
         FlujoService.mar_flujoSoapClient _clienteFlujoEfectivo;
-
 
 
         public int ClientTimeout { get; set; }
         public string ServiceHostIP { get; set; }
-
 
 
         public MarPuntoVentaServiceReference.PtoVtaSoapClient GetPuntoDeVentaServiceClient(bool pUseBackupConnection, int flujoTimeoutSeconds = 30)

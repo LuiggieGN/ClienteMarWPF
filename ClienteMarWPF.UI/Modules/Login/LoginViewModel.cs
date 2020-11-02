@@ -2,18 +2,15 @@
 using ClienteMarWPF.UI.ViewModels.Commands.Login;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
+using ClienteMarWPF.UI.State.LocalClientSetting;
 
 using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
-
- 
-
 
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
-
 
 
 namespace ClienteMarWPF.UI.Modules.Login
@@ -44,9 +41,9 @@ namespace ClienteMarWPF.UI.Modules.Login
 
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel(IAuthenticator autenticador, IRenavigator renavigator)
+        public LoginViewModel(IAuthenticator autenticador, IRenavigator renavigator, ILocalClientSettingStore localclientsettings)
         {
-            ErrorMessageViewModel = new MessageViewModel();  LoginCommand = new LoginCommand(this, autenticador, renavigator);
+            ErrorMessageViewModel = new MessageViewModel();  LoginCommand = new LoginCommand(this, autenticador, renavigator, localclientsettings);
         }
 
 

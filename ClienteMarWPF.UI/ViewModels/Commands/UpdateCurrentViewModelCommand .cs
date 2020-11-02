@@ -33,9 +33,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-            if (parameter is ViewTypeEnum)
+            if (parameter is Modulos)
             {
-                ViewTypeEnum viewType = (ViewTypeEnum)parameter;
+                Modulos viewType = (Modulos)parameter;
 
                 _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);
             }

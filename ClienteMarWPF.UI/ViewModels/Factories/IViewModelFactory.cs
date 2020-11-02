@@ -6,6 +6,6 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
 {
     public interface IViewModelFactory
     {
-        BaseViewModel CreateViewModel(ViewTypeEnum viewType);
+        BaseViewModel CreateViewModel(Modulos viewType);
     }
 }
