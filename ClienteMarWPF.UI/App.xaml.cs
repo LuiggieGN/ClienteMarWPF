@@ -35,8 +35,9 @@ using ClienteMarWPF.UI.Modules.CincoMinutos;
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Mensajeria; 
 using ClienteMarWPF.UI.Modules.PagoServicios;
+using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
- 
+
 
 namespace ClienteMarWPF.UI
 {
@@ -103,6 +104,10 @@ namespace ClienteMarWPF.UI
                 services => new PagoServiciosViewModel()
             );
 
+            services.AddSingleton<ConfiguracionViewModel>(
+                services => new ConfiguracionViewModel()
+            );
+
 
             services.AddSingleton<InicioControlEfectivoViewModel>(
                 services => new InicioControlEfectivoViewModel(
@@ -154,7 +159,12 @@ namespace ClienteMarWPF.UI
             {
                 return () => services.GetRequiredService<PagoServiciosViewModel>();
             });
-            
+
+            services.AddSingleton<CreateViewModel<ConfiguracionViewModel>>(services =>
+            {
+                return () => services.GetRequiredService<ConfiguracionViewModel>();
+            });
+
             
             services.AddSingleton<CreateViewModel<InicioControlEfectivoViewModel>>(services =>
             {

@@ -1,5 +1,6 @@
 ﻿using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
+using ClienteMarWPF.UI.Views.WindowsModals;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -363,6 +364,40 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             }
 
         }
+        private void OpenCombinacion()
+        {
+            var NumerosJugado = new List<string>();
+            if (ltJugada.Items.Count != 0)
+            {
+                var jugadas = TicketDetallesList.Select(x => x.Jugada).ToList();
+
+                foreach (var item in jugadas)
+                {
+                    if (item.Contains('-'))
+                    {
+                        NumerosJugado.AddRange(item.Split('-'));
+                    }
+                    else
+                    {
+                        NumerosJugado.Add(item);
+                    }
+                }
+
+            }
+
+            CombinacionWindowsModal combinacion = new CombinacionWindowsModal(NumerosJugado.Distinct().ToList());
+            combinacion.Jugadas += delegate (List<TicketDetalle> Jugadas)
+            {
+                foreach (var item in Jugadas)
+                {
+                    AddItem(item);
+                }
+
+                MostrarSorteos();
+            };
+
+            combinacion.ShowDialog();
+        }
         #endregion
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -387,7 +422,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     break;    
                     
                 case Key.Multiply:
-                    //OpenCombinacion();
+                    OpenCombinacion();
                     break;    
                     
                 case Key.F5:
@@ -537,6 +572,11 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         private void Vender(object sender, RoutedEventArgs e)
         {
            // RealizaApuesta();
+        }
+
+        private void btnCombinar(object sender, RoutedEventArgs e)
+        {
+            OpenCombinacion();
         }
     }
 

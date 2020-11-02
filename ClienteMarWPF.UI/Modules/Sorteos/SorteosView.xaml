@@ -15,17 +15,17 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type CheckBox}">
-                                    <Border x:Name="fondoC" Width="180" Height="50"  Background="LightGray" CornerRadius="2" Padding="5">
+                                    <Border x:Name="fondoC" Width="160" Height="50"  Background="LightGray" CornerRadius="2" Padding="5">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />
-                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                            <!--<materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />-->
+                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsChecked" Value="True">
                                             <Setter TargetName="fondoC" Property="Background" Value="#00171F"/>
                                             <Setter TargetName="title" Property="Foreground" Value="White"/>
-                                            <Setter TargetName="faicon2" Property="Foreground" Value="White"/>
+                                            <!--<Setter TargetName="faicon2" Property="Foreground" Value="White"/>-->
                                             <Setter Property="Effect">
                                                 <Setter.Value>
                                                     <DropShadowEffect  BlurRadius="15" Direction="310" Color="#ABB2B9" RenderingBias="Quality" />
@@ -54,17 +54,17 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                                    <Border x:Name="fondoC" Width="180" Height="50"  Background="LightGray" CornerRadius="2" Padding="5">
+                                    <Border x:Name="fondoC" Width="160" Height="50"  Background="LightGray" CornerRadius="2" Padding="5">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />
-                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                            <!--<materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />-->
+                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsChecked" Value="True">
                                             <Setter TargetName="fondoC" Property="Background" Value="#00171F"/>
                                             <Setter TargetName="title" Property="Foreground" Value="White"/>
-                                            <Setter TargetName="faicon2" Property="Foreground" Value="White"/>
+                                            <!--<Setter TargetName="faicon2" Property="Foreground" Value="White"/>-->
                                             <Setter Property="Effect">
                                                 <Setter.Value>
                                                     <DropShadowEffect  BlurRadius="15" Direction="310" Color="#ABB2B9" RenderingBias="Quality" />
@@ -138,7 +138,7 @@
                 </StackPanel>
 
                 <ScrollViewer   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 10" Width="300" Height="250"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                    <DataGrid x:Name="ltJugada"  ItemsSource="{Binding}" FontWeight="Bold" FontSize="18"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="ltJugada"  ItemsSource="{Binding}" FontSize="18"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn  Binding="{Binding TipoJugada}"  Header="Tipo Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                             <DataGridTextColumn  Binding="{Binding Jugada}"  Header="Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
@@ -150,7 +150,7 @@
 
                 <StackPanel Width="280" Grid.Row="1"  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 -20" >
                     <Label x:Name="txtMontoTotal" Content="$ 00.00" FontWeight="Bold" FontSize="40" Foreground="#28A745" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-                    <Label Content="Total Monto de Jugadas" Margin="0 -20" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15"  />
+                    <Label Content="Total Monto de Jugadas" Margin="0 -20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15"  />
                 </StackPanel>
 
                 <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0 40 0 0">
@@ -168,7 +168,7 @@
                     </Button>
                 </StackPanel>
 
-                <Button  Style="{DynamicResource MaterialDesignRaisedAccentButton}" Foreground="White" Width="280" Margin=" 0 20 0 0"  >
+                <Button  Style="{DynamicResource MaterialDesignRaisedAccentButton}" Click="btnCombinar" Foreground="White" Width="280" Margin=" 0 20 0 0"  >
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="ShuffleVariant" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                         <TextBlock Text="Combinar" Foreground="White" VerticalAlignment="Center"/>
@@ -179,7 +179,7 @@
 
 
             <!--VENTAS Y CONSULTA-->
-            <StackPanel x:Name="VentasYConsulta" Grid.Column="1" Visibility="Visible" HorizontalAlignment="Left">
+            <StackPanel x:Name="VentasYConsulta" Grid.Column="1" Visibility="Visible" HorizontalAlignment="Left" Margin="20 0">
 
                 <Button  Style="{DynamicResource btn-dark}" Foreground="White" Width="280"  Margin="0 10 0 0">
                     <StackPanel Orientation="Horizontal" >
