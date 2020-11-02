@@ -47,7 +47,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
            CreateViewModel<RecargasViewModel> createRecargasViewModel,
            CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel,
            CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel,
-           CreateViewModel<ConfiguracionViewModel> createConfiguracionViewModel
+           CreateViewModel<ConfiguracionViewModel> createConfiguracionViewModel,
            CreateViewModel<InicioControlEfectivoViewModel> createInicioControlEfectivoViewModel
  
         )

@@ -17,7 +17,7 @@ namespace ClienteMarWPF.Domain.Enums
         Recargas = 6,
         Mensajeria = 7,
         PagoServicios = 8,
-        Configuracion = 9
+        Configuracion = 9,
         InicioControlEfectivo = 100        
 
     }
