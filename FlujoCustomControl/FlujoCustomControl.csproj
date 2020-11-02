@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{36B58117-F857-4EF7-AA1C-C1F5DA01F303}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>FlujoCustomControl</RootNamespace>
+    <AssemblyName>FlujoCustomControl</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FontAwesome.WPF">
+      <HintPath>..\MAR.Admin7\DLLNecesarios\FontAwesome.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="MAR.Config">
+      <HintPath>..\MAR.Admin7\DLLNecesarios\MAR.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.Windows.Design.Interaction, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net40-client\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CajeraDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ConsultaApuesta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CuadreWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DesgloseWindowsTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DesgloseWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GestorWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainFlujoWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MensajeroWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PagoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Templates\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UsersControls\ConsultaMovimientoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UsersControls\CincoMinutosUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UsersControls\IniciaFlujoEfectivoUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UsersControls\ProcesarMovimientoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\AppEnums\RoutingFunctions.cs" />
+    <Compile Include="Code\BussinessLogic\BancaLogic.cs" />
+    <Compile Include="Code\BussinessLogic\CajaLogic.cs" />
+    <Compile Include="Code\BussinessLogic\CalcularDesgloseLogic.cs" />
+    <Compile Include="Code\BussinessLogic\CincoMinutosLogic.cs" />
+    <Compile Include="Code\BussinessLogic\CuadreLogic.cs" />
+    <Compile Include="Code\BussinessLogic\LocalBL.cs" />
+    <Compile Include="Code\BussinessLogic\MovimientoLogic.cs" />
+    <Compile Include="Code\BussinessLogic\UsuarioLogic.cs" />
+    <Compile Include="Code\BussinessLogic\UsuarioTokenSeguridadLogic.cs" />
+    <Compile Include="Code\BussinessLogic\WebServiceLogic.cs" />
+    <Compile Include="Connected Services\BingoServices\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\FlujoServices\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Converters\CellTipoMovimientoConverter.cs" />
+    <Compile Include="Helpers\Converters\PasswordBoxConverter.cs" />
+    <Compile Include="Helpers\Converters\RadioButtonGroupConverter.cs" />
+    <Compile Include="Helpers\Converters\RadioConverter.cs" />
+    <Compile Include="Helpers\CuadreValidacionHelper.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\Extensiones.cs" />
+    <Compile Include="Helpers\FechaHelper.cs" />
+    <Compile Include="Helpers\PasswordBoxEncripted.cs" />
+    <Compile Include="Helpers\PrintJobs\CincoMinutosPrint.cs" />
+    <Compile Include="Helpers\PrintOutHelper.cs" />
+    <Compile Include="Helpers\ReciboTemplateHelper.cs" />
+    <Compile Include="ViewModels\CincoMinutosViewModel.cs" />
+    <Compile Include="ViewModels\Commands\RadioGroupCommandcs.cs" />
+    <Compile Include="ViewModels\Commands\RelayCommand.cs" />
+    <Compile Include="ViewModels\CommonViews\CommonBase.cs" />
+    <Compile Include="ViewModels\CommonViews\Pager.cs" />
+    <Compile Include="ViewModels\ConsultaMovimientoViewModel.cs" />
+    <Compile Include="ViewModels\MovimientoPagerViewModel.cs" />
+    <Compile Include="ViewModels\ProcesarMovimientoViewModel.cs" />
+    <Compile Include="Views\CajeraDialog.xaml.cs">
+      <DependentUpon>CajeraDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConsultaApuesta.xaml.cs">
+      <DependentUpon>ConsultaApuesta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CuadreWindows.xaml.cs">
+      <DependentUpon>CuadreWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DesgloseWindowsTab.xaml.cs">
+      <DependentUpon>DesgloseWindowsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DesgloseWindows.xaml.cs">
+      <DependentUpon>DesgloseWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GestorWindows.xaml.cs">
+      <DependentUpon>GestorWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainFlujoWindows.xaml.cs">
+      <DependentUpon>MainFlujoWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Views\MensajeroWindows.xaml.cs">
+      <DependentUpon>MensajeroWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PagoWindow.xaml.cs">
+      <DependentUpon>PagoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersControls\ConsultaMovimientoUserControl.xaml.cs">
+      <DependentUpon>ConsultaMovimientoUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersControls\CincoMinutosUserControl.xaml.cs">
+      <DependentUpon>CincoMinutosUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersControls\IniciaFlujoEfectivoUserControl.xaml.cs">
+      <DependentUpon>IniciaFlujoEfectivoUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersControls\ProcesarMovimientoUserControl.xaml.cs">
+      <DependentUpon>ProcesarMovimientoUserControl.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Connected Services\BingoServices\FlujoCustomControl.BingoServices.MAR_BingoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\BingoServices\mar-bingo.wsdl" />
+    <None Include="Connected Services\FlujoServices\FlujoCustomControl.FlujoServices.MAR_FlujoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\FlujoServices\mar-flujo.wsdl" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Flujo.DataAccess\Flujo.DataAccess.csproj">
+      <Project>{68d7e119-83ef-46d7-89ab-4b60f31570a2}</Project>
+      <Name>Flujo.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj">
+      <Project>{41bbcca4-1318-4234-a855-83958f1e5ff2}</Project>
+      <Name>Flujo.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KubeCustomPrinterLib\KubeCustomPrinterLib.csproj">
+      <Project>{a1b1a662-609f-461e-b371-bf81180a5e95}</Project>
+      <Name>KubeCustomPrinterLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\RefreshIco.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\MoneyInput.ico" />
+    <Resource Include="Resources\Images\MoneyOutput.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Reset.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Search.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Back.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\LastPage.ico" />
+    <Resource Include="Resources\Images\FirstPage.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\LeftArrow.ico" />
+    <Resource Include="Resources\Images\RightArrow.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Find.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Money3.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\BingoServices\" />
+    <WCFMetadataStorage Include="Connected Services\FlujoServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\FlujoServices\mar-flujo.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\FlujoServices\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\FlujoServices\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\FlujoServices\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BingoServices\mar-bingo.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BingoServices\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BingoServices\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BingoServices\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Maximize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Minimize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\fondo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Money.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Money2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Money4.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

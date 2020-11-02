@@ -1,0 +1,52 @@
+<Window x:Class="FlujoCustomControl.Views.PagoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlujoCustomControl.Views"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Title="Pago" Height="250" Width="400" MinHeight="250" MinWidth="400" MaxHeight="250" MaxWidth="400"   >
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="pack://application:,,,/FlujoCustomControl;component/Themes/Style.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <!--TITULO Y ALERTAS-->
+        <Border Background="#17202A" Grid.ColumnSpan="2"  MouseDown="Border_MouseMove">
+            <Label Content="Pago de Tickects"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="20"/>
+        </Border>
+
+        <Border   Grid.Row="1" Grid.ColumnSpan="2" Background="#FF007BFF"  Margin="20 10">
+            <TextBlock x:Name="txtNota" TextWrapping="Wrap" TextAlignment="Center" Text="Lorem Ipsum is text of the printing and typesetting industry." FontSize="14" Foreground="White" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        
+        
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <Label  Content="Total a Pagar:" FontSize="20" HorizontalContentAlignment="Center"/>
+            <Label Name="lblTotal"  Content="5,000.00" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button Style="{DynamicResource Danger}" Width="100" Content="Cancelar F6" Foreground="White" Margin="5" Click="BtnCancel"/>
+            <Button Style="{DynamicResource Success}" Width="100" Content="Pagar F5" Foreground="White" Margin="5" Click="BtnProcesarPago"/>
+        </StackPanel>
+    </Grid>
+</Window>

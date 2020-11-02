@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfLocalizeLabelItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LocalizeLabelItem>
+    <key>Money</key>
+    <value>EUR</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>TotalStake</key>
+    <value>Total apostado:</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>TotalPrice</key>
+    <value>Cuota individual máx.:</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>MaxReturn</key>
+    <value>Premio máximo:</value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>PlaceDate</key>
+    <value>Emitido </value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>PlaceTime</key>
+    <value> a las </value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>User</key>
+    <value>Le atendió </value>
+  </LocalizeLabelItem>
+  <LocalizeLabelItem>
+    <key>TerminalID</key>
+    <value>Terminal de caja</value>
+  </LocalizeLabelItem>
+</ArrayOfLocalizeLabelItem>

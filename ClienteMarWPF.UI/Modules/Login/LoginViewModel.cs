@@ -6,6 +6,8 @@ using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
 
+ 
+
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,6 @@ namespace ClienteMarWPF.UI.Modules.Login
 {
     public class LoginViewModel : BaseViewModel
     {
-
         private string _username;
         public string Username
         {
@@ -33,6 +34,7 @@ namespace ClienteMarWPF.UI.Modules.Login
             }
         }
 
+
         public MessageViewModel ErrorMessageViewModel { get; }
 
         public string ErrorMessage
@@ -42,9 +44,9 @@ namespace ClienteMarWPF.UI.Modules.Login
 
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel(IAuthenticator authenticator, IRenavigator renavigator)
+        public LoginViewModel(IAuthenticator autenticador, IRenavigator renavigator)
         {
-            ErrorMessageViewModel = new MessageViewModel();  LoginCommand = new LoginCommand(this, authenticator, renavigator);
+            ErrorMessageViewModel = new MessageViewModel();  LoginCommand = new LoginCommand(this, autenticador, renavigator);
         }
 
 

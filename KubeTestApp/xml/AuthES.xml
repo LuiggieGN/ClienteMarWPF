@@ -1,0 +1,29 @@
+<Commands Path="xml" Language="ES">
+  <!-- Reset -->
+  <Command name="Reset"/>
+  <!-- Print company logo -->
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="DefineImage" Filename="image\logo.png"/>
+  <Command name="PrintImageDefined" PrintMode="normal"/>
+  <Command name="NewLine" />
+  <!-- Starting sets -->
+  <Command name="LineFeed" Line="1" />
+  <Command name="SetFont" Font="Large" />
+  <Command name="SetLeftMargin" Margin="20" />
+  <Command name="SetHAlign" Align="Left" />
+  <!-- Data -->
+  <Command name="PrintString" Mapping="Lastname" LineFeed="No" />
+  <Command name="PrintString" String=" " LineFeed="No" />
+  <Command name="PrintString" Mapping="Firstname" LineFeed="Yes" />
+  <Command name="LineFeed" Line="1" />
+  <Command name="PrintString" String="Documento n°: " LineFeed="No" />
+  <Command name="PrintString" Mapping="ID" LineFeed="Yes" />
+  <Command name="PrintString" String="Ya Puede Jugar con MyBet" LineFeed="Yes" />
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="PrintString" String="Valido durante el" LineFeed="Yes" />
+  <Command name="PrintString" Mapping="Date" Format="dddd, dd MMMM yyyy" LineFeed="Yes" />
+  <Command name="NewLine" />
+  <Command name="LineFeed" Line="4" />
+  <!-- Cut paper -->
+  <Command name="CutPaper"/>
+</Commands>

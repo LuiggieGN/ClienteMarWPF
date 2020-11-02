@@ -1,0 +1,22 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.31022.994",
+  "GettingStartedDocument": {
+    "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
+  },
+  "ExtendedData": {
+    "inputs": [
+      "http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, MarPuntoVentaServiceReference"
+    ],
+    "sync": true,
+    "targetFramework": "netcoreapp3.1",
+    "typeReuseMode": "All"
+  }
+}

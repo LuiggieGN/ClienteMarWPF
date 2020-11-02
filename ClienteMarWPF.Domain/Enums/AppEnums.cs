@@ -18,6 +18,8 @@ namespace ClienteMarWPF.Domain.Enums
         Mensajeria = 7,
         PagoServicios = 8,
         Configuracion = 9
+        InicioControlEfectivo = 100        
+
     }
 
     /// <summary>

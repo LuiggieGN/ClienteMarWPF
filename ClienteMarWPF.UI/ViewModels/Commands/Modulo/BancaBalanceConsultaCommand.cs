@@ -13,14 +13,17 @@ using System.Windows.Input;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Modulo
 {
-    public class BancaBalanceConsultaCommand : AsyncCommandBase
+
+    // USO DE COMANDOS ASINCRONOS
+
+    public class BancaBalanceConsultaCommand : ActionCommandAsync
     {
         private readonly ModuloViewModel _moduloViewModel;
         private readonly IBancaService   _bancaService;
-        private readonly FlujoServices.MAR_Session _sesion;
+        private readonly FlujoService.MAR_Session _sesion;
         
 
-        public BancaBalanceConsultaCommand(ModuloViewModel moduloViewModel, IBancaService bancaService, FlujoServices.MAR_Session sesion)
+        public BancaBalanceConsultaCommand(ModuloViewModel moduloViewModel, IBancaService bancaService, FlujoService.MAR_Session sesion)
         {
             _moduloViewModel = moduloViewModel;
             _bancaService = bancaService;
@@ -48,6 +51,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Modulo
  
         }
 
+
+          
 
 
 

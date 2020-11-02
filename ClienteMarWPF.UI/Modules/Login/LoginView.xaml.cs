@@ -39,12 +39,11 @@ namespace ClienteMarWPF.UI.Modules.Login
 
 
 
-        private void IniciarSesion_Click(object sender, RoutedEventArgs e) 
+        private void Login(object sender, RoutedEventArgs e) 
         {
             if (LoginCommand != null)
-            {
-                string submittedPassword = passwordBoxInicioSesion.Password;
-                LoginCommand.Execute(submittedPassword);
+            {                  
+                LoginCommand.Execute(PasswordControl.Password);
             }        
         }
 

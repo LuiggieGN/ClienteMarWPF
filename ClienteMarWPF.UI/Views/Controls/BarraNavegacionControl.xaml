@@ -13,8 +13,10 @@
              xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"              
              xmlns:reporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte" 
              xmlns:sorteos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos" 
+             xmlns:inicioefectivo="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo"
              >
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter"/>
         <Style x:Key="OverrideRadioButtonStyle" TargetType="{x:Type RadioButton}">
             <Setter Property="Background" Value="#F4F4F4"/>
@@ -152,7 +154,7 @@
             </StackPanel>
         </Expander>
 
-        <Expander Background="Transparent" Margin="0 2" Width="200" BorderBrush="Transparent" IsExpanded="False" Foreground="White" >
+        <Expander Background="Transparent" Margin="0 2" Width="200" BorderBrush="Transparent" IsExpanded="False" Foreground="White" Visibility="{Binding BancaConfiguracion.ControlEfectivoEstaActivo, Converter={ StaticResource BooleanToVisibilityConverter }}" >
             <Expander.Header>
                 <BulletDecorator Margin="-7 0 0 0">
                     <BulletDecorator.Bullet>
@@ -161,20 +163,70 @@
                     <TextBlock Text="Flujo" Margin="15 0" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
                 </BulletDecorator>
             </Expander.Header>
-            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
-                    <StackPanel Orientation="Horizontal" >
-                        <materialDesign:PackIcon Kind="NoteAdd" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                        <TextBlock Text="Cuadre del Dia" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
-                    <StackPanel Orientation="Horizontal" >
-                        <materialDesign:PackIcon Kind="TableEye" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                        <TextBlock Text="Movimientos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-            </StackPanel>
+
+            <ContentPresenter x:Name="PresenterEfectivo" Content="{Binding}">
+
+                <ContentPresenter.Resources>
+
+                    <DataTemplate x:Key="TemplateNoPoseeFlujoEfectivo">
+                        <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.InicioControlEfectivo}">
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Kind="Star" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                                    <TextBlock Text="Iniciar" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Kind="Money" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                                    <TextBlock Text="Cuadre Dia" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </DataTemplate>
+
+                    <DataTemplate x:Key="TemplatePoseeFlujoEfectivo">
+
+                        <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Kind="Money" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                                    <TextBlock Text="Cuadre Dia" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Kind="Arrow" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                                    <TextBlock Text="Movimientos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Kind="AccountBalanceWallet" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                                    <TextBlock Text="Consulta (E/S)" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+
+                    </DataTemplate>
+
+                </ContentPresenter.Resources>
+
+                <ContentPresenter.Style>
+                    <Style TargetType="{x:Type ContentPresenter}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding BancaConfiguracion.BancaControlEfectivoConfig.BancaInicioFlujoEfectivo}" Value="False">
+                                <Setter Property="ContentTemplate" Value="{StaticResource TemplateNoPoseeFlujoEfectivo}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding BancaConfiguracion.BancaControlEfectivoConfig.BancaInicioFlujoEfectivo}" Value="True">
+                                <Setter Property="ContentTemplate" Value="{StaticResource  TemplatePoseeFlujoEfectivo}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentPresenter.Style>
+
+
+            </ContentPresenter>
         </Expander>
 
         <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Mensajeria}" >

@@ -9,7 +9,7 @@ using ClienteMarWPF.Domain.Models.Entities;
 using ClienteMarWPF.Domain.Services.AuthenticationService;
 
 using ClienteMarWPF.UI.State.Accounts;
-
+using ClienteMarWPF.UI.State.Configurators;
 
 namespace ClienteMarWPF.UI.State.Authenticators
 {
@@ -17,18 +17,20 @@ namespace ClienteMarWPF.UI.State.Authenticators
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountStore _accountStore;
-
+        private readonly IConfiguratorStore _configuratorStore;
 
         public Authenticator(
             IAuthenticationService authenticationService,
-            IAccountStore accountStore
+            IAccountStore accountStore,
+            IConfiguratorStore configuratorStore
         )
         {
             _authenticationService = authenticationService;
             _accountStore = accountStore;
+            _configuratorStore = configuratorStore;
         }
 
-        public CuentaUsuario CurrentAccount
+        public CuentaDTO CurrentAccount
         {
             get
             {
@@ -37,20 +39,57 @@ namespace ClienteMarWPF.UI.State.Authenticators
             private set
             {
                 _accountStore.CurrentAccount = value;
-                StateChanged?.Invoke();
+                CurrentAccountStateChanged?.Invoke();
+            }
+        }
+
+        public BancaConfiguracionDTO BancaConfiguracion
+        {
+            get
+            {
+                return _configuratorStore.CurrentBancaConfiguracion;
+            }
+            set
+            {
+                _configuratorStore.CurrentBancaConfiguracion = value;
+                CurrentBancaConfiguracionStateChanged?.Invoke();
             }
         }
 
         public bool IsLoggedIn => CurrentAccount != null;
 
-        public event Action StateChanged;
 
-        public async Task Login(string username, string password)
+        public event Action CurrentAccountStateChanged;
+        public event Action CurrentBancaConfiguracionStateChanged;
+
+
+        public void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress)
         {
-            CurrentAccount = await _authenticationService.Login(username, password);
+            CurrentAccount = _authenticationService.Login(usuario, clave, bancaid, ipaddress);
+
+            definirObtenerConfiguracionesDeBanca();
         }
 
-        public void Logout()
+
+        public void definirObtenerConfiguracionesDeBanca()
+        {
+            //!! pendiente Si la banca no tiene caja hay que crearsela desde aqui
+
+            BancaConfiguracion = new BancaConfiguracionDTO()
+            {
+                BancaId = 6,
+                BancaCajaId = 42,
+                BancaControlEfectivoConfig = new BancaControlEfectivoConfigDTO()
+                {
+                    ControlEfectivoEstaActivo = true,
+                    BancaInicioFlujoEfectivo = false         //-- equivale a posee cuadre inicial
+                }
+            };
+
+        }
+
+
+        public void CerrarSesion()
         {
             CurrentAccount = null;
         }
