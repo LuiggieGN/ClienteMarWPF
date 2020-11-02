@@ -65,7 +65,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
         public void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress)
         {
-            CurrentAccount = _authenticationService.Login(usuario, clave, bancaid, ipaddress);
+            CurrentAccount = _authenticationService.Logon2(usuario, clave, bancaid, ipaddress);
 
             definirObtenerConfiguracionesDeBanca();
         }

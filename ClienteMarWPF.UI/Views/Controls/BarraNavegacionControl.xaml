@@ -90,21 +90,21 @@
 
     <StackPanel x:Name="StackPanelMain" >
 
-        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Home}">
+        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Home}">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Home" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                 <Label Content="Inicio" VerticalContentAlignment="Center" Margin="15 0" Foreground="White"  FontSize="15"/>
             </StackPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Modulo}">
+        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Modulo}">
             <StackPanel Orientation="Horizontal" >
                 <materialDesign:PackIcon Kind="ViewModule" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                 <Label  Content="Modulo" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Reporte}">
+        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
             <StackPanel Orientation="Horizontal" >
                 <materialDesign:PackIcon Kind="FileReport" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                 <TextBlock Text="Reportes" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -123,28 +123,28 @@
             </Expander.Header>
             <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
 
-                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Sorteos}">
+                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Sorteos}">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="Dice6" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                         <TextBlock Text="Sorteos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
-                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.CincoMinutos}">
+                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="Dice5" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                         <TextBlock Text="Cinco Minutos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
-                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Recargas}">
+                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="MobilePhone" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                         <TextBlock Text="Recargas" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
 
-                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.PagoServicios}">
+                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="AttachMoney" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                         <TextBlock Text="Paga Facil" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -170,7 +170,7 @@
 
                     <DataTemplate x:Key="TemplateNoPoseeFlujoEfectivo">
                         <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.InicioControlEfectivo}">
+                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.InicioControlEfectivo}">
                                 <StackPanel Orientation="Horizontal" >
                                     <materialDesign:PackIcon Kind="Star" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                                     <TextBlock Text="Iniciar" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -229,14 +229,14 @@
             </ContentPresenter>
         </Expander>
 
-        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Mensajeria}" >
+        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Mensajeria}" >
             <StackPanel Orientation="Horizontal" >
                 <materialDesign:PackIcon Kind="Chat" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                 <Label  Content="Mensajeria" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
             </StackPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewTypeEnum.Configuracion}" >
+        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Configuracion}" >
             <StackPanel Orientation="Horizontal" >
                 <materialDesign:PackIcon Kind="Cog" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                 <Label  Content="Configuracion" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>

@@ -23,7 +23,7 @@ namespace ClienteMarWPF.Domain.Services.AuthenticationService
             _passwordHasher = passwordHasher;
         }
 
-        public CuentaDTO Login(string usuario, string clave, int bancaid, string ipaddress)
+        public CuentaDTO Logon2(string usuario, string clave, int bancaid, string ipaddress)
         {
 
             CuentaDTO cuentaDto = _accountService.Logon2(usuario, clave, bancaid, ipaddress);

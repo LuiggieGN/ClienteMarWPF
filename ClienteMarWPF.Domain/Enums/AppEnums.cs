@@ -1,12 +1,8 @@
 ﻿using System;
 
 namespace ClienteMarWPF.Domain.Enums
-{
-
-    /// <summary>
-    ///  Cliente vistas activas
-    /// </summary>
-    public enum ViewTypeEnum
+{ 
+    public enum Modulos
     {
         Home = 0,
         Login = 1,
@@ -21,25 +17,25 @@ namespace ClienteMarWPF.Domain.Enums
         InicioControlEfectivo = 100        
 
     }
-
-    /// <summary>
-    ///  Definicion global de funciones contenidas en el servicio de flujo efectibo
-    /// </summary>
-    public enum FlujoEfectivoRoutingFunctions
+ 
+    public enum EfectivoRoutingFunctions
     {
         GetBancaCajaId = 16,
         GetCajaBalanceActual = 30
     }
-
-    /// <summary>
-    /// Definicion global de funciones contenidas en el servico del cliente de MAR
-    /// </summary>
-    public enum ClienteMarServicioEnum
+ 
+    public enum MarRoutingFunctions
     {
 
     }
 
 
+    public enum MarSettingExt 
+    {
+      ini =0,
+      txt = 1,
+      json = 2
+    }
 
 
 }

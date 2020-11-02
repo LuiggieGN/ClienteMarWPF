@@ -50,7 +50,7 @@ namespace ClienteMarWPF.UI
 
 
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navegadordeModulos, factoriaViewModel);
-            UpdateCurrentViewModelCommand.Execute(ViewTypeEnum.Login);
+            UpdateCurrentViewModelCommand.Execute(Modulos.Login);
         }
 
 

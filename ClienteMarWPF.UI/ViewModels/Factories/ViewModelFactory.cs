@@ -69,31 +69,31 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         /// <summary>
         ///    Factoria de viewmodels
         /// </summary>
-        public BaseViewModel CreateViewModel(ViewTypeEnum view)
+        public BaseViewModel CreateViewModel(Modulos view)
         {
             switch (view)
             {
-                case ViewTypeEnum.Home:
+                case Modulos.Home:
                     return _createHomeViewModel();
-                case ViewTypeEnum.Login:
+                case Modulos.Login:
                     return _createLoginViewModel();
-                case ViewTypeEnum.Modulo:
+                case Modulos.Modulo:
                     return _createModuloViewModel();
-                case ViewTypeEnum.Reporte:
+                case Modulos.Reporte:
                     return _createReporteViewModel();                
-                case ViewTypeEnum.Sorteos:
+                case Modulos.Sorteos:
                     return _createSorteosViewModel();               
-                case ViewTypeEnum.CincoMinutos:
+                case Modulos.CincoMinutos:
                     return _createCincoMinutosViewModel();                
-                case ViewTypeEnum.Recargas:
+                case Modulos.Recargas:
                     return _createRecargasViewModel();               
-                case ViewTypeEnum.Mensajeria:
+                case Modulos.Mensajeria:
                     return _createMensajeriaViewModel();
-                case ViewTypeEnum.PagoServicios:
+                case Modulos.PagoServicios:
                     return _createPagoServiciosViewModel();                
-                case ViewTypeEnum.Configuracion:
+                case Modulos.Configuracion:
                     return _createConfiguracionViewModel();
-                case ViewTypeEnum.InicioControlEfectivo:
+                case Modulos.InicioControlEfectivo:
                     return _createInicioControlEfectivoViewModel(); 
                 default:
                     throw new ArgumentException("El ViewType no tiene ViewModel.", "viewType");
