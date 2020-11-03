@@ -15,19 +15,20 @@ namespace ClienteMarWPF.Domain.Enums
         PagoServicios = 8,
         Configuracion = 9,
         InicioControlEfectivo = 100        
+    }
+
+    public enum MarRoutingFunctions
+    {
 
     }
- 
-    public enum EfectivoRoutingFunctions
+
+    public enum CashFlowRoutingFunctions
     {
         GetBancaCajaId = 16,
         GetCajaBalanceActual = 30
     }
  
-    public enum MarRoutingFunctions
-    {
 
-    }
 
 
     public enum MarSettingExt 

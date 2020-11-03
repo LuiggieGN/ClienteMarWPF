@@ -23,7 +23,7 @@ namespace ClienteMarWPF.DataAccess.Services
         static AccountDataService()
         {
             SoapClientesRepository = new SoapClientRepository();
-            clientePuntoDeVenta = SoapClientesRepository.GetPuntoDeVentaServiceClient(false);  
+            clientePuntoDeVenta = SoapClientesRepository.GetMarServiceClient(false);  
         }
 
 

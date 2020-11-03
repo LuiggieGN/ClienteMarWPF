@@ -1,126 +1,114 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.OleDb;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using MAR.Config;
+using System.Threading.Tasks;
+
+using MarPuntoVentaServiceReference;
+using FlujoService;
+
 using MAR.AppLogic.Encryption;
 
- 
 
 namespace ClienteMarWPF.DataAccess.Services.Helpers
 {
     public class SoapClientRepository
     {
-        string _serverAddress = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceURL));
-        string _serverBackUpAddress = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceLocalURL));
+        string serveraddress = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceURL));
+        string serverbackup = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceLocalURL));
 
-        // Clientes Soap
-        MarPuntoVentaServiceReference.PtoVtaSoapClient _clientePuntoDeVenta;
-        FlujoService.mar_flujoSoapClient _clienteFlujoEfectivo;
-
-
-        public int ClientTimeout { get; set; }
+        public int ClientTimeout { get; set; }   
         public string ServiceHostIP { get; set; }
 
+        PtoVtaSoapClient marcliente;
+        mar_flujoSoapClient controlefectivocliente;
 
-        public MarPuntoVentaServiceReference.PtoVtaSoapClient GetPuntoDeVentaServiceClient(bool pUseBackupConnection, int flujoTimeoutSeconds = 30)
+
+        public  PtoVtaSoapClient GetMarServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
         {
             try
             {
-                if (_clientePuntoDeVenta != null && _clientePuntoDeVenta.State != CommunicationState.Closed)
+                if (marcliente != null && marcliente.State != CommunicationState.Closed)
                 {
-                    try { _clientePuntoDeVenta.CloseAsync(); } catch { }
+                    try { marcliente.CloseAsync().Wait(); } catch { }
                 }
 
                 BasicHttpBinding binding;
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-                _serverAddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+                serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
 
-                if ((pUseBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
+                if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
-                    splitaddress = _serverBackUpAddress.Replace("localhost", ServiceHostIP).Split('/');
+                    splitaddress = serverbackup.Replace("localhost", ServiceHostIP).Split('/');
                 }
                 else
                 {
-                    splitaddress = _serverAddress.Split('/');
+                    splitaddress = serveraddress.Split('/');
                 }
-
-          
-
-
+                
                 splitaddress[splitaddress.Length - 1] = "mar-ptovta.asmx";
 
                 endpoint = new EndpointAddress(string.Join("/", splitaddress));
 
                 binding = new BasicHttpBinding(endpoint.Uri.Scheme.ToLower() == "http" ? BasicHttpSecurityMode.None : BasicHttpSecurityMode.Transport);
+                binding.ReceiveTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.OpenTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.CloseTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.SendTimeout = new TimeSpan(0, 0, timeoutInSeconds);
 
-                binding.ReceiveTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
-                binding.OpenTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
-                binding.CloseTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
-                binding.SendTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
-
-                _clientePuntoDeVenta = new MarPuntoVentaServiceReference.PtoVtaSoapClient(binding, endpoint);        
-            
+                marcliente = new  PtoVtaSoapClient(binding, endpoint);               
             }
             catch 
             {
-                _clientePuntoDeVenta = null;
+                marcliente = null;
             }
 
-            return _clientePuntoDeVenta;
+            return marcliente;
+        } 
 
-        }//fin de metodo GetPuntoDeVentaServiceClient()
-
-        public FlujoService.mar_flujoSoapClient GetFlujoEfectivoServiceClient(bool pUseBackupConnection, int flujoTimeoutSeconds = 30)
+        public  mar_flujoSoapClient GetCashFlowServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
         {
             try
             {
-                if (_clienteFlujoEfectivo != null && _clienteFlujoEfectivo.State != CommunicationState.Closed)
+                if (controlefectivocliente != null && controlefectivocliente.State != CommunicationState.Closed)
                 {
-                    try { _clienteFlujoEfectivo.CloseAsync(); } catch { }
+                    try { controlefectivocliente.CloseAsync().Wait(); } catch { }
                 }
 
                 BasicHttpBinding binding;
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-                _serverAddress = @"http://localhost:14217/mar-flujo.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+                serveraddress = @"http://localhost:14217/mar-flujo.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
 
-                if ((pUseBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
+                if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
-                    splitaddress = _serverBackUpAddress.Replace("localhost", ServiceHostIP).Split('/');
+                    splitaddress = serverbackup.Replace("localhost", ServiceHostIP).Split('/');
                 }
                 else
                 {
-                    splitaddress = _serverAddress.Split('/');
+                    splitaddress = serveraddress.Split('/');
                 }
 
                 splitaddress[splitaddress.Length - 1] = "mar-flujo.asmx";
 
                 endpoint = new EndpointAddress(string.Join("/", splitaddress));
-
                 binding = new BasicHttpBinding(endpoint.Uri.Scheme.ToLower() == "http" ? BasicHttpSecurityMode.None : BasicHttpSecurityMode.Transport);
+                binding.ReceiveTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.OpenTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.CloseTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.SendTimeout = new TimeSpan(0, 0, timeoutInSeconds);
 
-                binding.ReceiveTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
-                binding.OpenTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
-                binding.CloseTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
-                binding.SendTimeout = new TimeSpan(0, 0, flujoTimeoutSeconds);
-
-                _clienteFlujoEfectivo = new FlujoService.mar_flujoSoapClient(binding, endpoint);
-
+                controlefectivocliente = new mar_flujoSoapClient(binding, endpoint);
             }
             catch  
             {
-                _clienteFlujoEfectivo = null;
+                controlefectivocliente = null;
             }
 
-            return _clienteFlujoEfectivo;
+            return controlefectivocliente;
+        } 
 
-        }//fin de metodo GetFlujoEfectivoServiceClient()
 
 
 

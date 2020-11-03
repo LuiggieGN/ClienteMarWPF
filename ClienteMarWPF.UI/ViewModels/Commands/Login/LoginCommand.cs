@@ -16,14 +16,12 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
         private readonly IRenavigator navegaAppVistaInicial;
         private readonly ILocalClientSettingStore localclientsettings;
 
-
         public LoginCommand(LoginViewModel viewmodellogin, IAuthenticator autenticador, IRenavigator renavigator, ILocalClientSettingStore localclientsettings) : base()
         {
             this.viewmodellogin = viewmodellogin;
             this.autenticador = autenticador;
             this.navegaAppVistaInicial = renavigator;
             this.localclientsettings = localclientsettings;
-
             Action<object> comando = new Action<object>(IniciarSesion);
             base.SetAction(comando);
         }
@@ -35,17 +33,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
 
             try
             {
-                //int bancaid = 6;                   //@Pendiente definir logica para obtener banca id;
-                //string ipaddress = "172.10.10.2";  //@Pendiente definir logica para obtener ipaddress;
-
-
                 localclientsettings.ReadDektopLocalSetting(); //@leo el archivo .ini que contiene el ipadress y el banca id
-
                 autenticador.IniciarSesion(viewmodellogin.Username, $"{password}" , localclientsettings.LocalClientSettings.BancaId , localclientsettings.LocalClientSettings.Direccion );
                 navegaAppVistaInicial.Renavigate();
-
- 
-
             }
             catch (MarFileReadException ex)
             {
