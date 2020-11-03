@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
-using ClienteMarWPF.Domain.Services;
+ 
 using ClienteMarWPF.Domain.Services.AccountService;
 using ClienteMarWPF.Domain.Services.AuthenticationService;
 using ClienteMarWPF.DataAccess.Services;
@@ -24,11 +24,6 @@ using ClienteMarWPF.UI.ViewModels.Base;
 using ClienteMarWPF.UI.ViewModels.Factories;
 
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using ClienteMarWPF.UI.Modules.Sorteos;
 using ClienteMarWPF.Domain.Services.BancaService;
