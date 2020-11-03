@@ -25,8 +25,8 @@ namespace ClienteMarWPF.DataAccess.Services
         static BancaDataService()
         {
             soapClienteRepository = new SoapClientRepository();
-            clientePuntoDeVenta = soapClienteRepository.GetPuntoDeVentaServiceClient(false);
-            flujoCliente = soapClienteRepository.GetFlujoEfectivoServiceClient(false);
+            clientePuntoDeVenta = soapClienteRepository.GetMarServiceClient(false);
+            flujoCliente = soapClienteRepository.GetCashFlowServiceClient(false);
         }
 
 
