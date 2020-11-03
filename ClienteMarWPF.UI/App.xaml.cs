@@ -38,7 +38,7 @@ using ClienteMarWPF.UI.Modules.Mensajeria;
 using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
-
+using ClienteMarWPF.Domain.Services.MensajesService;
 
 namespace ClienteMarWPF.UI
 {
@@ -67,6 +67,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IPasswordHasher<Usuario>, PersonalizedPasswordHasher>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IBancaService, BancaDataService>();
+            services.AddSingleton<IMensajesService, MensajesDataService>();
  
 
 
@@ -97,7 +98,9 @@ namespace ClienteMarWPF.UI
             );
 
             services.AddSingleton<MensajeriaViewModel>(
-                services => new MensajeriaViewModel()
+                services => new MensajeriaViewModel(
+                    services.GetRequiredService<IAuthenticator>(), 
+                    services.GetRequiredService<IMensajesService>())
             );
 
 

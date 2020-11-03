@@ -18,7 +18,7 @@
             <Label Content="Mensajeria instantanea" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
         </Border>
 
-        <ListBox x:Name="listMensajeChat" Grid.Row="1"   Background="#EEEEEE" ItemsSource="{Binding}"  ScrollViewer.CanContentScroll="True" Padding="10" >
+        <ListBox x:Name="listMensajeChat" Grid.Row="1"   Background="#EEEEEE" ItemsSource="{Binding MensajeriaBinding, UpdateSourceTrigger=PropertyChanged}"  ScrollViewer.CanContentScroll="True" Padding="10" >
             <ListBox.Resources>
 
                 <Style TargetType="{x:Type ListBoxItem}"  >
@@ -66,8 +66,8 @@
         </ListBox>
         
         <StackPanel  Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="10" Height="60">
-                <TextBox x:Name="txtChatMensaje" Width="500"  Height="50" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" AcceptsReturn="True"  VerticalScrollBarVisibility="Auto" SpellCheck.IsEnabled="True"  materialDesign:HintAssist.Hint="Escriba el mensaje" />
-                <Button Style="{DynamicResource btn-primary}" Click="btnChatEnviar" Height="50" Margin="10 0" Foreground="White"   VerticalAlignment="Center" >
+            <TextBox x:Name="txtChatMensaje" Text="{Binding Mensaje, UpdateSourceTrigger=PropertyChanged}" Width="500"  Height="50" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" AcceptsReturn="True"  VerticalScrollBarVisibility="Auto" SpellCheck.IsEnabled="True"  materialDesign:HintAssist.Hint="Escriba el mensaje" />
+            <Button Style="{DynamicResource btn-primary}" Command="{Binding SendMensajeCommand}" Height="50" Margin="10 0" Foreground="White"   VerticalAlignment="Center" >
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Enviar Mensaje" Foreground="White" FontSize="18"/>
                         <materialDesign:PackIcon Kind="Send" Width="20" Height="20" VerticalAlignment="Center"/>
