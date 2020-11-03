@@ -6,10 +6,7 @@ using ClienteMarWPF.UI.State.LocalClientSetting;
 
 using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
-
-using System;
-using System.Collections.Generic;
-using System.Text;
+ 
 using System.Windows.Input;
 
 

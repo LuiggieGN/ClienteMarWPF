@@ -18,18 +18,14 @@ using ClienteMarWPF.Domain.Models.Dtos;
 namespace ClienteMarWPF.UI
 {
     public class MainWindowViewModel : BaseViewModel
-    {
-        public static FlujoService.MAR_Session MarSession = new FlujoService.MAR_Session();
+    { 
         private readonly IViewModelFactory factoriaViewModel;
         private readonly INavigator navegadordeModulos;
         private readonly IAuthenticator autenticador;
 
-        public bool EstaLogueado => autenticador?.IsLoggedIn??false;
-        
+        public bool EstaLogueado => autenticador?.IsLoggedIn??false;        
         public BaseViewModel CurrentViewModel => navegadordeModulos.CurrentViewModel;
         public BancaConfiguracionDTO BancaConfiguracion => autenticador?.BancaConfiguracion;
-
-
 
         public ICommand UpdateCurrentViewModelCommand { get; }
         public ICommand LogoutCommand { get; }
@@ -47,7 +43,6 @@ namespace ClienteMarWPF.UI
 
             this.navegadordeModulos = navegadordeModulos;
             this.navegadordeModulos.StateChanged += Navigator_StateChanged;
-
 
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(navegadordeModulos, factoriaViewModel);
             UpdateCurrentViewModelCommand.Execute(Modulos.Login);
