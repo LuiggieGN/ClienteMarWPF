@@ -68,7 +68,7 @@ namespace ClienteMarWPF.DataAccess.Services
                 {
                     return
                            flujoCliente.CallFlujoIndexFunctionAsync(
-                               (int)EfectivoRoutingFunctions.GetBancaCajaId,
+                               (int)CashFlowRoutingFunctions.GetBancaCajaId,
                                 sesion,
                                 colleccionParametros
                             ).Result.Body.CallFlujoIndexFunctionResult;
@@ -109,7 +109,7 @@ namespace ClienteMarWPF.DataAccess.Services
                 {
                     return
                            flujoCliente.CallFlujoIndexFunctionAsync(
-                               (int)EfectivoRoutingFunctions.GetCajaBalanceActual,
+                               (int)CashFlowRoutingFunctions.GetCajaBalanceActual,
                                 sesion,
                                 colleccionParametros
                             ).Result.Body.CallFlujoIndexFunctionResult;

@@ -15,7 +15,7 @@ namespace ClienteMarWPF.DataAccess.Services
         static MensajesDataService()
         {
             SoapClientesRepository = new SoapClientRepository();
-            clientePuntoDeVenta = SoapClientesRepository.GetPuntoDeVentaServiceClient(false);
+            clientePuntoDeVenta = SoapClientesRepository.GetMarServiceClient(false);
         }
 
         public int SendMessage(MAR_Session session, string mensajes)

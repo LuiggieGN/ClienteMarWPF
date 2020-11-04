@@ -60,7 +60,7 @@ namespace ClienteMarWPF.UI.Modules.Modulo
             this.BalanceConsultado = "Balance  ... ";   
               
               
-            this.BancaBalanceConsultaCommand = new BancaBalanceConsultaCommand(this, bancaService, MainWindowViewModel.MarSession);
+            this.BancaBalanceConsultaCommand = new BancaBalanceConsultaCommand(this, bancaService, null);
             this.OtroBancaIdCommand = new GeneraOtroBancaIdCommand(this);
         }
 
