@@ -27,7 +27,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Mensajes
         {
             try
             {
-              var mensajes =   MensajesService.GetMessages(Autenticador.CurrentAccount.MAR_Setting2.Sesion);
+              var mensajes = MensajesService.GetMessages(Autenticador.CurrentAccount.MAR_Setting2.Sesion);
             }
             catch (Exception)
             {

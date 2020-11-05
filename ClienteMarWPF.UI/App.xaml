@@ -65,7 +65,7 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type  moduloMensajeria:MensajeriaViewModel}">
-                <moduloMensajeria:MensajeriaView />
+                <moduloMensajeria:MensajeriaView  GetMensajesCommand="{Binding GetMensajesCommand}"   />
             </DataTemplate>            
 
             <DataTemplate DataType="{x:Type  moduloPagoServicios:PagoServiciosViewModel}">
@@ -75,7 +75,7 @@
             <DataTemplate DataType="{x:Type  moduloConfiguracion:ConfiguracionViewModel}">
                 <moduloConfiguracion:ConfiguracionView />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type moduloLogin:LoginViewModel}">
                 <moduloLogin:LoginView  LoginCommand="{Binding LoginCommand}"   />
             </DataTemplate>

@@ -20,48 +20,26 @@ namespace ClienteMarWPF.UI.Modules.Mensajeria
     /// </summary>
     public partial class MensajeriaView : UserControl
     {
+
+        public static readonly DependencyProperty GetMensajesCommandProperty = DependencyProperty.Register("GetMensajesCommand", typeof(ICommand), typeof(MensajeriaView), new PropertyMetadata(null));
+
+        public ICommand GetMensajesCommand
+        {
+            get { return (ICommand)GetValue(GetMensajesCommandProperty); }
+            set { SetValue(GetMensajesCommandProperty, value); }
+        }
+
         public MensajeriaView()
         {
             InitializeComponent();
         }
 
-
-
-        private void AddMensaje(string mensaje)
-        {
-           // MensajeriaBinding.Add(new MensajesObservable { Mensaje = mensaje, Destinatario = "Javier de Jesus", IsMe=true });
-            listMensajeChat.Items.MoveCurrentToLast();
-            //listMensajeChat.ScrollIntoView(listMensajeChat.Items.CurrentItem);
-            txtChatMensaje.Text = "";
-        }
-
-
-        private void btnChatEnviar(object sender, RoutedEventArgs e)
-        {
-            string mensaje = txtChatMensaje.Text;
-            if (mensaje != string.Empty)
-            {
-                AddMensaje(mensaje);
-            }
-
-        }
-
-        private void txtChatMensaje_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                string mensaje = txtChatMensaje.Text;
-                if (mensaje != string.Empty)
-                {
-                    AddMensaje(mensaje);
-                }
-            }
-
-        }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-           // listMensajeChat.ScrollIntoView(listMensajeChat.Items.CurrentItem);
+            if (GetMensajesCommand != null)
+            {
+                GetMensajesCommand.Execute(null);
+            }
         }
 
     }

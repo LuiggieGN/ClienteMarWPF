@@ -56,7 +56,7 @@ namespace ClienteMarWPF.DataAccess.Services
         }
 
         public async Task<int> BuscaSuCajaId(int bancaid, FlujoService.MAR_Session sesion)
-        {
+        { 
             return -1;
             //try
             //{
@@ -85,14 +85,14 @@ namespace ClienteMarWPF.DataAccess.Services
             //catch 
             //{
             //    return -1;
-            //}
+            //} 
 
         }// fin de metodo BuscaSuCajaId()
 
 
-
         public async Task<decimal> GetBalance(int bancaid, FlujoService.MAR_Session sesion)
         {
+ 
             return 0;
             //try
             //{
@@ -130,11 +130,15 @@ namespace ClienteMarWPF.DataAccess.Services
             //{
             //    return 0;
             //}
+ 
         }// fin de metodo GetBalance()
+        
 
         public Task<bool> Update(Banca entity)
         {
             throw new NotImplementedException();
         }
+        
+        
     }
 }
