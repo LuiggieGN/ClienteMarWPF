@@ -42,7 +42,6 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 CurrentAccountStateChanged?.Invoke();
             }
         }
-
         public BancaConfiguracionDTO BancaConfiguracion
         {
             get
@@ -77,12 +76,12 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
             BancaConfiguracion = new BancaConfiguracionDTO()
             {
-                BancaId = 6,
-                BancaCajaId = 42,
-                BancaControlEfectivoConfig = new BancaControlEfectivoConfigDTO()
+                BancaId = 16,           //  6 
+                BancaCajaId = null,     //  42 <-
+                ControlEfectivoConfig = new ControlEfectivoDTO()
                 {
-                    ControlEfectivoEstaActivo = true,
-                    BancaInicioFlujoEfectivo = false         //-- equivale a posee cuadre inicial
+                    PuedeUsarControlEfectivo = true,
+                    BancaYaInicioControlEfectivo = false         //-- equivale a posee cuadre inicial
                 }
             };
 

@@ -18,14 +18,18 @@ using ClienteMarWPF.Domain.Models.Dtos;
 namespace ClienteMarWPF.UI
 {
     public class MainWindowViewModel : BaseViewModel
-    { 
-        private readonly IViewModelFactory factoriaViewModel;
+    {
         private readonly INavigator navegadordeModulos;
         private readonly IAuthenticator autenticador;
+        private readonly IViewModelFactory factoriaViewModel;
 
-        public bool EstaLogueado => autenticador?.IsLoggedIn??false;        
+        
         public BaseViewModel CurrentViewModel => navegadordeModulos.CurrentViewModel;
         public BancaConfiguracionDTO BancaConfiguracion => autenticador?.BancaConfiguracion;
+               
+
+        public bool EstaLogueado => autenticador?.IsLoggedIn??false;       
+
 
         public ICommand UpdateCurrentViewModelCommand { get; }
         public ICommand LogoutCommand { get; }

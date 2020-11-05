@@ -39,7 +39,7 @@
     </Reference>
     <Reference Include="MAR.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ConfigLibrary\MAR.Config.dll</HintPath>
+      <HintPath>..\..\..\GitHub\MateoNet\AdminProduccion\Libraries\luiggieLocal\DATA358\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
