@@ -154,7 +154,7 @@
             </StackPanel>
         </Expander>
 
-        <Expander Background="Transparent" Margin="0 2" Width="200" BorderBrush="Transparent" IsExpanded="False" Foreground="White" Visibility="{Binding BancaConfiguracion.ControlEfectivoEstaActivo, Converter={ StaticResource BooleanToVisibilityConverter }}" >
+        <Expander Background="Transparent" Margin="0 2" Width="200" BorderBrush="Transparent" IsExpanded="False" Foreground="White" Visibility="{Binding BancaConfiguracion.ControlEfectivoConfig.PuedeUsarControlEfectivo, Converter={ StaticResource BooleanToVisibilityConverter }}" >
             <Expander.Header>
                 <BulletDecorator Margin="-7 0 0 0">
                     <BulletDecorator.Bullet>
@@ -215,10 +215,10 @@
                 <ContentPresenter.Style>
                     <Style TargetType="{x:Type ContentPresenter}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding BancaConfiguracion.BancaControlEfectivoConfig.BancaInicioFlujoEfectivo}" Value="False">
+                            <DataTrigger Binding="{Binding BancaConfiguracion.ControlEfectivoConfig.BancaYaInicioControlEfectivo}" Value="False">
                                 <Setter Property="ContentTemplate" Value="{StaticResource TemplateNoPoseeFlujoEfectivo}" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding BancaConfiguracion.BancaControlEfectivoConfig.BancaInicioFlujoEfectivo}" Value="True">
+                            <DataTrigger Binding="{Binding BancaConfiguracion.ControlEfectivoConfig.BancaYaInicioControlEfectivo}" Value="True">
                                 <Setter Property="ContentTemplate" Value="{StaticResource  TemplatePoseeFlujoEfectivo}" />
                             </DataTrigger>
                         </Style.Triggers>

@@ -22,10 +22,11 @@ namespace ClienteMarWPF.Domain.Enums
 
     }
 
-    public enum CashFlowRoutingFunctions
+    public enum ControlEfectivoFunciones
     {
-        GetBancaCajaId = 16,
-        GetCajaBalanceActual = 30
+        CajaController_Create_NewRecord = 1000
+
+
     }
  
 
@@ -40,3 +41,7 @@ namespace ClienteMarWPF.Domain.Enums
 
 
 }
+
+
+//GetBancaCajaId = 16,
+//GetCajaBalanceActual = 30,

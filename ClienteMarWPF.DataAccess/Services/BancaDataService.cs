@@ -20,13 +20,13 @@ namespace ClienteMarWPF.DataAccess.Services
     public class BancaDataService : IBancaService
     {
         public  static SoapClientRepository soapClienteRepository;
-        private static FlujoService.mar_flujoSoapClient flujoCliente;
-        private static MarPuntoVentaServiceReference.PtoVtaSoapClient clientePuntoDeVenta;
+        private static FlujoService.mar_flujoSoapClient ControlEfectivoCliente;
+        private static MarPuntoVentaServiceReference.PtoVtaSoapClient MarCliente;
         static BancaDataService()
         {
             soapClienteRepository = new SoapClientRepository();
-            clientePuntoDeVenta = soapClienteRepository.GetMarServiceClient(false);
-            flujoCliente = soapClienteRepository.GetCashFlowServiceClient(false);
+            MarCliente = soapClienteRepository.GetMarServiceClient(false);
+            ControlEfectivoCliente = soapClienteRepository.GetCashFlowServiceClient(false);
         }
 
 
@@ -56,83 +56,89 @@ namespace ClienteMarWPF.DataAccess.Services
         }
 
         public async Task<int> BuscaSuCajaId(int bancaid, FlujoService.MAR_Session sesion)
-        {
-            try
-            {
-                string bancaidStr = JSONHelper.SerializeToJSON(bancaid);
+        { 
+            return -1;
+            //try
+            //{
+            //    string bancaidStr = JSONHelper.SerializeToJSON(bancaid);
 
-                FlujoService.ArrayOfAnyType colleccionParametros = new FlujoService.ArrayOfAnyType();
-                colleccionParametros.Add(bancaidStr);
+            //    FlujoService.ArrayOfAnyType colleccionParametros = new FlujoService.ArrayOfAnyType();
+            //    colleccionParametros.Add(bancaidStr);
 
-                FlujoService.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
-                {
-                    return
-                           flujoCliente.CallFlujoIndexFunctionAsync(
-                               (int)CashFlowRoutingFunctions.GetBancaCajaId,
-                                sesion,
-                                colleccionParametros
-                            ).Result.Body.CallFlujoIndexFunctionResult;
-                });
+            //    FlujoService.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
+            //    {
+            //        return
+            //               ControlEfectivoCliente.CallFlujoIndexFunctionAsync(
+            //                   (int)CashFlowRoutingFunctions.GetBancaCajaId,
+            //                    sesion,
+            //                    colleccionParametros
+            //                ).Result.Body.CallFlujoIndexFunctionResult;
+            //    });
 
 
-                if (servicioRespuesta != null && servicioRespuesta.OK == true)
-                {
-                    return JSONHelper.CreateNewFromJSONNullValueIgnore<int>(servicioRespuesta.Respuesta);
-                }
-                else { return -1; }
-            }
-            catch 
-            {
-                return -1;
-            }
+            //    if (servicioRespuesta != null && servicioRespuesta.OK == true)
+            //    {
+            //        return JSONHelper.CreateNewFromJSONNullValueIgnore<int>(servicioRespuesta.Respuesta);
+            //    }
+            //    else { return -1; }
+            //}
+            //catch 
+            //{
+            //    return -1;
+            //} 
 
         }// fin de metodo BuscaSuCajaId()
 
 
-
         public async Task<decimal> GetBalance(int bancaid, FlujoService.MAR_Session sesion)
         {
-            try
-            {
-                int cajaid = await BuscaSuCajaId(bancaid, sesion);
+ 
+            return 0;
+            //try
+            //{
+            //    int cajaid = await BuscaSuCajaId(bancaid, sesion);
 
-                if (cajaid == -1)
-                {
-                    return 0;
-                }
+            //    if (cajaid == -1)
+            //    {
+            //        return 0;
+            //    }
 
-                string cajaidStr = JSONHelper.SerializeToJSON(cajaid);
-                FlujoService.ArrayOfAnyType colleccionParametros = new FlujoService.ArrayOfAnyType();
-                colleccionParametros.Add(cajaidStr);
+            //    string cajaidStr = JSONHelper.SerializeToJSON(cajaid);
+            //    FlujoService.ArrayOfAnyType colleccionParametros = new FlujoService.ArrayOfAnyType();
+            //    colleccionParametros.Add(cajaidStr);
 
-                FlujoService.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
-                {
-                    return
-                           flujoCliente.CallFlujoIndexFunctionAsync(
-                               (int)CashFlowRoutingFunctions.GetCajaBalanceActual,
-                                sesion,
-                                colleccionParametros
-                            ).Result.Body.CallFlujoIndexFunctionResult;
-                });
+            //    FlujoService.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
+            //    {
+            //        return
+            //               ControlEfectivoCliente.CallFlujoIndexFunctionAsync(
+            //                   (int)CashFlowRoutingFunctions.GetCajaBalanceActual,
+            //                    sesion,
+            //                    colleccionParametros
+            //                ).Result.Body.CallFlujoIndexFunctionResult;
+            //    });
 
-                if (servicioRespuesta != null && servicioRespuesta.OK == true)
-                {
-                    return JSONHelper.CreateNewFromJSONNullValueIgnore<decimal>(servicioRespuesta.Respuesta);
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            catch
-            {
-                return 0;
-            }
+            //    if (servicioRespuesta != null && servicioRespuesta.OK == true)
+            //    {
+            //        return JSONHelper.CreateNewFromJSONNullValueIgnore<decimal>(servicioRespuesta.Respuesta);
+            //    }
+            //    else
+            //    {
+            //        return 0;
+            //    }
+            //}
+            //catch
+            //{
+            //    return 0;
+            //}
+ 
         }// fin de metodo GetBalance()
+        
 
         public Task<bool> Update(Banca entity)
         {
             throw new NotImplementedException();
         }
+        
+        
     }
 }
