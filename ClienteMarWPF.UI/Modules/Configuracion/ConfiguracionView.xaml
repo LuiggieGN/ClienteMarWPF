@@ -22,7 +22,7 @@
         <Grid Grid.Row="2" Grid.RowSpan="2"  Margin="10">
 
 
-            <StackPanel x:Name="PanelAutoriacion" Visibility="Collapsed" Grid.Row="1" Grid.RowSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel x:Name="PanelAutoriacion" Grid.Row="1" Grid.RowSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:PackIcon Kind="SecurityLock" Width="150" Height="150" HorizontalAlignment="Center" Foreground="{DynamicResource MenuTopBackground}" />
                 <Label Content="Autorizacion de cambios" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" Foreground="Black" />
                 <Label Content="Para realizar cambios en configuracion debe intoducir codigo de autorizacion." HorizontalAlignment="Center" FontSize="12" />
@@ -36,7 +36,7 @@
 
             </StackPanel>
 
-            <StackPanel   x:Name="PanelConfiguracion" Visibility="Visible">
+            <StackPanel   x:Name="PanelConfiguracion" Visibility="Collapsed">
                 <Label Content="Configuracion del sistema"  Foreground="SlateGray" />
 
                 <StackPanel Orientation="Horizontal" >
