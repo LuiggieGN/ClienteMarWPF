@@ -104,7 +104,7 @@ namespace ClienteMarWPF.UI
             );
 
             services.AddSingleton<ConfiguracionViewModel>(
-                services => new ConfiguracionViewModel()
+                services => new ConfiguracionViewModel(services.GetRequiredService<ILocalClientSettingStore>())
             );
 
 
