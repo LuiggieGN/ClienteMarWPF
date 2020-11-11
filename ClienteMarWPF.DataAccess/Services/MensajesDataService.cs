@@ -26,8 +26,7 @@ namespace ClienteMarWPF.DataAccess.Services
         public MAR_Mensajes GetMessages(MAR_Session session)
         {
             var msj =  clientePuntoDeVenta.GetMensaje(session);
-            var msj2 =  clientePuntoDeVenta.GetMensaje2(session, true, session.Banca, true);
-
+           // var msj2 =  clientePuntoDeVenta.GetMensaje2(session, true, session.Banca, true);
             return msj;
         }
 

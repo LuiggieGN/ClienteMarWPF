@@ -31,12 +31,12 @@
                                         <DropShadowEffect BlurRadius="10" Opacity="0.2"/>
                                     </Border.Effect>
                                     <StackPanel >
-                                        <TextBlock x:Name="txt1" Text="{Binding Remitente}" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
+                                        <TextBlock x:Name="txt1" Text="{Binding Destino}" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
                                         <TextBlock x:Name="txt3" Text="Tu" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
-                                        <TextBlock x:Name="txt2"  TextWrapping="Wrap" FontSize="14" Text="{Binding Mensaje}"/>
+                                        <TextBlock x:Name="txt2"  TextWrapping="Wrap" FontSize="14" Text="{Binding Contenido}"/>
                                     </StackPanel>
                                 </Border>
-                                <ControlTemplate.Triggers>
+                                <!--<ControlTemplate.Triggers>
                                     <DataTrigger Binding="{Binding IsMe}" Value="true">
                                         <Setter TargetName="fondoC" Property="HorizontalAlignment" Value="Right" />
                                         <Setter TargetName="fondoC" Property="Background" Value="#00A8E8" />
@@ -49,7 +49,7 @@
                                         <Setter TargetName="fondoC" Property="HorizontalAlignment" Value="Left" />
                                         <Setter TargetName="txt3" Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
-                                </ControlTemplate.Triggers>
+                                </ControlTemplate.Triggers>-->
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
