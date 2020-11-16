@@ -34,6 +34,7 @@ using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
 using ClienteMarWPF.Domain.Services.MensajesService;
+using ClienteMarWPF.Domain.Services.ReportesService;
 
 namespace ClienteMarWPF.UI
 {
@@ -63,7 +64,8 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IBancaService, BancaDataService>();
             services.AddSingleton<IMensajesService, MensajesDataService>();
- 
+            services.AddSingleton<IReportesServices, ReportesDataService>();
+
 
 
             ///@@ Registrando Servicio de Factoria de ViewModel y de los ( ViewModels de los modulos)
@@ -77,7 +79,9 @@ namespace ClienteMarWPF.UI
             );
 
             services.AddSingleton<ReporteViewModel>(
-                services => new ReporteViewModel()
+                services => new ReporteViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<IReportesServices>())
             );
 
             services.AddSingleton<SorteosViewModel>(
