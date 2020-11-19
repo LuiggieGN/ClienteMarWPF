@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClienteMarWPF.Domain.Models.Dtos
 {
-    public class Reportes
+    public class ReportesSumaVentas
     {
         public string Reglon { get; set; }
         public int Resultado { get; set; }

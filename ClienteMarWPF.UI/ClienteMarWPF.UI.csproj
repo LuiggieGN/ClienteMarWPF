@@ -39,7 +39,6 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\Commands\FlujoEfectivo\" />
-    <Folder Include="ViewModels\Commands\Reportes\" />
     <Folder Include="Views\AttachedProperties\" />
   </ItemGroup>
 

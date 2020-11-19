@@ -13,9 +13,13 @@ using MarPuntoVentaServiceReference;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -23,15 +27,20 @@ namespace ClienteMarWPF.UI.Modules.Reporte
 {
     public class ReporteViewModel : BaseViewModel
     {
-        public ICommand GetRptSuma { get; }
+        public ICommand ObtenerReportes { get; }
         public ObservableCollection<ReportesObservable> ReporteBinding;
-        public ObservableCollection<ReportesMostrarObservable> ReporteMostrarBinding;
+        public ObservableCollection<ReportesSumVentasObservable> ReporteMostrarBinding;
+       
        
         public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices)
         {
-            Fecha = DateTime.Now.ToString();
-            GetRptSuma = new GetReportesCommand(this, autenticador, reportesServices);
+            Fecha = DateTime.Now.ToString("yyyy/MM/dd");
+            FechaInicio = DateTime.Now.ToString();
+            FechaFin = Convert.ToDateTime(DateTime.Now).AddDays(-1).ToString();
+            SoloTotales = true;
+            ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices);
             RPTSumaVentas = Visibility.Hidden;
+            RPTTicketGanadores = Visibility.Hidden;
             
         }
 
@@ -39,19 +48,31 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         //###########################################################
         private string _fecha;
         private string _reporte;
-        private string _loteria;
+        private int _loteriaID;
         private string _nombrereporte;
         private string _nombrebanca;
         private string _fechareporte;
         private string _fechaActualReport;
         private int _reporteID;
+        // Reportes Ventas Por Fecha
+        private string _fechainicio;
+        private string _fechaFin;
+        private bool _soloTotales;
+        /////////////////////////////
         private int totalresultado;
         private int totalcomision;
         private int totalsaco;
         private int totalbalance;
+        public string _nombreloteria;
+
+        //////////// Reportes a mostrar /////////
         private Visibility _rptsumaventas;
-        private ObservableCollection<ReportesMostrarObservable> _informacionesreportes;
+        private Visibility _rptticketGanadores;
+        ////////////////////////////////////////
+        private ObservableCollection<ReportesSumVentasObservable> _informacionesreportes;
         private ObservableCollection<ReportesObservable> _reportes;
+        private DataGrid GridAgrupado;
+        private ObservableCollection<ReportesGanadoresObservable> _reporteganadoresbinding;
 
         //###########################################################
 
@@ -68,10 +89,34 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             }
         }
 
+        public string FechaInicio
+        {
+            get { return _fechainicio; }
+            set { _fechainicio = value; NotifyPropertyChanged(nameof(FechaInicio)); }
+        }
+
+        public string FechaFin
+        {
+            get { return _fechaFin; }
+            set { _fechaFin = value; NotifyPropertyChanged(nameof(FechaFin)); }
+        }
+
+        public bool SoloTotales
+        {
+            get { return _soloTotales; }
+            set { _soloTotales = value; NotifyPropertyChanged(nameof(SoloTotales)); }
+        }
+
         public string NombreReporte 
         {
             get { return _nombrereporte; }
             set { _nombrereporte = value; NotifyPropertyChanged(nameof(NombreReporte)); }
+        }
+
+        public string NombreLoteria
+        {
+            get { return _nombreloteria; }
+            set { _nombreloteria = value; NotifyPropertyChanged(nameof(NombreLoteria)); }
         }
 
         public Visibility RPTSumaVentas
@@ -80,10 +125,22 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             set { _rptsumaventas = value; NotifyPropertyChanged(nameof(RPTSumaVentas)); }
         }
 
+        public Visibility RPTTicketGanadores
+        {
+            get { return _rptticketGanadores; }
+            set { _rptticketGanadores = value; NotifyPropertyChanged(nameof(RPTTicketGanadores)); }
+        }
+
         public string FechaActualReport
         {
             get { return _fechaActualReport; }
             set { _fechaActualReport = value; NotifyPropertyChanged(nameof(FechaActualReport)); }
+        }
+
+        public ObservableCollection<ReportesGanadoresObservable> ReportesGanadores
+        {
+            get { return _reporteganadoresbinding; }
+            set { _reporteganadoresbinding = value; NotifyPropertyChanged(nameof(ReportesGanadores)); }
         }
 
         public string Reporte
@@ -123,16 +180,16 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             }
         }
 
-        public string Loteria
+        public int LoteriaID
         {
             get
             {
-                return _loteria;
+                return _loteriaID;
             }
             set
             {
-                _loteria = value;
-                NotifyPropertyChanged(nameof(Loteria));
+                _loteriaID = value;
+                NotifyPropertyChanged(nameof(LoteriaID));
             }
         }
 
@@ -152,13 +209,17 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             set { _reporteID = value; NotifyPropertyChanged(nameof(ReporteID)); }
         }
 
-        public ObservableCollection<ReportesMostrarObservable> InformacionesReportes
+        public ObservableCollection<ReportesSumVentasObservable> InformacionesReportes
         {
             get { return _informacionesreportes; }
             set { _informacionesreportes = value; NotifyPropertyChanged(nameof(InformacionesReportes)); }
         }
 
-
+        public DataGrid GridAgrupadoMode
+        {
+            get { return GridAgrupado; }
+            set { GridAgrupado = value; NotifyPropertyChanged(nameof(GridAgrupadoMode)); }
+        }
 
 
         public int TotalResultado

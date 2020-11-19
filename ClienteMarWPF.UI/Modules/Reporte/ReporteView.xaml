@@ -5,12 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
+
+   
     <Grid>
+       
         <Grid.Resources>
+
             <DataTemplate x:Key="ListRadioButton">
-                
                 <RadioButton GroupName="SorteosList"  IsChecked="{Binding IsSelected, Mode=TwoWay}">
                     <RadioButton.Resources>
                         <Style TargetType="{x:Type RadioButton}">
@@ -49,7 +53,10 @@
                     </RadioButton.Resources>
                 </RadioButton>
             </DataTemplate>
+           
+            
         </Grid.Resources>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition/>
@@ -75,17 +82,42 @@
 
             <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Margin="0,45">
             <Label Margin="15,0" FontSize="10px">Loterias</Label>
-                <ComboBox x:Name="listSorteo" ItemsSource="{Binding}" Width="180px">
+                <ComboBox x:Name="listSorteo" ItemsSource="{Binding}" SelectedItem="0" Width="180px" SelectionChanged="listSorteo_SelectionChanged" SelectedIndex="0">
                     <ComboBox.ItemTemplate >
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" >
                                 <TextBlock Text="{Binding Loteria}" />
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
           </StackPanel>
-            
+
+            <Popup x:Name="VentaFecha" Placement="Center" Width="300" Height="260">
+                <Grid Background="White" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition  Height="70"></RowDefinition>
+                        <RowDefinition Height="20px"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Background="DodgerBlue">
+                        <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16px" Foreground="White">Introduzca Rango De Fecha</Label>
+                    </StackPanel>
+                    <Label FontSize="15px" Grid.Row="1" HorizontalAlignment="Center" Grid.Column="0" VerticalAlignment="Center">Desde: </Label>
+                    <DatePicker x:Name="FechaInicio" Text="{Binding FechaInicio,StringFormat='dd/MM/yyyy'}" Grid.Row="1" Height="30px" Margin="0,0,20,0" Grid.Column="1"></DatePicker>
+                    <Label FontSize="15px" Grid.Row="2" HorizontalAlignment="Center" Grid.Column="0" VerticalAlignment="Center">Hasta: </Label>
+                    <DatePicker  x:Name="FechaFin" SelectedDateFormat="Short" Text="{Binding FechaFin}" Grid.Row="2" Grid.Column="1" Margin="0,0,20,0"></DatePicker>
+                    <CheckBox IsChecked="{Binding SoloTotales}" Grid.Row="3" Margin="0,0,10,0" VerticalAlignment="Top" Grid.Column="1" Content="Resumido (solo totales)"></CheckBox>
+                    <Button Margin="10,10"  HorizontalAlignment="Right" Content="Aceptar" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="1"></Button>
+                    <Button Margin="10,10" HorizontalAlignment="Right" Content="Cancelar"  Grid.Column="1" Grid.Row="4"></Button>
+                </Grid>
+            </Popup>
             
             <ListBox x:Name="listReportes" Grid.Row="0" Grid.Column="0"  Width="250px" HorizontalAlignment="Left" Margin="10,68,0,0" Grid.ColumnSpan="1" Height="330px" VerticalAlignment="Center" 
                       ItemsSource="{Binding Reportes}">
@@ -97,7 +129,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <StackPanel  Grid.Row="0" Grid.Column="0" Margin="10 -2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                <Button  Style="{DynamicResource btn-primary}" Command="{Binding GetRptSuma}" Foreground="White" Width="200"  Margin="0 0 0 4">
+                <Button  Style="{DynamicResource btn-primary}" Command="{Binding ObtenerReportes}" Foreground="White" Width="200"  Margin="0 0 0 4">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="Printer" Margin="5 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                         <TextBlock Text="Imprimir reporte" Foreground="White" VerticalAlignment="Top"/>
@@ -241,8 +273,11 @@
                             </Style.Setters>
                         </Style>
                         
-
                     </DataGrid.Resources>
+
+                    
+                    
+                    
                     <DataGrid.Columns>
                         <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="99" Header="CONCEPTO"  Binding="{Binding Renglon}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                         <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*" Header="VENTA" Binding="{Binding Resultado}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
@@ -273,6 +308,88 @@
                 </Grid>
             </Grid>
             <!--- //////////////////// Fin Template Suma de ventas ///////////////////////-->
+            
+            <!-- //////////////////// Template Reportes Ganadores //////////////////////-->
+            <Grid Background="WhiteSmoke" Visibility="{Binding RPTTicketGanadores}" Height="300" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+                <Grid.Resources>
+                    <CollectionViewSource  x:Key="colection" Source="{Binding ReportesGanadores}" x:Name="coleccion">
+                        <CollectionViewSource.GroupDescriptions>
+                            <PropertyGroupDescription PropertyName="Categoria"/>
+                        </CollectionViewSource.GroupDescriptions>
+                        <CollectionViewSource.SortDescriptions>
+                            <!-- Requires 'xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"' declaration. -->
+                            <scm:SortDescription PropertyName="Tickets"/>
+                            <scm:SortDescription PropertyName="Fecha" />
+                            <scm:SortDescription PropertyName="Monto" />
+                            <scm:SortDescription PropertyName="Categoria" />
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </Grid.Resources>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="85"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Height="60px" VerticalAlignment="Top" Margin="0,5"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                    <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
+                    <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
+                    <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
+                    <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
+                    <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
+                </StackPanel>
+                <DataGrid x:Name="GridAgrupadoVista" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Source={StaticResource colection}}">
+                    <DataGrid.GroupStyle>
+                        <!-- Style for groups at top level. -->
+                        <GroupStyle>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                <Expander IsExpanded="True" Background="DarkSeaGreen"  BorderBrush="White" Foreground="White" BorderThickness="1,1,1,1">
+                                                    <Expander.Header>
+                                                        <DockPanel Height="17px">
+                                                            <TextBlock FontWeight="Bold" VerticalAlignment="Top" Text="{Binding Path=Name}" Margin="0,0,0,0" Foreground="White" HorizontalAlignment="Left" Width="200"/>
+                                                            <!--<TextBlock FontWeight="Bold" Text="{Binding Path=ItemCount}"/>-->
+                                                        </DockPanel>
+                                                    </Expander.Header>
+                                                    <Expander.Content>
+                                                        <ItemsPresenter />
+                                                    </Expander.Content>
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                        <!-- Style for groups under the top level. -->
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <DockPanel Background="LightBlue">
+                                        <TextBlock Text="{Binding Path=Name}" Foreground="Blue" Margin="30,0,0,0" Width="100"/>
+                                        <TextBlock Text="{Binding Path=ItemCount}" Foreground="Blue"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </DataGrid.GroupStyle>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="Background" Value="White" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+            </Grid>
+            <!--//////////////////////Fin Template Reportes Ganadores /////////////////// --> 
         </Grid>
         
         </Grid>

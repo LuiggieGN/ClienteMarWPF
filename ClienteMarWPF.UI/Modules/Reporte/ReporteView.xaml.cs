@@ -1,13 +1,17 @@
 ﻿using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
+using MAR.AppLogic.MARHelpers;
 using MarPuntoVentaServiceReference;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,13 +29,17 @@ namespace ClienteMarWPF.UI.Modules.Reporte
     {
         private List<SorteosObservable> SorteosBinding;
         public static string Nombre;
-
+        public static int Loteria;
+        public static string NombreLoteria;
+        
         public ReporteView()
         {
             InitializeComponent();
 
+            
             SorteosBinding = new List<SorteosObservable> {
-                new SorteosObservable(){ LoteriaID=1, IsSelected=true, IsSuper = false, Loteria="La Fecha Dia", Image = "WbSunny" },
+                new SorteosObservable(){ LoteriaID=0, IsSelected=true, IsSuper = false, Loteria="Todas", Image = "Brightness3" },
+                new SorteosObservable(){ LoteriaID=1, IsSelected=false, IsSuper = false, Loteria="La Fecha Dia", Image = "WbSunny" },
                 new SorteosObservable(){ LoteriaID=2, IsSelected=false, IsSuper = false, Loteria="La Fecha Noche", Image = "Brightness3" },
                 new SorteosObservable(){ LoteriaID=3, IsSelected=false, IsSuper = false, Loteria="Loteka Dia", Image = "WbSunny" },
                 new SorteosObservable(){ LoteriaID=4, IsSelected=false, IsSuper = false, Loteria="Loteka Noche", Image = "Brightness3" },
@@ -41,7 +49,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
                 new SorteosObservable(){ LoteriaID=8, IsSelected=false, IsSuper = false, Loteria="New York Noche", Image = "Brightness3" },
                 new SorteosObservable(){ LoteriaID=9, IsSelected=false, IsSuper = false, Loteria="Pega 3 Dia", Image = "WbSunny" },
                 new SorteosObservable(){ LoteriaID=10, IsSelected=false, IsSuper = false, Loteria="Pega 3 Noche", Image = "Brightness3" }
-
+               
             };
 
             listSorteo.DataContext = SorteosBinding;
@@ -63,6 +71,16 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             if (Nombre == null)
             {
                 Nombre = "Reportes de Ventas";
+                VentaFecha.IsOpen = false;
+            }
+            else if (Nombre == "Ventas por Fecha")
+            {
+                
+                VentaFecha.IsOpen = true;
+            }
+            else
+            {
+                VentaFecha.IsOpen = false;
             }
             
         }
@@ -71,5 +89,25 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         {
             return Nombre;
         }
+
+        public string GetNombreLoteria()
+        {
+            return NombreLoteria;
+            
+        }
+
+        private void listSorteo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SorteosObservable objeto =((sender as ComboBox).SelectedItem as SorteosObservable);
+            Loteria = objeto.LoteriaID;
+            NombreLoteria = objeto.Loteria.ToString();
+            
+        }
+
+        public int GetLoteriaID()
+        {
+            return Loteria;
+        }
+
     }
 }

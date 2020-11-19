@@ -32,7 +32,7 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         }
     }
 
-    public class ReportesMostrarObservable : BaseViewModel
+    public class ReportesSumVentasObservable : BaseViewModel
     {
 
         private int saco;
@@ -68,6 +68,39 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         {
             get { return balance; }
             set { balance = value; NotifyPropertyChanged(nameof(Balance)); }
+        }
+
+    }
+
+    public class ReportesGanadoresObservable : BaseViewModel
+    {
+
+        private string _fecha;
+        private int _monto;
+        private string _categoria;
+        private string _Tickets;
+
+
+        public string Fecha
+        {
+            get { return _fecha; }
+            set { _fecha = value; NotifyPropertyChanged(nameof(Fecha)); }
+        }
+
+        public int Monto
+        {
+            get { return _monto; }
+            set { _monto = value; NotifyPropertyChanged(nameof(Monto)); }
+        }
+        public string Categoria
+        {
+            get { return _categoria; }
+            set { _categoria = value; NotifyPropertyChanged(nameof(Categoria)); }
+        }
+        public string Tickets
+        {
+            get { return _Tickets; }
+            set { _Tickets = value; NotifyPropertyChanged(nameof(Tickets)); }
         }
 
     }

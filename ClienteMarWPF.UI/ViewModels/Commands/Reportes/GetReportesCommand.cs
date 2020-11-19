@@ -13,6 +13,8 @@ using System.Windows.Controls;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Linq;
+using System.Windows.Data;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
 {
@@ -59,16 +61,22 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
         {
             //Ocultar Templates de reportes
             ViewModel.RPTSumaVentas = Visibility.Hidden;
+            ViewModel.RPTTicketGanadores = Visibility.Hidden;
+
             try
             {
                 var nombre = new ReporteView().GetReporteNombre();
                 if (nombre == "Suma De Ventas")
                 {
-                    ViewModel.NombreReporte = "SUMA DE VENTAS";
                     ViewModel.NombreBanca = "Lexus";
                     
                     //ViewModel.Fecha = DateTime.Now.ToString();
                     RPTSumaDeVentas(parametro);
+                }
+                else if(nombre == "Reportes Ganadores")
+                {
+                    ViewModel.NombreBanca = "Lexus";
+                    RPTGanadores(parametro);
                 }
             }
             catch (Exception e)
@@ -78,23 +86,33 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
 
         }
 
+        private void HeaderReporte(string FechaRepote,string NombreReporte,string Loteria)
+        {
+            //////////////////////////////////////////// Aqui los datos del header//////////////////////////////////////////////////
+            var DiaSemanaActual = TraducirDiaSemana(DateTime.Now.DayOfWeek.ToString());
+            var DiaSemanaReporte = TraducirDiaSemana(Convert.ToDateTime(FechaRepote).DayOfWeek.ToString());
+            ViewModel.FechaActualReport = "Del Dia " + DiaSemanaReporte + ", " + Convert.ToDateTime(FechaRepote).ToString("dd-MMM-yyyy");
+            ViewModel.FechaReporte = DiaSemanaActual + ", " + DateTime.Now.ToString("dd-MMM-yyyy") + " " + DateTime.Now.ToShortTimeString();
+            ViewModel.NombreReporte = NombreReporte;
+
+            if (NombreReporte == "TICKETS GANADORES") { ViewModel.NombreLoteria ="Loteria: "+Loteria;}
+            
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        }
+
         private void RPTSumaDeVentas(object parametro)
         {
             try
             {
-                var Reporte = ReportesService.EnviarReportes(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Fecha);
-                ObservableCollection<ReportesMostrarObservable> List = new ObservableCollection<ReportesMostrarObservable>() { };
+                var Reporte = ReportesService.ReporteSumVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Fecha);
+                ObservableCollection<ReportesSumVentasObservable> List = new ObservableCollection<ReportesSumVentasObservable>() { };
                 if (Reporte.Reglones.Length > 0)
                 {
+                    HeaderReporte(Reporte.Fecha, "SUMA DE VENTAS", null);
+
                     ViewModel.RPTSumaVentas = System.Windows.Visibility.Visible;
-                    //////////////////////////////////////////// Aqui los datos del header//////////////////////////////////////////////////
-                    var DiaSemanaActual = TraducirDiaSemana(DateTime.Now.DayOfWeek.ToString());
-                    var DiaSemanaReporte = TraducirDiaSemana(Convert.ToDateTime(Reporte.Fecha).DayOfWeek.ToString());
-                    ViewModel.FechaActualReport = "Del Dia " + DiaSemanaReporte + ", " + Convert.ToDateTime(Reporte.Fecha).ToString("dd-MMM-yyyy");
-                    ViewModel.FechaReporte = DiaSemanaActual + ", " + DateTime.Now.ToString("dd-MMM-yyyy") + " " + DateTime.Now.ToShortTimeString();
-                    ViewModel.NombreReporte = "SUMA DE VENTAS";
-                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    var totalresultados = 0;
+                   var totalresultados = 0;
                     var totalsaco = 0;
                     var totalcomision = 0;
                     var totalbalance = 0;
@@ -110,7 +128,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                             totalcomision = Convert.ToInt32(totalcomision + data.Comision);
                             totalbalance = Convert.ToInt32(totalbalance + (data.VentaBruta - data.Comision - data.Saco));
 
-                            ReportesMostrarObservable objecto = new ModelObservable.ReportesMostrarObservable()
+                            ReportesSumVentasObservable objecto = new ModelObservable.ReportesSumVentasObservable()
                             {
                                 Renglon = data.Reglon,
                                 Comision = (int)data.Comision,
@@ -149,8 +167,69 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             }
 
         }
-    
-   
 
+        private void RPTGanadores(object parametro)
+        {
+
+            int loteriaId = new ReporteView().GetLoteriaID();
+            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteriaId, ViewModel.Fecha);
+
+            if (Reporte.Tickets.Length > 0 || Reporte.Tickets != null) { 
+            ObservableCollection<ReportesGanadoresObservable> Lista = new ObservableCollection<ReportesGanadoresObservable>() { };
+            HeaderReporte(Reporte.Fecha, "TICKETS GANADORES",new ReporteView().GetNombreLoteria());
+                ViewModel.RPTTicketGanadores = System.Windows.Visibility.Visible;
+                var estado = "";
+                int numero = 0;
+                int Total = 0;
+            foreach (var ticket in Reporte.Tickets.OrderBy(Reporte => Reporte.Solicitud))
+            {
+                if (ticket.Solicitud==3){ estado = "Pendientes Por Pagar"; }
+                else if (ticket.Solicitud == 5) { estado = "Tickets Pagados"; }
+                else if (ticket.Solicitud == 6) { estado = "Tickets Sin Reclamar"; }
+
+                ReportesGanadoresObservable objectoTicket = new ReportesGanadoresObservable()
+                {
+                    Tickets = ticket.TicketNo, 
+                    Fecha = ticket.StrFecha + " "+ticket.StrHora, 
+                    Monto = (int)ticket.Pago,
+                    Categoria = estado
+
+                };
+                Total = Total + Convert.ToInt32(ticket.Pago);
+                Lista.Add(objectoTicket);
+
+                if (numero < Reporte.Tickets.Length -1) { 
+                    if (Reporte.Tickets[numero].Solicitud != Reporte.Tickets[numero + 1].Solicitud)
+                    {
+                        ReportesGanadoresObservable Totales = new ReportesGanadoresObservable()
+                        {
+                            Tickets = "Total",
+                            Fecha = null,
+                            Monto = Total,
+                            Categoria = estado
+                        };
+                        Lista.Add(Totales);
+                        Total = 0;
+                    }
+                    }
+                    if (numero == Reporte.Tickets.Length - 1)
+                    {
+
+                        ReportesGanadoresObservable Totales = new ReportesGanadoresObservable()
+                        {
+                            Tickets = "Total",
+                            Fecha = null,
+                            Monto = Total,
+                            Categoria = estado
+                        };
+                        Lista.Add(Totales);
+                        Total = 0;
+                    }
+                    numero = numero + 1;
+            }
+            ViewModel.ReportesGanadores = Lista;
+           
+          }
+        }
     } 
 }
