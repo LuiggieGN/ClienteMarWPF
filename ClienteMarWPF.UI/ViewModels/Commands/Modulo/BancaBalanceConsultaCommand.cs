@@ -38,7 +38,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Modulo
             {
                 _moduloViewModel.BancaMensaje = $"Balance de Bancas Id = {_moduloViewModel.BancaId}";
 
-                decimal balance = await _bancaService.GetBalance(_moduloViewModel.BancaId,_sesion);
+                decimal balance = 0;//await _bancaService.GetBalance(_moduloViewModel.BancaId,_sesion);
                 _moduloViewModel.BalanceConsultado = "Su balance es = "+ balance.ToString("#.00");
 
 
