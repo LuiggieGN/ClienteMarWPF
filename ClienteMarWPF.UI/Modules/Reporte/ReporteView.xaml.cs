@@ -38,17 +38,17 @@ namespace ClienteMarWPF.UI.Modules.Reporte
 
             
             SorteosBinding = new List<SorteosObservable> {
-                new SorteosObservable(){ LoteriaID=0, IsSelected=true, IsSuper = false, Loteria="Todas", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=1, IsSelected=false, IsSuper = false, Loteria="La Fecha Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=2, IsSelected=false, IsSuper = false, Loteria="La Fecha Noche", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=3, IsSelected=false, IsSuper = false, Loteria="Loteka Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=4, IsSelected=false, IsSuper = false, Loteria="Loteka Noche", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=5, IsSelected=false, IsSuper = false, Loteria="Nacional Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=6, IsSelected=false, IsSuper = false, Loteria="Nacional Noche", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=7, IsSelected=false, IsSuper = false, Loteria="New York Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=8, IsSelected=false, IsSuper = false, Loteria="New York Noche", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=9, IsSelected=false, IsSuper = false, Loteria="Pega 3 Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=10, IsSelected=false, IsSuper = false, Loteria="Pega 3 Noche", Image = "Brightness3" }
+                new SorteosObservable(){ LoteriaID=0, IsSelected=true,  Loteria="Todas" },
+                new SorteosObservable(){ LoteriaID=1, IsSelected=false,  Loteria="La Fecha Dia",},
+                new SorteosObservable(){ LoteriaID=2, IsSelected=false,  Loteria="La Fecha Noche"},
+                new SorteosObservable(){ LoteriaID=3, IsSelected=false,  Loteria="Loteka Dia" },
+                new SorteosObservable(){ LoteriaID=4, IsSelected=false,  Loteria="Loteka Noche"},
+                new SorteosObservable(){ LoteriaID=5, IsSelected=false,  Loteria="Nacional Dia" },
+                new SorteosObservable(){ LoteriaID=6, IsSelected=false,  Loteria="Nacional Noche"},
+                new SorteosObservable(){ LoteriaID=7, IsSelected=false,  Loteria="New York Dia"},
+                new SorteosObservable(){ LoteriaID=8, IsSelected=false,  Loteria="New York Noche" },
+                new SorteosObservable(){ LoteriaID=9, IsSelected=false,  Loteria="Pega 3 Dia" },
+                new SorteosObservable(){ LoteriaID=10, IsSelected=false,  Loteria="Pega 3 Noche"}
                
             };
 
