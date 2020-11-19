@@ -242,6 +242,16 @@ namespace FlujoService
         
         [System.ServiceModel.OperationContractAttribute(Action="mar.do/CallFlujoIndexFunction", ReplyAction="*")]
         System.Threading.Tasks.Task<FlujoService.CallFlujoIndexFunctionResponse> CallFlujoIndexFunctionAsync(FlujoService.CallFlujoIndexFunctionRequest request);
+        
+        // CODEGEN: Generating message contract since element name parametros from namespace mar.do is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/CallControlEfectivoFunciones", ReplyAction="*")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoService.MAR_Session))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoService.ArrayOfAnyType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(FlujoService.MAR_FlujoResponse))]
+        FlujoService.CallControlEfectivoFuncionesResponse CallControlEfectivoFunciones(FlujoService.CallControlEfectivoFuncionesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="mar.do/CallControlEfectivoFunciones", ReplyAction="*")]
+        System.Threading.Tasks.Task<FlujoService.CallControlEfectivoFuncionesResponse> CallControlEfectivoFuncionesAsync(FlujoService.CallControlEfectivoFuncionesRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -332,6 +342,90 @@ namespace FlujoService
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CallControlEfectivoFuncionesRequest
+    {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CallControlEfectivoFunciones", Namespace="mar.do", Order=0)]
+        public FlujoService.CallControlEfectivoFuncionesRequestBody Body;
+        
+        public CallControlEfectivoFuncionesRequest()
+        {
+        }
+        
+        public CallControlEfectivoFuncionesRequest(FlujoService.CallControlEfectivoFuncionesRequestBody Body)
+        {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="mar.do")]
+    public partial class CallControlEfectivoFuncionesRequestBody
+    {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int metodo;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public FlujoService.ArrayOfAnyType parametros;
+        
+        public CallControlEfectivoFuncionesRequestBody()
+        {
+        }
+        
+        public CallControlEfectivoFuncionesRequestBody(int metodo, FlujoService.ArrayOfAnyType parametros)
+        {
+            this.metodo = metodo;
+            this.parametros = parametros;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CallControlEfectivoFuncionesResponse
+    {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CallControlEfectivoFuncionesResponse", Namespace="mar.do", Order=0)]
+        public FlujoService.CallControlEfectivoFuncionesResponseBody Body;
+        
+        public CallControlEfectivoFuncionesResponse()
+        {
+        }
+        
+        public CallControlEfectivoFuncionesResponse(FlujoService.CallControlEfectivoFuncionesResponseBody Body)
+        {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="mar.do")]
+    public partial class CallControlEfectivoFuncionesResponseBody
+    {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public FlujoService.MAR_FlujoResponse CallControlEfectivoFuncionesResult;
+        
+        public CallControlEfectivoFuncionesResponseBody()
+        {
+        }
+        
+        public CallControlEfectivoFuncionesResponseBody(FlujoService.MAR_FlujoResponse CallControlEfectivoFuncionesResult)
+        {
+            this.CallControlEfectivoFuncionesResult = CallControlEfectivoFuncionesResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     public interface mar_flujoSoapChannel : FlujoService.mar_flujoSoap, System.ServiceModel.IClientChannel
     {
@@ -406,6 +500,37 @@ namespace FlujoService
             inValue.Body.pSesion = pSesion;
             inValue.Body.pParams = pParams;
             return ((FlujoService.mar_flujoSoap)(this)).CallFlujoIndexFunctionAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        FlujoService.CallControlEfectivoFuncionesResponse FlujoService.mar_flujoSoap.CallControlEfectivoFunciones(FlujoService.CallControlEfectivoFuncionesRequest request)
+        {
+            return base.Channel.CallControlEfectivoFunciones(request);
+        }
+        
+        public FlujoService.MAR_FlujoResponse CallControlEfectivoFunciones(int metodo, FlujoService.ArrayOfAnyType parametros)
+        {
+            FlujoService.CallControlEfectivoFuncionesRequest inValue = new FlujoService.CallControlEfectivoFuncionesRequest();
+            inValue.Body = new FlujoService.CallControlEfectivoFuncionesRequestBody();
+            inValue.Body.metodo = metodo;
+            inValue.Body.parametros = parametros;
+            FlujoService.CallControlEfectivoFuncionesResponse retVal = ((FlujoService.mar_flujoSoap)(this)).CallControlEfectivoFunciones(inValue);
+            return retVal.Body.CallControlEfectivoFuncionesResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<FlujoService.CallControlEfectivoFuncionesResponse> FlujoService.mar_flujoSoap.CallControlEfectivoFuncionesAsync(FlujoService.CallControlEfectivoFuncionesRequest request)
+        {
+            return base.Channel.CallControlEfectivoFuncionesAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<FlujoService.CallControlEfectivoFuncionesResponse> CallControlEfectivoFuncionesAsync(int metodo, FlujoService.ArrayOfAnyType parametros)
+        {
+            FlujoService.CallControlEfectivoFuncionesRequest inValue = new FlujoService.CallControlEfectivoFuncionesRequest();
+            inValue.Body = new FlujoService.CallControlEfectivoFuncionesRequestBody();
+            inValue.Body.metodo = metodo;
+            inValue.Body.parametros = parametros;
+            return ((FlujoService.mar_flujoSoap)(this)).CallControlEfectivoFuncionesAsync(inValue);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

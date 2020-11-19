@@ -19,11 +19,11 @@ namespace ClienteMarWPF.DataAccess.Services
     {
 
         public  static SoapClientRepository SoapClientesRepository; 
-        private static PtoVtaSoapClient clientePuntoDeVenta;
+        private static PtoVtaSoapClient MarCliente;
         static AccountDataService()
         {
             SoapClientesRepository = new SoapClientRepository();
-            clientePuntoDeVenta = SoapClientesRepository.GetMarServiceClient(false);  
+            MarCliente = SoapClientesRepository.GetMarServiceClient(false);  
         }
 
 
@@ -36,9 +36,9 @@ namespace ClienteMarWPF.DataAccess.Services
 
             try
             {
-                cuenta.MAR_Setting2 = clientePuntoDeVenta.Logon2(usuario, clave, bancaid, ipaddress);
+                cuenta.MAR_Setting2 = MarCliente.Logon2(usuario, clave, bancaid, ipaddress);
             }
-            catch  
+            catch (Exception ex) 
             {
                 cuenta.MAR_Setting2 = null;
             }

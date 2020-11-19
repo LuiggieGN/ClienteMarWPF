@@ -22,7 +22,7 @@
             <!--SORTEOS SLIDER-->
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                 <TextBlock Text="Seleciona un Proveedor" Grid.Row="1" FontSize="20"  TextAlignment="Center" Margin="0 10"/>
-                <ListBox x:Name="listSorteo" Grid.Row="2"  ItemsSource="{Binding}" Background="Transparent"  BorderThickness="0" Padding="5" VerticalAlignment="Top"  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox x:Name="listSorteo" Grid.Row="2"  ItemsSource="{Binding ProveedorRecargasObservable }" Background="Transparent"  BorderThickness="0" Padding="5" VerticalAlignment="Top"  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.Resources>
                         <Style TargetType="ListBox">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -50,7 +50,8 @@
                                                 <ControlTemplate TargetType="{x:Type RadioButton}">
                                                     <Border x:Name="fondoC"   Background="White" Margin="5" CornerRadius="10" BorderThickness="3" BorderBrush="Gray" >
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Image x:Name="img" Source="{Binding Url}" Margin="10" Width="80" Height="80"  />
+                                                            <Label Content="{Binding Operador}"></Label>
+                                                            <!--<Image x:Name="img" Source="{Binding Url}" Margin="10" Width="80" Height="80"  />-->
                                                         </StackPanel>
                                                     </Border>
                                                     <ControlTemplate.Triggers>

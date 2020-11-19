@@ -1,24 +1,25 @@
 ﻿
 using ClienteMarWPF.Domain.Models.Base;
-using ClienteMarWPF.Domain.Models.Entities;
+using ClienteMarWPF.Domain.Models.Dtos.EfectivoDtos;
 
 namespace ClienteMarWPF.Domain.Models.Dtos
 {
-    public class BancaConfiguracionDTO : Data
+    public class BancaConfiguracionDTO  
     {
-        public int BancaId { get; set; }
-        public int? BancaCajaId { get; set; }
-        public BancaControlEfectivoConfigDTO BancaControlEfectivoConfig { get; set; }
-         
+        public BancaDTO BancaDto {  get; set; }
+        public CajaDTO CajaEfectivoDto { get; set; }
+        public ControlEfectivoDTO ControlEfectivoConfigDto { get; set; }
+
     }
 
 
-    public class BancaControlEfectivoConfigDTO 
+    public class ControlEfectivoDTO  
     {
-        public bool ControlEfectivoEstaActivo { get; set; } /// = False => Control Efectivo Inactivo      || True  =>  Control Efectivo Permitido
-        public bool BancaInicioFlujoEfectivo  { get; set; } /// = False => No ha iniciado flujo efectivo  || True  =>  Ha iniciado flujo efectivo
+        public bool PuedeUsarControlEfectivo { get; set; } /// = False => No puede |Control Efectivo|    
+                                                           ///   True  => Si puede |Control Efectivo|
+        public bool BancaYaInicioControlEfectivo { get; set; } /// = False => No ha iniciado flujo efectivo  
+                                                               ///   True  =>  Ha iniciado flujo efectivo
 
     }
 
 }
- 

@@ -5,24 +5,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-
-
-namespace MAR.Prueba
-{
-  
-       
-}
+using System.Threading.Tasks; 
 
 namespace MAR.AppLogic.MARHelpers
 {
-    public class Prueba
-    {
-        public static string ReadString(Config.ConfigEnums pConfigId)
-        {
-            return "";// AppLogic.Encryption.Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(pConfigId));
-        }
-    }
+ 
     public class DALHelper
     {
         public static class ConfigReader

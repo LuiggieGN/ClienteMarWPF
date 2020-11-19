@@ -10,7 +10,7 @@ namespace ClienteMarWPF.DataAccess.Services
 
     public class MensajesDataService: IMensajesService
     {
-        public static SoapClientRepository SoapClientesRepository;
+        private static SoapClientRepository SoapClientesRepository;
         private static PtoVtaSoapClient clientePuntoDeVenta;
         static MensajesDataService()
         {
@@ -23,9 +23,11 @@ namespace ClienteMarWPF.DataAccess.Services
             return clientePuntoDeVenta.PlaceMensaje(session, mensajes);
         }
 
-        public MAR_Mensajes2 GetMessages(MAR_Session session)
+        public MAR_Mensajes GetMessages(MAR_Session session)
         {
-            return clientePuntoDeVenta.GetMensaje2(session, false, session.Banca, true);
+            var msj =  clientePuntoDeVenta.GetMensaje(session);
+           // var msj2 =  clientePuntoDeVenta.GetMensaje2(session, true, session.Banca, true);
+            return msj;
         }
 
     }

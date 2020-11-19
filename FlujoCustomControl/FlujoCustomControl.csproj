@@ -36,7 +36,7 @@
       <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
     </Reference>
     <Reference Include="MAR.Config">
-      <HintPath>..\..\..\..\..\Desktop\Config Remote\DATA001 Local\MAR.Config.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Config Remote\Medelo2020\Local Medelo 2020\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Windows.Design.Interaction, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />

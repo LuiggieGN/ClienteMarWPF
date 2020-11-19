@@ -40,28 +40,24 @@
                 <Label Content="Configuracion del sistema"  Foreground="SlateGray" />
 
                 <StackPanel Orientation="Horizontal" >
-                    <TextBox  materialDesign:HintAssist.Hint="Banca ID" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox  materialDesign:HintAssist.Hint="Direccion" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <ComboBox  materialDesign:HintAssist.Hint="Tipo Ticket" Width="150" Margin="10 5 10 0"  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                        <ComboBoxItem Content="1"/>
-                        <ComboBoxItem Content="2"/>
-                        <ComboBoxItem Content="3"/>
-                    </ComboBox>
+                    <TextBox  materialDesign:HintAssist.Hint="Banca ID" Text="{Binding BancaID, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox  materialDesign:HintAssist.Hint="Direccion" Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <ComboBox  materialDesign:HintAssist.Hint="Tipo Ticket" ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}"  SelectedValue="{Binding Ticket, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="150" Margin="10 5 10 0"  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                 </StackPanel>
 
                 <StackPanel  Orientation="Horizontal"  VerticalAlignment="Top" Margin="0 40 0 0">
-                    <Button  Style="{DynamicResource btn-success}" Foreground="White" Width="120" Height="35" Margin="10 0">
+                    <Button  Style="{DynamicResource btn-success}" Command="{Binding SaveConfigCommand}" Foreground="White" Width="200" Height="35" Margin="10 0">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="CheckCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
-                            <TextBlock Text="Cambiar" Foreground="White" VerticalAlignment="Center"/>
+                            <TextBlock Text="Guardar Cambios" Foreground="White" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <Button  Style="{DynamicResource btn-danger}" Foreground="White" Width="120" Height="35"  Margin="10 0">
+                    <!--<Button  Style="{DynamicResource btn-danger}" Foreground="White" Width="120" Height="35"  Margin="10 0">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
                             <TextBlock Text=" Cancelar"  VerticalAlignment="Center"/>
                         </StackPanel>
-                    </Button>
+                    </Button>-->
 
                 </StackPanel>
 

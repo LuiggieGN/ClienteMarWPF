@@ -11,7 +11,8 @@ namespace ClienteMarWPF.Domain.Services.BancaService
 {
     public interface IBancaService:IServiceBase<Banca,int>
     {
-        Task<int> BuscaSuCajaId(int bancaid, FlujoService.MAR_Session sesion);
-        Task<decimal> GetBalance(int bancaid, FlujoService.MAR_Session sesion);
+        BancaConfiguracionDTO LeerBancaConfiguraciones(int bancaid);
+
+        decimal LeerBancaMontoReal(int bancaid);
     }
 }

@@ -35,24 +35,22 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             InitializeComponent();
 
             ListJugadas = new List<Jugadas>();
-            SorteosBinding = new List<SorteosObservable> {
-                new SorteosObservable(){ LoteriaID=1, IsSelected=false, IsSuper = false, Loteria="La Fecha Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=2, IsSelected=false, IsSuper = false, Loteria="La Fecha Noche", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=3, IsSelected=false, IsSuper = false, Loteria="Loteka Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=4, IsSelected=false, IsSuper = false, Loteria="Loteka Noche", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=5, IsSelected=false, IsSuper = false, Loteria="Nacional Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=6, IsSelected=false, IsSuper = false, Loteria="Nacional Noche", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=7, IsSelected=false, IsSuper = false, Loteria="New York Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=8, IsSelected=false, IsSuper = false, Loteria="New York Noche", Image = "Brightness3" },
-                new SorteosObservable(){ LoteriaID=9, IsSelected=false, IsSuper = false, Loteria="Pega 3 Dia", Image = "WbSunny" },
-                new SorteosObservable(){ LoteriaID=10, IsSelected=false, IsSuper = false, Loteria="Pega 3 Noche", Image = "Brightness3" }
+            var sorteos = new List<SorteosDTO> {
+                new SorteosDTO(){ LoteriaID=1, Loteria="La Fecha Dia"},
+                new SorteosDTO(){ LoteriaID=2, Loteria="La Fecha Noche"},
+                new SorteosDTO(){ LoteriaID=3, Loteria="Loteka Dia"},
+                new SorteosDTO(){ LoteriaID=4, Loteria="Loteka Noche" },
+                new SorteosDTO(){ LoteriaID=5, Loteria="Nacional Dia"},
+                new SorteosDTO(){ LoteriaID=6, Loteria="Nacional Noche"},
+                new SorteosDTO(){ LoteriaID=7, Loteria="New York Dia"},
+                new SorteosDTO(){ LoteriaID=8, Loteria="New York Noche"},
+                new SorteosDTO(){ LoteriaID=9, Loteria="Pega 3 Dia"},
+                new SorteosDTO(){ LoteriaID=10,Loteria="Pega 3 Noche"}
 
             };
             listSorteo.DataContext = SorteosBinding;
             MostrarSorteos();
         }
-
-        List<TicketDetalle> TicketDetallesList = new List<TicketDetalle>();
 
 
         #region LOGICA PARA SORTEOS
@@ -129,129 +127,137 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 VentasYConsulta.Visibility = Visibility.Visible;
             }
         }
-        private void AddItem(TicketDetalle ticketDetalle = null)
-        {
+        //private void AddItem(TicketDetalle ticketDetalle = null)
+        //{
 
 
-            int tipoJugadaId = 0;
-            if ((txtJugada.Text.Length < 3))
-            {
-                tipoJugadaId =
-                    1;
-            }
-            else if ((txtJugada.Text.Length < 5))
-            {
-                tipoJugadaId = 2;
-            }
-            else if ((txtJugada.Text.Length < 7))
-            {
-                tipoJugadaId = 3;
-            }
+        //    int tipoJugadaId = 0;
+        //    if ((txtJugada.Text.Length < 3))
+        //    {
+        //        tipoJugadaId =
+        //            1;
+        //    }
+        //    else if ((txtJugada.Text.Length < 5))
+        //    {
+        //        tipoJugadaId = 2;
+        //    }
+        //    else if ((txtJugada.Text.Length < 7))
+        //    {
+        //        tipoJugadaId = 3;
+        //    }
 
-            var td = new TicketDetalle();
+        //    var td = new TicketDetalle();
 
-            if (ticketDetalle == null)
-            {
-                // Creando modelo
-                td = new TicketDetalle { Monto = Convert.ToInt32(txtMonto.Text), Jugada = SepararNumeros(txtJugada.Text), TipoJugadaID = tipoJugadaId };
+        //    if (ticketDetalle == null)
+        //    {
+        //        // Creando modelo
+        //        td = new TicketDetalle { Monto = Convert.ToInt32(txtMonto.Text), Jugada = SepararNumeros(txtJugada.Text), TipoJugadaID = tipoJugadaId };
 
-                ////Agregando A numeros jugados
-                //var numeros = SepararNumeros(txtJugada.Text).Split('-');
-                //foreach (var item in numeros)
-                //{
-                //    NumerosJugados.Add(item);
-                //}
+        //        ////Agregando A numeros jugados
+        //        //var numeros = SepararNumeros(txtJugada.Text).Split('-');
+        //        //foreach (var item in numeros)
+        //        //{
+        //        //    NumerosJugados.Add(item);
+        //        //}
 
-            }
-            else if (ticketDetalle != null)
-            {
-                td = ticketDetalle;
-                //Agregando A numeros jugados
-                //var numeros = ticketDetalle.Jugada.Split('-');
-                //foreach (var item in numeros)
-                //{
-                //    NumerosJugados.Add(item);
-                //}
-            }
-            // Agregando modelo a Vista
-            TicketDetallesList.Add(td);
-            // Sumando y Contando jugadas en base al modelo
-            var SumaVariasJugadas = TicketDetallesList.Where(x => x.Jugada == td.Jugada.ToString()).Sum(x => x.Monto);
-            var cantidadJugada = TicketDetallesList.Where(x => x.Jugada == td.Jugada.ToString()).Count();
+        //    }
+        //    else if (ticketDetalle != null)
+        //    {
+        //        td = ticketDetalle;
+        //        //Agregando A numeros jugados
+        //        //var numeros = ticketDetalle.Jugada.Split('-');
+        //        //foreach (var item in numeros)
+        //        //{
+        //        //    NumerosJugados.Add(item);
+        //        //}
+        //    }
+        //    // Agregando modelo a Vista
+        //    TicketDetallesList.Add(td);
+        //    // Sumando y Contando jugadas en base al modelo
+        //    var SumaVariasJugadas = TicketDetallesList.Where(x => x.Jugada == td.Jugada.ToString()).Sum(x => x.Monto);
+        //    var cantidadJugada = TicketDetallesList.Where(x => x.Jugada == td.Jugada.ToString()).Count();
 
 
-            if (cantidadJugada > 1)
-            {
-                var jugada = TicketDetallesList.Where(x => x.Jugada == td.Jugada.ToString()).FirstOrDefault();
-                jugada.Monto = SumaVariasJugadas;
-                TicketDetallesList.Remove(td);
-                //Vaciando y rellenando lista
-                ltJugada.ItemsSource = null;
-                ltJugada.ItemsSource = TicketDetallesList.Select(x => { return new Jugadas { Monto = x.Monto, Jugada = x.Jugada, TipoJugada = TipoJugada(x.TipoJugadaID) }; }).ToList();
-            }
-            else
-            {
-                //Vaciando y rellenando lista
-                ltJugada.ItemsSource = null;
-                ltJugada.ItemsSource = TicketDetallesList.Select(x => { return new Jugadas { Monto = x.Monto, Jugada = x.Jugada, TipoJugada = TipoJugada(x.TipoJugadaID) }; }).ToList();
-            }
+        //    if (cantidadJugada > 1)
+        //    {
+        //        var jugada = TicketDetallesList.Where(x => x.Jugada == td.Jugada.ToString()).FirstOrDefault();
+        //        jugada.Monto = SumaVariasJugadas;
+        //        TicketDetallesList.Remove(td);
+        //        //Vaciando y rellenando lista
+        //        ltJugada.ItemsSource = null;
+        //        ltJugada.ItemsSource = TicketDetallesList.Select(x => { return new Jugadas { Monto = x.Monto, Jugada = x.Jugada, TipoJugada = TipoJugada(x.TipoJugadaID) }; }).ToList();
+        //    }
+        //    else
+        //    {
+        //        //Vaciando y rellenando lista
+        //        ltJugada.ItemsSource = null;
+        //        ltJugada.ItemsSource = TicketDetallesList.Select(x => { return new Jugadas { Monto = x.Monto, Jugada = x.Jugada, TipoJugada = TipoJugada(x.TipoJugadaID) }; }).ToList();
+        //    }
 
-            //monto total de todas las jugadas
-            //result.ToString("$#,##0.00", CultureInfo.CreateSpecificCulture("en-US"));
-            txtMontoTotal.Content = TicketDetallesList.Sum(x => x.Monto).ToString("$#,##0", CultureInfo.CreateSpecificCulture("en-US"));
-        }
-        private void DeleteItem()
-        {
-            var jugadas = ltJugada.Items.Count;
-            if (jugadas != 0)
-            {
-                var index = jugadas - 1;
+        //    //monto total de todas las jugadas
+        //    //result.ToString("$#,##0.00", CultureInfo.CreateSpecificCulture("en-US"));
+        //    txtMontoTotal.Content = TicketDetallesList.Sum(x => x.Monto).ToString("$#,##0", CultureInfo.CreateSpecificCulture("en-US"));
+        //}
 
-                if (ltJugada.SelectedItem != null)
-                {
-                    //Obteniendo la jugada Selecionada
-                    var jugadaSelect = ltJugada.SelectedItem as Jugadas;
-                    RemoveJugada(jugadaSelect);
 
-                }
-                else
-                {
-                    //obteniendo la ultima jugada 
-                    var jugadaSelect = ltJugada.Items[index] as Jugadas;
-                    RemoveJugada(jugadaSelect);
 
-                }
 
-            }
-            else
-            {
-                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay mas Jugadas", "Info", "#28A745");
-                //MensajesAlerta("No hay mas Jugadas");
-            }
-        }
-        private void RemoveJugada(Jugadas Jugada)
-        {
-            // encontrando la jugada en la lista
-            var jugada = TicketDetallesList.Where(x => x.Jugada == Jugada.Jugada).FirstOrDefault();
-            TicketDetallesList.Remove(jugada);
-            //Vaciando y rellenando lista
-            ltJugada.ItemsSource = null;
-            ltJugada.ItemsSource = TicketDetallesList.Select(x => { return new Jugadas { Monto = x.Monto, Jugada = x.Jugada, TipoJugada = TipoJugada(x.TipoJugadaID) }; }).ToList();
-            //Recalculando monto
-            if (TicketDetallesList.Sum(x => x.Monto) != 0)
-            {
-                txtMontoTotal.Content = TicketDetallesList.Sum(x => x.Monto).ToString("$#,##0", CultureInfo.CreateSpecificCulture("en-US"));
+        //private void DeleteItem()
+        //{
+        //    var jugadas = ltJugada.Items.Count;
+        //    if (jugadas != 0)
+        //    {
+        //        var index = jugadas - 1;
 
-            }
-            else
-            {
-                txtMontoTotal.Content = "$0.00";
-            }
-        }
+        //        if (ltJugada.SelectedItem != null)
+        //        {
+        //            //Obteniendo la jugada Selecionada
+        //            var jugadaSelect = ltJugada.SelectedItem as Jugadas;
+        //            RemoveJugada(jugadaSelect);
+
+        //        }
+        //        else
+        //        {
+        //            //obteniendo la ultima jugada 
+        //            var jugadaSelect = ltJugada.Items[index] as Jugadas;
+        //            RemoveJugada(jugadaSelect);
+
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay mas Jugadas", "Info", "#28A745");
+        //        //MensajesAlerta("No hay mas Jugadas");
+        //    }
+        //}
+
+
+
+
+        //private void RemoveJugada(Jugadas Jugada)
+        //{
+        //    // encontrando la jugada en la lista
+        //    var jugada = TicketDetallesList.Where(x => x.Jugada == Jugada.Jugada).FirstOrDefault();
+        //    TicketDetallesList.Remove(jugada);
+        //    //Vaciando y rellenando lista
+        //    ltJugada.ItemsSource = null;
+        //    ltJugada.ItemsSource = TicketDetallesList.Select(x => { return new Jugadas { Monto = x.Monto, Jugada = x.Jugada, TipoJugada = TipoJugada(x.TipoJugadaID) }; }).ToList();
+        //    //Recalculando monto
+        //    if (TicketDetallesList.Sum(x => x.Monto) != 0)
+        //    {
+        //        txtMontoTotal.Content = TicketDetallesList.Sum(x => x.Monto).ToString("$#,##0", CultureInfo.CreateSpecificCulture("en-US"));
+
+        //    }
+        //    else
+        //    {
+        //        txtMontoTotal.Content = "$0.00";
+        //    }
+        //}
         private void LimpiarApuesta()
         {
             // Limpiando todo 
-            TicketDetallesList.Clear();
+            //TicketDetallesList.Clear();
             ltJugada.ItemsSource = null;
             txtMontoTotal.Content = "$0.00";
         }
@@ -274,130 +280,130 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             //}
 
         }
-        private void RealizaApuesta()
-        {
-            var jugadas = ltJugada.Items.Count;
+        //private void RealizaApuesta()
+        //{
+        //    var jugadas = ltJugada.Items.Count;
 
 
-           TicketModel ticketmodel = new TicketModel();
-            if (jugadas != 0)
-            {
-                try
-                {
-                    if (TicketDetallesList.Sum(x => x.Monto) > 499)
-                    {
+        //   TicketModel ticketmodel = new TicketModel();
+        //    if (jugadas != 0)
+        //    {
+        //        try
+        //        {
+        //            if (TicketDetallesList.Sum(x => x.Monto) > 499)
+        //            {
 
-                        //System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("Esta segura del MONTO de: "+ txtMontoTotal.Text + " ", "Confirmation", System.Windows.Forms.MessageBoxButtons.YesNo);
-                        // result == System.Windows.Forms.DialogResult.Yes
-                        if (false)
-                        {
-                            ticketmodel.MontoOperacion = TicketDetallesList.Sum(x => x.Monto);
-                            ticketmodel.TicketDetalles = TicketDetallesList;
-                            //*** ARREGLAR APUESTA ESTO SOLO ES DE PRUEBA EL VALIDO ES EL DE ABAJO
-                            dynamic apuesta = new object();
-                            //*** DESCOMENTAR Y PONER REFERENCIAS
-                            // var apuesta = Code.BussinessLogic.CincoMinutosLogic.Apuesta(ticketmodel);
+        //                //System.Windows.Forms.DialogResult result = System.Windows.Forms.MessageBox.Show("Esta segura del MONTO de: "+ txtMontoTotal.Text + " ", "Confirmation", System.Windows.Forms.MessageBoxButtons.YesNo);
+        //                // result == System.Windows.Forms.DialogResult.Yes
+        //                if (false)
+        //                {
+        //                    ticketmodel.MontoOperacion = TicketDetallesList.Sum(x => x.Monto);
+        //                    ticketmodel.TicketDetalles = TicketDetallesList;
+        //                    //*** ARREGLAR APUESTA ESTO SOLO ES DE PRUEBA EL VALIDO ES EL DE ABAJO
+        //                    dynamic apuesta = new object();
+        //                    //*** DESCOMENTAR Y PONER REFERENCIAS
+        //                    // var apuesta = Code.BussinessLogic.CincoMinutosLogic.Apuesta(ticketmodel);
 
-                            if (apuesta.RespuestaApi.CodigoRespuesta == "100")
-                            {
-                                //*** DESCOMENTAR Y PONER REFERENCIAS
-                                //PrintOutHelper.SendToPrinter(apuesta.PrintData);
-                                LimpiarApuesta();
-                                ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Info", "#28A745");
-                                ticketmodel = null;
-                                GetVendidosHoy();
-                            }
-                            else
-                            {
-                                ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Info", "#28A745");
-                            }
-                        }
-                        //result == System.Windows.Forms.DialogResult.No
-                        else if (false)
-                        {
-                            //...
-                        }
-                        else
-                        {
-                            //...
-                        }
-                    }
-                    else
-                    {
-                        ticketmodel.MontoOperacion = TicketDetallesList.Sum(x => x.Monto);
-                        ticketmodel.TicketDetalles = TicketDetallesList;
-                        //*** ARREGLAR APUESTA ESTO SOLO ES DE PRUEBA EL VALIDO ES EL DE ABAJO
-                        dynamic apuesta = new object();
-                        //*** DESCOMENTAR Y PONER REFERENCIAS
-                        // var apuesta = Code.BussinessLogic.CincoMinutosLogic.Apuesta(ticketmodel);
-                        if (apuesta == null)
-                        {
-                            ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Error interno de aplicacion. Comunique el administrador", "Alerta", "#28A745");
-                        }
-                        else if (apuesta.RespuestaApi.CodigoRespuesta == "100")
-                        {
-                            //PrintOutHelper.SendToPrinter(apuesta.PrintData);
-                            LimpiarApuesta();
-                            ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Alerta", "#28A745");
-                            ticketmodel = null;
-                            GetVendidosHoy();
-                        }
-                        else
-                        {
-                            ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Alerta", "#28A745");
-                        }
-                    }
-
-
+        //                    if (apuesta.RespuestaApi.CodigoRespuesta == "100")
+        //                    {
+        //                        //*** DESCOMENTAR Y PONER REFERENCIAS
+        //                        //PrintOutHelper.SendToPrinter(apuesta.PrintData);
+        //                        LimpiarApuesta();
+        //                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Info", "#28A745");
+        //                        ticketmodel = null;
+        //                        GetVendidosHoy();
+        //                    }
+        //                    else
+        //                    {
+        //                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Info", "#28A745");
+        //                    }
+        //                }
+        //                //result == System.Windows.Forms.DialogResult.No
+        //                else if (false)
+        //                {
+        //                    //...
+        //                }
+        //                else
+        //                {
+        //                    //...
+        //                }
+        //            }
+        //            else
+        //            {
+        //                ticketmodel.MontoOperacion = TicketDetallesList.Sum(x => x.Monto);
+        //                ticketmodel.TicketDetalles = TicketDetallesList;
+        //                //*** ARREGLAR APUESTA ESTO SOLO ES DE PRUEBA EL VALIDO ES EL DE ABAJO
+        //                dynamic apuesta = new object();
+        //                //*** DESCOMENTAR Y PONER REFERENCIAS
+        //                // var apuesta = Code.BussinessLogic.CincoMinutosLogic.Apuesta(ticketmodel);
+        //                if (apuesta == null)
+        //                {
+        //                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Error interno de aplicacion. Comunique el administrador", "Alerta", "#28A745");
+        //                }
+        //                else if (apuesta.RespuestaApi.CodigoRespuesta == "100")
+        //                {
+        //                    //PrintOutHelper.SendToPrinter(apuesta.PrintData);
+        //                    LimpiarApuesta();
+        //                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Alerta", "#28A745");
+        //                    ticketmodel = null;
+        //                    GetVendidosHoy();
+        //                }
+        //                else
+        //                {
+        //                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Alerta", "#28A745");
+        //                }
+        //            }
 
 
 
-                }
-                catch (Exception e)
-                {
-                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta(e.StackTrace + "Fallo la transaccion de venta" + e.Message, "Alerta", "#28A745");
-                }
-            }
-            else
-            {
-                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Agregue al menos una Jugada", "Alerta", "#28A745");
-            }
 
-        }
-        private void OpenCombinacion()
-        {
-            var NumerosJugado = new List<string>();
-            if (ltJugada.Items.Count != 0)
-            {
-                var jugadas = TicketDetallesList.Select(x => x.Jugada).ToList();
 
-                foreach (var item in jugadas)
-                {
-                    if (item.Contains('-'))
-                    {
-                        NumerosJugado.AddRange(item.Split('-'));
-                    }
-                    else
-                    {
-                        NumerosJugado.Add(item);
-                    }
-                }
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            ((MainWindow)Window.GetWindow(this)).MensajesAlerta(e.StackTrace + "Fallo la transaccion de venta" + e.Message, "Alerta", "#28A745");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Agregue al menos una Jugada", "Alerta", "#28A745");
+        //    }
 
-            }
+        //}
+        //private void OpenCombinacion()
+        //{
+        //    var NumerosJugado = new List<string>();
+        //    if (ltJugada.Items.Count != 0)
+        //    {
+        //        var jugadas = TicketDetallesList.Select(x => x.Jugada).ToList();
 
-            CombinacionWindowsModal combinacion = new CombinacionWindowsModal(NumerosJugado.Distinct().ToList());
-            combinacion.Jugadas += delegate (List<TicketDetalle> Jugadas)
-            {
-                foreach (var item in Jugadas)
-                {
-                    AddItem(item);
-                }
+        //        foreach (var item in jugadas)
+        //        {
+        //            if (item.Contains('-'))
+        //            {
+        //                NumerosJugado.AddRange(item.Split('-'));
+        //            }
+        //            else
+        //            {
+        //                NumerosJugado.Add(item);
+        //            }
+        //        }
 
-                MostrarSorteos();
-            };
+        //    }
 
-            combinacion.ShowDialog();
-        }
+        //    CombinacionWindowsModal combinacion = new CombinacionWindowsModal(NumerosJugado.Distinct().ToList());
+        //    combinacion.Jugadas += delegate (List<TicketDetalle> Jugadas)
+        //    {
+        //        foreach (var item in Jugadas)
+        //        {
+        //            AddItem(item);
+        //        }
+
+        //        MostrarSorteos();
+        //    };
+
+        //    combinacion.ShowDialog();
+        //}
         #endregion
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -414,15 +420,15 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             switch (e.Key)
             {
                 case Key.Subtract:
-                    DeleteItem();
+                    //DeleteItem();
                     break;   
                     
                 case Key.Add:
-                    RealizaApuesta();
+                    //RealizaApuesta();
                     break;    
                     
                 case Key.Multiply:
-                    OpenCombinacion();
+                   // OpenCombinacion();
                     break;    
                     
                 case Key.F5:
@@ -541,7 +547,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 {
                     if (txtMonto.Text != "" && txtJugada.Text != "")
                     {
-                        AddItem();
+                        //AddItem();
                         txtMonto.Text = "";
                         txtJugada.Text = "";
                     }
@@ -565,7 +571,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
 
         private void Quitar(object sender, RoutedEventArgs e)
         {
-            DeleteItem();
+            //DeleteItem();
             MostrarSorteos();
         }
 
@@ -576,7 +582,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
 
         private void btnCombinar(object sender, RoutedEventArgs e)
         {
-            OpenCombinacion();
+          //  OpenCombinacion();
         }
     }
 

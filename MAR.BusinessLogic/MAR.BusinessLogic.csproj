@@ -50,7 +50,7 @@
     </Reference>
     <Reference Include="MAR.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ConfigLibrary\MAR.Config.dll</HintPath>
+      <HintPath>..\..\..\GitHub\MateoNet\AdminProduccion\Libraries\luiggieLocal\DATA358\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -83,6 +83,7 @@
     <Compile Include="Admin\Models\ViewModels\RiferosViewModels.cs" />
     <Compile Include="Admin\SharedFuntions\Autorizaciones.cs" />
     <Compile Include="Code\BingoIndexLogic.cs" />
+    <Compile Include="Code\ControlEfectivo\BancaLogic.cs" />
     <Compile Include="Code\CuentasLogic.cs" />
     <Compile Include="Code\BancaConfigLogic.cs" />
     <Compile Include="Code\BaseBusinessLogic.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Code\BilleteIndexLogic.cs" />
     <Compile Include="Code\PrintJobs\BilletePrintJob.cs" />
     <Compile Include="Code\ProductosLogic.cs" />
+    <Compile Include="Code\SorteosLogic.cs" />
     <Compile Include="Code\SorteosLotoDom\AnulacionLogic.cs" />
     <Compile Include="Code\SorteosLotoDom\ApuestaLogic.cs" />
     <Compile Include="Code\SorteosLotoDom\PagoGanadorLogic.cs" />
@@ -137,32 +139,6 @@
     <Compile Include="Code\SorteosNuevos\InicioDiaLogic.cs" />
     <Compile Include="Enums\BancaConfigEnum.cs" />
     <Compile Include="Enums\ProductosEnum.cs" />
-    <Compile Include="Flujo\WebClient\Code\BancaLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\CajaLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\DashBoardLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\FlujoTipoLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\MovimientoLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\ReporteLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\RutaLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\UsuarioLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\UsuarioTokenLogic.cs" />
-    <Compile Include="Flujo\WebClient\Code\Validations\MovimientoValidacion.cs" />
-    <Compile Include="Flujo\WebClient\Code\Validations\RutasValidacion.cs" />
-    <Compile Include="Flujo\WebClient\Code\Validations\TarjetaValidacion.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\BancasPager.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\Base\Pager.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\Base\PagerFromProcedure.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\Base\PagerFromQuery.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\CajasBalancePager.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\FechaHelper.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\MovimientosPager.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\SubSetBancasBalace.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\SubSetMensajerosBalance.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\SubSetMovimientoAdministrativos.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\SubSetSobranteFaltante.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\SubSetUsuario.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\TarjetaPager.cs" />
-    <Compile Include="Flujo\WebClient\Helpers\UniqueTokenHelper.cs" />
     <Compile Include="Models\Mappers\JuegosNuevosMapper.cs" />
     <Compile Include="Models\Mappers\Pega4Mapper.cs" />
     <Compile Include="Models\Mappers\EstatusDiasMapper.cs" />
@@ -174,14 +150,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Flujo.DataAccess\Flujo.DataAccess.csproj">
-      <Project>{68d7e119-83ef-46d7-89ab-4b60f31570a2}</Project>
-      <Name>Flujo.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj">
-      <Project>{41bbcca4-1318-4234-a855-83958f1e5ff2}</Project>
-      <Name>Flujo.Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj">
       <Project>{7a839d18-0fee-4a3d-b284-690dea9dab4f}</Project>
       <Name>MAR.AppLogic</Name>

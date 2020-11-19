@@ -9,9 +9,7 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
     {
         private int _loteriaID;
         private string _loteria;
-        private string _image { get; set; }
-        private bool _isSelected { get; set; }
-        private bool _isSuper { get; set; }
+        private bool _isSelected;
 
 
         public int LoteriaID
@@ -24,21 +22,12 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             get { return _loteria; }
             set { _loteria = value; NotifyPropertyChanged(nameof(Loteria)); }
         }
-        public string Image
-        {
-            get { return _image; }
-            set { _image = value; NotifyPropertyChanged(nameof(Image)); }
-        }
         public bool IsSelected
         {
             get { return _isSelected; }
             set { _isSelected = value; NotifyPropertyChanged(nameof(IsSelected)); }
         }
-        public bool IsSuper
-        {
-            get { return _isSuper; }
-            set { _isSuper = value; NotifyPropertyChanged(nameof(IsSelected)); }
-        }
+
 
 
     }

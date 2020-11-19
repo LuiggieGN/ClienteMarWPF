@@ -45,6 +45,10 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
             {
                 viewmodellogin.ErrorMessage = ex.Message;
             }
+            catch (BancaConfiguracionesException ex)
+            {
+                viewmodellogin.ErrorMessage = ex.Message;
+            }
             catch (InvalidPasswordException)
             {
                 viewmodellogin.ErrorMessage = "Credenciales inválidas";

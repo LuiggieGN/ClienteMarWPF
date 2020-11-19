@@ -9,38 +9,30 @@ using MAR.AppLogic.MARHelpers;
 
 using ClienteMarWPF.Domain.Enums;
 using ClienteMarWPF.Domain.Models.Dtos;
+using ClienteMarWPF.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPF.Domain.Models.Entities;
 using ClienteMarWPF.Domain.Services.BancaService;
-  
+using ClienteMarWPF.Domain.Exceptions;
 
 using ClienteMarWPF.DataAccess.Services.Helpers;
+
+using FlujoService;
+
 
 namespace ClienteMarWPF.DataAccess.Services
 {
     public class BancaDataService : IBancaService
     {
-        public  static SoapClientRepository soapClienteRepository;
-        private static FlujoService.mar_flujoSoapClient flujoCliente;
-        private static MarPuntoVentaServiceReference.PtoVtaSoapClient clientePuntoDeVenta;
+        public static SoapClientRepository soapClientesRepository;
+        private static mar_flujoSoapClient efectivoSoapCliente;
+
         static BancaDataService()
         {
-            soapClienteRepository = new SoapClientRepository();
-            clientePuntoDeVenta = soapClienteRepository.GetMarServiceClient(false);
-            flujoCliente = soapClienteRepository.GetCashFlowServiceClient(false);
-        }
-
-
-        public Task<bool> AddRange(List<Banca> entities)
-        {
-            throw new NotImplementedException();
+            soapClientesRepository = new SoapClientRepository();
+            efectivoSoapCliente = soapClientesRepository.GetCashFlowServiceClient(false);
         }
 
         public Task<Banca> Create(Banca entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Delete(Banca entity)
         {
             throw new NotImplementedException();
         }
@@ -50,89 +42,162 @@ namespace ClienteMarWPF.DataAccess.Services
             throw new NotImplementedException();
         }
 
+        public Task<bool> Update(Banca entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Delete(Banca entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> AddRange(List<Banca> entities)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Banca>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<int> BuscaSuCajaId(int bancaid, FlujoService.MAR_Session sesion)
+        public BancaConfiguracionDTO LeerBancaConfiguraciones(int bancaid)
         {
             try
             {
-                string bancaidStr = JSONHelper.SerializeToJSON(bancaid);
+                string bancaidSerializado = JSONHelper.SerializeToJSON(bancaid);
 
-                FlujoService.ArrayOfAnyType colleccionParametros = new FlujoService.ArrayOfAnyType();
-                colleccionParametros.Add(bancaidStr);
+                ArrayOfAnyType diccionarioParametros = new ArrayOfAnyType();
+                diccionarioParametros.Add(bancaidSerializado);
 
-                FlujoService.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
+                MAR_FlujoResponse servicioClienteRespuesta = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerBancaConfiguraciones, diccionarioParametros);
+
+                if (servicioClienteRespuesta != null && servicioClienteRespuesta.OK == true)
                 {
-                    return
-                           flujoCliente.CallFlujoIndexFunctionAsync(
-                               (int)CashFlowRoutingFunctions.GetBancaCajaId,
-                                sesion,
-                                colleccionParametros
-                            ).Result.Body.CallFlujoIndexFunctionResult;
-                });
-
-
-                if (servicioRespuesta != null && servicioRespuesta.OK == true)
-                {
-                    return JSONHelper.CreateNewFromJSONNullValueIgnore<int>(servicioRespuesta.Respuesta);
-                }
-                else { return -1; }
-            }
-            catch 
-            {
-                return -1;
-            }
-
-        }// fin de metodo BuscaSuCajaId()
-
-
-
-        public async Task<decimal> GetBalance(int bancaid, FlujoService.MAR_Session sesion)
-        {
-            try
-            {
-                int cajaid = await BuscaSuCajaId(bancaid, sesion);
-
-                if (cajaid == -1)
-                {
-                    return 0;
-                }
-
-                string cajaidStr = JSONHelper.SerializeToJSON(cajaid);
-                FlujoService.ArrayOfAnyType colleccionParametros = new FlujoService.ArrayOfAnyType();
-                colleccionParametros.Add(cajaidStr);
-
-                FlujoService.MAR_FlujoResponse servicioRespuesta = await Task.Run(() =>
-                {
-                    return
-                           flujoCliente.CallFlujoIndexFunctionAsync(
-                               (int)CashFlowRoutingFunctions.GetCajaBalanceActual,
-                                sesion,
-                                colleccionParametros
-                            ).Result.Body.CallFlujoIndexFunctionResult;
-                });
-
-                if (servicioRespuesta != null && servicioRespuesta.OK == true)
-                {
-                    return JSONHelper.CreateNewFromJSONNullValueIgnore<decimal>(servicioRespuesta.Respuesta);
+                    return JSONHelper.CreateNewFromJSONNullValueIgnore<BancaConfiguracionDTO>(servicioClienteRespuesta.Respuesta);
                 }
                 else
                 {
-                    return 0;
+                    if (servicioClienteRespuesta == null)
+                    {
+                        throw new BancaConfiguracionesException("No se pudo establecer conexión al servicio de MAR.", "Control Efectivo Configuración");
+                    }
+                    else
+                    {
+                        throw new BancaConfiguracionesException("Ha ocurrido un error al obtener la Configuracion de Banca", "Control Efectivo Configuración");
+                    }
                 }
             }
             catch
             {
-                return 0;
+                throw new BancaConfiguracionesException("Ha ocurrido un error al obtener la Configuracion de Banca", "Control Efectivo Configuración");
             }
-        }// fin de metodo GetBalance()
 
-        public Task<bool> Update(Banca entity)
+        }//fin de metodo LeerBancaConfiguraciones( )
+
+        public decimal LeerBancaMontoReal(int bancaid)
         {
-            throw new NotImplementedException();
-        }
-    }
+            try
+            {
+                var bancaidSerializado = JSONHelper.SerializeToJSON(bancaid);
+                var segmento1 = new ArrayOfAnyType();
+                segmento1.Add(bancaidSerializado);
+
+                MAR_FlujoResponse call_Uno = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerBancaLastCuadreId, segmento1);
+
+                if (call_Uno == null || call_Uno.OK == false)
+                {
+                    return -1;
+                }
+
+                MAR_FlujoResponse call_Dos = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerBancaLastTransaccionesApartirDelUltimoCuadre, segmento1);
+
+                if (call_Dos == null || call_Dos.OK == false)
+                {
+                    return -1;
+                }
+
+
+                int? cuadreid = JSONHelper.CreateNewFromJSONNullValueIgnore<int?>(call_Uno.Respuesta);
+                var transaciones = JSONHelper.CreateNewFromJSONNullValueIgnore<List<BancaControlEfectivoTransaccionDTO>>(call_Dos.Respuesta);
+
+
+                decimal montoreal = 0, totIngresos = 0, totEgresos = 0;
+
+                if (transaciones != null && transaciones.Count > 0)
+                {
+                    totIngresos = transaciones.Where(b => b.IngresoOEgreso.Equals("i")).Sum(b => b.MontoAcumulado);
+                    totEgresos = transaciones.Where(b => b.IngresoOEgreso.Equals("e")).Sum(b => b.MontoAcumulado);
+                }
+
+                if (cuadreid == null || (!cuadreid.HasValue))
+                {
+                    montoreal = totIngresos - totEgresos;
+                }
+                else
+                {
+
+                    var cuadreidSerializado = JSONHelper.SerializeToJSON(cuadreid.Value);
+                    var segmento2 = new ArrayOfAnyType();
+                    segmento2.Add(cuadreidSerializado);
+
+                    MAR_FlujoResponse call_Tres = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerBancaCuadrePorCuadreId, segmento2);
+
+                    if (call_Tres == null || call_Tres.OK == false)
+                    {
+                        return -1;
+                    }
+
+                    var cuadre = JSONHelper.CreateNewFromJSONNullValueIgnore<CuadreDTO>(call_Tres.Respuesta);
+
+                    montoreal = (cuadre.Balance + totIngresos) - totEgresos;
+                }
+
+                return montoreal;
+
+            }
+            catch
+            {
+                return -1;
+            }
+
+        }// fin de metodo LeerBancaMontoReal( );
+
+
+
+    }//fin de clase
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
