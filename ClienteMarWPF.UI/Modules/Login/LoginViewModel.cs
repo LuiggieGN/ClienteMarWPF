@@ -30,7 +30,7 @@ namespace ClienteMarWPF.UI.Modules.Login
 
 
         public MessageViewModel ErrorMessageViewModel { get; }
-
+            
         public string ErrorMessage
         {
             set => ErrorMessageViewModel.Message = value;

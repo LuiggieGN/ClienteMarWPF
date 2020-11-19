@@ -32,9 +32,10 @@ using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Mensajeria; 
 using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Configuracion;
-using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
+using ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio;
 using ClienteMarWPF.Domain.Services.MensajesService;
 using ClienteMarWPF.Domain.Services.RecargaService;
+using ClienteMarWPF.Domain.Services.SorteosService;
 
 namespace ClienteMarWPF.UI
 {
@@ -65,6 +66,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IBancaService, BancaDataService>();
             services.AddSingleton<IMensajesService, MensajesDataService>();
             services.AddSingleton<IRecargaService, RecargaDataService>();
+            services.AddSingleton<ISorteosService, SorteosDataService>();
 
 
 
@@ -83,7 +85,10 @@ namespace ClienteMarWPF.UI
             );
 
             services.AddSingleton<SorteosViewModel>(
-                services => new SorteosViewModel()
+                services => new SorteosViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<ISorteosService>()
+                    )
             );
 
             services.AddSingleton<CincoMinutosViewModel>(
@@ -99,7 +104,8 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<MensajeriaViewModel>(
                 services => new MensajeriaViewModel(
                     services.GetRequiredService<IAuthenticator>(), 
-                    services.GetRequiredService<IMensajesService>())
+                    services.GetRequiredService<IMensajesService>()
+                    )
             );
 
 
@@ -110,12 +116,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<ConfiguracionViewModel>(
                 services => new ConfiguracionViewModel(services.GetRequiredService<ILocalClientSettingStore>())
             );
-
-
-            services.AddSingleton<InicioControlEfectivoViewModel>(
-                services => new InicioControlEfectivoViewModel(
-                )
-            );
+                        
 
  
 
@@ -141,7 +142,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<CreateViewModel<SorteosViewModel>>(services =>
             {
                 return () => services.GetRequiredService<SorteosViewModel>();
-            });
+            }); 
 
             services.AddSingleton<CreateViewModel<CincoMinutosViewModel>>(services =>
             {
@@ -169,9 +170,14 @@ namespace ClienteMarWPF.UI
             });
 
             
-            services.AddSingleton<CreateViewModel<InicioControlEfectivoViewModel>>(services =>
+            services.AddSingleton<CreateViewModel<InicioViewModel>>(services =>
             {
-                return () => services.GetRequiredService<InicioControlEfectivoViewModel>();
+                return () => new InicioViewModel(
+                   services.GetRequiredService<INavigator>(),
+                   services.GetRequiredService<IAuthenticator>(),
+                   services.GetRequiredService<IViewModelFactory>(),
+                   services.GetRequiredService<IBancaService>()
+                );
             });
  
 

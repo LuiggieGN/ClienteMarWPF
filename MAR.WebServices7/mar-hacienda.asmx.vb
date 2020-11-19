@@ -1,4 +1,4 @@
-﻿Imports System.Web.Services
+Imports System.Web.Services
 Imports System.Web.Services.Protocols
 Imports System.ComponentModel
 Imports MAR
@@ -17,7 +17,8 @@ Public Class mar_hacienda
 #Region "Private Members and Conexion"
 
     Friend Shared StrSQLCon As String = ConfigReader.ReadString(MAR.Config.ConfigEnums.DBConnection2)
-
+    Private AllowedHosts As String() = ConfigReader.ReadStringArray(MAR.Config.ConfigEnums.AllowedWebHosts)
+    Private _BackupPort As Integer = CInt(ConfigReader.ReadString(MAR.Config.ConfigEnums.ServiceBackupPort))
     Private gCommandTimeOut As Integer = 210
     Private _RemoteIP As String
 #End Region
@@ -121,12 +122,9 @@ Public Class mar_hacienda
                     '    Dim bancaid = Integer.Parse(paramsSplited(1).ToString())
                     '    MAR.BusinessLogic.Code.SorteosLotoDom.PagoGanadorLogic.ConsultaTicketGanador(TicketNo, bancaid)
 
-
-
-
-
-
-
+                Case 21
+                    ' Reload Sorteos Disponibles
+                    result = MAR.BusinessLogic.Code.SorteosLogic.GetSorteosDisponibles()
 
 
 

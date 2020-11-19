@@ -1,16 +1,19 @@
-﻿Imports System.Web.Services
-Imports System.Web.Services.Protocols
-Imports System.ComponentModel
+﻿Imports MAR
+Imports Newtonsoft.Json
 
-Imports System.Data.SqlClient
+Imports System.Threading.Tasks
+Imports System.Globalization
+Imports System.ComponentModel
+Imports System.Web.Services
+Imports System.Web.Services.Protocols
+
 Imports Flujo.Entities.WpfClient.Enums
 Imports Flujo.Entities.WpfClient.RequestModel
 Imports Flujo.Entities.WpfClient.ResponseModels
-Imports MAR
-Imports Newtonsoft.Json.Linq
-Imports MAR.DataAccess.Tables.DTOs
-Imports Newtonsoft.Json
-Imports System.Globalization
+
+Imports MAR.BusinessLogic.Code.ControlEfectivo
+
+
 
 ' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
 ' <System.Web.Script.Services.ScriptService()> _
@@ -228,10 +231,6 @@ Public Class mar_flujo
                     Dim rutaId = Integer.Parse(pParams(5).ToString())
                     result = Flujo.DataAccess.FlujoRepositories.WpfClient.DapperRepositories.CuadreRepositorio.EnlazaCuadreConAsignacion(rutaEstado, rutaUltimaLocalidad, rutaOrdenRecorrido, cuadreId, bancaCajaId, rutaId)
 
-
-
-
-
             End Select
 
             Return New MAR_FlujoResponse() With {
@@ -248,6 +247,67 @@ Public Class mar_flujo
                 }
         End Try
     End Function
+
+    <WebMethod()>
+    Public Function CallControlEfectivoFunciones(metodo As Integer, parametros As Object()) As MAR_FlujoResponse
+
+        Try
+            Dim result = Nothing
+
+            Select Case metodo
+
+
+#Region "Bancas"
+
+                Case 2000
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerBancaLastCuadreId(bancaid)
+
+
+                Case 2001
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerBancaLastTransaccionesApartirDelUltimoCuadre(bancaid)
+
+                Case 2002
+                    Dim cuadreid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerBancaCuadrePorCuadreId(cuadreid)
+
+                Case 2005
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerBancaConfiguraciones(bancaid)
+#End Region
+
+
+
+
+
+
+
+
+            End Select
+
+            Return New MAR_FlujoResponse() With {
+                .OK = True,
+                .Mensaje = String.Empty,
+                .Respuesta = JsonConvert.SerializeObject(result)
+            }
+
+        Catch ex As Exception
+            Return New MAR_FlujoResponse() With {
+                .OK = False,
+                .Mensaje = "Ocurrio un error procesando su transacción.",
+                .Err = ex.ToString()
+                }
+        End Try
+    End Function
+
+
+
+
+
+
+
+
     Public Class MAR_FlujoResponse
         Public OK As Boolean
         Public Mensaje As String

@@ -113,6 +113,7 @@
     <Compile Include="WpfClient\ResponseModels\CuadreResponse.cs" />
     <Compile Include="WpfClient\ResponseModels\MovimientoResponseModel.cs" />
     <Compile Include="WpfClient\ResponseModels\PageSizeRespondModel.cs" />
+    <Compile Include="WpfClient\ResponseModels\SorteosResponseModel.cs" />
     <Compile Include="WpfClient\ResponseModels\TipoEgresoResponseModel.cs" />
     <Compile Include="WpfClient\ResponseModels\TipoIngresoResponseModel.cs" />
     <Compile Include="WpfClient\ResponseModels\TokenDeSeguridadResponseModel.cs" />
