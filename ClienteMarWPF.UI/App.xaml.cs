@@ -34,8 +34,10 @@ using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio;
 using ClienteMarWPF.Domain.Services.MensajesService;
+using ClienteMarWPF.Domain.Services.ReportesService;
 using ClienteMarWPF.Domain.Services.RecargaService;
 using ClienteMarWPF.Domain.Services.SorteosService;
+
 
 namespace ClienteMarWPF.UI
 {
@@ -65,6 +67,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IBancaService, BancaDataService>();
             services.AddSingleton<IMensajesService, MensajesDataService>();
+            services.AddSingleton<IReportesServices, ReportesDataService>();
             services.AddSingleton<IRecargaService, RecargaDataService>();
             services.AddSingleton<ISorteosService, SorteosDataService>();
 
@@ -81,7 +84,9 @@ namespace ClienteMarWPF.UI
             );
 
             services.AddSingleton<ReporteViewModel>(
-                services => new ReporteViewModel()
+                services => new ReporteViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<IReportesServices>())
             );
 
             services.AddSingleton<SorteosViewModel>(
