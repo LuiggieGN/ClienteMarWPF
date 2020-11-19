@@ -34,6 +34,7 @@ using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
 using ClienteMarWPF.Domain.Services.MensajesService;
+using ClienteMarWPF.Domain.Services.RecargaService;
 
 namespace ClienteMarWPF.UI
 {
@@ -63,7 +64,8 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IBancaService, BancaDataService>();
             services.AddSingleton<IMensajesService, MensajesDataService>();
- 
+            services.AddSingleton<IRecargaService, RecargaDataService>();
+
 
 
             ///@@ Registrando Servicio de Factoria de ViewModel y de los ( ViewModels de los modulos)
@@ -89,7 +91,9 @@ namespace ClienteMarWPF.UI
             );
 
             services.AddSingleton<RecargasViewModel>(
-                services => new RecargasViewModel()
+                services => new RecargasViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<IRecargaService>())
             );
 
             services.AddSingleton<MensajeriaViewModel>(
