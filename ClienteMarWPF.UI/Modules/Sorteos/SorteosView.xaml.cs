@@ -47,6 +47,9 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 new SorteosDTO(){ LoteriaID=9, Loteria="Pega 3 Dia"},
                 new SorteosDTO(){ LoteriaID=10,Loteria="Pega 3 Noche"}
 
+
+
+
             };
             listSorteo.DataContext = SorteosBinding;
             MostrarSorteos();
