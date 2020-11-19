@@ -82,6 +82,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ControlEfectivoRepositories\BancaRepository.cs" />
+    <Compile Include="ControlEfectivoRepositories\Helpers\BancaHelper.cs" />
     <Compile Include="EFRepositories\BancasRepository.cs" />
     <Compile Include="EFRepositories\Hacienda\AnulacionRepository.cs" />
     <Compile Include="EFRepositories\Hacienda\ApuestaRepository.cs" />
@@ -355,6 +357,12 @@
     <Compile Include="EFRepositories\SessionRepository.cs" />
     <Compile Include="Helpers\DALHelper.cs" />
     <Compile Include="Repositories\SqlDataAccess.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\BancaConfiguracionDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\BancaControlEfectivoTransaccionDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\BancaDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\CajaDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\ControlEfectivoDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\CuadreDTO.cs" />
     <Compile Include="Tables\DTOs\CL_Cliente.cs" />
     <Compile Include="Tables\DTOs\CL_ClienteCampo.cs" />
     <Compile Include="Tables\DTOs\CL_ClienteDetalle.cs" />
@@ -785,6 +793,7 @@
     <WCFMetadataStorage Include="Connected Services\UnionTelecard\" />
     <WCFMetadataStorage Include="Connected Services\WSLotteryVIP\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

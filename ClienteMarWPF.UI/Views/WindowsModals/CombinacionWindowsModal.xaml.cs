@@ -106,6 +106,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
             var data = new List<string>();
             //ListJugadas = new List<TicketDetalle>();
 
+
             if (txtTripleta.Text != "")
             {
                 data.AddRange(GetTripletasCombinacion(txtTripleta.Text));
@@ -132,6 +133,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
 
         private void AgregarButton(object sender, RoutedEventArgs e)
         {
+
             //Jugadas?.Invoke(ListJugadas);
             this.Close();
         }
@@ -201,7 +203,9 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                     }
                 }
                 string dataClean = pale == "" ? "" : "Pale ->" + pale.Substring(0, 5) + " de $" + precio;
+
                 //ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = pale.Substring(0, 5), TipoJugadaID = 2 });
+
                 pales.Add(dataClean);
             }
 
@@ -254,6 +258,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                     punto += c;
                 }
                 //ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = punto, TipoJugadaID = 1 });
+
                 puntos.Add(precio + " puntos del " + punto);
             }
 

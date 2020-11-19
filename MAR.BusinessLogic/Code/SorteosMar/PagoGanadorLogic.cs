@@ -1,5 +1,4 @@
-﻿using FluentScheduler;
-using Flujo.Entities.WpfClient.Enums;
+﻿using FluentScheduler; 
 using MAR.BusinessLogic.Code.Hacienda;
 using MAR.BusinessLogic.Code.Hacienda.SharedOperations;
 using MAR.DataAccess.EFRepositories;
@@ -21,6 +20,18 @@ using System.Threading.Tasks;
 
 namespace MAR.BusinessLogic.Code.SorteosMar
 {
+    public class CincoMinutosEnum
+    {
+        public enum TicketEstado
+        {
+            NoValido = 0,
+            JugadoNoSorteo = 1,
+            JugadoNoGanador = 2,
+            JugadoGanadorNoPago = 3,
+            JugadoGanadorPagado = 4
+        }
+    }
+
     public class PagoGanadorLogic
     {
         public static object PagoGanador(int pBancaId, string pDireccion, string pBancaNombre, int pPrintW, int pRiferoId, string pTicketId, string pPin, DetalleJugadasPago pJugadas, int pUsuarioId)
@@ -536,4 +547,6 @@ namespace MAR.BusinessLogic.Code.SorteosMar
 
         }
     }
+
+
 }

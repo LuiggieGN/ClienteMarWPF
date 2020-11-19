@@ -67,6 +67,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RecargasLibrary">
+      <HintPath>..\..\..\..\Users\bryro\Downloads\Template\AdminProduccion-FlujoFaseEntrega\MAR.WebServices7\binUp\bin\RecargasLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -132,6 +135,12 @@
       <DependentUpon>mar-hacienda.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="mar-ptovta.asmx.vb">
+      <DependentUpon>mar-ptovta.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MARRecargaLibs.vb" />
+    <Compile Include="MarSerializador.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -168,6 +177,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <Content Include="mar-ptovta.asmx" />
     <Content Include="web.config" />
     <Content Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

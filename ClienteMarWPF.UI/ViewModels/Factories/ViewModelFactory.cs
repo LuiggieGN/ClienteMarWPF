@@ -13,7 +13,7 @@ using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Reporte;
 using ClienteMarWPF.UI.Modules.Sorteos;
-using ClienteMarWPF.UI.Modules.FlujoEfectivo.InicioControlEfectivo;
+using ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio;
 using ClienteMarWPF.UI.State.Navigators;
 
 
@@ -34,7 +34,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         private readonly CreateViewModel<MensajeriaViewModel> _createMensajeriaViewModel; 
         private readonly CreateViewModel<PagoServiciosViewModel> _createPagoServiciosViewModel;
         private readonly CreateViewModel<ConfiguracionViewModel> _createConfiguracionViewModel;
-        private readonly CreateViewModel<InicioControlEfectivoViewModel> _createInicioControlEfectivoViewModel;       
+        private readonly CreateViewModel<InicioViewModel> _createInicioControlEfectivoViewModel;       
  
 
         public ViewModelFactory(
@@ -48,7 +48,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
            CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel,
            CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel,
            CreateViewModel<ConfiguracionViewModel> createConfiguracionViewModel,
-           CreateViewModel<InicioControlEfectivoViewModel> createInicioControlEfectivoViewModel
+           CreateViewModel<InicioViewModel> createInicioControlEfectivoViewModel
  
         )
         {
