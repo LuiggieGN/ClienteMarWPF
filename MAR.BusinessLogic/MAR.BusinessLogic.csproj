@@ -125,6 +125,7 @@
     <Compile Include="Code\BilleteIndexLogic.cs" />
     <Compile Include="Code\PrintJobs\BilletePrintJob.cs" />
     <Compile Include="Code\ProductosLogic.cs" />
+    <Compile Include="Code\SorteosLogic.cs" />
     <Compile Include="Code\SorteosLotoDom\AnulacionLogic.cs" />
     <Compile Include="Code\SorteosLotoDom\ApuestaLogic.cs" />
     <Compile Include="Code\SorteosLotoDom\PagoGanadorLogic.cs" />

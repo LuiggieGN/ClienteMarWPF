@@ -19,7 +19,7 @@ namespace ClienteMarWPF.UI.Modules.Mensajeria
             SendMensajeCommand = new SendMensajeCommand(this, autenticador, mensajesService);
             GetMensajesCommand = new GetMensajesCommand(this, autenticador, mensajesService);
             //MensajeriaBinding = new ObservableCollection<MAR_Mensaje>();
-            GetMensajesCommand.Execute(null);
+            //GetMensajesCommand.Execute(null);
 
         }
 
