@@ -10,7 +10,7 @@ namespace ClienteMarWPF.DataAccess.Services
 
     public class MensajesDataService: IMensajesService
     {
-        public static SoapClientRepository SoapClientesRepository;
+        private static SoapClientRepository SoapClientesRepository;
         private static PtoVtaSoapClient clientePuntoDeVenta;
         static MensajesDataService()
         {
