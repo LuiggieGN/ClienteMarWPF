@@ -68,7 +68,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RecargasLibrary">
-      <HintPath>..\..\..\..\Users\bryro\Downloads\Template\AdminProduccion-FlujoFaseEntrega\MAR.WebServices7\binUp\bin\RecargasLibrary.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Publicaciones\mar-svr5\RecargasLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
