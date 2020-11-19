@@ -20,8 +20,8 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
     /// </summary>
     public partial class CombinacionWindowsModal : Window
     {
-        public event Action<List<TicketDetalle>> Jugadas;
-        private List<TicketDetalle> ListJugadas { get; set; }
+        //public event Action<List<TicketDetalle>> Jugadas;
+        //private List<TicketDetalle> ListJugadas { get; set; }
         private List<String> NumerosJugados { get; set; }
 
         public CombinacionWindowsModal(List<String> _numerosJugados)
@@ -29,7 +29,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
             InitializeComponent();
 
             txtNumCom1.Focus();
-            ListJugadas = new List<TicketDetalle>();
+            //ListJugadas = new List<TicketDetalle>();
             NumerosJugados = _numerosJugados;
         }
 
@@ -104,7 +104,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
             }
 
             var data = new List<string>();
-            ListJugadas = new List<TicketDetalle>();
+           // ListJugadas = new List<TicketDetalle>();
 
             if (txtTripleta.Text != "")
             {
@@ -132,7 +132,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
 
         private void AgregarButton(object sender, RoutedEventArgs e)
         {
-            Jugadas?.Invoke(ListJugadas);
+          //  Jugadas?.Invoke(ListJugadas);
             this.Close();
         }
 
@@ -140,7 +140,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
         {
             if (e.Key == Key.F7)
             {
-                Jugadas?.Invoke(ListJugadas);
+               // Jugadas?.Invoke(ListJugadas);
                 this.Close();
             }
 
@@ -201,7 +201,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                     }
                 }
                 string dataClean = pale == "" ? "" : "Pale ->" + pale.Substring(0, 5) + " de $" + precio;
-                ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = pale.Substring(0, 5), TipoJugadaID = 2 });
+               // ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = pale.Substring(0, 5), TipoJugadaID = 2 });
                 pales.Add(dataClean);
             }
 
@@ -228,7 +228,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                     }
                 }
                 string dataClean = tripleta == "" ? "" : "Tripleta ->" + tripleta.Substring(0, 8) + " de $" + precio;
-                ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = tripleta.Substring(0, 8), TipoJugadaID = 3 });
+               // ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = tripleta.Substring(0, 8), TipoJugadaID = 3 });
                 tripletas.Add(dataClean);
             }
 
@@ -251,7 +251,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                 {
                     punto += c;
                 }
-                ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = punto, TipoJugadaID = 1 });
+               // ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = punto, TipoJugadaID = 1 });
                 puntos.Add(precio + " puntos del " + punto);
             }
 
