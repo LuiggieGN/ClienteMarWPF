@@ -24,8 +24,7 @@ namespace ClienteMarWPF.DataAccess.Services
         public MAR_HaciendaResponse GetSorteosDisponibles(HaciendaService.MAR_Session session)
         {
             ArrayOfAnyType Params = new ArrayOfAnyType();
-            return new MAR_HaciendaResponse();
-            //return haciendacliente.CallHaciendaFuncion(21, session, Params);
+            return haciendacliente.CallHaciendaFuncion(21, session, Params);
         }
 
         public MAR_MultiBet RealizarApuesta(MarPuntoVentaServiceReference.MAR_Session session, MAR_MultiBet Apuestas)

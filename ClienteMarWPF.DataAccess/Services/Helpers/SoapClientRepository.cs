@@ -37,6 +37,7 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 string[] splitaddress;
 
                 serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx";
+                //serveraddress = @"http://localhost:14217/mar-ptovta.asmx";
                 //serveraddress = @"http://localhost/MarSrv/mar-ptovta.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
 
 
@@ -125,7 +126,8 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-                serveraddress = @"http://localhost:14217/mar-hacienda.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+                serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-hacienda.asmx";
+                //serveraddress = @"http://localhost:14217/mar-hacienda.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
 
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
