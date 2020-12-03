@@ -47,7 +47,7 @@
     </Reference>
     <Reference Include="MAR.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\Config Remote\DATA001 Local\MAR.Config.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Config Medelo2020 local\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
