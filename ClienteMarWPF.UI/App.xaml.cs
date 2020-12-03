@@ -121,8 +121,10 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<CreateViewModel<RecargasViewModel>>(services =>
             {
                 return () => new RecargasViewModel(
-                  services.GetRequiredService<IAuthenticator>(),
-                  services.GetRequiredService<IRecargaService>()
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<IRecargaService>(),
+                    services.GetRequiredService<INavigator>(),
+                    services.GetRequiredService<IViewModelFactory>()
                 );
             });
 
@@ -186,9 +188,8 @@ namespace ClienteMarWPF.UI
             services.AddScoped<MainWindowViewModel>();
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainWindowViewModel>()));
 
-            return services.BuildServiceProvider();
+            return services.BuildServiceProvider(); 
         }
-
 
 
     }// fin de Clase App

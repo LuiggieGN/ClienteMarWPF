@@ -9,5 +9,11 @@ namespace ClienteMarWPF.Domain.Services.RecargaService
     {
          MAR_Suplidor[] GetSuplidor(MAR_Session _Session);
 
+
+       MAR_Pin GetRecarga(MAR_Session _Session, int user, string clave, int suplidor, string Numero, double Monto, int Solicitud);
+
+
+        void ConfirmRecarga(MAR_Session _Session);
+
     }
 }

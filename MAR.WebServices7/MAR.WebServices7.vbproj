@@ -61,6 +61,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+
     <Reference Include="MAR.Config">
       <HintPath>..\..\..\GitHub\MateoNet\AdminProduccion\Libraries\luiggieLocal\DATA358\MAR.Config.dll</HintPath>
     </Reference>
@@ -68,7 +69,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RecargasLibrary">
-      <HintPath>..\..\..\..\Users\bryro\Downloads\Template\AdminProduccion-FlujoFaseEntrega\MAR.WebServices7\binUp\bin\RecargasLibrary.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\DLLs WEBService7\RecargasLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
