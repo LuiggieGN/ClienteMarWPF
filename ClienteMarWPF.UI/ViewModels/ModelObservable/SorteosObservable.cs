@@ -10,7 +10,7 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         private int _loteriaID;
         private string _loteria;
         private bool _isSelected;
-
+        private DateTime _date;
 
         public int LoteriaID
         {
@@ -27,7 +27,11 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             get { return _isSelected; }
             set { _isSelected = value; NotifyPropertyChanged(nameof(IsSelected)); }
         }
-
+        public DateTime Date
+        {
+            get { return _date; }
+            set { _date = value; NotifyPropertyChanged(nameof(Date)); }
+        }
 
 
     }

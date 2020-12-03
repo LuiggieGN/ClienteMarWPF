@@ -32,7 +32,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Mensajes
                 {
                     foreach (var item in mensajes)
                     {
-                        ViewModel.MensajeriaBinding.Add(item);
+                        ViewModel.Mensajes.Add(item);
                     }
                 }
 

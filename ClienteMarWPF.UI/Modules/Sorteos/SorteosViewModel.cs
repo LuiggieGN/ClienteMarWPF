@@ -12,10 +12,12 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
     public class SorteosViewModel: BaseViewModel
     {
         public ICommand GetSorteosCommand { get; }
+        public ICommand RealizarApuestaCommand { get; }
 
         public SorteosViewModel(IAuthenticator autenticador, ISorteosService sorteosService)
         {
             GetSorteosCommand = new GetSorteosCommand(this, autenticador, sorteosService);
+            RealizarApuestaCommand = new RealizarApuestaCommand(this, autenticador, sorteosService);
             GetSorteosCommand.Execute(null);
 
         }

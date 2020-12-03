@@ -31,8 +31,8 @@
                                         <DropShadowEffect BlurRadius="10" Opacity="0.2"/>
                                     </Border.Effect>
                                     <StackPanel >
-                                        <TextBlock x:Name="txt1" Text="{Binding Destino}" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
-                                        <TextBlock x:Name="txt3" Text="Tu" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
+                                        <TextBlock x:Name="txt1" Text="{Binding Origen}" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
+                                        <!--<TextBlock x:Name="txt3" Text="Tu" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>-->
                                         <TextBlock x:Name="txt2"  TextWrapping="Wrap" FontSize="14" Text="{Binding Contenido}"/>
                                     </StackPanel>
                                 </Border>

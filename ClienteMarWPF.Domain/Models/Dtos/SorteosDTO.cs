@@ -4,46 +4,6 @@ using System.Text;
 
 namespace ClienteMarWPF.Domain.Models.Dtos
 {
-    //public class TicketModel
-    //{
-    //    public string NoTicket { get; set; }
-    //    public int TicketID { get; set; }
-    //    public string NautCalculado { get; set; }
-    //    public DateTime Fecha { get; set; }
-    //    public int TerminalID { get; set; }
-    //    public string AutenticacionReferencia { get; set; }
-    //    public string CodigoOperacionReferencia { get; set; }
-
-    //    public int LocalID { get; set; }
-    //    public int MontoOperacion { get; set; }
-    //    public List<TicketDetalle> TicketDetalles { get; set; }
-    //}
-    //public class TicketDetalle
-    //{
-    //    public int TicketID { get; set; }
-    //    public int DetalleID { get; set; }
-    //    public string Codigo { get; set; }
-    //    public int SorteoID { get; set; }
-    //    public int Monto { get; set; }
-    //    public int Saco { get; set; }
-    //    public string Jugada { get; set; }
-    //    public int TipoJugadaID { get; set; }
-    //}
-
-    //public class DetalleJugadas
-    //{
-    //    public List<JuegoPago> Juego { get; set; }
-    //}
-
-    //public class JuegoPago
-    //{
-    //    public int TipoJugadaID { get; set; }
-    //    public string Codigo { get; set; }
-    //    public int MontoApostado { get; set; }
-    //    public int MontoPagado { get; set; }
-    //    public string Jugada { get; set; }
-
-    //}
 
     public class SorteosDTO
     {
@@ -58,11 +18,41 @@ namespace ClienteMarWPF.Domain.Models.Dtos
         public int LoteriaDestino { get; set; }
     }
 
-    public class Jugadas
+    public class Jugada
     {
         public string TipoJugada { get; set; }
-        public string Jugada { get; set; }
+        public string Jugadas { get; set; }
         public int Monto { get; set; }
+    }
+
+    public class SorteosResponse
+    {
+        public List<int> Apuestas { get; set; }
+    }
+
+    public class SorteosDisponibles
+    {
+        public SorteosDisponibles()
+        {
+            LoteriasIDRegular = new List<int>();
+            LoteriasIDTodas = new List<int>();
+            SuperPaleDisponibles = new List<SuperPaleDisponible>();
+        }
+        public List<int> LoteriasIDRegular { get; set; }
+        public List<int> LoteriasIDTodas { get; set; }
+        public List<SuperPaleDisponible> SuperPaleDisponibles { get; set; }
+        public class SuperPaleDisponible
+        {
+            public int LoteriaID1 { get; set; }
+            public int LoteriaID2 { get; set; }
+            public int LoteriaIDDestino { get; set; }
+        }
+    }
+
+    public class ReponseSorteos
+    {
+        public bool OK { get; set; }
+        public object Respuesta { get; set; }
     }
 
 }

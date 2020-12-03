@@ -12,7 +12,7 @@ namespace ClienteMarWPF.UI.Modules.Mensajeria
     {
         public ICommand SendMensajeCommand { get; }
         public ICommand GetMensajesCommand { get; }
-        public ObservableCollection<MAR_Mensaje> MensajeriaBinding = new ObservableCollection<MAR_Mensaje>();
+        public ObservableCollection<MAR_Mensaje> Mensajes = new ObservableCollection<MAR_Mensaje>();
 
         public MensajeriaViewModel(IAuthenticator autenticador, IMensajesService mensajesService)
         {
@@ -21,6 +21,10 @@ namespace ClienteMarWPF.UI.Modules.Mensajeria
             //MensajeriaBinding = new ObservableCollection<MAR_Mensaje>();
             //GetMensajesCommand.Execute(null);
 
+        }
+
+        public ObservableCollection<MAR_Mensaje> MensajeriaBinding { 
+        get { return Mensajes; }
         }
 
         #region PropertyOfView
