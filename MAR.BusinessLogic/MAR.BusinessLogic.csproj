@@ -49,7 +49,7 @@
       <HintPath>..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
     </Reference>
     <Reference Include="MAR.Config">
-      <HintPath>..\..\..\..\..\Desktop\Config Medelo2020 local\MAR.Config.dll</HintPath>
+      <HintPath>..\..\..\GitHub\MateoNet\AdminProduccion\Libraries\luiggieLocal\DATA358\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -82,6 +82,9 @@
     <Compile Include="Admin\Models\ViewModels\RiferosViewModels.cs" />
     <Compile Include="Admin\SharedFuntions\Autorizaciones.cs" />
     <Compile Include="Code\BingoIndexLogic.cs" />
+    <Compile Include="Code\ControlEfectivo\TieLogic.cs" />
+    <Compile Include="Code\ControlEfectivo\CajaLogic.cs" />
+    <Compile Include="Code\ControlEfectivo\CuadreLogic.cs" />
     <Compile Include="Code\ControlEfectivo\BancaLogic.cs" />
     <Compile Include="Code\CuentasLogic.cs" />
     <Compile Include="Code\BancaConfigLogic.cs" />
@@ -149,8 +152,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj">
-      <Project>{41BBCCA4-1318-4234-A855-83958F1E5FF2}</Project>
+    <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj"> 
+      <Project>{41bbcca4-1318-4234-a855-83958f1e5ff2}</Project> 
       <Name>Flujo.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj">

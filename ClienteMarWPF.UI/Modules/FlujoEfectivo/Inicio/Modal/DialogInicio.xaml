@@ -35,7 +35,7 @@
 
                             <Button Style="{DynamicResource  BotonCancelarStyle}" Content="Cancelar" Command="{Binding CerrarDialogoInicioCommand}" />
 
-                            <Button Style="{DynamicResource BotonAceptarStyle}" Content="Aceptar" Visibility="{Binding MuestroBotonAceptar, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Button Style="{DynamicResource BotonAceptarStyle}" Content="Aceptar" Command="{Binding IniciarControlEfectivoCommand}" Visibility="{Binding MuestroBotonAceptar, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                         </StackPanel>
 

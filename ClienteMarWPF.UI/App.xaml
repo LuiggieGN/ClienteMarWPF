@@ -14,7 +14,9 @@
              xmlns:moduloConfiguracion="clr-namespace:ClienteMarWPF.UI.Modules.Configuracion"   
              xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:efectivoInicio="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio"
+             xmlns:efectivoMovimiento="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento"
              xmlns:local="clr-namespace:ClienteMarWPF.UI"   
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
                 
              >
     <Application.Resources>
@@ -22,24 +24,32 @@
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>                
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />                
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Resources/Style/ButtonsCustom.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Resources/Style/ControlsCustom.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/Modules/FlujoEfectivo/Inicio/Modal/DialogInicioResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/Modules/FlujoEfectivo/Movimiento/MovimientoResources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- primary hues  --><!--
-            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="LightBlue"/>
-            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="Black"/>
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="Blue"/>
-            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="DarkBlue"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="White"/>
-            --><!--  accent --><!--
-            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="Yellow"/>
-            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="Black"/>-->
+            <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyleOverride}" />
+
+
+            <!--<Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="dragablz:DragablzItem" BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
+                            <Setter Property="Height" Value="60" />
+                            <Setter Property="Background" Value="{StaticResource MaterialDesignBackground}" />
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
 
             <DataTemplate DataType="{x:Type  moduloHome:HomeViewModel}">
                 <moduloHome:HomeView />
@@ -51,7 +61,7 @@
 
             <DataTemplate DataType="{x:Type  moduloReporte:ReporteViewModel}">
                 <moduloReporte:ReporteView />
-            </DataTemplate>            
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type  moduloSorteos:SorteosViewModel}">
                 <moduloSorteos:SorteosView RealizarApuestaCommand="{Binding RealizarApuestaCommand}" />
@@ -67,7 +77,7 @@
 
             <DataTemplate DataType="{x:Type  moduloMensajeria:MensajeriaViewModel}">
                 <moduloMensajeria:MensajeriaView  GetMensajesCommand="{Binding GetMensajesCommand}"   />
-            </DataTemplate>            
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type  moduloPagoServicios:PagoServiciosViewModel}">
                 <moduloPagoServicios:PagoServiciosView />
@@ -85,8 +95,14 @@
                 <efectivoInicio:InicioView />
             </DataTemplate>
 
-            
-            
-        </ResourceDictionary>        
+            <DataTemplate DataType="{x:Type  efectivoMovimiento:MovimientoViewModel}">
+                <efectivoMovimiento:MovimientoView />
+            </DataTemplate>
+
+
+        </ResourceDictionary>
+
+
+
     </Application.Resources>    
 </Application>

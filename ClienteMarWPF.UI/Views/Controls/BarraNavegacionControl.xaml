@@ -194,18 +194,12 @@
                                     <TextBlock Text="Cuadre Dia" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.RegistrosDeMovimiento}">
                                 <StackPanel Orientation="Horizontal" >
                                     <materialDesign:PackIcon Kind="Arrow" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                                     <TextBlock Text="Movimientos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                                 </StackPanel>
-                            </Button>
-                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
-                                <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="AccountBalanceWallet" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                                    <TextBlock Text="Consulta (E/S)" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
+                            </Button> 
                         </StackPanel>
 
                     </DataTemplate>

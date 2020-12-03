@@ -32,7 +32,7 @@ namespace ClienteMarWPF.UI
 
 
         public ICommand UpdateCurrentViewModelCommand { get; }
-        public ICommand LogoutCommand { get; }
+        public ICommand LogoutCommand { get; }  
 
 
         public MainWindowViewModel(INavigator navegadordeModulos, IViewModelFactory factoriaViewModel, IAuthenticator autenticador)

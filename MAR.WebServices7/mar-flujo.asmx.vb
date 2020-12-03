@@ -256,9 +256,21 @@ Public Class mar_flujo
 
             Select Case metodo
 
+#Region "Cajas"
+
+                Case 1000
+                    Dim jsonMovimiento = parametros(0).ToString()
+                    result = CajaLogic.RegistrarMovimientoEnBanca(jsonMovimiento)
+
+                Case 1003
+                    Dim cajaid = Integer.Parse(parametros(0).ToString())
+                    result = CajaLogic.LeerCajaBalance(cajaid)
+                Case 1004
+                    Dim usuarioid = Integer.Parse(parametros(0).ToString())
+                    result = CajaLogic.LeerCajaDeUsuarioPorUsuarioId(usuarioid)
+#End Region
 
 #Region "Bancas"
-
                 Case 2000
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerBancaLastCuadreId(bancaid)
@@ -277,11 +289,26 @@ Public Class mar_flujo
                     result = BancaLogic.LeerBancaConfiguraciones(bancaid)
 #End Region
 
+#Region "Cuadre"
+                Case 3000
+                    Dim jsonCuadre = parametros(0).ToString()
+                    Dim esUnRetiro = Boolean.Parse(parametros(1).ToString())
+                    result = CuadreLogic.Registrar(jsonCuadre, esUnRetiro)
 
+                Case 3001
+                    Dim rutaEstado = parametros(0).ToString()
+                    Dim rutaUltimaLocalidad = Integer.Parse(parametros(1).ToString())
+                    Dim rutaOrdenRecorrido = parametros(2).ToString()
+                    Dim cuadreId = Integer.Parse(parametros(3).ToString())
+                    Dim bancaCajaId = Integer.Parse(parametros(4).ToString())
+                    Dim rutaId = Integer.Parse(parametros(5).ToString())
+                    result = CuadreLogic.EnlazarRutaConCuadre(rutaEstado, rutaUltimaLocalidad, rutaOrdenRecorrido, cuadreId, bancaCajaId, rutaId)
+#End Region
 
-
-
-
+#Region "Tie"
+                Case 4000
+                    result = TieLogic.LeerTiposAnonimos()
+#End Region
 
 
             End Select

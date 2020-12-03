@@ -14,6 +14,8 @@ using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Reporte;
 using ClienteMarWPF.UI.Modules.Sorteos;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio;
+using ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento;
+
 using ClienteMarWPF.UI.State.Navigators;
 
 
@@ -35,7 +37,8 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         private readonly CreateViewModel<PagoServiciosViewModel> _createPagoServiciosViewModel;
         private readonly CreateViewModel<ConfiguracionViewModel> _createConfiguracionViewModel;
         private readonly CreateViewModel<InicioViewModel> _createInicioControlEfectivoViewModel;       
- 
+        private readonly CreateViewModel<MovimientoViewModel> _createMovimientoControlEfectivoViewModel;
+
 
         public ViewModelFactory(
            CreateViewModel<HomeViewModel> createHomeViewModel,
@@ -48,8 +51,9 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
            CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel,
            CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel,
            CreateViewModel<ConfiguracionViewModel> createConfiguracionViewModel,
-           CreateViewModel<InicioViewModel> createInicioControlEfectivoViewModel
- 
+           CreateViewModel<InicioViewModel> createInicioControlEfectivoViewModel,
+           CreateViewModel<MovimientoViewModel> createMovimientoControlEfectivoViewModel
+
         )
         {
             _createHomeViewModel = createHomeViewModel;
@@ -63,7 +67,8 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
             _createPagoServiciosViewModel = createPagoServiciosViewModel;
             _createConfiguracionViewModel = createConfiguracionViewModel;
             _createInicioControlEfectivoViewModel = createInicioControlEfectivoViewModel;
- 
+            _createMovimientoControlEfectivoViewModel = createMovimientoControlEfectivoViewModel;
+
         }
 
         /// <summary>
@@ -94,7 +99,9 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
                 case Modulos.Configuracion:
                     return _createConfiguracionViewModel();
                 case Modulos.InicioControlEfectivo:
-                    return _createInicioControlEfectivoViewModel(); 
+                    return _createInicioControlEfectivoViewModel();
+                case Modulos.RegistrosDeMovimiento:
+                    return _createMovimientoControlEfectivoViewModel();
                 default:
                     throw new ArgumentException("El ViewType no tiene ViewModel.", "viewType");
             }

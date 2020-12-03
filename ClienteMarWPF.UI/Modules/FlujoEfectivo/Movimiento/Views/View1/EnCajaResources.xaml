@@ -1,0 +1,109 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
+                    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+                    >
+
+    <!--<FontFamily x:Key="BaseFontFamily">/Resources/Fonts/#IRANSansWeb</FontFamily>
+    <ImageSource x:Key="RocketImage">/Resources/Images/Rocket.png</ImageSource>
+    <sys:Double x:Key="SmallFontSize">10</sys:Double>
+    <sys:Double x:Key="MediumFontSize">12</sys:Double>
+    <sys:Double x:Key="LargeFontSize">15</sys:Double>
+    <sys:Double x:Key="XLargeFontSize">25</sys:Double>
+    /Variables-->
+
+    <Style TargetType="{x:Type UserControl}"  x:Key="DefaultStyle">
+        <Setter Property="Background" Value="Transparent"/>
+        <!--<Setter Property="FontFamily" Value="{StaticResource BaseFontFamily}"/>
+        <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="FlowDirection" Value="RightToLeft"/>-->
+    </Style>
+
+
+    <LinearGradientBrush x:Key="MaterialDesignGradientBrush"
+                         StartPoint="0,0"
+                         EndPoint="1,1">
+        <LinearGradientBrush.RelativeTransform>
+            <TransformGroup>
+                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                <RotateTransform CenterY="0.5" CenterX="0.5" Angle="0"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </LinearGradientBrush.RelativeTransform>
+        <GradientStop Color="#3a3c3e" Offset="0"/>
+        <GradientStop Color="#3a3c3e" Offset="2"/>
+    </LinearGradientBrush>
+    <!--/Gradient Brush-->
+
+    <!--Overrides-->
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#5680E9"/>
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="#EBEBEB"/>
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonRipple" Color="#D2D2D2"/>
+    <!--/Overrides-->
+
+    <!--Global-->
+    <SolidColorBrush x:Key="Background" Color="White" />
+    <SolidColorBrush x:Key="Foreground" Color="#0F1218" />
+
+    <!--<Style x:Key="MaterialDesignFilledComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
+        <Setter Property="wpf:TextFieldAssist.TextFieldCornerRadius" Value="4,4,0,0" />
+        <Setter Property="wpf:HintAssist.IsFloating" Value="True" />
+        <Setter Property="wpf:HintAssist.FloatingOffset" Value="0,-8" />
+        <Setter Property="wpf:ComboBoxAssist.ShowSelectedItem" Value="False" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="12,0,8,8" />
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignTextFieldBoxBackground}" />
+        <Setter Property="Template" Value="{StaticResource MaterialDesignFilledComboBoxTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource MaterialDesignTextFieldBoxHoverBackground}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>-->
+
+
+    <!--<Style TargetType="TextBox">
+        <Setter Property="Padding" Value="2 1" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder />
+                        <ItemsControl Margin="0 5 0 0"
+                                    FontSize="20"
+                                    ItemsSource="{Binding}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="Red" Text="{Binding ErrorContent}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <StackPanel>
+                        <Border Padding="{TemplateBinding Padding}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+
+
+
+</ResourceDictionary>

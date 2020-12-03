@@ -5,7 +5,9 @@ using System.Windows.Input;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.ViewModels.Factories;
+
 using ClienteMarWPF.Domain.Services.BancaService;
+using ClienteMarWPF.Domain.Services.CuadreService;
 
 using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
@@ -17,16 +19,24 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio.Modal
     {
         private bool _muestroDialogo;
         private bool _muestroBotonAceptar;
+        private decimal _bancaBalance;
         private readonly INavigator _nav;
         private readonly IAuthenticator _aut;
         private readonly IViewModelFactory _vistas;
         private readonly IBancaService _banService;
-        private decimal _bancaBalance;
+        private readonly ICuadreService _cuadreService;
 
 
         public MessageViewModel MensajeBalanceViewModel { get; }
+        public string MensajeBalance
+        {
+            set => MensajeBalanceViewModel.Message = value;
+        }
         public MessageViewModel MensajeErrorViewModel { get; }
-
+        public string MensajeError
+        {
+            set => MensajeErrorViewModel.Message = value;
+        }
         public bool MuestroDialogo
         {
             get
@@ -49,14 +59,6 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio.Modal
                 _muestroBotonAceptar = value; NotifyPropertyChanged(nameof(MuestroBotonAceptar));
             }
         }
-        public string MensajeBalance
-        {
-            set => MensajeBalanceViewModel.Message = value;
-        }
-        public string MensajeError
-        {
-            set => MensajeErrorViewModel.Message = value;
-        }
         public decimal BancaBalance
         {
             get
@@ -69,20 +71,25 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio.Modal
             }
         }
 
+
         public ICommand CerrarDialogoInicioCommand { get; }
         public ICommand CalcularBancaBalanceCommand { get; }
+        public ICommand IniciarControlEfectivoCommand { get; }
 
-        public DialogInicioViewModel(INavigator nav, IAuthenticator aut, IViewModelFactory vistas, IBancaService banService)
+
+        public DialogInicioViewModel(INavigator nav, IAuthenticator aut, IViewModelFactory vistas, IBancaService banService, ICuadreService cuadreService)
         {
             _nav = nav;
             _aut = aut;
             _vistas = vistas;
             _banService = banService;
+            _cuadreService = cuadreService;
 
             MensajeBalanceViewModel = new MessageViewModel();
             MensajeErrorViewModel = new MessageViewModel();
             CerrarDialogoInicioCommand = new CerrarDialogoInicioCommand(this);
             CalcularBancaBalanceCommand = new CalcularBancaBalanceCommand(this, _aut, _banService);
+            IniciarControlEfectivoCommand = new IniciarControlEfectivoCommand(this, _nav, _aut, _vistas, _cuadreService);
         }
 
 
