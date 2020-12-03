@@ -3,9 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
- 
-using ClienteMarWPF.Domain.Services.AccountService;
-using ClienteMarWPF.Domain.Services.AuthenticationService;
+
+
 using ClienteMarWPF.DataAccess.Services;
 
 using ClienteMarWPF.UI.State.Accounts;
@@ -26,17 +25,25 @@ using ClienteMarWPF.UI.ViewModels.Factories;
 using System;
 using System.Windows;
 using ClienteMarWPF.UI.Modules.Sorteos;
-using ClienteMarWPF.Domain.Services.BancaService;
+
 using ClienteMarWPF.UI.Modules.CincoMinutos;
 using ClienteMarWPF.UI.Modules.Recargas;
-using ClienteMarWPF.UI.Modules.Mensajeria; 
+using ClienteMarWPF.UI.Modules.Mensajeria;
 using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio;
+using ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento;
+
+using ClienteMarWPF.Domain.Services.AccountService;
+using ClienteMarWPF.Domain.Services.AuthenticationService;
+using ClienteMarWPF.Domain.Services.BancaService;
 using ClienteMarWPF.Domain.Services.MensajesService;
 using ClienteMarWPF.Domain.Services.ReportesService;
 using ClienteMarWPF.Domain.Services.RecargaService;
 using ClienteMarWPF.Domain.Services.SorteosService;
+using ClienteMarWPF.Domain.Services.CuadreService;
+using ClienteMarWPF.Domain.Services.TieService;
+using ClienteMarWPF.Domain.Services.CajaService;
 
 
 namespace ClienteMarWPF.UI
@@ -60,133 +67,96 @@ namespace ClienteMarWPF.UI
         {
             IServiceCollection services = new ServiceCollection();
 
-
-            //@@ Registrando Servicios del Dominio (ClienteMarWPF.Domain)            
+            #region Aqui Se Registran Todos Los Servicios Que Acceden a la Base de Datos los cuales son implementados por los modulos
             services.AddSingleton<IAccountService, AccountDataService>();
             services.AddSingleton<IPasswordHasher<Usuario>, PersonalizedPasswordHasher>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IBancaService, BancaDataService>();
+            services.AddSingleton<ICuadreService, CuadreDataService>();
             services.AddSingleton<IMensajesService, MensajesDataService>();
             services.AddSingleton<IReportesServices, ReportesDataService>();
             services.AddSingleton<IRecargaService, RecargaDataService>();
             services.AddSingleton<ISorteosService, SorteosDataService>();
+            services.AddSingleton<ITieService, TieDataService>();
+            services.AddSingleton<ICajaService, CajaDataService>();
+            #endregion
 
+            services.AddSingleton<IViewModelFactory, ViewModelFactory>();    //Este Servicio Contiene la factoria de ViewModels Disponibles
 
-
-            ///@@ Registrando Servicio de Factoria de ViewModel y de los ( ViewModels de los modulos)
-            services.AddSingleton<IViewModelFactory, ViewModelFactory>();
-            services.AddSingleton<HomeViewModel>(
-                services => new HomeViewModel()
-            );
-
-            services.AddSingleton<ModuloViewModel>(
-                services => new ModuloViewModel( services.GetRequiredService<IBancaService>())
-            );
-
-            services.AddSingleton<ReporteViewModel>(
-                services => new ReporteViewModel(
-                    services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<IReportesServices>())
-            );
-
-            services.AddSingleton<SorteosViewModel>(
-                services => new SorteosViewModel(
-                    services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<ISorteosService>()
-                    )
-            );
-
-            services.AddSingleton<CincoMinutosViewModel>(
-                services => new CincoMinutosViewModel()
-            );
-
-            services.AddSingleton<RecargasViewModel>(
-                services => new RecargasViewModel(
-                    services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<IRecargaService>())
-            );
-
-            services.AddSingleton<MensajeriaViewModel>(
-                services => new MensajeriaViewModel(
-                    services.GetRequiredService<IAuthenticator>(), 
-                    services.GetRequiredService<IMensajesService>()
-                    )
-            );
-
-
-            services.AddSingleton<PagoServiciosViewModel>(
-                services => new PagoServiciosViewModel()
-            );
-
-            services.AddSingleton<ConfiguracionViewModel>(
-                services => new ConfiguracionViewModel(services.GetRequiredService<ILocalClientSettingStore>())
-            );
-                        
-
- 
-
-            ///@@ Habilta Navegacion entre modulos de la aplicacion
-
-
+            #region Habilita Navegacion Entre Modulos (Aqui estan definidos los modulos disponibles de la aplicacion y los servicios que requieren cada modulo)
 
             services.AddSingleton<CreateViewModel<HomeViewModel>>(services =>
             {
-                return () => services.GetRequiredService<HomeViewModel>(); 
+                return () => new HomeViewModel();
             });
 
             services.AddSingleton<CreateViewModel<ModuloViewModel>>(services =>
             {
-                return () => services.GetRequiredService<ModuloViewModel>();
+                return () => new ModuloViewModel(
+                    services.GetRequiredService<IBancaService>()
+                );
             });
 
             services.AddSingleton<CreateViewModel<ReporteViewModel>>(services =>
             {
-                return () => services.GetRequiredService<ReporteViewModel>();
+                return () => new ReporteViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<IReportesServices>()
+                );
             });
 
             services.AddSingleton<CreateViewModel<SorteosViewModel>>(services =>
             {
-                return () => services.GetRequiredService<SorteosViewModel>();
-            }); 
+                return () => new SorteosViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<ISorteosService>()
+                );
+            });
 
             services.AddSingleton<CreateViewModel<CincoMinutosViewModel>>(services =>
             {
-                return () => services.GetRequiredService<CincoMinutosViewModel>();
+                return () => new CincoMinutosViewModel();
             });
 
             services.AddSingleton<CreateViewModel<RecargasViewModel>>(services =>
             {
-                return () => services.GetRequiredService<RecargasViewModel>();
+                return () => new RecargasViewModel(
+                  services.GetRequiredService<IAuthenticator>(),
+                  services.GetRequiredService<IRecargaService>()
+                );
             });
 
             services.AddSingleton<CreateViewModel<MensajeriaViewModel>>(services =>
             {
-                return () => services.GetRequiredService<MensajeriaViewModel>();
+                return () => new MensajeriaViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<IMensajesService>()
+                );
             });
- 
+
             services.AddSingleton<CreateViewModel<PagoServiciosViewModel>>(services =>
             {
-                return () => services.GetRequiredService<PagoServiciosViewModel>();
+                return () => new PagoServiciosViewModel();
             });
 
             services.AddSingleton<CreateViewModel<ConfiguracionViewModel>>(services =>
             {
-                return () => services.GetRequiredService<ConfiguracionViewModel>();
+                return () => new ConfiguracionViewModel(services.GetRequiredService<ILocalClientSettingStore>());
             });
 
-            
             services.AddSingleton<CreateViewModel<InicioViewModel>>(services =>
             {
                 return () => new InicioViewModel(
                    services.GetRequiredService<INavigator>(),
                    services.GetRequiredService<IAuthenticator>(),
                    services.GetRequiredService<IViewModelFactory>(),
-                   services.GetRequiredService<IBancaService>()
+                   services.GetRequiredService<IBancaService>(),
+                   services.GetRequiredService<ICuadreService>()
                 );
             });
- 
 
             services.AddSingleton<Renavigator<HomeViewModel>>();
+
             services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>
             {
                 return () => new LoginViewModel(
@@ -195,6 +165,17 @@ namespace ClienteMarWPF.UI
                    services.GetRequiredService<ILocalClientSettingStore>()
                 );
             });
+            
+            services.AddSingleton<CreateViewModel<MovimientoViewModel>>(services =>
+            {
+                return () => new MovimientoViewModel(
+                    services.GetRequiredService<IAuthenticator>(),
+                    services.GetRequiredService<ITieService>(),
+                    services.GetRequiredService<ICajaService>()
+                );
+            });
+
+            #endregion
 
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<IAuthenticator, Authenticator>();
@@ -216,4 +197,3 @@ namespace ClienteMarWPF.UI
 
 
 
- 

@@ -13,12 +13,12 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Inicio
         private readonly DialogInicioViewModel _viewmodel;
         private readonly IAuthenticator _aut;
         private readonly IBancaService _banService;
-
+        
         public CalcularBancaBalanceCommand(DialogInicioViewModel viewmodel, IAuthenticator aut, IBancaService banService) :base()
         {
             _aut = aut;
             _banService = banService;
-            _viewmodel = viewmodel; 
+            _viewmodel = viewmodel;
             SetAction(new Action<object>(Calcular)); 
         }
                
@@ -42,8 +42,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Inicio
                 {
                     _viewmodel.MuestroBotonAceptar = true; // Si muestro boton aceptar
                 }
-
-
             }
         }
 

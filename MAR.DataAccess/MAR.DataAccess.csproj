@@ -46,7 +46,7 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="MAR.Config">
-      <HintPath>..\..\..\..\..\Desktop\Config Remote\DATA001 Local\MAR.Config.dll</HintPath>
+      <HintPath>..\..\..\GitHub\MateoNet\AdminProduccion\Libraries\luiggieLocal\DATA358\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -82,7 +82,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ControlEfectivoRepositories\TieRepository.cs" />
+    <Compile Include="ControlEfectivoRepositories\CajaRepository.cs" />
+    <Compile Include="ControlEfectivoRepositories\CuadreRepository.cs" />
     <Compile Include="ControlEfectivoRepositories\BancaRepository.cs" />
+    <Compile Include="ControlEfectivoRepositories\Helpers\CajaHelper.cs" />
+    <Compile Include="ControlEfectivoRepositories\Helpers\TieHelper.cs" />
+    <Compile Include="ControlEfectivoRepositories\Helpers\CuadreHelper.cs" />
     <Compile Include="ControlEfectivoRepositories\Helpers\BancaHelper.cs" />
     <Compile Include="EFRepositories\BancasRepository.cs" />
     <Compile Include="EFRepositories\Hacienda\AnulacionRepository.cs" />
@@ -360,9 +366,18 @@
     <Compile Include="Tables\ControlEfectivoDTOs\BancaConfiguracionDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\BancaControlEfectivoTransaccionDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\BancaDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\BancaEnRecorridoDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\CajaDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\ControlEfectivoDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\CuadreDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\CuadreRegistroDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\CuadreRegistroResultDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\RutaAsignacionDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\RutaRecorridoDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\SupraMovimientoEnBancaDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\SupraMovimientoEnBancaResultDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\TieDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\TipoAnonimoDTO.cs" />
     <Compile Include="Tables\DTOs\CL_Cliente.cs" />
     <Compile Include="Tables\DTOs\CL_ClienteCampo.cs" />
     <Compile Include="Tables\DTOs\CL_ClienteDetalle.cs" />

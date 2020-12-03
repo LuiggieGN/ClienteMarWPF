@@ -25,12 +25,16 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
 
                 using (var db = DALHelper.GetSqlConnection())
                 {
+                    db.Open();
+
                     using (var queryMultiple = db.QueryMultiple(BancaHelper.SelectBancaConfiguraciones, p, commandType: CommandType.Text))
                     {
                         configuraciones.BancaDto = queryMultiple.Read<BancaDTO>().FirstOrDefault();
                         configuraciones.CajaEfectivoDto = queryMultiple.Read<CajaDTO>().FirstOrDefault();
                         configuraciones.ControlEfectivoConfigDto = queryMultiple.Read<ControlEfectivoDTO>().FirstOrDefault();
                     }
+
+                    db.Close();
                 }
 
                 return configuraciones;
@@ -65,6 +69,7 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
                     {
                         ultimocuadre = ids.FirstOrDefault();
                     }
+                    db.Close();
                 }
 
                 return ultimocuadre;
@@ -97,6 +102,8 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
                     {
                         transacciones = null;
                     }
+
+                    db.Close();
                 }
 
                 return transacciones;
@@ -126,6 +133,7 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
                         cuadre = cuadres.First();
                     }
 
+                    db.Close();
                 }
 
                 return cuadre;

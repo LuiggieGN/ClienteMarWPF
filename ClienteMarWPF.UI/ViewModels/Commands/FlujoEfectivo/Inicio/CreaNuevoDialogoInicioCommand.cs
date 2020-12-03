@@ -2,6 +2,7 @@
 using System;
 
 using ClienteMarWPF.Domain.Services.BancaService;
+using ClienteMarWPF.Domain.Services.CuadreService;
 
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.State.Authenticators;
@@ -21,14 +22,17 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Inicio
         private readonly IAuthenticator _aut;
         private readonly IViewModelFactory _vistas;
         private readonly IBancaService _banService;
+        private readonly ICuadreService _cuadreService;
 
-        public CreaNuevoDialogoInicioCommand(InicioViewModel viewmodel, INavigator nav, IAuthenticator aut, IViewModelFactory vistas, IBancaService banService) :base()
+        public CreaNuevoDialogoInicioCommand(InicioViewModel viewmodel, INavigator nav, IAuthenticator aut, IViewModelFactory vistas, IBancaService banService, ICuadreService cuadreService) :base()
         {
             _viewmodel = viewmodel;
             _nav = nav;
             _aut = aut;
             _vistas = vistas;
-            _banService = banService;            
+            _banService = banService;
+            _cuadreService = cuadreService;
+
             SetAction(new Action<object>(CrearNuevo)); 
         }
 
@@ -36,7 +40,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Inicio
 
         public void CrearNuevo( object parametro ) 
         {
-            _viewmodel.Dialog = new DialogInicioViewModel(_nav,_aut,_vistas,_banService);
+            _viewmodel.Dialog = new DialogInicioViewModel(_nav,_aut,_vistas,_banService,_cuadreService);
             _viewmodel.Dialog.Mostrar();
         }
 

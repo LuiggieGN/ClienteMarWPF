@@ -13,7 +13,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
     {
         CuentaDTO CurrentAccount { get; }
 
-        BancaConfiguracionDTO BancaConfiguracion { get; }
+        BancaConfiguracionDTO BancaConfiguracion { get; set; }
 
         bool IsLoggedIn { get; }
 
