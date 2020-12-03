@@ -103,7 +103,9 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<RecargasViewModel>(
                 services => new RecargasViewModel(
                     services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<IRecargaService>())
+                    services.GetRequiredService<IRecargaService>(),
+                    services.GetRequiredService<INavigator>(),
+                    services.GetRequiredService<IViewModelFactory>())
             );
 
             services.AddSingleton<MensajeriaViewModel>(

@@ -23,6 +23,16 @@ namespace ClienteMarWPF.DataAccess.Services
 
         }
 
-       
+        public MAR_Pin GetRecarga(MAR_Session _Session, int user, string clave, int suplidor, string Numero, double Monto, int Solicitud)
+        {
+         
+             return clientePuntoDeVenta.GetRecarga(_Session, user, clave, suplidor, Numero, Monto, Solicitud);
+         
+        }
+
+        public void ConfirmRecarga(MAR_Session _Session)
+        {
+            clientePuntoDeVenta.ConfirmRecarga(_Session);
+        }
     }
 }
