@@ -23,7 +23,7 @@ namespace ClienteMarWPF.DataAccess.Services
         static AccountDataService()
         {
             SoapClientesRepository = new SoapClientRepository();
-            MarCliente = SoapClientesRepository.GetMarServiceClient(false);  
+            MarCliente = SoapClientesRepository.GetMarServiceClient(false);
         }
 
 
@@ -37,10 +37,36 @@ namespace ClienteMarWPF.DataAccess.Services
             try
             {
                 cuenta.MAR_Setting2 = MarCliente.Logon2(usuario, clave, bancaid, ipaddress);
+
+
+
             }
             catch (Exception ex) 
             {
                 cuenta.MAR_Setting2 = null;
+            }
+
+            try
+            {
+                var sorteos = new SorteosDataService();
+                HaciendaService.MAR_Session sessionHacienda = new HaciendaService.MAR_Session();
+                MAR_Session sessionPuntoVenta = cuenta.MAR_Setting2.Sesion;
+                sessionHacienda.Banca = sessionPuntoVenta.Banca;
+                sessionHacienda.Usuario = sessionPuntoVenta.Usuario;
+                sessionHacienda.Sesion = sessionPuntoVenta.Sesion;
+                sessionHacienda.Err = sessionPuntoVenta.Err;
+                sessionHacienda.LastTck = sessionPuntoVenta.LastTck;
+                sessionHacienda.LastPin = sessionPuntoVenta.LastPin;
+                sessionHacienda.PrinterSize = sessionPuntoVenta.PrinterSize;
+                sessionHacienda.PrinterHeader = sessionPuntoVenta.PrinterHeader;
+                sessionHacienda.PrinterFooter = sessionPuntoVenta.PrinterFooter;
+                var sorteosdisponibles = sorteos.GetSorteosDisponibles(sessionHacienda);
+                SessionGlobals.GetLoteriasDisponibles(cuenta.MAR_Setting2.Loterias, sorteosdisponibles);
+            }
+            catch (Exception)
+            {
+
+
             }
 
             return cuenta;
