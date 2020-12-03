@@ -37,8 +37,9 @@
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net40\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="MAR.Config">
-      <HintPath>..\..\..\..\..\Desktop\Config Remote\Medelo2020\Local Medelo 2020\MAR.Config.dll</HintPath>
+    <Reference Include="MAR.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\Config Medelo2020 local\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -35,9 +35,8 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         public ReporteView()
         {
             InitializeComponent();
-
             
-            SorteosBinding = new List<SorteosObservable> {
+              SorteosBinding = new List<SorteosObservable> {
                 new SorteosObservable(){ LoteriaID=0, IsSelected=true,  Loteria="Todas" },
                 new SorteosObservable(){ LoteriaID=1, IsSelected=false,  Loteria="La Fecha Dia",},
                 new SorteosObservable(){ LoteriaID=2, IsSelected=false,  Loteria="La Fecha Noche"},
@@ -51,17 +50,22 @@ namespace ClienteMarWPF.UI.Modules.Reporte
                 new SorteosObservable(){ LoteriaID=10, IsSelected=false,  Loteria="Pega 3 Noche"}
                
             };
-
+            
             listSorteo.DataContext = SorteosBinding;
             listSorteo.SelectedIndex = 0;
             
             EnableScrollBars();
+            NoAutogenerarColumnas();
            
+
         }
 
         private void EnableScrollBars()
         {
             ScrollViewer.SetVerticalScrollBarVisibility(this.infoReport, ScrollBarVisibility.Visible);
+            ScrollViewer.SetVerticalScrollBarVisibility(this.GridVentaFechas, ScrollBarVisibility.Visible);
+            ScrollViewer.SetVerticalScrollBarVisibility(this.GridListTicket, ScrollBarVisibility.Visible);
+            ScrollViewer.SetVerticalScrollBarVisibility(this.GridPagosRemotos,ScrollBarVisibility.Visible);
         }
 
        
@@ -84,6 +88,16 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             }
             
         }
+
+        public void NoAutogenerarColumnas()
+        {
+            // --------------Para que no se autogeneren las columnas ------------------------------//
+            GridVentaFechas.AutoGenerateColumns = false;
+            GridAgrupadoVista.AutoGenerateColumns = false;
+            // -----------------------------------------------------------------------------------//
+
+        }
+
 
         public string GetReporteNombre()
         {
@@ -109,5 +123,17 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             return Loteria;
         }
 
+        public void OcultarModal(object sender, RoutedEventArgs e)
+        {
+            VentaFecha.IsOpen = false;
+        }
+
+       
+        private void OcultandoDesdeVista(object sender, RoutedEventArgs e)
+        {
+            VentaFecha.IsOpen = false;
+        }
+
+        
     }
 }
