@@ -1,6 +1,8 @@
-﻿using ClienteMarWPF.Domain.Models.Dtos;
+﻿using ClienteMarWPF.DataAccess;
+using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
 using ClienteMarWPF.UI.Views.WindowsModals;
+using MarPuntoVentaServiceReference;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static ClienteMarWPF.Domain.Models.Dtos.SorteosDisponibles;
 
 namespace ClienteMarWPF.UI.Modules.Sorteos
 {
@@ -27,7 +30,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
     public partial class SorteosView : UserControl
     {
         private List<SorteosObservable> SorteosBinding;
-        private List<CombinationPossibility> combinations;
+        private List<SuperPaleDisponible> combinations;
         private List<Jugada> ListJugadas;
         private DateTime lastKeyPress;
 
@@ -42,32 +45,9 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         public SorteosView()
         {
             InitializeComponent();
-
-            Application.Current.Properties["Name"] = "name";
-
             ListJugadas = new List<Jugada>();
-            var sorteos = new List<SorteosDTO> {
-                new SorteosDTO(){ LoteriaID=1, Loteria="La Fecha Dia"},
-                new SorteosDTO(){ LoteriaID=2, Loteria="La Fecha Noche"},
-                new SorteosDTO(){ LoteriaID=3, Loteria="Loteka Dia"},
-                new SorteosDTO(){ LoteriaID=4, Loteria="Loteka Noche" },
-                new SorteosDTO(){ LoteriaID=5, Loteria="Nacional Dia"},
-                new SorteosDTO(){ LoteriaID=6, Loteria="Nacional Noche"},
-                new SorteosDTO(){ LoteriaID=7, Loteria="New York Dia"},
-                new SorteosDTO(){ LoteriaID=8, Loteria="New York Noche"},
-                new SorteosDTO(){ LoteriaID=9, Loteria="Pega 3 Dia"},
-                new SorteosDTO(){ LoteriaID=10,Loteria="Pega 3 Noche"}
-            };
-            var combinationPossibilities = new List<CombinationPossibility>
-            {
-                new CombinationPossibility { Loteria1 = 1, Loteria2 = 2, LoteriaDestino = 11},
-                new CombinationPossibility { Loteria1 = 3, Loteria2 = 4, LoteriaDestino = 12},
-                new CombinationPossibility { Loteria1 = 5, Loteria2 = 6, LoteriaDestino = 13},
-                new CombinationPossibility { Loteria1 = 7, Loteria2 = 8, LoteriaDestino = 14},
-                new CombinationPossibility { Loteria1 = 9, Loteria2 = 10, LoteriaDestino = 15},
-            };
-            SorteosBinding = ConvertToObservables(sorteos);
-            combinations = combinationPossibilities;
+            SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupers);
+            combinations = SessionGlobals.SuperPaleDisponible;
             listSorteo.DataContext = SorteosBinding;
             MostrarSorteos();
         }
@@ -159,12 +139,12 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             txtMontoTotal.Content = "$0.00";
             MostrarSorteos();
         }
-        private List<SorteosObservable> ConvertToObservables(List<SorteosDTO> Sorteos)
+        private List<SorteosObservable> ConvertToObservables(List<MAR_Loteria2> Sorteos)
         {
             var SorteosObservables = new List<SorteosObservable>();
             foreach (var item in Sorteos)
             {
-                SorteosObservables.Add(new SorteosObservable { LoteriaID = item.LoteriaID, Loteria = item.Loteria, IsSelected = false, Date = DateTime.Now });
+                SorteosObservables.Add(new SorteosObservable { LoteriaID = item.LoteriaKey, Loteria = item.Nombre, IsSelected = false, Date = DateTime.Now });
             }
 
             return SorteosObservables;
@@ -186,10 +166,10 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             {
                 int loteria1 = LotteryIDs.First();
                 int loteria2 = LotteryIDs.Last();
-                var hasCombinations = combinations.Where(x => (x.Loteria1 == loteria1 && x.Loteria2 == loteria2) || (x.Loteria1 == loteria2 && x.Loteria2 == loteria1));
+                var hasCombinations = combinations.Where(x => (x.LoteriaID1 == loteria1 && x.LoteriaID2 == loteria2) || (x.LoteriaID1 == loteria2 && x.LoteriaID2 == loteria1));
                 if (hasCombinations.Any())
                 {
-                    int combinationID = hasCombinations.Select(x => x.LoteriaDestino).FirstOrDefault();
+                    int combinationID = hasCombinations.Select(x => x.LoteriaIDDestino).FirstOrDefault();
                     response = combinationID;
 
                 }
@@ -291,21 +271,32 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         }
         private void RealizaApuesta()
         {
-            var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
-            int Loteria = 0;
-            if (sorteos.Count > 2)
+            if (ltJugada.Items.Count > 0)
             {
-                Loteria = FindCombinations(sorteos.Select(x => x.LoteriaID).ToList());
-            } else {
+                var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
+                int Loteria = 0;
+                if (sorteos.Count > 2)
+                {
+                    Loteria = FindCombinations(sorteos.Select(x => x.LoteriaID).ToList());
+                }
+                else
+                {
 
-                Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
+                    Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
+                }
+
+                if (RealizarApuestaCommand != null)
+                {
+                    RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = Loteria });
+                    LimpiarApuesta();
+                }
+            }
+            else
+            {
+                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
+
             }
 
-            if (RealizarApuestaCommand != null)
-            {
-                RealizarApuestaCommand.Execute(new { Jugadas = ListJugadas, LoteriaID = Loteria });
-                LimpiarApuesta();
-            }
         }
 
         #endregion

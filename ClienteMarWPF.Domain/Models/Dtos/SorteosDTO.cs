@@ -11,12 +11,6 @@ namespace ClienteMarWPF.Domain.Models.Dtos
         public string Loteria { get; set; }
     }
 
-    public class CombinationPossibility
-    {
-        public int Loteria1 { get; set; }
-        public int Loteria2 { get; set; }
-        public int LoteriaDestino { get; set; }
-    }
 
     public class Jugada
     {
@@ -55,4 +49,9 @@ namespace ClienteMarWPF.Domain.Models.Dtos
         public object Respuesta { get; set; }
     }
 
+    public class ApuestaResponse
+    {
+        public List<Jugada> Jugadas { get; set; }
+        public int LoteriaID { get; set; }
+    }
 }

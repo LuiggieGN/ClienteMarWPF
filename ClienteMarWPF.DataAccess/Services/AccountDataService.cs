@@ -37,9 +37,6 @@ namespace ClienteMarWPF.DataAccess.Services
             try
             {
                 cuenta.MAR_Setting2 = MarCliente.Logon2(usuario, clave, bancaid, ipaddress);
-
-
-
             }
             catch (Exception ex) 
             {
@@ -62,6 +59,7 @@ namespace ClienteMarWPF.DataAccess.Services
                 sessionHacienda.PrinterFooter = sessionPuntoVenta.PrinterFooter;
                 var sorteosdisponibles = sorteos.GetSorteosDisponibles(sessionHacienda);
                 SessionGlobals.GetLoteriasDisponibles(cuenta.MAR_Setting2.Loterias, sorteosdisponibles);
+                SessionGlobals.GenerateNewSolicitudID(cuenta.MAR_Setting2.Sesion.Sesion);
             }
             catch (Exception)
             {
