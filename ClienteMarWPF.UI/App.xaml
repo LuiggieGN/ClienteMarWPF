@@ -64,7 +64,11 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type  moduloSorteos:SorteosViewModel}">
-                <moduloSorteos:SorteosView RealizarApuestaCommand="{Binding RealizarApuestaCommand}" />
+                <moduloSorteos:SorteosView 
+                    RealizarApuestaCommand="{Binding RealizarApuestaCommand}" 
+                    GetListadoTicketsCommand="{Binding GetListadoTicketsCommand}" 
+                    ValidarPagoTicketCommand="{Binding ValidarPagoTicketCommand}"
+                    />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type  moduloCincoMinutos:CincoMinutosViewModel}">

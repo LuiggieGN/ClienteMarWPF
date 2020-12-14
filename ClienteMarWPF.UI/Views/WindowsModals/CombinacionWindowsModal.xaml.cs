@@ -1,4 +1,5 @@
 ﻿using ClienteMarWPF.Domain.Models.Dtos;
+using MarPuntoVentaServiceReference;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,16 +21,16 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
     /// </summary>
     public partial class CombinacionWindowsModal : Window
     {
-        //public event Action<List<TicketDetalle>> Jugadas;
-        //private List<TicketDetalle> ListJugadas { get; set; }
-        private List<String> NumerosJugados { get; set; }
+        public event Action<List<Jugada>> Jugadas;
+        private List<Jugada> ListJugadas { get; set; }
+        private List<string> NumerosJugados { get; set; }
 
         public CombinacionWindowsModal(List<String> _numerosJugados)
         {
             InitializeComponent();
 
             txtNumCom1.Focus();
-            //ListJugadas = new List<TicketDetalle>();
+            ListJugadas = new List<Jugada>();
             NumerosJugados = _numerosJugados;
         }
 
@@ -59,22 +60,6 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                     }
                 }
 
-                //int i = 1;
-                //foreach (TextBox tb in FindVisualChildren<TextBox>(this))
-                //{
-                //    foreach (var numero in NumerosJugados)
-                //    {
-
-                //        string NameTextBox = "txtNumCom" + i;
-
-                //        if (tb.Name == NameTextBox && i < 21)
-                //        {
-                //            tb.Text = numero;
-                //            i++;
-                //        }
-
-                //    }
-                //}
             }
 
         }
@@ -104,7 +89,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
             }
 
             var data = new List<string>();
-            //ListJugadas = new List<TicketDetalle>();
+            ListJugadas = new List<Jugada>();
 
 
             if (txtTripleta.Text != "")
@@ -134,7 +119,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
         private void AgregarButton(object sender, RoutedEventArgs e)
         {
 
-            //Jugadas?.Invoke(ListJugadas);
+            Jugadas?.Invoke(ListJugadas);
             this.Close();
         }
 
@@ -142,7 +127,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
         {
             if (e.Key == Key.F7)
             {
-               // Jugadas?.Invoke(ListJugadas);
+               Jugadas?.Invoke(ListJugadas);
                 this.Close();
             }
 
@@ -171,7 +156,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                 }
             }
 
-            if (storageNumber.Count > 2)
+            if (storageNumber.Count > 1)
             {
                 return storageNumber;
             }
@@ -204,7 +189,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                 }
                 string dataClean = pale == "" ? "" : "Pale ->" + pale.Substring(0, 5) + " de $" + precio;
 
-                //ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = pale.Substring(0, 5), TipoJugadaID = 2 });
+                ListJugadas.Add(new Jugada { Monto = Convert.ToInt32(precio), Jugadas = pale.Substring(0, 5), TipoJugada = "Pale" });
 
                 pales.Add(dataClean);
             }
@@ -234,7 +219,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
 
                 }
                 string dataClean = tripleta == "" ? "" : "Tripleta ->" + tripleta.Substring(0, 8) + " de $" + precio;
-                //ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = tripleta.Substring(0, 8), TipoJugadaID = 3 });
+                ListJugadas.Add(new Jugada { Monto = Convert.ToInt32(precio), Jugadas = tripleta.Substring(0, 8), TipoJugada = "Tripleta" });
                 tripletas.Add(dataClean);
             }
 
@@ -257,7 +242,7 @@ namespace ClienteMarWPF.UI.Views.WindowsModals
                 {
                     punto += c;
                 }
-                //ListJugadas.Add(new TicketDetalle { Monto = Convert.ToInt32(precio), Jugada = punto, TipoJugadaID = 1 });
+                ListJugadas.Add(new Jugada { Monto = Convert.ToInt32(precio), Jugadas = punto, TipoJugada = "Quiniela" });
 
                 puntos.Add(precio + " puntos del " + punto);
             }

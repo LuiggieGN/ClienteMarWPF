@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
 {
@@ -58,17 +59,25 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
 
                 });
 
+                bet.Costo = item.Monto;
             }
 
             bet.Items = itemBet.ToArray();
             bet.Solicitud = SessionGlobals.SolicitudID;
             bet.Loteria = apuesta.LoteriaID;
 
-
             var MarBetResponse = SorteosService.RealizarApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, bet, SessionGlobals.SolicitudID, true);
-            var ticket = new ArrayOfInt() { MarBetResponse.Ticket  };
-            SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
-            //SorteosService.ConfirmarApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion);
+            if (MarBetResponse.Err == null)
+            {
+                var ticket = new ArrayOfInt() { MarBetResponse.Ticket };
+                SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
+                //SorteosService.ConfirmarApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion);
+            }
+            else
+            {
+                MessageBox.Show(MarBetResponse.Err,"Aviso", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
         }
 
         private void MultiBet(ApuestaResponse apuestas)
@@ -99,18 +108,27 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 } };
 
             var MultiBetResponse = SorteosService.RealizarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, multi);
-            var ticket = new ArrayOfInt();
-            var headerResponse = MultiBetResponse.Headers.OfType<MAR_BetHeader>().ToList();
-            if (headerResponse.Count > 0)
+            if (MultiBetResponse.Err == null)
             {
-                //foreach (var item in headerResponse)
-                //{
-                //    ticket.Add(item.Ticket);
-                //}
+                var ticket = new ArrayOfInt();
+                var headerResponse = MultiBetResponse.Headers.OfType<MAR_BetHeader>().ToList();
+                if (headerResponse.Count > 0)
+                {
+                    foreach (var item in headerResponse)
+                    {
+                        ticket.Add(item.Ticket);
+                    }
 
+                }
+
+                SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
+            }
+            else
+            {
+                MessageBox.Show(MultiBetResponse.Err, "Aviso", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
-            SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
+
         }
 
     }

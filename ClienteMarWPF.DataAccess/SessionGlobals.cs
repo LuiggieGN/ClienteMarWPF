@@ -4,6 +4,7 @@ using MarPuntoVentaServiceReference;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static ClienteMarWPF.Domain.Models.Dtos.SorteosDisponibles;
 
@@ -11,9 +12,10 @@ namespace ClienteMarWPF.DataAccess
 {
     public static class SessionGlobals
     {
-        public static List<MAR_Loteria2> Loterias { get; set; }
-        public static List<MAR_Loteria2> LoteriasYSupers { get; set; }
-        public static List<SuperPaleDisponible> SuperPaleDisponible { get; set; }
+        public static List<MAR_Loteria2> LoteriasTodas { get; set; }
+        public static List<MAR_Loteria2> LoteriasDisponibles { get; set; }
+        public static List<MAR_Loteria2> LoteriasYSupersDisponibles { get; set; }
+        public static List<SuperPaleDisponible> SuperPaleDisponibles { get; set; }
         public static double SolicitudID { get { return solicitudID; } }
 
         //PRIVATE VARIABLE INTERNAL CLASS
@@ -24,10 +26,10 @@ namespace ClienteMarWPF.DataAccess
 
         public static void GetLoteriasDisponibles(MAR_Loteria2[] loterias, MAR_HaciendaResponse sorteosdisponibles)
         {
-            Loterias = new List<MAR_Loteria2>();
-            LoteriasYSupers = new List<MAR_Loteria2>();
-            SuperPaleDisponible = new List<SuperPaleDisponible>();
-
+            LoteriasTodas = new List<MAR_Loteria2>();
+            LoteriasDisponibles = new List<MAR_Loteria2>();
+            LoteriasYSupersDisponibles = new List<MAR_Loteria2>();
+            SuperPaleDisponibles = new List<SuperPaleDisponible>();
 
             var result = JsonConvert.DeserializeObject<ReponseSorteos>(sorteosdisponibles.Respuesta);
             var sorteosDisp = JsonConvert.DeserializeObject<SorteosDisponibles>(result.Respuesta.ToString());
@@ -35,26 +37,27 @@ namespace ClienteMarWPF.DataAccess
             for (int i = 0; i < loterias.Length; i++)
             {
                 var loteria = loterias[i];
+                LoteriasTodas.Add(loteria);
 
                 foreach (var item in sorteosDisp.LoteriasIDRegular)
                 {
-                    if (loteria.LoteriaKey == item)
+                    if (loteria.Numero == item)
                     {
-                        Loterias.Add(loteria);
+                        LoteriasDisponibles.Add(loteria);
                     }
                 }
 
                 foreach (var item in sorteosDisp.LoteriasIDTodas)
                 {
-                    if (loteria.LoteriaKey == item)
+                    if (loteria.Numero == item)
                     {
-                        LoteriasYSupers.Add(loteria);
+                        LoteriasYSupersDisponibles.Add(loteria);
                     }
                 }
 
             }
 
-            SuperPaleDisponible = sorteosDisp.SuperPaleDisponibles;
+            SuperPaleDisponibles = sorteosDisp.SuperPaleDisponibles;
         }
 
         public static void GenerateNewSolicitudID(int session, bool incrementar = false)

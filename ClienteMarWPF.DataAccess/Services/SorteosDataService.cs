@@ -35,7 +35,6 @@ namespace ClienteMarWPF.DataAccess.Services
             }
 
         }
-
         public MAR_MultiBet RealizarMultiApuesta(MarPuntoVentaServiceReference.MAR_Session session, MAR_MultiBet Apuestas)
         {
             try
@@ -56,12 +55,11 @@ namespace ClienteMarWPF.DataAccess.Services
             }
             catch (Exception)
             {
-
+                throw;
             }
            
         }
-
-        public MAR_Bet RealizarApuesta(MarPuntoVentaServiceReference.MAR_Session session, MAR_Bet Apuesta, double Solicitud, bool ParaPasar)
+        public MAR_Bet RealizarApuesta(MarPuntoVentaServiceReference.MAR_Session session, MAR_Bet Apuesta, double Solicitud, bool ParaPasar = false)
         {
             try
             {
@@ -80,10 +78,56 @@ namespace ClienteMarWPF.DataAccess.Services
             }
             catch (Exception)
             {
-
+                throw;
             }
             
         }
+        public MAR_Ganadores ListaDeTicket(MarPuntoVentaServiceReference.MAR_Session session, int LoteriaID, string Fecha)
+        {
+            try
+            {
+                return clientePuntoDeVenta.ListaTickets(session, LoteriaID, Fecha);
+            }
+            catch (Exception)
+            {
 
+                return new MAR_Ganadores();
+            }
+        }
+        public MAR_Ganadores GetUltimosSorteos(MarPuntoVentaServiceReference.MAR_Session session, int LoteriaID, string Fecha)
+        {
+            try
+            {
+                return clientePuntoDeVenta.Ganadores3(session, LoteriaID, Fecha);
+            }
+            catch (Exception)
+            {
+                return new MAR_Ganadores();
+            }
+            
+        }
+        public MAR_ValWiner ConsultarTicket(MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin, bool Pagar = false)
+        {
+            try
+            {
+                return clientePuntoDeVenta.ValidWinner(session, TicketNumero, TicketPin, Pagar);
+            }
+            catch (Exception)
+            {
+                return new MAR_ValWiner();
+            }
+        }
+        public string AnularTicket(MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin)
+        {
+            try
+            {
+                return clientePuntoDeVenta.Anula2(session, TicketNumero, TicketPin);
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+                
+            }
+        }
     }
 }

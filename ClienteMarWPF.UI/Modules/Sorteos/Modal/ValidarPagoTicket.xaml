@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="ClienteMarWPF.UI.Modules.Sorteos.Modal.ValidarPagoTicket"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos.Modal"
+             mc:Ignorable="d"         >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+    <Grid >
+        <Border Background="#90000000" Visibility="{Binding Visibility}">
+            <Border Margin="20" BorderBrush="Black" BorderThickness="1" Background="#fff"    VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <Border.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Opacity="0.5" Direction="270" ShadowDepth="0.7" />
+                </Border.BitmapEffect>
+                <Grid  >
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel>
+                        <Label Content="Validar tickets ganadores" Foreground="White" Background="{StaticResource BackgroundFour}" FontSize="18" HorizontalContentAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox
+                      Text="{Binding TicketNumero, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="Ticket"
+                      materialDesign:HintAssist.FloatingScale="0.90"
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Width="130"  
+                        Margin="5"
+                        FontSize="15"
+                        VerticalContentAlignment="Center" 
+                        HorizontalContentAlignment="Center"
+                        />
+                            <TextBox
+                      Text="{Binding TicketPin, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="Pin"
+                      materialDesign:HintAssist.FloatingScale="0.90"
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Width="130"  
+                        Margin="5"
+                        FontSize="15"
+                        VerticalContentAlignment="Center" 
+                        HorizontalContentAlignment="Center"
+                        PreviewTextInput="NumberValidationTextBox"
+                        />
+                        </StackPanel>
+                    </StackPanel>
+                    
+
+                    <StackPanel Grid.Row="2" Background="LightGray">
+                        <StackPanel  Visibility="{Binding PudePagar, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Ticket:" FontSize="15"/>
+                                    <Label Content="{Binding TicketNumero, UpdateSourceTrigger=PropertyChanged}" FontSize="15" FontWeight="Bold"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Monto a Pagar:" FontSize="15"/>
+                                    <Label Content="{Binding MontoPorPagar, UpdateSourceTrigger=PropertyChanged}" FontSize="15" FontWeight="Bold"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Button Style="{DynamicResource btn-success}" Command="{Binding PagarTicketCommand}" Foreground="White" Width="160"  Margin="5 20" >
+                                <StackPanel Orientation="Horizontal" >
+                                    <materialDesign:PackIcon Kind="Payment" VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
+                                    <TextBlock Text="Pagar Ticket"  VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+
+                        <StackPanel Visibility="{Binding MostrarMensajes, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Padding="10" Text="{Binding MensajeResponse, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                
+                    <Button Grid.Row="3" Style="{DynamicResource btn-warning}" Command="{Binding CerrarValidarPagoTicketCommand}" Foreground="Black" Width="160"  Margin="5 20" >
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="WindowClose" VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
+                            <TextBlock Text="Cerrar ventana"  VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <!--<StackPanel x:Name="stkDetalle"  Grid.Row="2" Margin="5">
+                        <Label Content="Detalle de Apuesta" FontSize="16" HorizontalContentAlignment="Center" VerticalAlignment="Center"  />
+                        <DataGrid x:Name="tbApuesta" ColumnWidth="*"  Width="570" Height="190" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" />
+                        <StackPanel Width="280"   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 " >
+                            <Label x:Name="txtMontoTotal" Content="$ 00.00" FontWeight="Bold" FontSize="40" Foreground="#28A745" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                            <Label Content="Total Monto" Margin="0 -20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="15"  />
+                        </StackPanel>
+
+
+                    </StackPanel>-->
+
+                    
+
+
+                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Margin="15">
+
+                        <Button  Style="{DynamicResource btn-primary}" Command="{Binding ConsultarTicketCommand}" Foreground="White" Width="160">
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="FormatListChecks"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
+                                <TextBlock Text="Consultar F5"  VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>    
+                        
+                        <Button  Style="{DynamicResource btn-dark}" Foreground="White" Width="160"  Margin="5 0">
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="Printer"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
+                                <TextBlock Text="Imprimir F12"  VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button  Style="{DynamicResource btn-danger}" Command="{Binding AnularTicketCommand}" Foreground="White" Width="160"  Margin="5 0" >
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
+                                <TextBlock Text="Anular F9"  VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+
+
+
+                    </WrapPanel>
+
+
+
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

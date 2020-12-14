@@ -54,4 +54,13 @@ namespace ClienteMarWPF.Domain.Models.Dtos
         public List<Jugada> Jugadas { get; set; }
         public int LoteriaID { get; set; }
     }
+
+    public class UltimosSorteos
+    {
+        public string Sorteo { get; set; }
+        public string Primero { get; set; }
+        public string Segundo { get; set; }
+        public string Tercero { get; set; }
+        public string Hora { get; set; }
+    }
 }

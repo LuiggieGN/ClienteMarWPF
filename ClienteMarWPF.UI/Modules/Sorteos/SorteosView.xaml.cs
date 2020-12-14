@@ -33,21 +33,35 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         private List<SuperPaleDisponible> combinations;
         private List<Jugada> ListJugadas;
         private DateTime lastKeyPress;
+        private List<string> NumerosJugados;
 
         public static readonly DependencyProperty RealizarApuestaCommandProperty = DependencyProperty.Register("RealizarApuestaCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
+        public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
+        public static readonly DependencyProperty ValidarPagoTicketCommandProperty = DependencyProperty.Register("ValidarPagoTicketCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
 
         public ICommand RealizarApuestaCommand
         {
             get { return (ICommand)GetValue(RealizarApuestaCommandProperty); }
             set { SetValue(RealizarApuestaCommandProperty, value); }
         }
+        public ICommand GetListadoTicketsCommand
+        {
+            get { return (ICommand)GetValue(GetListadoTicketsCommandProperty); }
+            set { SetValue(GetListadoTicketsCommandProperty, value); }
+        }        
+        public ICommand ValidarPagoTicketCommand
+        {
+            get { return (ICommand)GetValue(ValidarPagoTicketCommandProperty); }
+            set { SetValue(ValidarPagoTicketCommandProperty, value); }
+        }
 
         public SorteosView()
         {
             InitializeComponent();
             ListJugadas = new List<Jugada>();
-            SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupers);
-            combinations = SessionGlobals.SuperPaleDisponible;
+            NumerosJugados = new List<string>();
+            SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
+            combinations = SessionGlobals.SuperPaleDisponibles;
             listSorteo.DataContext = SorteosBinding;
             MostrarSorteos();
         }
@@ -131,10 +145,8 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         {
             // Limpiando todo 
             ListJugadas = new List<Jugada>();
-            foreach (var item in SorteosBinding)
-            {
-                item.IsSelected = false;
-            }
+            NumerosJugados = new List<string>();
+            RemoveAllSeletion();
             ltJugada.ItemsSource = new List<Jugada>();
             txtMontoTotal.Content = "$0.00";
             MostrarSorteos();
@@ -144,38 +156,81 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             var SorteosObservables = new List<SorteosObservable>();
             foreach (var item in Sorteos)
             {
-                SorteosObservables.Add(new SorteosObservable { LoteriaID = item.LoteriaKey, Loteria = item.Nombre, IsSelected = false, Date = DateTime.Now });
+                SorteosObservables.Add(new SorteosObservable { LoteriaID = item.Numero, Loteria = item.Nombre, IsSelected = false, Date = DateTime.Now });
             }
 
             return SorteosObservables;
         }
-        private List<SorteosDTO> ConvertToSorteos(List<SorteosObservable> SorteosObservable)
+        private List<MAR_Loteria2> ConvertToSorteos(List<SorteosObservable> SorteosObservable)
         {
-            var Sorteos = new List<SorteosDTO>();
+            var Sorteos = new List<MAR_Loteria2>();
             foreach (var item in SorteosObservable)
             {
-                Sorteos.Add(new SorteosDTO { LoteriaID = item.LoteriaID, Loteria = item.Loteria });
+                Sorteos.Add(new MAR_Loteria2 { LoteriaKey = item.LoteriaID, Nombre = item.Loteria });
             }
 
             return Sorteos;
         }
         private int FindCombinations(List<int> LotteryIDs)
         {
-            int response = 0;
-            if (LotteryIDs.Count == 2)
-            {
-                int loteria1 = LotteryIDs.First();
-                int loteria2 = LotteryIDs.Last();
-                var hasCombinations = combinations.Where(x => (x.LoteriaID1 == loteria1 && x.LoteriaID2 == loteria2) || (x.LoteriaID1 == loteria2 && x.LoteriaID2 == loteria1));
-                if (hasCombinations.Any())
-                {
-                    int combinationID = hasCombinations.Select(x => x.LoteriaIDDestino).FirstOrDefault();
-                    response = combinationID;
+            int response = -1;
 
+            if (combinations.Any())
+            {
+                if (LotteryIDs.Count == 2)
+                {
+                    int loteria1 = LotteryIDs.First();
+                    int loteria2 = LotteryIDs.Last();
+                    var hasCombinations = combinations.Where(x => (x.LoteriaID1 == loteria1 && x.LoteriaID2 == loteria2) || (x.LoteriaID1 == loteria2 && x.LoteriaID2 == loteria1));
+                    if (hasCombinations.Any())
+                    {
+                        int combinationID = hasCombinations.Select(x => x.LoteriaIDDestino).FirstOrDefault();
+                        response = combinationID;
+
+                    }
                 }
             }
 
+
             return response;
+        }
+        private void FindCombinationsNotExist()
+        {
+            if (CrearSuper.IsChecked == true)
+            {
+                var sorteos = SessionGlobals.LoteriasDisponibles;
+                var CombinationsAllSorteo = GetCombinations(sorteos.Select(x => x.Numero).ToList(), 2);
+                var combinationNotPossibility = new List<List<int>>();
+                
+                string combinationNotPossibilityString = "Lista de combinaciones no disponibles, favor solicitar:" + Environment.NewLine + Environment.NewLine;
+
+                foreach (var item in CombinationsAllSorteo)
+                {
+                    var first = item.First();
+                    var last = item.Last();
+                    var hasCombinations = combinations.Where(x => (x.LoteriaID1 == first && x.LoteriaID2 == last) || (x.LoteriaID1 == last && x.LoteriaID2 == first));
+                    if (!hasCombinations.Any())
+                    {
+                        combinationNotPossibility.Add(new List<int> { first, last });
+
+                    }
+                }
+
+                if (combinationNotPossibility.Count > 0)
+                {
+                    foreach (var combo in combinationNotPossibility)
+                    {
+                        string loteria1 = sorteos.Where(x => x.Numero == combo.First()).Select(x => x.Nombre).FirstOrDefault();
+                        string loteria2 = sorteos.Where(x => x.Numero == combo.Last()).Select(x => x.Nombre).FirstOrDefault();
+                        combinationNotPossibilityString += "-- " + loteria1 + " + " + loteria2 + " --";
+                    }
+
+                    MessageBox.Show(combinationNotPossibilityString, "  Aviso  ", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+
+
+            }
         }
         private void RefreshListJugadas()
         {
@@ -185,13 +240,19 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             string total = ListJugadas.Sum(x => x.Monto).ToString();
             txtMontoTotal.Content = (Decimal.Parse(total)).ToString("C");
         }
-        private void AddItem()
+        private void AddItem(Jugada NuevaJugada = null)
         {
             if (!txtJugada.Text.Trim().Equals(string.Empty) && !txtMonto.Text.Trim().Equals(string.Empty))
             {
                 string jugada = SepararNumeros(txtJugada.Text);
-                int tipo = jugada.Split('-').Count();
+                var numeros = jugada.Split('-');
+                int tipo = numeros.Count();
                 var nuevajugada = new Jugada { Jugadas = jugada, Monto = Convert.ToInt32(txtMonto.Text), TipoJugada = TipoJugada(tipo) };
+                
+                foreach (var item in numeros)
+                {
+                    NumerosJugados.Add(item);
+                }
                 
                 var existeJugada = ListJugadas.Where(x => x.Jugadas == nuevajugada.Jugadas).Any();
                 if (existeJugada)
@@ -202,6 +263,19 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 else
                 {
                     ListJugadas.Add(nuevajugada);
+                }
+            }
+            else if (NuevaJugada != null)
+            {
+                var existeJugada = ListJugadas.Where(x => x.Jugadas == NuevaJugada.Jugadas).Any();
+                if (existeJugada)
+                {
+                    Jugada jugadaExistente = ListJugadas.Where(x => x.Jugadas == NuevaJugada.Jugadas).FirstOrDefault();
+                    jugadaExistente.Monto += NuevaJugada.Monto;
+                }
+                else
+                {
+                    ListJugadas.Add(NuevaJugada);
                 }
             }
             else
@@ -274,22 +348,38 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             if (ltJugada.Items.Count > 0)
             {
                 var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
-                int Loteria = 0;
-                if (sorteos.Count > 2)
+                var Loteria = 0;
+                if (sorteos.Count > 1 && CrearSuper.IsChecked == true)
                 {
-                    Loteria = FindCombinations(sorteos.Select(x => x.LoteriaID).ToList());
+                    int sorteoComb = FindCombinations(sorteos.Select(x => x.LoteriaID).ToList());
+                    if (sorteoComb < 0)
+                    {
+                        FindCombinationsNotExist();
+                    }
+                    else
+                    {
+                        Loteria = sorteoComb;
+                    }
                 }
-                else
+                else if (sorteos.Count == 1 && CrearSuper.IsChecked == false)
                 {
 
                     Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
                 }
 
-                if (RealizarApuestaCommand != null)
-                {
-                    RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = Loteria });
-                    LimpiarApuesta();
-                }
+                //if (RealizarApuestaCommand != null)
+                //{
+                //    RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = Loteria });
+                    
+                //}
+
+                //if (GetListadoTicketsCommand != null)
+                //{
+                //    GetListadoTicketsCommand.Execute(null);
+                //}
+
+                LimpiarApuesta();
+                RefreshListJugadas();
             }
             else
             {
@@ -298,7 +388,74 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             }
 
         }
+        private void OpenCombinacion()
+        {
+            var NumerosJugado = new List<string>();
+            if (ltJugada.Items.Count != 0)
+            {
+                NumerosJugado = NumerosJugados.Distinct().ToList();
+            }
 
+            var combinacion = new CombinacionWindowsModal(NumerosJugado);
+            combinacion.Jugadas += delegate (List<Jugada> Jugadas)
+            {
+                foreach (var item in Jugadas)
+                {
+                    AddItem(item);
+                }
+
+                MostrarSorteos();
+            };
+
+            combinacion.ShowDialog();
+        }
+        private void MostrarSuper(bool visible = true)
+        {
+
+            var sorteosDisponibles = ConvertToSorteos(ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles));
+            var sorteosRegularesIds = sorteosDisponibles.Select(x => x.LoteriaKey).Except(combinations.Select(x => x.LoteriaIDDestino)).ToList();
+            var sorteosResult = new List<MAR_Loteria2>();
+            foreach (var item in sorteosRegularesIds)
+            {
+                var sorteo = sorteosDisponibles.Where(x => x.LoteriaKey == item).FirstOrDefault();
+                sorteosResult.Add(sorteo);
+            }
+
+            if (visible)
+            {
+                listSorteo.DataContext = SorteosBinding;
+            }
+            else
+            {
+                SorteosBinding = ConvertToObservables(sorteosResult);
+                listSorteo.DataContext = SorteosBinding;
+            }
+        }
+        private void RemoveAllSeletion()
+        {
+            foreach (var item in SorteosBinding)
+            {
+                item.IsSelected = false;
+            }
+            listSorteo.Focus();
+
+        }
+        private IEnumerable<IEnumerable<T>> GetCombinations<T>(IEnumerable<T> items, int count)
+        {
+            int i = 0;
+            foreach (var item in items)
+            {
+                if (count == 1)
+                    yield return new T[] { item };
+                else
+                {
+                    foreach (var result in GetCombinations(items.Skip(i + 1), count - 1))
+                        yield return new T[] { item }.Concat(result);
+                }
+
+                ++i;
+            }
+        }
         #endregion
 
 
@@ -309,18 +466,27 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 case Key.Subtract:
                     RemoveItem();
                     MostrarSorteos();
-                    break;   
-                    
+                    break;
+
+                case Key.Multiply:
+                    OpenCombinacion();
+                    break;
+
                 case Key.Add:
                     RealizaApuesta();
                     break;    
-                    
-                case Key.Multiply:
-                   // OpenCombinacion();
-                    break;    
-                      
+            
                 case Key.F5:
-                   // ShowConsultaTiket();
+                    ValidarPagoTicketCommand.Execute(null);
+                    break;   
+                    
+                case Key.F9:
+                    RemoveItem();
+                    MostrarSorteos();
+                    break;    
+                    
+                case Key.F12:
+                    RealizaApuesta();
                     break;     
                     
                 case Key.F11:
@@ -375,23 +541,19 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
 
 
         }
-
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
         private void listSorteo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             ValidateSelectOnlyTwo();
         }
-
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
             ValidateSelectOnlyTwo();
         }
-
         private void Regulares_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CrearSuper.IsChecked = false;
@@ -400,25 +562,23 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 item.IsSelected = false;
             }
         }
-
         private void SuperPales_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CrearSuper.IsChecked = true;
         }
-
         private void CrearSuper_Unchecked(object sender, RoutedEventArgs e)
         {
-            foreach (var item in SorteosBinding)
-            {
-                item.IsSelected = false;
-            }
+            MostrarSuper();
+            RemoveAllSeletion();
         }
-        
+        private void CrearSuper_Checked(object sender, RoutedEventArgs e)
+        {
+            MostrarSuper(false);
+        }
         private void SelectCampo(object sender, RoutedEventArgs e)
         {
             txtMonto.Focus();
         }
-
         private void AgregaJugada(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -446,22 +606,20 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             }
            MostrarSorteos();
         }
-
         private void Quitar(object sender, RoutedEventArgs e)
         {
             RemoveItem();
             MostrarSorteos();
         }
-
         private void Vender(object sender, RoutedEventArgs e)
         {
            RealizaApuesta();
         }
-
         private void btnCombinar(object sender, RoutedEventArgs e)
         {
-          //  OpenCombinacion();
+            OpenCombinacion();
         }
+
     }
 
 }
