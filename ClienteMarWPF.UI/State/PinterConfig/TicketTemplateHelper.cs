@@ -26,7 +26,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             configs = configs ?? new List<ConfigPrinterModel>();
             Value = value;
             //paperSize = papers.FirstOrDefault();
-            paperSize = new PaperSize("nose", 300, 0);
+             paperSize = new PaperSize("nose", 280, 0);
 
             if (value is string)
             {
@@ -41,13 +41,18 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             {
                 pd.PrintPage += TemplateListString;
             }
+            else if (value is List<string[]>)
+            {
+                pd.PrintPage += TemplateListArrayString;
+            }
 
             pd.PrintController = new StandardPrintController();
-            pd.DefaultPageSettings.Margins.Left = 5;
-            pd.DefaultPageSettings.Margins.Right = 5;
-            pd.DefaultPageSettings.Margins.Top = 5;
-            pd.DefaultPageSettings.Margins.Bottom = 5;
+            //pd.DefaultPageSettings.Margins.Left = 5;
+            //pd.DefaultPageSettings.Margins.Right = 5;
+            //pd.DefaultPageSettings.Margins.Top = 5;
+            //pd.DefaultPageSettings.Margins.Bottom = 5;
             pd.DefaultPageSettings.PaperSize = paperSize;
+            pd.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
             pd.Print();
 
         }
@@ -271,10 +276,28 @@ namespace ClienteMarWPF.UI.State.PinterConfig
 
 
         }
+
+        private static void TemplateListArrayString(object sender, PrintPageEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            positionWrite = 30;
+
+            foreach (var item in Value as List<string[]>)
+            {
+                for (int i = 0; i < item.Length; i++)
+                {
+                    var Data = item[i];
+                    WriteText(g, Data);
+                }
+               
+            }
+
+
+        }
         private static void TemplateString(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
-            Font font = GetFontStyle(10, "regular");
+            Font font = GetFontStyle(20, "regular");
             RectangleF rect = new RectangleF(0, 20, paperSize.Width, paperSize.Height);
             SolidBrush sb = new SolidBrush(Color.Black);
             StringFormat sf = new StringFormat();
@@ -282,7 +305,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             g.DrawString(Value.ToString(), font, sb, rect, sf);
         }
 
-        private static void WriteJugadas(Graphics graphics, List<TicketJugadas> jugadas, int fontSize = 8, string fontStyle = "regular", string alignment = "center")
+        private static void WriteJugadas(Graphics graphics, List<TicketJugadas> jugadas, int fontSize = 12, string fontStyle = "regular", string alignment = "center")
         {
             foreach (var y in jugadas)
             {
@@ -323,7 +346,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             return string.Empty;
 
         }
-        private static void WriteText(Graphics graphics, string data, int fontSize = 8, string fontStyle = "regular", string alignment = "center")
+        private static void WriteText(Graphics graphics, string data, int fontSize = 11, string fontStyle = "regular", string alignment = "center")
         {
             if (data != null && data != string.Empty)
             {
@@ -342,7 +365,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             }
 
         }
-        private static void WriteTextColumn(Graphics graphics, List<string> data, int fontSize = 8, string fontStyle = "regular", string alignment = "center")
+        private static void WriteTextColumn(Graphics graphics, List<string> data, int fontSize = 11, string fontStyle = "regular", string alignment = "center")
         {
             if (data.Count != 0)
             {

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO.Packaging;
 using System.Text;
 using System.Windows;
 
@@ -38,11 +39,11 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
     public class ReportesSumVentasObservable : BaseViewModel
     {
 
-        private int saco;
-        private int resultado;
-        private int  comision;
-        private string  concepto;
-        private int balance;
+        private string saco;
+        private string resultado;
+        private string comision;
+        private string concepto;
+        private string balance;
         
 
         public string Concepto
@@ -51,23 +52,23 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             set { concepto = value; NotifyPropertyChanged(nameof(Concepto)); }
         }
 
-        public int Resultado
+        public string Resultado
         {
             get { return resultado; }
             set { resultado = value; NotifyPropertyChanged(nameof(Resultado)); }
         }
 
-        public int Comision
+        public string Comision
         {
             get { return comision; }
             set { comision = value; NotifyPropertyChanged(nameof(Comision)); }
         }
-        public int Saco
+        public string Saco
         {
             get { return saco; }
             set { saco = value; NotifyPropertyChanged(nameof(Saco)); }
         }
-        public int Balance
+        public string Balance
         {
             get { return balance; }
             set { balance = value; NotifyPropertyChanged(nameof(Balance)); }
@@ -125,7 +126,7 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
     {
 
         private string _fecha;
-        private double _monto;
+        private string _monto;
         private string _categoria;
         private string _Tickets;
 
@@ -136,7 +137,7 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             set { _fecha = value; NotifyPropertyChanged(nameof(Fecha)); }
         }
 
-        public double Monto
+        public string Monto
         {
             get { return _monto; }
             set { _monto = value; NotifyPropertyChanged(nameof(Monto)); }
@@ -152,6 +153,84 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             set { _Tickets = value; NotifyPropertyChanged(nameof(Tickets)); }
         }
 
+    }
+
+    public class EstadoDeTicketGanadores: BaseViewModel
+    {
+        private ObservableCollection<ReportesGanadoresObservable> pendientePagar;
+        private ObservableCollection<ReportesGanadoresObservable> sinReclamar;
+        private ObservableCollection<ReportesGanadoresObservable> pagados;
+        private Visibility pendientePagarVisibility;
+        private Visibility sinReclamarVisibility;
+        private Visibility pagadosVisibility;
+        private Visibility mostrarPremiosVisibility;
+        private Visibility noMostrarPremiosVisibility;
+        private string totalganadores;
+        private string primera;
+        private string segunda;
+        private string tercera;
+
+        public ObservableCollection<ReportesGanadoresObservable> PendientesPagar
+        {
+            get { return pendientePagar; }
+            set { pendientePagar = value; NotifyPropertyChanged(nameof(PendientesPagar)); }
+        }
+        public ObservableCollection<ReportesGanadoresObservable> SinReclamar
+        {
+            get { return sinReclamar; }
+            set { sinReclamar = value; NotifyPropertyChanged(nameof(SinReclamar)); }
+        }
+
+        public ObservableCollection<ReportesGanadoresObservable> Pagados
+        {
+            get { return pagados; }
+            set { pagados = value; NotifyPropertyChanged(nameof(Pagados)); }
+        }
+        public Visibility PendientePagarVisibility
+        {
+            get { return pendientePagarVisibility; }
+            set { pendientePagarVisibility = value;NotifyPropertyChanged(nameof(PendientePagarVisibility)); }
+        }
+        public Visibility PagadosVisibility
+        {
+            get { return pagadosVisibility; }
+            set { pagadosVisibility = value; NotifyPropertyChanged(nameof(PagadosVisibility)); }
+        }
+        public Visibility SinReclamarVisibility
+        {
+            get { return sinReclamarVisibility; }
+            set {sinReclamarVisibility = value; NotifyPropertyChanged(nameof(SinReclamarVisibility)); }
+        }
+        public Visibility MostrarPremiosVisibity
+        {
+            get { return mostrarPremiosVisibility; }
+            set { mostrarPremiosVisibility = value; NotifyPropertyChanged(nameof(MostrarPremiosVisibity)); }
+        }
+        public Visibility NoMostrarPremiosVisibity
+        {
+            get { return noMostrarPremiosVisibility; }
+            set { noMostrarPremiosVisibility = value; NotifyPropertyChanged(nameof(NoMostrarPremiosVisibity)); }
+        }
+        public string TotalGanadores
+        {
+            get { return totalganadores; }
+            set { totalganadores = value;NotifyPropertyChanged(nameof(TotalGanadores)); }
+        }
+        public string Primera
+        {
+            get { return primera; }
+            set { primera = value; NotifyPropertyChanged(nameof(Primera)); }
+        }
+        public string Segunda
+        {
+            get { return segunda; }
+            set { segunda = value; NotifyPropertyChanged(nameof(Segunda)); }
+        }
+        public string Tercera
+        {
+            get { return tercera; }
+            set { tercera = value; NotifyPropertyChanged(nameof(Tercera)); }
+        }
     }
 
     public class ReportesListaTajetasObservable : BaseViewModel
@@ -192,6 +271,15 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         private ObservableCollection<ReportesListaNumerosObservable> quiniela;
         private ObservableCollection<ReportesListaNumerosObservable> pale;
         private ObservableCollection<ReportesListaNumerosObservable> tripleta;
+        private string totalCantidadQuiniela;
+        private string totalPagoQuiniela;
+        private string totalCantidadPale;
+        private string totalPagoPale;
+        private string totalCantidadTripleta;
+        private string totalPagoTripleta;
+        private Visibility quinielaVisibility;
+        private Visibility paleVisibility;
+        private Visibility tripletaVisibility;
 
         public ObservableCollection<ReportesListaNumerosObservable> Quiniela
         {
@@ -210,6 +298,54 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             get { return tripleta; }
             set { tripleta = value; NotifyPropertyChanged(nameof(Tripleta)); }
         }
+        public Visibility QuinielaVisibilty
+        {
+            get { return quinielaVisibility; }
+            set { quinielaVisibility = value; NotifyPropertyChanged(nameof(QuinielaVisibilty)); }
+        }
+
+        public Visibility PaleVisibility
+        {
+            get { return paleVisibility; }
+            set { paleVisibility = value; NotifyPropertyChanged(nameof(PaleVisibility)); }
+        }
+
+        public Visibility TripletaVisibility
+        {
+            get { return tripletaVisibility; }
+            set { tripletaVisibility = value; NotifyPropertyChanged(nameof(TripletaVisibility)); }
+        }
+
+        public string TotalCantidaQuiniela 
+        {
+            get { return totalCantidadQuiniela; }
+            set { totalCantidadQuiniela = value; NotifyPropertyChanged(nameof(TotalCantidaQuiniela)); }
+        }
+        public string TotalPagoQuiniela
+        {
+            get { return totalPagoQuiniela; }
+            set { totalPagoQuiniela = value; NotifyPropertyChanged(nameof(TotalPagoQuiniela)); }
+        }
+        public string TotalCantidadPale
+        {
+            get { return totalCantidadPale; }
+            set { totalCantidadPale = value; NotifyPropertyChanged(nameof(TotalCantidadPale)); }
+        }
+        public string TotalPagoPale
+        {
+            get { return totalPagoPale; }
+            set { totalPagoPale = value; NotifyPropertyChanged(nameof(TotalPagoPale)); }
+        }
+        public string TotalCantidadTripleta
+        {
+            get { return totalCantidadTripleta; }
+            set { totalCantidadTripleta = value; NotifyPropertyChanged(nameof(TotalCantidadTripleta)); }
+        }
+        public string TotalPagoTripleta
+        {
+            get { return totalPagoTripleta; }
+            set { totalPagoTripleta = value; NotifyPropertyChanged(nameof(TotalPagoTripleta)); }
+        }
     }
 
     public class ReportesListaNumerosObservable : BaseViewModel
@@ -220,8 +356,7 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         private string _cantidadColumn1;
         private string _cantidadColumn2;
         private string _cantidadColumn3;
-        private string _tipoJugada;
-
+        
 
         public string CantidadColumn1
         {
@@ -255,11 +390,144 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             get { return _numerosColumn3; }
             set { _numerosColumn3 = value; NotifyPropertyChanged(nameof(NumeroColumn3)); }
         }
-        public string TipoJugada
+        
+    }
+
+    public class PremiosVentas : BaseViewModel
+    {
+        private string _1ra;
+        private string _2da;
+        private string _3ra;
+        private string C1ra;
+        private string C2da;
+        private string C3ra;
+        private string M1ra;
+        private string M2da;
+        private string M3ra;
+        private string totalNumerosPremiados;
+        private string totalPalesPremiados;
+        private string totalTripletaPremiados;
+        private string totalPremiados;
+        private string ganancia;
+        private Visibility mostrarPremios;
+        private Visibility noMostrarPremios;
+
+
+        public string Primera
         {
-            get { return _tipoJugada; }
-            set { _tipoJugada = value; NotifyPropertyChanged(nameof(TipoJugada)); }
+            get { return _1ra; }
+            set { _1ra = value; NotifyPropertyChanged(nameof(Primera)); }
         }
+
+        public string Segunda
+        {
+            get { return _2da; }
+            set { _2da = value; NotifyPropertyChanged(nameof(Segunda)); }
+        }
+        public string Tercera
+        {
+            get { return _3ra; }
+            set { _3ra = value; NotifyPropertyChanged(nameof(Tercera)); }
+        }
+        public string Cantidad1RA
+        {
+            get { return C1ra; }
+            set { C1ra = value; NotifyPropertyChanged(nameof(Cantidad1RA)); }
+        }
+
+        public string Cantidad2DA
+        {
+            get { return C2da; }
+            set { C2da = value; NotifyPropertyChanged(nameof(Cantidad2DA)); }
+        }
+        public string Cantidad3RA
+        {
+            get { return C3ra; }
+            set { C3ra = value; NotifyPropertyChanged(nameof(Cantidad3RA)); }
+        }
+
+        public string Monto1RA
+        {
+            get { return M1ra; }
+            set { M1ra = value; NotifyPropertyChanged(nameof(Monto1RA)); }
+        }
+
+        public string Monto2DA
+        {
+            get { return M2da; }
+            set { M2da = value; NotifyPropertyChanged(nameof(Monto2DA)); }
+        }
+        public string Monto3RA
+        {
+            get { return M3ra; }
+            set { M3ra = value; NotifyPropertyChanged(nameof(Monto3RA)); }
+        }
+        public string TotalNumerosPremiados
+        {
+            get { return totalNumerosPremiados; }
+            set { totalNumerosPremiados = value; NotifyPropertyChanged(nameof(TotalNumerosPremiados)); }
+        }
+
+        public string TotalPalesPremiados
+        {
+            get { return totalPalesPremiados; }
+            set { totalPalesPremiados = value; NotifyPropertyChanged(nameof(TotalPalesPremiados)); }
+        }
+
+        public string TotalTripletaPremiados
+        {
+            get { return totalTripletaPremiados; }
+            set { totalTripletaPremiados = value; NotifyPropertyChanged(nameof(TotalTripletaPremiados)); }
+        }
+        public string TotalGanancia
+        {
+            get { return ganancia; }
+            set { ganancia = value; NotifyPropertyChanged(nameof(TotalGanancia)); }
+        }
+
+        public string TotalPremiados
+        {
+            get { return totalPremiados; }
+            set { totalPremiados = value; NotifyPropertyChanged(nameof(TotalPremiados)); }
+        }
+
+        public Visibility MostrarPremios
+        {
+            get { return mostrarPremios; }
+            set { mostrarPremios = value; NotifyPropertyChanged(nameof(MostrarPremios)); }
+        }
+        public Visibility NoMostrarPremios
+        {
+            get { return noMostrarPremios; }
+            set { noMostrarPremios = value; NotifyPropertyChanged(nameof(NoMostrarPremios)); }
+        }
+
+    }
+
+    public class TotalListNumeros : BaseViewModel
+    {
+        private int _totalQuiniela;
+        private int _totalPale;
+        private int _totalTripletas;
+       
+
+        public int TotalQuiniela
+        {
+            get { return _totalQuiniela; }
+            set { _totalQuiniela = value; NotifyPropertyChanged(nameof(TotalQuiniela)); }
+        }
+
+        public int TotalPale
+        {
+            get { return _totalPale; }
+            set { _totalPale = value; NotifyPropertyChanged(nameof(TotalPale)); }
+        }
+        public int TotalTripleta
+        {
+            get { return _totalTripletas; }
+            set { _totalTripletas = value; NotifyPropertyChanged(nameof(TotalTripleta)); }
+        }
+       
     }
 
     public class ReportesDeVentas:BaseViewModel

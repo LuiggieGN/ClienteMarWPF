@@ -1,5 +1,6 @@
 ﻿
 using Accessibility;
+using ClienteMarWPF.DataAccess;
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Services.ReportesService;
 using ClienteMarWPF.UI.State.Authenticators;
@@ -8,6 +9,7 @@ using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
 using ClienteMarWPF.UI.ViewModels.Commands.Reporte;
+using ClienteMarWPF.UI.ViewModels.Commands.Reportes;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
 using MarPuntoVentaServiceReference;
 using System;
@@ -28,8 +30,10 @@ namespace ClienteMarWPF.UI.Modules.Reporte
     public class ReporteViewModel : BaseViewModel
     {
         public ICommand ObtenerReportes { get; }
+        public ICommand PrintReportes { get; }
         public ObservableCollection<ReportesObservable> ReporteBinding;
         public ObservableCollection<ReportesSumVentasObservable> ReporteMostrarBinding;
+        public List<MAR_Loteria2> _sorteos;
 
 
         public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices)
@@ -39,22 +43,32 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             FechaFin = Convert.ToDateTime(DateTime.Now).AddDays(-1).ToString();
             SoloTotales = true;
             ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices);
+            PrintReportes = new PrintReports(this, autenticador, reportesServices);
 
             //Ocultando vistas de todos los reportes inicialmente
-            RPTSumaVentas = Visibility.Hidden;
-            RPTTicketGanadores = Visibility.Hidden;
-            RPTSumVentaFecha = Visibility.Hidden;
-            RPTListTarjetas = Visibility.Hidden;
-            RPTVentas = Visibility.Hidden;
-            RPTLitTicket = Visibility.Hidden;
-            RPTPagosRemotos = Visibility.Hidden;
+            RPTSumaVentasVisibility = Visibility.Hidden;
+            RPTTicketGanadoresVisibility = Visibility.Hidden;
+            RPTSumVentaFechaVisibility = Visibility.Hidden;
+            RPTListTarjetasVisibility = Visibility.Hidden;
+            RPTVentasVisibily = Visibility.Hidden;
+            RPTLitTicketVisibility = Visibility.Hidden;
+            RPTPagosRemotosVisibility = Visibility.Hidden;
+            RPTListNumerosVisibility = Visibility.Hidden;
+            ReportesListaNumeros.QuinielaVisibilty = Visibility.Hidden;
+            ReportesListaNumeros.PaleVisibility = Visibility.Hidden;
+            ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
             /////////////////////////////////////////////////////
 
             ReportesListaNumeros.Quiniela = new ObservableCollection<ReportesListaNumerosObservable>() { };
             ReportesListaNumeros.Pale = new ObservableCollection<ReportesListaNumerosObservable>() { };
             ReportesListaNumeros.Tripleta = new ObservableCollection<ReportesListaNumerosObservable>() { };
-
-
+            MAR_Loteria2 opcionTodas = new MAR_Loteria2() { Nombre = "Todas", LoteriaKey = 0 };
+            Sorteos = new List<MAR_Loteria2>() { };
+            Sorteos.Add(opcionTodas);
+            foreach (var loteria in SessionGlobals.Loterias){Sorteos.Add(loteria);}
+            
+            PremiosVentas.MostrarPremios = Visibility.Hidden;
+            PremiosVentas.NoMostrarPremios = Visibility.Hidden;
         }
 
         #region PropertyOfView
@@ -79,12 +93,13 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private string _totalBalance;
         private string _totalVenta;
         /////////////////////////////
-        private int totalresultado;
-        private int totalcomision;
-        private int totalsaco;
-        private int totalbalance;
+        private string totalresultado;
+        private string totalcomision;
+        private string totalsaco;
+        private string totalbalance;
         public string _nombreloteria;
         public string totalesPagosRemotos;
+        public TotalListNumeros totalesListNumeros;
 
         //////////// Reportes a mostrar /////////
         private Visibility _rptsumaventas;
@@ -94,11 +109,12 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private Visibility _rptVentas;
         private Visibility _rptlistticket;
         private Visibility _rptpagosremotos;
+        private Visibility _rptlistnumeros;
         ////////////////////////////////////////
         private ObservableCollection<ReportesSumVentasObservable> _informacionesreportes;
         private ObservableCollection<ReportesObservable> _reportes;
         private DataGrid GridAgrupado;
-        private ObservableCollection<ReportesGanadoresObservable> _reporteganadoresbinding;
+        private EstadoDeTicketGanadores _reporteganadoresbinding = new EstadoDeTicketGanadores();
         private ObservableCollection<ReportesSumVentasFechaObservable> _reporteSumVentasPorFecha;
         private ObservableCollection<ReportesListaTajetasObservable> _reporteListaTarjetas;
         private ObservableCollection<ReporteListaTicketsObservable> _reporteListaTicket;
@@ -107,6 +123,8 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private DataGrid _repoteSumFech;
         private ReportesDeVentas _reporteventas = new ReportesDeVentas();
         private TotalesListadoTicket _totalesListTicket = new TotalesListadoTicket();
+        private PremiosVentas _premiosventas = new PremiosVentas();
+        
 
 
         //###########################################################
@@ -213,46 +231,52 @@ namespace ClienteMarWPF.UI.Modules.Reporte
 
         }
 
-        public Visibility RPTSumaVentas
+        public Visibility RPTSumaVentasVisibility
         {
             get { return _rptsumaventas; }
-            set { _rptsumaventas = value; NotifyPropertyChanged(nameof(RPTSumaVentas)); }
+            set { _rptsumaventas = value; NotifyPropertyChanged(nameof(RPTSumaVentasVisibility)); }
         }
 
-        public Visibility RPTTicketGanadores
+        public Visibility RPTTicketGanadoresVisibility
         {
             get { return _rptticketGanadores; }
-            set { _rptticketGanadores = value; NotifyPropertyChanged(nameof(RPTTicketGanadores)); }
+            set { _rptticketGanadores = value; NotifyPropertyChanged(nameof(RPTTicketGanadoresVisibility)); }
         }
 
-        public Visibility RPTSumVentaFecha
+        public Visibility RPTSumVentaFechaVisibility
         {
             get { return _rptSumVentasFecha; }
-            set { _rptSumVentasFecha = value; NotifyPropertyChanged(nameof(RPTSumVentaFecha)); }
+            set { _rptSumVentasFecha = value; NotifyPropertyChanged(nameof(RPTSumVentaFechaVisibility)); }
         }
 
-        public Visibility RPTListTarjetas
+        public Visibility RPTListTarjetasVisibility
         {
             get { return _rptlisttarjetas; }
-            set { _rptlisttarjetas = value; NotifyPropertyChanged(nameof(RPTListTarjetas)); }
+            set { _rptlisttarjetas = value; NotifyPropertyChanged(nameof(RPTListTarjetasVisibility)); }
         }
 
-        public Visibility RPTVentas
+        public Visibility RPTVentasVisibily
         {
             get { return _rptVentas; }
-            set { _rptVentas = value; NotifyPropertyChanged(nameof(RPTVentas)); }
+            set { _rptVentas = value; NotifyPropertyChanged(nameof(RPTVentasVisibily)); }
         }
 
-        public Visibility RPTLitTicket
+        public Visibility RPTListNumerosVisibility
+        {
+            get { return _rptlistnumeros; }
+            set { _rptlistnumeros = value; NotifyPropertyChanged(nameof(RPTListNumerosVisibility)); }
+        }
+
+        public Visibility RPTLitTicketVisibility
         {
             get { return _rptlistticket; }
-            set { _rptlistticket = value; NotifyPropertyChanged(nameof(RPTLitTicket)); }
+            set { _rptlistticket = value; NotifyPropertyChanged(nameof(RPTLitTicketVisibility)); }
         }
 
-        public Visibility RPTPagosRemotos
+        public Visibility RPTPagosRemotosVisibility
         {
             get { return _rptpagosremotos; }
-            set { _rptpagosremotos = value; NotifyPropertyChanged(nameof(RPTPagosRemotos)); }
+            set { _rptpagosremotos = value; NotifyPropertyChanged(nameof(RPTPagosRemotosVisibility)); }
         }
 
         public string FechaActualReport
@@ -261,7 +285,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             set { _fechaActualReport = value; NotifyPropertyChanged(nameof(FechaActualReport)); }
         }
 
-        public ObservableCollection<ReportesGanadoresObservable> ReportesGanadores
+        public EstadoDeTicketGanadores ReportesGanadores
         {
             get { return _reporteganadoresbinding; }
             set { _reporteganadoresbinding = value; NotifyPropertyChanged(nameof(ReportesGanadores)); }
@@ -293,6 +317,12 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         {
             get { return _reporteListaNumeros; }
             set { _reporteListaNumeros = value; NotifyPropertyChanged(nameof(ReportesListaNumeros)); }
+        }
+
+        public PremiosVentas PremiosVentas
+        {
+            get { return _premiosventas; }
+            set { _premiosventas = value; NotifyPropertyChanged(nameof(PremiosVentas)); }
         }
 
         public string TotalesPagosRemotos
@@ -338,6 +368,19 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             }
         }
 
+        public List<MAR_Loteria2> Sorteos
+        {
+            get
+            {
+                return _sorteos;
+            }
+            set
+            {
+                _sorteos = value;
+                NotifyPropertyChanged(nameof(Sorteos));
+            }
+        }
+
         public int LoteriaID
         {
             get
@@ -380,29 +423,33 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         }
 
 
-        public int TotalResultado
+        public string TotalResultado
         {
             get { return totalresultado; }
             set { totalresultado = value; NotifyPropertyChanged(nameof(TotalResultado)); }
         }
 
-        public int TotalComision
+        public string TotalComision
         {
             get { return totalcomision; }
             set { totalcomision = value; NotifyPropertyChanged(nameof(TotalComision)); }
         }
-        public int TotalSaco
+        public string TotalSaco
         {
             get { return totalsaco; }
             set { totalsaco = value; NotifyPropertyChanged(nameof(TotalSaco)); }
         }
-        public int TotalBalance
+        public string TotalBalance
         {
             get { return totalbalance; }
             set { totalbalance = value; NotifyPropertyChanged(nameof(TotalBalance)); }
         }
 
-
+        public TotalListNumeros TotalListNumeros
+        {
+            get { return totalesListNumeros; }
+            set { totalesListNumeros = value; NotifyPropertyChanged(nameof(TotalListNumeros)); }
+        }
         //###########################################################
         #endregion
 
