@@ -4,7 +4,7 @@ using MAR.DataAccess.ControlEfectivoRepositories;
 using MAR.DataAccess.Tables.ControlEfectivoDTOs;
 
 using System;
- 
+using System.Collections.Generic;
 
 namespace MAR.BusinessLogic.Code.ControlEfectivo
 {
@@ -22,6 +22,36 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static SupraMovimientoDesdeHastaResultDTO RegistrarTransferencia(string jsonTransferencia)
+        {
+            try
+            {
+                var transferencia = JSONHelper.CreateNewFromJSONNullValueIgnore<SupraMovimientoDesdeHastaDTO>(jsonTransferencia);
+
+                return CajaRepository.RegistrarTransferencia(transferencia);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static MultipleDTO<PagerResumenDTO, List<MovimientoDTO>> LeerMovimientos(string jsonPaginaRequest)
+        {
+            try
+            {
+
+                var paginaRequest = JSONHelper.CreateNewFromJSONNullValueIgnore<MovimientoPageDTO>(jsonPaginaRequest);
+
+                return CajaRepository.LeerMovimientos(paginaRequest);
+
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 

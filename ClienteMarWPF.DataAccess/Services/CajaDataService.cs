@@ -63,14 +63,62 @@ namespace ClienteMarWPF.DataAccess.Services
             }
         }
 
-        public bool RegistrarMovimientoDesdeHasta()
+        public SupraMovimientoDesdeHastaResultDTO RegistrarMovimientoDesdeHasta(SupraMovimientoDesdeHastaDTO transferencia)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (transferencia == null)
+                {
+                    throw new Exception("Movimiento inválido.");
+                }
+
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(transferencia));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Caja_RegistrarMovimientoDesdeHasta, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al registrar la transferencia");
+                }
+
+                var result = JSONHelper.CreateNewFromJSONNullValueIgnore<SupraMovimientoDesdeHastaResultDTO>(llamada.Respuesta);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public void ConsultarCajaMovimientos()
+        public MultipleDTO<PagerResumenDTO, List<MovimientoDTO>> LeerMovimientos(MovimientoPageDTO paginaRequest)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (paginaRequest == null)
+                {
+                    throw new Exception("Pagina Invalida");
+                }
+
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(paginaRequest));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Caja_LeerMovimientos, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error en la lectura de la pagina");
+                }
+
+                var result = JSONHelper.CreateNewFromJSONNullValueIgnore<MultipleDTO<PagerResumenDTO, List<MovimientoDTO>>>(llamada.Respuesta);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public decimal LeerCajaBalance(int cajaid)

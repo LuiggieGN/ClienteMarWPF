@@ -82,6 +82,7 @@
     <Compile Include="Admin\Models\ViewModels\RiferosViewModels.cs" />
     <Compile Include="Admin\SharedFuntions\Autorizaciones.cs" />
     <Compile Include="Code\BingoIndexLogic.cs" />
+    <Compile Include="Code\ControlEfectivo\MultipleLogic.cs" />
     <Compile Include="Code\ControlEfectivo\TieLogic.cs" />
     <Compile Include="Code\ControlEfectivo\CajaLogic.cs" />
     <Compile Include="Code\ControlEfectivo\CuadreLogic.cs" />
@@ -152,8 +153,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj"> 
-      <Project>{41bbcca4-1318-4234-a855-83958f1e5ff2}</Project> 
+    <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj">
+      <Project>{41bbcca4-1318-4234-a855-83958f1e5ff2}</Project>
       <Name>Flujo.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj">

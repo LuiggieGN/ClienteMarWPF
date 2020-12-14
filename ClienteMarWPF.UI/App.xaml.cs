@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿#region Namespaces
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
-
 
 using ClienteMarWPF.DataAccess.Services;
 
@@ -44,7 +44,8 @@ using ClienteMarWPF.Domain.Services.SorteosService;
 using ClienteMarWPF.Domain.Services.CuadreService;
 using ClienteMarWPF.Domain.Services.TieService;
 using ClienteMarWPF.Domain.Services.CajaService;
-
+using ClienteMarWPF.Domain.Services.MultipleService;
+#endregion
 
 namespace ClienteMarWPF.UI
 {
@@ -79,6 +80,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<ISorteosService, SorteosDataService>();
             services.AddSingleton<ITieService, TieDataService>();
             services.AddSingleton<ICajaService, CajaDataService>();
+            services.AddSingleton<IMultipleService, MultipleDataService>();
             #endregion
 
             services.AddSingleton<IViewModelFactory, ViewModelFactory>();    //Este Servicio Contiene la factoria de ViewModels Disponibles
@@ -173,10 +175,10 @@ namespace ClienteMarWPF.UI
                 return () => new MovimientoViewModel(
                     services.GetRequiredService<IAuthenticator>(),
                     services.GetRequiredService<ITieService>(),
-                    services.GetRequiredService<ICajaService>()
+                    services.GetRequiredService<ICajaService>(),
+                    services.GetRequiredService<IMultipleService>()
                 );
             });
-
             #endregion
 
             services.AddSingleton<INavigator, Navigator>();
