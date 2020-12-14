@@ -36,28 +36,12 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         {
             InitializeComponent();
             
-              SorteosBinding = new List<SorteosObservable> {
-                new SorteosObservable(){ LoteriaID=0, IsSelected=true,  Loteria="Todas" },
-                new SorteosObservable(){ LoteriaID=1, IsSelected=false,  Loteria="La Fecha Dia",},
-                new SorteosObservable(){ LoteriaID=2, IsSelected=false,  Loteria="La Fecha Noche"},
-                new SorteosObservable(){ LoteriaID=3, IsSelected=false,  Loteria="Loteka Dia" },
-                new SorteosObservable(){ LoteriaID=4, IsSelected=false,  Loteria="Loteka Noche"},
-                new SorteosObservable(){ LoteriaID=5, IsSelected=false,  Loteria="Nacional Dia" },
-                new SorteosObservable(){ LoteriaID=6, IsSelected=false,  Loteria="Nacional Noche"},
-                new SorteosObservable(){ LoteriaID=7, IsSelected=false,  Loteria="New York Dia"},
-                new SorteosObservable(){ LoteriaID=8, IsSelected=false,  Loteria="New York Noche" },
-                new SorteosObservable(){ LoteriaID=9, IsSelected=false,  Loteria="Pega 3 Dia" },
-                new SorteosObservable(){ LoteriaID=10, IsSelected=false,  Loteria="Pega 3 Noche"}
-               
-            };
             
-            listSorteo.DataContext = SorteosBinding;
             listSorteo.SelectedIndex = 0;
             
             EnableScrollBars();
             NoAutogenerarColumnas();
            
-
         }
 
         private void EnableScrollBars()
@@ -66,12 +50,24 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             ScrollViewer.SetVerticalScrollBarVisibility(this.GridVentaFechas, ScrollBarVisibility.Visible);
             ScrollViewer.SetVerticalScrollBarVisibility(this.GridListTicket, ScrollBarVisibility.Visible);
             ScrollViewer.SetVerticalScrollBarVisibility(this.GridPagosRemotos,ScrollBarVisibility.Visible);
+            ScrollViewer.SetVerticalScrollBarVisibility(this.GridTicketPagados,ScrollBarVisibility.Visible);
+            ScrollViewer.SetVerticalScrollBarVisibility(this.GridTicketPendientesPagoss, ScrollBarVisibility.Visible);
+            ScrollViewer.SetVerticalScrollBarVisibility(this.GridTicketSinReclamar, ScrollBarVisibility.Visible);
+            ScrollViewer.SetVerticalScrollBarVisibility(this.TempleateListaTarjetas, ScrollBarVisibility.Visible);
         }
 
        
         private void reporteid_Click(object sender, RoutedEventArgs e)
         {
-            Nombre = (sender as RadioButton).Content as string;
+            
+            var fase1 = (sender as Button);
+            object elementos = fase1.Content;
+            StackPanel elemto = elementos as StackPanel;
+            UIElementCollection CollecionElementos = elemto.Children;
+            TextBlock elementosTextBlock = CollecionElementos[1] as TextBlock;
+            Nombre = elementosTextBlock.Text.ToString();
+
+            
             if (Nombre == null)
             {
                 Nombre = "Reportes de Ventas";
@@ -93,7 +89,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         {
             // --------------Para que no se autogeneren las columnas ------------------------------//
             GridVentaFechas.AutoGenerateColumns = false;
-            GridAgrupadoVista.AutoGenerateColumns = false;
+           
             // -----------------------------------------------------------------------------------//
 
         }
@@ -112,9 +108,12 @@ namespace ClienteMarWPF.UI.Modules.Reporte
 
         private void listSorteo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SorteosObservable objeto =((sender as ComboBox).SelectedItem as SorteosObservable);
-            Loteria = objeto.LoteriaID;
-            NombreLoteria = objeto.Loteria.ToString();
+
+            MAR_Loteria2 objeto = ((sender as ComboBox).SelectedItem as MAR_Loteria2);
+            if (objeto != null) {
+                Loteria = objeto.LoteriaKey;
+                NombreLoteria = objeto.Nombre;
+            } 
             
         }
 
@@ -132,6 +131,27 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private void OcultandoDesdeVista(object sender, RoutedEventArgs e)
         {
             VentaFecha.IsOpen = false;
+        }
+
+        public void EliminandoTemplateGanadores(bool GridPagados,bool GridPendientePago,bool GridSinReclamar)
+        {
+            if (GridPagados == true)
+            {
+                GridGanadores.RowDefinitions.Remove(GridTicketPagados);
+                GridGanadores.RowDefinitions.Remove(EncabezadoPagados);
+            }
+
+            if (GridPendientePago == true)
+            {
+                GridGanadores.RowDefinitions.Remove(GridTicketPendientesPagoss);
+                GridGanadores.RowDefinitions.Remove(EncabezadoPendientePagos);
+            }
+            
+            if (GridSinReclamar == true)
+            {
+                GridGanadores.RowDefinitions.Remove(GridTicketSinReclamar);
+                GridGanadores.RowDefinitions.Remove(EncabezadoSinReclamar);
+            }
         }
 
         
