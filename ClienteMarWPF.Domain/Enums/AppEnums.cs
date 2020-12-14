@@ -38,13 +38,12 @@ namespace ClienteMarWPF.Domain.Enums
     }
 
     public enum EfectivoFunciones
-    {
-        
-        Caja_RegistrarMovimientoEnBanca = 1000,// --
-        Caja_RegistrarMovimientoDesdeHasta = 1001,
-        Caja_ConsultarMovimientos = 1002,
-        Caja_LeerCajaBalance = 1003,// --
-        //Caja_SetearDisponibilidad = 1004,       //  Ojo esta operacion se va hacer en el mismo bach de query cuando se este cuadrando >> Disponibilidad = 0 luego se cuadra  y por ultimo Disponibilidad = 1
+    {        
+        Caja_RegistrarMovimientoEnBanca = 1000,   //AAA
+        Caja_RegistrarMovimientoDesdeHasta = 1001,//AAA
+        Caja_LeerMovimientos = 1002,              //AAA
+        Caja_LeerCajaBalance = 1003,//AAA
+                                                         // Caja_SetearDisponibilidad = 1004,       //  Ojo esta operacion se va hacer en el mismo bach de query cuando se este cuadrando >> Disponibilidad = 0 luego se cuadra  y por ultimo Disponibilidad = 1
         Caja_LeerCajaDeUsuarioPorUsuarioId = 1004,//AAA   
 
 
@@ -60,13 +59,10 @@ namespace ClienteMarWPF.Domain.Enums
         Cuadre_EnlazarCuadreConRuta = 3001, //AAA  
 
 
-
         Tie_LeerTiposAnonimos = 4000, //AAA   
-
-
-
-
-        Tarjeta_LeerTarjetaDeUsuario = 7000   
+               
+        Multiple_LeerUsuarioSuCajaYSuTarjetaPorPinDeUsuario = 8000 //AAA
+         
     }
  
 

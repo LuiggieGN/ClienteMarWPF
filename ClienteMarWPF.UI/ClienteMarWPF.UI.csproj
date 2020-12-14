@@ -14,6 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Modules\FlujoEfectivo\Movimiento\Modal\DialogoToken.xaml.cs~RF795da9dc.TMP" />
+    <None Remove="Modules\FlujoEfectivo\Movimiento\Views\View2\DesdeHastaView.xaml.cs~RF69386ac7.TMP" />
+    <None Remove="StartUp\Images\ControlEfectivo\NoData.png" />
     <None Remove="StartUp\Images\ControlEfectivo\Rocket.png" />
     <None Remove="StartUp\Images\ControlEfectivo\Transfer.png" />
     <None Remove="StartUp\Images\fondo.png" />
@@ -31,9 +34,13 @@
     <None Remove="StartUp\Images\Operador\Wind_logo.png" />
     <None Remove="StartUp\Images\splashscreen-MarCliente-empty.jpg" />
     <None Remove="ViewModels\Commands\AsyncCommandBase.cs~RF57082cca.TMP" />
+    <None Remove="ViewModels\ModelObservable\MovimientoObservable.cs~RF9c9193c.TMP" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="StartUp\Images\ControlEfectivo\NoData.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="StartUp\Images\ControlEfectivo\Transfer.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -46,10 +53,6 @@
     <Resource Include="StartUp\Images\fondo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Modules\FlujoEfectivo\Movimiento\Views\View3\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -121,6 +124,12 @@
     <Compile Update="Modules\FlujoEfectivo\Movimiento\Views\View2\DesdeHastaView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Modules\FlujoEfectivo\Movimiento\Views\View3\ConsultaMovimientoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Controls\PagerControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -134,6 +143,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Modules\FlujoEfectivo\Movimiento\Views\View2\DesdeHastaView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modules\FlujoEfectivo\Movimiento\Views\View3\ConsultaMovimientoResources.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modules\FlujoEfectivo\Movimiento\Views\View3\ConsultaMovimientoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Controls\PagerControl.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

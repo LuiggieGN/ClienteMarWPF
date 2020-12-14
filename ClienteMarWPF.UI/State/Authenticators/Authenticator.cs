@@ -77,8 +77,8 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
 
                 CurrentAccount = _authenticationService.Logon2(usuario, clave, bancaid, ipaddress);
-              
-     
+
+                BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid);
 
             } 
             catch (UserNotFoundException ex1)
@@ -125,3 +125,20 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
     }// fin de clase Authenticator
 }// fin de namespace Authenticators
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

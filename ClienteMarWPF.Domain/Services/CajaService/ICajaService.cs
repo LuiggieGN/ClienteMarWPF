@@ -14,15 +14,13 @@ namespace ClienteMarWPF.Domain.Services.CajaService
     {
         SupraMovimientoEnBancaResultDTO RegistrarMovimientoEnBanca(SupraMovimientoEnBancaDTO movimiento);
 
-        bool RegistrarMovimientoDesdeHasta();
+        SupraMovimientoDesdeHastaResultDTO RegistrarMovimientoDesdeHasta(SupraMovimientoDesdeHastaDTO transferencia);
 
-        void ConsultarCajaMovimientos();
+        MultipleDTO<PagerResumenDTO, List<MovimientoDTO>> LeerMovimientos(MovimientoPageDTO paginaRequest);
 
         decimal LeerCajaBalance(int cajaid);
 
         CajaDTO LeerCajaDeUsuarioPorUsuarioId(int usuarioid);
-
-
 
     }
 }

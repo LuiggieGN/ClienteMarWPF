@@ -261,7 +261,12 @@ Public Class mar_flujo
                 Case 1000
                     Dim jsonMovimiento = parametros(0).ToString()
                     result = CajaLogic.RegistrarMovimientoEnBanca(jsonMovimiento)
-
+                Case 1001
+                    Dim jsonTransferencia = parametros(0).ToString()
+                    result = CajaLogic.RegistrarTransferencia(jsonTransferencia)
+                Case 1002
+                    Dim jsonPaginaRequest = parametros(0).ToString()
+                    result = CajaLogic.LeerMovimientos(jsonPaginaRequest)
                 Case 1003
                     Dim cajaid = Integer.Parse(parametros(0).ToString())
                     result = CajaLogic.LeerCajaBalance(cajaid)
@@ -308,6 +313,12 @@ Public Class mar_flujo
 #Region "Tie"
                 Case 4000
                     result = TieLogic.LeerTiposAnonimos()
+#End Region
+
+#Region "Multiple"
+                Case 8000
+                    Dim pin = parametros(0).ToString()
+                    result = MultipleLogic.LeerUsuarioSuCajaYSuTarjetaPorPinDeUsuario(pin)
 #End Region
 
 

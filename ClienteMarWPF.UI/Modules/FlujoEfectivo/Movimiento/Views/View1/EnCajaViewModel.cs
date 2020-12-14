@@ -21,7 +21,6 @@ using ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaView;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View1.ViewModels;
 
 
-
 namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
 {
     public class EnCajaViewModel : BaseViewModel, INotifyDataErrorInfo
@@ -206,8 +205,6 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
             AgregarMovimientoEnCajaCommand = new AgregarMovimientoEnCajaCommand(this,_aut,_cajaService);
 
             RestablecerCommand = new RestablecerCommand(this);
-
-
         }
 
 

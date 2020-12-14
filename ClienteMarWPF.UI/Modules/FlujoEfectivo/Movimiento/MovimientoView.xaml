@@ -9,20 +9,23 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
              xmlns:view1="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View1"
              xmlns:view2="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View2"
-             
-             d:DesignHeight="840" d:DesignWidth="1000"> 
-    <Grid>
+             xmlns:view3="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View3"
+             xmlns:dialogo="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Modal"
+             d:DesignHeight="840" d:DesignWidth="1000">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"  />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        
-        <Border Background="{DynamicResource MenuLeftBackground}" Height="40" Grid.Row="0">
-            <Label Content="Movimientos" 
+    <Grid>
+        <Grid x:Name="GridAOcultar">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"  />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Background="{DynamicResource MenuLeftBackground}" Height="40" Grid.Row="0">
+                <Label Content="Movimientos" 
                    FontSize="18" 
                    Foreground="White"   
                    VerticalContentAlignment="Center" 
@@ -33,40 +36,53 @@
             <dragablz:TabablzControl  Grid.Row="1"
                                       AllowDrop="False"                                    
                                       Margin="4 3 4 0" >
-               <TabItem IsSelected="True" Background="Red">
+                <TabItem IsSelected="True" Background="Red">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"  >
-                            <materialDesign:PackIcon Kind="Arrow" Foreground="White" Width="30" Height="30" />
-                            <TextBox  Text="Registra tus Movimientos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
+                            <materialDesign:PackIcon Kind="Arrow" Width="30" Height="30" Foreground="#FF00A8E8" />
+                            <TextBox  Text="Registra Ingresos y Gastos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
                         </StackPanel>
                     </TabItem.Header>
-                    <view1:EnCajaView DataContext="{Binding View1}"  />          
-                </TabItem>
-                
-                <TabItem Height="50">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
-                            <materialDesign:PackIcon Kind="Cash" Foreground="White" Width="30" Height="30" />
-                            <TextBox  Text="Registra tus Transferencias" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
-                        </StackPanel>                            
-                    </TabItem.Header>
-                    <view2:DesdeHastaView DataContext="{Binding View2}" />
+                    <view1:EnCajaView DataContext="{Binding View1}"  />
                 </TabItem>
 
                 <TabItem Height="50">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
-                            <materialDesign:PackIcon Kind="FindInPage" Foreground="White" Width="30" Height="30" />
+                            <materialDesign:PackIcon Kind="Cash" Foreground="#FF00A8E8" Width="30" Height="30" />
+                            <TextBox  Text="Entrega y Recibo de Dinero" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <view2:DesdeHastaView DataContext="{Binding View2}" SeleccionarGestorCommand="{Binding SeleccionarGestorCommand}" RestablecerCommand="{Binding RestablecerCommand}"/>
+                </TabItem>
+
+                <TabItem Height="50">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
+                            <materialDesign:PackIcon Kind="FindInPage" Foreground="#FF00A8E8" Width="30" Height="30" />
                             <TextBox  Text="Consulta tus Movimientos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
                         </StackPanel>
                     </TabItem.Header>
                     <DockPanel>
-                    <TextBox  Text="transferencia" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" />
+                        <view3:ConsultaMovimientoView DataContext="{Binding View3}"  />
                     </DockPanel>
                 </TabItem>
-                
+
             </dragablz:TabablzControl>
         </Grid>
+
+        <dialogo:DialogoToken DataContext="{Binding Dialog}"
+                              OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}"
+                              CargarDialogo="{Binding Path=MuestroDialogo}"
+                              AceptarCommand ="{Binding Path=AceptarCommand}"/>
+
+
+
+    </Grid>
+    
+    
+    
+
  
 
 

@@ -38,20 +38,20 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaVi
         public void CrearNuevoMovimiento(object parametro)
         {
             if (
-                  _viewmodel != null && 
+                  _viewmodel != null &&
                   _viewmodel.ComboESSeleccion != null &&
                   _viewmodel.ComboConceptoSeleccion != null &&
                         _aut != null &&
                         _aut.BancaConfiguracion != null &&
                         _aut.BancaConfiguracion.BancaDto != null &&
-                        _aut.BancaConfiguracion.CajaEfectivoDto != null 
+                        _aut.BancaConfiguracion.CajaEfectivoDto != null
                 )
             {
                 try
                 {
                     _cajaBalanceActual = _cajaService.LeerCajaBalance(_aut.BancaConfiguracion.CajaEfectivoDto.CajaID);
 
-                    ValidarSubmitDeDatos();
+                    ValidarSubmit();
 
                     if (_viewmodel.CanCreate)
                     {
@@ -66,7 +66,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaVi
 
                         if (_viewmodel.ComboConceptoSeleccion.Id == 0)
                         {
-                            commentStart = (_viewmodel.InputConcepto?.Texto?.Trim() + "| ") ?? commentStart ;
+                            commentStart = (_viewmodel.InputConcepto?.Texto?.Trim() + "| ") ?? commentStart;
                         }
                         else
                         {
@@ -98,14 +98,14 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaVi
                 }
                 catch
                 {
-                    MessageBox.Show("Ha ocurrido un error al procesar la operación. Verificar conexión de Internet.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _viewmodel.Toast.ShowError("Ha ocurrido un error al procesar la operación. Verificar conexión de Internet");
                 }
             }
         }
 
 
         #region Validaciones de SubMit
-        private void ValidarSubmitDeDatos()
+        private void ValidarSubmit()
         {
             ResetErrors();
             if (_viewmodel.ComboConceptoSeleccion.Id == 0)
@@ -150,7 +150,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaVi
                     {
                         if ((_cajaBalanceActual - _monto) < 0)
                         {
-                            _viewmodel.Errores.AgregarError(nameof(_viewmodel.Monto), $"* Fondos Insuficientes."+ Environment.NewLine + $"   - Balance en caja : { _cajaBalanceActual.ToString("C",new CultureInfo("en-US")) }." + Environment.NewLine + $"   - Monto a retirar : { _monto.ToString("C", new CultureInfo("en-US")) }");
+                            _viewmodel.Errores.AgregarError(nameof(_viewmodel.Monto), $"* Fondos Insuficientes." + Environment.NewLine + $"   - Balance en caja : { _cajaBalanceActual.ToString("C", new CultureInfo("en-US")) }." + Environment.NewLine + $"   - Monto a retirar : { _monto.ToString("C", new CultureInfo("en-US")) }");
                         }
                     }
 

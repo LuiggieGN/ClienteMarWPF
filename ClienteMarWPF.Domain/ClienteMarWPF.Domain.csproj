@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Models\Dtos\EfectivoDtos\MovimientoDTO.cs~RFa09b3fe.TMP" />
+    <None Remove="Models\Dtos\EfectivoDtos\TarjetaDTO.cs~RF646488da.TMP" />
     <None Remove="Services\AuthenticationService\AuthenticationService.cs~RF4d6791c4.TMP" />
   </ItemGroup>
 
@@ -18,10 +20,6 @@
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\GenericModels\" />
   </ItemGroup>
 
 </Project>

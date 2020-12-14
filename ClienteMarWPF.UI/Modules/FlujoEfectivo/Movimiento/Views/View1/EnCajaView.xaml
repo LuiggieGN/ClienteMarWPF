@@ -53,7 +53,7 @@
                                BorderBrush="#e0e0e0"
                                Margin="10 15 0 15"
                                Padding="5 0"
-                               Content="Registra tus Movimientos" />
+                               Content="Registra Ingresos y Gastos" />
 
                                   
                         <Grid Grid.Row="1"
@@ -372,7 +372,7 @@
                                     <Button Width="220"
                                             Height="40"                                
                                             Margin="5"
-                                            Content="Nuevo Movmiento" 
+                                            Content="Nuevo Movimiento" 
                                             Style="{DynamicResource btn-success}"
                                             Command="{Binding AgregarMovimientoEnCajaCommand}"/>                            
 

@@ -13,13 +13,10 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
 {
     public static class CajaRepository
     {
-
-
         public static SupraMovimientoEnBancaResultDTO RegistrarMovimientoEnBanca(SupraMovimientoEnBancaDTO movimiento)
         {
             try
             {
-
                 var p = new DynamicParameters();
                 p.Add("@cajaid", movimiento.CajaId);
                 p.Add("@bancaid", movimiento.BancaId);
@@ -42,6 +39,80 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static SupraMovimientoDesdeHastaResultDTO RegistrarTransferencia(SupraMovimientoDesdeHastaDTO transferencia)
+        {
+            try
+            {
+
+                var p = new DynamicParameters();
+                p.Add("@TipoCajaOrigen", transferencia.TipoCajaOrigen);
+                p.Add("@TipoCajaDestino", transferencia.TipoCajaDestino);
+                p.Add("@CajaOrigenID", transferencia.CajaOrigenId);
+                p.Add("@CajaDestino", transferencia.CajaDestinoId);
+                p.Add("@UsuarioID", transferencia.UsuarioId);
+                p.Add("@Descripcion", transferencia.Comentario);
+                p.Add("@Monto", transferencia.Monto);
+
+
+                SupraMovimientoDesdeHastaResultDTO result = null;
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+                    result = db.Query<SupraMovimientoDesdeHastaResultDTO>(CajaHelper.QueryParaRegistrarTransferencia, p, commandType: CommandType.Text).FirstOrDefault();
+                    db.Close();
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static MultipleDTO<PagerResumenDTO, List<MovimientoDTO>> LeerMovimientos(MovimientoPageDTO paginaRequest)
+        {
+            try
+            {
+
+                var p = new DynamicParameters();
+                p.Add("@PaginaNo", paginaRequest.PaginaNo);
+                p.Add("@PaginaSize", paginaRequest.PaginaSize);
+                p.Add("@OrdenAsc", paginaRequest.OrdenAsc);
+                p.Add("@OrdenColumna", paginaRequest.OrdenColumna);
+                p.Add("@bancaId", paginaRequest.BancaId);
+                p.Add("@cajaID", paginaRequest.CajaId);
+                p.Add("@fechaDesde", paginaRequest.ConsultaDesde);
+                p.Add("@fechaHasta", paginaRequest.ConsultaHasta);
+                p.Add("@categoriaOperacion", paginaRequest.CategoriaOperacion);
+
+                var multi = new MultipleDTO<PagerResumenDTO, List<MovimientoDTO>>();
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    using (var queryMultiple = db.QueryMultiple(CajaHelper.Procedure_SP_CAJA_LEER_MOVIMIENTOS, p, commandType: CommandType.StoredProcedure))
+
+                    {
+                        multi.PrimerDTO = queryMultiple.Read<PagerResumenDTO>().First();
+                        
+                        multi.SegundoDTO = queryMultiple.Read<MovimientoDTO>().ToList();
+
+                    }// fin de using
+
+                    db.Close();
+                }
+
+                return multi;
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 

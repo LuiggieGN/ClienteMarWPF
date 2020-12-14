@@ -82,6 +82,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ControlEfectivoRepositories\MultipleRepository.cs" />
+    <Compile Include="ControlEfectivoRepositories\Helpers\MultipleHelper.cs" />
     <Compile Include="ControlEfectivoRepositories\TieRepository.cs" />
     <Compile Include="ControlEfectivoRepositories\CajaRepository.cs" />
     <Compile Include="ControlEfectivoRepositories\CuadreRepository.cs" />
@@ -372,10 +374,19 @@
     <Compile Include="Tables\ControlEfectivoDTOs\CuadreDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\CuadreRegistroDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\CuadreRegistroResultDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\MovimientoDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\MovimientoPageDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\MultipleDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\MUsuarioDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\PageDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\PagerResumenDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\RutaAsignacionDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\RutaRecorridoDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\SupraMovimientoDesdeHastaDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\SupraMovimientoDesdeHastaResultDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\SupraMovimientoEnBancaDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\SupraMovimientoEnBancaResultDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\TarjetaDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\TieDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\TipoAnonimoDTO.cs" />
     <Compile Include="Tables\DTOs\CL_Cliente.cs" />
