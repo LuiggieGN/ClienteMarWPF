@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MAR.Config">
+    <Reference Include="MAR.Config"> 
       <HintPath>..\..\..\GitHub\MateoNet\AdminProduccion\Libraries\luiggieLocal\DATA358\MAR.Config.dll</HintPath>
     </Reference>
   </ItemGroup>

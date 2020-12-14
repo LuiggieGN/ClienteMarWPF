@@ -66,25 +66,25 @@
 
         <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="220"/>
-                <ColumnDefinition />
+                <ColumnDefinition Width="190"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="460"/>
+                <RowDefinition Height="110" />
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Width="200px" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="1" Margin="0 3">
-                <DatePicker Name="Fecha" Width="180" SelectedDate="{Binding Fecha, UpdateSourceTrigger=PropertyChanged}" Margin="20 0" materialDesign:HintAssist.Hint="Selecionar Fecha"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Width="180px" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="1" Margin="4 0 0 0">
+                <DatePicker Name="Fecha" Width="165" SelectedDate="{Binding Fecha, UpdateSourceTrigger=PropertyChanged}" Margin="10 0" materialDesign:HintAssist.Hint="Selecionar Fecha"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
             </StackPanel>
 
-            <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Margin="0,45">
-            <Label Margin="15,0" FontSize="10px">Loterias</Label>
-                <ComboBox x:Name="listSorteo" ItemsSource="{Binding}" SelectedItem="0" Width="180px" SelectionChanged="listSorteo_SelectionChanged" SelectedIndex="0">
+            <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Margin="0 50 0 0">
+            <Label Margin="9 0" FontSize="10px">Loterias</Label>
+                <ComboBox x:Name="listSorteo" Margin="13 0" HorizontalAlignment="Left" ItemsSource="{Binding Sorteos}" SelectedItem="0" Width="160px" SelectionChanged="listSorteo_SelectionChanged" SelectedIndex="0">
                     <ComboBox.ItemTemplate >
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" >
-                                <TextBlock Text="{Binding Loteria}" />
+                                <TextBlock Text="{Binding Nombre}" />
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
@@ -116,8 +116,76 @@
                     <Button Margin="10,10" HorizontalAlignment="Right" Content="Cancelar" Click="OcultarModal" Grid.Column="1" Grid.Row="4"></Button>
                 </Grid>
             </Popup>
-            
-            <ListBox x:Name="listReportes" Grid.Row="0" Grid.Column="0"  Width="250px" HorizontalAlignment="Left" Margin="10,68,0,0" Grid.ColumnSpan="1" Height="330px" VerticalAlignment="Center" 
+
+            <StackPanel Orientation="Horizontal" Margin="0 0" Height="150" Width="600"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition Height="35"></RowDefinition>
+                        <RowDefinition Height="35"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="0" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon HorizontalContentAlignment="Left" Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding  Reportes[0].Nombre}" Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="1" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="{Binding  Reportes[1].Nombre}"  Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="2" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="300">
+                            <materialDesign:PackIcon HorizontalContentAlignment="Left" HorizontalAlignment="Left" Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding  Reportes[2].Nombre}" Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="0" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="{Binding  Reportes[3].Nombre}" Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="1" Click="reporteid_Click" Width="170" HorizontalContentAlignment="Left" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="{Binding  Reportes[4].Nombre}" Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="2" Click="reporteid_Click" Width="170" HorizontalContentAlignment="Left" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="{Binding  Reportes[5].Nombre}" Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="0" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="{Binding  Reportes[6].Nombre}" Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="1" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="{Binding  Reportes[7].Nombre}" Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="2" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" Command="{Binding ObtenerReportes}" Height="30" Margin="2,0,2,0" VerticalAlignment="Top" Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="{Binding  Reportes[8].Nombre}" Foreground="White" VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </StackPanel>
+            <!--<ListBox x:Name="listReportes" Grid.Row="0" Grid.Column="0"  Width="250px" HorizontalAlignment="Left" Margin="10,68,0,0" Grid.ColumnSpan="1" Height="330px" VerticalAlignment="Center" 
                       ItemsSource="{Binding Reportes}">
                 <ListBox.ItemTemplate>
                     <DataTemplate >
@@ -125,54 +193,24 @@
                          IsChecked="{Binding IsChecked}"  GroupName="repotes" FontSize="14" Style="{StaticResource MaterialDesignRadioButton}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
-            <StackPanel  Grid.Row="0" Grid.Column="0" Margin="10 -2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            </ListBox>-->
+            <!--<StackPanel  Grid.Row="0" Grid.Column="0" Margin="10 -2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                 <Button  Style="{DynamicResource btn-primary}" Command="{Binding ObtenerReportes}" Foreground="White" Width="200"  Margin="0 0 0 4">
-                    <StackPanel Orientation="Horizontal" >
-                        <materialDesign:PackIcon Kind="Printer" Margin="5 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-                        <TextBlock Text="Imprimir reporte" Foreground="White" VerticalAlignment="Top"/>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Receipt" Margin="5 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                        <TextBlock Text="Visualizar reporte" Foreground="White" VerticalAlignment="Top"/>
                     </StackPanel>
                 </Button>
-            </StackPanel>
+            </StackPanel>-->
             
-            <Grid VerticalAlignment="Top" Grid.Column="1"  Grid.Row="0"  Margin="12,5" Height="110" Background="WhiteSmoke"  >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                
-                <Label Background="White" Height="30" Width="468" Padding="0,0" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalContentAlignment="Center" FontSize="14px" Foreground="Black" FontWeight="Bold" VerticalContentAlignment="Center" BorderBrush="WhiteSmoke" BorderThickness="0,1,0,1" VerticalAlignment="Top">PAGO DE GANADORES</Label>
-                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top">
-                    <Label FontSize="16px" Margin="20,0,0,0">Ticket: </Label>
-                    <TextBox Background="White" Foreground="DodgerBlue" Width="80px" FontSize="14px" Height="30px" HorizontalContentAlignment="Right" VerticalAlignment="Top"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                    <Label FontSize="16px" Margin="20,0,0,0">Pin: </Label>
-                    <TextBox Background="White" Foreground="DodgerBlue" Width="80px" FontSize="14px" Height="30px" HorizontalContentAlignment="Right" VerticalAlignment="Top"></TextBox>
-                </StackPanel>
-                <StackPanel  Grid.Row="1" Grid.Column="2" Margin="10,-2" VerticalAlignment="Top" HorizontalAlignment="Left">
-                    <Button  Style="{DynamicResource btn-primary}" Command="{Binding GetRptSuma}" Foreground="White" Width="100"  Margin="0 0 0 4">
-                        <StackPanel Orientation="Horizontal" >
-                            <materialDesign:PackIcon Kind="Check" Margin="2 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-                            <TextBlock Text="Validar" Foreground="White" VerticalAlignment="Top"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-                <Label Background="White" Height="25" Width="468" Padding="0,0" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"  HorizontalContentAlignment="Center" FontSize="12px" Foreground="Red" FontWeight="Bold" VerticalContentAlignment="Center" BorderBrush="WhiteSmoke" BorderThickness="0,1,0,1" VerticalAlignment="Bottom"> VALIDE LOS TICKET GANADORES ANTES DE PAGARLOS ! </Label>
-            </Grid>
             <!-- /////////////////// Template Vacio ///////////////////////// -->
-            <Grid Background="WhiteSmoke"  Height="330" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+            <Grid Background="WhiteSmoke" HorizontalAlignment="Left"  Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 
             </Grid>
             <!-- /////////////////// Fin Template Vacio ///////////////////////// -->
             
             <!-- /////////////////// Template De Suma de ventas ///////////////////////// -->
-                <Grid Visibility="{Binding RPTSumaVentas}"  Background="WhiteSmoke"  Height="330" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+            <Grid Visibility="{Binding RPTSumaVentasVisibility}"  Background="WhiteSmoke" Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -183,13 +221,22 @@
 
                 </Grid.RowDefinitions>
 
+               
                 <StackPanel Height="85px" Margin="0,0"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                     <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
+                    
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
-                    
+                   
                 </StackPanel>
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+
+                    </StackPanel>
+                </Button>
+
 
                 <DataGrid  ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" Name="infoReport" ItemsSource="{Binding InformacionesReportes,UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Resources>
@@ -206,7 +253,7 @@
                         <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                             <Style.Setters>
                                 <Setter Property="Height" Value="25" />
-                                <Setter Property="Width" Value="100" />
+                                <Setter Property="Width" Value="150" />
                                 <Setter Property="Foreground" Value="White" />
                                 <Setter Property="Background" Value="DarkSeaGreen"/>
                                 <Setter Property="BorderBrush" Value="White"/>
@@ -218,7 +265,7 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="99" Header="CONCEPTO"  Binding="{Binding Concepto}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="140" Header="CONCEPTO"  Binding="{Binding Concepto}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                         <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*" Header="VENTA" Binding="{Binding Resultado}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                         <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*" Header="COMIS." Binding="{Binding Comision}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                         <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*" Header="SACO" Binding="{Binding Saco}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
@@ -249,87 +296,63 @@
             <!--- //////////////////// Fin Template Suma de ventas ///////////////////////-->
             
             <!-- //////////////////// Template Reportes Ganadores //////////////////////-->
-            <Grid Background="WhiteSmoke" Visibility="{Binding RPTTicketGanadores}" Height="330" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
-                <Grid.Resources>
-                    <CollectionViewSource  x:Key="colection" Source="{Binding ReportesGanadores}" x:Name="coleccion">
-                        <CollectionViewSource.GroupDescriptions>
-                            <PropertyGroupDescription PropertyName="Categoria"/>
-                        </CollectionViewSource.GroupDescriptions>
-                        <CollectionViewSource.SortDescriptions>
-                            <!-- Requires 'xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"' declaration. -->
-                            <scm:SortDescription PropertyName="Tickets"/>
-                            <scm:SortDescription PropertyName="Fecha" />
-                            <scm:SortDescription PropertyName="Monto" />
-                        </CollectionViewSource.SortDescriptions>
-                    </CollectionViewSource>
-                </Grid.Resources>
-                
+            <ScrollViewer  VerticalScrollBarVisibility="Auto" Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding RPTTicketGanadoresVisibility}">
+            <Grid Background="WhiteSmoke" Name="GridGanadores" Visibility="{Binding RPTTicketGanadoresVisibility}" Width="665" Margin="0,0,0,4" VerticalAlignment="Bottom" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="85"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="110"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition x:Name="EncabezadoPagados" Height="Auto"></RowDefinition>
+                    <RowDefinition x:Name="GridTicketPagados" Height="Auto"></RowDefinition>
+                    <RowDefinition x:Name="EncabezadoPendientePagos" Height="Auto"></RowDefinition>
+                    <RowDefinition x:Name="GridTicketPendientesPagoss" Height="Auto"></RowDefinition>
+                     <RowDefinition x:Name="EncabezadoSinReclamar" Height="Auto"></RowDefinition>
+                     <RowDefinition x:Name="GridTicketSinReclamar" Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 
-                <StackPanel Height="60px" VerticalAlignment="Top" Margin="0,5"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                <StackPanel Height="110px" VerticalAlignment="Top" Margin="0,5"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                     <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                 </StackPanel>
-                <DataGrid x:Name="GridAgrupadoVista" Height="200" Grid.Column="0" Grid.Row="1" CanUserResizeColumns="False" CanUserResizeRows="False" ItemsSource="{Binding Source={StaticResource colection}}">
-                    <DataGrid.GroupStyle>
-                        <!-- Style for groups at top level. -->
-                        <GroupStyle>
-                            <GroupStyle.ContainerStyle>
-                                <Style TargetType="{x:Type GroupItem}">
-                                    <Setter Property="Margin" Value="0,0,0,0"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type GroupItem}">
-                                                <Expander IsExpanded="True" Background="DarkSeaGreen"  BorderBrush="White" Foreground="White" BorderThickness="1,1,1,1">
-                                                    <Expander.Header>
-                                                        <DockPanel Height="17px">
-                                                            <TextBlock FontWeight="Bold" VerticalAlignment="Top" Text="{Binding Path=Name}" Margin="0,0,0,0" Foreground="White" HorizontalAlignment="Left" Width="200"/>
-                                                            <!--<TextBlock FontWeight="Bold" Text="{Binding Path=ItemCount}"/>-->
-                                                        </DockPanel>
-                                                    </Expander.Header>
-                                                    <Expander.Content>
-                                                        <ItemsPresenter />
-                                                    </Expander.Content>
-                                                </Expander>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </GroupStyle.ContainerStyle>
-                        </GroupStyle>
-                        <!-- Style for groups under the top level. -->
-                        <GroupStyle>
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <DockPanel Background="LightBlue">
-                                        <TextBlock Text="{Binding Path=Name}" Foreground="Blue" Margin="30,0,0,0" Width="100"/>
-                                        <TextBlock Text="{Binding Path=ItemCount}" Foreground="Blue"/>
-                                    </DockPanel>
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
-                        </GroupStyle>
-                    </DataGrid.GroupStyle>
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow">
-                            <Setter Property="Foreground" Value="Black" />
-                            <Setter Property="Background" Value="White" />
-                        </Style>
-                    </DataGrid.RowStyle>
-
+                        </StackPanel>
+                    </Button>
+                    <!-- ___________________________________________________ Premios ______________________________________________________ -->
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Height="30" Visibility="{Binding ReportesGanadores.MostrarPremiosVisibity}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" >
+                        <Label Content="Premios -> " FontSize="15" FontWeight="Bold"></Label>
+                        <Label Content="1ra:"  FontSize="15" FontWeight="Bold"></Label>
+                        <Label Content="{Binding ReportesGanadores.Primera}"  FontSize="15"></Label>
+                        <Label Content="2da:"  FontSize="15" FontWeight="Bold"></Label>
+                        <Label Content="{Binding ReportesGanadores.Segunda}"  FontSize="15"></Label>
+                        <Label Content="3ra:"  FontSize="15" FontWeight="Bold"></Label>
+                        <Label Content="{Binding ReportesGanadores.Tercera}"  FontSize="15"></Label>
+                    </StackPanel>
+                    <Label FontWeight="Bold" Content="--PREMIOS NO DISPONIBLES--" Visibility="{Binding ReportesGanadores.NoMostrarPremiosVisibity}" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"></Label>
+                    <!-- __________________________________________________________________________________________________________________ -->
+                <!-- ___________________________________________________Ticket Pagados _________________________________________________ -->
+                    <StackPanel Height="Auto" Visibility="{Binding ReportesGanadores.PagadosVisibility}" Orientation="Horizontal" Grid.ColumnSpan="2" Width="700" Grid.Column="0" Grid.Row="2" >
+                        <Label  FontSize="14" FontWeight="Bold" Background="MediumSeaGreen" Opacity="0.8" HorizontalContentAlignment="Center" Foreground="White" Width="700" Content="Tickets Pagados" HorizontalAlignment="Center" Height="Auto"></Label>
+                    </StackPanel>
+                    <DataGrid  Visibility="{Binding ReportesGanadores.PagadosVisibility}"  ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="3" ItemsSource="{Binding ReportesGanadores.Pagados}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridCell" x:Key="AlignLeft">
                             <Style.Setters >
                                 <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignCenterRed">
+                            <Style.Setters >
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Foreground" Value="Red"/>
                             </Style.Setters>
                         </Style>
                         <Style TargetType="DataGridCell" x:Key="AlignRight">
@@ -337,32 +360,139 @@
                                 <Setter Property="HorizontalAlignment" Value="Right" />
                             </Style.Setters>
                         </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignCenter">
+                            <Style.Setters>
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style.Setters>
+                        </Style>
                         <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                             <Style.Setters>
                                 <Setter Property="Height" Value="25" />
-                                <Setter Property="Width" Value="150" />
+                                <Setter Property="Width" Value="220" />
                                 <Setter Property="Foreground" Value="White" />
                                 <Setter Property="Background" Value="DarkSeaGreen"/>
                                 <Setter Property="BorderBrush" Value="White"/>
-                                <Setter Property="BorderThickness" Value="1,0,1,0"/>
+                                <Setter Property="BorderThickness" Value="0,0,0,0"/>
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="AutomationProperties.IsColumnHeader" Value="False"/>
                             </Style.Setters>
                         </Style>
 
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Width="150" Header="Tickets" Binding="{Binding Tickets}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Width="150" Header="Fecha" Binding="{Binding Fecha}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Width="150" Header="Monto" Binding="{Binding Monto}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*"  Header="Tickets"  Binding="{Binding Tickets}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*"  Header="Fecha"    Binding="{Binding Fecha}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Monto"  Binding="{Binding Monto}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+                <!--_________________________________________________________________________________________________________________-->
+                <!-- ____________________________________________________ Ticket Pendientes De Pagos ____________________________________________________ -->
+                    <StackPanel  Visibility="{Binding ReportesGanadores.PendientePagarVisibility}" Orientation="Horizontal" Grid.ColumnSpan="2"  Grid.Column="0" Margin="0,8,0,0" Grid.Row="4" Height="Auto">
+                    <Label  FontSize="14" Height="Auto" Width="665" FontWeight="Bold" Foreground="White" Background="MediumSeaGreen" Opacity="0.8" Content="Ticket Pendientes De" HorizontalAlignment="Center"></Label>
+                </StackPanel>
+                    <DataGrid Visibility="{Binding ReportesGanadores.PendientePagarVisibility}" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="5" ItemsSource="{Binding ReportesGanadores.PendientesPagar}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridCell" x:Key="AlignLeft">
+                            <Style.Setters >
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignCenterRed">
+                            <Style.Setters >
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Foreground" Value="Red"/>
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignRight">
+                            <Style.Setters>
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignCenter">
+                            <Style.Setters>
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridColumnHeader" x:Key="Altura">
+                            <Style.Setters>
+                                <Setter Property="Height" Value="25" />
+                                <Setter Property="Width" Value="170" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="DarkSeaGreen"/>
+                                <Setter Property="BorderBrush" Value="White"/>
+                                <Setter Property="BorderThickness" Value="1,0,1,0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style.Setters>
+                        </Style>
+
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*"  Header="Tickets"  Binding="{Binding Tickets}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*"  Header="Fecha"    Binding="{Binding Fecha}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Monto"  Binding="{Binding Monto}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--_________________________________________________________________________________________________________________-->
+                <!-- ____________________________________________________ Tickets Sin Reclamar ____________________________________________________ -->
+                    <StackPanel  Visibility="{Binding ReportesGanadores.SinReclamarVisibility}" Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" Margin="0,8,0,0" Grid.Row="6" Height="Auto">
+                    <Label  FontSize="14" FontWeight="Bold" Width="500" Foreground="White" Background="MediumSeaGreen" Opacity="0.8" Content="Tickets Sin Reclamar" HorizontalAlignment="Center"></Label>
+                </StackPanel>
+                    <DataGrid Visibility="{Binding ReportesGanadores.SinReclamarVisibility}"  ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="7" ItemsSource="{Binding ReportesGanadores.SinReclamar}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridCell" x:Key="AlignLeft">
+                            <Style.Setters >
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignCenterRed">
+                            <Style.Setters >
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Foreground" Value="Red"/>
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignRight">
+                            <Style.Setters>
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignCenter">
+                            <Style.Setters>
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridColumnHeader" x:Key="Altura">
+                            <Style.Setters>
+                                <Setter Property="Height" Value="25" />
+                                <Setter Property="Width" Value="170" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="DarkSeaGreen"/>
+                                <Setter Property="BorderBrush" Value="White"/>
+                                <Setter Property="BorderThickness" Value="1,0,1,0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style.Setters>
+                        </Style>
+
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*"  Header="Tickets"  Binding="{Binding Tickets}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*"  Header="Fecha"    Binding="{Binding Fecha}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Monto"  Binding="{Binding Monto}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Width="700" Grid.Column="0" Grid.Row="8" >
+                        <Label  FontSize="14" FontWeight="Bold" Background="MediumSeaGreen" Opacity="0.8" Foreground="White" Width="200" Content="Balance Ganadores:" HorizontalAlignment="Center"></Label>
+                        <Label  FontSize="14" FontWeight="Bold" Background="MediumSeaGreen" Opacity="0.8" Foreground="White" Width="500" Content="{Binding ReportesGanadores.TotalGanadores}" HorizontalAlignment="Right"></Label>
+                </StackPanel>
+
+                    <!--_________________________________________________________________________________________________________________-->
             </Grid>
+            </ScrollViewer>
             <!--//////////////////////Fin Template Reportes Ganadores /////////////////// -->
 
             <!-- //////////////////// Template Reportes Suma Ventas Por Fecha //////////////////////-->
-            <Grid Background="WhiteSmoke" Visibility="{Binding RPTSumVentaFecha}" Height="330" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+            <Grid Background="WhiteSmoke" Visibility="{Binding RPTSumVentaFechaVisibility}" Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.Resources>
                     <Style TargetType="DataGridCell" x:Key="AlignLeft">
                         <Style.Setters >
@@ -377,7 +507,7 @@
                     <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                         <Style.Setters>
                             <Setter Property="Height" Value="25" />
-                            <Setter Property="Width" Value="100" />
+                            <Setter Property="Width" Value="160" />
                             <Setter Property="Foreground" Value="White" />
                             <Setter Property="Background" Value="DarkSeaGreen"/>
                             <Setter Property="BorderBrush" Value="White"/>
@@ -418,6 +548,12 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding LabelDesde,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding LabelHasta,Mode=OneWay}"></Label>
                 </StackPanel>
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+
+                    </StackPanel>
+                </Button>
                 <!--ItemsSource="{Binding Source={StaticResource colection}}"-->
                 <DataGrid x:Name="GridVentaFechas" Margin="0,0,0,30" BorderBrush="White" BorderThickness="0,0,0,0" Grid.Column="0" CanUserAddRows="False" ItemsSource="{Binding Source={StaticResource colection}}" Grid.Row="1" >
                     
@@ -465,7 +601,7 @@
                         <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                             <Style.Setters>
                                 <Setter Property="Height" Value="30" />
-                                <Setter Property="Width" Value="90" />
+                                <Setter Property="Width" Value="140" />
                                 <Setter Property="Foreground" Value="White" />
                                 <Setter Property="Background" Value="DarkSeaGreen"/>
                                 <Setter Property="BorderBrush" Value="White"/>
@@ -478,11 +614,11 @@
 
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Fecha" Width="90" Binding="{Binding Fecha}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Venta" Width="90" Binding="{Binding Resultado}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Comision" Width="90" Binding="{Binding Comision}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Saco" Width="90" Binding="{Binding Saco}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Balance" Width="90" Binding="{Binding Balance}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Fecha" Width="*" Binding="{Binding Fecha}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Venta" Width="*" Binding="{Binding Resultado}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Comision" Width="*" Binding="{Binding Comision}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Saco" Width="*" Binding="{Binding Saco}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" Header="Balance" Width="*" Binding="{Binding Balance}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <Grid  Height="30px" Background="DarkSeaGreen" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" VerticalAlignment="Bottom">
@@ -506,7 +642,7 @@
             </Grid>
             
             <!-- /////////////////// Template De Lista De Tarjetas ///////////////////////// -->
-            <Grid Visibility="{Binding RPTListTarjetas}"  Background="WhiteSmoke"  Height="330" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+            <Grid Visibility="{Binding RPTListTarjetasVisibility}"  Background="WhiteSmoke" Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -523,8 +659,14 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                 </StackPanel>
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
-                <DataGrid  ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" Name="TempleateListaTarjetas" ItemsSource="{Binding ReportesListaTarjetas,UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    </StackPanel>
+                </Button>
+
+                <DataGrid  ScrollViewer.VerticalScrollBarVisibility="Auto"  CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" Name="TempleateListaTarjetas" ItemsSource="{Binding ReportesListaTarjetas,UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridCell" x:Key="AlignLeft">
                             <Style.Setters >
@@ -544,7 +686,7 @@
                         <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                             <Style.Setters>
                                 <Setter Property="Height" Value="25" />
-                                <Setter Property="Width" Value="130" />
+                                <Setter Property="Width" Value="180" />
                                 <Setter Property="Foreground" Value="White" />
                                 <Setter Property="Background" Value="DarkSeaGreen"/>
                                 <Setter Property="BorderBrush" Value="White"/>
@@ -584,58 +726,115 @@
             <!--- //////////////////// Fin Template de lista de tarjetas ///////////////////////-->
 
             <!-- /////////////////// Template De Reportes De Ventas ///////////////////////// -->
-            <ScrollViewer Grid.Row="0" Visibility="{Binding RPTVentas}" Grid.Column="1" VerticalScrollBarVisibility="Auto" VerticalAlignment="Bottom" Height="330" Width="470">
+            <ScrollViewer Visibility="{Binding RPTVentasVisibily}" VerticalScrollBarVisibility="Auto" Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid Background="WhiteSmoke"  Height="Auto" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" >
                 <Grid.ColumnDefinitions >
-                    <ColumnDefinition Width="250" ></ColumnDefinition>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" ></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="100" ></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                     <RowDefinition Height="25"></RowDefinition>
-                    </Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
 
-                <StackPanel Height="120px" VerticalAlignment="Top" Margin="60,5,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Center"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                <StackPanel Height="120px" VerticalAlignment="Top" Margin="60,5,0,0" Grid.ColumnSpan="4" HorizontalAlignment="Center"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                     <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="14px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                 </StackPanel>
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
-                <Label Grid.Column="0" FontSize="15" Margin="60,0,0,0" HorizontalAlignment="Left"  Grid.Row="1">Numeros: </Label>
-                <Label Grid.Column="1" FontSize="15" HorizontalAlignment="Right" Grid.Row="1" FontWeight="Bold" Content="{Binding ReportesDeVentas.Numeros}"></Label>
-                <Label Grid.Column="0" FontSize="15" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="2">Numeros ($RD):</Label>
-                <Label Grid.Column="1" FontSize="15" HorizontalAlignment="Right" Grid.Row="2" FontWeight="Bold" Content="{Binding ReportesDeVentas.NumerosRD}"></Label>
-                <Label Grid.Column="0" FontSize="15" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="3">Pales:</Label>
-                <Label Grid.Column="1" FontSize="15" HorizontalAlignment="Right" Grid.Row="3" FontWeight="Bold" Content="{Binding ReportesDeVentas.Pales}"></Label>
-                <Label Grid.Column="0" FontSize="15" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="4">Tripletas:</Label>
-                <Label Grid.Column="1" FontSize="15" HorizontalAlignment="Right" Grid.Row="4" FontWeight="Bold" Content="{Binding ReportesDeVentas.Tripletas}"></Label>
-                <Label Grid.Column="0" FontSize="15" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="5">Total Venta ==></Label>
-                <Label Grid.Column="1" FontSize="15" HorizontalAlignment="Right" Grid.Row="5" FontWeight="Bold" Content="{Binding ReportesDeVentas.TotalVentas}"></Label>
-                <Label Grid.Column="0" FontSize="15" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="6">Comision(0%):</Label>
-                <Label Grid.Column="1" FontSize="15" HorizontalAlignment="Right" Grid.Row="6" FontWeight="Bold" Content="{Binding ReportesDeVentas.Comision}"></Label>
-                <Label Grid.Column="0" FontSize="15" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="7">Venta Neta:</Label>
-                <Label Grid.Column="1" FontSize="15" HorizontalAlignment="Right" Grid.Row="7" FontWeight="Bold" Content="{Binding ReportesDeVentas.VentaNeta}"></Label>
+                        </StackPanel>
+                    </Button>
+                    
+                <Label Grid.Column="0" FontSize="15" Grid.ColumnSpan="2"  Margin="60,0,0,0" HorizontalAlignment="Left"  Grid.Row="1">Numeros: </Label>
+                <Label Grid.Column="3" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="1" FontWeight="Bold" Content="{Binding ReportesDeVentas.Numeros}"></Label>
+                <Label Grid.Column="0" FontSize="15" Grid.ColumnSpan="2" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="2">Numeros ($RD):</Label>
+                <Label Grid.Column="3" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="2" FontWeight="Bold" Content="{Binding ReportesDeVentas.NumerosRD}"></Label>
+                <Label Grid.Column="0" FontSize="15" Grid.ColumnSpan="2" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="3">Pales:</Label>
+                <Label Grid.Column="3" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="3" FontWeight="Bold" Content="{Binding ReportesDeVentas.Pales}"></Label>
+                <Label Grid.Column="0" FontSize="15" Grid.ColumnSpan="2" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="4">Tripletas:</Label>
+                <Label Grid.Column="3" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="4" FontWeight="Bold" Content="{Binding ReportesDeVentas.Tripletas}"></Label>
+                <Label Grid.Column="0" FontSize="15" Grid.ColumnSpan="2" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="5">Total Venta ==></Label>
+                <Label Grid.Column="3" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="5" FontWeight="Bold" Content="{Binding ReportesDeVentas.TotalVentas}"></Label>
+                <Label Grid.Column="0" FontSize="15" Grid.ColumnSpan="2" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="6">Comision(0%):</Label>
+                <Label Grid.Column="3" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="6" FontWeight="Bold" Content="{Binding ReportesDeVentas.Comision}"></Label>
+                <Label Grid.Column="0" FontSize="15" Grid.ColumnSpan="2" Margin="60,0,0,0" HorizontalAlignment="Left" Grid.Row="7">Venta Neta:</Label>
+                <Label Grid.Column="3" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="7" FontWeight="Bold" Content="{Binding ReportesDeVentas.VentaNeta}"></Label>
 
-                <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="60,0,0,0" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Content="--Premios No Disponibles--" Visibility="{Binding ReportesDeVentas.PremiosDisponibles}"></Label>
-                    <Label Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold" Margin="60,0,0,0" FontSize="14" HorizontalAlignment="Center" Content="--No Hay Ticket Nulos--" Visibility="{Binding ReportesDeVentas.TicketNulosDisponibles}"></Label>
+                <Label Grid.Column="0" Margin="50,0,0,0" FontSize="15" Grid.ColumnSpan="4" Grid.Row="8" FontWeight="Bold" Content="--------------------------------------------------------------------------------------------------------------------------------------"></Label>
 
-            </Grid>
+                <Label HorizontalAlignment="Center" Height="25" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="9" FontWeight="Bold" FontSize="15" Margin="60,10,0,0" Grid.Column="0" Content=""></Label>
+                <Label HorizontalAlignment="Right" Grid.Row="9" FontWeight="Bold" Visibility="{Binding PremiosVentas.MostrarPremios}" FontSize="15" Margin="0,10,0,0" Grid.Column="1" Content="PREMIOS"></Label>
+                <Label HorizontalAlignment="Right" Grid.Row="9" FontWeight="Bold" Visibility="{Binding PremiosVentas.MostrarPremios}" FontSize="15" Margin="0,10,0,0" Grid.Column="2" Content="CANTIDAD"></Label>
+                <Label HorizontalAlignment="Right" Grid.Row="9" FontWeight="Bold" Visibility="{Binding PremiosVentas.MostrarPremios}" FontSize="15" Margin="0,10,0,0" Grid.Column="3" Content="GANA"></Label>
+
+                <Label Visibility="{Binding PremiosVentas.MostrarPremios}" FontWeight="Bold" FontSize="15" Margin="60,0,0,0" Grid.Row="10" Grid.Column="0" Content="1ra."></Label>
+                    <Label FontSize="15" HorizontalAlignment="Center" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="10" Grid.Column="1" Content="{Binding PremiosVentas.Primera}"></Label>
+                    <Label FontSize="15" HorizontalAlignment="Right" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="10" Grid.Column="2" Content="{Binding PremiosVentas.Cantidad1RA}"></Label>
+                    <Label FontSize="15" HorizontalAlignment="Right" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="10" Grid.Column="3" Content="{Binding PremiosVentas.Monto1RA}"></Label>
+
+                <Label Visibility="{Binding PremiosVentas.MostrarPremios}" FontWeight="Bold" FontSize="15" Margin="60,0,0,0" Grid.Row="11" Grid.Column="0" Content="2da."></Label>
+                    <Label Visibility="{Binding PremiosVentas.MostrarPremios}" HorizontalAlignment="Center" FontSize="15" Grid.Row="11" Grid.Column="1" Content="{Binding PremiosVentas.Segunda}"></Label>
+                    <Label HorizontalAlignment="Right" Visibility="{Binding PremiosVentas.MostrarPremios}" FontSize="15" Grid.Row="11" Grid.Column="2" Content="{Binding PremiosVentas.Cantidad2DA}"></Label>
+                    <Label HorizontalAlignment="Right" Visibility="{Binding PremiosVentas.MostrarPremios}" FontSize="15" Grid.Row="11" Grid.Column="3" Content="{Binding PremiosVentas.Monto2DA}"></Label>
+
+                <Label Visibility="{Binding PremiosVentas.MostrarPremios}" FontWeight="Bold" FontSize="15" Margin="60,0,0,0" Grid.Row="12" Grid.Column="0" Content="3ra."></Label>
+                    <Label Visibility="{Binding PremiosVentas.MostrarPremios}" HorizontalAlignment="Center" FontSize="15" Grid.Row="12" Grid.Column="1" Content="{Binding PremiosVentas.Tercera}"></Label>
+                    <Label HorizontalAlignment="Right" Visibility="{Binding PremiosVentas.MostrarPremios}" FontSize="15" Grid.Row="12" Grid.Column="2" Content="{Binding PremiosVentas.Cantidad3RA}"></Label>
+                    <Label HorizontalAlignment="Right" Visibility="{Binding PremiosVentas.MostrarPremios}" FontSize="15" Grid.Row="12" Grid.Column="3" Content="{Binding PremiosVentas.Monto3RA}"></Label>
+
+                    <Label Visibility="{Binding PremiosVentas.MostrarPremios}" FontSize="15" Grid.Column="0" Margin="60,20,0,0" Grid.Row="13" HorizontalAlignment="Left" Grid.ColumnSpan="3" Content="NUMEROS PREMIADOS:"></Label>
+                    <Label HorizontalAlignment="Right" Margin="0,20,0,0" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="13" Grid.Column="3" FontSize="15" Content="{Binding PremiosVentas.TotalNumerosPremiados}"></Label>
+
+                    <Label Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="14" FontSize="15" Grid.Column="0" Margin="60,0,0,0"  HorizontalAlignment="Left" Grid.ColumnSpan="3" Content="PALES PREMIADOS: "></Label>
+                    <Label FontSize="15" HorizontalAlignment="Right" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="14" Grid.Column="3" Content="{Binding PremiosVentas.TotalPalesPremiados}"></Label>
+
+                    <Label Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="15" Grid.Column="0" FontSize="15" Margin="60,0,0,0"  HorizontalAlignment="Left" Grid.ColumnSpan="3" Content="TRIPLETAS PREMIADOS: "></Label>
+                    <Label HorizontalAlignment="Right" FontSize="15" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="15" Grid.Column="3" Content="{Binding PremiosVentas.TotalTripletaPremiados}"></Label>
+
+                    <Label Visibility="{Binding PremiosVentas.MostrarPremios}" FontWeight="Bold" Grid.Row="16" FontSize="15" Grid.Column="0" Margin="60,0,0,0"  HorizontalAlignment="Left" Grid.ColumnSpan="3" Content="TOTAL PREMIADOS: "></Label>
+                    <Label HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="16" Grid.Column="3" Content="{Binding PremiosVentas.TotalPremiados}"></Label>
+
+                    <Label Visibility="{Binding PremiosVentas.MostrarPremios}" FontWeight="Bold" Grid.Row="17" FontSize="15" Grid.Column="0"  Margin="60,0,0,0" HorizontalAlignment="Left" Grid.ColumnSpan="3" Content="GANANCIAS: "></Label>
+                    <Label HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Visibility="{Binding PremiosVentas.MostrarPremios}" Grid.Row="17" Grid.Column="3" Content="{Binding PremiosVentas.TotalGanancia}"></Label>
+
+                <Label Grid.Row="9" Grid.Column="0" Visibility="{Binding PremiosVentas.NoMostrarPremios}" Grid.ColumnSpan="4" Margin="60,0,0,0" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Content="--Premios No Disponibles--"></Label>
+                <Label Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="4" FontWeight="Bold" Margin="60,0,0,0" FontSize="14" HorizontalAlignment="Center" Content="--No Hay Ticket Nulos--" Visibility="{Binding ReportesDeVentas.TicketNulosDisponibles}"></Label>
+                    
+
+                </Grid>
+               
             </ScrollViewer>
             <!--- //////////////////// Fin Template Reporte De Ventas ///////////////////////-->
 
             <!-- /////////////////// Template De Lista De Ticket ///////////////////////// -->
-            <Grid Visibility="{Binding RPTLitTicket}"  Background="WhiteSmoke"  Height="330" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+            <Grid Visibility="{Binding RPTLitTicketVisibility}"  Background="White" Height="345" Width="690" Margin="0,0,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -646,13 +845,19 @@
 
                 </Grid.RowDefinitions>
 
-                <StackPanel Height="100px" Margin="0,0"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                <StackPanel Height="100px" Margin="0,0" Name="EncabezadoListTiccket"   Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                     <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                 </StackPanel>
+                <Button  Style="{DynamicResource btn-success}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+
+                    </StackPanel>
+                </Button>
 
                 <DataGrid x:Name="GridListTicket" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ReporteListTicket}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Resources>
@@ -680,7 +885,7 @@
                         <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                             <Style.Setters>
                                 <Setter Property="Height" Value="25" />
-                                <Setter Property="Width" Value="130" />
+                                <Setter Property="Width" Value="180" />
                                 <Setter Property="Foreground" Value="White" />
                                 <Setter Property="Background" Value="DarkSeaGreen"/>
                                 <Setter Property="BorderBrush" Value="White"/>
@@ -726,35 +931,45 @@
             <!--- //////////////////// Fin Template de lista de ticket ///////////////////////-->
 
             <!-- /////////////////// Template De Lista De Numeros ///////////////////////// -->
-            <ScrollViewer Grid.Column="1" Visibility="Hidden" VerticalScrollBarVisibility="Auto" Height="330" VerticalAlignment="Bottom">
-            <Grid Visibility="Visible"  Background="WhiteSmoke"  Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+            <ScrollViewer  Visibility="{Binding RPTListNumerosVisibility}" VerticalScrollBarVisibility="Auto" Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid  Background="WhiteSmoke"   Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
                 
                 <Grid.ColumnDefinitions >
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition MinWidth="400" Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100px"></RowDefinition>
-                    <RowDefinition ></RowDefinition>
-                    <RowDefinition Height="170"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="170px"></RowDefinition>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="170px"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
 
                     </Grid.RowDefinitions>
 
-                <StackPanel Height="100px" Margin="0,0"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                <StackPanel Height="100px" Margin="0,0" Width="300"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                     <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                 </StackPanel>
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
-                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Width="490" Grid.Column="0" Grid.Row="1" >
-                    <Label  FontSize="14" FontWeight="Bold" Background="DarkSeaGreen" Content="Detalles De Numeros Vendidos" HorizontalAlignment="Center"></Label>
-                </StackPanel>
-                <DataGrid x:Name="GridListNumeros" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ReportesListaNumeros.Quiniela}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                        </StackPanel>
+                    </Button>
+
+                    <!-- ___________________________________________________ Quinielas _________________________________________________ -->
+                    <StackPanel Visibility="{Binding ReportesListaNumeros.QuinielaVisibilty}" Orientation="Horizontal" Grid.ColumnSpan="4" Width="700"  Grid.Column="0" Grid.Row="1" >
+                    <Label  FontSize="14" FontWeight="Bold" Background="MediumSeaGreen" HorizontalContentAlignment="Center" Opacity="0.8" Foreground="White" Width="700" Content="Detalles De Numeros Vendidos" HorizontalAlignment="Center"></Label>
+                   </StackPanel>
+                    <DataGrid Visibility="{Binding ReportesListaNumeros.QuinielaVisibilty}" x:Name="GridListNumeros" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ReportesListaNumeros.Quiniela}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridCell" x:Key="AlignLeft">
                             <Style.Setters >
@@ -780,7 +995,7 @@
                         <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                             <Style.Setters>
                                 <Setter Property="Height" Value="25" />
-                                <Setter Property="Width" Value="80" />
+                                <Setter Property="Width" Value="130" />
                                 <Setter Property="Foreground" Value="White" />
                                 <Setter Property="Background" Value="DarkSeaGreen"/>
                                 <Setter Property="BorderBrush" Value="White"/>
@@ -800,62 +1015,74 @@
                         <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*"  Header="Cant"    Binding="{Binding CantidadColumn3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-
-                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2"
-                            Grid.Column="0" Margin="0,10,0,0" Grid.Row="3" Height="35">
-                    <Label  FontSize="12" FontWeight="Bold" Foreground="White" Background="DarkSeaGreen" Content="Detalles De Pales Vendidos" HorizontalAlignment="Center"></Label>
-                </StackPanel>
-                <DataGrid x:Name="GridListNumerosPale" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="4" ItemsSource="{Binding ReportesListaNumeros.Pale}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
-                    <DataGrid.Resources>
-                        <Style TargetType="DataGridCell" x:Key="AlignLeft">
-                            <Style.Setters >
-                                <Setter Property="HorizontalContentAlignment" Value="Left" />
-                            </Style.Setters>
-                        </Style>
-                        <Style TargetType="DataGridCell" x:Key="AlignCenterRed">
-                            <Style.Setters >
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="Foreground" Value="Red"/>
-                            </Style.Setters>
-                        </Style>
-                        <Style TargetType="DataGridCell" x:Key="AlignRight">
-                            <Style.Setters>
-                                <Setter Property="HorizontalAlignment" Value="Right" />
-                            </Style.Setters>
-                        </Style>
-                        <Style TargetType="DataGridCell" x:Key="AlignCenter">
-                            <Style.Setters>
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                            </Style.Setters>
-                        </Style>
-                        <Style TargetType="DataGridColumnHeader" x:Key="Altura">
-                            <Style.Setters>
-                                <Setter Property="Height" Value="25" />
-                                <Setter Property="Width" Value="80" />
-                                <Setter Property="Foreground" Value="White" />
-                                <Setter Property="Background" Value="DarkSeaGreen"/>
-                                <Setter Property="BorderBrush" Value="White"/>
-                                <Setter Property="BorderThickness" Value="1,0,1,0"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            </Style.Setters>
-                        </Style>
-
-                    </DataGrid.Resources>
-
-                    <DataGrid.Columns>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Num"  Binding="{Binding NumeroColumn1}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*"  Header="Cant"    Binding="{Binding CantidadColumn1}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Num"  Binding="{Binding NumeroColumn2}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*"  Header="Cant"    Binding="{Binding CantidadColumn2}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Num"  Binding="{Binding NumeroColumn3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
-                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*"  Header="Cant"    Binding="{Binding CantidadColumn3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2"
-                            Grid.Column="0" Margin="0,10,0,0" Grid.Row="5" Height="35">
-                        <Label  FontSize="12" FontWeight="Bold" Foreground="White" Background="DarkSeaGreen" Content="Detalles De Tripletas Vendidos" HorizontalAlignment="Center"></Label>
+                    <StackPanel Visibility="{Binding ReportesListaNumeros.QuinielaVisibilty}"  Orientation="Horizontal" Height="25" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" VerticalAlignment="Bottom" Background="DarkSeaGreen">
+                        <Label Foreground="White" FontWeight="Bold" Content="Venta: " FontSize="14px"></Label>
+                        <Label Foreground="White" FontWeight="Bold" Content="{Binding ReportesListaNumeros.TotalCantidaQuiniela}" FontSize="14px" Margin="40,0,0,0"></Label>
+                        <Label Foreground="White" FontWeight="Bold"  Content="{Binding ReportesListaNumeros.TotalPagoQuiniela}" FontSize="14px" Margin="40,0,0,0"></Label>
                     </StackPanel>
-                    <DataGrid x:Name="GridListNumerosTripletas" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="6" ItemsSource="{Binding ReportesListaNumeros.Tripleta}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <!--_________________________________________________________________________________________________________________-->
+                    <!-- ____________________________________________________ Pales ____________________________________________________ -->
+                    <StackPanel Visibility="{Binding ReportesListaNumeros.PaleVisibility}" Orientation="Horizontal" Grid.ColumnSpan="2"  Grid.Column="0" Margin="0,8,0,0" Grid.Row="4" Height="28">
+                        <Label  FontSize="14" Height="40" HorizontalContentAlignment="Center" Width="700" FontWeight="Bold" Foreground="White" Background="MediumSeaGreen" Opacity="0.8" Content="Detalles De Pales Vendidos" HorizontalAlignment="Center"></Label>
+                    </StackPanel>
+                    <DataGrid Visibility="{Binding ReportesListaNumeros.PaleVisibility}" x:Name="GridListNumerosPale" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="5" ItemsSource="{Binding ReportesListaNumeros.Pale}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridCell" x:Key="AlignLeft">
+                            <Style.Setters >
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignCenterRed">
+                            <Style.Setters >
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Foreground" Value="Red"/>
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignRight">
+                            <Style.Setters>
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridCell" x:Key="AlignCenter">
+                            <Style.Setters>
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style.Setters>
+                        </Style>
+                        <Style TargetType="DataGridColumnHeader" x:Key="Altura">
+                            <Style.Setters>
+                                <Setter Property="Height" Value="25" />
+                                <Setter Property="Width" Value="130" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="DarkSeaGreen"/>
+                                <Setter Property="BorderBrush" Value="White"/>
+                                <Setter Property="BorderThickness" Value="1,0,1,0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style.Setters>
+                        </Style>
+
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Num"  Binding="{Binding NumeroColumn1}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*"  Header="Cant"    Binding="{Binding CantidadColumn1}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Num"  Binding="{Binding NumeroColumn2}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*"  Header="Cant"    Binding="{Binding CantidadColumn2}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignCenter}" Width="*"  Header="Num"  Binding="{Binding NumeroColumn3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                        <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*"  Header="Cant"    Binding="{Binding CantidadColumn3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                       
+                </DataGrid>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding ReportesListaNumeros.PaleVisibility}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="6" Height="25" VerticalAlignment="Bottom" Background="DarkSeaGreen">
+                        <Label Foreground="White" FontWeight="Bold" Content="Venta: " FontSize="14px"></Label>
+                        <Label Foreground="White" FontWeight="Bold" Content="{Binding ReportesListaNumeros.TotalCantidadPale}" FontSize="14px" Margin="40,0,0,0"></Label>
+                        <Label Foreground="White" FontWeight="Bold"  Content="{Binding ReportesListaNumeros.TotalPagoPale}" FontSize="14px" Margin="40,0,0,0"></Label>
+                    </StackPanel>
+                    <!--_________________________________________________________________________________________________________________-->
+                    <!-- ____________________________________________________ Tripletas ____________________________________________________ -->
+                    <StackPanel x:Name="TituloTripleta" Visibility="{Binding ReportesListaNumeros.TripletaVisibility}" Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" Margin="0,8,0,0" Grid.Row="7" Height="28">
+                        <Label  FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" Width="700" Foreground="White" Background="MediumSeaGreen" Opacity="0.8" Content="Detalles De Tripletas Vendidos" HorizontalAlignment="Center"></Label>
+                    </StackPanel>
+                    <DataGrid  Visibility="{Binding ReportesListaNumeros.TripletaVisibility}" x:Name="GridListNumerosTripletas" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="8" ItemsSource="{Binding ReportesListaNumeros.Tripleta}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCell" x:Key="AlignLeft">
                                 <Style.Setters >
@@ -881,7 +1108,7 @@
                             <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                                 <Style.Setters>
                                     <Setter Property="Height" Value="25" />
-                                    <Setter Property="Width" Value="80" />
+                                    <Setter Property="Width" Value="130" />
                                     <Setter Property="Foreground" Value="White" />
                                     <Setter Property="Background" Value="DarkSeaGreen"/>
                                     <Setter Property="BorderBrush" Value="White"/>
@@ -901,13 +1128,18 @@
                             <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*"  Header="Cant"    Binding="{Binding CantidadColumn3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-
+                    <StackPanel Visibility="{Binding ReportesListaNumeros.TripletaVisibility}" Orientation="Horizontal" Height="25" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="9" Background="DarkSeaGreen">
+                        <Label Foreground="White" FontWeight="Bold" Content="Venta: " FontSize="14px"></Label>
+                        <Label HorizontalAlignment="Right" Foreground="White" FontWeight="Bold" Content="{Binding ReportesListaNumeros.TotalCantidadTripleta}" FontSize="14px" Margin="40,0,0,0"></Label>
+                        <Label HorizontalAlignment="Right" Foreground="White" FontWeight="Bold"  Content="{Binding ReportesListaNumeros.TotalPagoTripleta}" FontSize="14px" Margin="40,0,0,0"></Label>
+                    </StackPanel>
+                    <!--_________________________________________________________________________________________________________________-->
                 </Grid>
             </ScrollViewer>
-            <!--- //////////////////// Fin Template de lista de ticket ///////////////////////-->
+            <!--- //////////////////// Fin Template de lista de Numeros ///////////////////////-->
 
             <!-- /////////////////// Template De Lista De Pagos Remotos ///////////////////////// -->
-            <Grid Visibility="{Binding RPTPagosRemotos}"  Background="WhiteSmoke"  Height="330" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+            <Grid Visibility="{Binding RPTPagosRemotosVisibility}"  Background="WhiteSmoke"  Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -924,6 +1156,12 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                 </StackPanel>
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+
+                    </StackPanel>
+                </Button>
 
                 <DataGrid x:Name="GridPagosRemotos" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ReportePagosRemotos}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                     <DataGrid.Resources>
@@ -951,7 +1189,7 @@
                         <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                             <Style.Setters>
                                 <Setter Property="Height" Value="25" />
-                                <Setter Property="Width" Value="130" />
+                                <Setter Property="Width" Value="180" />
                                 <Setter Property="Foreground" Value="White" />
                                 <Setter Property="Background" Value="DarkSeaGreen"/>
                                 <Setter Property="BorderBrush" Value="White"/>
