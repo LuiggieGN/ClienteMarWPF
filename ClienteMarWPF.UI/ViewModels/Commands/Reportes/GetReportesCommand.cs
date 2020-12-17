@@ -99,6 +99,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             ViewModel.ReportesListaNumeros.QuinielaVisibilty = Visibility.Hidden;
             ViewModel.ReportesListaNumeros.PaleVisibility = Visibility.Hidden;
             ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
+            ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
 
             try
             {
@@ -273,6 +274,73 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     var TicketSinReclamar = Reporte.Tickets.Where(ticket => ticket.Solicitud == 6);
                     var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 5);
 
+                    if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() > 0)
+                    {
+                        ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                        ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                        ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 4;
+                        ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 5;
+                        ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 6;
+                        ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 7;
+                        ViewModel.ReportesGanadores.PosicionBalance = 8;
+                    }
+                if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() == 0)
+                {
+                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                    ViewModel.ReportesGanadores.PosicionBalance = 4;
+                    ViewModel.ReportesGanadores.HeightTicketNoGanadores = 10;
+                }
+                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() == 0)
+                {
+                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 4;
+                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 5;
+                    ViewModel.ReportesGanadores.PosicionBalance = 6;
+                    ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Visible;
+                    ViewModel.ReportesGanadores.HeightTicketNoGanadores = 50;
+                }
+                else
+                {
+                    ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
+                    ViewModel.ReportesGanadores.HeightTicketNoGanadores = 10;
+                }
+                if (TicketPagados.Count() ==0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() == 0)
+                {
+                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 2;
+                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 3;
+                    ViewModel.ReportesGanadores.PosicionBalance = 4;
+                }
+                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
+                {
+                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 2;
+                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 3;
+                    ViewModel.ReportesGanadores.PosicionBalance = 4;
+                }
+                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() > 0)
+                {
+                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 2;
+                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 3;
+                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 4;
+                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 5;
+                    ViewModel.ReportesGanadores.PosicionBalance = 6;
+                }
+                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
+                {
+                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 2;
+                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 3;
+                    ViewModel.ReportesGanadores.PosicionBalance = 4;
+                }
+                if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
+                {
+                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 4;
+                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 5;
+                    ViewModel.ReportesGanadores.PosicionBalance = 6;
+                }
+
                     ViewModel.ReportesGanadores.PendientesPagar.Clear();
                     ViewModel.ReportesGanadores.SinReclamar.Clear();
                     ViewModel.ReportesGanadores.Pagados.Clear();
@@ -289,6 +357,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     {
                         ViewModel.ReportesGanadores.MostrarPremiosVisibity = Visibility.Visible;
                         ViewModel.ReportesGanadores.NoMostrarPremiosVisibity = Visibility.Hidden;
+                        
                         if (Reporte.Primero != "") { ViewModel.ReportesGanadores.Primera = Reporte.Primero; } else { ViewModel.ReportesGanadores.Primera = "--"; }
                         if (Reporte.Segundo != "") { ViewModel.ReportesGanadores.Segunda = Reporte.Segundo; } else { ViewModel.ReportesGanadores.Segunda = "--"; }
                         if (Reporte.Tercero != "") { ViewModel.ReportesGanadores.Tercera = Reporte.Tercero; } else { ViewModel.ReportesGanadores.Tercera = "--"; }
@@ -414,6 +483,46 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             return mesEspanol;
         }
 
+        private string ConvertirMonedaNegativos(int cantidad)
+        {
+            string AnteComa = "";
+            string LuegoComa = "";
+            string CantidadConvertido = "";
+
+            if (cantidad.ToString().Length == 4)
+            {
+                
+                CantidadConvertido = cantidad.ToString();
+
+            }
+            if (cantidad.ToString().Length == 5)
+            {
+                AnteComa = cantidad.ToString().Substring(0, 2) + ",";
+                LuegoComa = cantidad.ToString().Substring(2, (cantidad.ToString().Length)-2);
+                CantidadConvertido = AnteComa + LuegoComa;
+
+            }
+            if (cantidad.ToString().Length == 6)
+            {
+                AnteComa = cantidad.ToString().Substring(0, 3) + ",";
+                LuegoComa = cantidad.ToString().Substring(3, cantidad.ToString().Length-3);
+                CantidadConvertido = AnteComa + LuegoComa;
+
+            }
+            if (cantidad.ToString().Length == 7)
+            {
+                var segundaComa = "";
+                AnteComa = cantidad.ToString().Substring(0, 2) + ",";
+                segundaComa = cantidad.ToString().Substring(3, 6) + ",";
+                LuegoComa = cantidad.ToString().Substring(7, cantidad.ToString().Length-7);
+                CantidadConvertido = AnteComa + segundaComa + LuegoComa;
+
+            }
+
+
+            return "$"+CantidadConvertido+".00";
+        }
+
         private void RPTVentas(object parametro)
         {
             int loteria = new ReporteView().GetLoteriaID();
@@ -449,11 +558,13 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                 {
                     ViewModel.PremiosVentas.MostrarPremios = Visibility.Visible;
                     ViewModel.PremiosVentas.NoMostrarPremios = Visibility.Hidden;
+                    ViewModel.ReportesDeVentas.PosicionTicketNulo = 18;
                 }
                 else
                 {
                     ViewModel.PremiosVentas.MostrarPremios = Visibility.Hidden;
                     ViewModel.PremiosVentas.NoMostrarPremios = Visibility.Visible;
+                    ViewModel.ReportesDeVentas.PosicionTicketNulo = 10;
                 }
                 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -466,20 +577,22 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                 }
 
 
-                var TotalGanancia = Convert.ToInt32((ReporteVenta.Numeros + ReporteVenta.Pales + ReporteVenta.Tripletas) - ReporteVenta.Comision) - Convert.ToInt32(ReporteVenta.MPrimero + ReporteVenta.MSegundo + ReporteVenta.MTercero);
+                var TotalGanancia = (Convert.ToInt32((ReporteVenta.Numeros + ReporteVenta.Pales + ReporteVenta.Tripletas) - ReporteVenta.Comision)) - (Convert.ToInt32((ReporteVenta.MPrimero+ReporteVenta.MSegundo+ReporteVenta.MTercero) + ReporteVenta.MPales + ReporteVenta.MTripletas));
                 string TotalFormateado=null;
                 if (TotalGanancia >= 0)
                 {
                   TotalFormateado  = string.Format(nfi, "{0:C}", TotalGanancia);
+                    ViewModel.ReportesDeVentas.GananciaOPerdida = "GANANCIA:";
                 }
                 else if (TotalGanancia < 0){
-                   TotalFormateado = "$" + TotalGanancia.ToString();
+                    TotalFormateado = "$" + ConvertirMonedaNegativos(TotalGanancia);
+                    ViewModel.ReportesDeVentas.GananciaOPerdida = "PERDIDA:";
                 }
 
                 ViewModel.PremiosVentas.TotalNumerosPremiados = string.Format(nfi,"{0:C}",Convert.ToInt32(ReporteVenta.MPrimero + ReporteVenta.MSegundo + ReporteVenta.MTercero));
                 ViewModel.PremiosVentas.TotalPalesPremiados = string.Format(nfi,"{0:C}",ReporteVenta.MPales);
                 ViewModel.PremiosVentas.TotalTripletaPremiados = string.Format(nfi,"{0:C}",ReporteVenta.MTripletas);
-                ViewModel.PremiosVentas.TotalPremiados = string.Format(nfi,"{0:C}",ViewModel.PremiosVentas.TotalNumerosPremiados + Convert.ToInt32(ReporteVenta.MPales + ReporteVenta.MTripletas));
+                ViewModel.PremiosVentas.TotalPremiados = string.Format(nfi,"{0:C}", Convert.ToInt32(ReporteVenta.MPrimero + ReporteVenta.MSegundo + ReporteVenta.MTercero) + Convert.ToInt32(ReporteVenta.MPales + ReporteVenta.MTripletas));
                 ViewModel.PremiosVentas.TotalGanancia = TotalFormateado;
 
             }
@@ -495,249 +608,120 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             //Parte de reportes compleja creador Edison Eugenio Pena Ruiz para cualquier consulta //
             var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.FechaInicio, ViewModel.FechaFin);
             ObservableCollection<ReportesSumVentasFechaObservable> List = new ObservableCollection<ReportesSumVentasFechaObservable>() { };
-            var ReporteOrdenado = Reporte.Reglones.OrderBy(datos => datos.Reglon).ToArray();
             //Agregar el encabezado de reporte
             HeaderReporte(Reporte.Fecha, "VENTAS POR FECHA", null,ViewModel.FechaInicio,ViewModel.FechaFin);
             //////////////////////////////////////
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
-            int totales=0, venta=0, saco=0, comision=0, totalGeneralVenta=0, totalGeneralComision=0, totalGeneralSaco=0, totalGeneralBalance = 0;
-            int conteo = 0;
+            int venta=0, saco=0, comision=0, totalGeneralVenta=0, totalGeneralComision=0, totalGeneralSaco=0, totalGeneralBalance = 0;
+       
             if (ViewModel.SoloTotales == true)
             {
-                if (ReporteOrdenado.Length > 0)
+                var LoteriasExistentes = Reporte.Reglones.Select(reporte => reporte.Reglon).Distinct();
+                if (LoteriasExistentes.Count() > 0)
                 {
+                    int balance = 0;
+                    string formatbalance = "";
                     ViewModel.RPTSumVentaFechaVisibility = System.Windows.Visibility.Visible;
-                    while (conteo <= ReporteOrdenado.Length-1)
+                    foreach (var loteria in LoteriasExistentes)
                     {
-                            //////////////////////////// Suma de conteos //////////////////////////////
-                            venta = venta + Convert.ToInt32(ReporteOrdenado[conteo].VentaBruta);
-                            comision = comision + Convert.ToInt32(ReporteOrdenado[conteo].Comision);
-                            saco = saco + Convert.ToInt32(ReporteOrdenado[conteo].Saco);
-                        ///////////////////////////////////////////////////////////////////////////
-
-                        if (ReporteOrdenado.Length > 1)
+                        var datosloteria = Reporte.Reglones.Where(datos => datos.Reglon == loteria);
+                        foreach (var info in datosloteria)
                         {
-                            if (conteo == 0 && ReporteOrdenado[conteo].Reglon != ReporteOrdenado[conteo + 1].Reglon)
-                            {
-                                totales = venta - comision - saco;
-                                var TotalFormateado = "";
-                                if (totales < 0) { TotalFormateado = "$" + totales + ".00"; }
-                                else if (totales > 0) { TotalFormateado = string.Format(nfi, "{0:C}", totales).ToString(); }
-
-                                ReportesSumVentasFechaObservable objectoSumaVentas = new ReportesSumVentasFechaObservable()
-                                {
-                                    Fecha = "Total",
-                                    Concepto = ReporteOrdenado[conteo].Reglon,
-                                    Resultado = string.Format(nfi, "{0:C}", venta),
-                                    Balance = string.Format(nfi, "{0:C}", venta - comision - saco),
-                                    Saco = string.Format(nfi, "{0:C}", saco),
-                                    Comision = string.Format(nfi, "{0:C}", comision)
-                                };
-                                List.Add(objectoSumaVentas);
-                                //////////////// Calculando totales generales ///////////////////////
-                                totalGeneralVenta = totalGeneralVenta + venta;
-                                totalGeneralSaco = totalGeneralSaco + saco;
-                                totalGeneralComision = totalGeneralComision + comision;
-                                totalGeneralBalance = totalGeneralVenta - totalGeneralSaco - totalGeneralComision;
-                                /////////////////////////////////////////////////////////////////////
-                                venta = 0; comision = 0; saco = 0;
-                            }
+                            venta = venta + Convert.ToInt32(info.VentaBruta);
+                            comision = comision + Convert.ToInt32(info.Comision);
+                            saco = saco + Convert.ToInt32(info.Saco);
                         }
 
-                        if (conteo == 0 && ReporteOrdenado.Length==1) {
-                            totales = venta - comision - saco;
-                            var TotalFormateado = "";
-                            if (totales < 0) { TotalFormateado = "$" + totales + ".00"; }
-                            else if (totales > 0) { TotalFormateado = string.Format(nfi, "{0:C}", totales).ToString(); }
-
-                            ReportesSumVentasFechaObservable objectoSumaVentas = new ReportesSumVentasFechaObservable()
-                            {
-                                Fecha = "Total",
-                                Concepto = ReporteOrdenado[conteo].Reglon,
-                                Resultado = string.Format(nfi, "{0:C}", venta),
-                                Balance = string.Format(nfi, "{0:C}", venta - comision - saco),
-                                Saco = string.Format(nfi, "{0:C}", saco),
-                                Comision = string.Format(nfi, "{0:C}", comision)
-                            };
-                            List.Add(objectoSumaVentas);
-                            //////////////// Calculando totales generales ///////////////////////
-                            totalGeneralVenta = totalGeneralVenta + venta;
-                            totalGeneralSaco = totalGeneralSaco + saco;
-                            totalGeneralComision = totalGeneralComision + comision;
-                            totalGeneralBalance = totalGeneralVenta - totalGeneralSaco - totalGeneralComision;
-                            /////////////////////////////////////////////////////////////////////
-                            TotalesGeneralesFormat(totalGeneralVenta,totalGeneralComision,totalGeneralSaco,totalGeneralBalance);
-                            venta = 0; comision = 0; saco = 0;
-                        }
-
-                        if ((conteo > 0) && (ReporteOrdenado[conteo].Reglon != ReporteOrdenado[conteo - 1].Reglon) || (conteo == ReporteOrdenado.Length - 1))
-                        {
-                            //////////////////////////// Suma de conteos //////////////////////////////
-                            if (conteo != ReporteOrdenado.Length - 1) { venta = venta - Convert.ToInt32(ReporteOrdenado[conteo].VentaBruta); } //Si conteo es diferente a cantidad de datos  
-
-                            comision = comision - Convert.ToInt32(ReporteOrdenado[conteo].Comision);
-                            saco = saco - Convert.ToInt32(ReporteOrdenado[conteo].Saco);
-                            ///////////////////////////////////////////////////////////////////////////
-                            totales = venta - comision - saco;
-                            var TotalFormateado = "";
-                            if (totales < 0) { TotalFormateado = "$" + totales + ".00"; }
-                            else if (totales > 0) { TotalFormateado = string.Format(nfi, "{0:C}", totales).ToString(); }
-
-                            //////////////// Calculando totales generales ///////////////////////
-                            totalGeneralVenta = totalGeneralVenta + venta;
-                            totalGeneralSaco = totalGeneralSaco + saco;
-                            totalGeneralComision = totalGeneralComision + comision;
-                            totalGeneralBalance = totalGeneralVenta - totalGeneralSaco - totalGeneralComision;
-                            /////////////////////////////////////////////////////////////////////
-
-                            if (conteo < ReporteOrdenado.Length-1 && ReporteOrdenado.Length > 1) { 
-                                ReportesSumVentasFechaObservable objectoSumaVentas = new ReportesSumVentasFechaObservable()
-                                {
-                                    Fecha = "Total",
-                                    Concepto = ReporteOrdenado[conteo-1].Reglon,
-                                    Resultado = string.Format(nfi, "{0:C}", venta),
-                                    Balance = TotalFormateado,
-                                    Saco = string.Format(nfi, "{0:C}", saco),
-                                    Comision = string.Format(nfi, "{0:C}", comision)
-                                };
-                                List.Add(objectoSumaVentas);
-                            }
-                            //////////////////////////// Restablecer valores //////////////////////////////
-                            venta = Convert.ToInt32(ReporteOrdenado[conteo].VentaBruta);comision =Convert.ToInt32(ReporteOrdenado[conteo].Comision);saco = Convert.ToInt32(ReporteOrdenado[conteo].Saco);
-                            ///////////////////////////////////////////////////////////////////////////
-                        }
-                        TotalesGeneralesFormat(totalGeneralVenta, totalGeneralComision, totalGeneralSaco, totalGeneralBalance);
-                        conteo = conteo + 1;
-                        ViewModel.ReportesSumVentasPorFecha = List;
-                        ViewModel.ReportesSumVentasPorFecha = null;
-                        ViewModel.ReportesSumVentasPorFecha = List;
-                        
-                    }
-                }
-            }
-            else if(ViewModel.SoloTotales == false)
-            {
-                var Datos = ReporteOrdenado;
-                if (Datos.Length > 0) {
-                    ViewModel.RPTSumVentaFechaVisibility = System.Windows.Visibility.Visible;
-                    for (int i =0; i < Datos.Length;i++) {
-
-                        venta = venta + Convert.ToInt32(Datos[i].VentaBruta);
-                        comision = comision + Convert.ToInt32(Datos[i].Comision);
-                        saco = saco + Convert.ToInt32(Datos[i].Saco);
-
-                        if (Datos[i].VentaBruta > 0) { totales = totales + Convert.ToInt32(Datos[i].VentaBruta); } 
-                        else if (Datos[i].VentaBruta < 0) { totales = totales - Convert.ToInt32(Datos[i].VentaBruta); }
-
-                       var balance = Datos[i].VentaBruta - Datos[i].Comision - Datos[i].Saco;
-                       var balanceFormat = "";
-
-                       if (balance > 0){balanceFormat = string.Format(nfi, "{0:C}", balance);}
-                       else if (balance < 0) { balanceFormat = "$" + balance; };
+                        totalGeneralVenta = totalGeneralVenta + venta;
+                        totalGeneralSaco = totalGeneralSaco + saco;
+                        totalGeneralComision = totalGeneralComision + comision;
+                        totalGeneralBalance = totalGeneralVenta - totalGeneralSaco - totalGeneralComision;
+                        balance = venta - comision - saco;
+                        if (balance < 0) { formatbalance = ConvertirMonedaNegativos(balance); }
+                        else if (balance >= 0) { formatbalance = string.Format(nfi, "{0:C}", balance);}
 
                         ReportesSumVentasFechaObservable objectoSumaVentas = new ReportesSumVentasFechaObservable()
                         {
-                        Fecha = TraducirDiaSemanaResumido(Convert.ToDateTime(Datos[i].Fecha).DayOfWeek.ToString()) + " " + Convert.ToDateTime(Datos[i].Fecha).Day + " " + ObtenerMesEspanol(Convert.ToDateTime(Datos[i].Fecha).Month),
-                        Concepto = Datos[i].Reglon,
-                        Resultado = string.Format(nfi, "{0:C}", Datos[i].VentaBruta),
-                        Balance = balanceFormat,
-                        Saco = string.Format(nfi, "{0:C}", Datos[i].Saco),
-                        Comision = string.Format(nfi, "{0:C}", Datos[i].Comision)
-
-                    };
-
-                        if (Datos.Length == 1)
-                        {
-                            totalGeneralVenta = totalGeneralVenta + venta;
-                            totalGeneralComision = totalGeneralComision + comision;
-                            totalGeneralSaco = totalGeneralSaco + saco;
-                            totalGeneralBalance = totalGeneralVenta - totalGeneralComision - totalGeneralSaco;
-                            TotalesGeneralesFormat(totalGeneralVenta, totalGeneralComision, totalGeneralSaco, totalGeneralBalance);
-                        }
-                    List.Add(objectoSumaVentas);
-
-                        if (i < Datos.Length - 1) {
-                            if (Datos[i].Reglon != Datos[i + 1].Reglon)
-                            {
-                                totalGeneralVenta = totalGeneralVenta + venta;
-                                totalGeneralComision = totalGeneralComision + comision;
-                                totalGeneralSaco = totalGeneralSaco + saco;
-                                totalGeneralBalance = totalGeneralVenta - totalGeneralComision - totalGeneralSaco;
-
-                                var TotalFormateado = "";
-                                totales = venta - comision - saco;
-                                if (totales < 0) { TotalFormateado = "$" + totales + ".00"; }
-                                else if (totales > 0) { TotalFormateado = string.Format(nfi, "{0:C}", totales).ToString(); }
-                                ReportesSumVentasFechaObservable objectoTotalSumaVentas = new ReportesSumVentasFechaObservable()
-                                { Concepto = Datos[i].Reglon, Fecha = "Total", Balance = string.Format(nfi, "{0:C}", TotalFormateado), Comision = string.Format(nfi, "{0:C}", comision), Saco = string.Format(nfi, "{0:C}", saco), Resultado = string.Format(nfi, "{0:C}", venta) };
-                                venta = 0; comision = 0; saco = 0; totales = 0;
-                                List.Add(objectoTotalSumaVentas);
-                            }
-
-                        } else
-                        {
-                            if (Datos.Length > 1)
-                            {
-                                if (Datos[i].Reglon == Datos[i - 1].Reglon)
-                                {
-                                    totalGeneralVenta = totalGeneralVenta + venta;
-                                    totalGeneralComision = totalGeneralComision + comision;
-                                    totalGeneralSaco = totalGeneralSaco + saco;
-                                    totalGeneralBalance = totalGeneralVenta - totalGeneralComision - totalGeneralSaco;
-
-                                    ReportesSumVentasFechaObservable objectoTotalSumaVentass = new ReportesSumVentasFechaObservable()
-                                    { Concepto = Datos[i].Reglon, Fecha = "Total", Balance = string.Format(nfi, "{0:C}", totales), Comision = string.Format(nfi, "{0:C}", comision), Saco = string.Format(nfi, "{0:C}", saco), Resultado = string.Format(nfi, "{0:C}", venta) };
-                                    venta = 0; comision = 0; saco = 0; balance = 0;
-                                    List.Add(objectoTotalSumaVentass);
-                                }
-                                else
-                                {
-                                    totalGeneralVenta = totalGeneralVenta + venta;
-                                    totalGeneralComision = totalGeneralComision + comision;
-                                    totalGeneralSaco = totalGeneralSaco + saco;
-                                    totalGeneralBalance = totalGeneralVenta - totalGeneralComision - totalGeneralSaco;
-
-
-                                    totales = Convert.ToInt32(Datos[i].VentaBruta) - Convert.ToInt32(Datos[i].Saco) - Convert.ToInt32(Datos[i].Comision);
-                                    ReportesSumVentasFechaObservable objectoTotalSumaVentas = new ReportesSumVentasFechaObservable()
-                                    {
-                                        Concepto = Datos[i].Reglon,
-                                        Fecha = "Total",
-                                        Balance = string.Format(nfi, "{0:C}", totales),
-                                        Comision = string.Format(nfi, "{0:C}", comision),
-                                        Saco = string.Format(nfi, "{0:C}", saco),
-                                        Resultado = string.Format(nfi, "{0:C}", venta)
-                                    };
-                                    venta = 0; comision = 0; saco = 0; balance = 0;
-                                    List.Add(objectoTotalSumaVentas);
-                                }
-                            }
-                            else {
-                                
-                                totales = Convert.ToInt32(Datos[i].VentaBruta) - Convert.ToInt32(Datos[i].Saco) - Convert.ToInt32(Datos[i].Comision);
-                                ReportesSumVentasFechaObservable objectoTotalSumaVentas = new ReportesSumVentasFechaObservable()
-                                {
-                                    Concepto = Datos[i].Reglon,
-                                    Fecha = "Total",
-                                    Balance = string.Format(nfi, "{0:C}", totales),
-                                    Comision = string.Format(nfi, "{0:C}", comision),
-                                    Saco = string.Format(nfi, "{0:C}", saco),
-                                    Resultado = string.Format(nfi, "{0:C}", venta)
-                                };
-                                venta = 0; comision = 0; saco = 0; balance = 0;
-                                List.Add(objectoTotalSumaVentas);
-                            }
-
-                        }
+                            Fecha = "Total",
+                            Concepto = loteria,
+                            Resultado = string.Format(nfi, "{0:C}", venta),
+                            Balance = formatbalance,
+                            Saco = string.Format(nfi, "{0:C}", saco),
+                            Comision = string.Format(nfi, "{0:C}", comision)
+                        };
+                        List.Add(objectoSumaVentas);
                         ViewModel.ReportesSumVentasPorFecha = List;
                         ViewModel.ReportesSumVentasPorFecha = null;
                         ViewModel.ReportesSumVentasPorFecha = List;
-
                         TotalesGeneralesFormat(totalGeneralVenta, totalGeneralComision, totalGeneralSaco, totalGeneralBalance);
+
+                        ////////////////////////// Restablecer valores //////////////////////////////
+                            venta = 0;comision =0;saco = 0;
+                        ///////////////////////////////////////////////////////////////////////////
+                    }
                 }
-                   
+               
+            }
+            else if(ViewModel.SoloTotales == false)
+            {
+                var LoteriasExistentes = Reporte.Reglones.Select(reporte => reporte.Reglon).Distinct();
+                if (LoteriasExistentes.Count() > 0)
+                {
+                    int balance = 0;
+                    string formatbalance = "";
+                    ViewModel.RPTSumVentaFechaVisibility = System.Windows.Visibility.Visible;
+                    foreach (var loteria in LoteriasExistentes)
+                    {
+                        var datosloteria = Reporte.Reglones.Where(datos => datos.Reglon == loteria).ToArray();
+                        for (int i=0; i < datosloteria.Count();i++)
+                        {
+                            venta = venta + Convert.ToInt32(datosloteria[i].VentaBruta);
+                            comision = comision + Convert.ToInt32(datosloteria[i].Comision);
+                            saco = saco + Convert.ToInt32(datosloteria[i].Saco);
+                           
+                            balance = Convert.ToInt32(datosloteria[i].VentaBruta - datosloteria[i].Comision - datosloteria[i].Saco);
+                            if (balance < 0) { formatbalance = ConvertirMonedaNegativos(balance); }
+                            else if (balance >= 0) { formatbalance = string.Format(nfi, "{0:C}", balance); }
+                            ReportesSumVentasFechaObservable objectoSumaVentas = new ReportesSumVentasFechaObservable()
+                            {
+                                Fecha = TraducirDiaSemanaResumido(Convert.ToDateTime(datosloteria[i].Fecha).DayOfWeek.ToString()) + " " + Convert.ToDateTime(datosloteria[i].Fecha).Day + " " + ObtenerMesEspanol(Convert.ToDateTime(datosloteria[i].Fecha).Month),
+                                Concepto = datosloteria[i].Reglon,
+                                Resultado = string.Format(nfi, "{0:C}", datosloteria[i].VentaBruta),
+                                Balance = formatbalance,
+                                Saco = string.Format(nfi, "{0:C}", datosloteria[i].Saco),
+                                Comision = string.Format(nfi, "{0:C}", datosloteria[i].Comision)
+                            };
+                            List.Add(objectoSumaVentas);
+                            if (i == datosloteria.Length-1)
+                            {
+                                balance = venta - comision - saco;
+                                if (balance < 0) { formatbalance = ConvertirMonedaNegativos(balance); }
+                                else if (balance >= 0) { formatbalance = string.Format(nfi, "{0:C}", balance); }
+
+                                ReportesSumVentasFechaObservable objectoSumaVentasF = new ReportesSumVentasFechaObservable()
+                                {
+                                    Fecha = "Total",
+                                    Concepto = datosloteria[i].Reglon,
+                                    Resultado = string.Format(nfi, "{0:C}", venta),
+                                    Balance = formatbalance,
+                                    Saco = string.Format(nfi, "{0:C}", saco),
+                                    Comision = string.Format(nfi, "{0:C}", comision)
+                                };
+                                List.Add(objectoSumaVentasF);
+                            }
+                        }
+                        totalGeneralVenta = totalGeneralVenta + venta;
+                        totalGeneralSaco = totalGeneralSaco + saco;
+                        totalGeneralComision = totalGeneralComision + comision;
+                        totalGeneralBalance = totalGeneralVenta - totalGeneralSaco - totalGeneralComision;
+                        TotalesGeneralesFormat(totalGeneralVenta, totalGeneralComision, totalGeneralSaco, totalGeneralBalance);
+
+                        ViewModel.ReportesSumVentasPorFecha = List;
+                        ViewModel.ReportesSumVentasPorFecha = null;
+                        ViewModel.ReportesSumVentasPorFecha = List;
+                        venta = 0; comision = 0; saco = 0;
+                    }
                 }
-                    
            }
         }
 
@@ -776,7 +760,44 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                 ReporteListNumeros.Quiniela = new ObservableCollection<ReportesListaNumerosObservable>() { };
                 ReporteListNumeros.Tripleta = new ObservableCollection<ReportesListaNumerosObservable>() { };
                 ReporteListNumeros.Pale = new ObservableCollection<ReportesListaNumerosObservable>() { };
-                  
+
+                if (NumerosQuinielas.Count > 0 && NumerosPales.Count > 0 && NumerosTripleta.Count > 0)
+                {
+                    ReporteListNumeros.PosicionTituloQuiniela = 1;
+                    ReporteListNumeros.PosicionTablaQuiniela = 2;
+                    ReporteListNumeros.PosicionTotalesQuiniela = 3;
+                    ReporteListNumeros.PosicionTituloPale = 4; 
+                    ReporteListNumeros.PosicionTablaPale = 5;
+                    ReporteListNumeros.PosicionTotalesPale = 6;
+                    ReporteListNumeros.PosicionTituloTripleta = 7;
+                    ReporteListNumeros.PosicionTablaTripleta = 8;
+                    ReporteListNumeros.PosicionTotalesTripleta = 9;
+                }
+                if (NumerosQuinielas.Count == 0 && NumerosPales.Count > 0 && NumerosTripleta.Count > 0)
+                {
+                    ReporteListNumeros.PosicionTituloPale = 1;
+                    ReporteListNumeros.PosicionTablaPale = 2;
+                    ReporteListNumeros.PosicionTotalesPale = 3;
+                    ReporteListNumeros.PosicionTituloTripleta = 4;
+                    ReporteListNumeros.PosicionTablaTripleta = 5;
+                    ReporteListNumeros.PosicionTotalesTripleta = 6;
+                }
+                if (NumerosQuinielas.Count == 0 && NumerosPales.Count == 0 && NumerosTripleta.Count > 0)
+                {
+                    ReporteListNumeros.PosicionTituloTripleta = 1;
+                    ReporteListNumeros.PosicionTablaTripleta = 2;
+                    ReporteListNumeros.PosicionTotalesTripleta = 3;
+                }
+                if (NumerosQuinielas.Count > 0 && NumerosPales.Count == 0 && NumerosTripleta.Count > 0)
+                {
+                    ReporteListNumeros.PosicionTituloQuiniela = 1;
+                    ReporteListNumeros.PosicionTablaQuiniela = 2;
+                    ReporteListNumeros.PosicionTotalesQuiniela = 3;
+                    ReporteListNumeros.PosicionTituloTripleta = 4;
+                    ReporteListNumeros.PosicionTablaTripleta = 5;
+                    ReporteListNumeros.PosicionTotalesTripleta = 6;
+                }
+
                 if (NumerosQuinielas.Count > 1) 
                 {
                     var totalCantidadQuiniela = 0;
@@ -1017,71 +1038,78 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
             int totalVenta = 0; int totalSaco=0;
 
-            if (ReporteTicket.Tickets.Length > 0)
+            if (ReporteTicket.Err == null)
             {
                 ViewModel.RPTLitTicketVisibility = Visibility.Visible;
                 HeaderReporte(ReporteTicket.Fecha, "LISTADO DE TICKETS", NombreLoteria, null, null);
+                if (ReporteTicket.Tickets.Length > 0)
+                {
+                    switch (opcionTicketAnulados)
+                    {
+                        case MessageBoxResult.Yes:
+                            foreach (var ticket in ReporteTicket.Tickets)
+                            {
+                                var saco = "";
+                                if (ticket.Nulo == true) { saco = "Nulo"; } else if (ticket.Nulo == false) { saco = string.Format(nfi, "{0:C}", ticket.Pago); }
+                                ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
+                                { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = saco };
+                                ListadoTicket.Add(objectoTicket);
+                            }
 
-            switch (opcionTicketAnulados)
-            {
-                case MessageBoxResult.Yes:
+                            break;
+                        case MessageBoxResult.No:
+                            var TicketsFiltrados = ReporteTicket.Tickets.Where(ticket => ticket.Nulo == true).ToArray();
+                            foreach (var ticket in TicketsFiltrados)
+                            {
+                                ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
+                                { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = "Nulo" };
+                                objectoTicket.MostrarNulos = Visibility.Visible;
+                                ListadoTicket.Add(objectoTicket);
+                            }
+                            break;
+                    }
+
                     foreach (var ticket in ReporteTicket.Tickets)
                     {
-                            var saco = "";
-                            if (ticket.Nulo == true) { saco = "Nulo"; } else if (ticket.Nulo == false) { saco = string.Format(nfi, "{0:C}", ticket.Pago); } 
-                                ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
-                                { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi,"{0:C}",ticket.Costo), Saco = saco};
-                                ListadoTicket.Add(objectoTicket);
+                        if (ticket.Nulo == false)
+                        {
+                            totalVenta = totalVenta + Convert.ToInt32(ticket.Costo);
+                            totalSaco = totalSaco + Convert.ToInt32(ticket.Pago);
+                        }
                     }
-                    
-                    break;
-                case MessageBoxResult.No:
-                  var TicketsFiltrados = ReporteTicket.Tickets.Where(ticket => ticket.Nulo == true).ToArray();
-                    foreach (var ticket in TicketsFiltrados)
+
+                    ViewModel.ReporteListTicket = ListadoTicket;
+                    var TicketsNulo = ReporteTicket.Tickets.Where(ticket => ticket.Nulo == true).ToArray();
+                    ViewModel.TotalesListTicket.CantidadNulos = TicketsNulo.Length.ToString();
+                    ViewModel.TotalesListTicket.CantidadValidos = (ReporteTicket.Tickets.Length - TicketsNulo.Length).ToString();
+                    ViewModel.TotalesListTicket.TotalVenta = string.Format(nfi, "{0:C}", totalVenta);
+                    ViewModel.TotalesListTicket.TotalSaco = string.Format(nfi, "{0:C}", totalSaco);
+                    var ListadoString = new List<string>() { "Titulo", "Parrado" };
+
+                    //Muestra De Ticket
+                    var NombreBanca = "LEXUS-Bancas Lexus ID:14";
+                    var Titulo = ViewModel.NombreReporte;
+                    var FechaActual = ViewModel.FechaActualReport;
+                    var FechaReporte = ViewModel.FechaReporte;
+                    var Loteria = ViewModel.NombreLoteria;
+                    List<string> listadoImpreso = new List<string> { };
+
+                    listadoImpreso.Add(NombreBanca);
+                    listadoImpreso.Add(Titulo);
+                    listadoImpreso.Add(FechaActual);
+                    listadoImpreso.Add(FechaReporte);
+                    listadoImpreso.Add(Loteria);
+
+                    foreach (var Ticket in ListadoTicket)
                     {
-                        ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
-                        { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi,"{0:C}",ticket.Costo), Saco = "Nulo" };
-                         objectoTicket.MostrarNulos = Visibility.Visible;
-                         ListadoTicket.Add(objectoTicket);
+                        listadoImpreso.Add(Ticket.Ticket + " " + Ticket.Hora + " " + Ticket.Vendio + " " + Ticket.Saco);
                     }
-                break;    
+                }
+
             }
-
-                foreach (var ticket in ReporteTicket.Tickets)
-                {
-                    if (ticket.Nulo == false) { 
-                        totalVenta = totalVenta + Convert.ToInt32(ticket.Costo);
-                        totalSaco = totalSaco + Convert.ToInt32(ticket.Pago);
-                    }
-                }
-
-                ViewModel.ReporteListTicket = ListadoTicket;
-                var TicketsNulo = ReporteTicket.Tickets.Where(ticket => ticket.Nulo == true).ToArray();
-                ViewModel.TotalesListTicket.CantidadNulos = TicketsNulo.Length.ToString();
-                ViewModel.TotalesListTicket.CantidadValidos = (ReporteTicket.Tickets.Length - TicketsNulo.Length).ToString();
-                ViewModel.TotalesListTicket.TotalVenta = string.Format(nfi,"{0:C}",totalVenta);
-                ViewModel.TotalesListTicket.TotalSaco = string.Format(nfi, "{0:C}", totalSaco);
-                var ListadoString = new List<string>() { "Titulo", "Parrado" };
-
-                //Muestra De Ticket
-                var NombreBanca = "LEXUS-Bancas Lexus ID:14";
-                var Titulo = ViewModel.NombreReporte;
-                var FechaActual = ViewModel.FechaActualReport;
-                var FechaReporte = ViewModel.FechaReporte;
-                var Loteria = ViewModel.NombreLoteria;
-                List<string> listadoImpreso = new List<string> { };
-
-                listadoImpreso.Add(NombreBanca);
-                listadoImpreso.Add(Titulo);
-                listadoImpreso.Add(FechaActual);
-                listadoImpreso.Add(FechaReporte);
-                listadoImpreso.Add(Loteria);
-
-                foreach (var Ticket in ListadoTicket)
-                {
-                    listadoImpreso.Add(Ticket.Ticket + " "+Ticket.Hora+" "+Ticket.Vendio+" "+Ticket.Saco);       
-                }
-
+            else
+            {
+                MostrarMensajes(ReporteTicket.Err.ToString(), "MAR-Cliente", "INFO");
             }
         }
 

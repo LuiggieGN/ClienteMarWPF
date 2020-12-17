@@ -346,7 +346,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             return string.Empty;
 
         }
-        private static void WriteText(Graphics graphics, string data, int fontSize = 11, string fontStyle = "regular", string alignment = "center")
+        private static void WriteText(Graphics graphics, string data, int fontSize = 10, string fontStyle = "regular", string alignment = "center")
         {
             if (data != null && data != string.Empty)
             {
@@ -562,9 +562,10 @@ namespace ClienteMarWPF.UI.State.PinterConfig
         }
         private static Font GetFontStyle(int fontSize, string fontStyle)
         {
-            string nameFont = "Courier New";
+            //   string nameFont = "Courier New";
+            string nameFont = "Arial";
 
-            var font = FontFamily.GenericMonospace;
+            var font = FontFamily.GenericSansSerif;
 
             switch (fontStyle)
             {
