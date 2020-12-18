@@ -230,7 +230,7 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                    
                 </StackPanel>
-                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
@@ -297,13 +297,13 @@
             
             <!-- //////////////////// Template Reportes Ganadores //////////////////////-->
             <ScrollViewer  VerticalScrollBarVisibility="Auto" Height="345" Width="690" Margin="15,0,0,4" VerticalContentAlignment="Top" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding RPTTicketGanadoresVisibility}">
-            <Grid Background="WhiteSmoke" Name="GridGanadores" Visibility="{Binding RPTTicketGanadoresVisibility}" Width="665" Margin="0,0,0,4" VerticalAlignment="Bottom" >
+            <Grid Background="WhiteSmoke" Name="GridGanadores" Visibility="{Binding RPTTicketGanadoresVisibility}" Width="665" Margin="0,0,0,4" VerticalAlignment="Top" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="110"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
                     <RowDefinition x:Name="EncabezadoPagados" Height="Auto"></RowDefinition>
                     <RowDefinition x:Name="GridTicketPagados" Height="Auto"></RowDefinition>
                     <RowDefinition x:Name="EncabezadoPendientePagos" Height="Auto"></RowDefinition>
@@ -320,9 +320,9 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                 </StackPanel>
-                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
                         <StackPanel Orientation="Horizontal" >
-                            <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <materialDesign:PackIcon Kind="Printer" Margin="0 0 0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
                         </StackPanel>
                     </Button>
@@ -336,10 +336,10 @@
                         <Label Content="3ra:"  FontSize="15" FontWeight="Bold"></Label>
                         <Label Content="{Binding ReportesGanadores.Tercera}"  FontSize="15"></Label>
                     </StackPanel>
-                    <Label FontWeight="Bold" Margin="0 10 0 20" Content="--PREMIOS NO DISPONIBLES--" Visibility="{Binding ReportesGanadores.NoMostrarPremiosVisibity}" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"></Label>
+                    <Label FontWeight="Bold" Margin="0 0 0 0" Content="--PREMIOS NO DISPONIBLES--" Visibility="{Binding ReportesGanadores.NoMostrarPremiosVisibity}" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"></Label>
 
 
-                    <Label Margin="0 10 0 0" Grid.Column="0" Grid.ColumnSpan="2" Opacity="0.8" Visibility="{Binding ReportesGanadores.MostrarNoHayGanadoresVisibity}" Grid.Row="{Binding ReportesGanadores.PosicionTituloPagados}" BorderBrush="White" BorderThickness="2,2,2,2" Background="MediumSeaGreen" Width="400" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="{Binding ReportesGanadores.HeightTicketNoGanadores}" VerticalContentAlignment="Center" FontSize="16" Foreground="White">No Existen Tickets Ganadores!</Label>
+                    <Label Margin="0 0 0 0" Grid.Column="0" Grid.ColumnSpan="2" Opacity="0.8" Visibility="{Binding ReportesGanadores.MostrarNoHayGanadoresVisibity}" Grid.Row="{Binding ReportesGanadores.PosicionTituloPagados}" BorderBrush="White" Background="MediumSeaGreen" Width="400" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="Auto" VerticalContentAlignment="Center" FontSize="16" Foreground="White">No Existen Tickets Ganadores!</Label>
                       
                 <!-- __________________________________________________________________________________________________________________ -->
                 <!-- ___________________________________________________Ticket Pagados _________________________________________________ -->
@@ -552,7 +552,7 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding LabelDesde,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding LabelHasta,Mode=OneWay}"></Label>
                 </StackPanel>
-                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
@@ -663,7 +663,7 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                 </StackPanel>
-                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
@@ -730,13 +730,14 @@
             <!--- //////////////////// Fin Template de lista de tarjetas ///////////////////////-->
 
             <!-- /////////////////// Template De Reportes De Ventas ///////////////////////// -->
-            <ScrollViewer Visibility="{Binding RPTVentasVisibily}" VerticalScrollBarVisibility="Auto" Height="345" Width="690" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                <Grid x:Name="GridVentas" Background="WhiteSmoke"  Height="Auto" Width="470" Margin="0,0,0,4" VerticalAlignment="Bottom" >
+            <ScrollViewer  Visibility="{Binding RPTVentasVisibily}" VerticalScrollBarVisibility="Auto" Height="345" Width="700" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+                
+                <Grid x:Name="GridVentas" HorizontalAlignment="Center" Background="WhiteSmoke"  Height="Auto" Width="480" Margin="0,0,0,4" VerticalAlignment="Bottom" >
                 <Grid.ColumnDefinitions >
-                    <ColumnDefinition Width="100" ></ColumnDefinition>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
-                    <ColumnDefinition Width="100" ></ColumnDefinition>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*" ></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*" ></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
 
                     </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -763,21 +764,21 @@
                     </Grid.RowDefinitions>
 
                    
-                <StackPanel Height="120px" VerticalAlignment="Top" Margin="60,5,0,0" Grid.ColumnSpan="4" HorizontalAlignment="Center"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                    <StackPanel Width="800" Height="120px" VerticalAlignment="Top" Margin="60,5,0,0" Grid.ColumnSpan="4" HorizontalAlignment="Center"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                         
                         <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="14px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
-                </StackPanel>
-                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50"  HorizontalAlignment="Right" Margin="0 0 0 0">
+                       
+                    </StackPanel>
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="4" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
                         </StackPanel>
-                </Button>
-
+                    </Button>
 
                     <Label Grid.Column="0" FontSize="15" Grid.ColumnSpan="2"  Margin="60,0,0,0" HorizontalAlignment="Left"  Grid.Row="1">Numeros: </Label>
                 <Label Grid.Column="3" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="1" FontWeight="Bold" Content="{Binding ReportesDeVentas.Numeros}"></Label>
@@ -834,7 +835,7 @@
                 <Label Grid.Row="9" Grid.Column="0" Visibility="{Binding PremiosVentas.NoMostrarPremios}" Grid.ColumnSpan="4" Margin="60,0,0,0" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Content="--Premios No Disponibles--"></Label>
                     <Label Grid.Row="{Binding ReportesDeVentas.PosicionTicketNulo}" Grid.Column="0" Grid.ColumnSpan="4" FontWeight="Bold" Margin="60,0,0,0" FontSize="14" HorizontalAlignment="Center" Content="--No Hay Ticket Nulos--" Visibility="{Binding ReportesDeVentas.TicketNulosDisponibles}"></Label>
                     
-
+                
                 </Grid>
                
             </ScrollViewer>
@@ -859,7 +860,7 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                 </StackPanel>
-                <Button  Style="{DynamicResource btn-success}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
@@ -965,7 +966,7 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                 </StackPanel>
-                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 
@@ -1163,7 +1164,7 @@
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                     <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                 </StackPanel>
-                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 0 0 4">
+                <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 

@@ -434,8 +434,8 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                     {
                         j.Add(new string[]
                                 {
-                                   Justify((CortarString(rgn.Reglon, 7).TrimStart().PadRight(10,' ')).TrimStart()+ " " + rgn.VentaBruta.ToString("N0").TrimStart().PadRight(12,' ') + rgn.Comision.ToString().TrimStart().PadRight(12,' ')
-                                                 + rgn.Saco.ToString().PadRight(8,' ') + rgn.Resultado.ToString().TrimEnd().PadRight(0,' ')," ",24)
+                                   Justify((CortarString(rgn.Reglon, 7).TrimStart().PadRight(12,' ')).Trim(' ')+ " " + rgn.VentaBruta.ToString("N0").TrimStart().PadRight(12,' ') + rgn.Comision.ToString().TrimStart().PadRight(12,' ')
+                                                 + rgn.Saco.ToString().PadRight(7,' ') + rgn.Resultado.ToString().TrimEnd().PadRight(0,' ')," ",40)
                                 });
                     }
 
@@ -513,7 +513,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
 
                     if (!resumido)
                     {
-                        printString += Justify(Fec.PadLeft(5, ' '), rg.VentaBruta.ToString("N0").PadLeft(5, ' ') + rg.Comision.ToString("N0").PadLeft(5, ' ') + rg.Saco.ToString("N0").PadLeft(6, ' ') + rg.Resultado.ToString("N0").PadLeft(5, ' '), 20) + Environment.NewLine;
+                        printString += Justify(Fec.PadLeft(0, ' '), rg.VentaBruta.ToString("N0").PadLeft(14, ' ') + rg.Comision.ToString("N0").PadLeft(14, ' ') + rg.Saco.ToString("N0").PadLeft(14, ' ') + rg.Resultado.ToString("N0").PadRight(14, ' '), 40) + Environment.NewLine;
                     }
 
                     tCom += rg.Comision;
@@ -748,7 +748,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
 
             if (theTickets.Tickets != null)
             {
-                printString += Justify("Tickets       ".PadRight(0) + "Hora       Vendio        Saco", "", 40) + Environment.NewLine;
+                printString += Justify("Tickets       ".PadRight(2,' ') + "  Hora        Vendio         Saco", "", 45) + Environment.NewLine;
 
                 for (int n = 0; n < theTickets.Tickets.Count(); n++)
                 {

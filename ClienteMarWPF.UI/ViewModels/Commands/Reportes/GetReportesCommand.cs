@@ -204,10 +204,18 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                         {
 
                             var data = Reporte.Reglones[i];
+                            var balancesporfilas = "";
                             totalresultados = Convert.ToInt32(totalresultados + data.VentaBruta);
                             totalsaco = Convert.ToInt32(totalsaco + data.Saco);
                             totalcomision = Convert.ToInt32(totalcomision + data.Comision);
                             totalbalance = Convert.ToInt32(totalbalance + (data.VentaBruta - data.Comision - data.Saco));
+                            int balance = Convert.ToInt32(data.VentaBruta - data.Comision - data.Saco);
+                            if (balance >= 0 )
+                            {
+                                balancesporfilas = string.Format(nfi, "{0:C}", balance);
+                            }else if(balance < 0) {
+                                balancesporfilas = ConvertirMonedaNegativos(balance);
+                            }
 
                             ReportesSumVentasObservable objecto = new ModelObservable.ReportesSumVentasObservable()
                             {
@@ -215,16 +223,19 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                                 Comision = string.Format(nfi,"{0:C}",(int)data.Comision),
                                 Resultado = string.Format(nfi,"{0:C}",(int)(data.Resultado + data.Comision + data.Saco)),
                                 Saco = string.Format(nfi,"{0:C}", (int)data.Saco),
-                                Balance = string.Format(nfi,"{0:C}",Convert.ToInt32(data.VentaBruta - data.Comision - data.Saco))
+                                Balance = balancesporfilas
                             };
                             List.Add(objecto);
                             if (i == Reporte.Reglones.Length - 1)
                             {
+                                var BalanceFinal = "";
+                                if (totalbalance >= 0) { BalanceFinal = string.Format(nfi, "{0:C}", totalbalance); }
+                                else if (totalbalance < 0) { BalanceFinal = ConvertirMonedaNegativos(totalbalance); }
 
                                 ViewModel.TotalComision = string.Format(nfi,"{0:C}",totalcomision);
                                 ViewModel.TotalResultado = string.Format(nfi,"{0:C}",totalresultados);
                                 ViewModel.TotalSaco = string.Format(nfi,"{0:C}",totalsaco);
-                                ViewModel.TotalBalance = string.Format(nfi,"{0:C}",totalbalance);
+                                ViewModel.TotalBalance = string.Format(nfi,"{0:C}",BalanceFinal);
 
                             }
                         }
@@ -293,11 +304,11 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                 }
                 if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() == 0)
                 {
-                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
-                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 4;
-                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 5;
-                    ViewModel.ReportesGanadores.PosicionBalance = 6;
+                    ViewModel.ReportesGanadores.PosicionTituloPagados = 3;
+                    ViewModel.ReportesGanadores.PosicionTablaPagados = 4;
+                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 5;
+                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 6;
+                    ViewModel.ReportesGanadores.PosicionBalance = 9;
                     ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Visible;
                     ViewModel.ReportesGanadores.HeightTicketNoGanadores = 50;
                 }
@@ -418,7 +429,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
 
             if (reportes.Err == null)
             {
-                if (reportes.Pines.Length > 0)
+                if (reportes.Pines != null && reportes.Pines.Length > 0)
                 {
                     ObservableCollection<ReportesListaTajetasObservable> ListadoTarjetas = new ObservableCollection<ReportesListaTajetasObservable>() { };
                     var ReporteOdenado = reportes.Pines.OrderBy(tarjetas => Convert.ToDateTime(tarjetas.StrHora).Hour.ToString("tt", new System.Globalization.CultureInfo("en-US"))).ToArray();
@@ -450,9 +461,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     ViewModel.RPTListTarjetasVisibility = System.Windows.Visibility.Visible;
                    
                 }
-                else if(reportes.Pines.Length == 0)
+                else if(reportes.Pines == null)
                 {
-                    MostrarMensajes("No se encontraron tarjetas para la fecha seleccionada", "MAR-Cliente", "ERR");
+                    MostrarMensajes("No se encontraron tarjetas para la fecha seleccionada", "MAR-Cliente", "INFO");
                 }
             }else if (reportes.Err != null)
             {
@@ -1148,7 +1159,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     if (totalPagosRemotos >= 0) { totalbalance = string.Format(nfi, "{0:C}", totalPagosRemotos); }
                     else if (totalPagosRemotos < 0) {totalbalance = "$"+totalPagosRemotos+".00"; }
                     ViewModel.ReportePagosRemotos = ListadoPagosRemotos;
-                    ViewModel.TotalesPagosRemotos = totalbalance + " en " + PagosRemotoData.Length + " tickets";
+                    ViewModel.TotalesPagosRemotos = ConvertirMonedaNegativos(totalPagosRemotos) + " en " + PagosRemotoData.Length + " tickets";
                 }
             }
             else if (PagosRemotos.Err != null)

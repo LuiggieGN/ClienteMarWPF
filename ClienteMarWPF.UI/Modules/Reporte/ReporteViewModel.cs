@@ -77,11 +77,11 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             ReportesGanadores.PosicionTituloPagados = 2;
             ReportesGanadores.PosicionTablaPagados = 3;
             ReportesGanadores.PosicionTituloPendientesPagos = 4;
-            ReportesGanadores.PosicionTablaPendientesPagos = 5; 
+            ReportesGanadores.PosicionTablaPendientesPagos = 5;
             ReportesGanadores.PosicionTituloSinReclamar = 6;
             ReportesGanadores.PosicionTablaSinReclamar = 7;
             ReportesGanadores.PosicionBalance = 8;
-           
+
             ////////////////////////////////////////////////////////////////
 
             ReportesListaNumeros.Quiniela = new ObservableCollection<ReportesListaNumerosObservable>() { };
