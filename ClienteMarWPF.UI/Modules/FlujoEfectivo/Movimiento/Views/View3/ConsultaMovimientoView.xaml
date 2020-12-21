@@ -9,7 +9,7 @@
              xmlns:behaviours="clr-namespace:ClienteMarWPF.UI.Views.AttachedProperties"
              xmlns:converters="clr-namespace:ClienteMarWPF.UI.Converters"  
              xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls"
-             xmlns:helper="clr-namespace:ClienteMarWPF.UI.DataUITemplateSelector"
+             xmlns:helper="clr-namespace:ClienteMarWPF.UI.TemplateSelector"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
@@ -115,7 +115,7 @@
                 </Grid>
             </DataTemplate>
 
-            <helper:MovimientoDataTemplateSelector x:Key="MovimientoDataTemplateSelector" CuadreTemplate="{StaticResource IsCuadreTemplate}"  NoCuadreTemplate="{StaticResource IsNoCuadreTemplate}"/>
+            <helper:MovimientoDataTemplateSelector x:Key="MovimientoDataTemplate" CuadreTemplate="{StaticResource IsCuadreTemplate}"  NoCuadreTemplate="{StaticResource IsNoCuadreTemplate}"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/Modules/FlujoEfectivo/Movimiento/Views/View3/ConsultaMovimientoResources.xaml" />
@@ -288,9 +288,9 @@
                                 </ListView.View>
                             </ListView>
 
-                            <ListView x:Name="ListViewMovimientos"
+                            <ListView x:Name="VistaDeMovimientos"
                                       ItemsSource="{Binding Movimientos.VistaPaginada}" 
-                                      ItemTemplateSelector="{StaticResource MovimientoDataTemplateSelector}"                                         
+                                      ItemTemplateSelector="{StaticResource MovimientoDataTemplate}"                                         
                                       VerticalAlignment="Top"
                                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                                       ScrollViewer.CanContentScroll="False"

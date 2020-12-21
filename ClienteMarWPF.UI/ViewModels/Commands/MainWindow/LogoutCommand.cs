@@ -12,7 +12,7 @@ using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Factories;
 
 
-namespace ClienteMarWPF.UI.ViewModels.Commands
+namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
 {
     public class LogoutCommand : ICommand
     {

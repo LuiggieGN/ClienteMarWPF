@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
 
-namespace ClienteMarWPF.UI.DataUITemplateSelector
+namespace ClienteMarWPF.UI.TemplateSelector
 {
     public class MovimientoDataTemplateSelector : DataTemplateSelector
     {

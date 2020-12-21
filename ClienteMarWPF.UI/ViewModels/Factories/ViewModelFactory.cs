@@ -7,8 +7,7 @@ using ClienteMarWPF.UI.Modules.CincoMinutos;
 using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
-using ClienteMarWPF.UI.Modules.Mensajeria;
-using ClienteMarWPF.UI.Modules.Modulo;
+using ClienteMarWPF.UI.Modules.Mensajeria; 
 using ClienteMarWPF.UI.Modules.PagoServicios;
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Reporte;
@@ -28,7 +27,6 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
 
         private readonly CreateViewModel<HomeViewModel> _createHomeViewModel;
         private readonly CreateViewModel<LoginViewModel> _createLoginViewModel;
-        private readonly CreateViewModel<ModuloViewModel> _createModuloViewModel;
         private readonly CreateViewModel<ReporteViewModel> _createReporteViewModel;
         private readonly CreateViewModel<SorteosViewModel> _createSorteosViewModel;
         private readonly CreateViewModel<CincoMinutosViewModel> _createCincoMinutosViewModel;
@@ -43,7 +41,6 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         public ViewModelFactory(
            CreateViewModel<HomeViewModel> createHomeViewModel,
            CreateViewModel<LoginViewModel> createLoginViewModel,
-           CreateViewModel<ModuloViewModel> createModuloViewModel,
            CreateViewModel<ReporteViewModel> createReporteViewModel,
            CreateViewModel<SorteosViewModel> createSorteosViewModel,
            CreateViewModel<CincoMinutosViewModel> createCincoMinutosViewModel,
@@ -58,7 +55,6 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         {
             _createHomeViewModel = createHomeViewModel;
             _createLoginViewModel = createLoginViewModel;
-            _createModuloViewModel = createModuloViewModel;
             _createReporteViewModel = createReporteViewModel;
             _createSorteosViewModel = createSorteosViewModel;
             _createCincoMinutosViewModel = createCincoMinutosViewModel;
@@ -81,9 +77,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
                 case Modulos.Home:
                     return _createHomeViewModel();
                 case Modulos.Login:
-                    return _createLoginViewModel();
-                case Modulos.Modulo:
-                    return _createModuloViewModel();
+                    return _createLoginViewModel(); 
                 case Modulos.Reporte:
                     return _createReporteViewModel();                
                 case Modulos.Sorteos:

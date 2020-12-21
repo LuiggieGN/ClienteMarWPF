@@ -7,6 +7,5 @@ namespace ClienteMarWPF.Domain.Models.Dtos.EfectivoDtos
         public BancaEnRecorridoDTO[] Terminales { get; set; }
         public decimal GestorBalanceAlAsignarRuta { get; set; }
         public decimal GestorMontoEntregado { get; set; }
-
     }
 }

@@ -82,6 +82,7 @@
     <Compile Include="Admin\Models\ViewModels\RiferosViewModels.cs" />
     <Compile Include="Admin\SharedFuntions\Autorizaciones.cs" />
     <Compile Include="Code\BingoIndexLogic.cs" />
+    <Compile Include="Code\ControlEfectivo\RutaLogic.cs" />
     <Compile Include="Code\ControlEfectivo\MultipleLogic.cs" />
     <Compile Include="Code\ControlEfectivo\TieLogic.cs" />
     <Compile Include="Code\ControlEfectivo\CajaLogic.cs" />

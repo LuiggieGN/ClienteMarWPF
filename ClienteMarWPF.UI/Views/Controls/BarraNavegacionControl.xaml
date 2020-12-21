@@ -9,8 +9,7 @@
              xmlns:converters="clr-namespace:ClienteMarWPF.UI.Converters"            
              mc:Ignorable="d" 
              xmlns:vm="clr-namespace:ClienteMarWPF.UI"
-             xmlns:home="clr-namespace:ClienteMarWPF.UI.Modules.Home"              
-             xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"              
+             xmlns:home="clr-namespace:ClienteMarWPF.UI.Modules.Home"             
              xmlns:reporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte" 
              xmlns:sorteos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos" 
              xmlns:inicioefectivo="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio"
@@ -97,12 +96,12 @@
             </StackPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Modulo}">
+        <!--<Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Modulo}">
             <StackPanel Orientation="Horizontal" >
                 <materialDesign:PackIcon Kind="ViewModule" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                 <Label  Content="Modulo" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
             </StackPanel>
-        </Button>
+        </Button>-->
 
         <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
             <StackPanel Orientation="Horizontal" >
@@ -175,20 +174,14 @@
                                     <materialDesign:PackIcon Kind="Star" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                                     <TextBlock Text="Iniciar" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                                 </StackPanel>
-                            </Button>
-                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
-                                <StackPanel Orientation="Horizontal" >
-                                    <materialDesign:PackIcon Kind="Money" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                                    <TextBlock Text="Cuadre Dia" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
+                            </Button> 
                         </StackPanel>
                     </DataTemplate>
 
                     <DataTemplate x:Key="TemplatePoseeFlujoEfectivo">
 
                         <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}">
+                            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding IniciarCuadreCommand}">
                                 <StackPanel Orientation="Horizontal" >
                                     <materialDesign:PackIcon Kind="Money" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                                     <TextBlock Text="Cuadre Dia" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>

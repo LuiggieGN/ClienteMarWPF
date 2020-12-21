@@ -188,8 +188,7 @@
                                                 Foreground="#28A745"
                                                 HorizontalContentAlignment="Center"
                                                 VerticalContentAlignment="Center"
-                                                materialDesign:HintAssist.Hint="Pin de Gestor"
-                                                behaviours:SoloNumerosBehaviour.Habilitado="True"   
+                                                materialDesign:HintAssist.Hint="Pin de Gestor"          
                                                 behaviours:SeleccionaTodoBehaviour.Habilitado="True" Width="271"       
                                                 SnapsToDevicePixels="True"
                                                 BorderBrush="Transparent"/>
