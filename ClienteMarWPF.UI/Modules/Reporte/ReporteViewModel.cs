@@ -65,7 +65,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             MAR_Loteria2 opcionTodas = new MAR_Loteria2() { Nombre = "Todas", LoteriaKey = 0 };
             Sorteos = new List<MAR_Loteria2>() { };
             Sorteos.Add(opcionTodas);
-            foreach (var loteria in SessionGlobals.Loterias){Sorteos.Add(loteria);}
+            foreach (var loteria in SessionGlobals.LoteriasTodas){Sorteos.Add(loteria);}
             
             PremiosVentas.MostrarPremios = Visibility.Hidden;
             PremiosVentas.NoMostrarPremios = Visibility.Hidden;

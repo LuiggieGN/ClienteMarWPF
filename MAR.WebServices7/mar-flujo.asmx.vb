@@ -321,6 +321,12 @@ Public Class mar_flujo
                     result = MultipleLogic.LeerUsuarioSuCajaYSuTarjetaPorPinDeUsuario(pin)
 #End Region
 
+#Region "Ruta"
+                Case 9000
+                    Dim gestorusuarioid = Integer.Parse(parametros(0).ToString())
+                    Dim bancaid = Integer.Parse(parametros(1).ToString())
+                    result = RutaLogic.LeerGestorAsignacionPendiente(gestorusuarioid, bancaid)
+#End Region
 
             End Select
 

@@ -1,0 +1,182 @@
+﻿<Window x:Class="ClienteMarWPF.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin.CuadreLoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin"
+        xmlns:converters="clr-namespace:ClienteMarWPF.UI.Converters"  
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
+        xmlns:behaviours="clr-namespace:ClienteMarWPF.UI.Views.AttachedProperties"        
+        mc:Ignorable="d"      
+        Height="550"
+        Width="700"
+        MaxHeight="550"
+        MaxWidth="700"        
+        Padding="0"
+        ResizeMode="NoResize"  
+        WindowStartupLocation="CenterOwner"
+        x:Name="CuadreLoginWindow" Loaded="CuadreLoginWindow_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:PassMultipleValuesConverter x:Key="PassMultipleValuesConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/Modules/FlujoEfectivo/Cuadre/Windows/CuadreLogin/CuadreLoginResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="310"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="{DynamicResource BackgroundFour}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <materialDesign:PackIcon Kind="Money" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="300" Foreground="White"/>
+                <Label Content="MAR" Foreground="{DynamicResource WhiteForeground}" FontSize="100" HorizontalContentAlignment="Center"  FontWeight="Black"/>
+                <Label Content="CONTROL MÁS ALLÁ DEL HORIZONTE" Foreground="{DynamicResource WhiteForeground}" FontSize="15" HorizontalContentAlignment="Center" Margin="0 -20" />
+                <Label Content="Distribuido por Mateo Comunicaciones" Foreground="{DynamicResource WhiteForeground}" FontSize="10" HorizontalContentAlignment="Center" Margin="0 20" />
+            </StackPanel>
+        </Border>
+
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="336"  Orientation="Vertical">
+          
+            <Label Content="Cuadre del Día" FontSize="40" FontWeight="Light" HorizontalContentAlignment="Center" Foreground="{DynamicResource BackgroundFour}" Margin="0 0 0 30" />
+
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Border BorderBrush="#000" BorderThickness="1" Margin="0 3 3 3" Width="249" >
+                        <PasswordBox x:Name="PassGestorPin"     
+                                     FontSize="20"
+                                     FontWeight="Medium"                                           
+                                     Height="45" 
+                                     PasswordChar="*"                        
+                                     Padding="10 0 0 0"  
+                                     Foreground="#28A745"
+                                     HorizontalContentAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     materialDesign:HintAssist.Hint="Pin de Gestor"   
+                                     behaviours:SeleccionaTodoBehaviour.Habilitado="True"
+                                     SnapsToDevicePixels="True"
+                                     BorderBrush="Transparent"/>
+                    </Border>
+                    <Button Width="55"
+                            Height="48"                                
+                            Margin="0"                                            
+                            Style="{DynamicResource btn-dark}"
+                            Padding="0 0 0 0"
+                            Command="{Binding SeleccionarGestor}">
+                        <materialDesign:PackIcon Kind="UserCheck" VerticalAlignment="Center" Width="30" Height="30" />
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource PassMultipleValuesConverter}" >
+                                <Binding Path="." ElementName="PassGestorPin"></Binding>
+                                <Binding Path="." ElementName="PassTokenTarjeta"></Binding>
+                                <Binding Path="." ElementName="CuadreLoginWindow"></Binding>
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>            
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center" 
+                        Width="306"
+                        Visibility="{Binding  NecesitoTokenValidacion, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid Margin="0,22,0,3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="192"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label     
+                            Height="50"                             
+                            Grid.Row="0"
+                            Grid.Column="0"                      
+                            Background="{StaticResource BtnDarkBackgroundBrush}" 
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="White"                                   
+                            HorizontalAlignment="Stretch" 
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Content="{Binding Posicion, UpdateSourceTrigger=PropertyChanged }"/>
+                    <Border 
+                            BorderBrush="#000" 
+                            BorderThickness="1" 
+                            Margin="0 0 3 0"
+                            Grid.Row="0"
+                            Grid.Column="1">
+                        <PasswordBox
+                                 x:Name="PassTokenTarjeta"    
+                                 FontSize="20"
+                                 FontWeight="Medium"
+                                 Height="45" 
+                                 PasswordChar="*"                             
+                                 Padding="1 0 0 0"  
+                                 Foreground="#28A745"
+                                 HorizontalContentAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 materialDesign:HintAssist.Hint="Ingrese el Token"    
+                                 behaviours:SeleccionaTodoBehaviour.Habilitado="True" Width="187"       
+                                 SnapsToDevicePixels="True"
+                                 BorderBrush="Transparent" />
+                    </Border>
+                    
+                    <Button Grid.Row="0"
+                            Grid.Column="2"
+                            Width="55"
+                            Height="48"                                
+                            Margin="0"                                            
+                            Style="{DynamicResource btn-dark}"
+                            Padding="0 0 0 0"
+                            Command="{Binding ValidarToken}">
+                        <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center" Width="30" Height="30" />
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource PassMultipleValuesConverter}" >
+                                <Binding Path="." ElementName="PassTokenTarjeta"></Binding>
+                                <Binding Path="." ElementName="CuadreLoginWindow"></Binding>
+                            </MultiBinding>
+                        </Button.CommandParameter>                        
+                    </Button>           
+                    
+                    
+                    
+                </Grid>
+            </StackPanel>
+
+
+            <Button  HorizontalAlignment="Left" 
+                     FontSize="18" 
+                     Height="40" 
+                     Width="107" Margin="14 50 0 10 "
+                     Style="{DynamicResource btn-dark}"                    
+                     Content="Cancelar" 
+                     Click="CancelarCuadre"/>
+            
+
+            <TextBlock 
+                   TextAlignment="Justify"
+                   TextWrapping="WrapWithOverflow"
+                   FontSize="15" 
+                   Foreground="{DynamicResource BtnDangerBackgroundBrush}" 
+                   DataContext="{Binding Error}" 
+                   Text="{Binding Message}"  
+                   Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                   Margin="0 6 0 6"/>
+
+
+
+
+        </StackPanel>
+
+
+
+    </Grid>
+</Window>

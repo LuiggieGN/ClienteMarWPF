@@ -15,7 +15,6 @@ using ClienteMarWPF.UI.State.LocalClientSetting;
 
 using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
-using ClienteMarWPF.UI.Modules.Modulo;
 using ClienteMarWPF.UI.Modules.Reporte;
 
 using ClienteMarWPF.UI.ViewModels;
@@ -45,6 +44,7 @@ using ClienteMarWPF.Domain.Services.CuadreService;
 using ClienteMarWPF.Domain.Services.TieService;
 using ClienteMarWPF.Domain.Services.CajaService;
 using ClienteMarWPF.Domain.Services.MultipleService;
+using ClienteMarWPF.Domain.Services.RutaService;
 #endregion
 
 namespace ClienteMarWPF.UI
@@ -81,6 +81,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<ITieService, TieDataService>();
             services.AddSingleton<ICajaService, CajaDataService>();
             services.AddSingleton<IMultipleService, MultipleDataService>();
+            services.AddSingleton<IRutaService, RutaDataService>();
             #endregion
 
             services.AddSingleton<IViewModelFactory, ViewModelFactory>();    //Este Servicio Contiene la factoria de ViewModels Disponibles
@@ -90,14 +91,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<CreateViewModel<HomeViewModel>>(services =>
             {
                 return () => new HomeViewModel();
-            });
-
-            services.AddSingleton<CreateViewModel<ModuloViewModel>>(services =>
-            {
-                return () => new ModuloViewModel(
-                    services.GetRequiredService<IBancaService>()
-                );
-            });
+            }); 
 
             services.AddSingleton<CreateViewModel<ReporteViewModel>>(services =>
             {

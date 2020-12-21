@@ -135,6 +135,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Modules\FlujoEfectivo\Cuadre\Windows\CuadreLogin\CuadreLoginResources.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Modules\FlujoEfectivo\Inicio\InicioView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -156,6 +159,11 @@
     <Page Update="Views\Controls\PagerControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\" />
+    <Folder Include="Modules\FlujoEfectivo\Cuadre\Windows\CuadreDesglose\" />
   </ItemGroup>
 
 </Project>

@@ -34,7 +34,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Inicio
             _cuadreService = cuadreService;
             _viewmodel = viewmodel;
             _puedeIniciar = true;
-            SetAction(new Action<object>(IniciarControlEfectivo), new Predicate<object>(PuedeIniciarControlDeEfectivo));
+            SetAction(new Action<object>(IniciarControlEfectivo), 
+                      new Predicate<object>(PuedeIniciarControlDeEfectivo));
         }
 
         public void IniciarControlEfectivo(object parametro)

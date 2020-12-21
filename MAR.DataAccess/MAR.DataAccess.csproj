@@ -82,6 +82,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ControlEfectivoRepositories\RutaRepository.cs" />
+    <Compile Include="ControlEfectivoRepositories\Helpers\RutaHelper.cs" />
     <Compile Include="ControlEfectivoRepositories\MultipleRepository.cs" />
     <Compile Include="ControlEfectivoRepositories\Helpers\MultipleHelper.cs" />
     <Compile Include="ControlEfectivoRepositories\TieRepository.cs" />

@@ -39,13 +39,13 @@ namespace ClienteMarWPF.Domain.Enums
 
     public enum EfectivoFunciones
     {        
-        Caja_RegistrarMovimientoEnBanca = 1000,   //AAA
-        Caja_RegistrarMovimientoDesdeHasta = 1001,//AAA
-        Caja_LeerMovimientos = 1002,              //AAA
-        Caja_LeerCajaBalance = 1003,//AAA
-                                                         // Caja_SetearDisponibilidad = 1004,       //  Ojo esta operacion se va hacer en el mismo bach de query cuando se este cuadrando >> Disponibilidad = 0 luego se cuadra  y por ultimo Disponibilidad = 1
-        Caja_LeerCajaDeUsuarioPorUsuarioId = 1004,//AAA   
-
+        Caja_RegistrarMovimientoEnBanca = 1000,    //AAA
+        Caja_RegistrarMovimientoDesdeHasta = 1001, //AAA
+        Caja_LeerMovimientos = 1002,               //AAA
+        Caja_LeerCajaBalance = 1003,               //AAA
+        Caja_LeerCajaDeUsuarioPorUsuarioId = 1004, //AAA   
+        Caja_LeerCajaDisponibilidad = 1005,        //--
+                                                                          // Caja_SetearDisponibilidad = 1004,       //  Ojo esta operacion se va hacer en el mismo bach de query cuando se este cuadrando >> Disponibilidad = 0 luego se cuadra  y por ultimo Disponibilidad = 1
 
         Banca_LeerBancaLastCuadreId = 2000,                               //AAA 
         Banca_LeerBancaLastTransaccionesApartirDelUltimoCuadre = 2001,    //AAA 
@@ -61,8 +61,9 @@ namespace ClienteMarWPF.Domain.Enums
 
         Tie_LeerTiposAnonimos = 4000, //AAA   
                
-        Multiple_LeerUsuarioSuCajaYSuTarjetaPorPinDeUsuario = 8000 //AAA
-         
+        Multiple_LeerUsuarioSuCajaYSuTarjetaPorPinDeUsuario = 8000, //AAA         
+
+        Ruta_LeerGestorAsignacionPendiente = 9000 //AAA
     }
  
 

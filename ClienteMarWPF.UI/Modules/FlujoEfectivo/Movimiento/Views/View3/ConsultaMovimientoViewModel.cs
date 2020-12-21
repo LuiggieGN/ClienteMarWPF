@@ -107,8 +107,7 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View3
         {
             NotifyPropertyChanged(nameof(Movimientos),
                                   nameof(PagedDataHasRecords),
-                                  nameof(NoRecordsWereFound));
-        
+                                  nameof(NoRecordsWereFound));      
         }
 
 

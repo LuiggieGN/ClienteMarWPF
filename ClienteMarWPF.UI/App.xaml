@@ -3,8 +3,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"            
              xmlns:moduloHome="clr-namespace:ClienteMarWPF.UI.Modules.Home"
-             xmlns:moduloLogin="clr-namespace:ClienteMarWPF.UI.Modules.Login"
-             xmlns:moduloModulo="clr-namespace:ClienteMarWPF.UI.Modules.Modulo"   
+             xmlns:moduloLogin="clr-namespace:ClienteMarWPF.UI.Modules.Login"   
              xmlns:moduloReporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"   
              xmlns:moduloSorteos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:moduloCincoMinutos="clr-namespace:ClienteMarWPF.UI.Modules.CincoMinutos"   
@@ -53,11 +52,7 @@
 
             <DataTemplate DataType="{x:Type  moduloHome:HomeViewModel}">
                 <moduloHome:HomeView />
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type  moduloModulo:ModuloViewModel}">
-                <moduloModulo:ModuloView />
-            </DataTemplate>
+            </DataTemplate> 
 
             <DataTemplate DataType="{x:Type  moduloReporte:ReporteViewModel}">
                 <moduloReporte:ReporteView />
