@@ -57,7 +57,32 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             ReportesListaNumeros.QuinielaVisibilty = Visibility.Hidden;
             ReportesListaNumeros.PaleVisibility = Visibility.Hidden;
             ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
+            ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
             /////////////////////////////////////////////////////
+            ///
+            /// Inicializando posiciones de componentes de listadoNumero//
+            /// 
+            ReportesListaNumeros.PosicionTituloQuiniela = 1;
+            ReportesListaNumeros.PosicionTablaQuiniela = 2;
+            ReportesListaNumeros.PosicionTotalesQuiniela = 3;
+            ReportesListaNumeros.PosicionTituloPale = 4;
+            ReportesListaNumeros.PosicionTablaPale = 5;
+            ReportesListaNumeros.PosicionTotalesPale = 6;
+            ReportesListaNumeros.PosicionTituloTripleta = 7;
+            ReportesListaNumeros.PosicionTablaTripleta = 8;
+            ReportesListaNumeros.PosicionTotalesTripleta = 9;
+
+            //////////////////////////////////////////////////////////////
+            ///// Inicializando posiciones de componentes de ganadores /////
+            ReportesGanadores.PosicionTituloPagados = 2;
+            ReportesGanadores.PosicionTablaPagados = 3;
+            ReportesGanadores.PosicionTituloPendientesPagos = 4;
+            ReportesGanadores.PosicionTablaPendientesPagos = 5;
+            ReportesGanadores.PosicionTituloSinReclamar = 6;
+            ReportesGanadores.PosicionTablaSinReclamar = 7;
+            ReportesGanadores.PosicionBalance = 8;
+
+            ////////////////////////////////////////////////////////////////
 
             ReportesListaNumeros.Quiniela = new ObservableCollection<ReportesListaNumerosObservable>() { };
             ReportesListaNumeros.Pale = new ObservableCollection<ReportesListaNumerosObservable>() { };

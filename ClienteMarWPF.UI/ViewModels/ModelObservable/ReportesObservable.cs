@@ -165,10 +165,19 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         private Visibility pagadosVisibility;
         private Visibility mostrarPremiosVisibility;
         private Visibility noMostrarPremiosVisibility;
+        private Visibility mostrarNoTicketGanadores;
         private string totalganadores;
         private string primera;
         private string segunda;
         private string tercera;
+        private int posicionTituloPagados;
+        private int posicionTituloPendientesPagar;
+        private int posicionTituloSinReclamar;
+        private int posicionTablaPagados;
+        private int posicionTablaPendientesPagar;
+        private int posicionTablaSinReclamar;
+        private int posicionBalance;
+        private int heightMensajeNoTicketGanadores;
 
         public ObservableCollection<ReportesGanadoresObservable> PendientesPagar
         {
@@ -211,6 +220,11 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
             get { return noMostrarPremiosVisibility; }
             set { noMostrarPremiosVisibility = value; NotifyPropertyChanged(nameof(NoMostrarPremiosVisibity)); }
         }
+        public Visibility MostrarNoHayGanadoresVisibity
+        {
+            get { return mostrarNoTicketGanadores; }
+            set { mostrarNoTicketGanadores = value; NotifyPropertyChanged(nameof(MostrarNoHayGanadoresVisibity)); }
+        }
         public string TotalGanadores
         {
             get { return totalganadores; }
@@ -230,6 +244,46 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         {
             get { return tercera; }
             set { tercera = value; NotifyPropertyChanged(nameof(Tercera)); }
+        }
+        public int PosicionTituloPagados
+        {
+            get { return posicionTituloPagados; }
+            set { posicionTituloPagados = value; NotifyPropertyChanged(nameof(PosicionTituloPagados)); }
+        }
+        public int PosicionTituloPendientesPagos
+        {
+            get { return posicionTituloPendientesPagar; }
+            set { posicionTituloPendientesPagar = value; NotifyPropertyChanged(nameof(PosicionTituloPendientesPagos)); }
+        }
+        public int PosicionTituloSinReclamar
+        {
+            get { return posicionTituloSinReclamar; }
+            set { posicionTituloSinReclamar = value; NotifyPropertyChanged(nameof(PosicionTituloSinReclamar)); }
+        }
+        public int PosicionTablaPagados
+        {
+            get { return posicionTablaPagados; }
+            set { posicionTablaPagados = value; NotifyPropertyChanged(nameof(PosicionTablaPagados)); }
+        }
+        public int PosicionTablaPendientesPagos
+        {
+            get { return posicionTablaPendientesPagar; }
+            set { posicionTablaPendientesPagar = value; NotifyPropertyChanged(nameof(PosicionTablaPendientesPagos)); }
+        }
+        public int PosicionTablaSinReclamar
+        {
+            get { return posicionTablaSinReclamar; }
+            set { posicionTablaSinReclamar = value; NotifyPropertyChanged(nameof(PosicionTablaSinReclamar)); }
+        }
+        public int PosicionBalance
+        {
+            get { return posicionBalance; }
+            set { posicionBalance = value; NotifyPropertyChanged(nameof(PosicionBalance)); }
+        }
+        public int HeightTicketNoGanadores
+        {
+            get { return heightMensajeNoTicketGanadores; }
+            set { heightMensajeNoTicketGanadores = value; NotifyPropertyChanged(nameof(HeightTicketNoGanadores)); }
         }
     }
 
@@ -280,6 +334,15 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         private Visibility quinielaVisibility;
         private Visibility paleVisibility;
         private Visibility tripletaVisibility;
+        private int posiciontituloquiniela;
+        private int posiciontitulopale;
+        private int posiciontitulotripleta;
+        private int posiciontablaquiniela;
+        private int posiciontablapale;
+        private int posiciontablatripleta;
+        private int posiciontotalesquiniela;
+        private int posiciontotalespale;
+        private int posiciontotalestripletas;
 
         public ObservableCollection<ReportesListaNumerosObservable> Quiniela
         {
@@ -345,6 +408,51 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         {
             get { return totalPagoTripleta; }
             set { totalPagoTripleta = value; NotifyPropertyChanged(nameof(TotalPagoTripleta)); }
+        }
+        public int PosicionTituloQuiniela
+        {
+            get { return posiciontituloquiniela; }
+            set { posiciontituloquiniela = value; NotifyPropertyChanged(nameof(PosicionTituloQuiniela)); }
+        }
+        public int PosicionTituloPale
+        {
+            get { return posiciontitulopale; }
+            set { posiciontitulopale = value; NotifyPropertyChanged(nameof(PosicionTituloPale)); }
+        }
+        public int PosicionTituloTripleta
+        {
+            get { return posiciontitulotripleta; }
+            set { posiciontitulotripleta = value; NotifyPropertyChanged(nameof(PosicionTituloTripleta)); }
+        }
+        public int PosicionTablaQuiniela
+        {
+            get { return posiciontablaquiniela; }
+            set { posiciontablaquiniela = value; NotifyPropertyChanged(nameof(PosicionTablaQuiniela)); }
+        }
+        public int PosicionTablaPale
+        {
+            get { return posiciontablapale; }
+            set { posiciontablapale = value; NotifyPropertyChanged(nameof(PosicionTablaPale)); }
+        }
+        public int PosicionTablaTripleta
+        {
+            get { return posiciontablatripleta; }
+            set { posiciontablatripleta = value; NotifyPropertyChanged(nameof(PosicionTablaTripleta)); }
+        }
+        public int PosicionTotalesQuiniela
+        {
+            get { return posiciontotalesquiniela; }
+            set { posiciontotalesquiniela = value; NotifyPropertyChanged(nameof(PosicionTotalesQuiniela)); }
+        }
+        public int PosicionTotalesPale
+        {
+            get { return posiciontotalespale; }
+            set { posiciontotalespale = value; NotifyPropertyChanged(nameof(PosicionTotalesPale)); }
+        }
+        public int PosicionTotalesTripleta
+        {
+            get { return posiciontotalestripletas; }
+            set { posiciontotalestripletas = value; NotifyPropertyChanged(nameof(PosicionTotalesTripleta)); }
         }
     }
 
@@ -533,12 +641,14 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
     public class ReportesDeVentas:BaseViewModel
     {
         private int numeros;
+        private int posicionticketnulos;
         private string numerosRD;
         private string pales;
         private string tripletas;
         private string totalVenta;
         private string comision;
         private string ventaNeta;
+        private string gananciaoperdida;
         private Visibility premiosdisponibles;
         private Visibility ticketnulosdisponibles;
         private List<string> premios;
@@ -548,6 +658,11 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         {
             get { return numeros; }
             set { numeros = value; NotifyPropertyChanged(nameof(Numeros)); }
+        }
+        public int PosicionTicketNulo
+        {
+            get { return posicionticketnulos; }
+            set { posicionticketnulos = value; NotifyPropertyChanged(nameof(PosicionTicketNulo)); }
         }
 
         public string NumerosRD
@@ -574,6 +689,11 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         {
             get { return comision; }
             set { comision = value; NotifyPropertyChanged(nameof(Comision)); }
+        }
+        public string GananciaOPerdida
+        {
+            get { return gananciaoperdida; }
+            set { gananciaoperdida = value; NotifyPropertyChanged(nameof(GananciaOPerdida)); }
         }
         public string VentaNeta
         {

@@ -153,7 +153,6 @@ namespace ClienteMarWPF.UI.Modules.Reporte
                 GridGanadores.RowDefinitions.Remove(EncabezadoSinReclamar);
             }
         }
-
-        
+       
     }
 }
