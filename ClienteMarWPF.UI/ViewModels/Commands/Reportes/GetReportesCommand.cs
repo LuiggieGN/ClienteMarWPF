@@ -168,7 +168,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             var DiaSemanaReporte = TraducirDiaSemana(Convert.ToDateTime(FechaRepote).DayOfWeek.ToString());
             var mesAnnoActual = ObtenerMesEspanol(Convert.ToInt32(DateTime.Now.Month));
             var mesAnnoReporte = ObtenerMesEspanol(Convert.ToInt32(Convert.ToDateTime(FechaRepote).Month.ToString()));
-
+            ViewModel.NombreBanca = Autenticador.BancaConfiguracion.BancaDto.BanContacto + "  ID:" + Autenticador.BancaConfiguracion.BancaDto.BancaID;
+            
             ViewModel.NombreReporte = NombreReporte;
 
                 ViewModel.FechaActualReport = "Del Dia " + DiaSemanaReporte + ", " + Convert.ToDateTime(FechaRepote).Day + "-"+ mesAnnoReporte + "-"+ Convert.ToDateTime(FechaRepote).Year;
@@ -596,7 +597,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     ViewModel.ReportesDeVentas.GananciaOPerdida = "GANANCIA:";
                 }
                 else if (TotalGanancia < 0){
-                    TotalFormateado = "$" + ConvertirMonedaNegativos(TotalGanancia);
+                    TotalFormateado = ConvertirMonedaNegativos(TotalGanancia);
                     ViewModel.ReportesDeVentas.GananciaOPerdida = "PERDIDA:";
                 }
 
@@ -1098,7 +1099,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     var ListadoString = new List<string>() { "Titulo", "Parrado" };
 
                     //Muestra De Ticket
-                    var NombreBanca = "LEXUS-Bancas Lexus ID:14";
+                    var NombreBanca = Autenticador.BancaConfiguracion.BancaDto.BanContacto +"ID: "+Autenticador.BancaConfiguracion.BancaDto.BancaID;
                     var Titulo = ViewModel.NombreReporte;
                     var FechaActual = ViewModel.FechaActualReport;
                     var FechaReporte = ViewModel.FechaReporte;

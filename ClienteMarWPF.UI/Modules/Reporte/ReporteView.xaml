@@ -100,7 +100,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"></RowDefinition>
                         <RowDefinition Height="70"></RowDefinition>
-                        <RowDefinition  Height="70"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
                         <RowDefinition Height="20px"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
