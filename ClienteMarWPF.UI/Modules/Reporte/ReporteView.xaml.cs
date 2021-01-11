@@ -1,4 +1,6 @@
 ﻿using ClienteMarWPF.Domain.Models.Dtos;
+using ClienteMarWPF.UI.State.Authenticators;
+using ClienteMarWPF.UI.ViewModels.Commands.Reporte;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
 using MAR.AppLogic.MARHelpers;
 using MarPuntoVentaServiceReference;
@@ -31,14 +33,16 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         public static string Nombre;
         public static int Loteria;
         public static string NombreLoteria;
-        
+        public static string OpcionTicketSeleccionado;
+        private readonly ReporteViewModel ViewModel;
+        public ObservableCollection<ReporteListaTicketsObservable> listaTicket=new ObservableCollection<ReporteListaTicketsObservable>() { };
+        public ObservableCollection<ReporteListaTicketsObservable> listaTicketVolatil;
+
         public ReporteView()
         {
             InitializeComponent();
-            
-            
+           
             listSorteo.SelectedIndex = 0;
-            
             EnableScrollBars();
             NoAutogenerarColumnas();
            
@@ -153,6 +157,17 @@ namespace ClienteMarWPF.UI.Modules.Reporte
                 GridGanadores.RowDefinitions.Remove(EncabezadoSinReclamar);
             }
         }
-       
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpcionTicketSeleccionado = (sender as RadioButton).Content as String;
+           
+        }
+
+        public string ObtenerSeleccionTicket()
+        {
+            return OpcionTicketSeleccionado;
+        }
+
     }
 }

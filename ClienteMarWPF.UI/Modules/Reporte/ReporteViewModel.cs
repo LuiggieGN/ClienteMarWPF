@@ -3,6 +3,7 @@ using Accessibility;
 using ClienteMarWPF.DataAccess;
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Services.ReportesService;
+using ClienteMarWPF.UI.Modules.Reporte.Modal;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 
@@ -29,8 +30,24 @@ namespace ClienteMarWPF.UI.Modules.Reporte
 {
     public class ReporteViewModel : BaseViewModel
     {
+
+        private ReporteDialogViewModel _dialog;
+        public ReporteDialogViewModel Dialog
+        {
+            get
+            {
+                return _dialog;
+            }
+            set
+            {
+                _dialog = value; NotifyPropertyChanged(nameof(Dialog));
+            }
+        }
+
+
         public ICommand ObtenerReportes { get; }
         public ICommand PrintReportes { get; }
+        public ICommand ChangeOptionListTicket { get; }
         public ObservableCollection<ReportesObservable> ReporteBinding;
         public ObservableCollection<ReportesSumVentasObservable> ReporteMostrarBinding;
         public List<MAR_Loteria2> _sorteos;
@@ -44,6 +61,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             SoloTotales = true;
             ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices);
             PrintReportes = new PrintReports(this, autenticador, reportesServices);
+            ChangeOptionListTicket = new ChangeOpcionListTicket(this, autenticador, reportesServices);
 
             //Ocultando vistas de todos los reportes inicialmente
             RPTSumaVentasVisibility = Visibility.Hidden;
@@ -90,8 +108,8 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             MAR_Loteria2 opcionTodas = new MAR_Loteria2() { Nombre = "Todas", LoteriaKey = 0 };
             Sorteos = new List<MAR_Loteria2>() { };
             Sorteos.Add(opcionTodas);
-            foreach (var loteria in SessionGlobals.LoteriasTodas){Sorteos.Add(loteria);}
-            
+            foreach (var loteria in SessionGlobals.LoteriasTodas) { Sorteos.Add(loteria); }
+
             PremiosVentas.MostrarPremios = Visibility.Hidden;
             PremiosVentas.NoMostrarPremios = Visibility.Hidden;
         }
@@ -143,13 +161,15 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private ObservableCollection<ReportesSumVentasFechaObservable> _reporteSumVentasPorFecha;
         private ObservableCollection<ReportesListaTajetasObservable> _reporteListaTarjetas;
         private ObservableCollection<ReporteListaTicketsObservable> _reporteListaTicket;
+        private ObservableCollection<ReporteListaTicketsObservable> _reporteAllDataListaTicket;
         private ObservableCollection<ReporteListaTicketsObservable> _reportepagoRemoto;
         private ReporteListNumeroColumns _reporteListaNumeros = new ReporteListNumeroColumns() { };
         private DataGrid _repoteSumFech;
         private ReportesDeVentas _reporteventas = new ReportesDeVentas();
         private TotalesListadoTicket _totalesListTicket = new TotalesListadoTicket();
         private PremiosVentas _premiosventas = new PremiosVentas();
-        
+        private bool canChangeOptionListTicket;
+
 
 
         //###########################################################
@@ -203,7 +223,8 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             set { _labelhasta = value; NotifyPropertyChanged(nameof(LabelHasta)); }
         }
 
-        public TotalesListadoTicket TotalesListTicket{
+        public TotalesListadoTicket TotalesListTicket
+        {
             get { return _totalesListTicket; }
             set { _totalesListTicket = value; NotifyPropertyChanged(nameof(TotalesListTicket)); }
         }
@@ -214,7 +235,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             set { _soloTotales = value; NotifyPropertyChanged(nameof(SoloTotales)); }
         }
 
-        public string NombreReporte 
+        public string NombreReporte
         {
             get { return _nombrereporte; }
             set { _nombrereporte = value; NotifyPropertyChanged(nameof(NombreReporte)); }
@@ -321,6 +342,11 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             get { return _reporteListaTicket; }
             set { _reporteListaTicket = value; NotifyPropertyChanged(nameof(ReporteListTicket)); }
         }
+        public ObservableCollection<ReporteListaTicketsObservable> ReporteAllDataListTicket
+        {
+            get { return _reporteAllDataListaTicket; }
+            set { _reporteAllDataListaTicket = value; NotifyPropertyChanged(nameof(ReporteAllDataListTicket)); }
+        }
         public ObservableCollection<ReporteListaTicketsObservable> ReportePagosRemotos
         {
             get { return _reportepagoRemoto; }
@@ -374,7 +400,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         {
             get
             {
-                return _reportes= new ObservableCollection<ReportesObservable> {
+                return _reportes = new ObservableCollection<ReportesObservable> {
                  new ReportesObservable  {Nombre="Reportes De Ventas",ReporteID=1,IsChecked=true},
                  new ReportesObservable  {Nombre="Lista De Numeros",ReporteID=2,IsChecked=false},
                  new ReportesObservable  {Nombre="Lista De Tickets",ReporteID=3,IsChecked=false},
@@ -419,9 +445,10 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             }
         }
 
-        public string NombreBanca {
+        public string NombreBanca
+        {
             get { return _nombrebanca; }
-            set { _nombrebanca = value; NotifyPropertyChanged(nameof(NombreBanca));}
+            set { _nombrebanca = value; NotifyPropertyChanged(nameof(NombreBanca)); }
         }
 
         public string FechaReporte
@@ -474,6 +501,11 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         {
             get { return totalesListNumeros; }
             set { totalesListNumeros = value; NotifyPropertyChanged(nameof(TotalListNumeros)); }
+        }
+        public bool CanChangeOptionListTicket
+        {
+            get { return canChangeOptionListTicket; }
+            set { canChangeOptionListTicket = value; NotifyPropertyChanged(nameof(CanChangeOptionListTicket)); }
         }
         //###########################################################
         #endregion
