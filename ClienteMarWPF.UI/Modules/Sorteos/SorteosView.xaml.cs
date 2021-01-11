@@ -367,16 +367,16 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
                 }
 
-                //if (RealizarApuestaCommand != null)
-                //{
-                //    RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = Loteria });
-                    
-                //}
+                if (RealizarApuestaCommand != null)
+                {
+                    RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = Loteria });
+                   
+                }
 
-                //if (GetListadoTicketsCommand != null)
-                //{
-                //    GetListadoTicketsCommand.Execute(null);
-                //}
+                if (GetListadoTicketsCommand != null)
+                {
+                    GetListadoTicketsCommand.Execute(null);
+                }
 
                 LimpiarApuesta();
                 RefreshListJugadas();
