@@ -728,6 +728,7 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         string hora;
         string vendio;
         string saco;
+        bool nulo;
         Visibility mostrarNulos;
        
         public string Ticket
@@ -749,6 +750,11 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         {
             get { return saco; }
             set { saco = value; NotifyPropertyChanged(nameof(Saco)); }
+        }
+        public bool Nulo
+        {
+            get { return nulo; }
+            set { nulo = value; NotifyPropertyChanged(nameof(Nulo)); }
         }
         public Visibility MostrarNulos
         {
