@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <Reference Include="MAR.Config">
-      <HintPath>..\..\..\..\..\Desktop\Config Remote\Medelo2020\Local Medelo 2020\MAR.Config.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Config Medelo2020 local\MAR.Config.dll</HintPath>
     </Reference>
   </ItemGroup>
 
