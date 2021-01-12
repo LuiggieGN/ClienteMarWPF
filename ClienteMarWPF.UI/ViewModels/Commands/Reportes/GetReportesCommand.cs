@@ -1078,7 +1078,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                             ListadoTicket.Add(objectoTicket);
                         }
                    }
-                   if (opcionSeleccionada == "Todos")
+                   if (opcionSeleccionada == "Todos" || opcionSeleccionada == null)
                    {
                         foreach (var ticket in ReporteTicket.Tickets)
                         {
