@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
-
+using ClienteMarWPF.UI.ViewModels;
 
 namespace ClienteMarWPF.UI.State.Authenticators
 {
@@ -15,13 +15,19 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
         BancaConfiguracionDTO BancaConfiguracion { get; set; }
 
+        BancaBalanceViewModel BancaBalance { get; set; }
+
         bool IsLoggedIn { get; }
 
         event Action CurrentAccountStateChanged;
 
         event Action CurrentBancaConfiguracionStateChanged;
 
+        event Action CurrentBancaBalanceStateChanged;
+
         void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress);
+
+        void RefrescarBancaBalance();
 
         void CerrarSesion();
 

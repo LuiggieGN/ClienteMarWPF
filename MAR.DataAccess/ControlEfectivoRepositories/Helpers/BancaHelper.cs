@@ -80,8 +80,9 @@
 
 
         internal static string Procedure_SP_GET_BANCA_TRANSACCIONES_A_PARTIR_DE_ULTIMO_CUADRE = "[flujo].[Sp_ConsultaBancaTransaccionesDesdeUltimoCuadre]";
-        
 
+
+        internal static string QueryParaLeerDeudaDeBanca = @"select top 1 isnull(flujo.GetBancaTotalTiketsPendienteDePago(@bancaid),0 )";
 
 
 

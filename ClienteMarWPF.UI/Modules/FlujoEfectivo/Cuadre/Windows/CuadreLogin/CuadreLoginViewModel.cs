@@ -51,7 +51,6 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
         public string Posicion { get => _posicion; set { _posicion = value; NotifyPropertyChanged(nameof(Posicion)); } }
         public string Token { get => _token; private set { _token = value; } }
 
-
         public MultipleDTO<MUsuarioDTO, CajaDTO, TarjetaDTO> Gestor { get => _gestor; set { _gestor = value; } }
         public RutaAsignacionDTO Asignacion { get => _asignacion; set { _asignacion = value; } }
 
@@ -76,7 +75,6 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
             SetearTokenAValidar(string.Empty, string.Empty);
             _gestor = null;
             _asignacion = null;
-
 
             SeleccionarGestor = new SeleccionarGestorParaCuadreCommand(this);
             ValidarToken = new ValidarTokenChallengeCommand(this);

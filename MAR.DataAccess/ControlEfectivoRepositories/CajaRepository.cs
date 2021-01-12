@@ -171,8 +171,56 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         }
 
 
- 
+        public static decimal LeerCajaBalanceMinimo(int cajaid)
+        {
+            try
+            {
+                var p = new DynamicParameters(); decimal balanceMinimo = 0;
+                p.Add("@cajaid", cajaid);
 
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();                    
+
+                    balanceMinimo = db.Query<decimal>(CajaHelper.QueryParaLeerBalanceMinimoDeCaja, p, commandType: CommandType.Text).First();
+
+                    db.Close();
+                }
+
+                return balanceMinimo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static bool SetearCajaDisponibilidad(CajaDisponibilidadDTO disponibilidad) 
+        {
+            try
+            {
+                var p = new DynamicParameters(); bool estado = false;
+                p.Add("@bancaid", disponibilidad.Bancaid);
+                p.Add("@cajaid", disponibilidad.Cajaid);
+                p.Add("@disponibilidad", disponibilidad.Disponibilidad);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    estado = db.Query<bool>(CajaHelper.QuerySetCajaDisponibilidad, p, commandType: CommandType.Text).First();
+
+                    db.Close();
+                }
+
+                return estado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
 

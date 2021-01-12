@@ -11,6 +11,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Threading;
+using System.Globalization;
+
 namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View3
 {
     public partial class ConsultaMovimientoView : UserControl

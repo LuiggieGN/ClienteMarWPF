@@ -273,6 +273,12 @@ Public Class mar_flujo
                 Case 1004
                     Dim usuarioid = Integer.Parse(parametros(0).ToString())
                     result = CajaLogic.LeerCajaDeUsuarioPorUsuarioId(usuarioid)
+                Case 1005
+                    Dim jsonCajaDisponibilidad = parametros(0).ToString()
+                    result = CajaLogic.SetearCajaDisponibilidad(jsonCajaDisponibilidad)
+                Case 1007
+                    Dim cajaid = Integer.Parse(parametros(0).ToString())
+                    result = CajaLogic.LeerCajaBalanceMinimo(cajaid)
 #End Region
 
 #Region "Bancas"
@@ -288,6 +294,10 @@ Public Class mar_flujo
                 Case 2002
                     Dim cuadreid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerBancaCuadrePorCuadreId(cuadreid)
+
+                Case 2004
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerDeudaDeBanca(bancaid)
 
                 Case 2005
                     Dim bancaid = Integer.Parse(parametros(0).ToString())

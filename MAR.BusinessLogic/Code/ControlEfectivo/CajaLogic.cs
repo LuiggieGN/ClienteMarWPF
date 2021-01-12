@@ -66,10 +66,7 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
                 throw ex;
             }
         }
-
-
-
-
+                     
         public static CajaDTO LeerCajaDeUsuarioPorUsuarioId(int usuarioid)
         {
             try
@@ -81,10 +78,33 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
                 throw e;
             }
         }
- 
+
+        public static decimal LeerCajaBalanceMinimo(int cajaid)
+        {
+            try
+            {
+                return CajaRepository.LeerCajaBalanceMinimo(cajaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
+        public static bool SetearCajaDisponibilidad(string jsonCajaDisponibilidad)
+        {
+            try
+            {
+                var cajadisponilidad = JSONHelper.CreateNewFromJSONNullValueIgnore<CajaDisponibilidadDTO>(jsonCajaDisponibilidad);
 
+                return CajaRepository.SetearCajaDisponibilidad(cajadisponilidad);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
     }//fin de clase

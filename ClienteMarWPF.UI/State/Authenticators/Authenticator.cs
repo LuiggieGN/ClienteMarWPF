@@ -1,42 +1,51 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
+﻿
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Models.Entities;
 
 using ClienteMarWPF.Domain.Services.BancaService;
 using ClienteMarWPF.Domain.Services.AuthenticationService;
+using ClienteMarWPF.Domain.Services.CajaService;
+using ClienteMarWPF.Domain.Exceptions;
 
+using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.State.Accounts;
 using ClienteMarWPF.UI.State.Configurators;
-using ClienteMarWPF.Domain.Exceptions;
+using ClienteMarWPF.UI.State.BancaBalanceStore;
+
+using System;
+using System.Globalization;
 
 namespace ClienteMarWPF.UI.State.Authenticators
 {
     public class Authenticator : IAuthenticator
     {
-
+        #region Fields
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountStore _accountStore;
         private readonly IConfiguratorStore _configuratorStore;
+        private readonly IBancaBalanceStore _bancaBalanceStore;
         private readonly IBancaService _bancaService;
-
+        private readonly ICajaService _cajaService;
+        #endregion
 
         public Authenticator(
             IAuthenticationService authenticationService,
             IAccountStore accountStore,
             IConfiguratorStore configuratorStore,
-            IBancaService bancaService
+            IBancaBalanceStore bancaBalanceStore,
+            IBancaService bancaService,
+            ICajaService cajaService
         )
         {
             _authenticationService = authenticationService;
             _accountStore = accountStore;
             _configuratorStore = configuratorStore;
+            _bancaBalanceStore = bancaBalanceStore;
             _bancaService = bancaService;
+            _cajaService = cajaService;
         }
 
+        #region Properties
         public CuentaDTO CurrentAccount
         {
             get
@@ -61,26 +70,31 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 CurrentBancaConfiguracionStateChanged?.Invoke();
             }
         }
-
-
-
+        public BancaBalanceViewModel BancaBalance
+        {
+            get
+            {
+                return _bancaBalanceStore.CurrentBancaBalance;
+            }
+            set
+            {
+                _bancaBalanceStore.CurrentBancaBalance = value;
+                CurrentBancaBalanceStateChanged?.Invoke();
+            }
+        }
         public bool IsLoggedIn => CurrentAccount != null;
-
-
-
-
-
+        #endregion
+               
         public void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress)
         {
             try
             {
-
-
                 CurrentAccount = _authenticationService.Logon2(usuario, clave, bancaid, ipaddress);
 
                 BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid);
 
-            } 
+                RefrescarBancaBalance();
+            }
             catch (UserNotFoundException ex1)
             {
                 CerrarSesion();
@@ -103,9 +117,39 @@ namespace ClienteMarWPF.UI.State.Authenticators
             }
         }
 
+        public void RefrescarBancaBalance()
+        {
+            var bancaBalance = new BancaBalanceViewModel();
 
+            if (BancaConfiguracion != null &&
+                BancaConfiguracion.ControlEfectivoConfigDto != null &&
+                BancaConfiguracion.CajaEfectivoDto != null &&
+                BancaConfiguracion.ControlEfectivoConfigDto.PuedeUsarControlEfectivo == true &&
+                BancaConfiguracion.ControlEfectivoConfigDto.BancaYaInicioControlEfectivo == true)
+            {
+                try
+                {
+                    bancaBalance.Balance = _cajaService.LeerCajaBalance(BancaConfiguracion.CajaEfectivoDto.CajaID);
+                    bancaBalance.StrBalance = $"Balance: {bancaBalance.Balance.ToString("$ #,##0.00", CultureInfo.CreateSpecificCulture("en-US"))}";
+                }
+                catch
+                {
+                    bancaBalance.Balance = 0;
+                    bancaBalance.StrBalance = "..";
+                }
+                bancaBalance.TieneBalance = true;
+            }
+            else
+            {
 
- 
+                bancaBalance.Balance = 0;
+                bancaBalance.StrBalance = string.Empty;
+                bancaBalance.TieneBalance = false;
+            }
+
+            BancaBalance = bancaBalance;
+        }
+
 
 
         public void CerrarSesion()
@@ -121,8 +165,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
         public event Action CurrentAccountStateChanged;
         public event Action CurrentBancaConfiguracionStateChanged;
-
-
+        public event Action CurrentBancaBalanceStateChanged;
     }// fin de clase Authenticator
 }// fin de namespace Authenticators
 

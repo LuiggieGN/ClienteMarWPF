@@ -32,32 +32,32 @@ namespace ClienteMarWPF.DataAccess.Services
             efectivoSoapCliente = soapClientesRepository.GetCashFlowServiceClient(false);
         }
 
-        public Task<Banca> Create(Banca entity)
+        public Task<BancaDTO> Create(BancaDTO entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Banca> Get(int id)
+        public Task<BancaDTO> Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(Banca entity)
+        public Task<bool> Update(BancaDTO entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Delete(Banca entity)
+        public Task<bool> Delete(BancaDTO entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> AddRange(List<Banca> entities)
+        public Task<bool> AddRange(List<BancaDTO> entities)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Banca>> GetAll()
+        public Task<IEnumerable<BancaDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -163,6 +163,30 @@ namespace ClienteMarWPF.DataAccess.Services
             }
 
         }// fin de metodo LeerBancaMontoReal( );
+
+        public decimal LeerDeudaDeBanca(int bancaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerDeudaDeBanca, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al procesar la lectura de la deuda de la banca");
+                }
+
+                var deuda = JSONHelper.CreateNewFromJSONNullValueIgnore<decimal>(llamada.Respuesta);
+
+                return deuda;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }// fin de metodo LeerDeudaDeBanca( );
 
 
 

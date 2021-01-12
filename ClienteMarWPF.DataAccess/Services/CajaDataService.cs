@@ -169,6 +169,61 @@ namespace ClienteMarWPF.DataAccess.Services
             }
         }
 
+        public decimal LeerCajaBalanceMinimo(int cajaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(cajaid));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Caja_LeerCajaBalanceMinimo, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al procesar la lectura del balance minimo");
+                }
+
+                var balanceMinimo = JSONHelper.CreateNewFromJSONNullValueIgnore<decimal>(llamada.Respuesta);
+
+                return balanceMinimo;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public bool SetearCajaDisponibilidad(CajaDisponibilidadDTO disponibilidad)
+        {
+            try
+            {
+                if (disponibilidad == null)
+                {
+                    throw new Exception("Configuración de disponibilidad inválida.");
+                }
+
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(disponibilidad));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Caja_SetearCajaDisponibilidad, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al configurar la disponibilidad de caja");
+                }
+
+                var result = JSONHelper.CreateNewFromJSONNullValueIgnore<bool>(llamada.Respuesta);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+
     }//fin de clase
 }
 

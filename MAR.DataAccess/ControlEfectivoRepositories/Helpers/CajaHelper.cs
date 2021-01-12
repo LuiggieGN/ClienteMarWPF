@@ -318,6 +318,22 @@ end catch
 
         ";
 
+		internal static string QueryParaLeerBalanceMinimoDeCaja = @"select top 1 isnull((select top 1 BalanceMinimo from flujo.Caja where CajaID =	@cajaid),0)";
+
+		internal static string QuerySetCajaDisponibilidad = @"
+
+           if(@bancaid is not null)
+           begin
+               update flujo.Caja set Disponible = @disponibilidad where BancaID = @bancaid and TipoCajaID =1;
+           end
+           
+           if(@cajaid is not null)
+           begin
+               update flujo.Caja set Disponible = @disponibilidad where CajaID = @cajaid;
+           end
+
+           select 1 As Completado;
+        "; 
 
     }
 }

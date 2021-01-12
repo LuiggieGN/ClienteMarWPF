@@ -178,8 +178,7 @@
                                      Grid.Row="2"                            
                                      Grid.Column="1"
                                      Orientation="Vertical" 
-                                     Margin="0 0 0 10"
-                                >
+                                     Margin="0 0 0 10">
 
                             <ComboBox  
                                    FontSize="16"
@@ -278,8 +277,7 @@
                                     Orientation="Horizontal"
                                     HorizontalAlignment="Right"
                                     Margin="5"
-                                    Visibility="{Binding  MuestroSeccionCajera, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                    >
+                                    Visibility="{Binding  MuestroSeccionCajera, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <materialDesign:PackIcon Kind="Person" VerticalAlignment="Top" Width="30" Height="30" Foreground="{DynamicResource BackgroundFour}"/>
                             <Label
                                   FontSize="16"
@@ -293,8 +291,7 @@
                                      Grid.Column="1"
                                      Orientation="Vertical"                           
                                      Margin="0 0 0 10"
-                                     Visibility="{Binding  MuestroSeccionCajera, Converter={StaticResource BooleanToVisibilityConverter}}"                            
-                                >
+                                     Visibility="{Binding  MuestroSeccionCajera, Converter={StaticResource BooleanToVisibilityConverter}}">
  
                             <TextBox
                                    FontSize="16"
