@@ -135,17 +135,36 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.CuadreLogin
                 _viewmodel.CuadreEsPermitido = Booleano.Si;
                 _window.Close();
             }
-            else if (_gestor.PrimerDTO.TipoAutenticacion == 1) // Token Challenge is required
+            else //if (_gestor.PrimerDTO.TipoAutenticacion == 1) // Token Challenge is required
             {
+                // @@ Esta seccion habilita el token desde la vista de login de cuadre
+                //_viewmodel.CuadreEsPermitido = Booleano.No;
+
+                //if (_gestor.TercerDTO == null ||
+                //    _gestor.TercerDTO.InlineTokens == null ||
+                //    _gestor.TercerDTO.InlineTokens.Count != 40)
+                //{
+                //    SetInvalidGestor(error: "* El usuario no posee tarjeta de tokens. Favor.. Contactarse con supervisor."); return; 
+                //}
+                //SetRandomTokenChallenge();
+
+                //@@ Esta seccion fue agregada {lo acordado con Jaasiel}
                 _viewmodel.CuadreEsPermitido = Booleano.No;
 
                 if (_gestor.TercerDTO == null ||
                     _gestor.TercerDTO.InlineTokens == null ||
                     _gestor.TercerDTO.InlineTokens.Count != 40)
                 {
-                    SetInvalidGestor(error: "* El usuario no posee tarjeta de tokens. Favor.. Contactarse con supervisor."); return; 
+                    SetInvalidGestor(error: "* El usuario no posee tarjeta de tokens. Favor.. Contactarse con supervisor."); return;
                 }
-                SetRandomTokenChallenge();
+                else
+                {
+                    _viewmodel.CuadreEsPermitido = Booleano.Si;
+                    _window.Close();
+                }
+   
+
+
             }
         }
 

@@ -59,7 +59,17 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
             }
         }
 
-
+        public static decimal LeerDeudaDeBanca(int bancaid)
+        {
+            try
+            {
+                return BancaRepository.LeerDeudaDeBanca(bancaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
 

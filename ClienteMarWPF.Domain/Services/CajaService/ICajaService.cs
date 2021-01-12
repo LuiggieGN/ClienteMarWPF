@@ -20,7 +20,10 @@ namespace ClienteMarWPF.Domain.Services.CajaService
 
         decimal LeerCajaBalance(int cajaid);
 
+        decimal LeerCajaBalanceMinimo(int cajaid);
+
         CajaDTO LeerCajaDeUsuarioPorUsuarioId(int usuarioid);
 
+        bool SetearCajaDisponibilidad(CajaDisponibilidadDTO disponibilidad);
     }
 }

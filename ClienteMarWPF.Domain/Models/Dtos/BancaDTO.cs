@@ -1,9 +1,10 @@
 ﻿
+using ClienteMarWPF.Domain.Models.Base;
 using System;
 
 namespace ClienteMarWPF.Domain.Models.Dtos
 {
-    public class BancaDTO
+    public class BancaDTO : Data
     {
         public int BancaID { get; set; }
         public string BanNombre { get; set; }

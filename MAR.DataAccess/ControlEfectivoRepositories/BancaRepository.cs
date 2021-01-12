@@ -145,6 +145,30 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         }
 
 
+        public static decimal LeerDeudaDeBanca(int bancaid)
+        {
+            try
+            {
+                var p = new DynamicParameters(); decimal deuda = 0;
+                p.Add("@bancaid", bancaid);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    deuda = db.Query<decimal>(BancaHelper.QueryParaLeerDeudaDeBanca, p, commandType: CommandType.Text).First();
+
+                    db.Close();
+                }
+
+                return deuda;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
 
     }//fin de clase

@@ -4,12 +4,12 @@ using System;
 using System.Globalization;
 using System.Windows.Controls;
 
+using ClienteMarWPF.Domain.Helpers;
 using ClienteMarWPF.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPF.Domain.Services.CajaService;
 
 using ClienteMarWPF.UI.ViewModels.Helpers;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View2;
-
 #endregion
 
 
@@ -112,11 +112,11 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.DesdeHas
 
                     if (result.FueProcesado)
                     {
+                        _viewmodel.Aut.RefrescarBancaBalance(); //@@Actualizo el Balance de Banca 
                         _viewmodel.Comentario = string.Empty;
                         _viewmodel.Monto = string.Empty;
                         _viewmodel.Toast.ShowSuccess("Operación Completada");
-
-                        // @@ Pendiente en esta linea Imprimir Transferencia
+                        ImprimirTransaccion(result);
                     }
                     else
                     {
@@ -135,6 +135,34 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.DesdeHas
         }// fin de metodo RegistrarTransferencia( )
 
 
+        #region Imprime Transaccion
+        private void ImprimirTransaccion(SupraMovimientoDesdeHastaResultDTO result)
+        {
+            var docToPrint = new MovimientoToPrintHelper();
+            var banca = _viewmodel.Aut.BancaConfiguracion.BancaDto;
+
+            docToPrint.BanContacto = banca.BanContacto;
+            docToPrint.BanDireccion = banca.BanDireccion;
+            docToPrint.FechaTransaccion = result.FechaTransferencia_dd_MMM_yyyy_hh_mm_tt;
+            docToPrint.BanMonto = _monto.ToString("$#,##0.00", CultureInfo.CreateSpecificCulture("en-US"));
+
+            if (_viewmodel.ComboTransferirSeleccion.Key == 1)
+            {//@ De Gestor A Banca
+                docToPrint.Recibido__Por = _viewmodel.InputCajera?.Cajera ?? string.Empty;
+                docToPrint.EsUnDeposito = true;
+                docToPrint.BanTransaccion = result.RefDestino;
+            }
+            else
+            {//@ De Banca A  Gestor
+                docToPrint.Recibido__Por = (_viewmodel.Gestor.PrimerDTO.UsuNombre ?? string.Empty)+" "+ (_viewmodel.Gestor.PrimerDTO.UsuApellido ?? string.Empty);
+                docToPrint.EsUnDeposito = false;
+                docToPrint.BanTransaccion = result.RefOrigen;
+            } 
+
+            string toPrint = DocumentToPrintGeneratorHelper.GetMovimientoDocument(docToPrint);
+            PrinterHelper.SendToPrinter(toPrint);
+        }
+        #endregion
 
         #region Validacion de Token
 
@@ -160,7 +188,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.DesdeHas
         #endregion
 
         #region Validaciones de SubMit
-
 
         private void ValidarSubmit()
         {

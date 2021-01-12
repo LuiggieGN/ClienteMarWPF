@@ -8,10 +8,12 @@ using System.Globalization;
 using ClienteMarWPF.UI.ViewModels.Helpers;
 using ClienteMarWPF.UI.State.Authenticators;
 
+using ClienteMarWPF.Domain.Helpers;
 using ClienteMarWPF.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPF.Domain.Services.CajaService;
 
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View1;
+
 #endregion
 
 
@@ -82,13 +84,13 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaVi
 
                         if (result.FueProcesado)
                         {
+
+
+                            _aut.RefrescarBancaBalance();          //@@Actualizo el Balance de Banca 
                             _viewmodel.Comentario = string.Empty;
                             _viewmodel.Monto = string.Empty;
                             _viewmodel.Toast.ShowSuccess("Operación Completada");
-
-                            // @@ Pendiente en esta linea Imprimir Movimiento
-
-
+                            ImprimirTransaccion(result);
                         }
                         else
                         {
@@ -103,6 +105,33 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaVi
             }
         }
 
+        #region Imprime Transaccion
+        private void ImprimirTransaccion(SupraMovimientoEnBancaResultDTO result)
+        {
+            var docToPrint = new MovimientoToPrintHelper();
+            var banca = _aut.BancaConfiguracion.BancaDto;
+
+            docToPrint.BanContacto = banca.BanContacto;
+            docToPrint.BanDireccion = banca.BanDireccion;
+            docToPrint.BanTransaccion = result.Referencia;
+            docToPrint.FechaTransaccion = result.FechaRegistro_dd_MMM_yyyy_hh_mm_tt;
+            docToPrint.BanMonto = _monto.ToString("$#,##0.00", CultureInfo.CreateSpecificCulture("en-US"));
+
+            if (_viewmodel.ComboESSeleccion.Key == 1)
+            {//ENTRADA de dinero en BANCA
+                docToPrint.Recibido__Por = _viewmodel.InputCajera?.Cajera ?? string.Empty;
+                docToPrint.EsUnDeposito = true;
+            }
+            else
+            {//SALIDA de dinero en BANCA
+                docToPrint.Recibido__Por = string.Empty;
+                docToPrint.EsUnDeposito = false;
+            }
+
+            string toPrint = DocumentToPrintGeneratorHelper.GetMovimientoDocument(docToPrint);
+            PrinterHelper.SendToPrinter(toPrint);
+        }
+        #endregion
 
         #region Validaciones de SubMit
         private void ValidarSubmit()
@@ -158,7 +187,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaVi
 
             }// fin de else
         }
-
         private void ResetErrors()
         {
             _viewmodel.Errores.EliminarError(nameof(_viewmodel.InputConcepto));
@@ -166,7 +194,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCajaVi
             _viewmodel.Errores.EliminarError(nameof(_viewmodel.InputCajera));
             _viewmodel.Errores.EliminarError(nameof(_viewmodel.Monto));
         }
-
         #endregion
 
 

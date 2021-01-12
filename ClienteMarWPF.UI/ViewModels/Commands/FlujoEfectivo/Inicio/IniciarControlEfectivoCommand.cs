@@ -79,6 +79,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.FlujoEfectivo.Inicio
  
                     _nav.CurrentViewModel = _vis.CreateViewModel(Modulos.RegistrosDeMovimiento); //Redirecciona al Modulo de Registro de Movimiento
 
+                    _aut.RefrescarBancaBalance(); //@@Actualizo el Balance de Banca
+
                 }
                 else
                 {//::No fue habilitado

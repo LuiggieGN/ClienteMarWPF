@@ -46,6 +46,7 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View2
         private MultipleDTO<MUsuarioDTO, CajaDTO, TarjetaDTO> _gestor;
         private bool _muestroBotonNuevaTrasferencia;
         private bool _muestroSeccionCajera;
+        private string _formImageSource;
         #endregion
 
         #region Propiedades
@@ -68,24 +69,32 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View2
             {
                 _comboTransferirSeleccion = value;
 
-                if (InputCajera != null)
+                if (_comboTransferirSeleccion.Key == 1)
                 {
-                    if (_comboTransferirSeleccion.Key == 1)
+                    if (InputCajera != null)
                     {
                         MuestroSeccionCajera = true;
                         InputCajera.Muestro = true;
                     }
-                    else
+
+                    FormImageSource = "pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Images/ControlEfectivo/DeGestorABanca.png";
+                }
+                else
+                {
+                    if (InputCajera != null)
                     {
                         MuestroSeccionCajera = false;
                         InputCajera.Muestro = false;
                     }
+
+                    FormImageSource = "pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Images/ControlEfectivo/DeBancaAGestor.png";
                 }
 
                 NotifyPropertyChanged(nameof(ComboTransferirSeleccion),
                                       nameof(EsEntradaParaLaBanca),
                                       nameof(EsSalidaParaLaBanca),
-                                      nameof(InputCajera));
+                                      nameof(InputCajera),
+                                      nameof(FormImageSource));
             }
         }
         public ObservableCollection<ComboboxTransferir> ComboTransferirOpciones
@@ -175,6 +184,16 @@ namespace ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento.Views.View2
             }
         }
         #endregion
+
+        public string FormImageSource
+        {
+            get => _formImageSource;
+            set
+            {
+                _formImageSource = value; NotifyPropertyChanged(nameof(FormImageSource));
+            }
+        }
+
 
         #endregion
 

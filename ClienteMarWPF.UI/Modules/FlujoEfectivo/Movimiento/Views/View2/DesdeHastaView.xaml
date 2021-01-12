@@ -167,7 +167,7 @@
                                   FontWeight="Medium"
                                   VerticalAlignment="Top"
                                    Margin="0 12 0 0"
-                                  Content="Pin de Gestor" Height="39" 
+                                  Content="Id de Gestor" Height="39" 
                                />
                         </StackPanel>
                         <StackPanel 
@@ -188,7 +188,7 @@
                                                 Foreground="#28A745"
                                                 HorizontalContentAlignment="Center"
                                                 VerticalContentAlignment="Center"
-                                                materialDesign:HintAssist.Hint="Pin de Gestor"          
+                                                materialDesign:HintAssist.Hint="Id de Gestor"          
                                                 behaviours:SeleccionaTodoBehaviour.Habilitado="True" Width="271"       
                                                 SnapsToDevicePixels="True"
                                                 BorderBrush="Transparent"/>
@@ -253,7 +253,8 @@
                                            FontSize="16"
                                            FontWeight="Medium"
                                            Margin="0 3 0 0" 
-                                           VerticalContentAlignment="Top"                                
+                                           VerticalContentAlignment="Top" 
+                                           Foreground="#DC3545"
                                            Content="Gestor" 
                                         />
                                 </StackPanel>
@@ -290,7 +291,8 @@
                                            FontSize="16"
                                            FontWeight="Medium"
                                            Margin="0 3 0 0" 
-                                           VerticalContentAlignment="Top"                                
+                                           VerticalContentAlignment="Top"
+                                           Foreground="#28A745"
                                            Content="Banca" />
                                 </StackPanel>
                                 <StackPanel 
@@ -337,7 +339,8 @@
                                            FontSize="16"
                                            FontWeight="Medium"
                                            Margin="0 3 0 0" 
-                                           VerticalContentAlignment="Top"                                
+                                           VerticalContentAlignment="Top" 
+                                           Foreground="#DC3545"                                        
                                            Content="Banca" 
                                         />
                                 </StackPanel>
@@ -375,7 +378,8 @@
                                            FontWeight="Medium"
                                            Margin="0 3 0 0" 
                                            VerticalContentAlignment="Top"                                
-                                           Content="Gestor" />
+                                           Foreground="#28A745"   
+                                           Content="Gestor"/>
                                 </StackPanel>
                                 <StackPanel 
                                               Grid.Row="1"                            
@@ -554,7 +558,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Margin="0,53,0,-363" >
                     <StackPanel.Background>
-                        <ImageBrush Stretch="Uniform" ImageSource="pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Images/ControlEfectivo/Transfer.png"  />
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding FormImageSource}"  />
                     </StackPanel.Background>
                 </StackPanel>
             </Grid>

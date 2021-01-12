@@ -12,6 +12,8 @@ using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.State.Configurators;
 using ClienteMarWPF.UI.State.LocalClientSetting;
+using ClienteMarWPF.UI.State.CuadreBuilders;
+using ClienteMarWPF.UI.State.BancaBalanceStore;
 
 using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.Modules.Login;
@@ -21,8 +23,6 @@ using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
 using ClienteMarWPF.UI.ViewModels.Factories;
 
-using System;
-using System.Windows;
 using ClienteMarWPF.UI.Modules.Sorteos;
 
 using ClienteMarWPF.UI.Modules.CincoMinutos;
@@ -45,6 +45,12 @@ using ClienteMarWPF.Domain.Services.TieService;
 using ClienteMarWPF.Domain.Services.CajaService;
 using ClienteMarWPF.Domain.Services.MultipleService;
 using ClienteMarWPF.Domain.Services.RutaService;
+
+using System;
+using System.Windows;
+using System.Threading;
+using System.Windows.Markup;
+using System.Globalization;
 #endregion
 
 namespace ClienteMarWPF.UI
@@ -52,17 +58,24 @@ namespace ClienteMarWPF.UI
 
     public partial class App : Application
     {
-
         protected override void OnStartup(StartupEventArgs e)
         {
-            IServiceProvider serviceProvider = CreateServiceProvider();
 
+            // ** Overrinding default Application |Culture Info to spanish|
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("es-DO");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-DO");
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
+                        XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
+            
+            // ** Stablish default Application |Services providers|
+            IServiceProvider serviceProvider = CreateServiceProvider();
             Window window = serviceProvider.GetRequiredService<MainWindow>();
-            window.Show();
+            window.Show();            
+
 
             base.OnStartup(e);
         }
-
 
         private IServiceProvider CreateServiceProvider()
         {
@@ -180,6 +193,8 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<IAccountStore, AccountStore>();
             services.AddSingleton<IConfiguratorStore, ConfiguratorStore>();
             services.AddSingleton<ILocalClientSettingStore, LocalClientSettingStore>();
+            services.AddSingleton<IBancaBalanceStore, BancaBalanceStore>();
+            services.AddSingleton<ICuadreBuilder, CuadreBuilder>();
 
             services.AddScoped<MainWindowViewModel>();
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainWindowViewModel>()));

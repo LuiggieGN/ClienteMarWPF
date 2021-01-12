@@ -13,8 +13,9 @@
         MaxHeight="550"
         MaxWidth="700"        
         Padding="0"
-        ResizeMode="NoResize"  
+        ResizeMode="NoResize" 
         WindowStartupLocation="CenterOwner"
+        Background="Transparent"    
         x:Name="CuadreLoginWindow" Loaded="CuadreLoginWindow_Loaded">
     <Window.Resources>
         <ResourceDictionary>
@@ -23,7 +24,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ClienteMarWPF.UI;component/Modules/FlujoEfectivo/Cuadre/Windows/CuadreLogin/CuadreLoginResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        </ResourceDictionary>   
     </Window.Resources>
 
     <Grid Background="White">
@@ -51,14 +52,14 @@
                     <Border BorderBrush="#000" BorderThickness="1" Margin="0 3 3 3" Width="249" >
                         <PasswordBox x:Name="PassGestorPin"     
                                      FontSize="20"
-                                     FontWeight="Medium"                                           
+                                     FontWeight="Medium"  
                                      Height="45" 
                                      PasswordChar="*"                        
                                      Padding="10 0 0 0"  
                                      Foreground="#28A745"
                                      HorizontalContentAlignment="Center"
                                      VerticalContentAlignment="Center"
-                                     materialDesign:HintAssist.Hint="Pin de Gestor"   
+                                     materialDesign:HintAssist.Hint="Id de Gestor"   
                                      behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                      SnapsToDevicePixels="True"
                                      BorderBrush="Transparent"/>

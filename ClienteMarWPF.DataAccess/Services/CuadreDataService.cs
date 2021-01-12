@@ -190,7 +190,6 @@ namespace ClienteMarWPF.DataAccess.Services
 
         }// fin de metodo Registrar()
 
-
         private void GenerarCuadreImpresion(BancaDTO banca, CuadreRegistroDTO ope, CuadreRegistroResultDTO cuadreAplicacionResultado, bool enablePrinting, out string toPrint)
         {
             toPrint = "";

@@ -12,12 +12,14 @@ using ClienteMarWPF.UI.ViewModels.Commands;
 using ClienteMarWPF.UI.ViewModels.Commands.MainWindow;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
+using ClienteMarWPF.UI.State.CuadreBuilders;
+
 using ClienteMarWPF.UI.ViewModels.Factories;
 
-using ClienteMarWPF.UI.State.Configurators;
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Services.MultipleService;
 using ClienteMarWPF.Domain.Services.RutaService;
+using ClienteMarWPF.Domain.Services.CuadreService;
 
 
 namespace ClienteMarWPF.UI
@@ -30,17 +32,24 @@ namespace ClienteMarWPF.UI
         private readonly INavigator _navegadordeModulos;
         private readonly IMultipleService _multipleService;
         private readonly IRutaService _rutaService;
+        private readonly ICuadreBuilder _cuadreBuilder;
         private readonly ToastViewModel _toast;
         #endregion
 
         #region Properties
         public BaseViewModel CurrentViewModel => _navegadordeModulos.CurrentViewModel;
         public BancaConfiguracionDTO BancaConfiguracion => _autenticador?.BancaConfiguracion;
-        public bool EstaLogueado => _autenticador?.IsLoggedIn ?? false;
 
+        #region BancaBalance
+        public string StrBancaBalance => _autenticador?.BancaBalance?.StrBalance ?? string.Empty;
+        public bool VerBancaBalanceEnCaja => _autenticador?.BancaBalance?.TieneBalance ?? false;
+        #endregion
+
+        public bool EstaLogueado => _autenticador?.IsLoggedIn ?? false;
         public IAuthenticator AutService => _autenticador;
         public IMultipleService MultipleService => _multipleService;
         public IRutaService RutaService => _rutaService;
+        public ICuadreBuilder CuadreBuilder => _cuadreBuilder;
         #endregion
 
         #region Commands
@@ -54,7 +63,8 @@ namespace ClienteMarWPF.UI
                                    IViewModelFactory factoriaViewModel,
                                    IAuthenticator autenticador,
                                    IMultipleService multipleService,
-                                   IRutaService rutaService)
+                                   IRutaService rutaService,
+                                   ICuadreBuilder cuadreBuilder)
         {
 
             _toast = new ToastViewModel();
@@ -62,7 +72,8 @@ namespace ClienteMarWPF.UI
             _autenticador = autenticador;
             _autenticador.CurrentAccountStateChanged += AccountStateChanged;
             _autenticador.CurrentBancaConfiguracionStateChanged += BanConfigStateChanged;
-            
+            _autenticador.CurrentBancaBalanceStateChanged += BanBalanceStateChanged;
+
             _factoriaViewModel = factoriaViewModel;
             
             _navegadordeModulos = navegadordeModulos;
@@ -70,6 +81,7 @@ namespace ClienteMarWPF.UI
 
             _multipleService = multipleService;
             _rutaService = rutaService;
+            _cuadreBuilder = cuadreBuilder;
 
             LogoutCommand = new LogoutCommand(_autenticador, _navegadordeModulos, _factoriaViewModel);
 
@@ -79,6 +91,8 @@ namespace ClienteMarWPF.UI
             IniciarCuadreCommand = new IniciarCuadreCommand(this);
         }
 
+
+
         private void AccountStateChanged()
         {
             NotifyPropertyChanged(nameof(EstaLogueado));
@@ -86,6 +100,11 @@ namespace ClienteMarWPF.UI
         private void BanConfigStateChanged()
         {
             NotifyPropertyChanged(nameof(BancaConfiguracion));
+        }
+        private void BanBalanceStateChanged()
+        {
+            NotifyPropertyChanged(nameof(VerBancaBalanceEnCaja),
+                                  nameof(StrBancaBalance));
         }
         private void NaviStateChanged()
         {
