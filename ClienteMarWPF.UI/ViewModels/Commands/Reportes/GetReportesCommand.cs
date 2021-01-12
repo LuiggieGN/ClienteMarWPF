@@ -168,10 +168,11 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             var DiaSemanaReporte = TraducirDiaSemana(Convert.ToDateTime(FechaRepote).DayOfWeek.ToString());
             var mesAnnoActual = ObtenerMesEspanol(Convert.ToInt32(DateTime.Now.Month));
             var mesAnnoReporte = ObtenerMesEspanol(Convert.ToInt32(Convert.ToDateTime(FechaRepote).Month.ToString()));
-
+            ViewModel.NombreBanca = Autenticador.BancaConfiguracion.BancaDto.BanContacto + "  ID:" + Autenticador.BancaConfiguracion.BancaDto.BancaID;
+            
             ViewModel.NombreReporte = NombreReporte;
 
-                ViewModel.FechaActualReport = "Del Dia " + DiaSemanaReporte + ", " + Convert.ToDateTime(FechaRepote).Day + "-"+ mesAnnoReporte + "-"+ Convert.ToDateTime(FechaRepote).Year;
+                ViewModel.FechaActualReport =  DiaSemanaReporte +" " + Convert.ToDateTime(FechaRepote).Day + "-"+ mesAnnoReporte + "-"+ Convert.ToDateTime(FechaRepote).Year +" " + DateTime.Now.ToShortTimeString(); ;
                 ViewModel.FechaReporte = DiaSemanaActual + ", " + DateTime.Now.Day +"-"+mesAnnoActual +"-"+ DateTime.Now.Year + " " + DateTime.Now.ToShortTimeString();
                 ViewModel.LabelDesde = "Desde " + TraducirDiaSemana(Convert.ToDateTime(Desde).DayOfWeek.ToString()) + ", " + Convert.ToDateTime(Desde).ToString("dd-MMM-yyyy");
                 ViewModel.LabelHasta = "Hasta " + TraducirDiaSemana(Convert.ToDateTime(Hasta).DayOfWeek.ToString()) + ", " + Convert.ToDateTime(Hasta).ToString("dd-MMM-yyyy");
@@ -453,7 +454,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
 
                         if (i == ReporteOdenado.Length - 1)
                         {
-                            ViewModel.TotalVentaListTarjeta = string.Format(nfi, "{0:C}", totalVendido) + " en " + (ReporteOdenado.Length) + " tarjetas";
+                            ViewModel.TotalVentaListTarjeta = string.Format(nfi, "{0:C}", totalVendido);// + " en " + (ReporteOdenado.Length) + " tarjetas"
                         }
                     }
 
@@ -596,7 +597,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     ViewModel.ReportesDeVentas.GananciaOPerdida = "GANANCIA:";
                 }
                 else if (TotalGanancia < 0){
-                    TotalFormateado = "$" + ConvertirMonedaNegativos(TotalGanancia);
+                    TotalFormateado = ConvertirMonedaNegativos(TotalGanancia);
                     ViewModel.ReportesDeVentas.GananciaOPerdida = "PERDIDA:";
                 }
 
@@ -1042,10 +1043,11 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
         {
             var NombreLoteria = new ReporteView().GetNombreLoteria();
             var LoteriaID = new ReporteView().GetLoteriaID();
-            MessageBoxResult opcionTicketAnulados = MessageBox.Show("Desea listar todos los tickets?,Reponda NO para listar solamente los tickets nulos","MAR-Cliente",MessageBoxButton.YesNo);
             var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, LoteriaID, ViewModel.Fecha);
             
             ObservableCollection<ReporteListaTicketsObservable> ListadoTicket = new ObservableCollection<ReporteListaTicketsObservable>() { };
+            ObservableCollection<ReporteListaTicketsObservable> ListadoAllDataTicket = new ObservableCollection<ReporteListaTicketsObservable>() { };
+
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
             int totalVenta = 0; int totalSaco=0;
 
@@ -1053,40 +1055,62 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             {
                 ViewModel.RPTLitTicketVisibility = Visibility.Visible;
                 HeaderReporte(ReporteTicket.Fecha, "LISTADO DE TICKETS", NombreLoteria, null, null);
-                if (ReporteTicket.Tickets.Length > 0)
+                if (ReporteTicket.Tickets != null && ReporteTicket.Tickets.Length > 0)
                 {
-                    switch (opcionTicketAnulados)
-                    {
-                        case MessageBoxResult.Yes:
-                            foreach (var ticket in ReporteTicket.Tickets)
-                            {
-                                var saco = "";
-                                if (ticket.Nulo == true) { saco = "Nulo"; } else if (ticket.Nulo == false) { saco = string.Format(nfi, "{0:C}", ticket.Pago); }
-                                ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
-                                { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = saco };
-                                ListadoTicket.Add(objectoTicket);
-                            }
+                    ViewModel.CanChangeOptionListTicket = true;
+                   var opcionSeleccionada = new ReporteView().ObtenerSeleccionTicket();
+                   if (opcionSeleccionada=="Válidos") { 
+                       foreach (var ticket in ReporteTicket.Tickets.Where(ticket => ticket.Nulo==false))
+                       {
+                          ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
+                          { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = ticket.Pago.ToString() };
+                          objectoTicket.MostrarNulos = Visibility.Visible;
+                          ListadoTicket.Add(objectoTicket);
+                       }
+                   }
+                   if (opcionSeleccionada == "Nulos")
+                   {
+                        foreach (var ticket in ReporteTicket.Tickets.Where(ticket => ticket.Nulo == true))
+                        {
+                            ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
+                            { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = "Nulo" };
+                            objectoTicket.MostrarNulos = Visibility.Visible;
+                            ListadoTicket.Add(objectoTicket);
+                        }
+                   }
+                   if (opcionSeleccionada == "Todos" || opcionSeleccionada == null)
+                   {
+                        foreach (var ticket in ReporteTicket.Tickets)
+                        {
+                            var saco = "";
+                            if (ticket.Nulo==false) { saco = ticket.Pago.ToString(); }
+                            if (ticket.Nulo==true) { saco = "Nulo"; }
+                            ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
+                            { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = saco };
+                            objectoTicket.MostrarNulos = Visibility.Visible;
+                            ListadoTicket.Add(objectoTicket);
+                        }
+                   }
 
-                            break;
-                        case MessageBoxResult.No:
-                            var TicketsFiltrados = ReporteTicket.Tickets.Where(ticket => ticket.Nulo == true).ToArray();
-                            foreach (var ticket in TicketsFiltrados)
-                            {
-                                ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
-                                { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = "Nulo" };
-                                objectoTicket.MostrarNulos = Visibility.Visible;
-                                ListadoTicket.Add(objectoTicket);
-                            }
-                            break;
-                    }
-
-                    foreach (var ticket in ReporteTicket.Tickets)
-                    {
+                   foreach (var ticket in ReporteTicket.Tickets)
+                   {
                         if (ticket.Nulo == false)
                         {
                             totalVenta = totalVenta + Convert.ToInt32(ticket.Costo);
                             totalSaco = totalSaco + Convert.ToInt32(ticket.Pago);
                         }
+                   }
+                   
+                   foreach (var ticket in ReporteTicket.Tickets)
+                   {
+                        var saco = "";
+                        if (ticket.Nulo == false) { saco = ticket.Pago.ToString(); }
+                        if (ticket.Nulo == true) { saco = "Nulo"; }
+                        ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
+                        { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = saco };
+                        objectoTicket.MostrarNulos = Visibility.Visible;
+                        ListadoAllDataTicket.Add(objectoTicket);
+                        ViewModel.ReporteAllDataListTicket = ListadoAllDataTicket;
                     }
 
                     ViewModel.ReporteListTicket = ListadoTicket;
@@ -1098,7 +1122,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     var ListadoString = new List<string>() { "Titulo", "Parrado" };
 
                     //Muestra De Ticket
-                    var NombreBanca = "LEXUS-Bancas Lexus ID:14";
+                    var NombreBanca = Autenticador.BancaConfiguracion.BancaDto.BanContacto +"ID: "+Autenticador.BancaConfiguracion.BancaDto.BancaID;
                     var Titulo = ViewModel.NombreReporte;
                     var FechaActual = ViewModel.FechaActualReport;
                     var FechaReporte = ViewModel.FechaReporte;
@@ -1115,6 +1139,16 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     {
                         listadoImpreso.Add(Ticket.Ticket + " " + Ticket.Hora + " " + Ticket.Vendio + " " + Ticket.Saco);
                     }
+                }
+                else
+                {
+                    ViewModel.CanChangeOptionListTicket = false;
+                    ViewModel.ReporteListTicket = null;
+                    ViewModel.ReporteAllDataListTicket = null;
+                    ViewModel.TotalesListTicket.CantidadNulos = "0";
+                    ViewModel.TotalesListTicket.CantidadValidos = "0";
+                    ViewModel.TotalesListTicket.TotalVenta = "0";
+                    ViewModel.TotalesListTicket.TotalSaco = "0";
                 }
 
             }
@@ -1159,7 +1193,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     if (totalPagosRemotos >= 0) { totalbalance = string.Format(nfi, "{0:C}", totalPagosRemotos); }
                     else if (totalPagosRemotos < 0) {totalbalance = "$"+totalPagosRemotos+".00"; }
                     ViewModel.ReportePagosRemotos = ListadoPagosRemotos;
-                    ViewModel.TotalesPagosRemotos = ConvertirMonedaNegativos(totalPagosRemotos) + " en " + PagosRemotoData.Length + " tickets";
+                    ViewModel.TotalesPagosRemotos = ConvertirMonedaNegativos(totalPagosRemotos);
                 }
             }
             else if (PagosRemotos.Err != null)
