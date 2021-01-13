@@ -5,6 +5,7 @@ using ClienteMarWPF.UI.State.PinterConfig;
 using MarPuntoVentaServiceReference;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
@@ -15,13 +16,38 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
         private readonly ReporteViewModel ViewModel;
         private readonly IAuthenticator Autenticador;
         private readonly IReportesServices ReportesService;
-
+            DateTime FechaInicio;
+            DateTime FechaFin;
 
         public PrintReports(ReporteViewModel viewModel, IAuthenticator autenticador, IReportesServices reportesServices)
         {
             ViewModel = viewModel;
             Autenticador = autenticador;
             ReportesService = reportesServices;
+
+            DateTime fInicio;
+            DateTime fFin;
+
+            bool fInicioEsValido = DateTime.TryParse(ViewModel.FechaInicio.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fInicio);
+            bool fFinEsValido = DateTime.TryParse(ViewModel.FechaFin.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fFin);
+
+            if (!fInicioEsValido || !fFinEsValido)
+            {
+                fInicio = DateTime.MinValue;
+                fFin = DateTime.MinValue;
+                return;
+            }
+
+            if (DateTime.Compare(fFin, fInicio) < 0)
+            {//fecha fin es  menor que  fecha inicio
+
+                var swap = fInicio;
+                fInicio = fFin;
+                fFin = swap;
+            }
+
+            FechaInicio = fInicio;
+            FechaFin = fFin;
 
             Action<object> comando = new Action<object>(PrinterReportes);
             base.SetAction(comando);
@@ -91,18 +117,18 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
 
         private void PrintVentasFecha(object parametro)
         {
-            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.FechaInicio, ViewModel.FechaFin);
+            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, FechaInicio.ToString(), FechaFin.ToString());
             List<string[]> ImprimirSumVentaFecha = new List<string[]>() { };
             if (ViewModel.SoloTotales==true)
             {
                 MAR_RptSumaVta2 ventasfechaprint = new MAR_RptSumaVta2() { Dia = Reporte.Dia, Err = Reporte.Err, Hora = Reporte.Hora, Fecha = Reporte.Fecha, Reglones = Reporte.Reglones, ISRRetenido = Reporte.ISRRetenido, RifDescuento = Reporte.RifDescuento };
-                ImprimirSumVentaFecha = PrintJobs.FromReporteVentaPorFecha(ventasfechaprint, ViewModel.FechaInicio, ViewModel.FechaFin, ViewModel.SoloTotales);
+                ImprimirSumVentaFecha = PrintJobs.FromReporteVentaPorFecha(ventasfechaprint, ViewModel.FechaInicio.ToString(), ViewModel.FechaFin.ToString(), ViewModel.SoloTotales);
                 
             }
             else if (ViewModel.SoloTotales == false)
             {
                 MAR_RptSumaVta2 ventasfechaprint = new MAR_RptSumaVta2() { Dia = Reporte.Dia, Err = Reporte.Err, Hora = Reporte.Hora, Fecha = Reporte.Fecha, Reglones = Reporte.Reglones, ISRRetenido = Reporte.ISRRetenido, RifDescuento = Reporte.RifDescuento };
-                ImprimirSumVentaFecha = PrintJobs.FromReporteVentaPorFecha(ventasfechaprint, ViewModel.FechaInicio, ViewModel.FechaFin, ViewModel.SoloTotales);
+                ImprimirSumVentaFecha = PrintJobs.FromReporteVentaPorFecha(ventasfechaprint, ViewModel.FechaInicio.ToString(), ViewModel.FechaFin.ToString(), ViewModel.SoloTotales);
                
             }
             TicketTemplateHelper.PrintTicket(ImprimirSumVentaFecha);
@@ -188,7 +214,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
         {
             var PagosRemotos = ReportesService.ReporteListaPagosRemotos(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Fecha); 
             MAR_Ganadores ganadores = new MAR_Ganadores() { Primero = PagosRemotos.Primero, Segundo = PagosRemotos.Segundo, Tercero = PagosRemotos.Tercero, Dia = PagosRemotos.Dia, Hora = PagosRemotos.Hora, Fecha = PagosRemotos.Fecha, Err = PagosRemotos.Err, Tickets = PagosRemotos.Tickets };
-            var Impresion = PrintJobs.FromPagosRemoto(ganadores, ViewModel.Fecha);
+            var Impresion = PrintJobs.FromPagosRemoto(ganadores, ViewModel.Fecha.ToString());
             TicketTemplateHelper.PrintTicket(Impresion);
         }
 
