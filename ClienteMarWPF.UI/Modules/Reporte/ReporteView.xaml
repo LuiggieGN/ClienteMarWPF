@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:dialogo="clr-namespace:ClienteMarWPF.UI.Modules.Reporte.Modal"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:controls="clr-namespace:ClienteMarWPF.UI.Modules.Reporte.Modal"          
              mc:Ignorable="d" 
@@ -93,7 +94,8 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
-                <Popup x:Name="VentaFecha" Placement="Center" Width="300" VerticalAlignment="Top" Height="260" Grid.Row="0" Grid.Column="0">
+                
+                <!--<Popup x:Name="VentaFecha" Placement="Center" Width="300" VerticalAlignment="Top" Height="260" Grid.Row="0" Grid.Column="0">
                     <Grid Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"></ColumnDefinition>
@@ -117,7 +119,7 @@
                         <Button Margin="10,10" Command="{Binding ObtenerReportes}" Click="OcultarModal" HorizontalAlignment="Right" Content="Aceptar" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="1"></Button>
                         <Button Margin="10,10" HorizontalAlignment="Right" Content="Cancelar" Click="OcultarModal" Grid.Column="1" Grid.Row="4"></Button>
                     </Grid>
-                </Popup>
+                </Popup>-->
 
                 <WrapPanel  Margin="0 0" Height="Auto" Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" >
                     <!--<Grid>
@@ -168,12 +170,14 @@
                             <TextBlock Text="{Binding  Reportes[5].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="170" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" HorizontalAlignment="Stretch" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
+
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="170" HorizontalContentAlignment="Left" Click="reporteid_Click" Command="{Binding Path=AbrirModalRangoFechaCommand}" Width="170" HorizontalAlignment="Stretch" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[6].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
+                    
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="170" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
@@ -1259,7 +1263,12 @@
 
         </Grid>
 
-        <controls:ReporteDialog DataContext="{Binding Dialog}" OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}" CargarDialogo="{Binding Path=MuestroDialogo}"/>
+        <dialogo:DialogoReporte
+                              DataContext="{Binding Dialogo}"
+                              OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}"
+                              CargarDialogo="{Binding Path=MuestroDialogo}"
+                              AceptarCommand ="{Binding Path=AceptarCommand}"
+                              CancelarCommand ="{Binding Path=CancelarCommand}"/>
     </Grid>
 
 

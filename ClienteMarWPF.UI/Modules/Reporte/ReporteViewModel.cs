@@ -30,91 +30,8 @@ namespace ClienteMarWPF.UI.Modules.Reporte
 {
     public class ReporteViewModel : BaseViewModel
     {
-
-        private ReporteDialogViewModel _dialog;
-        public ReporteDialogViewModel Dialog
-        {
-            get
-            {
-                return _dialog;
-            }
-            set
-            {
-                _dialog = value; NotifyPropertyChanged(nameof(Dialog));
-            }
-        }
-
-
-        public ICommand ObtenerReportes { get; }
-        public ICommand PrintReportes { get; }
-        public ICommand ChangeOptionListTicket { get; }
-        public ObservableCollection<ReportesObservable> ReporteBinding;
-        public ObservableCollection<ReportesSumVentasObservable> ReporteMostrarBinding;
+        #region "Campos"
         public List<MAR_Loteria2> _sorteos;
-
-
-        public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices)
-        {
-            Fecha = DateTime.Now.ToString("yyyy/MM/dd");
-            FechaInicio = Convert.ToDateTime(DateTime.Now).AddDays(-7).ToString();
-            FechaFin = Convert.ToDateTime(DateTime.Now).AddDays(-1).ToString();
-            SoloTotales = true;
-            ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices);
-            PrintReportes = new PrintReports(this, autenticador, reportesServices);
-            ChangeOptionListTicket = new ChangeOpcionListTicket(this, autenticador, reportesServices);
-
-            //Ocultando vistas de todos los reportes inicialmente
-            RPTSumaVentasVisibility = Visibility.Hidden;
-            RPTTicketGanadoresVisibility = Visibility.Hidden;
-            RPTSumVentaFechaVisibility = Visibility.Hidden;
-            RPTListTarjetasVisibility = Visibility.Hidden;
-            RPTVentasVisibily = Visibility.Hidden;
-            RPTLitTicketVisibility = Visibility.Hidden;
-            RPTPagosRemotosVisibility = Visibility.Hidden;
-            RPTListNumerosVisibility = Visibility.Hidden;
-            ReportesListaNumeros.QuinielaVisibilty = Visibility.Hidden;
-            ReportesListaNumeros.PaleVisibility = Visibility.Hidden;
-            ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
-            ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
-            /////////////////////////////////////////////////////
-            ///
-            /// Inicializando posiciones de componentes de listadoNumero//
-            /// 
-            ReportesListaNumeros.PosicionTituloQuiniela = 1;
-            ReportesListaNumeros.PosicionTablaQuiniela = 2;
-            ReportesListaNumeros.PosicionTotalesQuiniela = 3;
-            ReportesListaNumeros.PosicionTituloPale = 4;
-            ReportesListaNumeros.PosicionTablaPale = 5;
-            ReportesListaNumeros.PosicionTotalesPale = 6;
-            ReportesListaNumeros.PosicionTituloTripleta = 7;
-            ReportesListaNumeros.PosicionTablaTripleta = 8;
-            ReportesListaNumeros.PosicionTotalesTripleta = 9;
-
-            //////////////////////////////////////////////////////////////
-            ///// Inicializando posiciones de componentes de ganadores /////
-            ReportesGanadores.PosicionTituloPagados = 2;
-            ReportesGanadores.PosicionTablaPagados = 3;
-            ReportesGanadores.PosicionTituloPendientesPagos = 4;
-            ReportesGanadores.PosicionTablaPendientesPagos = 5;
-            ReportesGanadores.PosicionTituloSinReclamar = 6;
-            ReportesGanadores.PosicionTablaSinReclamar = 7;
-            ReportesGanadores.PosicionBalance = 8;
-
-            ////////////////////////////////////////////////////////////////
-
-            ReportesListaNumeros.Quiniela = new ObservableCollection<ReportesListaNumerosObservable>() { };
-            ReportesListaNumeros.Pale = new ObservableCollection<ReportesListaNumerosObservable>() { };
-            ReportesListaNumeros.Tripleta = new ObservableCollection<ReportesListaNumerosObservable>() { };
-            MAR_Loteria2 opcionTodas = new MAR_Loteria2() { Nombre = "Todas", LoteriaKey = 0 };
-            Sorteos = new List<MAR_Loteria2>() { };
-            Sorteos.Add(opcionTodas);
-            foreach (var loteria in SessionGlobals.LoteriasTodas) { Sorteos.Add(loteria); }
-
-            PremiosVentas.MostrarPremios = Visibility.Hidden;
-            PremiosVentas.NoMostrarPremios = Visibility.Hidden;
-        }
-
-        #region PropertyOfView
         //###########################################################
         private string _fecha;
         private string _reporte;
@@ -169,9 +86,10 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private TotalesListadoTicket _totalesListTicket = new TotalesListadoTicket();
         private PremiosVentas _premiosventas = new PremiosVentas();
         private bool canChangeOptionListTicket;
+        private DialogoReporteViewModel _dialog;
+        #endregion
 
-
-
+        #region "Propiedades"
         //###########################################################
 
         public string Fecha
@@ -507,8 +425,90 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             get { return canChangeOptionListTicket; }
             set { canChangeOptionListTicket = value; NotifyPropertyChanged(nameof(CanChangeOptionListTicket)); }
         }
+
+        public DialogoReporteViewModel Dialogo
+        {
+            get { return _dialog; }
+            set { _dialog = value; NotifyPropertyChanged(nameof(Dialogo)); }
+        }
+
+        public ObservableCollection<ReportesObservable> ReporteBinding;
+        public ObservableCollection<ReportesSumVentasObservable> ReporteMostrarBinding;
         //###########################################################
+
         #endregion
+
+        #region "Comandos"
+        public ICommand ObtenerReportes { get; }
+        public ICommand PrintReportes { get; }
+        public ICommand ChangeOptionListTicket { get; }
+        public ICommand AbrirModalRangoFechaCommand { get; }
+        #endregion
+
+
+        public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices)
+        {
+            Fecha = DateTime.Now.ToString("yyyy/MM/dd");
+            FechaInicio = Convert.ToDateTime(DateTime.Now).AddDays(-7).ToString();
+            FechaFin = Convert.ToDateTime(DateTime.Now).AddDays(-1).ToString();
+            SoloTotales = true;
+            ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices);
+            PrintReportes = new PrintReports(this, autenticador, reportesServices);
+            ChangeOptionListTicket = new ChangeOpcionListTicket(this, autenticador, reportesServices);
+            AbrirModalRangoFechaCommand = new AbrirModalRangoFechaCommand(this);
+
+            //Ocultando vistas de todos los reportes inicialmente
+            RPTSumaVentasVisibility = Visibility.Hidden;
+            RPTTicketGanadoresVisibility = Visibility.Hidden;
+            RPTSumVentaFechaVisibility = Visibility.Hidden;
+            RPTListTarjetasVisibility = Visibility.Hidden;
+            RPTVentasVisibily = Visibility.Hidden;
+            RPTLitTicketVisibility = Visibility.Hidden;
+            RPTPagosRemotosVisibility = Visibility.Hidden;
+            RPTListNumerosVisibility = Visibility.Hidden;
+            ReportesListaNumeros.QuinielaVisibilty = Visibility.Hidden;
+            ReportesListaNumeros.PaleVisibility = Visibility.Hidden;
+            ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
+            ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
+            /////////////////////////////////////////////////////
+            ///
+            /// Inicializando posiciones de componentes de listadoNumero//
+            /// 
+            ReportesListaNumeros.PosicionTituloQuiniela = 1;
+            ReportesListaNumeros.PosicionTablaQuiniela = 2;
+            ReportesListaNumeros.PosicionTotalesQuiniela = 3;
+            ReportesListaNumeros.PosicionTituloPale = 4;
+            ReportesListaNumeros.PosicionTablaPale = 5;
+            ReportesListaNumeros.PosicionTotalesPale = 6;
+            ReportesListaNumeros.PosicionTituloTripleta = 7;
+            ReportesListaNumeros.PosicionTablaTripleta = 8;
+            ReportesListaNumeros.PosicionTotalesTripleta = 9;
+
+            //////////////////////////////////////////////////////////////
+            ///// Inicializando posiciones de componentes de ganadores /////
+            ReportesGanadores.PosicionTituloPagados = 2;
+            ReportesGanadores.PosicionTablaPagados = 3;
+            ReportesGanadores.PosicionTituloPendientesPagos = 4;
+            ReportesGanadores.PosicionTablaPendientesPagos = 5;
+            ReportesGanadores.PosicionTituloSinReclamar = 6;
+            ReportesGanadores.PosicionTablaSinReclamar = 7;
+            ReportesGanadores.PosicionBalance = 8;
+
+            ////////////////////////////////////////////////////////////////
+
+            ReportesListaNumeros.Quiniela = new ObservableCollection<ReportesListaNumerosObservable>() { };
+            ReportesListaNumeros.Pale = new ObservableCollection<ReportesListaNumerosObservable>() { };
+            ReportesListaNumeros.Tripleta = new ObservableCollection<ReportesListaNumerosObservable>() { };
+            MAR_Loteria2 opcionTodas = new MAR_Loteria2() { Nombre = "Todas", LoteriaKey = 0 };
+            Sorteos = new List<MAR_Loteria2>() { };
+            Sorteos.Add(opcionTodas);
+            foreach (var loteria in SessionGlobals.LoteriasTodas) { Sorteos.Add(loteria); }
+
+            PremiosVentas.MostrarPremios = Visibility.Hidden;
+            PremiosVentas.NoMostrarPremios = Visibility.Hidden;
+        }
+
+ 
 
 
     }

@@ -75,17 +75,17 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             if (Nombre == null)
             {
                 Nombre = "Reportes de Ventas";
-                VentaFecha.IsOpen = false;
+                //VentaFecha.IsOpen = false;
             }
-            else if (Nombre == "Ventas por Fecha")
-            {
+            //else if (Nombre == "Ventas por Fecha")
+            //{
                 
-                VentaFecha.IsOpen = true;
-            }
-            else
-            {
-                VentaFecha.IsOpen = false;
-            }
+            //    VentaFecha.IsOpen = true;
+            //}
+            //else
+            //{
+            //    VentaFecha.IsOpen = false;
+            //}
             
         }
 
@@ -126,16 +126,16 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             return Loteria;
         }
 
-        public void OcultarModal(object sender, RoutedEventArgs e)
-        {
-            VentaFecha.IsOpen = false;
-        }
+        //public void OcultarModal(object sender, RoutedEventArgs e)
+        //{
+        //    //VentaFecha.IsOpen = false;
+        //}
 
        
-        private void OcultandoDesdeVista(object sender, RoutedEventArgs e)
-        {
-            VentaFecha.IsOpen = false;
-        }
+        //private void OcultandoDesdeVista(object sender, RoutedEventArgs e)
+        //{
+        //    VentaFecha.IsOpen = false;
+        //}
 
         public void EliminandoTemplateGanadores(bool GridPagados,bool GridPendientePago,bool GridSinReclamar)
         {

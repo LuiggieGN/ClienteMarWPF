@@ -43,45 +43,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
         }
 
 
-        private string TraducirDiaSemana(string DiaDeHoy)
-        {
-            if (DiaDeHoy == "Monday")
-            { DiaDeHoy = "Lunes"; }
-            else if (DiaDeHoy == "Tuesday")
-            { DiaDeHoy = "Martes"; }
-            else if (DiaDeHoy == "Wednesday")
-            { DiaDeHoy = "Miercoles"; }
-            else if (DiaDeHoy == "Thursday")
-            { DiaDeHoy = "Jueves"; }
-            else if (DiaDeHoy == "Friday")
-            { DiaDeHoy = "Viernes"; }
-            else if (DiaDeHoy == "Saturday")
-            { DiaDeHoy = "Sabado"; }
-            else if (DiaDeHoy == "Sunday")
-            { DiaDeHoy = "Domingo"; }
-
-            return DiaDeHoy;
-        }
-
-        private string TraducirDiaSemanaResumido(string DiaDeHoy)
-        {
-            if (DiaDeHoy == "Monday")
-            { DiaDeHoy = "Lu"; }
-            else if (DiaDeHoy == "Tuesday")
-            { DiaDeHoy = "Ma"; }
-            else if (DiaDeHoy == "Wednesday")
-            { DiaDeHoy = "Mi"; }
-            else if (DiaDeHoy == "Thursday")
-            { DiaDeHoy = "Ju"; }
-            else if (DiaDeHoy == "Friday")
-            { DiaDeHoy = "Vi"; }
-            else if (DiaDeHoy == "Saturday")
-            { DiaDeHoy = "Sa"; }
-            else if (DiaDeHoy == "Sunday")
-            { DiaDeHoy = "Do"; }
-
-            return DiaDeHoy;
-        }
 
         private void EnviarReportes(object parametro)
         {
@@ -108,7 +69,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                 if (nombre == "Suma De Ventas")
                 {
                     ViewModel.NombreBanca = "Lexus";
-
 
                     //ViewModel.Fecha = DateTime.Now.ToString();
                     RPTSumaDeVentas(parametro);
@@ -159,6 +119,47 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                 Console.WriteLine(e.Message);
             }
 
+        }
+
+
+        private string TraducirDiaSemana(string DiaDeHoy)
+        {
+            if (DiaDeHoy == "Monday")
+            { DiaDeHoy = "Lunes"; }
+            else if (DiaDeHoy == "Tuesday")
+            { DiaDeHoy = "Martes"; }
+            else if (DiaDeHoy == "Wednesday")
+            { DiaDeHoy = "Miercoles"; }
+            else if (DiaDeHoy == "Thursday")
+            { DiaDeHoy = "Jueves"; }
+            else if (DiaDeHoy == "Friday")
+            { DiaDeHoy = "Viernes"; }
+            else if (DiaDeHoy == "Saturday")
+            { DiaDeHoy = "Sabado"; }
+            else if (DiaDeHoy == "Sunday")
+            { DiaDeHoy = "Domingo"; }
+
+            return DiaDeHoy;
+        }
+
+        private string TraducirDiaSemanaResumido(string DiaDeHoy)
+        {
+            if (DiaDeHoy == "Monday")
+            { DiaDeHoy = "Lu"; }
+            else if (DiaDeHoy == "Tuesday")
+            { DiaDeHoy = "Ma"; }
+            else if (DiaDeHoy == "Wednesday")
+            { DiaDeHoy = "Mi"; }
+            else if (DiaDeHoy == "Thursday")
+            { DiaDeHoy = "Ju"; }
+            else if (DiaDeHoy == "Friday")
+            { DiaDeHoy = "Vi"; }
+            else if (DiaDeHoy == "Saturday")
+            { DiaDeHoy = "Sa"; }
+            else if (DiaDeHoy == "Sunday")
+            { DiaDeHoy = "Do"; }
+
+            return DiaDeHoy;
         }
 
         private void HeaderReporte(string FechaRepote, string NombreReporte, string Loteria,string Desde,string Hasta)
@@ -266,7 +267,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
 
             int loteriaId = new ReporteView().GetLoteriaID();
             var nombreLoteria = new ReporteView().GetNombreLoteria();
-            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteriaId,ViewModel.Fecha);
+            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteriaId,ViewModel.Fecha.ToString());
             var ReporteOrdenado = Reporte.Tickets.OrderBy(reporte => reporte.Solicitud).ToArray();
             ViewModel.ReportesGanadores = new EstadoDeTicketGanadores();
             ViewModel.ReportesGanadores.PendientesPagar = new ObservableCollection<ReportesGanadoresObservable>() { };
@@ -617,11 +618,34 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
 
         private void RPTVentasFecha(object parametro)
         {
+
+            DateTime fInicio;
+            DateTime fFin;
+
+            bool fInicioEsValido = DateTime.TryParse(ViewModel.FechaInicio.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fInicio);
+            bool fFinEsValido = DateTime.TryParse(ViewModel.FechaFin.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fFin);
+
+            if (!fInicioEsValido || !fFinEsValido)
+            {
+                fInicio = DateTime.MinValue;
+                fFin = DateTime.MinValue;
+                return;
+            }
+
+            if (DateTime.Compare(fFin, fInicio) < 0)
+            {//fecha fin es  menor que  fecha inicio
+
+                var swap = fInicio;
+                fInicio = fFin;
+                fFin = swap;
+            }
+
+
             //Parte de reportes compleja creador Edison Eugenio Pena Ruiz para cualquier consulta //
-            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.FechaInicio, ViewModel.FechaFin);
+            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToDateTime(fInicio).ToString(), Convert.ToDateTime(fFin).ToString());
             ObservableCollection<ReportesSumVentasFechaObservable> List = new ObservableCollection<ReportesSumVentasFechaObservable>() { };
             //Agregar el encabezado de reporte
-            HeaderReporte(Reporte.Fecha, "VENTAS POR FECHA", null,ViewModel.FechaInicio,ViewModel.FechaFin);
+            HeaderReporte(Reporte.Fecha, "VENTAS POR FECHA", null,ViewModel.FechaInicio.ToString(),ViewModel.FechaFin.ToString());
             //////////////////////////////////////
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
             int venta=0, saco=0, comision=0, totalGeneralVenta=0, totalGeneralComision=0, totalGeneralSaco=0, totalGeneralBalance = 0;
@@ -1043,7 +1067,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
         {
             var NombreLoteria = new ReporteView().GetNombreLoteria();
             var LoteriaID = new ReporteView().GetLoteriaID();
-            var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, LoteriaID, ViewModel.Fecha);
+            var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, LoteriaID, ViewModel.Fecha.ToString());
             
             ObservableCollection<ReporteListaTicketsObservable> ListadoTicket = new ObservableCollection<ReporteListaTicketsObservable>() { };
             ObservableCollection<ReporteListaTicketsObservable> ListadoAllDataTicket = new ObservableCollection<ReporteListaTicketsObservable>() { };

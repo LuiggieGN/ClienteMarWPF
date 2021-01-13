@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 
 namespace ClienteMarWPF.UI.Modules.Reporte.Modal
 {
-    public partial class ReporteDialog : UserControl
+    public partial class DialogoReporte : UserControl
     {
 
         private bool _padreFueHabilitado = true;
@@ -43,14 +43,33 @@ namespace ClienteMarWPF.UI.Modules.Reporte.Modal
             }
         }
 
-        public static readonly DependencyProperty CargarDialogoProperty = DependencyProperty.Register("CargarDialogo", typeof(bool), typeof(ReporteDialog), new UIPropertyMetadata(false, CargarDialogoChanged));
-        public static readonly DependencyProperty OverlayOnProperty = DependencyProperty.Register("OverlayOn", typeof(UIElement), typeof(ReporteDialog), new UIPropertyMetadata(null));
+        public ICommand AceptarCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(AceptarCommandProperty);
+            }
+            set { SetValue(AceptarCommandProperty, value); }
+        }
 
+        public ICommand CancelarCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(CancelarCommandProperty);
+            }
+            set { SetValue(CancelarCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty CargarDialogoProperty = DependencyProperty.Register("CargarDialogo", typeof(bool), typeof(DialogoReporte), new UIPropertyMetadata(false, CargarDialogoChanged));
+        public static readonly DependencyProperty OverlayOnProperty = DependencyProperty.Register("OverlayOn", typeof(UIElement), typeof(DialogoReporte), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty AceptarCommandProperty = DependencyProperty.Register("AceptarCommand", typeof(ICommand), typeof(DialogoReporte), new PropertyMetadata(null));
+        public static readonly DependencyProperty CancelarCommandProperty = DependencyProperty.Register("CancelarCommand", typeof(ICommand), typeof(DialogoReporte), new PropertyMetadata(null));
 
         public static void CargarDialogoChanged(DependencyObject modal, DependencyPropertyChangedEventArgs e)
         {
             var verdialogo = (bool)e.NewValue;
-            var dialogo = (ReporteDialog)modal;
+            var dialogo = (DialogoReporte)modal;
 
             if (verdialogo)
             {
@@ -82,6 +101,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte.Modal
             OverlayOn.IsEnabled = false;
         }
 
+
         public void Ocultar() 
         {
             Visibility = Visibility.Hidden;
@@ -90,14 +110,28 @@ namespace ClienteMarWPF.UI.Modules.Reporte.Modal
 
 
 
-        public ReporteDialog()
+        public DialogoReporte()
         {
             InitializeComponent();
             Visibility = Visibility.Hidden;
         }
 
 
+        private void Aceptar(object sender, RoutedEventArgs e)
+        {
+            if (AceptarCommand != null)
+            {
+                AceptarCommand.Execute(null);
+            }
+        }
 
+        private void Cancelar(object sender, RoutedEventArgs e)
+        {
+            if (CancelarCommand != null)
+            {
+                CancelarCommand.Execute(null);
+            }
+        }
 
 
     }//fin de clase
