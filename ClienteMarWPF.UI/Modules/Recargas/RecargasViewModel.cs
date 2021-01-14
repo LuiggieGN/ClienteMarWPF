@@ -25,7 +25,7 @@ namespace ClienteMarWPF.UI.Modules.Recargas
 
 
 
-        private double monto;
+        private string monto;
         private string telefono;
         private int cheked;
         private DialogImprimirTicketViewModel _dialog;
@@ -38,6 +38,10 @@ namespace ClienteMarWPF.UI.Modules.Recargas
         }
 
         public List<ProveedorRecargasObservable> ProveedorRecargasObservable = new List<ProveedorRecargasObservable>();
+
+
+
+
         public RecargasViewModel(IAuthenticator autenticador, IRecargaService recargaService,INavigator nav, IViewModelFactory vistas)
         {
             ErrorMessageViewModel = new MessageViewModel();
@@ -71,7 +75,18 @@ namespace ClienteMarWPF.UI.Modules.Recargas
 
         }
 
-        public double Monto {
+
+        private ProveedorRecargasObservable _provedor;
+        public ProveedorRecargasObservable Provedor
+        {
+            get => _provedor;
+            set
+            {
+                _provedor = value; NotifyPropertyChanged(nameof(Provedor));
+            }
+        }
+
+        public string Monto {
             get 
             {
                 return monto;
@@ -101,20 +116,7 @@ namespace ClienteMarWPF.UI.Modules.Recargas
         }
 
 
-        public int SelectedSuplidor
-        {
-            get
-            {
-
-                return cheked;
-            }
-
-            set
-            {
-                cheked = value;
-                NotifyPropertyChanged(nameof(SelectedSuplidor));
-            }
-        }
+      
         
 
 

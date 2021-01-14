@@ -2,6 +2,7 @@
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.State.Authenticators;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -44,6 +45,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
         {
             try
             {
+            
+
+
                 var suplidores = RecargaService.GetSuplidor(Autenticador.CurrentAccount.MAR_Setting2.Sesion);
 
                 foreach (var item in suplidores)
@@ -70,6 +74,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
                     }
                
                 }
+
+                ViewModel.ProveedorRecargasObservable.FirstOrDefault().IsSelected = true;
+                ViewModel.Provedor = ViewModel.ProveedorRecargasObservable.FirstOrDefault();
 
 
                 //RecargaService.GetRecarga(Autenticador.CurrentAccount.MAR_Setting2.Sesion,99, "10", 1, "8299617265", 30, 1500);
