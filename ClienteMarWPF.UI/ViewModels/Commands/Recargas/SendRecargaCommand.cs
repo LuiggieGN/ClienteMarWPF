@@ -41,14 +41,14 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
 
             
 
-            if (ViewModel.SelectedSuplidor != 0 &&  (ViewModel.Telefono != null && ViewModel.Telefono.Length == 10) &&  ViewModel.Monto != 0)
+            if ((ViewModel.Provedor.OperadorID != 0) &&  (ViewModel.Telefono != null && ViewModel.Telefono != null) &&  Convert.ToDouble(ViewModel.Monto) != 0)
             {
                 try
                 {
                     Solicitud += 1;
                     var recarga = RecargaService.GetRecarga(Autenticador.CurrentAccount.MAR_Setting2.Sesion,
                                                             Autenticador.CurrentAccount.MAR_Setting2.Sesion.Usuario, Autenticador.CurrentAccount.UsuarioDTO.UsuClave,
-                                                            ViewModel.SelectedSuplidor, ViewModel.Telefono, ViewModel.Monto, Solicitud);
+                                                            ViewModel.Provedor.OperadorID, ViewModel.Telefono, Convert.ToDouble(ViewModel.Monto), Solicitud);
 
                     if(recarga.Err != null) 
                     {

@@ -22,6 +22,7 @@ namespace ClienteMarWPF.UI.Modules.Recargas
     public partial class RecargasView : UserControl
     {
         public ObservableCollection<ProveedorRecargasObservable> Proveedors;
+        public ProveedorRecargasObservable Provedor { get; set; }
 
 
         public RecargasView()
@@ -36,14 +37,34 @@ namespace ClienteMarWPF.UI.Modules.Recargas
             //    new ProveedorRecargasObservable(){ OperadorID=4, IsSelected=false, Operador="Digicel", Pais="HT", Url = "pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Images/Operador/Digice_logo.jpg" },
             //    new ProveedorRecargasObservable(){ OperadorID=6, IsSelected=false, Operador="Natcom", Pais="HT", Url = "pack://application:,,,/ClienteMarWPF.UI;component/StartUp/Images/Operador/NatcomW_logo.jpg" }
             //};
-            
-        
+
+            //listSorteo.DataContext = Proveedors;
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void listSorteo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listSorteo.SelectedItem != null)
+            {
+                var seleccionado = listSorteo.SelectedItem as ProveedorRecargasObservable;
+                seleccionado.IsSelected = true;
+
+            }
+        }
+
+        private void listSorteo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void img_MouseEnter(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

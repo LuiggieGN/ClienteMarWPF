@@ -175,6 +175,12 @@
     <Page Update="Modules\FlujoEfectivo\Movimiento\Views\View3\ConsultaMovimientoView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Modules\Reporte\Modal\DialogoReporte.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Modules\Reporte\Modal\DialogoReporteResources.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Controls\PagerControl.xaml">
       <SubType>Designer</SubType>
     </Page>
