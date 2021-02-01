@@ -856,7 +856,7 @@
                 <!--- //////////////////// Fin Template Reporte De Ventas ///////////////////////-->
 
                 <!-- /////////////////// Template De Lista De Ticket ///////////////////////// -->
-                <Grid Visibility="{Binding RPTLitTicketVisibility}" VerticalAlignment="Top" Width="Auto" Margin="0,0,0,0"  HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid Visibility="{Binding RPTLitTicketVisibility}"  VerticalAlignment="Top" Width="Auto" Margin="0,0,0,0"  HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -888,7 +888,7 @@
                         <RadioButton IsEnabled="{Binding CanChangeOptionListTicket}" Margin="20 5" Content="Válidos"  Click="RadioButton_Click" Command="{Binding ChangeOptionListTicket}"></RadioButton>
                         <RadioButton IsEnabled="{Binding CanChangeOptionListTicket}" Margin="20 5" Content="Nulos"  Click="RadioButton_Click" Command="{Binding ChangeOptionListTicket}"></RadioButton>
                     </StackPanel>
-                    <DataGrid x:Name="GridListTicket" Height="180" ScrollViewer.VerticalScrollBarVisibility="Visible" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ReporteListTicket}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="GridListTicket"  Height="180" ScrollViewer.VerticalScrollBarVisibility="Visible" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ReporteListTicket}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCell" x:Key="AlignLeft">
                                 <Style.Setters >
@@ -1193,7 +1193,7 @@
                         </StackPanel>
                     </Button>
 
-                    <DataGrid x:Name="GridPagosRemotos" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ReportePagosRemotos}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="GridPagosRemotos" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ReportePagosRemotos}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DataGrid_SelectionChanged">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCell" x:Key="AlignLeft">
                                 <Style.Setters >
@@ -1230,6 +1230,9 @@
                             </Style>
 
                         </DataGrid.Resources>
+                        <DataGrid.CellStyle>
+                            <Style/>
+                        </DataGrid.CellStyle>
 
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="colum1" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*"  Header="Ticket"  Binding="{Binding Ticket}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>

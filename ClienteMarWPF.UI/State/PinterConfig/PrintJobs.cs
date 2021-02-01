@@ -1,4 +1,5 @@
-﻿using MAR.AppLogic.MARHelpers;
+﻿using ClienteMarWPF.UI.State.Authenticators;
+using MAR.AppLogic.MARHelpers;
 using MarPuntoVentaServiceReference;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,17 @@ namespace ClienteMarWPF.UI.State.PinterConfig
 {
     class PrintJobs
     {
-        internal static List<string[]> FromReporteDeGanadores(MAR_Ganadores ganadores,ReportesIndexGanadores reporte)
+        private readonly IAuthenticator Autenticador;
+        public PrintJobs(IAuthenticator authenticator)
+        {
+            Autenticador = authenticator;
+        }
+        internal static List<string[]> FromReporteDeGanadores(MAR_Ganadores ganadores,ReportesIndexGanadores reporte,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             string printString = "";
 
-            printString += Center("BANCA NO DISPONIBLE".ToUpper(), 20) + Environment.NewLine;
-            printString += Center("DIRECCION NO DISPONIBLE",22) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
             printString += Center("TICKETS GANADORES", 18) + Environment.NewLine;
 
             printString += Center(
@@ -391,20 +396,19 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             return j;
         }
 
-        internal static List<string[]> FromReporteSumaVenta(MAR_RptSumaVta theSumaVenta)
+        internal static List<string[]> FromReporteSumaVenta(MAR_RptSumaVta theSumaVenta,IAuthenticator autenticador)
         {
             MAR_Session session = new MAR_Session();
             var j = new List<string[]>();
             var jd = new List<string>();
             var w =  20 ;
-
+            
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine });
             j.Add(new string[] { Center("SUMA DE VENTAS", 15) });
-            j.Add(new string[] { Center("NO DISPONIBLE", 13) });
-            j.Add(new string[] { Center("NO DISPONIBLE", session.Banca) });
             j.Add(new string[] { Center("FECHA DEL IMPRESION", 20) });
             j.Add(new string[] { Center(
-               FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
-                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w)});
+              FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
+              FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w)});
             j.Add(new string[] { Center("FECHA DEL REPORTE", w) });
             j.Add(new string[] { Center(
                FechaHelper.FormatFecha(Convert.ToDateTime(theSumaVenta.Fecha),
@@ -458,15 +462,14 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             return j;
         }
 
-        internal static List<string[]> FromReporteVentaPorFecha(MAR_RptSumaVta2 venta, string fDes, string fHas, bool resumido)
+        internal static List<string[]> FromReporteVentaPorFecha(MAR_RptSumaVta2 venta, string fDes, string fHas, bool resumido,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             MAR_Session session = new MAR_Session();
             var w = 35;
             string printString = "";
 
-            printString += Center("NO DISPONIBLE", 13) + Environment.NewLine;
-            printString += Center(session.Banca.ToString(), session.Banca.ToString().Length) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
             printString += Center("VENTAS POR FECHA", 18) + Environment.NewLine;
 
             printString += Center(
@@ -554,15 +557,12 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             return j;
         }
 
-        internal static List<string[]> FromReporteVenta(MAR_RptVenta venta, string sorteo)
+        internal static List<string[]> FromReporteVenta(MAR_RptVenta venta, string sorteo,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             var w = 14;
             string printString = "", loter = "";
-            printString += Center("NO DISPONIBLE", 13) + Environment.NewLine;
-
-
-            printString += Center("NO DISPONIBLE", 13) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:"+ autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
             printString += Center("REPORTE DE VENTA", 17) + Environment.NewLine;
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(venta.Fecha),
@@ -682,14 +682,13 @@ namespace ClienteMarWPF.UI.State.PinterConfig
         }
 
 
-        internal static List<string[]> FromReporteListadoDePines(MAR_Pines thePines)
+        internal static List<string[]> FromReporteListadoDePines(MAR_Pines thePines,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             var w = 35;
             string printString = "";
 
-            printString += Center("NO DISPONIBLE", 14) + Environment.NewLine;
-            printString += Center("NO DISPONIBLE", 14) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
             printString += Center("LISTADO DE PINES", 16) + Environment.NewLine;
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(thePines.Fecha),
@@ -728,13 +727,12 @@ namespace ClienteMarWPF.UI.State.PinterConfig
 
         }
 
-        internal static List<string[]> FromReporteListadoDeTickets(MAR_Ganadores theTickets, string loter)
+        internal static List<string[]> FromReporteListadoDeTickets(MAR_Ganadores theTickets, string loter,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             string printString = "";
 
-            printString += Center("NO DISPONIBLE", 14) + Environment.NewLine;
-            printString += Center("NO DISPONIBLE", 14) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
             printString += Center("LISTADO DE TICKETS", 19) + Environment.NewLine;
             printString += Center(
                    FechaHelper.FormatFecha(Convert.ToDateTime(theTickets.Fecha),
@@ -816,7 +814,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
         }
 
      
-        internal static List<string[]> FromListaDeNumeros(VentasIndexTicket pTck)
+        internal static List<string[]> FromListaDeNumeros(VentasIndexTicket pTck,IAuthenticator atenticador)
         {
             var j = new List<string[]>();
             var w = 35;
@@ -850,15 +848,14 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             return j;
         }
 
-        internal static List<string[]> FromPagosRemoto(MAR_Ganadores ganadores, string fecha)
+        internal static List<string[]> FromPagosRemoto(MAR_Ganadores ganadores, string fecha,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             string printString = "";
             double total = 0;
             MAR_Session Session;
 
-            printString += Center("NO DISPONIBLE".ToUpper() + "-" + "NO DISPONIBLE", 28) + Environment.NewLine;
-            printString += Center("NO DISPONIBLE", 14) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
             printString += Center("TICKETS PAGADOS REMOTAMENTE", 30) + Environment.NewLine;
             printString += Center(
                  FechaHelper.FormatFecha(Convert.ToDateTime(fecha),
@@ -887,7 +884,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             return j;
         }
 
-        internal static List<string[]> FromListaDeNumeros(MAR_VentaNumero ventanum, string fecha, string loter)
+        internal static List<string[]> FromListaDeNumeros(MAR_VentaNumero ventanum, string fecha, string loter,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             var w = 35;
@@ -896,7 +893,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             int m = 0;
 
 
-            printString += (Center("NO DISPONIBLE".ToUpper() + "-" + "NO DISPONIBLE".ToUpper(), w)) + Environment.NewLine + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
             printString += Center("LISTA DE NUMEROS", w) + Environment.NewLine; ;
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(fecha),
