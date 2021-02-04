@@ -1193,7 +1193,7 @@
                         </StackPanel>
                     </Button>
 
-                    <DataGrid ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="GridPagosRemotos" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ReportePagosRemotos}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="DataGrid_SelectionChanged">
+                    <DataGrid ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="GridPagosRemotos" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ReportePagosRemotos}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCell" x:Key="AlignLeft">
                                 <Style.Setters >

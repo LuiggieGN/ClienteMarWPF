@@ -21,7 +21,9 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             var j = new List<string[]>();
             string printString = "";
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
             printString += Center("TICKETS GANADORES", 18) + Environment.NewLine;
 
             printString += Center(
@@ -403,7 +405,8 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             var jd = new List<string>();
             var w =  20 ;
             
-            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine });
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanContacto , autenticador.BancaConfiguracion.BancaDto.BanContacto.Length+7) + Environment.NewLine });
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine });
             j.Add(new string[] { Center("SUMA DE VENTAS", 15) });
             j.Add(new string[] { Center("FECHA DEL IMPRESION", 20) });
             j.Add(new string[] { Center(
@@ -469,7 +472,9 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             var w = 35;
             string printString = "";
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
             printString += Center("VENTAS POR FECHA", 18) + Environment.NewLine;
 
             printString += Center(
@@ -562,7 +567,9 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             var j = new List<string[]>();
             var w = 14;
             string printString = "", loter = "";
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:"+ autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
+            
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length+7) + Environment.NewLine;
             printString += Center("REPORTE DE VENTA", 17) + Environment.NewLine;
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(venta.Fecha),
@@ -688,7 +695,9 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             var w = 35;
             string printString = "";
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
             printString += Center("LISTADO DE PINES", 16) + Environment.NewLine;
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(thePines.Fecha),
@@ -732,7 +741,9 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             var j = new List<string[]>();
             string printString = "";
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
             printString += Center("LISTADO DE TICKETS", 19) + Environment.NewLine;
             printString += Center(
                    FechaHelper.FormatFecha(Convert.ToDateTime(theTickets.Fecha),
@@ -855,7 +866,9 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             double total = 0;
             MAR_Session Session;
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
             printString += Center("TICKETS PAGADOS REMOTAMENTE", 30) + Environment.NewLine;
             printString += Center(
                  FechaHelper.FormatFecha(Convert.ToDateTime(fecha),
@@ -893,7 +906,8 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             int m = 0;
 
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID.ToString(), 20) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
             printString += Center("LISTA DE NUMEROS", w) + Environment.NewLine; ;
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(fecha),
