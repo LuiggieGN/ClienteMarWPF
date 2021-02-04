@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using HaciendaService;
 using MarPuntoVentaServiceReference;
 using FlujoService;
+using JuegaMasService;
 
 using MAR.AppLogic.Encryption;
 
@@ -15,12 +16,15 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
         string serveraddress = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceURL));
         string serverbackup = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceLocalURL));
 
+        
         public int ClientTimeout { get; set; }   
         public string ServiceHostIP { get; set; }
 
+        
         PtoVtaSoapClient marcliente;
         mar_flujoSoapClient controlefectivocliente;
         mar_haciendaSoapClient haciendacliente;
+        JuegaMasSoapClient juegamascliente;
 
 
         public  PtoVtaSoapClient GetMarServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
@@ -36,9 +40,9 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-              
-                serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx";
-               // serveraddress = @"http://localhost/MarSrv/mar-ptovta.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+
+                // serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+                serveraddress = @"http://localhost/MarSrv/mar-ptovta.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
 
 
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
@@ -69,8 +73,7 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
 
             return marcliente;
         } 
-
-        public  mar_flujoSoapClient GetCashFlowServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
+        public  mar_flujoSoapClient GetCashFlowServiceClient(bool useBackupConnection, int timeoutInSeconds = 1200)
         {
             try
             {
@@ -112,7 +115,6 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
 
             return controlefectivocliente;
         }
-
         public mar_haciendaSoapClient GetHaciendaServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
         {
             try
@@ -156,6 +158,56 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
 
             return haciendacliente;
         }
+        public JuegaMasSoapClient GetJuegaMasServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
+        {
+            try
+            {
+                if (juegamascliente != null && juegamascliente.State != CommunicationState.Closed)
+                {
+                    try { juegamascliente.CloseAsync().Wait(); } catch { }
+                }
+
+                BasicHttpBinding binding;
+                EndpointAddress endpoint;
+                string[] splitaddress;
+
+
+                serveraddress = @"http://pruebasmar.ddns.net/Mar-Svr5/mar-juegamas.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+
+
+                if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
+                {
+                    splitaddress = serverbackup.Replace("localhost", ServiceHostIP).Split('/');
+                }
+                else
+                {
+                    splitaddress = serveraddress.Split('/');
+                }
+
+                splitaddress[splitaddress.Length - 1] = "mar-juegamas";
+
+                endpoint = new EndpointAddress(string.Join("/", splitaddress));
+
+                binding = new BasicHttpBinding(endpoint.Uri.Scheme.ToLower() == "http" ? BasicHttpSecurityMode.None : BasicHttpSecurityMode.Transport);
+                binding.ReceiveTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.OpenTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.CloseTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.SendTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+
+                juegamascliente = new JuegaMasSoapClient(binding, endpoint);
+
+            }
+            catch
+            {
+                juegamascliente = null;
+            }
+
+            return juegamascliente;
+        }
+
+
+
+
 
 
 
