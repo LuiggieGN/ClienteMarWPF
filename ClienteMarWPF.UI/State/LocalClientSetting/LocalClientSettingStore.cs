@@ -12,8 +12,8 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
 {
     public sealed class LocalClientSettingStore : LocalClientBase, ILocalClientSettingStore
     {
-
         private LocalClientSettingDTO _localClientSettings;
+
 
         public LocalClientSettingDTO LocalClientSettings
         {
@@ -23,7 +23,6 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                 _localClientSettings = value;
             }
         }
-
         public void ReadDektopLocalSetting()
         {
             try
@@ -43,7 +42,6 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
             }
 
         }//fin de metodo ReadLocalSetting( )
-
         public void WriteDesktopLocalSetting(LocalClientSettingDTO setting)
         {
             try
@@ -89,6 +87,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
             }
             catch
             {
+                this.LocalClientSettings = null;
                 throw new MarFileReadException("Configuraciòn de banca no pudo cargar");
             }
 
@@ -160,7 +159,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                 throw new MarFileWriteException("Hubo un error al crear o actualizar configuracion local", FileName);
             }
 
-        }
+        }//fin de metodo WriteIniFile( )
 
 
 

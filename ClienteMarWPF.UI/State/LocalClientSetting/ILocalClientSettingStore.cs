@@ -9,9 +9,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
     public interface ILocalClientSettingStore
     {
         LocalClientSettingDTO LocalClientSettings { get; set; }
-
         void ReadDektopLocalSetting();
-
         void WriteDesktopLocalSetting(LocalClientSettingDTO setting);
     }
 }

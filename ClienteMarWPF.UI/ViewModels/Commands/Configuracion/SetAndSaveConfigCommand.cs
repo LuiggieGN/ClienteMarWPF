@@ -3,6 +3,7 @@ using ClienteMarWPF.UI.State.LocalClientSetting;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Configuracion
 {
@@ -24,17 +25,15 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Configuracion
         {
             try
             {
-                var settingDTO = new Domain.Models.Dtos.LocalClientSettingDTO {
-                    BancaId = ViewModel.BancaID,
-                    Direccion = ViewModel.Direccion,
-                    Tickets = ViewModel.Ticket
-                };
-
-                LocalConfig.WriteDesktopLocalSetting(settingDTO);
+                ViewModel.LocalSetting.BancaId = ViewModel.BancaID;
+                ViewModel.LocalSetting.Direccion = ViewModel.Direccion;
+                ViewModel.LocalSetting.Tickets = ViewModel.Ticket;
+                LocalConfig.WriteDesktopLocalSetting(ViewModel.LocalSetting);
+                MessageBox.Show("Operaciòn Completada", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception)
             {
-
+                MessageBox.Show("Hubo un error al guardar la configuraciòn", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
