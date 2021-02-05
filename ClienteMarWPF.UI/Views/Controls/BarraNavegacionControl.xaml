@@ -223,11 +223,11 @@
             </StackPanel>
         </Button>
 
-        <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Configuracion}" >
+        <!--<Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Configuracion}" >
             <StackPanel Orientation="Horizontal" >
                 <materialDesign:PackIcon Kind="Cog" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                 <Label  Content="Configuracion" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
             </StackPanel>
-        </Button>
+        </Button>-->
     </StackPanel>
 </UserControl>

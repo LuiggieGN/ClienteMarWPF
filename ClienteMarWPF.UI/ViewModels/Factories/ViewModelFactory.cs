@@ -32,8 +32,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         private readonly CreateViewModel<CincoMinutosViewModel> _createCincoMinutosViewModel;
         private readonly CreateViewModel<RecargasViewModel> _createRecargasViewModel;
         private readonly CreateViewModel<MensajeriaViewModel> _createMensajeriaViewModel; 
-        private readonly CreateViewModel<PagoServiciosViewModel> _createPagoServiciosViewModel;
-        private readonly CreateViewModel<ConfiguracionViewModel> _createConfiguracionViewModel;
+        private readonly CreateViewModel<PagoServiciosViewModel> _createPagoServiciosViewModel; 
         private readonly CreateViewModel<InicioViewModel> _createInicioControlEfectivoViewModel;       
         private readonly CreateViewModel<MovimientoViewModel> _createMovimientoControlEfectivoViewModel;
 
@@ -46,8 +45,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
            CreateViewModel<CincoMinutosViewModel> createCincoMinutosViewModel,
            CreateViewModel<RecargasViewModel> createRecargasViewModel,
            CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel,
-           CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel,
-           CreateViewModel<ConfiguracionViewModel> createConfiguracionViewModel,
+           CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel, 
            CreateViewModel<InicioViewModel> createInicioControlEfectivoViewModel,
            CreateViewModel<MovimientoViewModel> createMovimientoControlEfectivoViewModel
 
@@ -60,8 +58,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
             _createCincoMinutosViewModel = createCincoMinutosViewModel;
             _createRecargasViewModel = createRecargasViewModel;
             _createMensajeriaViewModel = createMensajeriaViewModel; 
-            _createPagoServiciosViewModel = createPagoServiciosViewModel;
-            _createConfiguracionViewModel = createConfiguracionViewModel;
+            _createPagoServiciosViewModel = createPagoServiciosViewModel; 
             _createInicioControlEfectivoViewModel = createInicioControlEfectivoViewModel;
             _createMovimientoControlEfectivoViewModel = createMovimientoControlEfectivoViewModel;
 
@@ -89,9 +86,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
                 case Modulos.Mensajeria:
                     return _createMensajeriaViewModel();
                 case Modulos.PagoServicios:
-                    return _createPagoServiciosViewModel();                
-                case Modulos.Configuracion:
-                    return _createConfiguracionViewModel();
+                    return _createPagoServiciosViewModel();                 
                 case Modulos.InicioControlEfectivo:
                     return _createInicioControlEfectivoViewModel();
                 case Modulos.RegistrosDeMovimiento:
