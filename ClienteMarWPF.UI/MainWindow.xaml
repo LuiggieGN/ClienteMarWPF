@@ -47,9 +47,32 @@
                 <DataTemplate x:Key="LoginPresentacion">                    
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <ContentControl Content="{Binding CurrentViewModel}"/>                                     
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition  />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:ColorZone Grid.ColumnSpan="3" Mode="Dark"  Background="{DynamicResource MenuTopBackground}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                <materialDesign:ColorZone.Effect>
+                                    <DropShadowEffect BlurRadius="20" Opacity="0.50" ShadowDepth="-50"/>
+                                </materialDesign:ColorZone.Effect>
+                                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
+                                    <StackPanel Width="170">
+                                        <Button Command="{Binding CambiarTerminalConfiguracionLocalCommand}">
+                                            <WrapPanel>
+                                                <materialDesign:PackIcon Kind="Tools" Width="20" Height="20" Margin="2 0"  />
+                                                <TextBlock>Configuraciones</TextBlock>
+                                            </WrapPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
+                            </materialDesign:ColorZone>
+                        </Grid>
+                        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>                                     
                     </Grid>                       
                 </DataTemplate>  
                 
@@ -77,9 +100,14 @@
                                         <DropShadowEffect BlurRadius="20" Opacity="0.50" ShadowDepth="-50"/>
                                 </materialDesign:ColorZone.Effect>
                             <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
-                                    <StackPanel Width="170">
-                                        <Button Content="Configuraciones"/> 
+                                    <StackPanel Width="170"> 
                                         <Button Content="Ayuda"/>
+                                        <Button Command="{Binding CambiarTerminalConfiguracionLocalCommand}">
+                                            <WrapPanel>
+                                                <materialDesign:PackIcon Kind="Tools" Width="20" Height="20" Margin="2 0"  />
+                                                <TextBlock>Configuraciones</TextBlock>
+                                            </WrapPanel>
+                                        </Button>                                        
                                         <Separator/>                                      
                                         <Button Command="{Binding LogoutCommand}">                                            
                                             <WrapPanel>
