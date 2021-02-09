@@ -53,9 +53,9 @@ namespace ClienteMarWPF.DataAccess.Services
 
                 MAR_JuegaMasResponse repuesta = new MAR_JuegaMasResponse() {OK=llamada.OK,Mensaje=llamada.Mensaje,Err=llamada.Err,Respuesta=llamada.Respuesta };
                 
-                var anonimos = JSONHelper.CreateNewFromJSONNullValueIgnore<MAR_JuegaMasResponse>(llamada.Respuesta);
+                var anonimos = JSONHelper.CreateNewFromJSONNullValueIgnore<List<object>>(llamada.Respuesta);
 
-                return repuesta;
+                return anonimos;
             }
             catch(Exception e)
             {

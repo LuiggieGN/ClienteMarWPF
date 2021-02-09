@@ -287,7 +287,9 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         }
     }
 
-    public class ReportesListaTajetasObservable : BaseViewModel
+    public class 
+        
+        : BaseViewModel
     {
 
         private string _suplidor;
