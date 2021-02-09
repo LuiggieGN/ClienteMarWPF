@@ -21,6 +21,10 @@ using System.Runtime.Serialization;
 using ClienteMarWPF.UI.State.PinterConfig;
 using MarPuntoVentaServiceReference;
 using System.Drawing;
+using ClienteMarWPF.Domain.Services.JuegaMasService;
+using JuegaMasService;
+using MAR.AppLogic.MARHelpers;
+using Newtonsoft.Json;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
 {
@@ -29,13 +33,14 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
         private readonly ReporteViewModel ViewModel;
         private readonly IAuthenticator Autenticador;
         private readonly IReportesServices ReportesService;
-
-
-        public GetReportesCommand(ReporteViewModel viewModel, IAuthenticator autenticador, IReportesServices reportesServices)
+        private readonly IJuegaMasService servicioJuegamas;
+       
+        public GetReportesCommand(ReporteViewModel viewModel, IAuthenticator autenticador, IReportesServices reportesServices,IJuegaMasService juegaMasService)
         {
             ViewModel = viewModel;
             Autenticador = autenticador;
             ReportesService = reportesServices;
+            servicioJuegamas = juegaMasService;
            
             Action<object> comando = new Action<object>(EnviarReportes);
             base.SetAction(comando);
@@ -475,7 +480,26 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
 
         private void RPTListaPremios(object parametros)
         {
-            var reportes = ReportesService.ReporteListaPremios(Autenticador.CurrentAccount.MAR_Setting2.Sesion, 1, ViewModel.Fecha);
+            var marSesion = Autenticador.CurrentAccount.MAR_Setting2.Sesion;
+
+            var juegaMasSesion = new JuegaMasService.MAR_Session();
+            juegaMasSesion.Sesion = marSesion.Sesion;
+            juegaMasSesion.LastPin = marSesion.LastPin;
+            juegaMasSesion.LastTck = marSesion.LastTck;
+            juegaMasSesion.PrinterFooter = marSesion.PrinterFooter;
+            juegaMasSesion.PrinterHeader = marSesion.PrinterHeader;
+            juegaMasSesion.Banca = marSesion.Banca;
+            juegaMasSesion.Usuario = marSesion.Usuario;
+            juegaMasSesion.Err = marSesion.Err;
+
+            var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion, ViewModel.Fecha);
+            var AllData = reportes.Respuesta;
+            char[] arrayCaracteres = {'[',']',','};
+            var arrayCorchete = AllData.Split(arrayCaracteres);
+            var arrayCierreCorchete = arrayCorchete.ToString().Split(" ");
+          //  string data = JsonConvert.DeserializeObject<object>(AllData);
+          
+            Console.WriteLine(reportes);
         }
 
         private string ObtenerMesEspanol(int mes)

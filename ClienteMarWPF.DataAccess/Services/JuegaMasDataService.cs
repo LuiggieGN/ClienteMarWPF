@@ -22,7 +22,7 @@ namespace ClienteMarWPF.DataAccess.Services
     {
         public static SoapClientRepository soapClientesRepository;
         private static JuegaMasSoapClient juegaMasSoapCliente;
-
+       
         static JuegaMasDataService()
         {
             soapClientesRepository = new SoapClientRepository();
@@ -30,30 +30,37 @@ namespace ClienteMarWPF.DataAccess.Services
         }
 
 
-        public List<object> LeerReporteJuegaMas(MAR_Session sesion)
+        public MAR_JuegaMasResponse LeerReporteEstadoDePremiosJuegaMas(MAR_Session sesion, string Fecha)
         {
             try
             {
 
                 var toSend = new ArrayOfAnyType();
-                toSend.Add(JSONHelper.SerializeToJSON(0)); // Parametro a enviar al servicio
+                string[] arrayString = new string[1];
+                arrayString[0] = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd HH:mm:ss.fff");
 
+
+                toSend.Add(JSONHelper.SerializeToJSON(arrayString));// Parametro a enviar al servicio
+                
                 SessionGlobals.GenerateNewSolicitudID(sesion.Sesion, true);
 
-                var llamada = juegaMasSoapCliente.CallJuegaMaxIndexFunction((int)JuegaMasFunciones.ReporteJuegaMas, sesion, toSend, (int)SessionGlobals.SolicitudID);
+                var llamada = juegaMasSoapCliente.CallJuegaMaxIndexFunction((int)JuegaMasFunciones.ReporteListadoPremio, sesion, toSend, (int)SessionGlobals.SolicitudID);
 
                 if (llamada == null || llamada.OK == false)
                 {
                     throw new Exception("Ha ocurrido un error al leer los tipos ingresos o tipo egresos anonimos");
                 }
 
-                var anonimos = JSONHelper.CreateNewFromJSONNullValueIgnore<List<object>>(llamada.Respuesta);
+                MAR_JuegaMasResponse repuesta = new MAR_JuegaMasResponse() {OK=llamada.OK,Mensaje=llamada.Mensaje,Err=llamada.Err,Respuesta=llamada.Respuesta };
+                
+                var anonimos = JSONHelper.CreateNewFromJSONNullValueIgnore<MAR_JuegaMasResponse>(llamada.Respuesta);
 
-                return anonimos;
+                return repuesta;
             }
-            catch
+            catch(Exception e)
             {
-                return new List<object>();
+                Console.WriteLine(e.Message);
+                return new MAR_JuegaMasResponse();
 
             }// fin de catch
 

@@ -320,6 +320,20 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
 
     }
 
+    public class ModelSerializePremios : BaseViewModel
+    {
+
+        private string [] _printData;
+        
+
+        public string[] PrintData
+        {
+            get { return _printData; }
+            set { _printData = value; NotifyPropertyChanged(nameof(PrintData)); }
+        }
+
+
+    }
     public class ReporteListNumeroColumns : BaseViewModel
     {
         private ObservableCollection<ReportesListaNumerosObservable> quiniela;

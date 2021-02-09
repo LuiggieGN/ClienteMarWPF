@@ -2,6 +2,7 @@
 using Accessibility;
 using ClienteMarWPF.DataAccess;
 using ClienteMarWPF.Domain.Models.Dtos;
+using ClienteMarWPF.Domain.Services.JuegaMasService;
 using ClienteMarWPF.Domain.Services.ReportesService;
 using ClienteMarWPF.UI.Modules.Reporte.Modal;
 using ClienteMarWPF.UI.State.Authenticators;
@@ -446,13 +447,13 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         #endregion
 
 
-        public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices)
+        public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices,IJuegaMasService servicioJuegaMas)
         {
             Fecha = DateTime.Now.ToString("yyyy/MM/dd");
             FechaInicio = Convert.ToDateTime(DateTime.Now).AddDays(-7).ToString();
             FechaFin = Convert.ToDateTime(DateTime.Now).AddDays(-1).ToString();
             SoloTotales = true;
-            ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices);
+            ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices,servicioJuegaMas);
             PrintReportes = new PrintReports(this, autenticador, reportesServices);
             ChangeOptionListTicket = new ChangeOpcionListTicket(this, autenticador, reportesServices);
             AbrirModalRangoFechaCommand = new AbrirModalRangoFechaCommand(this);
