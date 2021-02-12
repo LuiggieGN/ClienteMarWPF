@@ -13,7 +13,7 @@ using ClienteMarWPF.UI.ViewModels.Commands.MainWindow;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.State.CuadreBuilders;
-
+using ClienteMarWPF.UI.State.LocalClientSetting;
 using ClienteMarWPF.UI.ViewModels.Factories;
 
 using ClienteMarWPF.Domain.Models.Dtos;
@@ -33,6 +33,7 @@ namespace ClienteMarWPF.UI
         private readonly IMultipleService _multipleService;
         private readonly IRutaService _rutaService;
         private readonly ICuadreBuilder _cuadreBuilder;
+        private readonly ILocalClientSettingStore _localClientSetting;
         private readonly ToastViewModel _toast;
         #endregion
 
@@ -50,6 +51,7 @@ namespace ClienteMarWPF.UI
         public IMultipleService MultipleService => _multipleService;
         public IRutaService RutaService => _rutaService;
         public ICuadreBuilder CuadreBuilder => _cuadreBuilder;
+        public ILocalClientSettingStore LocalClientSetting => _localClientSetting;
         #endregion
 
         #region Commands
@@ -57,6 +59,7 @@ namespace ClienteMarWPF.UI
         public ICommand UpdateCurrentViewModelCommand { get; }
         public ICommand LogoutCommand { get; }
         public ICommand IniciarCuadreCommand { get; }
+        public ICommand CambiarTerminalConfiguracionLocalCommand { get; }
         #endregion
 
         public MainWindowViewModel(INavigator navegadordeModulos, 
@@ -64,7 +67,8 @@ namespace ClienteMarWPF.UI
                                    IAuthenticator autenticador,
                                    IMultipleService multipleService,
                                    IRutaService rutaService,
-                                   ICuadreBuilder cuadreBuilder)
+                                   ICuadreBuilder cuadreBuilder,
+                                   ILocalClientSettingStore localClientSetting)
         {
 
             _toast = new ToastViewModel();
@@ -74,21 +78,30 @@ namespace ClienteMarWPF.UI
             _autenticador.CurrentBancaConfiguracionStateChanged += BanConfigStateChanged;
             _autenticador.CurrentBancaBalanceStateChanged += BanBalanceStateChanged;
 
+            
             _factoriaViewModel = factoriaViewModel;
+            
             
             _navegadordeModulos = navegadordeModulos;
             _navegadordeModulos.StateChanged += NaviStateChanged;
 
+            
             _multipleService = multipleService;
             _rutaService = rutaService;
             _cuadreBuilder = cuadreBuilder;
+            _localClientSetting = localClientSetting;
+
 
             LogoutCommand = new LogoutCommand(_autenticador, _navegadordeModulos, _factoriaViewModel);
+
 
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(_navegadordeModulos, _factoriaViewModel);
             UpdateCurrentViewModelCommand.Execute(Modulos.Login);
 
+
             IniciarCuadreCommand = new IniciarCuadreCommand(this);
+
+            CambiarTerminalConfiguracionLocalCommand = new CambiarTerminalConfiguracionLocalCommand(this);
         }
 
 

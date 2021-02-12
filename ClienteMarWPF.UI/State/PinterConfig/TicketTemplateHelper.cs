@@ -350,10 +350,11 @@ namespace ClienteMarWPF.UI.State.PinterConfig
         {
             if (data != null && data != string.Empty)
             {
-
+                if (data.Contains("LISTA DE PREMIOS")) { alignment = "left"; }//Alineamiento a la izquierda para reporte de listado de premios
                 Font font = GetFontStyle(fontSize, fontStyle);
                 // Measure string.
                 SizeF stringSize = new SizeF();
+                
                 stringSize = graphics.MeasureString(data, font, paperSize.Width);
                 RectangleF rect = new RectangleF(0, positionWrite, paperSize.Width, Convert.ToInt32(stringSize.Height));
                 //RectangleF rect = new RectangleF(0, positionWrite, paperSize.Width, 100);

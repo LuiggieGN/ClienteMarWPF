@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ClienteMarWPF.UI.Modules.Configuracion.ConfiguracionView"
+﻿<Window x:Class="ClienteMarWPF.UI.Modules.Configuracion.ConfiguracionView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,20 @@
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Configuracion"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800" Background="White" FontSize="14">
-    <Grid>
+             ResizeMode="NoResize" 
+             WindowStartupLocation="CenterOwner"
+             Height="600"
+             Width="800"
+             MaxHeight="600"
+             MaxWidth="800"          
+             d:DesignHeight="600" 
+             d:DesignWidth="800" 
+             Background="Transparent" 
+             FontSize="14"
+             Padding="0"
+             Loaded="ConfiguracionWindow_Loaded">
+    <Grid
+          Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
@@ -41,7 +53,7 @@
 
                 <StackPanel Orientation="Horizontal" >
                     <TextBox  materialDesign:HintAssist.Hint="Banca ID" Text="{Binding BancaID, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox  materialDesign:HintAssist.Hint="Direccion" Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox  materialDesign:HintAssist.Hint="Direccion IP" Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <ComboBox  materialDesign:HintAssist.Hint="Tipo Ticket" ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}"  SelectedValue="{Binding Ticket, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="150" Margin="10 5 10 0"  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                 </StackPanel>
 
@@ -96,4 +108,4 @@
         
         
     </Grid>
-</UserControl>
+</Window>

@@ -69,8 +69,13 @@ namespace ClienteMarWPF.Domain.Enums
 
         Ruta_LeerGestorAsignacionPendiente = 9000  
     }
- 
 
+    public enum JuegaMasFunciones
+    {
+        ReporteListadoPremio = 12,
+        
+ 
+    }
 
 
 
