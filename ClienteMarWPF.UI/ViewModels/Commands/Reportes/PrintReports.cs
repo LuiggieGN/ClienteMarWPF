@@ -1,8 +1,12 @@
-﻿using ClienteMarWPF.Domain.Services.ReportesService;
+﻿using ClienteMarWPF.Domain.Services.JuegaMasService;
+using ClienteMarWPF.Domain.Services.ReportesService;
 using ClienteMarWPF.UI.Modules.Reporte;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.PinterConfig;
+using ClienteMarWPF.UI.ViewModels.Helpers;
+using ClienteMarWPF.UI.ViewModels.ModelObservable;
 using MarPuntoVentaServiceReference;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,14 +20,16 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
         private readonly ReporteViewModel ViewModel;
         private readonly IAuthenticator Autenticador;
         private readonly IReportesServices ReportesService;
-            DateTime FechaInicio;
+        private readonly IJuegaMasService servicioJuegamas;
+        DateTime FechaInicio;
             DateTime FechaFin;
 
-        public PrintReports(ReporteViewModel viewModel, IAuthenticator autenticador, IReportesServices reportesServices)
+        public PrintReports(ReporteViewModel viewModel, IAuthenticator autenticador, IReportesServices reportesServices, IJuegaMasService juegaMasService)
         {
             ViewModel = viewModel;
             Autenticador = autenticador;
             ReportesService = reportesServices;
+            servicioJuegamas = juegaMasService;
 
             DateTime fInicio;
             DateTime fFin;
@@ -80,7 +86,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
                 }
                 else if (nombre == "Lista De Premios")
                 {
-                  //  RPTListaPremios(parametro);
+                    PrintListdoPremio(parametro);
                 }
                 else if (nombre == "Lista De Numeros")
                 {
@@ -216,6 +222,34 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
             MAR_Ganadores ganadores = new MAR_Ganadores() { Primero = PagosRemotos.Primero, Segundo = PagosRemotos.Segundo, Tercero = PagosRemotos.Tercero, Dia = PagosRemotos.Dia, Hora = PagosRemotos.Hora, Fecha = PagosRemotos.Fecha, Err = PagosRemotos.Err, Tickets = PagosRemotos.Tickets };
             var Impresion = PrintJobs.FromPagosRemoto(ganadores, ViewModel.Fecha.ToString());
             TicketTemplateHelper.PrintTicket(Impresion);
+        }
+
+        private void PrintListdoPremio(object Parametro)
+        {
+            var marSesion = Autenticador.CurrentAccount.MAR_Setting2.Sesion;
+
+            var juegaMasSesion = new JuegaMasService.MAR_Session();
+            juegaMasSesion.Sesion = marSesion.Sesion;
+            juegaMasSesion.LastPin = marSesion.LastPin;
+            juegaMasSesion.LastTck = marSesion.LastTck;
+            juegaMasSesion.PrinterFooter = marSesion.PrinterFooter;
+            juegaMasSesion.PrinterHeader = marSesion.PrinterHeader;
+            juegaMasSesion.Banca = marSesion.Banca;
+            juegaMasSesion.Usuario = marSesion.Usuario;
+            juegaMasSesion.Err = marSesion.Err;
+            var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion, ViewModel.Fecha);
+
+            //           var Deserealizado2 = DeserializarString(SinCorchetes.ToString());
+            //var Deserializado = DeserializarJuegaMas(SinComillas.ToString());
+            List<string[]> printData = new List<string[]>() { };
+            var resultado = JsonConvert.DeserializeObject<JuegaMasService.MAR_JuegaMasResponse>(reportes.Respuesta);
+            var arrayJeison = JsonConvert.DeserializeObject(reportes.Respuesta);
+            ModelSerializePremios ModeloPremios = JsonConvert.DeserializeObject<ModelSerializePremios>(arrayJeison.ToString());
+            printData = ModeloPremios.PrintData;
+            printData[1] = new string[] {printData[0][0].ToString()+"\r\n"+printData[1][0].ToString() };
+            printData[0] = new string[] {""};
+            
+            TicketTemplateHelper.PrintTicket(printData);
         }
 
     }
