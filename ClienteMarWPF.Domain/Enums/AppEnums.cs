@@ -72,7 +72,8 @@ namespace ClienteMarWPF.Domain.Enums
 
     public enum JuegaMasFunciones
     {
-        ReporteJuegaMas = 1000,
+        ReporteListadoPremio = 12,
+        
  
     }
 
