@@ -26,6 +26,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         private readonly IBancaBalanceStore _bancaBalanceStore;
         private readonly IBancaService _bancaService;
         private readonly ICajaService _cajaService;
+        private bool _isLoggedIn;
         #endregion
 
         public Authenticator(
@@ -82,18 +83,26 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 CurrentBancaBalanceStateChanged?.Invoke();
             }
         }
-        public bool IsLoggedIn => CurrentAccount != null;
+        //public bool IsLoggedIn => CurrentAccount != null;
+        public bool IsLoggedIn { 
+            get => _isLoggedIn; 
+            set {
+                _isLoggedIn = value;
+                IsLoggedInStateChanged?.Invoke();
+            }        
+        }
         #endregion
-               
+
         public void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress)
         {
             try
             {
                 CurrentAccount = _authenticationService.Logon2(usuario, clave, bancaid, ipaddress);
 
-                BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid);
+                BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid); 
 
                 RefrescarBancaBalance();
+ 
             }
             catch (UserNotFoundException ex1)
             {
@@ -156,6 +165,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         {
             CurrentAccount = null;
             BancaConfiguracion = null;
+            IsLoggedIn = false;
         }
 
 
@@ -166,6 +176,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         public event Action CurrentAccountStateChanged;
         public event Action CurrentBancaConfiguracionStateChanged;
         public event Action CurrentBancaBalanceStateChanged;
+        public event Action IsLoggedInStateChanged;
     }// fin de clase Authenticator
 }// fin de namespace Authenticators
 

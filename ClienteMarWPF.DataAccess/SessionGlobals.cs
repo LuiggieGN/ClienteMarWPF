@@ -31,33 +31,44 @@ namespace ClienteMarWPF.DataAccess
             LoteriasYSupersDisponibles = new List<MAR_Loteria2>();
             SuperPaleDisponibles = new List<SuperPaleDisponible>();
 
-            var result = JsonConvert.DeserializeObject<ReponseSorteos>(sorteosdisponibles.Respuesta);
-            var sorteosDisp = JsonConvert.DeserializeObject<SorteosDisponibles>(result.Respuesta.ToString());
-
-            for (int i = 0; i < loterias.Length; i++)
+            try
             {
-                var loteria = loterias[i];
-                LoteriasTodas.Add(loteria);
+                var result = JsonConvert.DeserializeObject<ReponseSorteos>(sorteosdisponibles.Respuesta);
+                var sorteosDisp = JsonConvert.DeserializeObject<SorteosDisponibles>(result.Respuesta.ToString());
 
-                foreach (var item in sorteosDisp.LoteriasIDRegular)
+                
+                for (int i = 0; i < loterias.Length; i++)
                 {
-                    if (loteria.Numero == item)
+                    var loteria = loterias[i];
+                    LoteriasTodas.Add(loteria);
+
+                    foreach (var item in sorteosDisp.LoteriasIDRegular)
                     {
-                        LoteriasDisponibles.Add(loteria);
+                        if (loteria.Numero == item)
+                        {
+                            LoteriasDisponibles.Add(loteria);
+                        }
+                    }
+
+                    foreach (var item in sorteosDisp.LoteriasIDTodas)
+                    {
+                        if (loteria.Numero == item)
+                        {
+                            LoteriasYSupersDisponibles.Add(loteria);
+                        }
                     }
                 }
 
-                foreach (var item in sorteosDisp.LoteriasIDTodas)
-                {
-                    if (loteria.Numero == item)
-                    {
-                        LoteriasYSupersDisponibles.Add(loteria);
-                    }
-                }
+
+
+                SuperPaleDisponibles = sorteosDisp.SuperPaleDisponibles;
+            }
+            catch (Exception ex)
+            {
 
             }
 
-            SuperPaleDisponibles = sorteosDisp.SuperPaleDisponibles;
+
         }
 
         public static void GenerateNewSolicitudID(int session, bool incrementar = false)
@@ -73,8 +84,10 @@ namespace ClienteMarWPF.DataAccess
             {
                 solicitudID = Convert.ToDouble(sessionString.PadRight(9, '0'));
             }
+        }
 
-        } 
+
+
 
     }
 

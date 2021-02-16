@@ -40,6 +40,8 @@ namespace ClienteMarWPF.UI
         #region Properties
         public BaseViewModel CurrentViewModel => _navegadordeModulos.CurrentViewModel;
         public BancaConfiguracionDTO BancaConfiguracion => _autenticador?.BancaConfiguracion;
+        public string GlobalTerminalId => _autenticador?.BancaConfiguracion?.BancaDto?.BancaID.ToString() ?? "- -";
+        public string GlobalTerminalNombre => _autenticador?.BancaConfiguracion?.BancaDto?.BanContacto ?? "- -";
 
         #region BancaBalance
         public string StrBancaBalance => _autenticador?.BancaBalance?.StrBalance ?? string.Empty;
@@ -52,6 +54,8 @@ namespace ClienteMarWPF.UI
         public IRutaService RutaService => _rutaService;
         public ICuadreBuilder CuadreBuilder => _cuadreBuilder;
         public ILocalClientSettingStore LocalClientSetting => _localClientSetting;
+
+
         #endregion
 
         #region Commands
@@ -62,7 +66,7 @@ namespace ClienteMarWPF.UI
         public ICommand CambiarTerminalConfiguracionLocalCommand { get; }
         #endregion
 
-        public MainWindowViewModel(INavigator navegadordeModulos, 
+        public MainWindowViewModel(INavigator navegadordeModulos,
                                    IViewModelFactory factoriaViewModel,
                                    IAuthenticator autenticador,
                                    IMultipleService multipleService,
@@ -77,15 +81,15 @@ namespace ClienteMarWPF.UI
             _autenticador.CurrentAccountStateChanged += AccountStateChanged;
             _autenticador.CurrentBancaConfiguracionStateChanged += BanConfigStateChanged;
             _autenticador.CurrentBancaBalanceStateChanged += BanBalanceStateChanged;
+            _autenticador.IsLoggedInStateChanged += LoggedInStateChanged;
 
-            
             _factoriaViewModel = factoriaViewModel;
-            
-            
+
+
             _navegadordeModulos = navegadordeModulos;
             _navegadordeModulos.StateChanged += NaviStateChanged;
 
-            
+
             _multipleService = multipleService;
             _rutaService = rutaService;
             _cuadreBuilder = cuadreBuilder;
@@ -94,21 +98,22 @@ namespace ClienteMarWPF.UI
 
             LogoutCommand = new LogoutCommand(_autenticador, _navegadordeModulos, _factoriaViewModel);
 
+            IniciarCuadreCommand = new IniciarCuadreCommand(this);
+
+            CambiarTerminalConfiguracionLocalCommand = new CambiarTerminalConfiguracionLocalCommand(this);
 
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(_navegadordeModulos, _factoriaViewModel);
             UpdateCurrentViewModelCommand.Execute(Modulos.Login);
 
-
-            IniciarCuadreCommand = new IniciarCuadreCommand(this);
-
-            CambiarTerminalConfiguracionLocalCommand = new CambiarTerminalConfiguracionLocalCommand(this);
         }
 
 
 
         private void AccountStateChanged()
         {
-            NotifyPropertyChanged(nameof(EstaLogueado));
+            NotifyPropertyChanged(nameof(EstaLogueado),
+                                  nameof(GlobalTerminalId),
+                                  nameof(GlobalTerminalNombre));
         }
         private void BanConfigStateChanged()
         {
@@ -123,9 +128,10 @@ namespace ClienteMarWPF.UI
         {
             NotifyPropertyChanged(nameof(CurrentViewModel));
         }
-
-      
-
+        private void LoggedInStateChanged()
+        {
+            NotifyPropertyChanged(nameof(EstaLogueado));
+        }
 
 
 

@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <Reference Include="MAR.Config">
-      <HintPath>..\ConfigLibrary\LUIGGIE\DATA358\LOCAL_SERVER\MAR.Config.dll</HintPath>
+      <HintPath>..\ConfigLibrary\LUIGGIE\DATA002\MAR.Config.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿using ClienteMarWPF.Domain.Services.SorteosService;
 using ClienteMarWPF.UI.Modules.Sorteos.Modal;
 using ClienteMarWPF.UI.State.Authenticators;
+using ClienteMarWPF.UI.ViewModels.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,31 +26,48 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
 
         private void PagarTicket(object parametro)
         {
+
+            ViewModel.SetMensajeToDefaultSate();
+
             var numero = ViewModel.TicketNumero;
             var pin = ViewModel.TicketPin;
-            if ((numero != null && pin != null) && (numero != "" && pin != ""))
+
+
+            if (
+                    (!InputHelper.InputIsBlank(ViewModel.TicketNumero))
+                       &&
+                    (!InputHelper.InputIsBlank(ViewModel.TicketPin))
+               )
             {
                 var WinnerResponse = SorteosService.ConsultarTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, numero, pin, true);
+
                 if (WinnerResponse.Aprobado < 0)
                 {
                     ViewModel.PudePagar = false;
-                    ViewModel.MostrarMensajes = true;
-                    ViewModel.MensajeResponse = WinnerResponse.Mensaje;
-                    //MessageBox.Show(WinnerResponse.Mensaje, "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    ViewModel.SetMensaje(mensaje: WinnerResponse.Mensaje,
+                                         icono: "Error",
+                                         background: "#DC3545",
+                                         puedeMostrarse: true); 
                 }
                 else
                 {
                     ViewModel.PudePagar = false;
-                    ViewModel.MostrarMensajes = true;
-                    ViewModel.MensajeResponse = WinnerResponse.Mensaje;
+
+                    ViewModel.SetMensaje(mensaje: WinnerResponse.Mensaje,
+                                         icono: "Check",
+                                         background: "#28A745",
+                                         puedeMostrarse: true); 
                 }
             }
             else
             {
                 ViewModel.PudePagar = false;
-                ViewModel.MostrarMensajes = true;
-                ViewModel.MensajeResponse = "No ha digitado el Ticket o Pin";
-               // MessageBox.Show("No ha digitado el Ticket o Pin", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                ViewModel.SetMensaje(mensaje: "No ha digitado el Ticket o Pin",
+                                     icono: "Error",
+                                     background: "#DC3545",
+                                     puedeMostrarse: true);
             }
 
         }

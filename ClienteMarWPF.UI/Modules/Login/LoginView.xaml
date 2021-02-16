@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
-             xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Login"
-             mc:Ignorable="d">
+             xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Login"             
+             mc:Ignorable="d"
+             xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls"             
+             >
     
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -40,9 +42,39 @@
                 <PasswordBox x:Name="PasswordControl" materialDesign:HintAssist.Hint="Contraseña" FontSize="16" Width="250" Margin="10 0"/>
             </StackPanel>
 
-            <Button  HorizontalAlignment="Center" FontSize="18" Height="40" Width="250" Margin="0 30 0 10 " Style="{DynamicResource btn-dark}" Click="Login"  Content="Iniciar Sesión" />
+            <Button  HorizontalAlignment="Center" 
+                     FontSize="18"
+                     Height="40" 
+                     Width="200"
+                     Margin="0 30 0 10 " 
+                     Style="{DynamicResource btn-dark}" 
+                     Click="Login">
+                <Grid Margin="10,0" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions> 
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal">
+                        
+                        <controls:SpinnerPiston Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="40"
+                                                Height="40"
+                                                Visibility="{Binding Cargando, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        
+                        <TextBlock Text="Iniciar Sesión"
+                                   FontSize="18"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Button>
 
             <Label HorizontalContentAlignment="Center" FontSize="15"   Foreground="{DynamicResource BtnDangerBackgroundBrush}"  DataContext="{Binding ErrorMessageViewModel}" Content="{Binding Message}"  Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+
 
 
         </StackPanel>

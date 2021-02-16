@@ -76,9 +76,36 @@
 
                         </StackPanel>
 
-                        <StackPanel Visibility="{Binding MostrarMensajes, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="15" Padding="10" Text="{Binding MensajeResponse, UpdateSourceTrigger=PropertyChanged}"/>
-                        </StackPanel>
+
+
+                        <materialDesign:ColorZone Mode="Dark" 
+                                                  Background="{Binding MensajeBackground, UpdateSourceTrigger=PropertyChanged}"
+                                                  HorizontalAlignment="Stretch" 
+                                                  VerticalAlignment="Stretch" 
+                                                  Visibility="{Binding MostrarMensajes, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                  >
+                            <StackPanel Orientation="Horizontal" Margin="30 0 0 0">
+                                <materialDesign:PackIcon  Kind="{Binding MensajeIcono, UpdateSourceTrigger=PropertyChanged}"
+                                                          VerticalAlignment="Center" 
+                                                          Margin="5 0"
+                                                          Width="20"
+                                                          Height="20" />
+                                <TextBlock  
+                                           VerticalAlignment="Center"
+                                           FontSize="15"
+                                           Padding="10"     
+                                           Text="{Binding MensajeResponse, UpdateSourceTrigger=PropertyChanged}"
+                                           />
+                            </StackPanel>
+                        </materialDesign:ColorZone>
+
+                        <!--<StackPanel Visibility="{Binding MostrarMensajes, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock TextWrapping="Wrap" 
+                                       TextAlignment="Center"
+                                       FontSize="15"
+                                       Padding="10" 
+                                       Text="{Binding MensajeResponse, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>-->
                     </StackPanel>
                 
                     <Button Grid.Row="3" Style="{DynamicResource btn-warning}" Command="{Binding CerrarValidarPagoTicketCommand}" Foreground="Black" Width="160"  Margin="5 20" >
