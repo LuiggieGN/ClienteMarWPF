@@ -7,7 +7,11 @@
         xmlns:local="clr-namespace:ClienteMarWPF.UI"
         xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls"
         mc:Ignorable="d"
-        Title="Mar Punto de Ventas" Height="600"  Width="800" MinHeight="600"  MinWidth="800" WindowStartupLocation="CenterScreen">
+        Title="Mar Punto de Ventas" Height="848" 
+                                    Width="1129"
+                                    MinHeight="600" 
+                                    MinWidth="800" 
+                                    WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Storyboard x:Key="OpenMenuStoryboard">
@@ -76,12 +80,12 @@
                     </Grid>                       
                 </DataTemplate>  
                 
-                <DataTemplate x:Key="ClientePresentacion">
+                <DataTemplate x:Key="ClientePresentacion"   >
 
                   
                     <Grid>                        
                         <Grid.RowDefinitions>
-                            <RowDefinition  Height="50" />
+                            <RowDefinition Height="50" />
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -92,54 +96,86 @@
                         <Grid Grid.Row="0" Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
-                                <ColumnDefinition  />
+                                <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <materialDesign:ColorZone Grid.ColumnSpan="3" Mode="Dark"  Background="{DynamicResource MenuTopBackground}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                            
+                            <materialDesign:ColorZone Grid.ColumnSpan="3" 
+                                                      Mode="Dark"  
+                                                      Background="{DynamicResource MenuTopBackground}"
+                                                      HorizontalAlignment="Stretch"
+                                                      VerticalAlignment="Stretch" >
                                 <materialDesign:ColorZone.Effect>
                                         <DropShadowEffect BlurRadius="20" Opacity="0.50" ShadowDepth="-50"/>
                                 </materialDesign:ColorZone.Effect>
-                            <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
-                                    <StackPanel Width="170"> 
-                                        <Button Content="Ayuda"/>
-                                        <Button Command="{Binding CambiarTerminalConfiguracionLocalCommand}">
-                                            <WrapPanel>
-                                                <materialDesign:PackIcon Kind="Tools" Width="20" Height="20" Margin="2 0"  />
-                                                <TextBlock>Configuraciones</TextBlock>
-                                            </WrapPanel>
-                                        </Button>                                        
-                                        <Separator/>                                      
-                                        <Button Command="{Binding LogoutCommand}">                                            
-                                            <WrapPanel>
-                                                <materialDesign:PackIcon Kind="Login" Width="20" Height="20" Margin="2 0"  /> <TextBlock> Cerrar Sesión</TextBlock>
-                                            </WrapPanel>                                       
-                                        </Button>
-                                        <Button Click="CerrarAplicacion_Click">
-                                            <WrapPanel>
-                                                <materialDesign:PackIcon Kind="Power" Width="20" Height="20" Margin="2 0"  />
-                                                <TextBlock> Cerrar Aplicaciòn</TextBlock>
-                                            </WrapPanel>
-                                        </Button>
-                                    </StackPanel>
+                                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
+                                     <StackPanel Width="170"> 
+                                         <!--<Button Content="Ayuda"/>
+                                         <Button Command="{Binding CambiarTerminalConfiguracionLocalCommand}">
+                                             <WrapPanel>
+                                                 <materialDesign:PackIcon Kind="Tools" Width="20" Height="20" Margin="2 0"  />
+                                                 <TextBlock>Configuraciones</TextBlock>
+                                             </WrapPanel>
+                                         </Button>-->                                        
+                                         <!--<Separator/>                                      
+                                         <Button Command="{Binding LogoutCommand}">                                            
+                                             <WrapPanel>
+                                                 <materialDesign:PackIcon Kind="Login" Width="20" Height="20" Margin="2 0"  /> <TextBlock> Cerrar Sesión</TextBlock>
+                                             </WrapPanel>                                       
+                                         </Button>-->
+                                         <Button Click="CerrarAplicacion_Click">
+                                             <WrapPanel>
+                                                 <materialDesign:PackIcon Kind="Power" Width="20" Height="20" Margin="2 0"  />
+                                                 <TextBlock> Cerrar Aplicaciòn</TextBlock>
+                                             </WrapPanel>
+                                         </Button>
+                                     </StackPanel>
                                 </materialDesign:PopupBox>
                             </materialDesign:ColorZone>
-                            <StackPanel 
+
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" 
+                                            Orientation="Vertical"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            Margin="10 0 0 0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Id :"     Margin="37 0 10 0"  Foreground="White"  FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding GlobalTerminalId}" Margin="0 2 10 0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Terminal :" Margin="0 0 10 0" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding GlobalTerminalNombre}" Margin="0 1 10 0" VerticalAlignment="Center"/>
+                                    </StackPanel>                     
+                                </StackPanel>                                
+                            </Grid>
+                            
+                            <DockPanel 
                                     Grid.Column="1"
                                     Background="{DynamicResource WhiteForegroundOpacity30}"  
                                     MaxWidth="300"                                      
-                                    Visibility="{Binding VerBancaBalanceEnCaja, Converter={StaticResource BooleanToVisibilityConverter}}" >
-                                       <TextBlock  
-                                             VerticalAlignment="Center" 
-                                             HorizontalAlignment="Left"              
-                                             Text="{Binding StrBancaBalance}"
-                                             FontSize="18" 
-                                             FontWeight="Bold"
-                                             Margin="7 12 0 0"
-                                             Foreground="White"/>
-                            </StackPanel>
+                                    Visibility="{Binding VerBancaBalanceEnCaja, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                       
+                                       <TextBlock VerticalAlignment="Center" 
+                                                  HorizontalAlignment="Center"              
+                                                  Text="{Binding StrBancaBalance}"
+                                                  FontSize="18" 
+                                                  FontWeight="Bold" 
+                                                  Foreground="White"/>
+                            </DockPanel>
                         </Grid>
 
-                        <Grid x:Name="GridMenu" Panel.ZIndex="50" Background="{DynamicResource MenuLeftBackground}" Grid.Row="0"  Width="60" Grid.RowSpan="2" HorizontalAlignment="Stretch"  >
+                        <Grid x:Name="GridMenu" 
+                              Panel.ZIndex="50" 
+                              Background="{DynamicResource MenuLeftBackground}"
+                              Grid.Row="0"
+                              Width="60"
+                              Grid.RowSpan="2" 
+                              HorizontalAlignment="Stretch"
+                              Loaded="GridMenu_Loaded">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"/>
                                 <RowDefinition Height="Auto"/>
@@ -149,8 +185,8 @@
                                 <DropShadowEffect BlurRadius="50" Opacity="0.50" ShadowDepth="-50"/>
                             </Grid.Effect>
 
-                            <DockPanel Background="{DynamicResource DarkForegroundOpacity30}">
-                                <Button  x:Name="OpenMenuSTB" DockPanel.Dock="Right" Click="OpenMenu_Click" Background="Transparent" BorderBrush="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" >
+                            <DockPanel Background="{DynamicResource DarkForegroundOpacity30}" >
+                                <Button   x:Name="OpenMenuSTB" DockPanel.Dock="Right" Click="OpenMenu_Click" Background="Transparent" BorderBrush="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" >
                                     <Button.Triggers>
                                         <EventTrigger RoutedEvent="ButtonBase.Click">
                                             <BeginStoryboard Storyboard="{StaticResource OpenMenuStoryboard}"/>
@@ -171,21 +207,22 @@
                             </DockPanel>
 
                             <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">                                
-                                <controls:BarraNavegacionControl HorizontalAlignment="Stretch" />                               
+                                <controls:BarraNavegacionControl HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>                               
                             </ScrollViewer>
                         </Grid>
 
 
                         <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">                                        
                             <ContentControl Content="{Binding CurrentViewModel}"/>
-                        </ScrollViewer>
-
-                        
+                        </ScrollViewer>                        
                     </Grid>
+                    
+                    
                     
                 </DataTemplate> 
                 
             </ContentPresenter.Resources>
+            
 
             <ContentPresenter.Style>
                 <Style TargetType="{x:Type ContentPresenter}" >

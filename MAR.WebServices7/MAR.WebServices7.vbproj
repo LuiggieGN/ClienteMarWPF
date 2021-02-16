@@ -64,12 +64,9 @@
     <Reference Include="MAR.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Desktop\Config Remote\Medelo2020\Local Medelo 2020\MAR.Config.dll</HintPath>
-    </Reference>
+     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RecargasLibrary">
-      <HintPath>..\ConfigLibrary\RecargasLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -115,33 +112,16 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="mar-bingo.asmx" />
     <Content Include="mar-flujo.asmx" />
-    <Content Include="mar-hacienda.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigReader.vb" />
-    <Compile Include="DAL.vb" />
     <Compile Include="Encryption\EncryptionEngine.vb" />
     <Compile Include="Encryption\Encryptor.vb" />
-    <Compile Include="mar-bingo.asmx.vb">
-      <DependentUpon>mar-bingo.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="mar-flujo.asmx.vb">
       <DependentUpon>mar-flujo.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="mar-hacienda.asmx.vb">
-      <DependentUpon>mar-hacienda.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="mar-ptovta.asmx.vb">
-      <DependentUpon>mar-ptovta.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MARRecargaLibs.vb" />
-    <Compile Include="MarSerializador.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -178,7 +158,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="mar-ptovta.asmx" />
     <Content Include="web.config" />
     <Content Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

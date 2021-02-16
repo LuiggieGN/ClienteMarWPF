@@ -151,12 +151,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<CreateViewModel<PagoServiciosViewModel>>(services =>
             {
                 return () => new PagoServiciosViewModel();
-            });
-
-            //services.AddSingleton<CreateViewModel<ConfiguracionViewModel>>(services =>
-            //{
-            //    return () => new ConfiguracionViewModel(services.GetRequiredService<ILocalClientSettingStore>());
-            //});
+            }); 
 
             services.AddSingleton<CreateViewModel<InicioViewModel>>(services =>
             {

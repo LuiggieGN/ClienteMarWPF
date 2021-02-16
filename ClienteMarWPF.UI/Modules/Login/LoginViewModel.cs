@@ -3,6 +3,7 @@ using ClienteMarWPF.UI.ViewModels.Commands.Login;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.State.LocalClientSetting;
+using ClienteMarWPF.UI.ViewModels.Helpers;
 
 using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
@@ -15,6 +16,8 @@ namespace ClienteMarWPF.UI.Modules.Login
     public class LoginViewModel : BaseViewModel
     {
         private string _username;
+        private bool _cargando;
+
         public string Username
         {
             get
@@ -28,6 +31,18 @@ namespace ClienteMarWPF.UI.Modules.Login
             }
         }
 
+        public bool Cargando
+        {
+            get
+            {
+                return _cargando;
+            }
+            set
+            {
+                _cargando = value;
+                NotifyPropertyChanged(nameof(Cargando));
+            }
+        }
 
         public MessageViewModel ErrorMessageViewModel { get; }
             
@@ -40,7 +55,9 @@ namespace ClienteMarWPF.UI.Modules.Login
 
         public LoginViewModel(IAuthenticator autenticador, IRenavigator renavigator, ILocalClientSettingStore localclientsettings)
         {
-            ErrorMessageViewModel = new MessageViewModel();  LoginCommand = new LoginCommand(this, autenticador, renavigator, localclientsettings);
+            Cargando = Booleano.No;
+            ErrorMessageViewModel = new MessageViewModel(); 
+            LoginCommand = new LoginCommand(this, autenticador, renavigator, localclientsettings);
         }
 
 

@@ -114,7 +114,11 @@ namespace ClienteMarWPF.DataAccess.Services
             }
             catch (Exception)
             {
-                return new MAR_ValWiner();
+                var invalid = new MAR_ValWiner();
+
+                invalid.Aprobado = -1;
+                invalid.Mensaje = "Ha ocurrido un error al procesar la operaciòn";
+                return invalid;
             }
         }
         public string AnularTicket(MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin)

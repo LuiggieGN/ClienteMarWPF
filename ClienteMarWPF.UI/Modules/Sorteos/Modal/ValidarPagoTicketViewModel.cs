@@ -23,6 +23,9 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
         public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
 
+            SetMensajeToDefaultSate();
+
+
             CerrarValidarPagoTicketCommand = new CerrarValidarPagoTicketCommand(this);
             ConsultarTicketCommand = new ConsultarTicketCommand(this, autenticador, sorteosService);
             PagarTicketCommand = new PagarTicketCommand(this, autenticador, sorteosService);
@@ -35,6 +38,8 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
         private string _ticketPin;
         private string _montoPorPagar;
         private string _mensajeResponse;
+        private string _mensajeBackground;
+        private string _mensajeIcono;
         private bool _pudePagar;
         private bool _mostrarMensajes;
         //###########################################################
@@ -97,7 +102,34 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
                 _mensajeResponse = value;
                 NotifyPropertyChanged(nameof(MensajeResponse));
             }
-        }        
+        }
+
+        public string MensajeBackground
+        {
+            get
+            {
+                return _mensajeBackground;
+            }
+            set
+            {
+                _mensajeBackground = value;
+                NotifyPropertyChanged(nameof(MensajeBackground));
+            }
+        }
+
+        public string MensajeIcono
+        {
+            get
+            {
+                return _mensajeIcono;
+            }
+            set
+            {
+                _mensajeIcono = value;
+                NotifyPropertyChanged(nameof(MensajeIcono));
+            }
+        }
+
         public bool MostrarMensajes
         {
             get
@@ -137,6 +169,21 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
             MuestroDialogo = false;
 
         }
+
+
+        public void SetMensajeToDefaultSate() 
+        {
+            SetMensaje(string.Empty, "Asterisk", "#007BFF", false);
+        }
+        public void SetMensaje(string mensaje, string icono, string background, bool puedeMostrarse) 
+        {
+            MensajeResponse = mensaje;
+            MensajeIcono = icono;
+            MensajeBackground = background;
+            MostrarMensajes = puedeMostrarse;        
+        }
+
+
 
 
     }

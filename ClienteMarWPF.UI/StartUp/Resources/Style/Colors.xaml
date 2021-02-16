@@ -15,7 +15,7 @@
     <SolidColorBrush x:Key="DarkForeground" Color="#181818"/>    
     <SolidColorBrush x:Key="WhiteForegroundOpacity50" Color="White" Opacity="0.5"/>
     <SolidColorBrush x:Key="DarkForegroundOpacity50" Color="Black" Opacity="0.5"/>
-    <SolidColorBrush x:Key="WhiteForegroundOpacity30" Color="White" Opacity="0.3"/>
+    <SolidColorBrush x:Key="WhiteForegroundOpacity30" Color="AliceBlue" Opacity="0.3"/>
     <SolidColorBrush x:Key="DarkForegroundOpacity30" Color="Black" Opacity="0.3"/>
     <SolidColorBrush x:Key="AppBackgroundBrush" Color="#EEEEEE"/>
     <SolidColorBrush x:Key="AppSecondaryBackgroundBrush" Color="White"/>

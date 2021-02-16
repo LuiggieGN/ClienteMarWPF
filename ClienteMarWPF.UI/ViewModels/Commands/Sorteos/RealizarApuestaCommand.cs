@@ -76,7 +76,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
             else
             {
                 MessageBox.Show(MarBetResponse.Err,"Aviso", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
+            }   
 
         }
 

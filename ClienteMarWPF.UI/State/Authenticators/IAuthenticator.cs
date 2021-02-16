@@ -17,13 +17,15 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
         BancaBalanceViewModel BancaBalance { get; set; }
 
-        bool IsLoggedIn { get; }
+        bool IsLoggedIn { get; set; }
 
         event Action CurrentAccountStateChanged;
 
         event Action CurrentBancaConfiguracionStateChanged;
 
         event Action CurrentBancaBalanceStateChanged;
+
+        event Action IsLoggedInStateChanged;
 
         void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress);
 

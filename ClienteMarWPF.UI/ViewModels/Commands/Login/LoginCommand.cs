@@ -4,8 +4,10 @@ using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.State.LocalClientSetting;
 using ClienteMarWPF.UI.Modules.Login;
+using ClienteMarWPF.UI.ViewModels.Helpers;
 
-using System; 
+using System;
+using System.ComponentModel;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Login
 {
@@ -15,6 +17,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
         private readonly IAuthenticator autenticador;
         private readonly IRenavigator navegaAppVistaInicial;
         private readonly ILocalClientSettingStore localclientsettings;
+        private readonly BackgroundWorker worker = new BackgroundWorker();
+        private bool loginSucces;
 
         public LoginCommand(LoginViewModel viewmodellogin, IAuthenticator autenticador, IRenavigator renavigator, ILocalClientSettingStore localclientsettings) : base()
         {
@@ -22,6 +26,10 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
             this.autenticador = autenticador;
             this.navegaAppVistaInicial = renavigator;
             this.localclientsettings = localclientsettings;
+
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+
             Action<object> comando = new Action<object>(IniciarSesion);
             base.SetAction(comando);
         }
@@ -29,37 +37,73 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
 
         public void IniciarSesion(object password)
         {
+            worker.RunWorkerAsync(argument: password);
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            loginSucces = false;
             viewmodellogin.ErrorMessage = string.Empty;
+            viewmodellogin.Cargando = Booleano.Si;
+            string password = e.Argument.ToString();
 
             try
             {
                 localclientsettings.ReadDektopLocalSetting(); //@leo el archivo .ini que contiene el ipadress y el banca id
-                autenticador.IniciarSesion(viewmodellogin.Username, $"{password}" , localclientsettings.LocalClientSettings.BancaId , localclientsettings.LocalClientSettings.Direccion );
-                navegaAppVistaInicial.Renavigate();
+                autenticador.IniciarSesion(viewmodellogin.Username, $"{password}", localclientsettings.LocalClientSettings.BancaId, localclientsettings.LocalClientSettings.Direccion);
+                viewmodellogin.Cargando = Booleano.No;
+                loginSucces = true; 
             }
             catch (MarFileReadException ex)
             {
+                loginSucces = false;
+                viewmodellogin.Cargando = Booleano.No;
                 viewmodellogin.ErrorMessage = ex.Message;
-            } 
+            }
             catch (UserNotFoundException ex)
             {
+                loginSucces = false;
+                viewmodellogin.Cargando = Booleano.No;
                 viewmodellogin.ErrorMessage = ex.Message;
             }
             catch (BancaConfiguracionesException ex)
             {
+                loginSucces = false;
+                viewmodellogin.Cargando = Booleano.No;
                 viewmodellogin.ErrorMessage = ex.Message;
             }
             catch (InvalidPasswordException)
             {
+                loginSucces = false;
+                viewmodellogin.Cargando = Booleano.No;
                 viewmodellogin.ErrorMessage = "Credenciales inválidas";
             }
             catch (Exception)
             {
+                loginSucces = false;
+                viewmodellogin.Cargando = Booleano.No;
                 viewmodellogin.ErrorMessage = "Verificar conexión de internet";
             }
+
         }
 
- 
+        private void worker_RunWorkerCompleted(object sender,
+                                                   RunWorkerCompletedEventArgs e)
+        {
+            viewmodellogin.Cargando = Booleano.No;
+
+            if (loginSucces && autenticador.CurrentAccount != null)
+            { 
+                autenticador.IsLoggedIn = true;
+                navegaAppVistaInicial.Renavigate();
+            }
+
+
+
+
+
+        }
+
 
 
 

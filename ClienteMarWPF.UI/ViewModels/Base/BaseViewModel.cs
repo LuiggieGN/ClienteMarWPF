@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace ClienteMarWPF.UI.ViewModels.Base
 {
+
     public delegate TViewModel CreateViewModel<TViewModel>() where TViewModel : BaseViewModel;
 
     public class BaseViewModel : INotifyPropertyChanged
