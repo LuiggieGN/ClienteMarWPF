@@ -51,6 +51,7 @@ using System.Windows;
 using System.Threading;
 using System.Windows.Markup;
 using System.Globalization;
+using ClienteMarWPF.Domain.Services.JuegaMasService;
 #endregion
 
 namespace ClienteMarWPF.UI
@@ -95,6 +96,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<ICajaService, CajaDataService>();
             services.AddSingleton<IMultipleService, MultipleDataService>();
             services.AddSingleton<IRutaService, RutaDataService>();
+            services.AddSingleton<IJuegaMasService, JuegaMasDataService>();
             #endregion
 
             services.AddSingleton<IViewModelFactory, ViewModelFactory>();    //Este Servicio Contiene la factoria de ViewModels Disponibles
@@ -110,7 +112,8 @@ namespace ClienteMarWPF.UI
             {
                 return () => new ReporteViewModel(
                     services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<IReportesServices>()
+                    services.GetRequiredService<IReportesServices>(),
+                    services.GetRequiredService<IJuegaMasService>()
                 );
             });
 

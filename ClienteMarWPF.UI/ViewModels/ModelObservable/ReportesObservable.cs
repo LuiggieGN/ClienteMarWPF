@@ -76,6 +76,19 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
 
     }
 
+    public class ReporteListaPremiosObservable : BaseViewModel
+    {
+
+        private string listaPremios;
+       
+        public string ListadoDePremios
+        {
+            get { return listaPremios; }
+            set { listaPremios = value; NotifyPropertyChanged(nameof(ListadoDePremios)); }
+        }
+
+    }
+
     public class ReportesSumVentasFechaObservable : BaseViewModel
     {
 
@@ -154,6 +167,8 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
         }
 
     }
+
+   
 
     public class EstadoDeTicketGanadores: BaseViewModel
     {
@@ -320,6 +335,36 @@ namespace ClienteMarWPF.UI.ViewModels.ModelObservable
 
     }
 
+    public class ModelSerializePremios : BaseViewModel
+    {
+
+        private List<string[]> _printData;
+        private string _ok;
+        private string _err;
+        
+
+        public List<string[]> PrintData
+        {
+            get { return _printData; }
+            set { _printData = value; NotifyPropertyChanged(nameof(PrintData)); }
+        }
+
+        public string Ok
+        {
+            get { return _ok; }
+            set { _ok = value; NotifyPropertyChanged(nameof(Ok)); }
+        }
+        public string Err
+        {
+            get { return _err; }
+            set { _err = value; NotifyPropertyChanged(nameof(Err)); }
+        }
+
+    }
+
+    
+
+  
     public class ReporteListNumeroColumns : BaseViewModel
     {
         private ObservableCollection<ReportesListaNumerosObservable> quiniela;

@@ -9,6 +9,6 @@ namespace ClienteMarWPF.Domain.Services.JuegaMasService
 {
     public interface IJuegaMasService
     {
-        List<object> LeerReporteJuegaMas(MAR_Session sesion);
+        MAR_JuegaMasResponse LeerReporteEstadoDePremiosJuegaMas(MAR_Session sesion,string Fecha);
     }
 }

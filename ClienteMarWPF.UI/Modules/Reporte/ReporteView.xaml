@@ -856,7 +856,7 @@
                 <!--- //////////////////// Fin Template Reporte De Ventas ///////////////////////-->
 
                 <!-- /////////////////// Template De Lista De Ticket ///////////////////////// -->
-                <Grid Visibility="{Binding RPTLitTicketVisibility}" VerticalAlignment="Top" Width="Auto" Margin="0,0,0,0"  HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid Visibility="{Binding RPTLitTicketVisibility}"  VerticalAlignment="Top" Width="Auto" Margin="0,0,0,0"  HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -888,7 +888,7 @@
                         <RadioButton IsEnabled="{Binding CanChangeOptionListTicket}" Margin="20 5" Content="Válidos"  Click="RadioButton_Click" Command="{Binding ChangeOptionListTicket}"></RadioButton>
                         <RadioButton IsEnabled="{Binding CanChangeOptionListTicket}" Margin="20 5" Content="Nulos"  Click="RadioButton_Click" Command="{Binding ChangeOptionListTicket}"></RadioButton>
                     </StackPanel>
-                    <DataGrid x:Name="GridListTicket" Height="180" ScrollViewer.VerticalScrollBarVisibility="Visible" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ReporteListTicket}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="GridListTicket"  Height="180" ScrollViewer.VerticalScrollBarVisibility="Visible" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ReporteListTicket}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCell" x:Key="AlignLeft">
                                 <Style.Setters >
@@ -1193,7 +1193,7 @@
                         </StackPanel>
                     </Button>
 
-                    <DataGrid x:Name="GridPagosRemotos" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ReportePagosRemotos}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="GridPagosRemotos" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ReportePagosRemotos}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCell" x:Key="AlignLeft">
                                 <Style.Setters >
@@ -1230,6 +1230,9 @@
                             </Style>
 
                         </DataGrid.Resources>
+                        <DataGrid.CellStyle>
+                            <Style/>
+                        </DataGrid.CellStyle>
 
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="colum1" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*"  Header="Ticket"  Binding="{Binding Ticket}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
@@ -1258,8 +1261,24 @@
                 </Grid>
                 <!--- //////////////////// Fin Template de lista de pagos remotos ///////////////////////-->
 
+                <!-- /////////////////// Template De Lista De Premios ///////////////////////// -->
+                <ScrollViewer HorizontalAlignment="Stretch"   Visibility="{Binding RPTListPremioVisibility}" VerticalScrollBarVisibility="Auto" Height="Auto" Width="Auto" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
+                    <Grid Visibility="{Binding RPTListPremioVisibility}"  HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible"  Background="WhiteSmoke" Height="Auto" Width="Auto" Margin="15,0,0,4" VerticalAlignment="Top" >
+                        
+                        <!--<TextBlock Text="{Binding ObservableListadoPremios}" Width="300" Height="400px"></TextBlock>-->
+                        <Label Content="{Binding ObservableListadoPremios}" Height="Auto"></Label>
+                        <Button  Style="{DynamicResource btn-primary}" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                 </ScrollViewer>
+                <!--- //////////////////// Fin Template de lista de premios ///////////////////////-->
             </Grid>
+                
 
         </Grid>
 

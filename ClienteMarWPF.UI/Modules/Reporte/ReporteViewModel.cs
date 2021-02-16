@@ -2,6 +2,7 @@
 using Accessibility;
 using ClienteMarWPF.DataAccess;
 using ClienteMarWPF.Domain.Models.Dtos;
+using ClienteMarWPF.Domain.Services.JuegaMasService;
 using ClienteMarWPF.Domain.Services.ReportesService;
 using ClienteMarWPF.UI.Modules.Reporte.Modal;
 using ClienteMarWPF.UI.State.Authenticators;
@@ -70,6 +71,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private Visibility _rptlistticket;
         private Visibility _rptpagosremotos;
         private Visibility _rptlistnumeros;
+        private Visibility _rptlistpremios;
         ////////////////////////////////////////
         private ObservableCollection<ReportesSumVentasObservable> _informacionesreportes;
         private ObservableCollection<ReportesObservable> _reportes;
@@ -81,6 +83,8 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private ObservableCollection<ReporteListaTicketsObservable> _reporteAllDataListaTicket;
         private ObservableCollection<ReporteListaTicketsObservable> _reportepagoRemoto;
         private ReporteListNumeroColumns _reporteListaNumeros = new ReporteListNumeroColumns() { };
+        private string _reporteListadopremioObservable = null;
+       
         private DataGrid _repoteSumFech;
         private ReportesDeVentas _reporteventas = new ReportesDeVentas();
         private TotalesListadoTicket _totalesListTicket = new TotalesListadoTicket();
@@ -123,6 +127,8 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             set { _fechaFin = value; NotifyPropertyChanged(nameof(FechaFin)); }
         }
 
+       
+
         public string TotalVentaListTarjeta
         {
             get { return _totalVendidoListaTarjeta; }
@@ -139,6 +145,12 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         {
             get { return _labelhasta; }
             set { _labelhasta = value; NotifyPropertyChanged(nameof(LabelHasta)); }
+        }
+
+        public string ObservableListadoPremios
+        {
+            get { return _reporteListadopremioObservable; }
+            set { _reporteListadopremioObservable = value; NotifyPropertyChanged(nameof(ObservableListadoPremios)); }
         }
 
         public TotalesListadoTicket TotalesListTicket
@@ -241,6 +253,12 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         {
             get { return _rptpagosremotos; }
             set { _rptpagosremotos = value; NotifyPropertyChanged(nameof(RPTPagosRemotosVisibility)); }
+        }
+
+        public Visibility RPTListPremioVisibility
+        {
+            get { return _rptlistpremios; }
+            set { _rptlistpremios = value; NotifyPropertyChanged(nameof(RPTListPremioVisibility)); }
         }
 
         public string FechaActualReport
@@ -446,14 +464,14 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         #endregion
 
 
-        public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices)
+        public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices,IJuegaMasService servicioJuegaMas)
         {
             Fecha = DateTime.Now.ToString("yyyy/MM/dd");
             FechaInicio = Convert.ToDateTime(DateTime.Now).AddDays(-7).ToString();
             FechaFin = Convert.ToDateTime(DateTime.Now).AddDays(-1).ToString();
             SoloTotales = true;
-            ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices);
-            PrintReportes = new PrintReports(this, autenticador, reportesServices);
+            ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices,servicioJuegaMas);
+            PrintReportes = new PrintReports(this, autenticador, reportesServices,servicioJuegaMas);
             ChangeOptionListTicket = new ChangeOpcionListTicket(this, autenticador, reportesServices);
             AbrirModalRangoFechaCommand = new AbrirModalRangoFechaCommand(this);
 
@@ -470,6 +488,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             ReportesListaNumeros.PaleVisibility = Visibility.Hidden;
             ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
             ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
+            RPTListPremioVisibility = Visibility.Hidden;
             /////////////////////////////////////////////////////
             ///
             /// Inicializando posiciones de componentes de listadoNumero//

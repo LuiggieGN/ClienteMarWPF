@@ -37,6 +37,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
         private readonly ReporteViewModel ViewModel;
         public ObservableCollection<ReporteListaTicketsObservable> listaTicket=new ObservableCollection<ReporteListaTicketsObservable>() { };
         public ObservableCollection<ReporteListaTicketsObservable> listaTicketVolatil;
+        
 
         public ReporteView()
         {
@@ -45,6 +46,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             listSorteo.SelectedIndex = 0;
             EnableScrollBars();
             NoAutogenerarColumnas();
+            
            
         }
 
@@ -169,5 +171,6 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             return OpcionTicketSeleccionado;
         }
 
+        
     }
 }
