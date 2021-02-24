@@ -105,7 +105,7 @@
                 </StackPanel>
             </Button>
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}">
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}" Visibility="{Binding Permisos.PuedeVenderRecargas, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Telephone" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Recargas" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
