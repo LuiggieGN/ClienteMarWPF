@@ -23,6 +23,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountStore _accountStore;
         private readonly IConfiguratorStore _configuratorStore;
+        private readonly IPermisosStore _permisosStore;
         private readonly IBancaBalanceStore _bancaBalanceStore;
         private readonly IBancaService _bancaService;
         private readonly ICajaService _cajaService;
@@ -35,7 +36,8 @@ namespace ClienteMarWPF.UI.State.Authenticators
             IConfiguratorStore configuratorStore,
             IBancaBalanceStore bancaBalanceStore,
             IBancaService bancaService,
-            ICajaService cajaService
+            ICajaService cajaService,
+            IPermisosStore permisosStore
         )
         {
             _authenticationService = authenticationService;
@@ -44,6 +46,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
             _bancaBalanceStore = bancaBalanceStore;
             _bancaService = bancaService;
             _cajaService = cajaService;
+            _permisosStore = permisosStore;
         }
 
         #region Properties
@@ -91,6 +94,21 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 IsLoggedInStateChanged?.Invoke();
             }        
         }
+
+
+        public PermisosDTO Permisos
+        {
+            get
+            {
+                return _permisosStore.Permisos;
+            }
+            set
+            {
+                _permisosStore.Permisos = value;
+                CurrentPermisosStateChanged?.Invoke();
+            }
+        }
+
         #endregion
 
         public void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress)
@@ -99,7 +117,9 @@ namespace ClienteMarWPF.UI.State.Authenticators
             {
                 CurrentAccount = _authenticationService.Logon2(usuario, clave, bancaid, ipaddress);
 
-                BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid); 
+                BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid);
+
+                SetearPuntoDeVentaPermisos(BancaConfiguracion);
 
                 RefrescarBancaBalance();
  
@@ -125,6 +145,22 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 throw ex;
             }
         }
+
+
+        private void SetearPuntoDeVentaPermisos(BancaConfiguracionDTO configuracion) 
+        {
+            var permisos = new PermisosDTO();
+            var banca = configuracion.BancaDto;
+
+            if (banca != null)
+            {
+                permisos.PuedeVenderRecargas = banca.BanTarjeta;
+                permisos.PuedeAnular = banca.BanAnula;
+            }
+
+            Permisos = permisos;
+        }
+
 
         public void RefrescarBancaBalance()
         {
@@ -158,9 +194,6 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
             BancaBalance = bancaBalance;
         }
-
-
-
         public void CerrarSesion()
         {
             CurrentAccount = null;
@@ -177,6 +210,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         public event Action CurrentBancaConfiguracionStateChanged;
         public event Action CurrentBancaBalanceStateChanged;
         public event Action IsLoggedInStateChanged;
+        public event Action CurrentPermisosStateChanged;
     }// fin de clase Authenticator
 }// fin de namespace Authenticators
 

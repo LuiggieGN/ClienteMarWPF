@@ -48,9 +48,8 @@
     <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
     </Reference>
-    <Reference Include="MAR.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\Config Remote\Medelo2020\Local Medelo 2020\MAR.Config.dll</HintPath>
+    <Reference Include="MAR.Config">
+      <HintPath>..\..\..\..\Users\USER\Desktop\mar config modelo 2020\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>

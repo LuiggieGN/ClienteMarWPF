@@ -14,6 +14,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         CuentaDTO CurrentAccount { get; }
 
         BancaConfiguracionDTO BancaConfiguracion { get; set; }
+        PermisosDTO Permisos { get; set; }
 
         BancaBalanceViewModel BancaBalance { get; set; }
 
@@ -24,6 +25,8 @@ namespace ClienteMarWPF.UI.State.Authenticators
         event Action CurrentBancaConfiguracionStateChanged;
 
         event Action CurrentBancaBalanceStateChanged;
+
+        event Action CurrentPermisosStateChanged;
 
         event Action IsLoggedInStateChanged;
 

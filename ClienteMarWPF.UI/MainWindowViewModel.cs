@@ -43,6 +43,8 @@ namespace ClienteMarWPF.UI
         public string GlobalTerminalId => _autenticador?.BancaConfiguracion?.BancaDto?.BancaID.ToString() ?? "- -";
         public string GlobalTerminalNombre => _autenticador?.BancaConfiguracion?.BancaDto?.BanContacto ?? "- -";
 
+        public PermisosDTO Permisos => _autenticador?.Permisos;
+
         #region BancaBalance
         public string StrBancaBalance => _autenticador?.BancaBalance?.StrBalance ?? string.Empty;
         public bool VerBancaBalanceEnCaja => _autenticador?.BancaBalance?.TieneBalance ?? false;
@@ -82,6 +84,7 @@ namespace ClienteMarWPF.UI
             _autenticador.CurrentBancaConfiguracionStateChanged += BanConfigStateChanged;
             _autenticador.CurrentBancaBalanceStateChanged += BanBalanceStateChanged;
             _autenticador.IsLoggedInStateChanged += LoggedInStateChanged;
+            _autenticador.CurrentPermisosStateChanged += PermisosStateChanged;
 
             _factoriaViewModel = factoriaViewModel;
 
@@ -104,6 +107,8 @@ namespace ClienteMarWPF.UI
 
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(_navegadordeModulos, _factoriaViewModel);
             UpdateCurrentViewModelCommand.Execute(Modulos.Login);
+
+
 
         }
 
@@ -133,7 +138,10 @@ namespace ClienteMarWPF.UI
             NotifyPropertyChanged(nameof(EstaLogueado));
         }
 
-
+        private void PermisosStateChanged()
+        {
+            NotifyPropertyChanged(nameof(Permisos));
+        }
 
 
 

@@ -88,8 +88,9 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-                serveraddress = @"http://localhost:14217/mar-flujo.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente ISMEL Y EDISON
-                                                                           //serveraddress = @"http://localhost/MarServEfectivo/mar-flujo.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente -- LUIGGIE 
+
+                serveraddress = @"http://localhost:14217/mar-flujo.asmx";
+               // serveraddress = @"http://localhost/MarServEfectivo/mar-flujo.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
 
 
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))

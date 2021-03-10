@@ -22,4 +22,11 @@ namespace ClienteMarWPF.Domain.Models.Dtos
 
     }
 
+    public class PermisosDTO
+    {
+        public bool PuedeVenderRecargas { get; set; }   
+        public bool PuedeAnular { get; set; }     
+
+    }
+
 }
