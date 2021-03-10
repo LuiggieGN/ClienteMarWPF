@@ -16,18 +16,18 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
         string serveraddress = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceURL));
         string serverbackup = Encryptor.DecryptConfig(MAR.Config.Reader.ReadString(MAR.Config.ConfigEnums.ServiceLocalURL));
 
-        
-        public int ClientTimeout { get; set; }   
+
+        public int ClientTimeout { get; set; }
         public string ServiceHostIP { get; set; }
 
-        
+
         PtoVtaSoapClient marcliente;
         mar_flujoSoapClient controlefectivocliente;
         mar_haciendaSoapClient haciendacliente;
         JuegaMasSoapClient juegamascliente;
 
 
-        public  PtoVtaSoapClient GetMarServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
+        public PtoVtaSoapClient GetMarServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
         {
             try
             {
@@ -42,7 +42,9 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
 
 
                 serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
-                //serveraddress = @"http://localhost/MarSrv/mar-ptovta.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+                                                                                        // serveraddress = @"http://localhost:60/mar-ptovta.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente -- ISMEL 
+                                                                                        //serveraddress = @"http://localhost/MarSrv/mar-ptovta.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente -- LUIGGIE 
+
 
 
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
@@ -53,7 +55,7 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 {
                     splitaddress = serveraddress.Split('/');
                 }
-                
+
                 splitaddress[splitaddress.Length - 1] = "mar-ptovta.asmx";
 
                 endpoint = new EndpointAddress(string.Join("/", splitaddress));
@@ -64,16 +66,16 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 binding.CloseTimeout = new TimeSpan(0, 0, timeoutInSeconds);
                 binding.SendTimeout = new TimeSpan(0, 0, timeoutInSeconds);
 
-                marcliente = new  PtoVtaSoapClient(binding, endpoint);               
+                marcliente = new PtoVtaSoapClient(binding, endpoint);
             }
-            catch 
+            catch
             {
                 marcliente = null;
             }
 
             return marcliente;
-        } 
-        public  mar_flujoSoapClient GetCashFlowServiceClient(bool useBackupConnection, int timeoutInSeconds = 1200)
+        }
+        public mar_flujoSoapClient GetCashFlowServiceClient(bool useBackupConnection, int timeoutInSeconds = 1200)
         {
             try
             {
@@ -86,8 +88,10 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
+
                 serveraddress = @"http://localhost:14217/mar-flujo.asmx";
                // serveraddress = @"http://localhost/MarServEfectivo/mar-flujo.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+
 
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
@@ -109,7 +113,7 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
 
                 controlefectivocliente = new mar_flujoSoapClient(binding, endpoint);
             }
-            catch  
+            catch
             {
                 controlefectivocliente = null;
             }
@@ -185,7 +189,7 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                     splitaddress = serveraddress.Split('/');
                 }
 
-                splitaddress[splitaddress.Length - 1] = "mar-juegamas.asmx";
+                splitaddress[splitaddress.Length - 1] = "mar-juegamas";
 
                 endpoint = new EndpointAddress(string.Join("/", splitaddress));
 
@@ -217,4 +221,3 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
 
 
 
-    

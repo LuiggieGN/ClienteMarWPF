@@ -82,7 +82,15 @@ namespace ClienteMarWPF.UI.Modules.Recargas
             get => _provedor;
             set
             {
-                _provedor = value; NotifyPropertyChanged(nameof(Provedor));
+                var valor = value;
+                    _provedor = value; NotifyPropertyChanged(nameof(Provedor));
+
+              
+
+
+
+
+
             }
         }
 
@@ -113,6 +121,26 @@ namespace ClienteMarWPF.UI.Modules.Recargas
                 telefono = value;
                 NotifyPropertyChanged(nameof(Telefono));
             }
+        }
+
+        public void SetProveedorFromkeyDown(int proveedorID)
+        {
+            for (int i = 0; i < Proveedores.Count; i++)
+            {
+                if(proveedorID == Proveedores[i].OperadorID)
+                {
+                    Proveedores[i].IsSelected = true;
+                }
+                else
+                {
+                    Proveedores[i].IsSelected = false;
+                }
+
+                
+
+            }
+
+            NotifyPropertyChanged(nameof(Proveedores));
         }
 
 

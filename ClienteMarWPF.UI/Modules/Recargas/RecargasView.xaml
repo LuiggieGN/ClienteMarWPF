@@ -6,7 +6,7 @@
              xmlns:controls="clr-namespace:ClienteMarWPF.UI.Modules.Recargas.Modal"
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Recargas"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d">
+             mc:Ignorable="d" PreviewKeyDown="UserControl_PreviewKeyDown">
 
     <Grid>
         <Grid x:Name="GridAOcultar">
@@ -24,13 +24,13 @@
                 <!--SORTEOS SLIDER-->
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                     <TextBlock Text="Seleciona un Proveedor" Grid.Row="1" FontSize="20"  TextAlignment="Center" Margin="0 10"/>
-                    <ListBox x:Name="listSorteo" Grid.Row="2"             
+                    <ListBox x:Name="proveedores" Grid.Row="2"             
                              ItemsSource="{Binding Proveedores}"
                              SelectedItem="{Binding Provedor}"
-                             SelectionChanged="listSorteo_SelectionChanged"
                              Background="Transparent" 
                              BorderThickness="0" 
-                             Padding="5" 
+                             Padding="5"
+                             SelectionChanged="proveedores_SelectionChanged"
                              VerticalAlignment="Top" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListBox.Resources>
@@ -98,8 +98,8 @@
                     </ListBox>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
-                        <TextBox Text="{Binding Telefono , UpdateSourceTrigger=PropertyChanged}"    materialDesign:HintAssist.Hint="Telefono" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  />
-                        <TextBox  Text="{Binding Monto , UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Monto" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidationTextBox"/>
+                        <TextBox x:Name="telefono" Text="{Binding Telefono , UpdateSourceTrigger=PropertyChanged}"    materialDesign:HintAssist.Hint="Telefono" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  />
+                        <TextBox x:Name="monto"  Text="{Binding Monto , UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Monto" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidationTextBox"/>
                     </StackPanel>
 
                     <Button Command="{Binding SendRecargaCommand}"  Style="{DynamicResource btn-success}" Foreground="White" Width="150" Height="40"  Margin="0 10" >

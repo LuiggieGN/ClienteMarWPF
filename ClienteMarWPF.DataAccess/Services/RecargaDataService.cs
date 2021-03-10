@@ -34,5 +34,8 @@ namespace ClienteMarWPF.DataAccess.Services
         {
             clientePuntoDeVenta.ConfirmRecarga(_Session);
         }
+
+
+       
     }
 }

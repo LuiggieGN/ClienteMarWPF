@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -22,8 +23,9 @@ namespace ClienteMarWPF.UI.Modules.Recargas
     public partial class RecargasView : UserControl
     {
         public ObservableCollection<ProveedorRecargasObservable> Proveedors;
-        public ProveedorRecargasObservable Provedor { get; set; }
-
+        public bool IsArrow { get; set; } = false;
+        // public ProveedorRecargasObservable Provedor { get; set; }
+        public ProveedorRecargasObservable ProveedorSelect { get; set; }
 
         public RecargasView()
         {
@@ -47,15 +49,7 @@ namespace ClienteMarWPF.UI.Modules.Recargas
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void listSorteo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (listSorteo.SelectedItem != null)
-            {
-                var seleccionado = listSorteo.SelectedItem as ProveedorRecargasObservable;
-                seleccionado.IsSelected = true;
-
-            }
-        }
+    
 
         private void listSorteo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -65,6 +59,122 @@ namespace ClienteMarWPF.UI.Modules.Recargas
         private void img_MouseEnter(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            IsArrow = false;
+            switch (e.Key)
+            {
+
+                case Key.Space:
+                    IsArrow = true;
+                    if (proveedores.SelectedItem != null)
+                    {
+                        var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
+                        seleccionado.IsSelected = true;
+                        var vm = DataContext as RecargasViewModel;
+                        vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
+
+                    }
+                    break;
+
+
+                case Key.Enter:
+                    IsArrow = true;
+                    FocusInputs();
+                    break;
+
+                case Key.Up:
+                    IsArrow = true;
+                    if (telefono.IsFocused || monto.IsFocused)
+                    {
+                        proveedores.Focus();
+                        proveedores.SelectedIndex = 0;
+                        //var prueba = (List<ProveedorRecargasObservable>) proveedores.ItemsSource;
+                        //proveedores.SelectedItem = prueba.First();
+                       
+
+
+                    }
+                    break;
+
+
+                case Key.Left:
+
+                    IsArrow = true;
+                    break;
+
+
+                case Key.Right:
+                    IsArrow = true;
+
+                    break;
+
+
+                case Key.Down:
+
+                    IsArrow = true;
+                  
+                    break;
+
+
+
+
+
+            }
+
+        }
+
+        public void FocusInputs()
+        {
+           
+                //var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
+                //seleccionado.IsSelected = true;
+                if (telefono.Text.Length > 0 && monto.Text.Length > 0)
+                {
+                   
+
+                }
+                else
+                {
+                    if (telefono.IsFocused)
+                    {
+
+                        monto.Focus();
+                    }
+                    else
+                    {
+                        telefono.Focus();
+                    }
+                }
+          
+
+            
+
+        }
+
+        private void ListProveedores(object sender, SelectionChangedEventArgs e)
+        {
+             var prueba = proveedores.ItemsSource;
+            var ok = proveedores.SelectedItem;
+            //for (int i = 0; i < prueba.; i++)
+            //{
+
+            //}
+        }
+
+        private void proveedores_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsArrow)
+            {
+                var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
+                seleccionado.IsSelected = true;
+                var vm = DataContext as RecargasViewModel;
+                vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
+                
+            }
+            IsArrow = false;
         }
     }
 }
