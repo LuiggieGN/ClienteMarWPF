@@ -47,7 +47,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
             {
 
 
-                var prubea = RecargaService.BalanceRecarga();
+               
                 var suplidores = RecargaService.GetSuplidor(Autenticador.CurrentAccount.MAR_Setting2.Sesion);
 
                 foreach (var item in suplidores)

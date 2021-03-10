@@ -36,9 +36,6 @@ namespace ClienteMarWPF.DataAccess.Services
         }
 
 
-        public string BalanceRecarga()
-        {
-            return  clientePuntoDeVenta.BalanceRecarga("ADMINRECARGASOURCECODE125487","MAS");
-        }
+       
     }
 }

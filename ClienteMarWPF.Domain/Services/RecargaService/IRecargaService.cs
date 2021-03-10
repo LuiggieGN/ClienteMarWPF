@@ -16,7 +16,7 @@ namespace ClienteMarWPF.Domain.Services.RecargaService
         void ConfirmRecarga(MAR_Session _Session);
 
 
-        string BalanceRecarga();
+    
 
     }
 }
