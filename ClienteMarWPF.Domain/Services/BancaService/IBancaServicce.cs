@@ -15,6 +15,8 @@ namespace ClienteMarWPF.Domain.Services.BancaService
 
         decimal LeerBancaMontoReal(int bancaid);
 
+        bool BancaUsaControlEfectivo(int bancaid, bool incluyeConfig);
+ 
         decimal LeerDeudaDeBanca(int bancaid);
     }
 }

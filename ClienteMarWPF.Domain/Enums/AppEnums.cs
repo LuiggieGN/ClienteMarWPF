@@ -1,6 +1,4 @@
-﻿ 
-
-namespace ClienteMarWPF.Domain.Enums
+﻿namespace ClienteMarWPF.Domain.Enums
 {
 
     public enum MarSettingExt
@@ -46,13 +44,13 @@ namespace ClienteMarWPF.Domain.Enums
         Caja_LeerCajaDeUsuarioPorUsuarioId = 1004,        
         Caja_SetearCajaDisponibilidad = 1005,       
         Caja_LeerCajaDisponibilidad = 1006,  // -- NOT IMPLEMENTED YET    Por CajaID
-        Caja_LeerCajaBalanceMinimo = 1007,  
-        
+        Caja_LeerCajaBalanceMinimo = 1007,
+        Caja_LeerMovimientosNoPaginados = 1008,
 
         Banca_LeerBancaLastCuadreId = 2000,                                 
         Banca_LeerBancaLastTransaccionesApartirDelUltimoCuadre = 2001,      
         Banca_LeerBancaCuadrePorCuadreId = 2002,                           
-        Banca_LeerBancaTieneControlEfectivo = 2003, // -- NOT IMPLEMENTED YET. Igual a = Banca Tiene Caja (Es DECIR CAJA EXISTE) & CAJA tiene Cuadre Inicial & Configuracion 
+        Banca_UsaControlEfectivo = 2003, // -- NOT IMPLEMENTED YET. Igual a = Banca Tiene Caja (Es DECIR CAJA EXISTE) & CAJA tiene Cuadre Inicial & Configuracion 
         Banca_LeerDeudaDeBanca = 2004, 
         Banca_LeerBancaConfiguraciones = 2005,       
 
@@ -72,14 +70,8 @@ namespace ClienteMarWPF.Domain.Enums
 
     public enum JuegaMasFunciones
     {
-        ReporteListadoPremio = 12,
-        
- 
+        ReporteListadoPremio = 12       
     }
-
-
-
-
 
     public enum CuadreGestorAccion 
     {
@@ -99,6 +91,13 @@ namespace ClienteMarWPF.Domain.Enums
         Faltante,
         Sobrante
     }
+
+    public enum ServicioMarConexion
+    {
+        NoConectado = 0,
+        Conectado = 1
+    }
+
 
 
 

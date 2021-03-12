@@ -17,7 +17,7 @@
              Background="Transparent" 
              FontSize="14"
              Padding="0"
-             Loaded="ConfiguracionWindow_Loaded">
+             Loaded="ConfiguracionWindow_Loaded" x:Name="WindowConfig">
     <Grid
           Background="White">
         <Grid.RowDefinitions>
@@ -39,12 +39,23 @@
                 <Label Content="Autorizacion de cambios" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" Foreground="Black" />
                 <Label Content="Para realizar cambios en configuracion debe intoducir codigo de autorizacion." HorizontalAlignment="Center" FontSize="12" />
                 <PasswordBox x:Name="txtClaveAutorizacion" PreviewTextInput="NumberValidationTextBox" materialDesign:HintAssist.Hint="Codigo de autorizacion" Margin="0 20" FontSize="18" />
-                <Button  Style="{DynamicResource btn-primary}" Foreground="White" Width="200" Height="40"  Margin="0 10" Click="Button_Click">
-                    <StackPanel Orientation="Horizontal" >
-                        <TextBlock Text="Autorizar" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
-                        <materialDesign:PackIcon Kind="LockOpen" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
-                    </StackPanel>
-                </Button>
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button  Style="{DynamicResource btn-primary}" Foreground="White" Width="150" Height="40"  Click="Button_Click" Margin="0 0 10 0">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Autorizar" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Kind="LockOpen" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                        </StackPanel>                        
+                    </Button>
+                    <Button  Style="{DynamicResource btn-danger}" Foreground="White" Width="150" Height="40"  Margin="0 10" Click="Button_Click_1">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Cerrar" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Kind="Close" Margin="7 4 0 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
 
             </StackPanel>
 
@@ -58,18 +69,19 @@
                 </StackPanel>
 
                 <StackPanel  Orientation="Horizontal"  VerticalAlignment="Top" Margin="0 40 0 0">
-                    <Button  Style="{DynamicResource btn-success}" Command="{Binding SaveConfigCommand}" Foreground="White" Width="200" Height="35" Margin="10 0">
+                    <Button  Style="{DynamicResource btn-danger}" Foreground="White" Width="150" Height="35"  Margin="10 0" Click="Cerrar">
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
+                            <TextBlock Text=" Cerrar Ventana"  VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button  Style="{DynamicResource btn-success}" Command="{Binding SaveConfigCommand}" CommandParameter="{Binding ElementName=WindowConfig}" Foreground="White" Width="200" Height="35" Margin="10 0">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="CheckCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="Guardar Cambios" Foreground="White" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <!--<Button  Style="{DynamicResource btn-danger}" Foreground="White" Width="120" Height="35"  Margin="10 0">
-                        <StackPanel Orientation="Horizontal" >
-                            <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
-                            <TextBlock Text=" Cancelar"  VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>-->
 
                 </StackPanel>
 

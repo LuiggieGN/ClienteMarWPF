@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 
 using ClienteMarWPF.Domain.Enums;
-
+using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Factories;
@@ -33,6 +33,12 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
 
         public void Execute(object parameter)
         {
+
+            if (HomeViewModel.Worker != null && HomeViewModel.Worker.WorkerSupportsCancellation)
+            {
+                HomeViewModel.Worker.CancelAsync();
+            }
+
             if (parameter is Modulos)
             {
                 Modulos viewType = (Modulos)parameter;

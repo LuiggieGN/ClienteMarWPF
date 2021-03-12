@@ -21,7 +21,6 @@ namespace ClienteMarWPF.DataAccess.Services
         {
 
            return clientePuntoDeVenta.GetSuplidores(_Session);
-
         }
 
         public MAR_Pin GetRecarga(MAR_Session _Session, int user, string clave, int suplidor, string Numero, double Monto, int Solicitud)

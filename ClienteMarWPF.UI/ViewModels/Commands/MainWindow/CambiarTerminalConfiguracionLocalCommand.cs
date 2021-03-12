@@ -7,7 +7,6 @@ using ClienteMarWPF.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPF.UI.ViewModels.Helpers;
 using ClienteMarWPF.UI.State.Accounts;
 using ClienteMarWPF.UI.Modules.Configuracion;
-
 #endregion
 
 
@@ -26,19 +25,23 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
         }
 
 
-
         public void AbrirVentanaConfiguracionLocal(object parametro)
         {
             var main = Application.Current.MainWindow;
 
-            var clientLocalSettingWindowContext = new ConfiguracionViewModel(_viewmodel.LocalClientSetting);
+            var contexto = new ConfiguracionViewModel(_viewmodel.LocalClientSetting);
+            contexto.CargandoDesdelogin = true;
+            contexto.ConfiguracionFueCambiada = false;
 
-            var clientLocalSettingWindow = new ConfiguracionView(main, clientLocalSettingWindowContext) ;
+            var ventana = new ConfiguracionView(main, contexto);
+            ventana.Owner = main;
+            ventana.ShowDialog();
 
-            clientLocalSettingWindow.Owner = main;
-
-            clientLocalSettingWindow.ShowDialog();
- 
+            if (contexto.ConfiguracionFueCambiada)
+            { 
+                _viewmodel.ReIniciarApp?.Invoke();
+                _viewmodel.Aplicacion.CerrarAplicacion();                
+            }
         }
 
 

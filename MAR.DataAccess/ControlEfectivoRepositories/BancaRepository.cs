@@ -145,6 +145,37 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         }
 
 
+        public static bool BancaUsaControlEfectivo(int bancaid, bool incluyeConfig)
+        {
+            try
+            {
+                DynamicParameters p = new DynamicParameters(); bool bancaUsaControlEfectivo = false;
+
+                p.Add("@bancaid", bancaid);
+                p.Add("@incluyeconfig", incluyeConfig);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    List<bool> results = db.Query<bool>(BancaHelper.BancaUsaControlEfectivo, p, commandType: CommandType.Text).ToList();
+
+                    if (results.Any())
+                    {
+                        bancaUsaControlEfectivo = results.First();
+                    }
+
+                    db.Close();
+                }
+
+                return bancaUsaControlEfectivo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static decimal LeerDeudaDeBanca(int bancaid)
         {
             try

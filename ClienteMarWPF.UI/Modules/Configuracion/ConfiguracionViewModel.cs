@@ -23,6 +23,10 @@ namespace ClienteMarWPF.UI.Modules.Configuracion
 
         #region Properties
 
+        public bool CargandoDesdelogin { get; set; } = false;
+
+        public bool ConfiguracionFueCambiada { get; set; } = false;
+
         public int BancaID
         {
             get { return _bancaId; }
@@ -77,7 +81,7 @@ namespace ClienteMarWPF.UI.Modules.Configuracion
                 _localsetting.BancaId = 0;
                 _localsetting.LF = 0;
                 _localsetting.Direccion = "0.0.0.0" ;
-                _localsetting.Identidad = 0;
+                _localsetting.Identidad = "0";
                 _localsetting.Tickets = 1;
                 _localsetting.Espera = 60;
                 _localsetting.ServerIP = string.Empty;

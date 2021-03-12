@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ClienteMarWPF.UI": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

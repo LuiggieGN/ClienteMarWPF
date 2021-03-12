@@ -41,7 +41,8 @@ namespace ClienteMarWPF.UI
 
         private void CerrarAplicacion_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Close();           
+
         }
 
         private void OpenMenu_Click(object sender, RoutedEventArgs e)
@@ -180,11 +181,9 @@ namespace ClienteMarWPF.UI
 
         }
 
- 
-
-
-
-
-
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

@@ -93,8 +93,7 @@ namespace ClienteMarWPF.DataAccess.Services
             {
                 throw new BancaConfiguracionesException("Ha ocurrido un error al obtener la Configuracion de Banca", "Control Efectivo Configuración");
             }
-
-        }//fin de metodo LeerBancaConfiguraciones( )
+        } 
 
         public decimal LeerBancaMontoReal(int bancaid)
         {
@@ -162,7 +161,33 @@ namespace ClienteMarWPF.DataAccess.Services
                 return -1;
             }
 
-        }// fin de metodo LeerBancaMontoReal( );
+        } 
+
+
+        public bool BancaUsaControlEfectivo(int bancaid, bool incluyeConfig)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+                toSend.Add(JSONHelper.SerializeToJSON(incluyeConfig));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_UsaControlEfectivo, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al procesar la operacion");
+                }
+
+                var usaControlEfectivo = JSONHelper.CreateNewFromJSONNullValueIgnore<bool>(llamada.Respuesta);
+
+                return usaControlEfectivo;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
         public decimal LeerDeudaDeBanca(int bancaid)
         {
@@ -186,8 +211,7 @@ namespace ClienteMarWPF.DataAccess.Services
             {
                 throw e;
             }
-        }// fin de metodo LeerDeudaDeBanca( );
-
+        } 
 
 
     }//fin de clase

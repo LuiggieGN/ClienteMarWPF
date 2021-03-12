@@ -1,41 +1,46 @@
 ﻿using System;
-using System.Windows.Input; 
+using System.Windows.Input;
+using ClienteMarWPF.UI.ViewModels.Helpers;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands
 {
     public class ActionCommand : ICommand
     {
+        public bool No { get => Booleano.No; }
+        public bool Si { get => Booleano.Si; }
+
+
         private Action<object> _action;
         private Predicate<object> _canExecute;
 
 
         public ActionCommand() { }
 
-        public ActionCommand(Action<object> action): this(action, null) { }
+        public ActionCommand(Action<object> action) : this(action, null) { }
 
-        public ActionCommand(Action<object> action, Predicate<object> canExecute) 
-        {
-            _action = action;
-            _canExecute = canExecute;        
-        }
-
-        protected virtual void SetAction(Action<object>action)
-        {
-            SetAction(action, null);
-        }
-
-        protected virtual void SetAction(Action<object> action, Predicate<object> canExecute) 
+        public ActionCommand(Action<object> action, Predicate<object> canExecute)
         {
             _action = action;
             _canExecute = canExecute;
         }
 
-        public bool CanExecute(object parameter) 
+        protected virtual void SetAction(Action<object> action)
         {
-            return _canExecute == null ? true : _canExecute(parameter);   
+            SetAction(action, null);
         }
 
-        public void Execute(object parameter) 
+        protected virtual void SetAction(Action<object> action, Predicate<object> canExecute)
+        {
+            _action = action;
+            _canExecute = canExecute;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null ? true : _canExecute(parameter);
+        }
+
+        public void Execute(object parameter)
         {
             if (CanExecute(parameter))
             {
@@ -48,11 +53,13 @@ namespace ClienteMarWPF.UI.ViewModels.Commands
 
         public event EventHandler CanExecuteChanged
         {
-            add { 
+            add
+            {
                 CommandManager.RequerySuggested += value;
                 CanExecuteChangedInternal += value;
             }
-            remove {
+            remove
+            {
                 CommandManager.RequerySuggested -= value;
                 CanExecuteChangedInternal -= value;
             }

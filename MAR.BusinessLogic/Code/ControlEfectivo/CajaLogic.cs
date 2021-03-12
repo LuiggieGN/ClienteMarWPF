@@ -55,6 +55,21 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
             }
         }
 
+        public static List<MovimientoDTO> LeerMovimientosNoPaginados(string jsonPaginaRequest)
+        {
+            try
+            {
+                var paginaRequest = JSONHelper.CreateNewFromJSONNullValueIgnore<MovimientoPageDTO>(jsonPaginaRequest);
+
+                return CajaRepository.LeerMovimientosNoPaginados(paginaRequest);
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public static decimal LeerCajaBalance(int cajaid)
         {
             try

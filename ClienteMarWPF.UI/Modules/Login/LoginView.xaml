@@ -6,8 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"             
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Login"             
              mc:Ignorable="d"
-             xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls"             
-             >
+             xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls">
     
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

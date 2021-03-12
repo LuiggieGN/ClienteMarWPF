@@ -20,7 +20,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
             ViewModel = viewModel;
             Autenticador = autenticador;
             SorteosService = sorteosService;
-
+             
             Action<object> comando = new Action<object>(ConsultarTicket);
             base.SetAction(comando);
         }

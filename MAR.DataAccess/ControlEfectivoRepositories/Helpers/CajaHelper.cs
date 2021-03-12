@@ -4,6 +4,7 @@
     {
         internal static string Procedure_SP_CAJA_BALANCE_ACTUAL = @"[flujo].[Sp_ConsultaCajaBalanceActual]";
         internal static string Procedure_SP_CAJA_LEER_MOVIMIENTOS = @"[flujo].[Sp_ConsultaCajaMovimientosPaginados]";
+        internal static string Procedure_SP_CAJA_LEER_MOVIMIENTOS_NO_PAGINADOS = @"[flujo].[Sp_ConsultaCajaMovimientos]";
 
 		internal static string SelectCajaDeUsuarioPorUsuarioId = @"
            select top 1

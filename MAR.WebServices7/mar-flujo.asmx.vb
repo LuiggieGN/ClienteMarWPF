@@ -279,6 +279,9 @@ Public Class mar_flujo
                 Case 1007
                     Dim cajaid = Integer.Parse(parametros(0).ToString())
                     result = CajaLogic.LeerCajaBalanceMinimo(cajaid)
+                Case 1008
+                    Dim jsonPaginaRequest = parametros(0).ToString()
+                    result = CajaLogic.LeerMovimientosNoPaginados(jsonPaginaRequest)
 #End Region
 
 #Region "Bancas"
@@ -294,6 +297,11 @@ Public Class mar_flujo
                 Case 2002
                     Dim cuadreid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerBancaCuadrePorCuadreId(cuadreid)
+
+                Case 2003
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    Dim incluyeConfig = Boolean.Parse(parametros(1).ToString())
+                    result = BancaLogic.BancaUsaControlEfectivo(bancaid, incluyeConfig)
 
                 Case 2004
                     Dim bancaid = Integer.Parse(parametros(0).ToString())

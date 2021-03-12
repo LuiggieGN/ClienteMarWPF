@@ -38,7 +38,7 @@
       <HintPath>..\packages\Dapper.1.50.2\lib\net40\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="MAR.Config">
-      <HintPath>..\..\..\..\Users\USER\Desktop\mar config modelo 2020\MAR.Config.dll</HintPath>
+      <HintPath>..\ConfigLibrary\LUIGGIE\DATA002\MAR.Config.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
