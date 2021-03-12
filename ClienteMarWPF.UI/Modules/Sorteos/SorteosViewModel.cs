@@ -14,28 +14,37 @@ using System.Windows.Input;
 
 namespace ClienteMarWPF.UI.Modules.Sorteos
 {
-    public class SorteosViewModel: BaseViewModel
+    public class SorteosViewModel : BaseViewModel
     {
         public ICommand RealizarApuestaCommand { get; }
         public ICommand GetListadoTicketsCommand { get; }
         public ICommand GetUltimosSorteosCommand { get; }
         public ICommand ValidarPagoTicketCommand { get; }
+        //public ICommand CopiarTicketCommand { get; }
 
         public ObservableCollection<MAR_Bet> listaTicketsJugados;
         public ObservableCollection<UltimosSorteos> ganadores;
+        public ObservableCollection<MAR_Bet> listadoTicketPrecargada;
         private ValidarPagoTicketViewModel _dialog;
+        private string _ticketSeleccionado;
+        private List<Jugada> _listJugadas;
+        public SorteosView SorteoViewClass { get; set;}
 
         public SorteosViewModel(IAuthenticator autenticador, ISorteosService sorteosService)
         {
             RealizarApuestaCommand = new RealizarApuestaCommand(this, autenticador, sorteosService);
-            GetListadoTicketsCommand = new GetListadoTicketsCommand(this, autenticador, sorteosService);
+            //GetListadoTicketsCommand = new GetListadoTicketsCommand(this, autenticador, sorteosService,null);
             GetUltimosSorteosCommand = new GetUltimosSorteosCommand(this, autenticador, sorteosService);
             ValidarPagoTicketCommand = new ValidarPagoTicketCommand(this, autenticador, sorteosService);
-
+            
+            
             listaTicketsJugados = new ObservableCollection<MAR_Bet>();
             ganadores = new ObservableCollection<UltimosSorteos>();
-            GetListadoTicketsCommand.Execute(null);
+            listadoTicketPrecargada = new ObservableCollection<MAR_Bet>();
+            //CopiarTicketCommand = new CopiarTicketCommand(this, autenticador, sorteosService);
+            //GetListadoTicketsCommand.Execute(null);
             GetUltimosSorteosCommand.Execute(null);
+           
         }
 
         public ObservableCollection<MAR_Bet> ListaTickets
@@ -45,7 +54,18 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 return listaTicketsJugados;
             }
 
-        }        
+        }
+
+
+        public ObservableCollection<MAR_Bet> ListadoTicketsPrecargados
+        {
+            get
+            {
+                return listadoTicketPrecargada;
+            }
+
+        }
+
         public ObservableCollection<UltimosSorteos> UltimosSorteos
         {
             get
@@ -66,6 +86,18 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             }
         }
 
+        public List<Jugada> ListadoJugada
+        {
+            get
+            {
+                return _listJugadas;
+            }
+            set
+            {
+               _listJugadas= value; NotifyPropertyChanged(nameof(ListadoJugada));
+            }
+        }
+
         #region PropertyOfView
         //###########################################################
         private string _totalVentas;
@@ -83,8 +115,19 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             }
         }
         //###########################################################
+        public string TicketSeleccionado
+        {
+            get
+            {
+                return _ticketSeleccionado;
+            }
+            set
+            {
+                _ticketSeleccionado = value;
+                NotifyPropertyChanged(nameof(TicketSeleccionado));
+            }
+        }
         #endregion
-
 
     }
 }

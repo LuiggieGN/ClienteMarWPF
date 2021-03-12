@@ -1069,6 +1069,239 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             return text;
         }
 
+        internal static List<string[]> FromTicket(VentasIndexTicket pTck,IAuthenticator autenticador, bool pEsCopia = false)
+        {
+            var j = new List<string[]>();
+            
+            var theSorteoOculto = !pTck.TicketNo.Contains("-");
+
+
+            if (theSorteoOculto)
+            {
+                j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper().Length) });
+                j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper().ToUpper(), autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper().ToUpper().Length) });
+                j.Add(new string[] { Center(pTck.SorteoNombre, pTck.SorteoNombre.Length )});
+                j.Add(new string[] { "-".PadRight(20, '-')});
+                j.Add(new string[] { Center(pTck.SorteoNombre, pTck.SorteoNombre.Length) });
+                j.Add(new string[] { Justify (
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(pTck.Fecha),
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW),
+                pTck.Hora, 20 )});
+                j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanTelefono, autenticador.BancaConfiguracion.BancaDto.BanTelefono.Length) });
+                j.Add(new string[] { pTck.TicketNo});
+            }
+            else
+            {
+                j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper().Length) });
+                j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper().ToUpper(), autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper().ToUpper().Length) });
+                j.Add(new string[] { Center(pTck.SorteoNombre, pTck.SorteoNombre.Length) });
+                j.Add(new string[] { Justify(
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(pTck.Fecha),
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW),
+                pTck.Hora, 20) });
+                j.Add(new string[] { Center("Tel."+autenticador.BancaConfiguracion.BancaDto.BanTelefono,("Tel." + autenticador.BancaConfiguracion.BancaDto.BanTelefono).Length) });
+                j.Add(new string[] { String.Format("Ticket: " + pTck.TicketNo)});
+            }
+
+
+            if (!string.IsNullOrEmpty(pTck.Pin)) j.Add(new string[] { String.Format("Pin:    " + pTck.Pin)});
+            if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader))
+            {
+                var header = SplitText(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader, autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader.Length);
+                for (int i = 0; i < header.Count(); i++)
+                {
+                    j.Add(new string[] { Center(header[i], 20) });
+                }
+            }
+            if (pEsCopia) j.Add(new string[] { Center("** COPIA REIMPRESA **", 10)});
+            j.Add(new string[] { "-".PadRight(10, '-')});
+            var theQ = pTck.Jugadas.Where(x => x.Tipo.Equals("Q")).ToArray();
+            var theP = pTck.Jugadas.Where(x => x.Tipo.Equals("P")).ToArray();
+            var theT = pTck.Jugadas.Where(x => x.Tipo.Equals("T")).ToArray();
+            var theG = pTck.Jugadas.Where(x => x.Tipo.Equals("G")).ToArray();
+            var theB = pTck.Jugadas.Where(x => x.Tipo.Equals("B")).ToArray();
+
+
+            for (var i = 0; i < theG.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- JuegaMas PegaMas --", "-- JuegaMas PegaMas --".Length) });
+
+                j.Add(new string[] { Justify(theG[i].Numero.Trim().PadRight(2, ' '), "$" +
+                                             String.Format("{0:0.00}", theG[i].Total),theG[i].Total.ToString().Length)});
+            }
+            for (var i = 0; i < theB.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- Billetes --", "-- Billetes --".Length) });
+
+                j.Add(new string[] { Justify(theB[i].Numero.Trim().PadRight(2, ' '), "$" +
+                                             String.Format("{0:0.00}", theB[i].Total),theB[i].Total.ToString().Length)});
+            }
+            for (var i = 0; i < theQ.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { "-- NUMEROS --"});
+
+                j.Add(new string[] { Justify(theQ[i].Numero.Trim().PadRight(2, ' '), "$" +
+                                             String.Format("{0:0.00}", theQ[i].Precio), theQ[i].Precio.ToString().Length)});
+            }
+
+            for (var i = 0; i < theP.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { "-- PALES --"});
+                j.Add(new string[] { Justify(theP[i].Numero.Trim().Substring(0,2) + "-" +
+                                             theP[i].Numero.Trim().Substring(2,2), "$" +
+                                             String.Format("{0:0.00}", theP[i].Total), theP[i].Total.ToString().Length)});
+            }
+
+            for (var i = 0; i < theT.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { "-- TRIPLETAS --"});
+                j.Add(new string[] { Justify(theT[i].Numero.Trim().Substring(0,2) + "-" +
+                                             theT[i].Numero.Trim().Substring(2,2) + "-" +
+                                             theT[i].Numero.Trim().Substring(4,2)   , "$" +
+                                             String.Format("{0:0.00}", theT[i].Total), theT[i].Total.ToString().Length) });
+            }
+            j.Add(new string[] { "-".PadRight(10, '-')});
+            var theGrandTotal = pTck.Jugadas.Sum(x => x.Precio);
+            j.Add(new string[] { Center(String.Format("TOTAL ${0:0.00}", theGrandTotal),12) });
+            if (!string.IsNullOrEmpty(pTck.Firma)) j.Add(new string[] { Center(String.Format("Firma: {0}", pTck.Firma), pTck.Firma.ToString().Length) });
+            if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter))
+            {
+                var footer = SplitText(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter, autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter.Length);
+                for (int i = 0; i < footer.Count(); i++)
+                {
+                    j.Add(new string[] { Center(footer[i], 10) });
+                }
+            }
+            j.Add(new string[] { " " });
+            j.Add(new string[] { " " });
+            j.Add(new string[] { " " });
+            j.Add(new string[] { Center("-------------------------------", "-------------------------------".Length) });
+            return j;
+        }
+
+        internal static List<string[]> FromMultiTicket(List<VentasIndexTicket> pTickets, IAuthenticator autenticador, bool pEsCopia = false)
+        {
+            var j = new List<string[]>();
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w), "2" });
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), w), "1" });
+            j.Add(new string[] { Justify(
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(pTickets[0].Fecha),
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW),
+                pTickets[0].Hora, w), "1" });
+            j.Add(new string[] { Center("Tel: " + autenticador.BancaConfiguracion.BancaDto.BanTelefono.ToUpper(), w), "1" });
+            if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader)) j.Add(new string[] { Center(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader, w), "1" });
+            j.Add(new string[] { "-".PadRight(w, '-'), "1" });
+            j.Add(new string[] { Justify("Loteria", " Ticket     Pin  ", w), "1" });
+
+            var theQ = new List<VentasIndexTicket.Jugada>();
+            var theP = new List<VentasIndexTicket.Jugada>();
+            var theT = new List<VentasIndexTicket.Jugada>();
+            Double theGrandTotal = 0;
+            for (var i = 0; i < pTickets.Count; i++)
+            {
+                j.Add(new string[] { Justify(pTickets[i].SorteoNombre.Substring(0, Math.Min(pTickets[i].SorteoNombre.Length, w)), pTickets[i].TicketNo + " " + pTickets[i].Pin, w), "1" });
+                var theAddedNums = theQ.Select(x => x.Numero).Distinct().ToList();
+                theAddedNums.AddRange(theP.Select(x => x.Numero).Distinct());
+                theAddedNums.AddRange(theT.Select(x => x.Numero).Distinct());
+                theQ.AddRange(pTickets[i].Jugadas.Where(x => x.Tipo.Equals("Q"))
+                                    .Where(x => !theAddedNums.Contains(x.Numero)));
+                theP.AddRange(pTickets[i].Jugadas.Where(x => x.Tipo.Equals("P"))
+                                    .Where(x => !theAddedNums.Contains(x.Numero)));
+                theT.AddRange(pTickets[i].Jugadas.Where(x => x.Tipo.Equals("T"))
+                                    .Where(x => !theAddedNums.Contains(x.Numero)));
+                theGrandTotal += pTickets[i].Costo;
+            }
+            if (pEsCopia) j.Add(new string[] { Center("** COPIA REIMPRESA **", w), "1" });
+            j.Add(new string[] { "-".PadRight(w, '-'), "1" });
+
+            for (var i = 0; i < theQ.Count; i++)
+            {
+
+                if (i == 0) j.Add(new string[] { "-- NUMEROS --", "2" });
+                j.Add(new string[] { Justify(theQ[i].Numero.Trim().PadRight(2, ' '), "$" +
+                                             String.Format("{0:0.00}", theQ[i].Total),w), "2" });
+            }
+
+            for (var i = 0; i < theP.Count; i++)
+            {
+                if (i == 0) j.Add(new string[] { "-- PALES --", "2" });
+                j.Add(new string[] { Justify(theP[i].Numero.Trim().Substring(0,2) + "-" +
+                                             theP[i].Numero.Trim().Substring(2,2), "$" +
+                                             String.Format("{0:0.00}", theP[i].Total), w), "2" });
+            }
+
+            for (var i = 0; i < theT.Count; i++)
+            {
+                if (i == 0) j.Add(new string[] { "-- TRIPLETAS --", "2" });
+                j.Add(new string[] { Justify(theT[i].Numero.Trim().Substring(0,2) + "-" +
+                                             theT[i].Numero.Trim().Substring(2,2) + "-" +
+                                             theT[i].Numero.Trim().Substring(4,2)   , "$" +
+                                             String.Format("{0:0.00}", theT[i].Total), w), "2" });
+            }
+            j.Add(new string[] { "-".PadRight(w, '-'), "2" });
+            j.Add(new string[] { Center(String.Format("TOTAL ${0:0.00}", theGrandTotal), w), "2" });
+            if (!string.IsNullOrEmpty(pTickets[0].Firma)) j.Add(new string[] { Center(String.Format("Firma: {0}", pTickets[0].Firma), w), "1" });
+            if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter)) j.Add(new string[] { Center(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter, w), "1" });
+            j.Add(new string[] { " " });
+            j.Add(new string[] { " " });
+            j.Add(new string[] { " " });
+            j.Add(new string[] { Center("-------------------------------", w) });
+            return j;
+        }
+
+        internal static List<string[]> FromImprimirRecarga(RecargasIndexRecarga recarga, IAuthenticator autenticador)
+        {
+            var j = new List<string[]>();
+        
+            string printString = "";
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper().Length) + Environment.NewLine;
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length) + Environment.NewLine;
+            printString += Center(
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 35) + Environment.NewLine;
+
+            printString += Center("Recarga ", "Recarga".Length) + Environment.NewLine;
+            printString += Environment.NewLine;
+           printString += Justify("Numero: ".PadRight(0) + recarga.Numero + ("  Monto: " + recarga.Monto.ToString("C0")), "", 30) + Environment.NewLine;
+            printString += Environment.NewLine;
+            printString += Justify("Serie: ".PadRight(0) + recarga.Serie, "", recarga.Serie.Length) + Environment.NewLine;
+
+            j.Add(new string[] { printString });
+            j.Add(new string[] { " " });
+            j.Add(new string[] { Center("-------------------------------", "-------------------------------".Length) });
+            return j;
+
+        }
+
+        internal static List<string[]> FromPagoGanador(string mensaje, int aprobado, IAuthenticator autenticador)
+        {
+            var j = new List<string[]>();
+           string printString = "";
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre, autenticador.BancaConfiguracion.BancaDto.BanNombre.Length) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length) + Environment.NewLine;
+            printString +=  Environment.NewLine;
+            printString +=  Environment.NewLine;
+            printString += Center(
+               MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
+               MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 35) + Environment.NewLine;
+
+            printString += Justify(mensaje, "", mensaje.Length) + Environment.NewLine;
+            printString += Center("Aprobacion: " + aprobado,30) + Environment.NewLine;
+            printString += Environment.NewLine;
+            printString += Center(DateTime.Now.ToString("dd-MMM-yyyy     hh:mm:ss tt"),30) + Environment.NewLine;
+            j.Add(new string[] { printString });
+           
+            j.Add(new string[] { " " });
+            j.Add(new string[] { Center("-------------------------------", "-------------------------------".Length) });
+            return j;
+        }
+
+
     }
 }
 

@@ -475,6 +475,7 @@ namespace ClienteMarWPF.UI.Modules.Reporte
             ChangeOptionListTicket = new ChangeOpcionListTicket(this, autenticador, reportesServices);
             AbrirModalRangoFechaCommand = new AbrirModalRangoFechaCommand(this);
 
+          
             //Ocultando vistas de todos los reportes inicialmente
             RPTSumaVentasVisibility = Visibility.Hidden;
             RPTTicketGanadoresVisibility = Visibility.Hidden;

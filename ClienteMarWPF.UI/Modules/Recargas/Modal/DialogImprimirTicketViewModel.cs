@@ -1,6 +1,7 @@
 ﻿using ClienteMarWPF.Domain.Services.RecargaService;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
+using ClienteMarWPF.UI.State.PinterConfig;
 using ClienteMarWPF.UI.ViewModels.Base;
 using ClienteMarWPF.UI.ViewModels.Commands.Recargas;
 using ClienteMarWPF.UI.ViewModels.Factories;
@@ -41,7 +42,7 @@ namespace ClienteMarWPF.UI.Modules.Recargas.Modal
 
 
 
-        public DialogImprimirTicketViewModel(INavigator nav, IAuthenticator aut, IViewModelFactory vistas, IRecargaService recargaService)
+        public DialogImprimirTicketViewModel(INavigator nav, IAuthenticator aut, IViewModelFactory vistas, IRecargaService recargaService,RecargasIndexRecarga recargas)
         {
             _nav = nav;
             _aut = aut;
@@ -50,7 +51,7 @@ namespace ClienteMarWPF.UI.Modules.Recargas.Modal
 
 
             CerrarDialogoInicioCommand = new CerrarDialogoImprimirTicketCommand(this);
-            GenerarTicketCommand = new DialogConfirmTicketCommand(this, aut, _recargaService);
+            GenerarTicketCommand = new DialogConfirmTicketCommand(this, aut, _recargaService,recargas);
 
         }
 

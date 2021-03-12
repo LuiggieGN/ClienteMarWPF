@@ -17,5 +17,7 @@ namespace ClienteMarWPF.Domain.Services.SorteosService
         MAR_Ganadores GetUltimosSorteos(MarPuntoVentaServiceReference.MAR_Session session, int LoteriaID, string Fecha);
         MAR_ValWiner ConsultarTicket(MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin, bool Pagar = false);
         public string AnularTicket(MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin);
+        MAR_Bet ConsultarTicketSinPin(MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero);
+
     }
 }

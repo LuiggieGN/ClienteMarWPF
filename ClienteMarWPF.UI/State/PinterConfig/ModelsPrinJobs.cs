@@ -100,7 +100,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             };
         }
 
-        private static string GeneraFirma(string pFecha, string pHora, string pTicket, MAR_BetItem[] pJugadas)
+        public static string GeneraFirma(string pFecha, string pHora, string pTicket, MAR_BetItem[] pJugadas)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             }
         }
 
-        private static string GeneraPinGanador(int pSol)
+        public static string GeneraPinGanador(int pSol)
         {
 
             var sb = new System.Text.StringBuilder();

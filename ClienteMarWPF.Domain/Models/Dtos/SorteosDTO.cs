@@ -55,6 +55,11 @@ namespace ClienteMarWPF.Domain.Models.Dtos
         public int LoteriaID { get; set; }
     }
 
+    public class TicketCopiadoResponse
+    {
+        public string TicketNo { get; set; }
+    }
+
     public class UltimosSorteos
     {
         public string Sorteo { get; set; }
@@ -62,5 +67,15 @@ namespace ClienteMarWPF.Domain.Models.Dtos
         public string Segundo { get; set; }
         public string Tercero { get; set; }
         public string Hora { get; set; }
+    }
+
+    public class ListadoTickets
+    {
+        public string NoTicket { get; set; }
+        public List<LoteriaTicketPin> Pin { get; set; }
+        public string NombreLoteria { get; set; }
+        public int LoteriaID { get; set; }
+        public List<Jugada> Jugadas { get; set; }
+       
     }
 }

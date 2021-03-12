@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using ClienteMarWPF.UI.ViewModels.ModelObservable;
+using System.Collections;
+using System.Globalization;
 
 namespace ClienteMarWPF.UI.State.PinterConfig
 {
@@ -17,14 +20,16 @@ namespace ClienteMarWPF.UI.State.PinterConfig
         private static PaperSize paperSize = new PaperSize();
         private static int positionWrite = 0;
         private static object Value;
+        private static bool ImprimirCopias;
 
-        public static void PrintTicket(object value, List<ConfigPrinterModel> configs = null)
+        public static void PrintTicket(object value ,List<ConfigPrinterModel> configs = null,bool ImprimirCopia=false)
         {
             var papers = ps.PaperSizes.Cast<PaperSize>();
             PrintDocument pd = new PrintDocument();
             StringBuilder sb = new StringBuilder();
             configs = configs ?? new List<ConfigPrinterModel>();
             Value = value;
+            ImprimirCopias = ImprimirCopia;
             //paperSize = papers.FirstOrDefault();
              paperSize = new PaperSize("nose", 280, 0);
 
@@ -36,6 +41,11 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             {
                 ConfigData = configs;
                 pd.PrintPage += TemplateTicket;
+            }
+            else if (value is SorteosTicketModels)
+            {
+               
+                pd.PrintPage += TemplateTicketSinPrinterConfig;
             }
             else if (value is List<string>)
             {
@@ -65,16 +75,18 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             var GetConfigTicket = ConfigData.Where(x => x.ConfigKey == "BANCA_PRINTER_CONFIG_LINE").FirstOrDefault();
             //CONFIG PRINT BAR AND QRCODE
             var GetConfigIMG = ConfigData.Where(x => x.ConfigKey == "BANCA_PRINTER_IMAGES_CONFIG").FirstOrDefault();
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
 
             var ValueTicket = JsonConvert.DeserializeObject<List<ConfigPrinterValue>>(GetConfigTicket.ConfigValue);
             var ValueIMG = JsonConvert.DeserializeObject<List<ConfigPrinterValue>>(GetConfigIMG.ConfigValue);
             //var code = JsonConvert.DeserializeObject<ConfigPrinterValueCode>(ValueIMG.FirstOrDefault().Value);
             positionWrite = 0;
-
+            var TotalGenerales = 0;
             foreach (var item in ValueTicket)
             {
                 var data = GetValueForProperty(Value, item.Content) == null ? "" : GetValueForProperty(Value, item.Content);
-
+                
+                
                 switch (item.Content)
                 {
                     case "Logo":
@@ -106,6 +118,9 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                             Telefono = "Telefono: " + data.ToString();
                         }
                         WriteText(g, Telefono, item.Size, item.FontStyle, item.Aligment);
+                        WriteText(g, "", item.Size, item.FontStyle, item.Aligment);
+                        WriteText(g, DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"), 11, "bold", "center");
+
                         break;
                     case "Firma":
 
@@ -141,35 +156,46 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                         WriteCode(g, GetValueCodeString(ValueIMG, TypeGenerateCode.BarCode), item.Size, TypeGenerateCode.BarCode);
 
                         break;
-                    case "Total":
-
-                        string Total = string.Empty;
-                        if (data != null && data.ToString() != string.Empty)
-                        {
-                            Total = "Total: $" + data.ToString();
-                        }
-                        WriteText(g, Total, item.Size, item.FontStyle, item.Aligment);
-                        break;
+                   
                     case "Jugadas":
                         WriteTextColumn(g, new List<string> { "JUGADAS", "MONTO" }, item.Size, item.FontStyle, item.Aligment);
 
                         var TicketJugadas = data as List<TicketJugadas>;
-                        var Quiniela = TicketJugadas.Where(y => y.TipoJudaga == "Quiniela").ToList();
-                        var Pales = TicketJugadas.Where(y => y.TipoJudaga == "Pale").ToList();
-                        var Tripleta = TicketJugadas.Where(y => y.TipoJudaga == "Tripleta").ToList();
-
+                        var Quiniela = TicketJugadas.Where(y => y.TipoJudaga == "Q").ToList();
+                        var Pales = TicketJugadas.Where(y => y.TipoJudaga == "P").ToList();
+                        var Tripleta = TicketJugadas.Where(y => y.TipoJudaga == "T").ToList();
+                        TotalGenerales = TicketJugadas.Sum(x => x.Jugada.Monto);
+                        
                         if (true)
                         {
 
                         }
-                        WriteText(g, "----Quiniela----", item.Size, item.FontStyle, item.Aligment);
-                        WriteJugadas(g, Quiniela, item.Size, item.FontStyle, item.Aligment);
+                        if (Quiniela.Count() > 0)
+                        {
+                            WriteText(g, "----Quinielas----", item.Size, item.FontStyle, item.Aligment);
+                            WriteJugadas(g, Quiniela, item.Size, item.FontStyle, item.Aligment);
+                        }
+                       
+                        if (Pales.Count() > 0)
+                        {
+                            WriteText(g, "----Pales----", item.Size, item.FontStyle, item.Aligment);
+                            WriteJugadas(g, Pales, item.Size, item.FontStyle, item.Aligment);
+                        }
 
-                        WriteText(g, "----Pale----", item.Size, item.FontStyle, item.Aligment);
-                        WriteJugadas(g, Pales, item.Size, item.FontStyle, item.Aligment);
+                        if (Tripleta.Count() > 0) {
+                            WriteText(g, "----Tripletas----", item.Size, item.FontStyle, item.Aligment);
+                            WriteJugadas(g, Tripleta, item.Size, item.FontStyle, item.Aligment);
+                        }
+                        break; 
+                        case "Total":
 
-                        WriteText(g, "----Tripleta----", item.Size, item.FontStyle, item.Aligment);
-                        WriteJugadas(g, Tripleta, item.Size, item.FontStyle, item.Aligment);
+                        string Total = string.Empty;
+                       
+                        if (data != null && data.ToString() != string.Empty)
+                        {
+                            Total = "Total: $" + string.Format(nfi, "{0:C}", TotalGenerales);
+                        }
+                        WriteText(g, Total, item.Size, item.FontStyle, item.Aligment);
                         break;
                     //case "Pin":
 
@@ -187,6 +213,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                             var loteriaTicketPin = data as List<LoteriaTicketPin>;
                             if (loteriaTicketPin.Count > 1)
                             {
+                                
                                 switch (item.FormatAnySorteo)
                                 {
 
@@ -202,7 +229,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                                         WriteTextColumn(g, new List<string> { "Loteria", "Ticket", "Pin" }, item.Size, item.FontStyle, item.Aligment);
                                         foreach (var dataMore in loteriaTicketPin)
                                         {
-                                            WriteTextColumn(g, new List<string> { dataMore.Loteria, dataMore.Ticket, dataMore.Pin }, item.Size, item.FontStyle, item.Aligment);
+                                            WriteTextColumn(g, new List<string> {  dataMore.Loteria, dataMore.Ticket, dataMore.Pin }, item.Size, item.FontStyle, item.Aligment);
                                         }
                                         break;
 
@@ -222,13 +249,17 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                             }
                             else if (loteriaTicketPin.Count == 1)
                             {
-
+                                     string mensajeCopiar = null;
+                                     if (ImprimirCopias == true)
+                                      {
+                                        mensajeCopiar = "** C O P I A  R E I M P R E S A **";
+                                       }
                                 switch (item.FormatOneSorteo)
                                 {
-
                                     case 1:
 
                                         var FormatOne = loteriaTicketPin.FirstOrDefault();
+                                        WriteText(g, mensajeCopiar + FormatOne.Loteria, 10, item.FontStyle, item.Aligment);
                                         WriteText(g, "L: " + FormatOne.Loteria, item.Size, item.FontStyle, item.Aligment);
                                         WriteText(g, "T: " + FormatOne.Ticket, item.Size, item.FontStyle, item.Aligment);
                                         WriteText(g, "P: " + FormatOne.Pin, item.Size, item.FontStyle, item.Aligment);
@@ -242,6 +273,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
 
                                     default:
                                         var defaults = loteriaTicketPin.FirstOrDefault();
+                                        WriteText(g, mensajeCopiar , 10, item.FontStyle, item.Aligment);
                                         WriteText(g, "L: " + defaults.Loteria, item.Size, item.FontStyle, item.Aligment);
                                         WriteText(g, "T: " + defaults.Ticket, item.Size, item.FontStyle, item.Aligment);
                                         WriteText(g, "P: " + defaults.Pin, item.Size, item.FontStyle, item.Aligment);
@@ -264,6 +296,226 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             positionWrite = 0;
             g.Dispose();
         }
+
+        private static void TemplateTicketSinPrinterConfig(object sender, PrintPageEventArgs e)
+        {
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+            Graphics g = e.Graphics;
+            int FontSize = 11;
+            string Alignament = "center";
+
+            Console.WriteLine(Value);
+            var Valor = Value as SorteosTicketModels;
+            List<ConfigPrinterModel> valores = new  List<ConfigPrinterModel>() { };
+            
+            ConfigPrinterModel nombreBanca = new ConfigPrinterModel() { ConfigKey = "BanNombre", ConfigValue = Valor.BanNombre };
+            ConfigPrinterModel direccionBanca = new ConfigPrinterModel() { ConfigKey = "Direccion", ConfigValue = Valor.BanDireccion };
+            ConfigPrinterModel fecha = new ConfigPrinterModel() { ConfigKey = "FechaActual", ConfigValue = Valor.Fecha };
+            ConfigPrinterModel telefono = new ConfigPrinterModel() { ConfigKey = "Telefono", ConfigValue = Valor.Telefono };
+            ConfigPrinterModel Linea = new ConfigPrinterModel() { ConfigKey = "Linea", ConfigValue = "" };
+            ConfigPrinterModel loteriaticket = new ConfigPrinterModel() { ConfigKey = "LoteriaTicketPin", ConfigValue = "" };
+            
+            ConfigPrinterModel jugadass = new ConfigPrinterModel() { ConfigKey = "Jugadas", ConfigValue = "" };
+            ConfigPrinterModel textoRevise = new ConfigPrinterModel() { ConfigKey = "Texto", ConfigValue = Valor.TextReviseJugada };
+            ConfigPrinterModel firma = new ConfigPrinterModel() { ConfigKey = "Firma", ConfigValue = Valor.Firma };
+            ConfigPrinterModel total = new ConfigPrinterModel() { ConfigKey = "Total", ConfigValue = "Total" };
+
+            valores.Add(nombreBanca);
+            valores.Add(direccionBanca);
+            valores.Add(telefono);
+            valores.Add(Linea);
+            valores.Add(loteriaticket);
+            valores.Add(Linea);
+            valores.Add(jugadass);
+            valores.Add(Linea);
+
+            valores.Add(total);
+            
+            valores.Add(firma);
+            valores.Add(textoRevise);
+            
+
+            positionWrite = 0;
+            var TotalGenerales = 0;
+            
+            foreach (var item in valores)
+            {
+                var data = GetValueForProperty(Value, item.ConfigKey) == null ? "" : GetValueForProperty(Value, item.ConfigValue);
+                
+
+                switch (item.ConfigKey)
+                {
+                    case "Logo":
+                        WriteImage(g, data.ToString(), 12);
+                        break;
+                    case "BanNombre":
+                        WriteText(g, Valor.BanNombre, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        break;
+                    //case "Loteria":
+                    //    WriteText(g, data.ToString(), item.Size, item.FontStyle, item.Aligment);
+                    //    break;
+                    case "Direccion":
+                        WriteText(g, Valor.BanDireccion,FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        break;
+                    case "FechaActual":
+
+                        string FechaActual = string.Empty;
+                        if (data != null && data.ToString() != string.Empty)
+                        {
+                            FechaActual = "" +Valor.Fecha;
+                        }
+                        WriteText(g, Valor.Fecha,FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        break;
+                    case "Telefono":
+
+                        string Telefono = string.Empty;
+                        
+                        Telefono = "Telefono: " + Valor.Telefono;
+                        WriteText(g, Telefono, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                       
+                       
+                        WriteText(g, DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"), FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        
+                        break;
+                    case "Firma":
+
+                        string Firma = string.Empty;
+                        if (Valor.Firma != null && Valor.Firma.ToString() != string.Empty)
+                        {
+                            Firma = "Firma: " + Valor.Firma;
+                        }
+                        WriteText(g, Firma, FontSize-1, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        break;
+                    case "AutorizacionHacienda":
+
+                        string AutorizacionHacienda = string.Empty;
+                        if (data != null && data.ToString() != string.Empty)
+                        {
+                            AutorizacionHacienda = "Autorizacion Hacienda:" + data.ToString();
+                        }
+                        WriteText(g, AutorizacionHacienda, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        break;
+                    //case "Ticket":
+
+                    //string Ticket = string.Empty;
+                    //if (data != null && data.ToString() != string.Empty)
+                    //{
+                    //    Ticket = "Ticket: " + data.ToString();
+                    //}
+                    //WriteText(g, Ticket, item.Size, item.FontStyle, item.Aligment);
+                    //    break;
+                    
+
+                    case "Jugadas":
+                        WriteTextColumn(g, new List<string> { "JUGADAS", "MONTO" }, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        List<TicketJugadas> jugadas = new List<TicketJugadas>() { };
+                        foreach(var jugada in Valor.Jugadas)
+                        {
+                            JugadaPrinter jugadaPrint = new JugadaPrinter() { Numeros = jugada.Numero, Monto = jugada.Costo };
+                            TicketJugadas jugadp = new TicketJugadas() { Jugada = jugadaPrint, TipoJudaga = jugada.TipoJugada };
+                            jugadas.Add(jugadp);
+                        }
+                        var TicketJugadas =jugadas;
+
+                        var Quiniela = TicketJugadas.Where(y => y.TipoJudaga == "Q").ToList();
+                        var Pales = TicketJugadas.Where(y => y.TipoJudaga == "P").ToList();
+                        var Tripleta = TicketJugadas.Where(y => y.TipoJudaga == "T").ToList();
+                        TotalGenerales = TicketJugadas.Sum(x => x.Jugada.Monto);
+                        for (var i = 0; i <Pales.Count; i++){Pales[i].Jugada.Numeros= Pales[i].Jugada.Numeros.Insert(2, "-"); }
+                        for (var i = 0; i < Tripleta.Count; i++) { Tripleta[i].Jugada.Numeros = Tripleta[i].Jugada.Numeros.Insert(2, "-"); Tripleta[i].Jugada.Numeros = Tripleta[i].Jugada.Numeros.Insert(5, "-"); }
+
+                        if (true)
+                        {
+
+                        }
+                        if (Quiniela.Count() > 0)
+                        {
+                            WriteText(g, "----Quinielas----",FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                            WriteJugadas(g, Quiniela, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        }
+
+                        if (Pales.Count() > 0)
+                        {
+                            WriteText(g, "----Pales----", FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                            WriteJugadas(g, Pales, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        }
+
+                        if (Tripleta.Count() > 0)
+                        {
+                            WriteText(g, "----Tripletas----", FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                            WriteJugadas(g, Tripleta, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        }
+                        break;
+                    case "Total":
+
+                        string Total = string.Empty;
+
+                        Total = "Total: " + string.Format(nfi, "{0:C}", TotalGenerales);
+                        WriteText(g, Total, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                        break;
+                    //case "Pin":
+
+                    //string Pin = string.Empty;
+                    //if (data != null && data.ToString() != string.Empty)
+                    //{
+                    //    Pin = "Pin: " + data.ToString();
+                    //}
+                    //WriteText(g, Pin, item.Size, item.FontStyle, item.Aligment);
+                    //    break;                        
+                    case "LoteriaTicketPin":
+
+                        if (data != null)
+                        {
+                            var loteriaTicketPin = Valor.Pin as List<LoteriaTicketPin>;
+                            if (loteriaTicketPin.Count > 1)
+                            {
+                                WriteTextColumn(g, new List<string> { "Loteria", "Ticket", "Pin" }, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                                foreach (var dataMore in loteriaTicketPin)
+                                {
+                                    WriteTextColumn(g, new List<string> { dataMore.Loteria, dataMore.Ticket, dataMore.Pin }, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                                }
+
+
+
+                                //WriteTextColumn(g, new List<string> { "Loteria", "Ticket", "Pin" }, (item.Size-5), item.FontStyle, item.Aligment);
+                                //foreach (var dataMore in loteriaTicketPin)
+                                //{
+                                //    WriteTextColumn(g, new List<string> { dataMore.Loteria, dataMore.Ticket, dataMore.Pin }, (item.Size - 5), item.FontStyle, item.Aligment);
+                                //}
+                            }
+                            else if (loteriaTicketPin.Count == 1)
+                            {
+                                string mensajeCopiar = null;
+                                if (ImprimirCopias == true)
+                                {
+                                    mensajeCopiar = "** C O P I A  R E I M P R E S A **";
+                                }
+
+                                var FormatOne = loteriaTicketPin.FirstOrDefault();
+                                WriteText(g, mensajeCopiar, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                                WriteText(g, "L: " + FormatOne.Loteria, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                                WriteText(g, "T: " + FormatOne.Ticket,FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                                WriteText(g, "P: " + FormatOne.Pin, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                            }
+
+                        }
+
+                        break;
+                    case "Texto":
+                        WriteText(g, Valor.TextReviseJugada, (FontSize-2), FontStyle.Regular.ToString().ToLower(), Alignament);
+                        break;
+                    case "Linea":
+                        WriteLineFinas(g);
+                        break;
+                }
+
+            }
+            positionWrite = 0;
+            g.Dispose();
+
+        }
+
+
         private static void TemplateListString(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -396,6 +648,14 @@ namespace ClienteMarWPF.UI.State.PinterConfig
         private static void WriteLine(Graphics graphics)
         {
             var pen = new Pen(Color.Black, 2);
+            pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            positionWrite += 10;
+            graphics.DrawLine(pen, 0, positionWrite, paperSize.Width, positionWrite);
+            positionWrite += 10;
+        }
+        private static void WriteLineFinas(Graphics graphics)
+        {
+            var pen = new Pen(Color.Black, 1);
             pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             positionWrite += 10;
             graphics.DrawLine(pen, 0, positionWrite, paperSize.Width, positionWrite);

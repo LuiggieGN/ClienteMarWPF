@@ -3,6 +3,7 @@ using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Recargas.Modal;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
+using ClienteMarWPF.UI.State.PinterConfig;
 using ClienteMarWPF.UI.ViewModels.Factories;
 using System;
 using System.Collections.Generic;
@@ -56,16 +57,17 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
                     }
                     else
                     {
-                        
-                        ViewModel.Dialog = new DialogImprimirTicketViewModel(_nav, Autenticador, _vistas, RecargaService);
+                        RecargasIndexRecarga DATOSRecargas = new RecargasIndexRecarga() { UsuarioId = 0, Solicitud = Solicitud, Clave = "ok", Monto = recarga.Costo, Numero = recarga.Numero, Serie = recarga.Serie, Suplidor = "ok", SuplidorId = 0 };
+
+                       //List<string[]> impresionRecargas = PrintJobs.FromImprimirRecarga(DATOSRecargas,Autenticador);
+                       //TicketTemplateHelper.PrintTicket(impresionRecargas);
+
+                        ViewModel.Dialog = new DialogImprimirTicketViewModel(_nav, Autenticador, _vistas, RecargaService, DATOSRecargas);
                         ViewModel.Dialog.Mostrar();
+                        
+                       
                        
                     }
-
-                  
-                    
-
-
                 }
                 catch (Exception e)
                 {
