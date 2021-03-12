@@ -13,8 +13,6 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
     public sealed class LocalClientSettingStore : LocalClientBase, ILocalClientSettingStore
     {
         private LocalClientSettingDTO _localClientSettings;
-
-
         public LocalClientSettingDTO LocalClientSettings
         {
             get => _localClientSettings;
@@ -23,6 +21,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                 _localClientSettings = value;
             }
         }
+
         public void ReadDektopLocalSetting()
         {
             try
@@ -41,7 +40,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                 throw new MarFileReadException("Configuraciòn de banca no pudo cargar");
             }
 
-        }//fin de metodo ReadLocalSetting( )
+        }
         public void WriteDesktopLocalSetting(LocalClientSettingDTO setting)
         {
             try
@@ -77,7 +76,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                 clienteSetting.BancaId = Convert.ToInt32(setting[IniFileKey]["Banca"]);
                 clienteSetting.LF = Convert.ToInt32(setting[IniFileKey]["LF"]);
                 clienteSetting.Direccion = setting[IniFileKey]["Direccion"];
-                clienteSetting.Identidad = Convert.ToInt32(setting[IniFileKey]["Identidad"]);
+                clienteSetting.Identidad =setting[IniFileKey]["Identidad"];
                 clienteSetting.Tickets = Convert.ToInt32(setting[IniFileKey]["Tickets"]);
                 clienteSetting.Espera = Convert.ToInt32(setting[IniFileKey]["Espera"]);
                 clienteSetting.ServerIP = setting[IniFileKey]["ServerIP"];
@@ -90,8 +89,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                 this.LocalClientSettings = null;
                 throw new MarFileReadException("Configuraciòn de banca no pudo cargar");
             }
-
-        }//fin de metodo ReadIniFile( ) 
+        }  
 
         private void WriteIniFile(LocalClientSettingDTO newsetting) 
         {

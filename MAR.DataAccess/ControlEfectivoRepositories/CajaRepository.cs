@@ -100,7 +100,7 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
 
                     {
                         multi.PrimerDTO = queryMultiple.Read<PagerResumenDTO>().First();
-                        
+
                         multi.SegundoDTO = queryMultiple.Read<MovimientoDTO>().ToList();
 
                     }// fin de using
@@ -109,6 +109,38 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
                 }
 
                 return multi;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+        public static List<MovimientoDTO> LeerMovimientosNoPaginados(MovimientoPageDTO paginaRequest)
+        {
+            try
+            {
+
+                var p = new DynamicParameters();
+                p.Add("@CajaID", paginaRequest.CajaId); 
+                p.Add("@FechaInicio", paginaRequest.ConsultaDesde);
+                p.Add("@FechaFin", paginaRequest.ConsultaHasta);
+                p.Add("@CategoriaOperacion", paginaRequest.CategoriaOperacion);
+
+                List<MovimientoDTO> listado = null;
+ 
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    listado =  db.Query<MovimientoDTO>(CajaHelper.Procedure_SP_CAJA_LEER_MOVIMIENTOS_NO_PAGINADOS, p, commandType: CommandType.StoredProcedure).ToList(); 
+
+                    db.Close();
+                }
+
+                return listado;
             }
             catch (Exception e)
             {
@@ -153,7 +185,7 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
                 var p = new DynamicParameters();
                 p.Add("@usuarioid", usuarioid);
 
-                CajaDTO caja = null;           
+                CajaDTO caja = null;
 
                 using (var db = DALHelper.GetSqlConnection())
                 {
@@ -180,7 +212,7 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
 
                 using (var db = DALHelper.GetSqlConnection())
                 {
-                    db.Open();                    
+                    db.Open();
 
                     balanceMinimo = db.Query<decimal>(CajaHelper.QueryParaLeerBalanceMinimoDeCaja, p, commandType: CommandType.Text).First();
 
@@ -196,7 +228,7 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         }
 
 
-        public static bool SetearCajaDisponibilidad(CajaDisponibilidadDTO disponibilidad) 
+        public static bool SetearCajaDisponibilidad(CajaDisponibilidadDTO disponibilidad)
         {
             try
             {

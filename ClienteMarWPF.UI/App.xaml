@@ -10,13 +10,12 @@
              xmlns:moduloRecargas="clr-namespace:ClienteMarWPF.UI.Modules.Recargas"   
              xmlns:moduloMensajeria="clr-namespace:ClienteMarWPF.UI.Modules.Mensajeria"   
              xmlns:moduloPagoServicios="clr-namespace:ClienteMarWPF.UI.Modules.PagoServicios"   
-  
              xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:efectivoInicio="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio"
              xmlns:efectivoMovimiento="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento"
              xmlns:local="clr-namespace:ClienteMarWPF.UI"   
              xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
-                
+             ShutdownMode="OnExplicitShutdown"                
              >
     <Application.Resources>
         <ResourceDictionary>

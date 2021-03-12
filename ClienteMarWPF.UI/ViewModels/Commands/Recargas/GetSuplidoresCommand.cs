@@ -19,9 +19,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
             Digicel = 5,
             NatCom = 6,
             MarltonJuegaMas = 7,
-            LoterryVIP = 8,
-
-
+            LoterryVIP = 8
         }
 
 

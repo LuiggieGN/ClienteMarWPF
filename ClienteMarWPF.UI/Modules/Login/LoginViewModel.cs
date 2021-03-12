@@ -9,7 +9,7 @@ using ClienteMarWPF.UI.ViewModels;
 using ClienteMarWPF.UI.ViewModels.Base;
  
 using System.Windows.Input;
-
+using ClienteMarWPF.Domain.Models.Dtos;
 
 namespace ClienteMarWPF.UI.Modules.Login
 {
@@ -51,14 +51,37 @@ namespace ClienteMarWPF.UI.Modules.Login
             set => ErrorMessageViewModel.Message = value;
         }
 
+       public InicioPCResultDTO InicioPC { get; }
+
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel(IAuthenticator autenticador, IRenavigator renavigator, ILocalClientSettingStore localclientsettings)
+        public LoginViewModel(IAuthenticator autenticador, IRenavigator renavigator, ILocalClientSettingStore localclientsettings, InicioPCResultDTO inicioPC)
         {
             Cargando = Booleano.No;
-            ErrorMessageViewModel = new MessageViewModel(); 
+            ErrorMessageViewModel = new MessageViewModel();
+            InicioPC = inicioPC;
+            
             LoginCommand = new LoginCommand(this, autenticador, renavigator, localclientsettings);
+
+            if (!inicioPC.EstaPCTienePermisoDeConexionAServicioDeMAR)
+            {
+                ErrorMessage = "Su PC no esta autorizada. Comuniquese con la Central.";
+            }
+
         }
+
+
+        public void ReIniciarApp() 
+        {
+            if (InicioPC != null && ErrorMessageViewModel != null)
+            {
+                InicioPC.EstaPCTienePermisoDeConexionAServicioDeMAR = false;
+                ErrorMessage = "Se requiere Re-Inicio para aplicar cambios.";
+                NotifyPropertyChanged(nameof(ErrorMessage), nameof(InicioPC));
+            }        
+        }
+
+
 
 
 

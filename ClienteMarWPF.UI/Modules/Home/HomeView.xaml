@@ -5,145 +5,223 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Home"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             mc:Ignorable="d" >
-    <Grid>
+             xmlns:behaviours="clr-namespace:ClienteMarWPF.UI.Views.AttachedProperties"
+             mc:Ignorable="d"
+             xmlns:controls="clr-namespace:ClienteMarWPF.UI.Views.Controls">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" 
+                    Width="100"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 20 0">
 
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+            <Grid HorizontalAlignment="Right">
+                <DatePicker                   
+                   FontSize="16"
+                   FontWeight="Medium"
+                   Height="45" 
+                   Width="100"
+                   Margin="0 10 0 0"
+                   Padding="0 0 30 0"  
+                   materialDesign:HintAssist.Hint="Fecha"  
+                   SelectedDate="{Binding Path=FechaAConsultar, Mode=TwoWay , StringFormat='dd-mm-yyyy'}"
+                   Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+            </Grid>
 
-        <!--NUMERO 1-->
-        <Border Background="Orange"  Margin="10" Height="125" Grid.Row="0">
-            <Border.Effect>
-                <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
-            </Border.Effect>
+        </StackPanel>
+
+
+
+        <Button  HorizontalAlignment="Center" 
+                 FontSize="18"
+                 Height="40" 
+                 Width="230"
+                 Margin="0 30 0 10 " 
+                 FontWeight="Normal"
+                  Style="{DynamicResource btn-dark}" 
+                 Command="{Binding CargarBalancesCommand}" >
+            <Grid Margin="10,0"
+                  HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal">
+
+                    <controls:SpinnerPiston Background="Transparent"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" 
+                                            Width="40"
+                                            Height="40"
+                                            Visibility="{Binding Cargando, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <TextBlock Text="Cargar balances"
+                               FontSize="18"
+                               Foreground="White"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Button>
+
+
+
+        <DockPanel>
             
-            <Grid>
+            <Grid HorizontalAlignment="Center">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="380"/>
+                    <ColumnDefinition Width="380"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
-                    <materialDesign:PackIcon Kind="Money" Width="85" Height="85" Foreground="Orange"  HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-                <Label Content="$150,000" FontSize="40"  Foreground="White" Padding="10"/>
-                <Label Content="Por Pagar" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/> 
+                </Grid.RowDefinitions>
 
+                <TextBlock Text="{Binding UltimaFechaDeActualizacion}"
+                           HorizontalAlignment="Left" 
+                           Margin="12 10 0 7"  
+                           FontSize="13"
+                           Grid.Row="0"
+                           Grid.ColumnSpan="2"/>
+
+                <!--NUMERO 1-->
+                <Border Background="LightGreen"  Margin="10" Height="125" Grid.Row="1" Grid.Column="0">
+                    <Border.Effect>
+                        <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
+                    </Border.Effect>
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
+                            <materialDesign:PackIcon Kind="Dice6" Width="85" Height="85" Foreground="LightGreen"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <Label Content="{Binding Card_Ventas_Loterias}" FontSize="40"  Foreground="White" Padding="10"/>
+                        <Label Content="Ventas Loterias" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
+
+                    </Grid>
+                </Border>
+
+                <!--NUMERO 2-->
+                <Border Background="DodgerBlue"  Margin="10" Height="125" Grid.Row="1" Grid.Column="1">
+                    <Border.Effect>
+                        <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
+                            <materialDesign:PackIcon Kind="MobilePhoneAndroid" Width="85" Height="85" Foreground="DodgerBlue"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <Label Content="{Binding Card_Ventas_Productos}" FontSize="40"  Foreground="White" Padding="10"/>
+                        <Label Content="Ventas Productos" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
+
+                    </Grid>
+                </Border>
+
+                <!--NUMERO 3-->
+                <Border Background="Orange"  Margin="10" Height="125" Grid.Row="2" Grid.Column="0" >
+                    <Border.Effect>
+                        <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
+                    </Border.Effect>
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
+                            <materialDesign:PackIcon Kind="Dollar" Width="85" Height="85" Foreground="Orange"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <Label Content="{Binding Card_Comisiones}" FontSize="40"  Foreground="White" Padding="10"/>
+                        <Label Content="Comisiones" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
+
+                    </Grid>
+                </Border>
+
+                <!--NUMERO 4-->
+                <Border Background="#ff6767"   Margin="10" Height="125"  Grid.Row="2" Grid.Column="1">
+                    <Border.Effect>
+                        <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
+                    </Border.Effect>
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
+                            <materialDesign:PackIcon Kind="Close" Width="85" Height="85" Foreground="#ff6767"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <Label Content="{Binding Card_Anulaciones}" FontSize="40"  Foreground="White" Padding="10"/>
+                        <Label Content="Anulaciones" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
+
+
+                    </Grid>
+                </Border>
+
+                <!--NUMERO 5-->
+                <Border Background="Green"  Margin="10" Height="125" Grid.Row="3">
+                    <Border.Effect>
+                        <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
+                            <materialDesign:PackIcon Kind="MoneyUsd" Width="85" Height="85" Foreground="Green"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                        <Label Content="{Binding Card_Balances}" FontSize="40"  Foreground="White" Padding="10"/>
+                        <Label Content="Balance" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
+
+                    </Grid>
+                </Border>
 
             </Grid>
-        </Border>
+        </DockPanel>
         
-        <!--NUMERO 2-->
-        <Border Background="DodgerBlue"  Margin="10" Height="125" Grid.Row="0" Grid.Column="1">
-            <Border.Effect>
-                <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
-            </Border.Effect>
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
-                    <materialDesign:PackIcon Kind="Dice6" Width="85" Height="85" Foreground="DodgerBlue"  HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-                <Label Content="$1,075,000" FontSize="40"  Foreground="White" Padding="10"/>
-                <Label Content="Ventas Loterias" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
-
-            </Grid>
-        </Border>
-
-        <!--NUMERO 3-->
-        <Border Background="ForestGreen"  Margin="10" Height="125" Grid.Row="1">
-            <Border.Effect>
-                <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
-            </Border.Effect>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
-                    <materialDesign:PackIcon Kind="MobilePhoneAndroid" Width="85" Height="85" Foreground="ForestGreen"  HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-                <Label Content="$1,075,000" FontSize="40"  Foreground="White" Padding="10"/>
-                <Label Content="Ventas Productos" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
-
-            </Grid>
-        </Border>
-
-        <!--NUMERO 4-->
-        <Border Background="OrangeRed"  Margin="10" Height="125" Grid.Row="1" Grid.Column="2" >
-            <Border.Effect>
-                <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
-            </Border.Effect>
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
-                    <materialDesign:PackIcon Kind="PlusBox" Width="85" Height="85" Foreground="OrangeRed"  HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-                <Label Content="$25,000" FontSize="40"  Foreground="White" Padding="10"/>
-                <Label Content="Comisiones" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
-
-            </Grid>
-        </Border>
         
-        <!--NUMERO 5-->
-        <Border Background="Purple"  Margin="10" Height="125" Grid.Row="2">
-            <Border.Effect>
-                <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
-            </Border.Effect>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
-                    <materialDesign:PackIcon Kind="MoneyUsd" Width="85" Height="85" Foreground="Purple"  HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-                <Label Content="$25,000" FontSize="40"  Foreground="White" Padding="10"/>
-                <Label Content="Balance" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="2" Padding="20 0" FontSize="25" />
+        
+        
+    </StackPanel>
 
-            </Grid>
-        </Border>
-
-    </Grid>
 
 </UserControl>

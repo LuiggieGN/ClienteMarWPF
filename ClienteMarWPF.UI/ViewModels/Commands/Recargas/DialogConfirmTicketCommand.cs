@@ -17,7 +17,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
             _viewModel = viewModel;
             _recargaService = recargaService;
 
-            Action<object> comando = new Action<object>(CrearTicket);
+            var comando = new Action<object>(CrearTicket);
             base.SetAction(comando);
         }
 

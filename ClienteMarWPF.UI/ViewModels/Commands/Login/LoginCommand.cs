@@ -31,7 +31,15 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
             worker.RunWorkerCompleted += worker_RunWorkerCompleted;
 
             Action<object> comando = new Action<object>(IniciarSesion);
-            base.SetAction(comando);
+            Predicate<object> puede = new Predicate<object>(PuedeIniciarSesion);
+            base.SetAction(comando,puede);
+        }
+
+
+        public bool PuedeIniciarSesion(object parametro) 
+        {
+            return viewmodellogin?.InicioPC?.EstaPCTienePermisoDeConexionAServicioDeMAR ?? false;
+        
         }
         
 

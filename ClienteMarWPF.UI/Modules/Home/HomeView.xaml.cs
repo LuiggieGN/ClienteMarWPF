@@ -22,5 +22,7 @@ namespace ClienteMarWPF.UI.Modules.Home
         {
             InitializeComponent();
         }
+
+ 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ClienteMarWPF.UI.ViewModels.Helpers;
 
 namespace ClienteMarWPF.UI.ViewModels.Base
 {
@@ -9,6 +10,9 @@ namespace ClienteMarWPF.UI.ViewModels.Base
 
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public bool No { get => Booleano.No; }
+        public bool Si { get => Booleano.Si; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

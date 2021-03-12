@@ -78,6 +78,54 @@
         ";
 
 
+        internal static string BancaUsaControlEfectivo = @"
+            if(@incluyeconfig = 1)
+            begin 
+                  declare @PoseeConfig bit = (
+            	                               select top 1  
+            			                       isnull(
+            				                            (
+                       	                                  select top 1 1 from dbo.MBancasConfig where BancaID = @bancaid and ConfigKey = 'BANCA_ACTIVA_FLUJO' and ConfigValue = 'TRUE'  and Activo = 1
+                       	                                ), 
+                       		                			 0
+            				                		 )
+                                             );  
+            
+                  declare @UsaControlEfectivo1 bit = (select top 1 isnull((
+                       
+                           select top 1 1 from flujo.Cuadre where CajaID = 
+                           (
+                             select top 1 CajaID from flujo.Caja where BancaID = @bancaid and TipoCajaID = 1
+                           )
+                  ),0));
+            
+            
+            	  if(@PoseeConfig = 1 and @UsaControlEfectivo1 = 1)
+            	     begin
+            
+            		      select 1 as UsaControlEfectivo
+            	     end
+            	  else
+            	     begin
+            		      select 0 as UsaControlEfectivo
+            		 end       
+            end
+            else
+            begin
+            
+                  declare @UsaControlEfectivo2 bit = (select top 1 isnull((
+                       
+                           select top 1 1 from flujo.Cuadre where CajaID = 
+                           (
+                             select top 1 CajaID from flujo.Caja where BancaID = @bancaid and TipoCajaID = 1
+                           )
+                  ),0));
+            
+            
+                  select @UsaControlEfectivo2 as UsaControlEfectivo;
+            end
+        ";
+
 
         internal static string Procedure_SP_GET_BANCA_TRANSACCIONES_A_PARTIR_DE_ULTIMO_CUADRE = "[flujo].[Sp_ConsultaBancaTransaccionesDesdeUltimoCuadre]";
 

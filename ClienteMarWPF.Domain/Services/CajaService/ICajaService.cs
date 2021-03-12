@@ -18,6 +18,8 @@ namespace ClienteMarWPF.Domain.Services.CajaService
 
         MultipleDTO<PagerResumenDTO, List<MovimientoDTO>> LeerMovimientos(MovimientoPageDTO paginaRequest);
 
+        List<MovimientoDTO> LeerMovimientosNoPaginados(MovimientoPageDTO paginaRequest);
+
         decimal LeerCajaBalance(int cajaid);
 
         decimal LeerCajaBalanceMinimo(int cajaid);

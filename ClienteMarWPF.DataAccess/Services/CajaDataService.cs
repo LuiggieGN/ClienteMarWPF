@@ -121,12 +121,42 @@ namespace ClienteMarWPF.DataAccess.Services
             }
         }
 
+
+        public List<MovimientoDTO> LeerMovimientosNoPaginados(MovimientoPageDTO paginaRequest)
+        {
+            try
+            {
+                if (paginaRequest == null)
+                {
+                    throw new Exception("Pagina Invalida");
+                }
+
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(paginaRequest));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Caja_LeerMovimientosNoPaginados, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error en la lectura de la pagina");
+                }
+
+                var result = JSONHelper.CreateNewFromJSONNullValueIgnore<List<MovimientoDTO>>(llamada.Respuesta);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public decimal LeerCajaBalance(int cajaid)
         {
             try
             {
                 var toSend = new ArrayOfAnyType();
-                toSend.Add(JSONHelper.SerializeToJSON(cajaid)); 
+                toSend.Add(JSONHelper.SerializeToJSON(cajaid));
 
                 var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Caja_LeerCajaBalance, toSend);
 
@@ -221,7 +251,6 @@ namespace ClienteMarWPF.DataAccess.Services
                 throw e;
             }
         }
-
 
 
     }//fin de clase

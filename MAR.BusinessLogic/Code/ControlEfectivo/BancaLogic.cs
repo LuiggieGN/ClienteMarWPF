@@ -59,6 +59,18 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
             }
         }
 
+        public static bool BancaUsaControlEfectivo(int bancaid, bool incluyeConfig)
+        {
+            try
+            {
+                return BancaRepository.BancaUsaControlEfectivo(bancaid, incluyeConfig);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static decimal LeerDeudaDeBanca(int bancaid)
         {
             try

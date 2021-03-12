@@ -35,6 +35,7 @@ namespace ClienteMarWPF.UI
         private readonly ICuadreBuilder _cuadreBuilder;
         private readonly ILocalClientSettingStore _localClientSetting;
         private readonly ToastViewModel _toast;
+        private readonly InicioPCResultDTO _inicioPC;
         #endregion
 
         #region Properties
@@ -42,26 +43,24 @@ namespace ClienteMarWPF.UI
         public BancaConfiguracionDTO BancaConfiguracion => _autenticador?.BancaConfiguracion;
         public string GlobalTerminalId => _autenticador?.BancaConfiguracion?.BancaDto?.BancaID.ToString() ?? "- -";
         public string GlobalTerminalNombre => _autenticador?.BancaConfiguracion?.BancaDto?.BanContacto ?? "- -";
-
         public PermisosDTO Permisos => _autenticador?.Permisos;
-
         #region BancaBalance
         public string StrBancaBalance => _autenticador?.BancaBalance?.StrBalance ?? string.Empty;
         public bool VerBancaBalanceEnCaja => _autenticador?.BancaBalance?.TieneBalance ?? false;
         #endregion
-
         public bool EstaLogueado => _autenticador?.IsLoggedIn ?? false;
         public IAuthenticator AutService => _autenticador;
         public IMultipleService MultipleService => _multipleService;
         public IRutaService RutaService => _rutaService;
         public ICuadreBuilder CuadreBuilder => _cuadreBuilder;
         public ILocalClientSettingStore LocalClientSetting => _localClientSetting;
-
-
+        public InicioPCResultDTO InicioPC => _inicioPC;
+        public Action ReIniciarApp { get; }
+        public App Aplicacion { get; }
+        public ToastViewModel Toast => _toast;
         #endregion
 
         #region Commands
-        public ToastViewModel Toast => _toast;
         public ICommand UpdateCurrentViewModelCommand { get; }
         public ICommand LogoutCommand { get; }
         public ICommand IniciarCuadreCommand { get; }
@@ -74,7 +73,12 @@ namespace ClienteMarWPF.UI
                                    IMultipleService multipleService,
                                    IRutaService rutaService,
                                    ICuadreBuilder cuadreBuilder,
-                                   ILocalClientSettingStore localClientSetting)
+                                   ILocalClientSettingStore localClientSetting,
+                                   InicioPCResultDTO inicioPC,
+                                   Action reInicioApp,
+                                   App aplicativo
+            
+            )
         {
 
             _toast = new ToastViewModel();
@@ -97,7 +101,12 @@ namespace ClienteMarWPF.UI
             _rutaService = rutaService;
             _cuadreBuilder = cuadreBuilder;
             _localClientSetting = localClientSetting;
-
+            
+            _inicioPC = inicioPC;
+            
+            ReIniciarApp = reInicioApp;
+            
+            Aplicacion = aplicativo;
 
             LogoutCommand = new LogoutCommand(_autenticador, _navegadordeModulos, _factoriaViewModel);
 
