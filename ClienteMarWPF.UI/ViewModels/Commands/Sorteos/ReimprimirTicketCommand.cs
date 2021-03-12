@@ -16,7 +16,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
         private readonly ISorteosService SorteosService;
         private readonly IAuthenticator Autenticador;
 
-        public ReimprimirTicketCommand(ValidarPagoTicketViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
+        public ReimprimirTicketCommand(ValidarPagoTicketViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService) 
         {
             ViewModel = viewModel;
             Autenticador = autenticador;
@@ -70,5 +70,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
         }
 
     }
+
 
 }

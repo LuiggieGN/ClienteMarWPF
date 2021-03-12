@@ -185,7 +185,7 @@
                             </StackPanel>
                         </Button>
 
-                        <Button  Style="{DynamicResource btn-dark}" Command="{Binding ValidarPagoTicketCommand}" Foreground="White" Width="160" Margin="5 0">
+                        <Button  Style="{DynamicResource btn-dark}" Command="{Binding ValidarPagoTicketCommand}" Mouse.MouseEnter="Button_MouseEnter" Foreground="White" Width="160" Margin="5 0"  >
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                                 <materialDesign:PackIcon Kind="Invoice" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                                 <TextBlock Text="Consultar F5" Foreground="White" VerticalAlignment="Center"/>
@@ -209,20 +209,121 @@
                             <Label x:Name="txtTotalVenta" VerticalContentAlignment="Center" Foreground="#28A745" Content="{Binding TotalVentas, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" />
                         </StackPanel>
                     </Border>
+                    <StackPanel x:Name="SorteosYLoterias" Grid.Column="1" Visibility="Visible">
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Regulares" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="Regulares_MouseDown">
+                                <TextBlock.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource DarkForegroundOpacity50}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <ToggleButton x:Name="CrearSuper"  Margin="10" Unchecked="CrearSuper_Unchecked" Checked="CrearSuper_Checked" />
+                            <TextBlock Text="SuperPales" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
+                                <TextBlock.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                                <Setter Property="Foreground" Value="{DynamicResource DarkForegroundOpacity50}" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+
+                            </TextBlock>
+                        </StackPanel>
+
+
+                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}"  BorderThickness="0 0 0 1"  VerticalAlignment="Top"  Height="400"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
+                            <ListBox.Resources>
+                                <Style TargetType="ListBox">
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                            <Setter Property="ItemTemplate" Value="{StaticResource ListCheckBoxTemplate}" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                            <Setter Property="ItemTemplate" Value="{StaticResource ListRadioButton}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                </Style>
+                            </ListBox.Resources>
+
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel  IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+
+
+                        </ListBox>
+
+                    </StackPanel>
 
                     <!--<Label Content="Ventas de Hoy" HorizontalAlignment="Center"/>-->
 
-                    <ScrollViewer   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <!--<ScrollViewer Name="contenedorTicket"   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <DataGrid x:Name ="tbVentas"  ItemsSource="{Binding ListaTickets, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn   Header="Ticket No."  Binding="{Binding TicketNo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold"/>
-                                <DataGridTextColumn   Header="Ticket"  Binding="{Binding Ticket}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold"/>
+                            <DataGrid.Columns >
+                                <DataGridTemplateColumn Header="Acciones"  Width="80" IsReadOnly="True" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                       
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button  Style="{DynamicResource btn-primary}" Width="20" Height="20" HorizontalAlignment="Left"   Padding="1 1" Margin="5 5" >
+                                                    <StackPanel Orientation="Horizontal" >
+                                                        <materialDesign:PackIcon Kind="ContentCopy" MouseDown="GetTicketSeleccionado" HorizontalContentAlignment="Left" Width="16" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0 0" Padding="5 5" />
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button  Style="{DynamicResource btn-danger}" Width="20" Height="20" HorizontalAlignment="Left"   Padding="1 1" Margin="2 2" >
+                                                    <StackPanel Orientation="Horizontal" >
+                                                        <materialDesign:PackIcon Kind="Clear" MouseDown="GetPrecargarTicketSeleccionado" HorizontalContentAlignment="Left" Width="16"  VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0 0" Padding="5 5" />
+                                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                --><!--<DataGridTemplateColumn Header="Anular"  Width="*" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button  Style="{DynamicResource btn-danger}" Command="{Binding CopiarTicketCommand}" Width="30" Height="30" HorizontalAlignment="Left"  MouseDown="ExtraerTicketSelect" Padding="8 0">
+                                                <StackPanel Orientation="Horizontal" MouseDown="ExtraerTicketSelect" >
+                                                    <materialDesign:PackIcon Kind="Clear"  HorizontalContentAlignment="Left" Width="15" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0 0" Padding="0 0" />
+                                                </StackPanel>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>--><!--
+                                <DataGridTextColumn   Header="Ticket No."  Binding="{Binding TicketNo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Bold"/>
+                                <DataGridTextColumn   Header="Ticket"  Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold"/>
                                 <DataGridTextColumn   Header="Hora"   Width="*" Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold"/>
                                 <DataGridTextColumn   Header="Monto $"  Width="*" Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold" />
+                               
                             </DataGrid.Columns>
                         </DataGrid>
-                    </ScrollViewer>
-
+                    </ScrollViewer>-->
+                   
                     <Label Content="Ultimos Sorteos" HorizontalContentAlignment="Center" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 10 0 0" />
                     <ScrollViewer   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <DataGrid x:Name ="tbSorteos"  ItemsSource="{Binding UltimosSorteos, UpdateSourceTrigger=PropertyChanged}"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
@@ -241,7 +342,7 @@
                 </StackPanel>
 
                 <!--SORTEOS Y LOTERIAS-->
-                <StackPanel x:Name="SorteosYLoterias" Grid.Column="1" Visibility="Collapsed">
+                <!--<StackPanel x:Name="SorteosYLoterias" Grid.Column="1" Visibility="Visible">
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Text="Regulares" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="Regulares_MouseDown">
@@ -310,7 +411,7 @@
 
                     </ListBox>
 
-                </StackPanel>
+                </StackPanel>-->
 
             </Grid>
 

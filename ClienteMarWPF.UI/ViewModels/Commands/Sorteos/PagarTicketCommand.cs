@@ -1,6 +1,7 @@
 ﻿using ClienteMarWPF.Domain.Services.SorteosService;
 using ClienteMarWPF.UI.Modules.Sorteos.Modal;
 using ClienteMarWPF.UI.State.Authenticators;
+using ClienteMarWPF.UI.State.PinterConfig;
 using ClienteMarWPF.UI.ViewModels.Helpers;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,10 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                )
             {
                 var WinnerResponse = SorteosService.ConsultarTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, numero, pin, true);
-       
+                
+                List<string[]> printValidacionTicket = PrintJobs.FromPagoGanador(WinnerResponse.Mensaje, WinnerResponse.Aprobado, Autenticador);
+                TicketTemplateHelper.PrintTicket(printValidacionTicket);
+
 
                 if (WinnerResponse.Aprobado < 0 )
                 {

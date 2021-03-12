@@ -1,5 +1,7 @@
 ﻿using ClienteMarWPF.DataAccess;
 using ClienteMarWPF.Domain.Models.Dtos;
+using ClienteMarWPF.UI.Modules.Sorteos.Modal;
+using ClienteMarWPF.UI.ViewModels.Commands.Sorteos;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
 using ClienteMarWPF.UI.Views.WindowsModals;
 using MarPuntoVentaServiceReference;
@@ -34,26 +36,34 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         private List<Jugada> ListJugadas;
         private DateTime lastKeyPress;
         private List<string> NumerosJugados;
+        private static string ticketSeleccionado;
 
         public static readonly DependencyProperty RealizarApuestaCommandProperty = DependencyProperty.Register("RealizarApuestaCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
-        public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
+        //public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
         public static readonly DependencyProperty ValidarPagoTicketCommandProperty = DependencyProperty.Register("ValidarPagoTicketCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
+        public static readonly DependencyProperty CopiarTicketCommandProperty = DependencyProperty.Register("CopiarTicketCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
 
         public ICommand RealizarApuestaCommand
         {
             get { return (ICommand)GetValue(RealizarApuestaCommandProperty); }
             set { SetValue(RealizarApuestaCommandProperty, value); }
         }
-        public ICommand GetListadoTicketsCommand
-        {
-            get { return (ICommand)GetValue(GetListadoTicketsCommandProperty); }
-            set { SetValue(GetListadoTicketsCommandProperty, value); }
-        }        
+        //public ICommand GetListadoTicketsCommand
+        //{
+        //    get { return (ICommand)GetValue(GetListadoTicketsCommandProperty); }
+        //    set { SetValue(GetListadoTicketsCommandProperty, value); }
+        //}        
         public ICommand ValidarPagoTicketCommand
         {
             get { return (ICommand)GetValue(ValidarPagoTicketCommandProperty); }
             set { SetValue(ValidarPagoTicketCommandProperty, value); }
         }
+        public ICommand CopiarTicketCommand
+        {
+            get { return (ICommand)GetValue(CopiarTicketCommandProperty); }
+            set { SetValue(CopiarTicketCommandProperty, value); }
+        }
+
 
         public SorteosView()
         {
@@ -63,7 +73,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
             combinations = SessionGlobals.SuperPaleDisponibles;
             listSorteo.DataContext = SorteosBinding;
-            MostrarSorteos();
+            //MostrarSorteos();
         }
 
 
@@ -73,6 +83,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             int count = 0;
             foreach (var item in SorteosBinding)
             {
+                
                 if (count <= 1 && item.IsSelected)
                 {
                     count++;
@@ -149,7 +160,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             RemoveAllSeletion();
             ltJugada.ItemsSource = new List<Jugada>();
             txtMontoTotal.Content = "$0.00";
-            MostrarSorteos();
+            //MostrarSorteos();
         }
         private List<SorteosObservable> ConvertToObservables(List<MAR_Loteria2> Sorteos)
         {
@@ -232,7 +243,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
 
             }
         }
-        private void RefreshListJugadas()
+        public void RefreshListJugadas()
         {
             ltJugada.ItemsSource = new List<Jugada>();
             ltJugada.ItemsSource = ListJugadas;
@@ -240,18 +251,30 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             string total = ListJugadas.Sum(x => x.Monto).ToString();
             txtMontoTotal.Content = (Decimal.Parse(total)).ToString("C");
         }
-        private void AddItem(Jugada NuevaJugada = null)
+        public void AddItem(Jugada NuevaJugada = null)
         {
             if (!txtJugada.Text.Trim().Equals(string.Empty) && !txtMonto.Text.Trim().Equals(string.Empty))
             {
                 string jugada = SepararNumeros(txtJugada.Text);
                 var numeros = jugada.Split('-');
+                jugada = "";
+                Array.Sort(numeros);
+                for (var i=0; i< numeros.Length;i++)
+                {
+                    jugada = jugada + numeros[i];
+                    if (i+1 != numeros.Length )
+                    {
+                        jugada = jugada + "-";
+                    }
+                }
                 int tipo = numeros.Count();
                 var nuevajugada = new Jugada { Jugadas = jugada, Monto = Convert.ToInt32(txtMonto.Text), TipoJugada = TipoJugada(tipo) };
                 
+
                 foreach (var item in numeros)
                 {
                     NumerosJugados.Add(item);
+                    
                 }
                 
                 var existeJugada = ListJugadas.Where(x => x.Jugadas == nuevajugada.Jugadas).Any();
@@ -263,6 +286,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 else
                 {
                     ListJugadas.Add(nuevajugada);
+                   
                 }
             }
             else if (NuevaJugada != null)
@@ -373,10 +397,10 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                    
                 }
 
-                if (GetListadoTicketsCommand != null)
-                {
-                    GetListadoTicketsCommand.Execute(null);
-                }
+                //if (GetListadoTicketsCommand != null)
+                //{
+                //    GetListadoTicketsCommand.Execute(null);
+                //}
 
                 LimpiarApuesta();
                 RefreshListJugadas();
@@ -404,7 +428,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     AddItem(item);
                 }
 
-                MostrarSorteos();
+               // MostrarSorteos();
             };
 
             combinacion.ShowDialog();
@@ -465,7 +489,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             {
                 case Key.Subtract:
                     RemoveItem();
-                    MostrarSorteos();
+                    //MostrarSorteos();
                     break;
 
                 case Key.Multiply:
@@ -477,12 +501,13 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     break;    
             
                 case Key.F5:
+                    ticketSeleccionado = null;
                     ValidarPagoTicketCommand.Execute(null);
                     break;   
                     
                 case Key.F9:
                     RemoveItem();
-                    MostrarSorteos();
+                    //MostrarSorteos();
                     break;    
                     
                 case Key.F12:
@@ -578,6 +603,11 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         private void SelectCampo(object sender, RoutedEventArgs e)
         {
             txtMonto.Focus();
+            if (DataContext != null)
+            {
+                var vm = DataContext as SorteosViewModel;
+                vm.SorteoViewClass = this;
+            }
         }
         private void AgregaJugada(object sender, KeyEventArgs e)
         {
@@ -604,12 +634,12 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 }
                 e.Handled = true;
             }
-           MostrarSorteos();
+           //MostrarSorteos();
         }
         private void Quitar(object sender, RoutedEventArgs e)
         {
             RemoveItem();
-            MostrarSorteos();
+            //MostrarSorteos();
         }
         private void Vender(object sender, RoutedEventArgs e)
         {
@@ -619,7 +649,84 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         {
             OpenCombinacion();
         }
+        //public void GetTicketSeleccionado(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (tbVentas.SelectedItem != null) { 
+        //        MAR_Bet Ticket = (MAR_Bet)tbVentas.SelectedItem;
+        //        ticketSeleccionado = Ticket.TicketNo;
+        //        if (CopiarTicketCommand != null)
+        //        {
+        //            CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = Ticket.TicketNo });
+                
+        //        }
+        //        GetJugadasTicket();
+        //    }
+        //}
 
+        //public void GetPrecargarTicketSeleccionado(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (tbVentas.SelectedItem != null)
+        //    {
+        //        MAR_Bet Ticket = (MAR_Bet)tbVentas.SelectedItem;
+        //        ticketSeleccionado = Ticket.TicketNo.ToString();
+
+        //        ValidarPagoTicketCommand.Execute(null);
+        //    }
+
+        //}
+
+        //public string GetTicketNumeroPrecargar()
+        //{
+        //    return ticketSeleccionado;
+        //}
+
+        public void GetJugadasTicket()
+        {
+
+            var Vm = DataContext as SorteosViewModel;
+
+            if (Vm != null)
+            {
+                var jugadas = Vm.ListadoJugada;
+
+                foreach (var jugada in jugadas)
+                {
+                    txtJugada.Text = jugada.Jugadas;
+                    txtMonto.Text = jugada.Monto.ToString();
+                    AddItem(jugada);
+                    RefreshListJugadas();
+
+                }
+                txtJugada.Text = "";
+                txtMonto.Text = "";
+                //MostrarSorteos();
+            }
+        }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ticketSeleccionado = null;
+        }
+
+        private void CheckBox_OnlyLoteria(object sender, RoutedEventArgs e)
+        {
+            var loteria = (sender as CheckBox);
+            var loteriaSeleccionada = loteria.DataContext as SorteosObservable;
+            foreach (var item in SorteosBinding)
+            {
+                if (loteriaSeleccionada.LoteriaID == item.LoteriaID)
+                {
+                    if (item.IsSelected==true)
+                    {
+                        item.IsSelected = false;
+                    }
+                    else if (item.IsSelected == false)
+                    {
+                        item.IsSelected = true;
+                    }
+                }
+            }
+        }
     }
 
 }

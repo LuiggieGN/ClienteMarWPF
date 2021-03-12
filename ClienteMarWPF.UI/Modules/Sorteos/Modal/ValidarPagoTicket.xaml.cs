@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClienteMarWPF.Domain.Models.Dtos;
+using MarPuntoVentaServiceReference;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,6 +22,8 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
     public partial class ValidarPagoTicket : UserControl
     {
         private bool _padreFueHabilitado = true;
+         private static string ticketSeleccionado;
+       
 
 
         public bool CargarDialogo
@@ -48,6 +52,21 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
 
         public static readonly DependencyProperty CargarDialogoProperty = DependencyProperty.Register("CargarDialogo", typeof(bool), typeof(ValidarPagoTicket), new UIPropertyMetadata(false, CargarDialogoChanged));
         public static readonly DependencyProperty OverlayOnProperty = DependencyProperty.Register("OverlayOn", typeof(UIElement), typeof(ValidarPagoTicket), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
+        public static readonly DependencyProperty CopiarTicketCommandProperty = DependencyProperty.Register("CopiarTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
+
+
+        public ICommand GetListadoTicketsCommand
+        {
+            get { return (ICommand)GetValue(GetListadoTicketsCommandProperty); }
+            set { SetValue(GetListadoTicketsCommandProperty, value); }
+        }
+
+        public ICommand CopiarTicketCommand
+        {
+            get { return (ICommand)GetValue(CopiarTicketCommandProperty); }
+            set { SetValue(CopiarTicketCommandProperty, value); }
+        }
 
 
         public static void CargarDialogoChanged(DependencyObject modal, DependencyPropertyChangedEventArgs e)
@@ -102,6 +121,55 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
         {
             InitializeComponent();
             Visibility = Visibility.Hidden;
+            
+            //GetListadoTicketsCommand.Execute(null);
+        }
+
+        public void GetTicketSeleccionado(object sender, MouseButtonEventArgs e)
+        {
+            var VM = DataContext as ValidarPagoTicketViewModel;
+            var VMC = DataContext as SorteosView;
+            var elemento = (sender as Control);
+            MAR_Bet ticket = (MAR_Bet)elemento.DataContext;
+            ticketSeleccionado = ticket.TicketNo;
+
+            if (VM.CopiarTicketCommand != null)
+            {
+                VM.CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = ticketSeleccionado });
+                VM.SorteoVM.SorteoViewClass.GetJugadasTicket();
+            }
+
+        }
+
+        public void SeleccionarTicket(object sender, MouseButtonEventArgs e)
+        {
+            var Vm = DataContext as ValidarPagoTicketViewModel;
+            Vm.TicketNumero = GetTicketNumber();
+        }
+
+       
+        private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var elemento = (sender as Control);
+            MAR_Bet ticket = (MAR_Bet) elemento.DataContext;
+            ticketSeleccionado = ticket.TicketNo;
+        }
+
+        private string GetTicketNumber()
+        {
+            return ticketSeleccionado;
+        }
+
+        private void ReimprimirTicket(object sender, RoutedEventArgs e)
+        {
+            if (ticketSeleccionado != null)
+            {
+                var VM = DataContext as ValidarPagoTicketViewModel;
+                if (VM.CopiarTicketCommand != null)
+                {
+                    VM.CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = ticketSeleccionado });
+                }
+            }
         }
     }
 }

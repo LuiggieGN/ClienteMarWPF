@@ -64,7 +64,9 @@ namespace ClienteMarWPF.DataAccess.Services
         {
             try
             {
-                return clientePuntoDeVenta.PlaceBet(session, Apuesta, Solicitud, ParaPasar);
+                var response = clientePuntoDeVenta.PlaceBet(session, Apuesta, Solicitud, ParaPasar);
+                return response;
+
             }
             catch (Exception)
             {
@@ -122,6 +124,21 @@ namespace ClienteMarWPF.DataAccess.Services
                 return invalid;
             }
         }
+        public MAR_Bet ConsultarTicketSinPin(MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero)
+        {
+            try
+            {
+                return clientePuntoDeVenta.GetBet(session,TicketNumero);
+            }
+            catch (Exception e)
+            {
+                var invalid = new MAR_Bet();
+
+                invalid.Err = e.Message;
+                return invalid;
+            }
+        }
+
         public string AnularTicket(MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin)
         {
             try
