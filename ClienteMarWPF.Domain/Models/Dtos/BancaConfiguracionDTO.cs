@@ -10,6 +10,7 @@ namespace ClienteMarWPF.Domain.Models.Dtos
         public CajaDTO CajaEfectivoDto { get; set; }
         public ControlEfectivoDTO ControlEfectivoConfigDto { get; set; }
 
+
     }
 
 
@@ -25,8 +26,19 @@ namespace ClienteMarWPF.Domain.Models.Dtos
     public class PermisosDTO
     {
         public bool PuedeVenderRecargas { get; set; }   
-        public bool PuedeAnular { get; set; }     
-
+        public bool PuedeAnular { get; set; }
+        public bool Servicios { get; set; }
+        public bool PagoTicket { get; set; }
+        public bool ReimprimirTicket { get; set; }
+        public bool ImprimirTicketRegarga { get; set; }
+        public bool PuedeVentasLocales { get; set; }
+        public bool PuedeImprimirReportes { get; set; }
+        public bool PuedePagarRemoto { get; set; }
+        public int BancaID { get; set; }
+        public bool CincoMinutos { get; set; }
+        public bool MedirInactividad { get; set; }
+        public int MinutosIncatividad { get; set; }
+        public bool PuedeVenderBingo { get; set; }
     }
 
 }

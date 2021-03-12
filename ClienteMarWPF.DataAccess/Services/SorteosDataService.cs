@@ -39,6 +39,7 @@ namespace ClienteMarWPF.DataAccess.Services
         {
             try
             {
+
                 return clientePuntoDeVenta.PlaceMultiBet(session, Apuestas);
 
             }
@@ -131,6 +132,19 @@ namespace ClienteMarWPF.DataAccess.Services
             {
                 return string.Empty;
                 
+            }
+        }
+
+         public MAR_Bet ReimprimirTicket(MarPuntoVentaServiceReference.MAR_Session session, int TicketPin)
+        {
+            try
+            {
+                return clientePuntoDeVenta.RePrint(session,TicketPin);
+
+            }
+            catch( Exception)
+            {
+                return new MAR_Bet();
             }
         }
     }

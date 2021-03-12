@@ -9,6 +9,7 @@
 
 namespace MarPuntoVentaServiceReference
 {
+    using System;
     using System.Runtime.Serialization;
     
     
@@ -9729,7 +9730,8 @@ namespace MarPuntoVentaServiceReference
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
-        
+
+
         public enum EndpointConfiguration
         {
             

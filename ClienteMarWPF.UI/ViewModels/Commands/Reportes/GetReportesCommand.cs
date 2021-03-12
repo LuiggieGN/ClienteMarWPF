@@ -45,6 +45,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
             Action<object> comando = new Action<object>(EnviarReportes);
             base.SetAction(comando);
 
+           
         }
 
 
@@ -633,6 +634,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reporte
                     ViewModel.PremiosVentas.MostrarPremios = Visibility.Hidden;
                     ViewModel.PremiosVentas.NoMostrarPremios = Visibility.Visible;
                     ViewModel.ReportesDeVentas.PosicionTicketNulo = 10;
+                    
                 }
                 //////////////////////////////////////////////////////////////////////////////////////
 

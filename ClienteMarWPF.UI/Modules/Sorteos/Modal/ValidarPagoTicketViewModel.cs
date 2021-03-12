@@ -19,6 +19,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
         public ICommand ConsultarTicketCommand { get; }
         public ICommand PagarTicketCommand { get; }
         public ICommand AnularTicketCommand { get; }
+        public ICommand ReimprimirTicketCommand { get; }
 
         public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
@@ -30,6 +31,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
             ConsultarTicketCommand = new ConsultarTicketCommand(this, autenticador, sorteosService);
             PagarTicketCommand = new PagarTicketCommand(this, autenticador, sorteosService);
             AnularTicketCommand = new AnularTicketCommand(this, autenticador, sorteosService);
+            ReimprimirTicketCommand = new ReimprimirTicketCommand(this, autenticador, sorteosService);
         }
 
         #region PropertyOfView

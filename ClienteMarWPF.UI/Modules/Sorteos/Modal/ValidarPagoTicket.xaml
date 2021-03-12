@@ -135,9 +135,9 @@
                                 <materialDesign:PackIcon Kind="FormatListChecks"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                                 <TextBlock Text="Consultar F5"  VerticalAlignment="Center"/>
                             </StackPanel>
-                        </Button>    
-                        
-                        <Button  Style="{DynamicResource btn-dark}" Foreground="White" Width="160"  Margin="5 0">
+                        </Button>
+
+                        <Button  Style="{DynamicResource btn-dark}" Command="{Binding ReimprimirTicketCommand}"  Foreground="White" Width="160"  Margin="5 0">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                                 <TextBlock Text="Imprimir F12"  VerticalAlignment="Center"/>
