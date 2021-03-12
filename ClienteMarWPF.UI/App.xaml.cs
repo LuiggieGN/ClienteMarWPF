@@ -189,6 +189,7 @@ namespace ClienteMarWPF.UI
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<IAuthenticator, Authenticator>();
             services.AddSingleton<IAccountStore, AccountStore>();
+            services.AddSingleton<IPermisosStore, PermisosStore>();
             services.AddSingleton<IConfiguratorStore, ConfiguratorStore>();
             services.AddSingleton<ILocalClientSettingStore, LocalClientSettingStore>();
             services.AddSingleton<IBancaBalanceStore, BancaBalanceStore>();

@@ -14,6 +14,10 @@ using ClienteMarWPF.UI.State.BancaBalanceStore;
 
 using System;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Threading;
+using System.Threading;
+using System.Timers;
 
 namespace ClienteMarWPF.UI.State.Authenticators
 {
@@ -23,6 +27,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountStore _accountStore;
         private readonly IConfiguratorStore _configuratorStore;
+        private readonly IPermisosStore _permisosStore;
         private readonly IBancaBalanceStore _bancaBalanceStore;
         private readonly IBancaService _bancaService;
         private readonly ICajaService _cajaService;
@@ -35,7 +40,8 @@ namespace ClienteMarWPF.UI.State.Authenticators
             IConfiguratorStore configuratorStore,
             IBancaBalanceStore bancaBalanceStore,
             IBancaService bancaService,
-            ICajaService cajaService
+            ICajaService cajaService,
+            IPermisosStore permisosStore
         )
         {
             _authenticationService = authenticationService;
@@ -44,6 +50,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
             _bancaBalanceStore = bancaBalanceStore;
             _bancaService = bancaService;
             _cajaService = cajaService;
+            _permisosStore = permisosStore;
         }
 
         #region Properties
@@ -91,6 +98,21 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 IsLoggedInStateChanged?.Invoke();
             }        
         }
+
+
+        public PermisosDTO Permisos
+        {
+            get
+            {
+                return _permisosStore.Permisos;
+            }
+            set
+            {
+                _permisosStore.Permisos = value;
+                CurrentPermisosStateChanged?.Invoke();
+            }
+        }
+
         #endregion
 
         public void IniciarSesion(string usuario, string clave, int bancaid, string ipaddress)
@@ -99,7 +121,9 @@ namespace ClienteMarWPF.UI.State.Authenticators
             {
                 CurrentAccount = _authenticationService.Logon2(usuario, clave, bancaid, ipaddress);
 
-                BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid); 
+                BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid);
+
+                SetearPuntoDeVentaPermisos();
 
                 RefrescarBancaBalance();
  
@@ -125,6 +149,43 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 throw ex;
             }
         }
+
+
+        private void SetearPuntoDeVentaPermisos() 
+        {
+            var permisos = new PermisosDTO();
+
+            var MoreOptions = this.CurrentAccount.MAR_Setting2.MoreOptions.ToList();
+
+                for (var i = 0; i < MoreOptions.Count; i++)
+                {
+                    var ConfigValue = MoreOptions[i];
+                    var ArrayValue = ConfigValue.Split("|");
+                    if (ArrayValue[0] == "BANCA_VENDE_CINCOMINUTOS")
+                    {
+                        permisos.CincoMinutos = true;
+
+                    }else if(ArrayValue[0] == "BANCA_PAGA_SERVICIOS")
+                    {
+                        permisos.Servicios = true;
+                    }
+                    else if (ArrayValue[0] == "BANCA_VENDE_TARJETAS")
+                    {
+                        permisos.PuedeVenderRecargas = true;
+                    } else if (ArrayValue[0] == "BANCA_INTERVALO_INACTIVIDAD_MINUTOS")
+                    {
+                        permisos.MedirInactividad = true;
+                        permisos.MinutosIncatividad = Convert.ToInt32(ArrayValue[1]);
+                    }else if(ArrayValue[0] == "BANCA_VENDE_BINGO")
+                    {
+                        permisos.PuedeVenderBingo = true;
+                    }
+
+                }
+            
+            Permisos = permisos;
+        }
+
 
         public void RefrescarBancaBalance()
         {
@@ -158,9 +219,6 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
             BancaBalance = bancaBalance;
         }
-
-
-
         public void CerrarSesion()
         {
             CurrentAccount = null;
@@ -177,6 +235,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         public event Action CurrentBancaConfiguracionStateChanged;
         public event Action CurrentBancaBalanceStateChanged;
         public event Action IsLoggedInStateChanged;
+        public event Action CurrentPermisosStateChanged;
     }// fin de clase Authenticator
 }// fin de namespace Authenticators
 

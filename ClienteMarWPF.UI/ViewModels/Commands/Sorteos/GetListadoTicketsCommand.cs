@@ -44,6 +44,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
 
                     foreach (var item in sorteos)
                     {
+                    
                         var result = SorteosService.ListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
                         if (result.Tickets != null)
                         {
@@ -56,6 +57,15 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                             }
                         
                         }
+
+                        var data = result.Tickets.OfType<MAR_Bet>().ToList();
+
+                        foreach (var ticket in data)
+                        {
+                            ViewModel.listaTicketsJugados.Add(ticket);
+                        }
+ 
+
                     }
 
                     ViewModel.ListadoTicketsPrecargados.OrderByDescending(x => x.Ticket).Reverse();

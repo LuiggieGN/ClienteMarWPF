@@ -194,6 +194,7 @@
                         </Button>
 
                         <Button  Style="{DynamicResource btn-success}"  Command="{Binding ReimprimirTicketCommand}"  Foreground="White" Width="160"  Margin="5 0">
+
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                                 <TextBlock Text="Reimprimir F12"  VerticalAlignment="Center"/>

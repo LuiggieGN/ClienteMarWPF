@@ -24,11 +24,11 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
         public ICommand ReimprimirTicketCommand { get; }
         public ICommand GetListadoTicketsCommand { get; }
         public ICommand CopiarTicketCommand { get; }
-
         public ObservableCollection<MAR_Bet> listaTicketsJugados;
         public SorteosView claseSorteo;
         public SorteosViewModel SorteoVM;
         
+
         public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
 
@@ -43,10 +43,10 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
             AnularTicketCommand = new AnularTicketCommand(this, autenticador, sorteosService);
             ReimprimirTicketCommand =new CopiarTicketCommand(viewModel, autenticador, sorteosService,true,this);
             CopiarTicketCommand = new CopiarTicketCommand(viewModel, autenticador, sorteosService,false,this);
-            SorteoVM = viewModel;
-            
+            SorteoVM = viewModel;            
             //this.TicketNumero = new SorteosView().GetTicketNumeroPrecargar();
             GetListadoTicketsCommand.Execute(null);
+
         }
 
         #region PropertyOfView
