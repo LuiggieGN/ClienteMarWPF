@@ -112,14 +112,14 @@
                 </StackPanel>
             </Button>
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}">
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Dice5" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Cinco Minutos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}">
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}"  Visibility="{Binding Permisos.Servicios, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="BulbOn" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Paga Facil" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -205,6 +205,13 @@
                 </StackPanel>
             </Button>
 
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}"  CommandParameter="{x:Static nav:Modulos.Reporte}" >
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="WifiOff" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Ventas locales" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
 
 
 
@@ -223,7 +230,7 @@
 
             <Separator BorderBrush="Orange"  Margin="10 10 10 0" Background="#00A8E8" />
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding LogoutCommand}">
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding LogoutCommand}" Click="Button_Click">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Logout" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Salir" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>

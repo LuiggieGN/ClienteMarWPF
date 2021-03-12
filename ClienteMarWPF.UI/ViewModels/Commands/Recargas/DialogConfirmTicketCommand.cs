@@ -7,20 +7,19 @@ using System.Text;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
 {
-    public class DialogConfirmTicketCommand: ActionCommand
+    public class DialogConfirmTicketCommand : ActionCommand
     {
         private readonly DialogImprimirTicketViewModel _viewModel;
         private IRecargaService _recargaService;
         private IAuthenticator _autenticador;
-        public DialogConfirmTicketCommand(DialogImprimirTicketViewModel viewModel, IAuthenticator autenticador,  IRecargaService recargaService):base()
+        public DialogConfirmTicketCommand(DialogImprimirTicketViewModel viewModel, IAuthenticator autenticador, IRecargaService recargaService) : base()
         {
             _viewModel = viewModel;
             _recargaService = recargaService;
 
-            Action<object> comando = new Action<object>(CrearTicket);
+            var comando = new Action<object>(CrearTicket);
             base.SetAction(comando);
         }
-
 
         public void CrearTicket(object parametro)
         {

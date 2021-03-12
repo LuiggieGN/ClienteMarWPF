@@ -41,7 +41,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
             {
                 var WinnerResponse = SorteosService.ConsultarTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, numero, pin);
 
-
                 if (WinnerResponse.Aprobado < 0)
                 {
                     ViewModel.PudePagar = false;
@@ -66,10 +65,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                                      background: "#DC3545",
                                      puedeMostrarse: true);
 
-
-
             }
 
+           
         }
     }
 }

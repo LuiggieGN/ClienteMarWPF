@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 using System.Windows.Input;
-
-
+using System.Windows.Threading;
 using ClienteMarWPF.Domain.Enums;
 
 using ClienteMarWPF.UI.State.Authenticators;
@@ -21,13 +21,15 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
         private readonly IAuthenticator _authenticator;
         private readonly INavigator _navigator;
         private readonly IViewModelFactory _viewModelFactory;
-        
+
         public LogoutCommand(IAuthenticator authenticator, INavigator navigator, IViewModelFactory viewModelFactory)
         {
             _authenticator = authenticator;
             _navigator = navigator;
             _viewModelFactory = viewModelFactory;
         }
+
+
 
         public bool CanExecute(object parameter)
         {

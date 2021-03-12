@@ -14,6 +14,10 @@ using ClienteMarWPF.UI.State.BancaBalanceStore;
 
 using System;
 using System.Globalization;
+using System.Linq;
+using System.Windows.Threading;
+using System.Threading;
+using System.Timers;
 
 namespace ClienteMarWPF.UI.State.Authenticators
 {
@@ -119,7 +123,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
                 BancaConfiguracion = _bancaService.LeerBancaConfiguraciones(bancaid);
 
-                SetearPuntoDeVentaPermisos(BancaConfiguracion);
+                SetearPuntoDeVentaPermisos();
 
                 RefrescarBancaBalance();
  
@@ -147,17 +151,38 @@ namespace ClienteMarWPF.UI.State.Authenticators
         }
 
 
-        private void SetearPuntoDeVentaPermisos(BancaConfiguracionDTO configuracion) 
+        private void SetearPuntoDeVentaPermisos() 
         {
             var permisos = new PermisosDTO();
-            var banca = configuracion.BancaDto;
 
-            if (banca != null)
-            {
-                permisos.PuedeVenderRecargas = banca.BanTarjeta;
-                permisos.PuedeAnular = banca.BanAnula;
-            }
+            var MoreOptions = this.CurrentAccount.MAR_Setting2.MoreOptions.ToList();
 
+                for (var i = 0; i < MoreOptions.Count; i++)
+                {
+                    var ConfigValue = MoreOptions[i];
+                    var ArrayValue = ConfigValue.Split("|");
+                    if (ArrayValue[0] == "BANCA_VENDE_CINCOMINUTOS")
+                    {
+                        permisos.CincoMinutos = true;
+
+                    }else if(ArrayValue[0] == "BANCA_PAGA_SERVICIOS")
+                    {
+                        permisos.Servicios = true;
+                    }
+                    else if (ArrayValue[0] == "BANCA_VENDE_TARJETAS")
+                    {
+                        permisos.PuedeVenderRecargas = true;
+                    } else if (ArrayValue[0] == "BANCA_INTERVALO_INACTIVIDAD_MINUTOS")
+                    {
+                        permisos.MedirInactividad = true;
+                        permisos.MinutosIncatividad = Convert.ToInt32(ArrayValue[1]);
+                    }else if(ArrayValue[0] == "BANCA_VENDE_BINGO")
+                    {
+                        permisos.PuedeVenderBingo = true;
+                    }
+
+                }
+            
             Permisos = permisos;
         }
 
