@@ -19,6 +19,7 @@ namespace ClienteMarWPF.DataAccess.Services
 
         public MAR_Suplidor[] GetSuplidor(MAR_Session _Session)
         {
+
            return clientePuntoDeVenta.GetSuplidores(_Session);
         }
 
@@ -33,5 +34,8 @@ namespace ClienteMarWPF.DataAccess.Services
         {
             clientePuntoDeVenta.ConfirmRecarga(_Session);
         }
+
+
+       
     }
 }

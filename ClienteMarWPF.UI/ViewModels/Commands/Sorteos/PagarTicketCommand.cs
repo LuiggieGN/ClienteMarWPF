@@ -1,9 +1,11 @@
 ﻿using ClienteMarWPF.Domain.Services.SorteosService;
 using ClienteMarWPF.UI.Modules.Sorteos.Modal;
 using ClienteMarWPF.UI.State.Authenticators;
+using ClienteMarWPF.UI.State.PinterConfig;
 using ClienteMarWPF.UI.ViewModels.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 
@@ -32,7 +34,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
             var numero = ViewModel.TicketNumero;
             var pin = ViewModel.TicketPin;
 
-
             if (
                     (!InputHelper.InputIsBlank(ViewModel.TicketNumero))
                        &&
@@ -40,25 +41,30 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                )
             {
                 var WinnerResponse = SorteosService.ConsultarTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, numero, pin, true);
+                
+                List<string[]> printValidacionTicket = PrintJobs.FromPagoGanador(WinnerResponse.Mensaje, WinnerResponse.Aprobado, Autenticador);
+                TicketTemplateHelper.PrintTicket(printValidacionTicket);
 
-                if (WinnerResponse.Aprobado < 0)
+
+                if (WinnerResponse.Aprobado < 0 )
                 {
                     ViewModel.PudePagar = false;
 
                     ViewModel.SetMensaje(mensaje: WinnerResponse.Mensaje,
                                          icono: "Error",
                                          background: "#DC3545",
-                                         puedeMostrarse: true); 
+                                         puedeMostrarse: true);
                 }
                 else
                 {
                     ViewModel.PudePagar = false;
 
                     ViewModel.SetMensaje(mensaje: WinnerResponse.Mensaje,
-                                         icono: "Check",
-                                         background: "#28A745",
-                                         puedeMostrarse: true); 
+                                        icono: "Check",
+                                        background: "#28A745",
+                                        puedeMostrarse: true);
                 }
+           
             }
             else
             {
@@ -69,6 +75,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                                      background: "#DC3545",
                                      puedeMostrarse: true);
             }
+
 
         }
     }

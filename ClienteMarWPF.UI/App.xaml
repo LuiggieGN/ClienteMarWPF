@@ -10,6 +10,7 @@
              xmlns:moduloRecargas="clr-namespace:ClienteMarWPF.UI.Modules.Recargas"   
              xmlns:moduloMensajeria="clr-namespace:ClienteMarWPF.UI.Modules.Mensajeria"   
              xmlns:moduloPagoServicios="clr-namespace:ClienteMarWPF.UI.Modules.PagoServicios"   
+             xmlns:moduloValidarPagos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos.Modal"   
              xmlns:modulo="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
              xmlns:efectivoInicio="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio"
              xmlns:efectivoMovimiento="clr-namespace:ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento"
@@ -47,7 +48,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>-->
-
+<!-- GetListadoTicketsCommand="{Binding GetListadoTicketsCommand}"-->
 
             <DataTemplate DataType="{x:Type  moduloHome:HomeViewModel}">
                 <moduloHome:HomeView />
@@ -60,11 +61,18 @@
             <DataTemplate DataType="{x:Type  moduloSorteos:SorteosViewModel}">
                 <moduloSorteos:SorteosView 
                     RealizarApuestaCommand="{Binding RealizarApuestaCommand}" 
-                    GetListadoTicketsCommand="{Binding GetListadoTicketsCommand}" 
                     ValidarPagoTicketCommand="{Binding ValidarPagoTicketCommand}"
+                    CopiarTicketCommand="{Binding CopiarTicketCommand}"
+                   
                     />
             </DataTemplate>
-
+            <DataTemplate DataType="{x:Type  moduloValidarPagos:ValidarPagoTicketViewModel}">
+                <moduloValidarPagos:ValidarPagoTicket
+                   GetListadoTicketsCommand="{Binding GetListadoTicketsCommand}"
+                   CopiarTicketCommand="{Binding CopiarTicketCommand}"
+                    />
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type  moduloCincoMinutos:CincoMinutosViewModel}">
                 <moduloCincoMinutos:CincoMinutosView />
             </DataTemplate>

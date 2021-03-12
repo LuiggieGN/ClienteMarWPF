@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos.Modal"
-             mc:Ignorable="d"         >
+             mc:Ignorable="d" 
+            >
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
@@ -15,18 +16,73 @@
                 <Border.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Opacity="0.5" Direction="270" ShadowDepth="0.7" />
                 </Border.BitmapEffect>
-                <Grid  >
+                <Grid  Width="550px" Height="Auto" >
 
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     
+                    
+                    
                     <StackPanel>
-                        <Label Content="Validar tickets ganadores" Foreground="White" Background="{StaticResource BackgroundFour}" FontSize="18" HorizontalContentAlignment="Center"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <Label  Foreground="White" Background="{StaticResource BackgroundFour}" FontSize="18"  Name="titulo" >
+                            <StackPanel Orientation="Horizontal" Width="{Binding ElementName=titulo,Path=ActualWidth}" HorizontalAlignment="Center" Name="stacktitulo">
+                                <Label Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="50,0,0,0" Width="450px">Ticket De Hoy</Label>
+                                <Button Grid.Row="3" HorizontalAlignment="Right" Width="50" HorizontalContentAlignment="Left" Style="{DynamicResource btn-warning}" Command="{Binding CerrarValidarPagoTicketCommand}" Foreground="White" Background="{StaticResource BackgroundFour}" BorderBrush="{StaticResource BackgroundFour}" >
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="WindowClose" VerticalAlignment="Center" />
+
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Label>
+                        <ScrollViewer Name="contenedorTicket"   Height="365"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <DataGrid x:Name ="tbVentas"  ItemsSource="{Binding ListaTickets, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns >
+                                    <DataGridTemplateColumn  Width="70" >
+                                        <DataGridTemplateColumn.CellTemplate>
+
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Height="20" Margin="0 0">
+                                                    <Button  Style="{DynamicResource btn-primary}" Width="20" Height="20" HorizontalAlignment="Right"   Padding="1 0" Margin="2 0" >
+                                                        <StackPanel Orientation="Horizontal" Margin="0 0" >
+                                                            <materialDesign:PackIcon Kind="ContentCopy" MouseDown="GetTicketSeleccionado" MouseEnter="PackIcon_MouseEnter" HorizontalContentAlignment="Left" Width="16"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="0 0" Padding="5 5" />
+                                                        </StackPanel>
+                                                    </Button>
+                                                    <Button  Style="{DynamicResource btn-success}" Width="20" Height="20" HorizontalAlignment="left"  Padding="1 0" Margin="2 0" >
+                                                        <StackPanel Orientation="Horizontal" >
+                                                            <materialDesign:PackIcon Kind="Ticket" MouseDown="SeleccionarTicket" MouseEnter="PackIcon_MouseEnter" HorizontalContentAlignment="left" Width="16"   VerticalAlignment="stretch" HorizontalAlignment="left" Margin="0 0" Padding="5 5" />
+                                                        </StackPanel>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <!--<DataGridTemplateColumn Header="Anular"  Width="*" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button  Style="{DynamicResource btn-danger}" Command="{Binding CopiarTicketCommand}" Width="30" Height="30" HorizontalAlignment="Left"  MouseDown="ExtraerTicketSelect" Padding="8 0">
+                                                <StackPanel Orientation="Horizontal" MouseDown="ExtraerTicketSelect" >
+                                                    <materialDesign:PackIcon Kind="Clear"  HorizontalContentAlignment="Left" Width="15" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0 0" Padding="0 0" />
+                                                </StackPanel>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>-->
+                                    <DataGridTextColumn   Header="Ticket No." Width="*" Binding="{Binding TicketNo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Regular"/>
+                                    <DataGridTextColumn   Header="Ticket" Width="*"  Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
+                                    <DataGridTextColumn   Header="Hora"   Width="*" Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
+                                    <DataGridTextColumn   Header="Monto $"  Width="*" Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular" />
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </ScrollViewer>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="70px">
                             <TextBox
                       Text="{Binding TicketNumero, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:HintAssist.Hint="Ticket"
@@ -54,7 +110,7 @@
                     </StackPanel>
                     
 
-                    <StackPanel Grid.Row="2" Background="LightGray">
+                    <StackPanel Grid.Row="2" Background="LightGray" >
                         <StackPanel  Visibility="{Binding PudePagar, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
@@ -84,10 +140,10 @@
                                                   VerticalAlignment="Stretch" 
                                                   Visibility="{Binding MostrarMensajes, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                   >
-                            <StackPanel Orientation="Horizontal" Margin="30 0 0 0">
+                            <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
                                 <materialDesign:PackIcon  Kind="{Binding MensajeIcono, UpdateSourceTrigger=PropertyChanged}"
                                                           VerticalAlignment="Center" 
-                                                          Margin="5 0"
+                                                          Margin="5 0 0 0"
                                                           Width="20"
                                                           Height="20" />
                                 <TextBlock  
@@ -107,13 +163,13 @@
                                        Text="{Binding MensajeResponse, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>-->
                     </StackPanel>
-                
-                    <Button Grid.Row="3" Style="{DynamicResource btn-warning}" Command="{Binding CerrarValidarPagoTicketCommand}" Foreground="Black" Width="160"  Margin="5 20" >
+
+                    <!--<Button Grid.Row="3" Style="{DynamicResource btn-warning}" Command="{Binding CerrarValidarPagoTicketCommand}" Foreground="Black" Width="100" Margin="5 20" >
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="WindowClose" VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                             <TextBlock Text="Cerrar ventana"  VerticalAlignment="Center"/>
                         </StackPanel>
-                    </Button>
+                    </Button>-->
                     <!--<StackPanel x:Name="stkDetalle"  Grid.Row="2" Margin="5">
                         <Label Content="Detalle de Apuesta" FontSize="16" HorizontalContentAlignment="Center" VerticalAlignment="Center"  />
                         <DataGrid x:Name="tbApuesta" ColumnWidth="*"  Width="570" Height="190" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" />
@@ -128,23 +184,24 @@
                     
 
 
-                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Margin="15">
+                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Margin="10" Height="40px">
 
-                        <Button  Style="{DynamicResource btn-primary}" Command="{Binding ConsultarTicketCommand}" Foreground="White" Width="160">
+                        <Button  Style="{DynamicResource btn-primary}" Command="{Binding ConsultarTicketCommand}" Foreground="White" Width="145">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="FormatListChecks"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                                 <TextBlock Text="Consultar F5"  VerticalAlignment="Center"/>
                             </StackPanel>
-                        </Button>    
-                        
-                        <Button  Style="{DynamicResource btn-dark}" Foreground="White" Width="160"  Margin="5 0">
+                        </Button>
+
+                        <Button  Style="{DynamicResource btn-success}"  Command="{Binding ReimprimirTicketCommand}"  Foreground="White" Width="160"  Margin="5 0">
+
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
-                                <TextBlock Text="Imprimir F12"  VerticalAlignment="Center"/>
+                                <TextBlock Text="Reimprimir F12"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
-                        <Button  Style="{DynamicResource btn-danger}" Command="{Binding AnularTicketCommand}" Foreground="White" Width="160"  Margin="5 0" >
+                        <Button  Style="{DynamicResource btn-danger}" Command="{Binding AnularTicketCommand}" Foreground="White" Width="145"  Margin="5 0" >
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                                 <TextBlock Text="Anular F9"  VerticalAlignment="Center"/>

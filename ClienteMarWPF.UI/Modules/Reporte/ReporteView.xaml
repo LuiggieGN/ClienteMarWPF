@@ -1268,7 +1268,7 @@
                         
                         <!--<TextBlock Text="{Binding ObservableListadoPremios}" Width="300" Height="400px"></TextBlock>-->
                         <Label Content="{Binding ObservableListadoPremios}" Height="Auto"></Label>
-                        <Button  Style="{DynamicResource btn-primary}" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
+                        <Button  Style="{DynamicResource btn-primary}" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4" >
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
 

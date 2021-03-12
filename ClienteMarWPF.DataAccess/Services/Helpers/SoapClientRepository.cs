@@ -41,9 +41,11 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 string[] splitaddress;
 
 
-                //serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
+
+                serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-ptovta.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
                 //serveraddress = @"http://localhost:60/mar-ptovta.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente -- ISMEL 
-                serveraddress = @"http://localhost/MarVentasService/mar-ptovta.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente -- LUIGGIE 
+                //serveraddress = @"http://localhost/MarVentasService/mar-ptovta.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente -- LUIGGIE 
+
 
 
 
@@ -88,8 +90,9 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-                //serveraddress = @"http://localhost:14217/mar-flujo.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente ISMEL Y EDISON
-                serveraddress = @"http://localhost/EfectivoService/mar-flujo.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente -- LUIGGIE 
+
+                serveraddress = @"http://localhost:14217/mar-flujo.asmx";  //Remover esta linea al realizar el pase a Produccion :: OJO pendiente ISMEL Y EDISON
+                //serveraddress = @"http://localhost/EfectivoService/mar-flujo.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente -- LUIGGIE 
 
 
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
@@ -132,9 +135,11 @@ namespace ClienteMarWPF.DataAccess.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
+
                 serveraddress = @"http://pruebasmar.ddns.net/mar-svr5/mar-hacienda.asmx"; //Remover esta linea al realizar el pase a Produccion :: OJO pendiente
 
-                if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
+
+               if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
                     splitaddress = serverbackup.Replace("localhost", ServiceHostIP).Split('/');
                 }

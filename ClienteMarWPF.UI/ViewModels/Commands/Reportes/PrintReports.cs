@@ -95,6 +95,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
                 else if (nombre == "Reportes De Ventas")
                 {
                     PrintVentas(parametro);
+
                 }
                 else if (nombre == "Lista De Tickets")
                 {
@@ -173,6 +174,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Reportes
             int loteria = new ReporteView().GetLoteriaID();
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var ReporteVenta = ReportesService.ReporteDeVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteria, ViewModel.Fecha);
+            
             MAR_RptVenta TemplatePrintVenta = new MAR_RptVenta(){
                 CntNumeros = ReporteVenta.CntNumeros,
                 CntTarjetas = ReporteVenta.CntTarjetas,

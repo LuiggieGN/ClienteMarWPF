@@ -36,6 +36,7 @@ namespace ClienteMarWPF.DataAccess.Services
 
             try
             {
+                
                 cuenta.MAR_Setting2 = MarCliente.Logon2(usuario, clave, bancaid, ipaddress);
             }
             catch (Exception ex) 

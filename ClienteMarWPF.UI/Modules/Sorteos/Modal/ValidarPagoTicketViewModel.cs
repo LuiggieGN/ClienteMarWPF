@@ -5,8 +5,10 @@ using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.ViewModels.Base;
 using ClienteMarWPF.UI.ViewModels.Commands.Sorteos;
 using ClienteMarWPF.UI.ViewModels.Factories;
+using MarPuntoVentaServiceReference;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 
@@ -14,22 +16,37 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
 {
     public class ValidarPagoTicketViewModel: BaseViewModel
     {
-
+        
         public ICommand CerrarValidarPagoTicketCommand { get; }
         public ICommand ConsultarTicketCommand { get; }
         public ICommand PagarTicketCommand { get; }
         public ICommand AnularTicketCommand { get; }
+        public ICommand ReimprimirTicketCommand { get; }
+        public ICommand GetListadoTicketsCommand { get; }
+        public ICommand CopiarTicketCommand { get; }
+        public ObservableCollection<MAR_Bet> listaTicketsJugados;
+        public SorteosView claseSorteo;
+        public SorteosViewModel SorteoVM;
+        
 
         public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
 
             SetMensajeToDefaultSate();
 
+            listaTicketsJugados = new ObservableCollection<MAR_Bet>();
 
             CerrarValidarPagoTicketCommand = new CerrarValidarPagoTicketCommand(this);
+            GetListadoTicketsCommand = new GetListadoTicketsCommand(viewModel, autenticador, sorteosService,this);
             ConsultarTicketCommand = new ConsultarTicketCommand(this, autenticador, sorteosService);
             PagarTicketCommand = new PagarTicketCommand(this, autenticador, sorteosService);
             AnularTicketCommand = new AnularTicketCommand(this, autenticador, sorteosService);
+            ReimprimirTicketCommand =new CopiarTicketCommand(viewModel, autenticador, sorteosService,true,this);
+            CopiarTicketCommand = new CopiarTicketCommand(viewModel, autenticador, sorteosService,false,this);
+            SorteoVM = viewModel;            
+            //this.TicketNumero = new SorteosView().GetTicketNumeroPrecargar();
+            GetListadoTicketsCommand.Execute(null);
+
         }
 
         #region PropertyOfView
@@ -90,7 +107,9 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
                 _pudePagar = value;
                 NotifyPropertyChanged(nameof(PudePagar));
             }
-        }        
+        }
+
+       
         public string MensajeResponse
         {
             get
@@ -183,8 +202,19 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
             MostrarMensajes = puedeMostrarse;        
         }
 
+        public ObservableCollection<MAR_Bet> ListaTickets
+        {
+            get
+            {
+                return listaTicketsJugados;
+            }
 
+        }
 
-
+        public SorteosView ClaseSorteo
+        {
+            get { return claseSorteo; }
+            set { claseSorteo = value; NotifyPropertyChanged(nameof(ClaseSorteo)); }
+        }
     }
 }
