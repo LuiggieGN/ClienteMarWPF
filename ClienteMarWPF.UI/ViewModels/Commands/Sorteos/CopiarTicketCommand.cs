@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Timers;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
 {
@@ -193,8 +195,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 else
                 {
                     ViewModel.ListadoJugada = listJugadas;
-                    var VSM = DataContext as SorteosView;
-                    
+                    Thread.Sleep(700);
                     ViewModelValidar.CerrarValidarPagoTicketCommand.Execute(null);
                     
                 }

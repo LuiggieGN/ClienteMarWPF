@@ -137,7 +137,6 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
             {
                 VM.CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = ticketSeleccionado });
                 VM.SorteoVM.SorteoViewClass.GetJugadasTicket();
-                     
             }
 
         }
