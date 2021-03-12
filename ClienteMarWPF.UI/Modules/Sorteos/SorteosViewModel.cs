@@ -30,6 +30,8 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         private List<Jugada> _listJugadas;
         public SorteosView SorteoViewClass { get; set;}
 
+        public List<int> loteriasMultiples = new List<int>() { };
+
         public SorteosViewModel(IAuthenticator autenticador, ISorteosService sorteosService)
         {
             RealizarApuestaCommand = new RealizarApuestaCommand(this, autenticador, sorteosService);
@@ -126,6 +128,12 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 _ticketSeleccionado = value;
                 NotifyPropertyChanged(nameof(TicketSeleccionado));
             }
+        }
+
+        public List<int> LoteriasMultiples
+        {
+            get { return loteriasMultiples; }
+            set { loteriasMultiples = value; NotifyPropertyChanged(nameof(LoteriasMultiples)); }
         }
         #endregion
 

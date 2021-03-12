@@ -57,16 +57,14 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
                     }
                     else
                     {
-                        RecargasIndexRecarga DATOSRecargas = new RecargasIndexRecarga() { UsuarioId = 0, Solicitud = Solicitud, Clave = "ok", Monto = recarga.Costo, Numero = recarga.Numero, Serie = recarga.Serie, Suplidor = "ok", SuplidorId = 0 };
-
-                       //List<string[]> impresionRecargas = PrintJobs.FromImprimirRecarga(DATOSRecargas,Autenticador);
-                       //TicketTemplateHelper.PrintTicket(impresionRecargas);
+                    RecargasIndexRecarga DATOSRecargas = new RecargasIndexRecarga() { UsuarioId = 0, Solicitud = Solicitud, Clave = "ok", Monto = recarga.Costo, Numero = recarga.Numero, Serie = recarga.Serie, Suplidor = "ok", SuplidorId = 0 };
+                    //RecargasIndexRecarga DATOSRecargas = new RecargasIndexRecarga() { Clave = "ok", Monto = 30, Numero = "809999999", Serie = "12334", Solicitud = 123434, Suplidor = "Claro", SuplidorId = 12, UsuarioId = 12 };//Para probar
+                       
+                        List<string[]> impresionRecargas = PrintJobs.FromImprimirRecarga(DATOSRecargas,Autenticador);
+                        TicketTemplateHelper.PrintTicket(impresionRecargas);
 
                         ViewModel.Dialog = new DialogImprimirTicketViewModel(_nav, Autenticador, _vistas, RecargaService, DATOSRecargas);
                         ViewModel.Dialog.Mostrar();
-                        
-                       
-                       
                     }
                 }
                 catch (Exception e)

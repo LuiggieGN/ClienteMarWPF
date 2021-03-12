@@ -115,7 +115,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 LoteriaTicketPin ticketPin = new LoteriaTicketPin() { Loteria = NombreLoteria, Pin = Pin, Ticket = jugadas.TicketNo };
                 loteriatickpin.Add(ticketPin);
                 ////////////////////////////////////////////////////////////////////////
-
+                listJugadas = new List<Jugada>() { };
                 foreach (var jugada in jugadas.Items)
                 {
 

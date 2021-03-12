@@ -5,6 +5,7 @@ using ClienteMarWPF.UI.State.PinterConfig;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
 {
@@ -32,6 +33,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
                 List<string[]> impresionRecargas = PrintJobs.FromImprimirRecarga(datosRecargas, _autenticador);
                 TicketTemplateHelper.PrintTicket(impresionRecargas);
                 new CerrarDialogoImprimirTicketCommand(_viewModel);
+                Thread.Sleep(700);
+                _viewModel.CerrarDialogoInicioCommand.Execute(null);
                
             }
             catch (Exception e) {

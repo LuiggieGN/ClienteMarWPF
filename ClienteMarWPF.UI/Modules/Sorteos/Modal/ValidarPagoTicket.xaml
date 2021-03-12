@@ -77,11 +77,17 @@
                                     <DataGridTextColumn   Header="Ticket No." Width="*" Binding="{Binding TicketNo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Regular"/>
                                     <DataGridTextColumn   Header="Ticket" Width="*"  Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
                                     <DataGridTextColumn   Header="Hora"   Width="*" Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
-                                    <DataGridTextColumn   Header="Monto $"  Width="*" Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular" />
+                                    <DataGridTextColumn   Header="Monto $"  Width="*"  Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular" />
 
                                 </DataGrid.Columns>
                             </DataGrid>
                         </ScrollViewer>
+                        <Border BorderThickness="0 0 0 0" BorderBrush="Black">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                                <Label Content="Ventas de Hoy: "  VerticalContentAlignment="Center" FontSize="14"   BorderThickness="0 0 0 0" />
+                                <Label x:Name="txtTotalVenta" VerticalContentAlignment="Center" Margin="0 0 20 0" FontWeight="Bold"  Foreground="Black" Content="{Binding TotalVentas, UpdateSourceTrigger=PropertyChanged}"  FontSize="14" />
+                            </StackPanel><!-- Foreground="#28A745"-->
+                        </Border>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="70px">
                             <TextBox
                       Text="{Binding TicketNumero, UpdateSourceTrigger=PropertyChanged}"

@@ -51,6 +51,7 @@ namespace ClienteMarWPF.UI.Modules.Recargas.Modal
 
         public static void CargarDialogoChanged(DependencyObject modal, DependencyPropertyChangedEventArgs e)
         {
+            
             var verdialogo = (bool)e.NewValue;
             var dialogo = (DialogImprimirTicket)modal;
 
@@ -96,6 +97,8 @@ namespace ClienteMarWPF.UI.Modules.Recargas.Modal
         {
             InitializeComponent();
             Visibility = Visibility.Hidden;
+            botonSalir.Focusable=true;
+            botonSalir.Focus();
         }
     }
 }
