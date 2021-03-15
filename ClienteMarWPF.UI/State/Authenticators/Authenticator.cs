@@ -91,12 +91,14 @@ namespace ClienteMarWPF.UI.State.Authenticators
             }
         }
         //public bool IsLoggedIn => CurrentAccount != null;
-        public bool IsLoggedIn { 
-            get => _isLoggedIn; 
-            set {
+        public bool IsLoggedIn
+        {
+            get => _isLoggedIn;
+            set
+            {
                 _isLoggedIn = value;
                 IsLoggedInStateChanged?.Invoke();
-            }        
+            }
         }
 
 
@@ -126,7 +128,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 SetearPuntoDeVentaPermisos();
 
                 RefrescarBancaBalance();
- 
+
             }
             catch (UserNotFoundException ex1)
             {
@@ -151,38 +153,43 @@ namespace ClienteMarWPF.UI.State.Authenticators
         }
 
 
-        private void SetearPuntoDeVentaPermisos() 
+        private void SetearPuntoDeVentaPermisos()
         {
             var permisos = new PermisosDTO();
 
             var MoreOptions = this.CurrentAccount.MAR_Setting2.MoreOptions.ToList();
 
-                for (var i = 0; i < MoreOptions.Count; i++)
+            for (var i = 0; i < MoreOptions.Count; i++)
+            {
+                var ConfigValue = MoreOptions[i];
+                var ArrayValue = ConfigValue.Split("|");
+                if (ArrayValue[0] == "BANCA_VENDE_CINCOMINUTOS")
                 {
-                    var ConfigValue = MoreOptions[i];
-                    var ArrayValue = ConfigValue.Split("|");
-                    if (ArrayValue[0] == "BANCA_VENDE_CINCOMINUTOS")
-                    {
-                        permisos.CincoMinutos = true;
-
-                    }else if(ArrayValue[0] == "BANCA_PAGA_SERVICIOS")
-                    {
-                        permisos.Servicios = true;
-                    }
-                    else if (ArrayValue[0] == "BANCA_VENDE_TARJETAS")
-                    {
-                        permisos.PuedeVenderRecargas = true;
-                    } else if (ArrayValue[0] == "BANCA_INTERVALO_INACTIVIDAD_MINUTOS")
-                    {
-                        permisos.MedirInactividad = true;
-                        permisos.MinutosIncatividad = Convert.ToInt32(ArrayValue[1]);
-                    }else if(ArrayValue[0] == "BANCA_VENDE_BINGO")
-                    {
-                        permisos.PuedeVenderBingo = true;
-                    }
+                    permisos.CincoMinutos = true;
 
                 }
-            
+                else if (ArrayValue[0] == "BANCA_PAGA_SERVICIOS")
+                {
+                    permisos.Servicios = true;
+                }
+                else if (ArrayValue[0] == "BANCA_VENDE_TARJETAS")
+                {
+                    permisos.PuedeVenderRecargas = true;
+                }
+                else if (ArrayValue[0] == "BANCA_INTERVALO_INACTIVIDAD_MINUTOS")
+                {
+                    int esperar = string.IsNullOrEmpty(ArrayValue[1]) ? 5 : Convert.ToInt32(ArrayValue[1]);
+
+                    permisos.MedirInactividad = true;
+                    permisos.MinutosIncatividad = esperar;
+                }
+                else if (ArrayValue[0] == "BANCA_VENDE_BINGO")
+                {
+                    permisos.PuedeVenderBingo = true;
+                }
+
+            }
+
             Permisos = permisos;
         }
 

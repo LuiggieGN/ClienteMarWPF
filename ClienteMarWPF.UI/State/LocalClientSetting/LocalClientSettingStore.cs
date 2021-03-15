@@ -30,7 +30,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                 {
                     case MarSettingExt.ini:
                         ReadIniFile();
-                        break;  
+                        break;
                     default:
                         throw new NotImplementedException();
                 }
@@ -64,9 +64,10 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
 
         private void ReadIniFile()
         {
+            string fileDirectory = Path.Combine(new string[] { BaseDirectory, FileName });
+
             try
             {
-                string fileDirectory = Path.Combine(new string[] { BaseDirectory, FileName });
 
                 var parser = new FileIniDataParser();
 
@@ -76,7 +77,7 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                 clienteSetting.BancaId = Convert.ToInt32(setting[IniFileKey]["Banca"]);
                 clienteSetting.LF = Convert.ToInt32(setting[IniFileKey]["LF"]);
                 clienteSetting.Direccion = setting[IniFileKey]["Direccion"];
-                clienteSetting.Identidad =setting[IniFileKey]["Identidad"];
+                clienteSetting.Identidad = setting[IniFileKey]["Identidad"];
                 clienteSetting.Tickets = Convert.ToInt32(setting[IniFileKey]["Tickets"]);
                 clienteSetting.Espera = Convert.ToInt32(setting[IniFileKey]["Espera"]);
                 clienteSetting.ServerIP = setting[IniFileKey]["ServerIP"];
@@ -86,12 +87,26 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
             }
             catch
             {
-                this.LocalClientSettings = null;
-                throw new MarFileReadException("Configuraciòn de banca no pudo cargar");
-            }
-        }  
+                try
+                {
+                    if (File.Exists(fileDirectory))
+                    {
+                        File.Delete(fileDirectory);
+                    }
 
-        private void WriteIniFile(LocalClientSettingDTO newsetting) 
+                    var backupSetting = base.ReadBackUp();
+
+                    WriteIniFile(backupSetting);   
+                }
+                catch  
+                {
+                    this.LocalClientSettings = null;
+                    throw new MarFileReadException("Configuraciòn de banca no pudo cargar");
+                }
+            }
+        }
+
+        private void WriteIniFile(LocalClientSettingDTO newsetting)
         {
             try
             {
@@ -105,9 +120,9 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
 
 
                 if (File.Exists(fileDirectory))
-                {                  
+                {
                     var parser = new FileIniDataParser();
-                    var setting = parser.ReadFile(fileDirectory); 
+                    var setting = parser.ReadFile(fileDirectory);
 
                     setting[IniFileKey]["Banca"] = newsetting.BancaId.ToString();
                     setting[IniFileKey]["LF"] = newsetting.LF.ToString();
@@ -115,24 +130,30 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                     setting[IniFileKey]["Identidad"] = newsetting.Identidad.ToString();
                     setting[IniFileKey]["Tickets"] = newsetting.Tickets.ToString();
                     setting[IniFileKey]["Espera"] = newsetting.Espera.ToString();
-                    setting[IniFileKey]["ServerIP"] = newsetting.ServerIP ?? string.Empty;
-
+                    setting[IniFileKey]["ServerIP"] = newsetting?.ServerIP?.ToString() ?? string.Empty;
                     parser.WriteFile(fileDirectory, setting);
 
 
                 }
                 else
                 {
-                    var parser = new FileIniDataParser(); 
+
+                    if (!Directory.Exists(BaseDirectory))
+                    {
+                        Directory.CreateDirectory(BaseDirectory);
+                    }
+
+
+                    var parser = new FileIniDataParser();
                     var keyAndData = new KeyDataCollection();
-                    
+
                     keyAndData.AddKey("Banca", newsetting.BancaId.ToString());
                     keyAndData.AddKey("LF", newsetting.LF.ToString());
-                    keyAndData.AddKey("Direccion", newsetting.Direccion?.ToString()??"0.0.0.0");
+                    keyAndData.AddKey("Direccion", newsetting.Direccion?.ToString() ?? "0.0.0.0");
                     keyAndData.AddKey("Identidad", newsetting.Identidad.ToString());
                     keyAndData.AddKey("Tickets", newsetting.Tickets.ToString());
                     keyAndData.AddKey("Espera", newsetting.Espera.ToString());
-                    keyAndData.AddKey("ServerIP", newsetting.ServerIP?.ToString()??string.Empty);
+                    keyAndData.AddKey("ServerIP", newsetting?.ServerIP?.ToString() ?? string.Empty);
 
                     var seccion = new SectionData(IniFileKey);
                     seccion.Keys = keyAndData;
@@ -140,16 +161,23 @@ namespace ClienteMarWPF.UI.State.LocalClientSetting
                     var dataColeccion = new SectionDataCollection();
                     dataColeccion.Add(seccion);
 
-                    IniData setting = new IniData(dataColeccion);               
+                    IniData setting = new IniData(dataColeccion);
 
                     parser.WriteFile(fileDirectory, setting);
+                }
+
+
+                try
+                {
+                    base.CreateBackUp(newsetting);
+                }
+                catch
+                {
 
                 }
 
 
                 this.LocalClientSettings = newsetting;   //@@ aqui almaceno el nuevo archivo de configuracion ini que se va a utilizar atravaes de la aplicacion completa                
-
-
             }
             catch
             {
