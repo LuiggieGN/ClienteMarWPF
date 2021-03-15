@@ -1,6 +1,5 @@
 ﻿namespace ClienteMarWPF.Domain.Enums
 {
-
     public enum MarSettingExt
     {
         ini = 0,
@@ -23,17 +22,7 @@
         InicioControlEfectivo = 100,
         RegistrosDeMovimiento = 101
     }   
-
-    public enum MarPtovtaFunciones
-    {
-
-    }
-
-    public enum HaciendaFunciones 
-    { 
     
-    
-    }
 
     public enum EfectivoFunciones
     {        
@@ -50,7 +39,7 @@
         Banca_LeerBancaLastCuadreId = 2000,                                 
         Banca_LeerBancaLastTransaccionesApartirDelUltimoCuadre = 2001,      
         Banca_LeerBancaCuadrePorCuadreId = 2002,                           
-        Banca_UsaControlEfectivo = 2003, // -- NOT IMPLEMENTED YET. Igual a = Banca Tiene Caja (Es DECIR CAJA EXISTE) & CAJA tiene Cuadre Inicial & Configuracion 
+        Banca_UsaControlEfectivo = 2003, 
         Banca_LeerDeudaDeBanca = 2004, 
         Banca_LeerBancaConfiguraciones = 2005,       
 

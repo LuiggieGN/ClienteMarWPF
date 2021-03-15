@@ -58,12 +58,12 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                         
                         }
 
-                        var data = result.Tickets.OfType<MAR_Bet>().ToList();
+                        //var data = result.Tickets.OfType<MAR_Bet>().ToList();
 
-                        foreach (var ticket in data)
-                        {
-                            ViewModel.listaTicketsJugados.Add(ticket);
-                        }
+                        //foreach (var ticket in data)
+                        //{
+                        //    ViewModel.listaTicketsJugados.Add(ticket);
+                        //}
  
 
                     }
