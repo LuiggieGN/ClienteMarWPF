@@ -168,7 +168,6 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                         var Tripleta = TicketJugadas.Where(y => y.TipoJudaga == "T").ToList();
                         TotalGenerales = TicketJugadas.Sum(x => x.Jugada.Monto);
                         TotalGenerales = TotalGenerales * CantidadLoterias;
-
                         if (true)
                         {
 
