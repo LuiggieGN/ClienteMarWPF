@@ -201,6 +201,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 {
                     if (contadorTIcket==CantidadLoterias) { 
                         TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones);
+                        loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
                 }
@@ -213,6 +214,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                     if (contadorTIcket == CantidadLoterias)
                     {
                         TicketTemplateHelper.PrintTicket(TICKET);
+                        loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
                 } 
@@ -225,7 +227,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
                 List<VentasIndexTicket> listMulti = new List<VentasIndexTicket>() { };
                 List<TicketJugadas> jugadasTicket = new List<TicketJugadas>() { };
-                List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
+                //List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
                 //ConfigPrinterValue
                 List<ConfigPrinterModel> configmodel = new List<ConfigPrinterModel>() { };
                 List<MAR_BetItem> JugadasForTicketPrecargado = new List<MAR_BetItem>() { };
@@ -253,6 +255,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 List<JugadasTicketModels> jugadaTransform = jugadasNuevoSinPrinter.ToList();
 
                 List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
+                int CantidadLoterias = ViewModel.LoteriasMultiples.Count;
 
 
                 var MoreOptions = Autenticador.CurrentAccount.MAR_Setting2.MoreOptions.ToList();
@@ -266,7 +269,12 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 var NumeroTicket = Headers.TicketNo;
                 
                 LoteriaTicketPin ticketPin = new LoteriaTicketPin() { Loteria = NombreLoteria, Pin = Pin, Ticket = NumeroTicket };
-                loteriatickpin.Add(ticketPin);
+              
+                if (contadorTIcket <= CantidadLoterias)
+                {
+                    loteriatickpin.Add(ticketPin);
+                    contadorTIcket = contadorTIcket + 1;
+                }
 
                 //VentasIndexTicket TICKET = new VentasIndexTicket()
                 //{
@@ -332,7 +340,12 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 }
                 if (ExistPrinterCOnfig == true)
                 {
-                    TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones);
+                    if (contadorTIcket == CantidadLoterias)
+                    {
+                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones);
+                        loteriatickpin = new List<LoteriaTicketPin>();
+                        contadorTIcket = 0;
+                    }
                 }
                 if (ExistPrinterCOnfig == false)
                 {
@@ -340,7 +353,12 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
 
                     //List<string[]> ImprimirTicket = PrintJobs.FromTicket(TICKET, Autenticador, false);
                     //TicketTemplateHelper.PrintTicket(TICKET, listaConfiguraciones);
-                    TicketTemplateHelper.PrintTicket(TICKET);
+                    if (contadorTIcket == CantidadLoterias)
+                    {
+                        TicketTemplateHelper.PrintTicket(TICKET);
+                        loteriatickpin = new List<LoteriaTicketPin>();
+                        contadorTIcket = 0;
+                    }
                 }
             }
         }
