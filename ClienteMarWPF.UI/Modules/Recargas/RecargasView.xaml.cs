@@ -169,12 +169,19 @@ namespace ClienteMarWPF.UI.Modules.Recargas
             if (!IsArrow)
             {
                 var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
-                seleccionado.IsSelected = true;
-                var vm = DataContext as RecargasViewModel;
-                vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
-                
+
+                if (seleccionado != null)
+                {
+                    seleccionado.IsSelected = true;
+                    var vm = DataContext as RecargasViewModel;
+                    vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
+                }                
             }
             IsArrow = false;
         }
+
+
+
+
     }
 }
