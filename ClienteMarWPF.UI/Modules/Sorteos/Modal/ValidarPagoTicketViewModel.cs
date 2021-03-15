@@ -216,5 +216,20 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
             get { return claseSorteo; }
             set { claseSorteo = value; NotifyPropertyChanged(nameof(ClaseSorteo)); }
         }
+
+        private string _totalVentas;
+        //###########################################################
+        public string TotalVentas
+        {
+            get
+            {
+                return _totalVentas;
+            }
+            set
+            {
+                _totalVentas = value;
+                NotifyPropertyChanged(nameof(TotalVentas));
+            }
+        }
     }
 }

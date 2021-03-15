@@ -14,7 +14,7 @@
 
     <Grid MinHeight="140">
         <Border Background="#90000000" Visibility="{Binding Visibility}">
-            <Border BorderBrush="Black" BorderThickness="1" Background="#fff"  CornerRadius="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"  MinHeight="140">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff"  CornerRadius="10,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center"  MinHeight="140">
                 <Border.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Opacity="0.5" Direction="270" ShadowDepth="0.7" />
                 </Border.BitmapEffect>
@@ -44,9 +44,9 @@
 
 
 
-                        <Button Style="{DynamicResource  btn-danger}" Content="Cancelar" Command="{Binding CerrarDialogoInicioCommand}" Margin="10,0"  FontSize="15"  />
+                        <Button Style="{DynamicResource  btn-secondary}" x:Name="botonSalir" Content="Salir" Command="{Binding CerrarDialogoInicioCommand}" Margin="10,0"  FontSize="15"  />
 
-                        <Button Style="{DynamicResource btn-success}" Content="Aceptar" Command="{Binding GenerarTicketCommand}"  Margin="10,0" FontSize="15" />
+                        <Button Style="{DynamicResource btn-success}" Content="Ok" Command="{Binding GenerarTicketCommand}"  Margin="10,0" FontSize="15" />
 
                         
 

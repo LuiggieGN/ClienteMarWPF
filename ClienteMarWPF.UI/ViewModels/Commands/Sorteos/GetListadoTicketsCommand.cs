@@ -59,24 +59,25 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                         }
 
                         //var data = result.Tickets.OfType<MAR_Bet>().ToList();
-
+ 
                         //foreach (var ticket in data)
                         //{
                         //    ViewModel.listaTicketsJugados.Add(ticket);
                         //}
- 
 
                     }
 
                     ViewModel.ListadoTicketsPrecargados.OrderByDescending(x => x.Ticket).Reverse();
                     string total = ViewModelPago.listaTicketsJugados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
-                    ViewModel.TotalVentas = total;
+                    ViewModelPago.TotalVentas = total;
                 }
                 else if (ViewModel.ListadoTicketsPrecargados.Count > 0)
                 {
 
                     ViewModelPago.listaTicketsJugados = ViewModel.ListadoTicketsPrecargados;
-                            
+                    string total = ViewModel.ListadoTicketsPrecargados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
+                    ViewModelPago.TotalVentas = total;
+
                 }
             }
             catch (Exception)

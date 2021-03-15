@@ -46,6 +46,7 @@
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Margin" Value="4"/>
+        <Setter Property="Focusable" Value="True"/>
     </Style>
 
     <Style x:Key="BotonAceptarStyle" TargetType="{x:Type Button}">

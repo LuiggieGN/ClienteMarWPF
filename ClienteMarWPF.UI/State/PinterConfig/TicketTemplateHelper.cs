@@ -21,8 +21,9 @@ namespace ClienteMarWPF.UI.State.PinterConfig
         private static int positionWrite = 0;
         private static object Value;
         private static bool ImprimirCopias;
+        private static int CantidadLoterias;
 
-        public static void PrintTicket(object value ,List<ConfigPrinterModel> configs = null,bool ImprimirCopia=false)
+        public static void PrintTicket(object value ,List<ConfigPrinterModel> configs = null,bool ImprimirCopia=false,int cantidadLoterias=1)
         {
             var papers = ps.PaperSizes.Cast<PaperSize>();
             PrintDocument pd = new PrintDocument();
@@ -30,6 +31,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
             configs = configs ?? new List<ConfigPrinterModel>();
             Value = value;
             ImprimirCopias = ImprimirCopia;
+            CantidadLoterias = cantidadLoterias;
             //paperSize = papers.FirstOrDefault();
              paperSize = new PaperSize("nose", 280, 0);
 
@@ -165,7 +167,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                         var Pales = TicketJugadas.Where(y => y.TipoJudaga == "P").ToList();
                         var Tripleta = TicketJugadas.Where(y => y.TipoJudaga == "T").ToList();
                         TotalGenerales = TicketJugadas.Sum(x => x.Jugada.Monto);
-                        
+                        TotalGenerales = TotalGenerales * CantidadLoterias;
                         if (true)
                         {
 
@@ -421,6 +423,7 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                         var Pales = TicketJugadas.Where(y => y.TipoJudaga == "P").ToList();
                         var Tripleta = TicketJugadas.Where(y => y.TipoJudaga == "T").ToList();
                         TotalGenerales = TicketJugadas.Sum(x => x.Jugada.Monto);
+                        TotalGenerales = TotalGenerales * CantidadLoterias;
                         for (var i = 0; i <Pales.Count; i++){Pales[i].Jugada.Numeros= Pales[i].Jugada.Numeros.Insert(2, "-"); }
                         for (var i = 0; i < Tripleta.Count; i++) { Tripleta[i].Jugada.Numeros = Tripleta[i].Jugada.Numeros.Insert(2, "-"); Tripleta[i].Jugada.Numeros = Tripleta[i].Jugada.Numeros.Insert(5, "-"); }
 
@@ -469,14 +472,11 @@ namespace ClienteMarWPF.UI.State.PinterConfig
                             var loteriaTicketPin = Valor.Pin as List<LoteriaTicketPin>;
                             if (loteriaTicketPin.Count > 1)
                             {
-                                WriteTextColumn(g, new List<string> { "Loteria", "Ticket", "Pin" }, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                                WriteTextColumn(g, new List<string> { "Loteria" ,"Ticket", "Pin" }, 10, FontStyle.Regular.ToString().ToLower(), Alignament);
                                 foreach (var dataMore in loteriaTicketPin)
                                 {
-                                    WriteTextColumn(g, new List<string> { dataMore.Loteria, dataMore.Ticket, dataMore.Pin }, FontSize, FontStyle.Regular.ToString().ToLower(), Alignament);
+                                    WriteTextColumn(g, new List<string> { dataMore.Loteria, dataMore.Ticket, dataMore.Pin }, 9, FontStyle.Regular.ToString().ToLower(), Alignament);
                                 }
-
-
-
                                 //WriteTextColumn(g, new List<string> { "Loteria", "Ticket", "Pin" }, (item.Size-5), item.FontStyle, item.Aligment);
                                 //foreach (var dataMore in loteriaTicketPin)
                                 //{

@@ -52,6 +52,7 @@ namespace ClienteMarWPF.UI.Modules.Recargas.Modal
 
             CerrarDialogoInicioCommand = new CerrarDialogoImprimirTicketCommand(this);
             GenerarTicketCommand = new DialogConfirmTicketCommand(this, aut, _recargaService,recargas);
+           
 
         }
 
