@@ -200,7 +200,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 if (ExistPrinterCOnfig == true)
                 {
                     if (contadorTIcket==CantidadLoterias) { 
-                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones);
+                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones,false,CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
@@ -213,7 +213,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                     //TicketTemplateHelper.PrintTicket(TICKET, listaConfiguraciones);
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        TicketTemplateHelper.PrintTicket(TICKET);
+                        TicketTemplateHelper.PrintTicket(TICKET,null,false, CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
@@ -342,7 +342,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                 {
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones);
+                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones,false,CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
@@ -355,7 +355,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                     //TicketTemplateHelper.PrintTicket(TICKET, listaConfiguraciones);
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        TicketTemplateHelper.PrintTicket(TICKET);
+                        TicketTemplateHelper.PrintTicket(TICKET,null,false,CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }

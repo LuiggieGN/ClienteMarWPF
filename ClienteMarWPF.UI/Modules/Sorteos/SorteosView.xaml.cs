@@ -752,7 +752,9 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 }else if (sorteo.IsSelected == false)
                 {
                     var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(sorteo.LoteriaID);
-                    VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
+                    if (posicionLoteriaEliminar != -1) { 
+                        VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
+                    }
                 }
                 
             }

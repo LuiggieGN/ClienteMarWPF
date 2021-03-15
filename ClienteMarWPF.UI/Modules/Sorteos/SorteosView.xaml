@@ -16,10 +16,10 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type CheckBox}">
-                                    <Border x:Name="fondoC" Width="160" Height="50"  Background="LightGray" CornerRadius="2" Padding="5">
-                                        <StackPanel Orientation="Horizontal">
+                                    <Border x:Name="fondoC" Width="135" Height="40"  Background="LightGray" CornerRadius="2" Padding="5">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                             <!--<materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />-->
-                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="15"  HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </Border>
                                     <ControlTemplate.Triggers>
@@ -56,10 +56,10 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type CheckBox}">
-                                    <Border x:Name="fondoC" Width="160" Height="50"  Background="LightGray" CornerRadius="2" Padding="5">
-                                        <StackPanel Orientation="Horizontal">
+                                    <Border x:Name="fondoC" Width="135" Height="40"  Background="LightGray" CornerRadius="2" Padding="5">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                             <!--<materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />-->
-                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="15"  HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
                                         </StackPanel>
                                     </Border>
                                     <ControlTemplate.Triggers>
@@ -229,7 +229,7 @@
                                     </Style>
                                 </TextBlock.Resources>
                             </TextBlock>
-                            <ToggleButton x:Name="CrearSuper"  Margin="10" Unchecked="CrearSuper_Unchecked" Checked="CrearSuper_Checked" />
+                            <ToggleButton x:Name="CrearSuper"  Margin="10 24" Unchecked="CrearSuper_Unchecked" Checked="CrearSuper_Checked" />
                             <TextBlock Text="SuperPales" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
                                 <TextBlock.Resources>
                                     <Style TargetType="TextBlock">
@@ -250,7 +250,7 @@
                         </StackPanel>
 
 
-                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}"  BorderThickness="0 0 0 1"  VerticalAlignment="Top"  Height="400"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
+                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}"  BorderThickness="0 0 0 0"  VerticalAlignment="Top"  Height="350"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
                             <ListBox.Resources>
                                 <Style TargetType="ListBox">
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -325,14 +325,14 @@
                         </DataGrid>
                     </ScrollViewer>-->
                    
-                    <Label Content="Ultimos Sorteos" HorizontalContentAlignment="Center" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 5 0 0" />
+                    <Label Content="Ultimos Sorteos" HorizontalContentAlignment="Center" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
                     <ScrollViewer   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <DataGrid x:Name ="tbSorteos"  ItemsSource="{Binding UltimosSorteos, UpdateSourceTrigger=PropertyChanged}"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn   Header="Sorteo" Binding="{Binding Sorteo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                <DataGridTextColumn   Width="*" Header="N1" Binding="{Binding Primero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                <DataGridTextColumn   Width="*" Header="N2" Binding="{Binding Segundo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                <DataGridTextColumn   Width="*" Header="N3" Binding="{Binding Tercero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Sorteo" Binding="{Binding Sorteo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="1ra" Binding="{Binding Primero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="2da" Binding="{Binding Segundo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="3ra" Binding="{Binding Tercero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <!--<DataGridTextColumn   Header="Hora"    Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />-->
                             </DataGrid.Columns>
                         </DataGrid>
