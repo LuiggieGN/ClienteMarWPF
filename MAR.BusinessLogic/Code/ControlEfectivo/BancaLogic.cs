@@ -50,7 +50,7 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
         public static CuadreDTO LeerBancaCuadrePorCuadreId(int cuadreid)
         {
             try
-            { 
+            {
                 return BancaRepository.LeerBancaCuadrePorCuadreId(cuadreid);
             }
             catch (Exception ex)
@@ -76,6 +76,19 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
             try
             {
                 return BancaRepository.LeerDeudaDeBanca(bancaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static int LeerBancaInactividad(int bancaid)
+        {
+            try
+            {
+                return BancaRepository.LeerBancaInactividad(bancaid);
             }
             catch (Exception ex)
             {

@@ -19,7 +19,7 @@ namespace ClienteMarWPF.UI
     public partial class App : Application
     {
 
-        private static readonly TimeSpan InactivityTimeLimit = TimeSpan.FromMinutes(5);
+       // private static readonly TimeSpan InactivityTimeLimit = TimeSpan.FromMinutes(5);
 
 
         private readonly BackgroundWorker worker = new BackgroundWorker();
@@ -71,12 +71,13 @@ namespace ClienteMarWPF.UI
                 }
 
                 Window window = serviceProvider.GetRequiredService<MainWindow>();
+
                 Current.MainWindow = window;
                 VentanaPrincipal = window;
 
 
-                window.TimedShowDialog(InactivityTimeLimit);
-                //window.Show();
+                //window.TimedShowDialog(InactivityTimeLimit);
+                window.Show();
 
             }
             catch (Exception ex)

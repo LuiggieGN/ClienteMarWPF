@@ -8,6 +8,8 @@ using ClienteMarWPF.UI.ViewModels.Helpers;
 
 using System;
 using System.ComponentModel;
+using ClienteMarWPF.UI.Extensions;
+using System.Windows;
 
 namespace ClienteMarWPF.UI.ViewModels.Commands.Login
 {
@@ -60,7 +62,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
                 localclientsettings.ReadDektopLocalSetting(); //@leo el archivo .ini que contiene el ipadress y el banca id
                 autenticador.IniciarSesion(viewmodellogin.Username, $"{password}", localclientsettings.LocalClientSettings.BancaId, localclientsettings.LocalClientSettings.Direccion);
                 viewmodellogin.Cargando = Booleano.No;
-                loginSucces = true; 
+                loginSucces = true;
             }
             catch (MarFileReadException ex)
             {
@@ -86,7 +88,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
                 viewmodellogin.Cargando = Booleano.No;
                 viewmodellogin.ErrorMessage = "Credenciales inválidas";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 loginSucces = false;
                 viewmodellogin.Cargando = Booleano.No;
@@ -103,7 +105,22 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
             if (loginSucces && autenticador.CurrentAccount != null)
             { 
                 autenticador.IsLoggedIn = true;
+
                 navegaAppVistaInicial.Renavigate();
+
+                try
+                {
+                    var inactividad = viewmodellogin.BancaServicio.LeerInactividad(localclientsettings.LocalClientSettings.BancaId);
+
+                    if (inactividad != 0)
+                    {
+                        InactividadExtension.SetInactividad(ventana: Application.Current.MainWindow, tiempo: TimeSpan.FromMinutes(inactividad));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    
+                }
             }
 
 

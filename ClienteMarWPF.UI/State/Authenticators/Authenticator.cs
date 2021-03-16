@@ -34,6 +34,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
         private bool _isLoggedIn;
         #endregion
 
+        #region Constructor
         public Authenticator(
             IAuthenticationService authenticationService,
             IAccountStore accountStore,
@@ -52,6 +53,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
             _cajaService = cajaService;
             _permisosStore = permisosStore;
         }
+        #endregion
 
         #region Properties
         public CuentaDTO CurrentAccount
@@ -193,7 +195,6 @@ namespace ClienteMarWPF.UI.State.Authenticators
             Permisos = permisos;
         }
 
-
         public void RefrescarBancaBalance()
         {
             var bancaBalance = new BancaBalanceViewModel();
@@ -226,6 +227,7 @@ namespace ClienteMarWPF.UI.State.Authenticators
 
             BancaBalance = bancaBalance;
         }
+
         public void CerrarSesion()
         {
             CurrentAccount = null;

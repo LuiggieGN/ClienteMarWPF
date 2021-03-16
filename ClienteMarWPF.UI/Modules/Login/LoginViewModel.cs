@@ -1,23 +1,31 @@
-﻿
+﻿#region Namespaces
+
+using ClienteMarWPF.Domain.Services.BancaService;
+using ClienteMarWPF.Domain.Models.Dtos;
+
+using ClienteMarWPF.UI.ViewModels;
+using ClienteMarWPF.UI.ViewModels.Base;
 using ClienteMarWPF.UI.ViewModels.Commands.Login;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.State.LocalClientSetting;
 using ClienteMarWPF.UI.ViewModels.Helpers;
 
-using ClienteMarWPF.UI.ViewModels;
-using ClienteMarWPF.UI.ViewModels.Base;
- 
 using System.Windows.Input;
-using ClienteMarWPF.Domain.Models.Dtos;
+
+#endregion
 
 namespace ClienteMarWPF.UI.Modules.Login
 {
     public class LoginViewModel : BaseViewModel
     {
+
+        #region Fields
         private string _username;
         private bool _cargando;
+        #endregion
 
+        #region Properties
         public string Username
         {
             get
@@ -30,7 +38,6 @@ namespace ClienteMarWPF.UI.Modules.Login
                 NotifyPropertyChanged(nameof(Username));
             }
         }
-
         public bool Cargando
         {
             get
@@ -43,22 +50,33 @@ namespace ClienteMarWPF.UI.Modules.Login
                 NotifyPropertyChanged(nameof(Cargando));
             }
         }
-
         public MessageViewModel ErrorMessageViewModel { get; }
-            
         public string ErrorMessage
         {
             set => ErrorMessageViewModel.Message = value;
         }
+        public InicioPCResultDTO InicioPC { get; }
+        public IBancaService BancaServicio { get; }
+        #endregion
 
-       public InicioPCResultDTO InicioPC { get; }
-
+        #region ICommand
         public ICommand LoginCommand { get; }
+        #endregion
 
-        public LoginViewModel(IAuthenticator autenticador, IRenavigator renavigator, ILocalClientSettingStore localclientsettings, InicioPCResultDTO inicioPC)
+
+        public LoginViewModel(IAuthenticator autenticador,
+                              IRenavigator renavigator,
+                              ILocalClientSettingStore localclientsettings,
+                              IBancaService bancaServicio,
+                              InicioPCResultDTO inicioPC)
         {
+
+            BancaServicio = bancaServicio;
+
             Cargando = Booleano.No;
+
             ErrorMessageViewModel = new MessageViewModel();
+            
             InicioPC = inicioPC;
             
             LoginCommand = new LoginCommand(this, autenticador, renavigator, localclientsettings);

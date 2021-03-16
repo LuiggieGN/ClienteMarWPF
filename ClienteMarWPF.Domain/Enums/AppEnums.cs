@@ -36,14 +36,16 @@
         Caja_LeerCajaBalanceMinimo = 1007,
         Caja_LeerMovimientosNoPaginados = 1008,
 
+
         Banca_LeerBancaLastCuadreId = 2000,                                 
         Banca_LeerBancaLastTransaccionesApartirDelUltimoCuadre = 2001,      
         Banca_LeerBancaCuadrePorCuadreId = 2002,                           
         Banca_UsaControlEfectivo = 2003, 
         Banca_LeerDeudaDeBanca = 2004, 
         Banca_LeerBancaConfiguraciones = 2005,       
+        Banca_LeerInactividad = 2006,
 
-                        
+
         Cuadre_Registrar = 3000,  
         Cuadre_EnlazarCuadreConRuta = 3001,   
         

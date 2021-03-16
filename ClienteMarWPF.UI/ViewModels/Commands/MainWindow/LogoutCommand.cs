@@ -5,7 +5,7 @@ using System.Timers;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ClienteMarWPF.Domain.Enums;
-
+using ClienteMarWPF.UI.Extensions;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.ViewModels;
@@ -41,7 +41,10 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
             if (_authenticator != null && _navigator != null && _viewModelFactory != null)
             {
                 _authenticator.CerrarSesion();
+
                 _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(Modulos.Login);
+
+                InactividadExtension.RemoveInactividad();
             }
         }
 
