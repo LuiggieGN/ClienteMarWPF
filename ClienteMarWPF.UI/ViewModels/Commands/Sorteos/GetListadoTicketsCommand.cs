@@ -49,7 +49,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                         if (result.Tickets != null)
                         {
                             
-                            var data = result.Tickets.OfType<MAR_Bet>().ToList();
+                            var data = result.Tickets.OfType<MAR_Bet>().OrderByDescending(x => x.Ticket).ToList();
+
                             foreach (var ticket in data)
                             {
                                 ViewModelPago.listaTicketsJugados.Add(ticket);
@@ -59,7 +60,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
                         }
 
                         //var data = result.Tickets.OfType<MAR_Bet>().ToList();
- 
+
                         //foreach (var ticket in data)
                         //{
                         //    ViewModel.listaTicketsJugados.Add(ticket);
@@ -67,6 +68,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
 
                     }
 
+                    
                     ViewModel.ListadoTicketsPrecargados.OrderByDescending(x => x.Ticket).Reverse();
                     string total = ViewModelPago.listaTicketsJugados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
