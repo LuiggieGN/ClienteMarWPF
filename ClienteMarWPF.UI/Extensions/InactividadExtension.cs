@@ -1,13 +1,14 @@
 ﻿
-
+using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.ViewModels.Helpers;
+using ClienteMarWPF.UI.ViewModels;
+using ClienteMarWPF.UI.Views.WindowsModals;
+
 using System.Windows.Input;
 using System.Windows.Threading;
 using System;
 using System.Timers;
 using System.Windows;
-
-
 
 
 namespace ClienteMarWPF.UI.Extensions
@@ -70,7 +71,17 @@ namespace ClienteMarWPF.UI.Extensions
 
                 if (vm != null)
                 {
-                    vm.LogoutCommand?.Execute(null);
+                    Action cierraSesion = ()=> vm.LogoutCommand?.Execute(null);
+
+                    var alertaContexto = new InactvidadWindowViewModel(cierraSesion, tiempo);
+                    
+                    var alerta = new InactividadWindow(alertaContexto);
+
+                    alerta.Owner = Application.Current.MainWindow;
+
+                    alertaContexto.ControlVentanaInactividad = alerta;
+
+                    alerta.ShowDialog();
                 }
             };
 

@@ -110,10 +110,13 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Login
 
                 try
                 {
-                    var inactividad = viewmodellogin.BancaServicio.LeerInactividad(localclientsettings.LocalClientSettings.BancaId);
+                    var inactividad = viewmodellogin.BancaServicio.LeerInactividad(localclientsettings.LocalClientSettings.BancaId);                     
 
                     if (inactividad != 0)
                     {
+                        autenticador.Permisos.MedirInactividad = Si;
+                        autenticador.Permisos.MinutosIncatividad = inactividad;
+
                         InactividadExtension.SetInactividad(ventana: Application.Current.MainWindow, tiempo: TimeSpan.FromMinutes(inactividad));
                     }
                 }
