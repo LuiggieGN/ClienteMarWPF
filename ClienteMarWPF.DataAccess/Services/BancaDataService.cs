@@ -211,7 +211,32 @@ namespace ClienteMarWPF.DataAccess.Services
             {
                 throw e;
             }
-        } 
+        }
+
+        public int LeerInactividad(int bancaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerInactividad, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al procesar la lectura de la deuda de la banca");
+                }
+
+                var inactividad = JSONHelper.CreateNewFromJSONNullValueIgnore<int>(llamada.Respuesta);
+
+                return inactividad;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+
 
 
     }//fin de clase

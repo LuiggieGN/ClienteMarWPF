@@ -13,16 +13,37 @@ using System.Windows;
 namespace ClienteMarWPF.UI.Extensions
 {
 
-
     public static class InactividadExtension
     {
-        public static bool? TimedShowDialog(this Window window, TimeSpan inactivityTimeLimit)
+
+        public static InactivityTimer Inactividad { get; set; } = null;
+
+
+        public static void SetInactividad(Window ventana, TimeSpan tiempo)
         {
-            using (new InactivityTimer(window, inactivityTimeLimit))
-            {
-                return window.ShowDialog();
-            }
+            Inactividad = new InactivityTimer();
+            Inactividad.Start(ventana, tiempo);
         }
+
+
+        public static void RemoveInactividad()
+        {
+            if (Inactividad != null)
+            {
+                try
+                {
+                    Inactividad.Dispose();
+                }
+                catch
+                {
+                }
+
+                Inactividad = null;
+            }
+
+        }//fin de metodo RemoveInactividad 
+
+
     }
 
 
@@ -39,27 +60,30 @@ namespace ClienteMarWPF.UI.Extensions
 
         private Window Window;
 
-        public InactivityTimer(Window window, TimeSpan inactivityTimeLimit) :
-           this(
-                () =>
-                {
-                    window.Close();
-                    Application.Current.Shutdown();
-                },
-               inactivityTimeLimit)
+        public InactivityTimer() { }
+
+        public void Start(Window ventana, TimeSpan tiempo)
         {
-            Window = window;
+            ExpiredAction = () =>
+            {
+                var vm = ventana.DataContext as MainWindowViewModel;
+
+                if (vm != null)
+                {
+                    vm.LogoutCommand?.Execute(null);
+                }
+            };
+
+            Timer = new Timer(tiempo.TotalMilliseconds) { AutoReset = false };
+
+            Timer.Elapsed += Timer_Elapsed;
+
+            InputManager.Current.PreProcessInput += OnInputActivity;
+
+            Window = ventana;
             Window.Activated += OnWindowActivity;
             Window.LocationChanged += OnWindowActivity;
             Window.SizeChanged += OnWindowActivity;
-        }
-
-        public InactivityTimer(Action expiredAction, TimeSpan inactivityTimeLimit)
-        {
-            ExpiredAction = expiredAction;
-            Timer = new Timer(inactivityTimeLimit.TotalMilliseconds) { AutoReset = false };
-            Timer.Elapsed += Timer_Elapsed;
-            InputManager.Current.PreProcessInput += OnInputActivity;
         }
 
         private void OnInputActivity(object sender, PreProcessInputEventArgs e)
@@ -127,6 +151,8 @@ namespace ClienteMarWPF.UI.Extensions
             Window.LocationChanged -= OnWindowActivity;
             Window.SizeChanged -= OnWindowActivity;
         }
+
+
 
     }//fin de clase 
 

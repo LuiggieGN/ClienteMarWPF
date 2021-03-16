@@ -331,6 +331,7 @@ namespace ClienteMarWPF.UI.Extensions
                    services.GetRequiredService<IAuthenticator>(),
                    services.GetRequiredService<Renavigator<HomeViewModel>>(),
                    services.GetRequiredService<ILocalClientSettingStore>(),
+                   services.GetRequiredService<IBancaService>(),
                    inicioDto
                 );
 

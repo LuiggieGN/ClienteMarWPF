@@ -201,6 +201,32 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         }
 
 
+        public static int LeerBancaInactividad(int bancaid)
+        {
+            try
+            {
+                var p = new DynamicParameters(); int inactividad = 0;
+                p.Add("@bancaid", bancaid);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    inactividad = db.Query<int>(BancaHelper.SelectBancaInactividad, p, commandType: CommandType.Text).First();
+
+                    db.Close();
+                }
+
+                return inactividad;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
 
     }//fin de clase
 }

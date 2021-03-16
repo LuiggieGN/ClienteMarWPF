@@ -310,6 +310,10 @@ Public Class mar_flujo
                 Case 2005
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerBancaConfiguraciones(bancaid)
+
+                Case 2006
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerBancaInactividad(bancaid)
 #End Region
 
 #Region "Cuadre"

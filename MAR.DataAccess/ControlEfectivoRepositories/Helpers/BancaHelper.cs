@@ -134,6 +134,13 @@
 
 
 
+        internal static string SelectBancaInactividad = @"
+            select top 1
+            convert(int,  isnull(
+               (select top 1 ConfigValue from MBancasConfig where BancaID = @bancaid and ConfigKey like 'BANCA_INTERVALO_INACTIVIDAD_MINUTOS%'), '0'
+            )) as IntervaloInactividad;
+         ";
+
 
     }
 }
