@@ -74,7 +74,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>-->
-                                    <DataGridTextColumn   Header="Ticket No." Width="*" Binding="{Binding TicketNo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Regular"/>
+                                    <DataGridTextColumn   Header="Ticket No." Width="*" Binding="{Binding TicketNo}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Regular"/>
                                     <DataGridTextColumn   Header="Ticket" Width="*"  Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
                                     <DataGridTextColumn   Header="Hora"   Width="*" Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
                                     <DataGridTextColumn   Header="Monto $"  Width="*"  Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular" />
