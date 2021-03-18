@@ -61,28 +61,50 @@ namespace ClienteMarWPF.UI.Extensions
 
         private Window Window;
 
+        private bool IsAlertaOpen = false;
+
+        private InactvidadWindowViewModel Window_Alerta_Saved_Contexto = null;
+
+        private TimeSpan TimeStart;
+
         public InactivityTimer() { }
 
         public void Start(Window ventana, TimeSpan tiempo)
         {
+            IsAlertaOpen = false;
+
+            TimeStart = tiempo;
+
             ExpiredAction = () =>
             {
+                IsAlertaOpen = false;
+
                 var vm = ventana.DataContext as MainWindowViewModel;
 
                 if (vm != null)
                 {
-                    Action cierraSesion = ()=> vm.LogoutCommand?.Execute(null);
+                    Action cierraSesion = () =>
+                    {
+                        IsAlertaOpen = false;
+
+                        vm.LogoutCommand?.Execute(null);
+                    };
 
                     var alertaContexto = new InactvidadWindowViewModel(cierraSesion, tiempo);
-                    
+
                     var alerta = new InactividadWindow(alertaContexto);
 
                     alerta.Owner = Application.Current.MainWindow;
 
                     alertaContexto.ControlVentanaInactividad = alerta;
 
-                    alerta.ShowDialog();
+                    Window_Alerta_Saved_Contexto = alertaContexto;
+
+                    alerta.Show();
+
+                    IsAlertaOpen = true;
                 }
+
             };
 
             Timer = new Timer(tiempo.TotalMilliseconds) { AutoReset = false };
@@ -101,6 +123,8 @@ namespace ClienteMarWPF.UI.Extensions
         {
             if (IsActive(e.StagingItem.Input))
             {
+                WhenAlertaIsOpen();
+
                 KeepAlive();
             }
         }
@@ -112,7 +136,7 @@ namespace ClienteMarWPF.UI.Extensions
 
         public void KeepAlive()
         {
-            if (IsDisposed) throw new ObjectDisposedException(GetType().Name);
+            if (IsDisposed) return; //throw new ObjectDisposedException(GetType().Name);
             if (IsExpired) return;
             Timer.Stop();
             Timer.Start();
@@ -151,6 +175,7 @@ namespace ClienteMarWPF.UI.Extensions
             var mousePosition = mouseEventArgs.GetPosition(Application.Current.MainWindow);
             if (mousePosition == InactiveMousePosition) return false;
             InactiveMousePosition = mousePosition;
+
             return true;
         }
 
@@ -162,6 +187,26 @@ namespace ClienteMarWPF.UI.Extensions
             Window.LocationChanged -= OnWindowActivity;
             Window.SizeChanged -= OnWindowActivity;
         }
+
+
+
+        private void WhenAlertaIsOpen()
+        {
+            if (IsAlertaOpen)
+            {
+                IsAlertaOpen = false;
+
+                if (Window_Alerta_Saved_Contexto != null)
+                {
+                    Window_Alerta_Saved_Contexto.CancelarCierreDeSesionCommand?.Execute(null);
+
+                    InactividadExtension.RemoveInactividad();
+
+                    InactividadExtension.SetInactividad(ventana: Application.Current.MainWindow, tiempo: TimeStart);
+                }
+            }
+        }
+
 
 
 

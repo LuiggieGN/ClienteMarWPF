@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Timers;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ClienteMarWPF.Domain.Enums;
@@ -40,12 +42,44 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
         {
             if (_authenticator != null && _navigator != null && _viewModelFactory != null)
             {
+                
+                if (MainWindowViewModel.CuadreV1 != null  && IsWindowOpen("CuadreLoginWindow"))
+                {
+                    try
+                    {
+                        MainWindowViewModel.CuadreV1.Close();
+                    }
+                    catch  
+                    { 
+                    }
+                }
+
+                if (MainWindowViewModel.CuadreV2 != null && IsWindowOpen("CuadreVista"))
+                {
+                    try
+                    {
+                        MainWindowViewModel.CuadreV2.Close();
+                    }
+                    catch  
+                    {
+                    }
+                }
+
+
                 _authenticator.CerrarSesion();
 
                 _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(Modulos.Login);
 
                 InactividadExtension.RemoveInactividad();
             }
+        }
+
+
+
+
+        public static bool IsWindowOpen (string name)  
+        {
+            return Application.Current.Windows.OfType<Window>().Any(w => w.Name.Equals(name));
         }
 
 
