@@ -182,16 +182,6 @@ namespace ClienteMarWPF.UI.State.Authenticators
                 {
                     permisos.PuedeVenderBingo = true;
                 }
-
-                //else if (ArrayValue[0] == "BANCA_INTERVALO_INACTIVIDAD_MINUTOS")
-                //{
-                //    int esperar = string.IsNullOrEmpty(ArrayValue[1]) ? 5 : Convert.ToInt32(ArrayValue[1]);
-
-                //    permisos.MedirInactividad = true;
-                //    permisos.MinutosIncatividad = esperar;
-                //}
-
-
             }
 
             Permisos = permisos;
