@@ -20,7 +20,8 @@ using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.Domain.Services.MultipleService;
 using ClienteMarWPF.Domain.Services.RutaService;
 using ClienteMarWPF.Domain.Services.CuadreService;
-
+using ClienteMarWPF.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin;
+using ClienteMarWPF.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre;
 
 namespace ClienteMarWPF.UI
 {
@@ -153,6 +154,15 @@ namespace ClienteMarWPF.UI
         }
 
 
+
+
+
+
+
+
+
+        public static CuadreLoginView CuadreV1 = null;
+        public static CuadreView CuadreV2 = null;
 
     }
 }

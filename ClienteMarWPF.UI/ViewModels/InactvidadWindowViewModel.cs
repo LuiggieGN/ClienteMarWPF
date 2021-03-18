@@ -14,10 +14,12 @@ namespace ClienteMarWPF.UI.ViewModels
 {
     public class InactvidadWindowViewModel : BaseViewModel
     {
+    
         Action CerrarSesion;
         Action ContinuarSesion;
         DispatcherTimer _timer;
         int _segundosAContar = 30;
+
 
 
         public Window ControlVentanaInactividad { get; set; }
@@ -32,9 +34,9 @@ namespace ClienteMarWPF.UI.ViewModels
         {
             CerrarSesion = () =>
             {
-                ControlVentanaInactividad?.Close();
-
                 cierreSesion?.Invoke();
+
+                ControlVentanaInactividad?.Close();
             };
 
             ContinuarSesion = () =>
@@ -44,9 +46,9 @@ namespace ClienteMarWPF.UI.ViewModels
                     _timer.Stop();
                 }
 
-                InactividadExtension.RemoveInactividad();
+                //InactividadExtension.RemoveInactividad();
 
-                InactividadExtension.SetInactividad(ventana: Application.Current.MainWindow, tiempo: bancaTiempoInactividad);
+                //InactividadExtension.SetInactividad(ventana: Application.Current.MainWindow, tiempo: bancaTiempoInactividad);
 
                 ControlVentanaInactividad?.Close();
             };

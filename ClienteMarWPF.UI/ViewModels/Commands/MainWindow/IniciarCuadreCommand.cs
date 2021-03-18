@@ -38,6 +38,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
 
             viewLogin.DataContext = viewLoginContext;
             viewLogin.Owner = main;
+
+            MainWindowViewModel.CuadreV1 = viewLogin;
+
             viewLogin.ShowDialog();
 
             if (viewLoginContext.CuadreEsPermitido)
@@ -57,6 +60,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
                         var viewCuadreContext = new CuadreViewModel(_viewmodel.AutService, gestorStored, _viewmodel.CuadreBuilder);
                         var viewCuadre = new CuadreView(main, viewCuadreContext, _viewmodel.AutService, _viewmodel.CuadreBuilder);
                         viewCuadre.Owner = main;
+
+                        MainWindowViewModel.CuadreV2 = viewCuadre;
+
                         viewCuadre.ShowDialog();
                     }
                     else
