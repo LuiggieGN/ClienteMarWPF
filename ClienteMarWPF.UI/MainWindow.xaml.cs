@@ -1,4 +1,5 @@
 ﻿
+using ClienteMarWPF.Domain.Enums;
 using ClienteMarWPF.UI.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ using System.Windows.Threading;
 namespace ClienteMarWPF.UI
 {
 
-    
+
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -30,7 +31,7 @@ namespace ClienteMarWPF.UI
     public partial class MainWindow : Window
     {
 
-   
+
 
         public MainWindow(MainWindowViewModel dataContext)
         {
@@ -41,7 +42,7 @@ namespace ClienteMarWPF.UI
 
         private void CerrarAplicacion_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();           
+            this.Close();
 
         }
 
@@ -132,7 +133,7 @@ namespace ClienteMarWPF.UI
                     invokeProvider?.Invoke();
                 }
             }
-            catch{ }
+            catch { }
         }
 
 
@@ -141,11 +142,11 @@ namespace ClienteMarWPF.UI
             Button boton = null;
 
             foreach (Button btn in FindVisualChildren<Button>(this))
-            { 
+            {
                 if (btn.Name == "OpenMenuSTB")
                 {
                     boton = btn; break;
-                } 
+                }
             }
             return boton;
         }
@@ -172,7 +173,7 @@ namespace ClienteMarWPF.UI
 
         private void GridMenu_Loaded(object sender, RoutedEventArgs e)
         {
-            MainWindowViewModel vm = this.DataContext as MainWindowViewModel ;
+            MainWindowViewModel vm = this.DataContext as MainWindowViewModel;
 
             if (vm != null && vm.EstaLogueado == true)
             {
@@ -185,5 +186,54 @@ namespace ClienteMarWPF.UI
         {
             Application.Current.Shutdown();
         }
-    }
+
+        private void OnTeclaKeyDown(object sender, KeyEventArgs e)
+        {
+            var myVm = DataContext as MainWindowViewModel;
+
+            if (myVm != null)
+            {
+                if (myVm.EstaLogueado)
+                {
+                    if ((e.Key == Key.System && e.SystemKey == Key.F9) && Keyboard.Modifiers == ModifierKeys.Alt) // Alt + F9    ** Primero van los Alt y luego teclas funcionales
+                    {
+                        Close();
+                    }
+
+                    else if (e.Key == Key.F1)
+                    {
+                        myVm.LogoutCommand?.Execute(null);
+                    }
+                    else if (e.Key == Key.F2)
+                    {
+                        myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Sorteos);
+                    }
+                    else if (e.Key == Key.F3)
+                    {
+                        myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Reporte);
+                    }
+                    else if ((e.Key == Key.System && e.SystemKey == Key.F10))
+                    {
+                        myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Mensajeria);
+                    }
+
+                }//fin if EstaLogueado = true
+                else
+                {
+                    if ((e.Key == Key.System && e.SystemKey == Key.F9) && Keyboard.Modifiers == ModifierKeys.Alt) // Alt + F9
+                    {
+                        Close();
+                    }
+
+                }//fin else EstaLogueado = false
+
+            }//fin de if myVm
+
+        }//fin de metodo OnTeclaKeyDown
+
+
+
+
+
+    }//fin de clase MainWindow
 }

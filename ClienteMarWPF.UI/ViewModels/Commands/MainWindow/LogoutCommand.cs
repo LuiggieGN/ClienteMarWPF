@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using ClienteMarWPF.Domain.Enums;
 using ClienteMarWPF.UI.Extensions;
+using ClienteMarWPF.UI.Modules.Home;
 using ClienteMarWPF.UI.State.Authenticators;
 using ClienteMarWPF.UI.State.Navigators;
 using ClienteMarWPF.UI.ViewModels;
@@ -31,8 +32,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
             _viewModelFactory = viewModelFactory;
         }
 
-
-
         public bool CanExecute(object parameter)
         {
             return true;
@@ -40,49 +39,85 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
 
         public void Execute(object parameter)
         {
-            if (_authenticator != null && _navigator != null && _viewModelFactory != null)
+            if (_authenticator != null &&
+                _navigator != null &&
+                _viewModelFactory != null
+                )
             {
-                
-                if (MainWindowViewModel.CuadreV1 != null  && IsWindowOpen("CuadreLoginWindow"))
-                {
-                    try
-                    {
-                        MainWindowViewModel.CuadreV1.Close();
-                    }
-                    catch  
-                    { 
-                    }
-                }
 
-                if (MainWindowViewModel.CuadreV2 != null && IsWindowOpen("CuadreVista"))
-                {
-                    try
-                    {
-                        MainWindowViewModel.CuadreV2.Close();
-                    }
-                    catch  
-                    {
-                    }
-                }
+                CierraTodosLosPendientesBackgroundWorkers();
 
+                CierraTodasLasVentanasAbiertas();
 
-                _authenticator.CerrarSesion();
+                RemueveConrtrolDeInactividad();
 
-                _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(Modulos.Login);
-
-                InactividadExtension.RemoveInactividad();
+                CierraSesionYRedireccionaAlLogin();
             }
         }
 
 
 
 
-        public static bool IsWindowOpen (string name)  
+        private void CierraTodosLosPendientesBackgroundWorkers()
+        {
+            try
+            {
+                if (HomeViewModel.Worker != null && HomeViewModel.Worker.WorkerSupportsCancellation)
+                {
+                    HomeViewModel.Worker.CancelAsync();
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        #region CierraTodasLasVentanasAbiertas
+        private static bool IsWindowOpen(string name)
         {
             return Application.Current.Windows.OfType<Window>().Any(w => w.Name.Equals(name));
         }
 
+        private void CierraTodasLasVentanasAbiertas()
+        {
+            if (MainWindowViewModel.CuadreV1 != null && IsWindowOpen("CuadreLoginWindow"))
+            {
+                try
+                {
+                    MainWindowViewModel.CuadreV1.Close();
+                }
+                catch
+                {
+                }
+            }
+
+            if (MainWindowViewModel.CuadreV2 != null && IsWindowOpen("CuadreVista"))
+            {
+                try
+                {
+                    MainWindowViewModel.CuadreV2.Close();
+                }
+                catch
+                {
+                }
+            }
+        }
+        #endregion
+
+        private void RemueveConrtrolDeInactividad()
+        {
+            InactividadExtension.RemoveInactividad();
+        }
+
+        private void CierraSesionYRedireccionaAlLogin()
+        {
+            _authenticator.CerrarSesion();
+            _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(Modulos.Login);
+        }
 
 
-    }
+
+
+
+    }// fin de clase LogoutCommand
 }
