@@ -79,7 +79,7 @@
                                         <Button Click="CerrarAplicacion_Click">
                                             <WrapPanel>
                                                 <materialDesign:PackIcon Kind="Power" Width="20" Height="20" Margin="2 0"  />
-                                                <TextBlock> Cerrar Aplicaciòn (Alt + F9)</TextBlock>
+                                                <TextBlock> Cerrar Aplicaciòn (F9)</TextBlock>
                                             </WrapPanel>
                                         </Button>
                                         
@@ -144,7 +144,7 @@
                                         <Button Click="CerrarAplicacion_Click">
                                              <WrapPanel>
                                                  <materialDesign:PackIcon Kind="Power" Width="20" Height="20" Margin="2 0"  />
-                                                 <TextBlock> Cerrar Aplicaciòn (Alt + F9)</TextBlock>
+                                                 <TextBlock> Cerrar Aplicaciòn</TextBlock>
                                              </WrapPanel>
                                          </Button>
                                      </StackPanel>

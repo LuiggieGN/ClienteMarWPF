@@ -195,12 +195,12 @@ namespace ClienteMarWPF.UI
             {
                 if (myVm.EstaLogueado)
                 {
-                    if ((e.Key == Key.System && e.SystemKey == Key.F9) && Keyboard.Modifiers == ModifierKeys.Alt) // Alt + F9    ** Primero van los Alt y luego teclas funcionales
-                    {
-                        Close();
-                    }
+                    //if ((e.Key == Key.System && e.SystemKey == Key.F9) && Keyboard.Modifiers == ModifierKeys.Alt) // Alt + F9    ** Primero van los Alt y luego teclas funcionales
+                    //{
+                    //    Close();
+                    //}
 
-                    else if (e.Key == Key.F1)
+                    if (e.Key == Key.F1)
                     {
                         myVm.LogoutCommand?.Execute(null);
                     }
@@ -220,10 +220,15 @@ namespace ClienteMarWPF.UI
                 }//fin if EstaLogueado = true
                 else
                 {
-                    if ((e.Key == Key.System && e.SystemKey == Key.F9) && Keyboard.Modifiers == ModifierKeys.Alt) // Alt + F9
+                    if (e.Key == Key.F9) // Alt + F9
                     {
                         Close();
                     }
+
+                    //if ((e.Key == Key.System && e.SystemKey == Key.F9) && Keyboard.Modifiers == ModifierKeys.Alt) // Alt + F9
+                    //{
+                    //    Close();
+                    //}
 
                 }//fin else EstaLogueado = false
 
