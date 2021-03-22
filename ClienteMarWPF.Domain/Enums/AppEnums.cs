@@ -19,6 +19,7 @@
         Mensajeria = 7,
         PagoServicios = 8,
         Configuracion = 9,
+        JuegaMas = 10,
         InicioControlEfectivo = 100,
         RegistrosDeMovimiento = 101
     }   

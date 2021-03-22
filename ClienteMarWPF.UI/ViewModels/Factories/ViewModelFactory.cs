@@ -14,6 +14,7 @@ using ClienteMarWPF.UI.Modules.Reporte;
 using ClienteMarWPF.UI.Modules.Sorteos;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento;
+using ClienteMarWPF.UI.Modules.JuegaMas;
 
 using ClienteMarWPF.UI.State.Navigators;
 
@@ -35,6 +36,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
         private readonly CreateViewModel<PagoServiciosViewModel> _createPagoServiciosViewModel; 
         private readonly CreateViewModel<InicioViewModel> _createInicioControlEfectivoViewModel;       
         private readonly CreateViewModel<MovimientoViewModel> _createMovimientoControlEfectivoViewModel;
+        private readonly CreateViewModel<JuegaMasViewModel> _createJuegaMasViewModel;
 
 
         public ViewModelFactory(
@@ -47,7 +49,8 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
            CreateViewModel<MensajeriaViewModel> createMensajeriaViewModel,
            CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel, 
            CreateViewModel<InicioViewModel> createInicioControlEfectivoViewModel,
-           CreateViewModel<MovimientoViewModel> createMovimientoControlEfectivoViewModel
+           CreateViewModel<MovimientoViewModel> createMovimientoControlEfectivoViewModel,
+           CreateViewModel<JuegaMasViewModel> createJuegaMasViewModel
 
         )
         {
@@ -61,6 +64,7 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
             _createPagoServiciosViewModel = createPagoServiciosViewModel; 
             _createInicioControlEfectivoViewModel = createInicioControlEfectivoViewModel;
             _createMovimientoControlEfectivoViewModel = createMovimientoControlEfectivoViewModel;
+            _createJuegaMasViewModel = createJuegaMasViewModel;
 
         }
 
@@ -78,7 +82,9 @@ namespace ClienteMarWPF.UI.ViewModels.Factories
                 case Modulos.Reporte:
                     return _createReporteViewModel();                
                 case Modulos.Sorteos:
-                    return _createSorteosViewModel();               
+                    return _createSorteosViewModel();
+                case Modulos.JuegaMas:
+                    return _createJuegaMasViewModel();
                 case Modulos.CincoMinutos:
                     return _createCincoMinutosViewModel();                
                 case Modulos.Recargas:

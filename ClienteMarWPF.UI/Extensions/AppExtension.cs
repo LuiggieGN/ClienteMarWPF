@@ -35,6 +35,7 @@ using ClienteMarWPF.UI.Modules.Configuracion;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Inicio;
 using ClienteMarWPF.UI.Modules.FlujoEfectivo.Movimiento;
 using ClienteMarWPF.UI.Modules.RegistrarPC;
+using ClienteMarWPF.UI.Modules.JuegaMas;
 
 using ClienteMarWPF.Domain.Services.AccountService;
 using ClienteMarWPF.Domain.Services.AuthenticationService;
@@ -55,6 +56,7 @@ using System;
 using System.Windows;
 using MarPuntoVentaServiceReference;
 using ClienteMarWPF.UI.Views.Controls;
+
 #endregion
 
 
@@ -92,9 +94,6 @@ namespace ClienteMarWPF.UI.Extensions
             return controlContexto.RegistroDePCFueExitoso;
 
         }
-
-
-
 
         public static IServiceProvider CreateAppServicesProvider(this IServiceCollection services, App aplicativo, WindowAppLoding ventanaCargando)
         {
@@ -229,8 +228,6 @@ namespace ClienteMarWPF.UI.Extensions
             return AddServicesProvider(services, inicio, aplicativo);
         }
 
-
-
         private static IServiceProvider AddServicesProvider(IServiceCollection services, InicioPCResultDTO inicioDto, App aplicativo)
         {
             Action reInicioApp = null;
@@ -282,6 +279,11 @@ namespace ClienteMarWPF.UI.Extensions
                     services.GetRequiredService<IAuthenticator>(),
                     services.GetRequiredService<ISorteosService>()
                 );
+            });
+
+            services.AddSingleton<CreateViewModel<JuegaMasViewModel>>(services =>
+            {
+                return () => new JuegaMasViewModel( );
             });
 
             services.AddSingleton<CreateViewModel<CincoMinutosViewModel>>(services =>
