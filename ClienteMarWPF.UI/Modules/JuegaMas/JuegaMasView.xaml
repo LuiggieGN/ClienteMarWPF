@@ -38,13 +38,7 @@
             <StackPanel Background="{DynamicResource Background}"
                         Orientation="Vertical">
 
-                <Label 
-                           FontSize="18"
-                           FontWeight="Medium"
-                           BorderBrush="#e0e0e0"
-                           Margin="10 15 0 15"
-                           Padding="5 0"
-                           Content="Registra tus jugadas" />
+
 
 
                 <StackPanel x:Name="SeccionSeleccion">
