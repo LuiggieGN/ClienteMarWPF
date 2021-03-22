@@ -1,4 +1,5 @@
-﻿using ClienteMarWPF.Domain.Services.RecargaService;
+﻿using ClienteMarWPF.DataAccess;
+using ClienteMarWPF.Domain.Services.RecargaService;
 using ClienteMarWPF.UI.Modules.Recargas;
 using ClienteMarWPF.UI.Modules.Recargas.Modal;
 using ClienteMarWPF.UI.State.Authenticators;
@@ -20,7 +21,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
         private readonly INavigator _nav;
         private readonly IRecargaService RecargaService;
         public Random r = new Random();
-        public static int Solicitud;
+        public  int Solicitud = 0;
         public SendRecargaCommand(RecargasViewModel viewModel, IAuthenticator autenticador, INavigator nav, IViewModelFactory vistas, IRecargaService recargaService) : base()
         {
             ViewModel = viewModel;
@@ -28,7 +29,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
             RecargaService = recargaService;
             _nav = nav;
             _vistas = vistas;
-            Solicitud = r.Next(999,9989);
+            
             Action<object> comando = new Action<object>(SendRecarga);
             base.SetAction(comando);
 
@@ -46,7 +47,9 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Recargas
             {
                 try
                 {
-                    Solicitud += 1;
+                    // Solicitud += 1;
+                    SessionGlobals.GenerateNewSolicitudID(Autenticador.CurrentAccount.MAR_Setting2.Sesion.Sesion, true);
+                    Solicitud = (int)SessionGlobals.SolicitudID;
                     var recarga = RecargaService.GetRecarga(Autenticador.CurrentAccount.MAR_Setting2.Sesion,
                                                             Autenticador.CurrentAccount.MAR_Setting2.Sesion.Usuario, Autenticador.CurrentAccount.UsuarioDTO.UsuClave,
                                                             ViewModel.Provedor.OperadorID, ViewModel.Telefono, Convert.ToDouble(ViewModel.Monto), Solicitud);
