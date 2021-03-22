@@ -6,6 +6,7 @@
              xmlns:moduloLogin="clr-namespace:ClienteMarWPF.UI.Modules.Login"   
              xmlns:moduloReporte="clr-namespace:ClienteMarWPF.UI.Modules.Reporte"   
              xmlns:moduloSorteos="clr-namespace:ClienteMarWPF.UI.Modules.Sorteos"   
+             xmlns:moduloJuegaMas="clr-namespace:ClienteMarWPF.UI.Modules.JuegaMas"    
              xmlns:moduloCincoMinutos="clr-namespace:ClienteMarWPF.UI.Modules.CincoMinutos"   
              xmlns:moduloRecargas="clr-namespace:ClienteMarWPF.UI.Modules.Recargas"   
              xmlns:moduloMensajeria="clr-namespace:ClienteMarWPF.UI.Modules.Mensajeria"   
@@ -66,6 +67,13 @@
                    
                     />
             </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type  moduloJuegaMas:JuegaMasViewModel}">
+                <moduloJuegaMas:JuegaMasView  />
+            </DataTemplate>
+
+
             <DataTemplate DataType="{x:Type  moduloValidarPagos:ValidarPagoTicketViewModel}">
                 <moduloValidarPagos:ValidarPagoTicket
                    GetListadoTicketsCommand="{Binding GetListadoTicketsCommand}"
@@ -89,10 +97,6 @@
                 <moduloPagoServicios:PagoServiciosView />
             </DataTemplate>
 
-            <!--<DataTemplate DataType="{x:Type  moduloConfiguracion:ConfiguracionViewModel}">
-                <moduloConfiguracion:ConfiguracionView />
-            </DataTemplate>-->
-
             <DataTemplate DataType="{x:Type moduloLogin:LoginViewModel}">
                 <moduloLogin:LoginView  LoginCommand="{Binding LoginCommand}"   />
             </DataTemplate>
@@ -105,6 +109,9 @@
                 <efectivoMovimiento:MovimientoView />
             </DataTemplate>
 
+            
+            
+            
 
         </ResourceDictionary>
 

@@ -76,7 +76,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Home
             bool CALL_ASYNC = Si;
             bool BREAK_INFINITY = No;
 
-            for (; ; )
+            for (;;)
             {
                 if (CALL_ASYNC)
                 {
@@ -121,8 +121,6 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Home
 
         private void GetAndSetCardsData()
         {
-
-            Thread.Sleep(3000);
 
             string bancaBalance = "*";
             decimal totVentasLoterias = 0,

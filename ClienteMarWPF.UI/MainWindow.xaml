@@ -20,12 +20,12 @@
         <Storyboard x:Key="OpenMenuStoryboard">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="180"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="200"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseMenuStoryboard">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="180"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="60"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
@@ -121,20 +121,6 @@
                                 </materialDesign:ColorZone.Effect>
                                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10" StaysOpen="False">
                                      <StackPanel Width="210"> 
-                                         <!--<Button Content="Ayuda"/>
-                                         <Button Command="{Binding CambiarTerminalConfiguracionLocalCommand}">
-                                             <WrapPanel>
-                                                 <materialDesign:PackIcon Kind="Tools" Width="20" Height="20" Margin="2 0"  />
-                                                 <TextBlock>Configuraciones</TextBlock>
-                                             </WrapPanel>
-                                         </Button>-->                                        
-                                         <!--<Separator/>                                      
-                                         <Button Command="{Binding LogoutCommand}">                                            
-                                             <WrapPanel>
-                                                 <materialDesign:PackIcon Kind="Login" Width="20" Height="20" Margin="2 0"  /> <TextBlock> Cerrar Sesión</TextBlock>
-                                             </WrapPanel>                                       
-                                         </Button>-->
-
                                         <Button Command="{Binding CambiarTerminalConfiguracionLocalCommand}">
                                             <WrapPanel>
                                                 <materialDesign:PackIcon Kind="Tools" Width="20" Height="20" Margin="2 0"  />
@@ -190,7 +176,7 @@
                               Panel.ZIndex="50" 
                               Background="{DynamicResource MenuLeftBackground}"
                               Grid.Row="0"
-                              Width="60"
+                              Width="200"
                               Grid.RowSpan="2" 
                               HorizontalAlignment="Stretch"
                               Loaded="GridMenu_Loaded">
