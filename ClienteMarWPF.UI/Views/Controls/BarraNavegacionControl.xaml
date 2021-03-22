@@ -47,7 +47,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
                         <BulletDecorator Background="Transparent">
-                            <BulletDecorator.Bullet>                                
+                            <BulletDecorator.Bullet>
                                 <StackPanel x:Name="rad" Orientation="Horizontal" VerticalAlignment="Stretch">
                                     <!--<Grid Width="0" Height="0">
                                         <Ellipse Name="MainEllipse" Width="40" Height="40">
@@ -79,7 +79,7 @@
                             </Trigger>
                             <Trigger Property="IsChecked" Value="true">
                                 <Setter TargetName="rad" Property="Background" Value="#98cbf3"/>
-                            </Trigger>                            
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -88,20 +88,20 @@
     </UserControl.Resources>
 
     <DockPanel >
-        
+
         <StackPanel x:Name="StackPanelMain" DockPanel.Dock="Top" >
 
             <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Home}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="AttachMoney" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <Label Content="Balances" VerticalContentAlignment="Center" Margin="10 0" Foreground="White"  FontSize="15"/>
+                    <Label Content="Balances - F1" VerticalContentAlignment="Center" Margin="9 0" Foreground="White"  FontSize="15"/>
                 </StackPanel>
             </Button>
 
             <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Sorteos}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="CashRegister" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Sorteos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Sorteos - F2" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
@@ -111,7 +111,7 @@
                         <BulletDecorator.Bullet>
                             <materialDesign:PackIcon Kind="Router" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                         </BulletDecorator.Bullet>
-                        <TextBlock Text="Juegos" Margin="15 0" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
+                        <TextBlock Text="Juegos" Margin="13 0" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
                     </BulletDecorator>
                 </Expander.Header>
 
@@ -119,13 +119,13 @@
                     <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" >
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Truck" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                            <TextBlock Text="Camión Millonario" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                            <TextBlock Text="Camión Millonario" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                     <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.JuegaMas}">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="PlusBox" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                            <TextBlock Text="Juega Mas" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                            <TextBlock Text="Juega Mas" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -135,31 +135,31 @@
             <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}" Visibility="{Binding Permisos.PuedeVenderRecargas, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Telephone" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Recargas" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Recargas" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
             <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Dice5" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Cinco Minutos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Cinco Minutos" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
             <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}"  Visibility="{Binding Permisos.Servicios, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="BulbOn" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Paga Facil" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Paga Facil" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
-            <Expander Background="Transparent" Margin="0 2" Width="200" BorderBrush="Transparent" IsExpanded="False" Foreground="White" Visibility="{Binding BancaConfiguracion.ControlEfectivoConfigDto.PuedeUsarControlEfectivo, Converter={ StaticResource BooleanToVisibilityConverter }}" >
+            <Expander Background="Transparent" Margin="0 2" Width="204" BorderBrush="Transparent" IsExpanded="False" Foreground="White" Visibility="{Binding BancaConfiguracion.ControlEfectivoConfigDto.PuedeUsarControlEfectivo, Converter={ StaticResource BooleanToVisibilityConverter }}" >
                 <Expander.Header>
-                    <BulletDecorator Margin="-7 0 0 0">
+                    <BulletDecorator Margin="-7,0,-20,0">
                         <BulletDecorator.Bullet>
                             <materialDesign:PackIcon Kind="Transfer" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                         </BulletDecorator.Bullet>
-                        <TextBlock Text="Flujo" Margin="15 0" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
+                        <TextBlock Text="Flujo Efectivo" FontWeight="Medium" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0,0,0"   />
                     </BulletDecorator>
                 </Expander.Header>
 
@@ -217,25 +217,27 @@
             </Expander>
 
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Mensajeria}" >
-                <StackPanel Orientation="Horizontal" >
-                    <materialDesign:PackIcon Kind="Chat" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <Label  Content="Mensajeria" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-
 
             <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="FileDocumentBoxSearch" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Reportes" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Reportes - F3" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Mensajeria}" >
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="Chat" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <Label  Content="Mensajeria - F10" Margin="9 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>            
+            
+            
             <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}"  CommandParameter="{x:Static nav:Modulos.Reporte}" >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="WifiOff" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Ventas locales" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Ventas locales" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
@@ -260,13 +262,13 @@
             <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding LogoutCommand}" Click="Button_Click">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Logout" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Salir" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Salir" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
 
         </StackPanel>
-    
+
     </DockPanel>
 
 </UserControl>

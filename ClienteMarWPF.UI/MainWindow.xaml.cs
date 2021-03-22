@@ -202,7 +202,8 @@ namespace ClienteMarWPF.UI
 
                     if (e.Key == Key.F1)
                     {
-                        myVm.LogoutCommand?.Execute(null);
+                        //myVm.LogoutCommand?.Execute(null);
+                        myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Home);
                     }
                     else if (e.Key == Key.F2)
                     {

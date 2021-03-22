@@ -77,7 +77,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.MainWindow
             }
             else
             {
-                _viewmodel.Toast.ShowError("Operación de cuadre fue cancelada");
+                //_viewmodel.Toast.ShowError("Operación de cuadre fue cancelada");
             }
         }
 
