@@ -49,6 +49,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Home
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+
             UltimaActualizacion = DateTime.Now;
 
             ViewModel.Cargando = Si;
@@ -121,6 +122,8 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Home
 
         private void GetAndSetCardsData()
         {
+            Thread.Sleep(2000);
+
 
             string bancaBalance = "*";
             decimal totVentasLoterias = 0,

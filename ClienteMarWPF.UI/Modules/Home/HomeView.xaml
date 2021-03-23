@@ -43,39 +43,7 @@
                 </StackPanel>
 
 
-                <Button  
-                 HorizontalAlignment="Center" 
-                 FontSize="18"
-                 Height="40" 
-                 Margin="150 25 0 10 " 
-                 FontWeight="Normal"
-                 Style="{DynamicResource btn-dark}" 
-                 Padding="10 0 0 0"
-                 Command="{Binding CargarBalancesCommand}" >
-                    <Grid Margin="0 0 0 0"
-                  HorizontalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0"
-                            Orientation="Horizontal">
 
-                            <controls:SpinnerPiston Background="Transparent"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center" 
-                                            Width="40"
-                                            Height="40"                                         
-                                            Visibility="{Binding Cargando, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                            <TextBlock Text="Consultar"
-                               FontSize="18"
-                               Foreground="White"
-                               VerticalAlignment="Center"/>
-
-                            <materialDesign:PackIcon Kind="Search" Margin="10 4 10 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White" FontSize="18"/>
-                        </StackPanel>
-                    </Grid>
-                </Button>
 
 
             </DockPanel>
@@ -97,12 +65,50 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="{Binding UltimaFechaDeActualizacion}"
-                           HorizontalAlignment="Center" 
+
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+
+                        <Button  
+                               HorizontalAlignment="Left" 
+                               FontSize="18"         
+                               Margin="10 0 0 0 " 
+                               FontWeight="Normal"
+                               Style="{DynamicResource btn-light}" 
+                               Padding="0 0 0 0"
+                               Command="{Binding CargarBalancesCommand}" >
+                            <Grid Margin="0 0 0 0"
+                                  HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0"
+                                            Orientation="Horizontal">
+
+                                    <controls:SpinnerPistonAlt Background="Transparent"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" 
+                                            Width="40"
+                                            Height="40"                                         
+                                            Visibility="{Binding Cargando, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                    <TextBlock  
+                                              FontSize="18"
+                                              Foreground="#000"
+                                              VerticalAlignment="Center"/>
+
+                                    <materialDesign:PackIcon Kind="Refresh" Margin="10 4 10 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="#000" FontSize="18"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+
+                        <TextBlock Text="{Binding UltimaFechaDeActualizacion}"
+                           HorizontalAlignment="Left" 
                            Margin="12 10 0 7"  
                            FontSize="13"
-                           Grid.Row="0"
-                           Grid.ColumnSpan="2"/>
+                        />
+                    </StackPanel>
+
+
 
                     <!--NUMERO 1-->
                     <Border Background="LightGreen"  Margin="10" Height="125" Grid.Row="1" Grid.Column="0">

@@ -15,7 +15,7 @@ namespace ClienteMarWPF.UI.State.DashboardCard
 
 
         public DateTime? UltimaFechaDeActualizacion { get; set; }
-        public string UltimaFechaDeActualizacionStr =>  UltimaFechaDeActualizacion.HasValue ? $"Última Actualización : {UltimaFechaDeActualizacion.Value.ToString("dddd dd, MMM yyyy  hh:mm:ss")}" : "";
+        public string UltimaFechaDeActualizacionStr =>  UltimaFechaDeActualizacion.HasValue ? $"Última Actualización : {UltimaFechaDeActualizacion.Value.ToString("hh:mm:ss tt")}" : "";
 
 
         public bool IsLoadingForFirstTime { get; set; }
