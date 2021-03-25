@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <Reference Include="MAR.Config">
-      <HintPath>..\ConfigLibrary\LUIGGIE\DATA002\MAR.Config.dll</HintPath>
+      <HintPath>..\..\..\..\Users\USER\Desktop\mar config modelo 2020\MAR.Config.dll</HintPath>
     </Reference>
   </ItemGroup>
 
