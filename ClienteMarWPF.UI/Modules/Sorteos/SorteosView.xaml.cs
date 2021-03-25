@@ -1,6 +1,7 @@
 ﻿using ClienteMarWPF.DataAccess;
 using ClienteMarWPF.Domain.Models.Dtos;
 using ClienteMarWPF.UI.Modules.Sorteos.Modal;
+using ClienteMarWPF.UI.ViewModels.Commands;
 using ClienteMarWPF.UI.ViewModels.Commands.Sorteos;
 using ClienteMarWPF.UI.ViewModels.ModelObservable;
 using ClienteMarWPF.UI.Views.WindowsModals;
@@ -37,6 +38,8 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         private DateTime lastKeyPress;
         private List<string> NumerosJugados;
         private static string ticketSeleccionado;
+        public bool prueba;
+
 
         public static readonly DependencyProperty RealizarApuestaCommandProperty = DependencyProperty.Register("RealizarApuestaCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
         //public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
@@ -370,6 +373,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         private void RealizaApuesta()
         {
             var VM = DataContext as SorteosViewModel;
+
             if (ltJugada.Items.Count > 0)
             {
                 var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
@@ -400,7 +404,11 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     }
                 }
 
-                
+                //if( listSorteo.SelectedItem == null )
+                //{
+                //    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionarse una loteria", "Aviso");
+                //}
+
 
                 //if (GetListadoTicketsCommand != null)
                 //{
@@ -412,7 +420,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             }
             else
             {
-                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
+                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista o debe seleccionar una loteria.", "Aviso");
 
             }
 
@@ -616,16 +624,47 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         }
         private void AgregaJugada(object sender, KeyEventArgs e)
         {
+
+            var modal = new ConfirmarMontoWindow();
+
             if (e.Key == Key.Enter)
             {
+              
                 TextBox s = e.Source as TextBox;
                 if (s != null)
                 {
-                    if (txtMonto.Text != "" && txtJugada.Text != "")
+
+                    if (txtMonto.Text != "" && txtJugada.Text != "" && txtMonto.Text != "0")
                     {
-                        AddItem();
-                        txtMonto.Text = "";
-                        txtJugada.Text = "";
+
+                        if (Convert.ToInt32(txtMonto.Text) <= 500)
+                        {
+                           
+                            AddItem();
+                            txtMonto.Text = "";
+                            txtJugada.Text = "";
+
+                        }
+                        else
+                        {
+                            modal.Owner = Application.Current.MainWindow;
+                           
+                            modal.ShowDialog();
+
+                            if (modal.Confirmar)
+                            {
+                                AddItem();
+                                txtMonto.Text = "";
+                                txtJugada.Text = "";
+                               
+                            }
+                        }
+
+                      
+                    }
+                    else
+                    {
+                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("El monto debe ser mayor a 0 pesos.", "Aviso");
                     }
                     if (s.Name == "txtJugada")
                     {
@@ -648,7 +687,15 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         }
         private void Vender(object sender, RoutedEventArgs e)
         {
-           RealizaApuesta();
+            if( SorteosBinding != null && SorteosBinding.Count > 0 && (SorteosBinding.Any(x => x.IsSelected == true)  ))
+            {
+                RealizaApuesta();
+            }
+            else
+            {
+                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar la loteria.", "Aviso");
+            }
+           
         }
         private void btnCombinar(object sender, RoutedEventArgs e)
         {
