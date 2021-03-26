@@ -18,10 +18,4 @@ namespace ClienteMarWPF.UI.Converters
             throw new NotImplementedException();
         }
     }
-
-
-    class Sample
-    {
-
-    }
 }
