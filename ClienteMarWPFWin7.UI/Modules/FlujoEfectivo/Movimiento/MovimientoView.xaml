@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.MovimientoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  
+             xmlns:view1="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1"
+             xmlns:view2="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View2"
+             xmlns:view3="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View3"
+             xmlns:dialogo="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Modal"
+             d:DesignHeight="840" d:DesignWidth="1000">
+
+    <Grid>
+        <Grid x:Name="GridAOcultar">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"  />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Background="{DynamicResource MenuLeftBackground}" Height="40" Grid.Row="0">
+                <Label Content="Movimientos" 
+                   FontSize="18" 
+                   Foreground="White"   
+                   VerticalContentAlignment="Center" 
+                   Margin="20 0" 
+                   FontWeight="Bold"/>
+            </Border>
+
+            <dragablz:TabablzControl  Grid.Row="1"
+                                      AllowDrop="False"                                    
+                                      Margin="4 3 4 0" >
+                <TabItem IsSelected="True" Background="Red">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"  >
+                            <materialDesign:PackIcon Kind="Arrow" Width="30" Height="30" Foreground="#FF00A8E8" />
+                            <TextBox  Text="Registra Ingresos y Gastos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <view1:EnCajaView DataContext="{Binding View1}"  />
+                </TabItem>
+
+                <TabItem Height="50">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
+                            <materialDesign:PackIcon Kind="Cash" Foreground="#FF00A8E8" Width="30" Height="30" />
+                            <TextBox  Text="Entrega y Recibo de Dinero" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <view2:DesdeHastaView DataContext="{Binding View2}" SeleccionarGestorCommand="{Binding SeleccionarGestorCommand}" RestablecerCommand="{Binding RestablecerCommand}"/>
+                </TabItem>
+
+                <TabItem Height="50">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
+                            <materialDesign:PackIcon Kind="FindInPage" Foreground="#FF00A8E8" Width="30" Height="30" />
+                            <TextBox  Text="Consulta tus Movimientos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <view3:ConsultaMovimientoView DataContext="{Binding View3}"  />
+                    </DockPanel>
+                </TabItem>
+
+            </dragablz:TabablzControl>
+        </Grid>
+
+        <dialogo:DialogoToken DataContext="{Binding Dialog}"
+                              OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}"
+                              CargarDialogo="{Binding Path=MuestroDialogo}"
+                              AceptarCommand ="{Binding Path=AceptarCommand}"/>
+
+
+
+    </Grid>
+    
+    
+    
+
+ 
+
+
+
+
+</UserControl>

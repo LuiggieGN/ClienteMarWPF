@@ -1,0 +1,64 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  >
+
+
+
+
+
+
+
+    <Style x:Key="ModalDialogHeaderStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#000"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="0 7 1 0" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style x:Key="ModalMensajeBalanceStyle" TargetType="{x:Type Label}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#000"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="0 10 0 20" />
+        <Setter Property="MaxWidth" Value="500"/>
+    </Style>
+
+    <Style x:Key="ModalMensajeErrorStyle" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#EF2121" />
+        <Setter Property="Padding" Value="1" />
+    </Style>
+
+    <Style x:Key="BotonCancelarStyle" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Segoe UI Historic"/>
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Height" Value="46" />
+        <Setter Property="Width" Value="110" />
+        <Setter Property="Background" Value="#757171"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="4"/>
+        <Setter Property="Focusable" Value="True"/>
+    </Style>
+
+    <Style x:Key="BotonAceptarStyle" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Segoe UI Historic"/>
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Height" Value="46" />
+        <Setter Property="Width" Value="110" />
+        <Setter Property="Background" Value="#FF53C157"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Margin" Value="4"/>
+    </Style>
+
+</ResourceDictionary>

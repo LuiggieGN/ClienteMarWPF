@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CallHaciendaFuncion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pMetodo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pSesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Session">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sesion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastTck" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastPin" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrinterSize" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrinterHeader" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrinterFooter" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_HaciendaResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OK" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Respuesta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CallHaciendaFuncionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CallHaciendaFuncionResult" type="tns:MAR_HaciendaResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CallHaciendaFuncionSoapIn">
+    <wsdl:part name="parameters" element="tns:CallHaciendaFuncion" />
+  </wsdl:message>
+  <wsdl:message name="CallHaciendaFuncionSoapOut">
+    <wsdl:part name="parameters" element="tns:CallHaciendaFuncionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="mar_haciendaSoap">
+    <wsdl:operation name="CallHaciendaFuncion">
+      <wsdl:input message="tns:CallHaciendaFuncionSoapIn" />
+      <wsdl:output message="tns:CallHaciendaFuncionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="mar_haciendaSoap" type="tns:mar_haciendaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CallHaciendaFuncion">
+      <soap:operation soapAction="http://tempuri.org/CallHaciendaFuncion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="mar_haciendaSoap12" type="tns:mar_haciendaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CallHaciendaFuncion">
+      <soap12:operation soapAction="http://tempuri.org/CallHaciendaFuncion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="mar_hacienda">
+    <wsdl:port name="mar_haciendaSoap" binding="tns:mar_haciendaSoap">
+      <soap:address location="http://pruebasmar.ddns.net/mar-svr5/mar-hacienda.asmx" />
+    </wsdl:port>
+    <wsdl:port name="mar_haciendaSoap12" binding="tns:mar_haciendaSoap12">
+      <soap12:address location="http://pruebasmar.ddns.net/mar-svr5/mar-hacienda.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

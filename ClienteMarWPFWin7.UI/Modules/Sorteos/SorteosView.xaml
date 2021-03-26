@@ -1,0 +1,427 @@
+﻿  <UserControl x:Class="ClienteMarWPFWin7.UI.Modules.Sorteos.SorteosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+               xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
+             mc:Ignorable="d" PreviewKeyDown="PressTecla" Loaded="SelectCampo">
+    <UserControl.Resources>
+        <DataTemplate x:Key="ListCheckBoxTemplate">
+            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Click="CheckBox_Click" >
+                <CheckBox.Resources>
+                    <Style TargetType="{x:Type CheckBox}">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type CheckBox}">
+                                    <Border x:Name="fondoC" Width="135" Height="40"  Background="LightGray" CornerRadius="2" Padding="5">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <!--<materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />-->
+                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="15"  HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="fondoC" Property="Background" Value="#00171F"/>
+                                            <Setter TargetName="title" Property="Foreground" Value="White"/>
+                                            <!--<Setter TargetName="faicon2" Property="Foreground" Value="White"/>-->
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect  BlurRadius="15" Direction="310" Color="#ABB2B9" RenderingBias="Quality" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                <Condition Property="IsChecked" Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </CheckBox.Resources>
+            </CheckBox>
+        </DataTemplate>
+        <!--- GroupName="SorteosList"-->
+        <DataTemplate x:Key="ListRadioButton" >
+            <CheckBox  IsChecked="{Binding IsSelected, Mode=TwoWay}" Click="CheckBox_ClickOne">
+                <CheckBox.Resources>
+                    <Style TargetType="{x:Type CheckBox}">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type CheckBox}">
+                                    <Border x:Name="fondoC" Width="135" Height="40"  Background="LightGray" CornerRadius="2" Padding="5">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <!--<materialDesign:PackIcon Name="faicon2" Kind="{Binding Image}"  Width="25" Height="25" VerticalAlignment="Center" />-->
+                                            <Label x:Name="title"   Content="{Binding Loteria}" FontSize="15"  HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="fondoC" Property="Background" Value="#00171F"/>
+                                            <Setter TargetName="title" Property="Foreground" Value="White"/>
+                                            <!--<Setter TargetName="faicon2" Property="Foreground" Value="White"/>-->
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect  BlurRadius="15" Direction="310" Color="#ABB2B9" RenderingBias="Quality" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                <Condition Property="IsChecked" Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </CheckBox.Resources>
+            </CheckBox>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+
+        <Grid x:Name="GridAOcultar">
+            <Grid.RowDefinitions >
+                <RowDefinition Height="Auto" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{DynamicResource MenuLeftBackground}" Height="40">
+                <Label Content="Ventas de Sorteos" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
+            </Border>
+
+
+            <Grid Grid.Row="1" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <!--COLUMN LEFT-->
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 2">
+                        <TextBox
+                        Name="txtMonto"
+                        Text="{Binding Monto, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="Monto $"
+                      materialDesign:HintAssist.FloatingScale="0.90"
+        
+                        Width="130"  
+                        Margin="5"
+                        FontSize="15"
+                        VerticalContentAlignment="Center" 
+                        HorizontalContentAlignment="Center"
+                        PreviewTextInput="NumberValidationTextBox"
+                        KeyDown="AgregaJugada"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                        />
+                        <TextBox
+                        x:Name="txtJugada"
+                        Text="{Binding Jugada, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="Jugada"
+                      materialDesign:HintAssist.FloatingScale="0.90"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                        Width="130"  
+                        Margin="5"
+                        FontSize="15"
+                        MaxLength="6"
+                        VerticalContentAlignment="Center" 
+                        HorizontalContentAlignment="Center"
+                        PreviewTextInput="NumberValidationTextBox"
+                        KeyDown="AgregaJugada"
+                        />
+                    </StackPanel>
+
+                    <ScrollViewer   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 10"  Height="250"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <DataGrid x:Name="ltJugada"  ItemsSource="{Binding}" FontSize="18"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True" Background="AliceBlue">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn  Binding="{Binding TipoJugada}" Width="*"  Header="Tipo Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn  Binding="{Binding Jugadas}"    Width="*" Header="Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn  Binding="{Binding Monto}"      Width="*" Header="Monto $"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+
+
+                    <StackPanel Width="280" Grid.Row="1"  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 -20" >
+                        <Label x:Name="txtMontoTotal" Content="$ 00.00" FontWeight="Bold" FontSize="40" Foreground="#28A745" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                        <Label Content="Total Monto de Jugadas" Margin="0 -20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15"  />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0 40 0 0">
+
+                        <Button  Style="{DynamicResource btn-danger}" Foreground="White" Width="160"  Margin="5 0" Click="Quitar">
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
+                                <TextBlock Text=" Quitar F9"  VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button  Style="{DynamicResource btn-success}" Foreground="White" Width="160"  Margin="5 0" Click="Vender">
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="AddCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                                <TextBlock Text="Vender F12 +" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" Margin="0 8">
+
+                        <Button  Style="{DynamicResource MaterialDesignRaisedAccentButton}" Click="btnCombinar" Foreground="White" Width="160" Margin="5 0" Background="{DynamicResource MenuTopBackground}" >
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <materialDesign:PackIcon Kind="ShuffleVariant" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                                <TextBlock Text="Combinar *" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button  Style="{DynamicResource btn-dark}" Command="{Binding ValidarPagoTicketCommand}" Mouse.MouseEnter="Button_MouseEnter" Foreground="White" Width="160" Margin="5 0"  >
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <materialDesign:PackIcon Kind="Invoice" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                                <TextBlock Text="Consultar F5" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+
+
+
+                </StackPanel>
+
+
+                <!--VENTAS Y CONSULTA-->
+                <StackPanel x:Name="VentasYConsulta" Grid.Column="1" Visibility="Visible" HorizontalAlignment="Center" Margin="5 0">
+
+
+                    <!--<Border BorderThickness="0 0 0 0" BorderBrush="Black">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                            <Label Content="Ventas de Hoy: "  VerticalContentAlignment="Center" FontSize="18"   BorderThickness="0 0 0 0" />
+                            <Label x:Name="txtTotalVenta" VerticalContentAlignment="Center" Foreground="#28A745" Content="{Binding TotalVentas, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" />
+                        </StackPanel>
+                    </Border>-->
+                    <StackPanel x:Name="SorteosYLoterias" Grid.Column="1" Visibility="Visible">
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="Regulares" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="Regulares_MouseDown">
+                                <TextBlock.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource DarkForegroundOpacity50}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <ToggleButton x:Name="CrearSuper"  Margin="10 24" Unchecked="CrearSuper_Unchecked" Checked="CrearSuper_Checked" />
+                            <TextBlock Text="SuperPales" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
+                                <TextBlock.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                                <Setter Property="Foreground" Value="{DynamicResource DarkForegroundOpacity50}" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+
+                            </TextBlock>
+                        </StackPanel>
+
+
+                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}"  BorderThickness="0 0 0 0"  VerticalAlignment="Top"  Height="350"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
+                            <ListBox.Resources>
+                                <Style TargetType="ListBox">
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                            <Setter Property="ItemTemplate" Value="{StaticResource ListCheckBoxTemplate}" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                            <Setter Property="ItemTemplate" Value="{StaticResource ListRadioButton}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                </Style>
+                            </ListBox.Resources>
+
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel  IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+
+
+                        </ListBox>
+
+                    </StackPanel>
+
+                    <!--<Label Content="Ventas de Hoy" HorizontalAlignment="Center"/>-->
+
+                    <!--<ScrollViewer Name="contenedorTicket"   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <DataGrid x:Name ="tbVentas"  ItemsSource="{Binding ListaTickets, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns >
+                                <DataGridTemplateColumn Header="Acciones"  Width="80" IsReadOnly="True" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                       
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button  Style="{DynamicResource btn-primary}" Width="20" Height="20" HorizontalAlignment="Left"   Padding="1 1" Margin="5 5" >
+                                                    <StackPanel Orientation="Horizontal" >
+                                                        <materialDesign:PackIcon Kind="ContentCopy" MouseDown="GetTicketSeleccionado" HorizontalContentAlignment="Left" Width="16" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0 0" Padding="5 5" />
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button  Style="{DynamicResource btn-danger}" Width="20" Height="20" HorizontalAlignment="Left"   Padding="1 1" Margin="2 2" >
+                                                    <StackPanel Orientation="Horizontal" >
+                                                        <materialDesign:PackIcon Kind="Clear" MouseDown="GetPrecargarTicketSeleccionado" HorizontalContentAlignment="Left" Width="16"  VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0 0" Padding="5 5" />
+                                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                --><!--<DataGridTemplateColumn Header="Anular"  Width="*" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button  Style="{DynamicResource btn-danger}" Command="{Binding CopiarTicketCommand}" Width="30" Height="30" HorizontalAlignment="Left"  MouseDown="ExtraerTicketSelect" Padding="8 0">
+                                                <StackPanel Orientation="Horizontal" MouseDown="ExtraerTicketSelect" >
+                                                    <materialDesign:PackIcon Kind="Clear"  HorizontalContentAlignment="Left" Width="15" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0 0" Padding="0 0" />
+                                                </StackPanel>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>--><!--
+                                <DataGridTextColumn   Header="Ticket No."  Binding="{Binding TicketNo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Bold"/>
+                                <DataGridTextColumn   Header="Ticket"  Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold"/>
+                                <DataGridTextColumn   Header="Hora"   Width="*" Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold"/>
+                                <DataGridTextColumn   Header="Monto $"  Width="*" Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold" />
+                               
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>-->
+                   
+                    <Label Content="Ultimos Sorteos" HorizontalContentAlignment="Center" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
+                    <ScrollViewer   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <DataGrid x:Name ="tbSorteos"  ItemsSource="{Binding UltimosSorteos, UpdateSourceTrigger=PropertyChanged}"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn   Width="*" Header="Sorteo" Binding="{Binding Sorteo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="1ra" Binding="{Binding Primero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="2da" Binding="{Binding Segundo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="3ra" Binding="{Binding Tercero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <!--<DataGridTextColumn   Header="Hora"    Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />-->
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+
+
+
+                </StackPanel>
+
+                <!--SORTEOS Y LOTERIAS-->
+                <!--<StackPanel x:Name="SorteosYLoterias" Grid.Column="1" Visibility="Visible">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Regulares" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="Regulares_MouseDown">
+                            <TextBlock.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                            <Setter Property="Foreground" Value="{DynamicResource DarkForegroundOpacity50}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Resources>
+                        </TextBlock>
+                        <ToggleButton x:Name="CrearSuper"  Margin="10" Unchecked="CrearSuper_Unchecked" Checked="CrearSuper_Checked" />
+                        <TextBlock Text="SuperPales" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
+                            <TextBlock.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource DarkForegroundOpacity50}" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                            <Setter Property="Foreground" Value="{DynamicResource DarkForeground}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Resources>
+
+                        </TextBlock>
+                    </StackPanel>
+
+
+                    <ListBox x:Name="listSorteo" ItemsSource="{Binding}"  BorderThickness="0 0 0 1"  VerticalAlignment="Top"  Height="400"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
+                        <ListBox.Resources>
+                            <Style TargetType="ListBox">
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="True">
+                                        <Setter Property="ItemTemplate" Value="{StaticResource ListCheckBoxTemplate}" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=CrearSuper}" Value="False">
+                                        <Setter Property="ItemTemplate" Value="{StaticResource ListRadioButton}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            </Style>
+                        </ListBox.Resources>
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel  IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+
+                    </ListBox>
+
+                </StackPanel>-->
+
+            </Grid>
+
+
+        </Grid>
+
+        <controls:ValidarPagoTicket DataContext="{Binding Dialog}" Panel.ZIndex="500" OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}" CargarDialogo="{Binding Path=MuestroDialogo}"/>
+
+    </Grid>
+    
+
+</UserControl>

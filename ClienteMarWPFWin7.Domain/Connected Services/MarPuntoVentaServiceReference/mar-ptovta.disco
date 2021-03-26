@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://localhost/MarVentasService/mar-ptovta.asmx?wsdl" docRef="http://localhost/MarVentasService/mar-ptovta.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://localhost/MarVentasService/mar-ptovta.asmx" xmlns:q1="mar.do" binding="q1:PtoVtaSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://localhost/MarVentasService/mar-ptovta.asmx" xmlns:q2="mar.do" binding="q2:PtoVtaSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

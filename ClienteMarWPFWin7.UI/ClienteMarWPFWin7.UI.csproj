@@ -1,0 +1,686 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E8B110B9-6DE6-460A-96C4-F620C7AA4FF6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ClienteMarWPFWin7.UI</RootNamespace>
+    <AssemblyName>ClienteMarWPFWin7.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="DeviceId, Version=5.2.0.0, Culture=neutral, PublicKeyToken=f755c371b5c59c52, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeviceId.5.2.0\lib\net40\DeviceId.dll</HintPath>
+    </Reference>
+    <Reference Include="Dragablz, Version=0.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.223\lib\net45\Dragablz.dll</HintPath>
+    </Reference>
+    <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.2.7.1979, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.2.7\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.3.0.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.5.0.1\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OleDb, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.OleDb.5.0.0\lib\net461\System.Data.OleDb.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.5.0.2\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="ToastNotifications, Version=2.5.1.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToastNotifications.2.5.1\lib\net40\ToastNotifications.dll</HintPath>
+    </Reference>
+    <Reference Include="ToastNotifications.Messages, Version=2.5.1.0, Culture=neutral, PublicKeyToken=e89d9d7314a7c797, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToastNotifications.Messages.2.5.1\lib\net40\ToastNotifications.Messages.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Zen.Barcode.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=b5ae55aa76d2d9de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zen.Barcode.Rendering.Framework.3.1.10729.1\lib\Zen.Barcode.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Extensions\ColeccionExtension.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="State\Accounts\AccountStore.cs" />
+    <Compile Include="State\Accounts\GestorStore.cs" />
+    <Compile Include="State\Accounts\IAccountStore.cs" />
+    <Compile Include="State\Accounts\IGestorStore.cs" />
+    <Compile Include="State\Authenticators\Authenticator.cs" />
+    <Compile Include="State\Authenticators\IAuthenticator.cs" />
+    <Compile Include="State\BancaBalanceStore\BancaBalanceStore.cs" />
+    <Compile Include="State\BancaBalanceStore\IBancaBalanceStore.cs" />
+    <Compile Include="State\Configurators\ConfiguratorStore.cs" />
+    <Compile Include="State\Configurators\IConfiguratorStore.cs" />
+    <Compile Include="State\Configurators\IPermisosStore.cs" />
+    <Compile Include="State\Configurators\PermisosStore.cs" />
+    <Compile Include="State\CuadreBuilders\CuadreBuilder.cs" />
+    <Compile Include="State\CuadreBuilders\ICuadreBuilder.cs" />
+    <Compile Include="State\DashboardCard\DashboardCard.cs" />
+    <Compile Include="State\DashboardCard\IDashboardCard.cs" />
+    <Compile Include="State\LocalClientSetting\ILocalClientSettingStore.cs" />
+    <Compile Include="State\LocalClientSetting\LocalClientBase.cs" />
+    <Compile Include="State\LocalClientSetting\LocalClientSettingStore.cs" />
+    <Compile Include="State\Navigators\INavigator.cs" />
+    <Compile Include="State\Navigators\IRenavigator.cs" />
+    <Compile Include="State\Navigators\Navigator.cs" />
+    <Compile Include="State\Navigators\Renavigator.cs" />
+    <Compile Include="State\PinterConfig\BarAndQrCode.cs" />
+    <Compile Include="State\PinterConfig\ModelsPrinJobs.cs" />
+    <Compile Include="State\PinterConfig\PrintJobs.cs" />
+    <Compile Include="State\PinterConfig\RecursosPrintJob.cs" />
+    <Compile Include="State\PinterConfig\TicketTemplateHelper.cs" />
+    <Compile Include="TemplateSelector\MovimientoDataTemplateSelector.cs" />
+    <Compile Include="ViewModels\BancaBalanceViewModel.cs" />
+    <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Commands\ActionCommand.cs" />
+    <Compile Include="ViewModels\Commands\ActionCommandAsync.cs" />
+    <Compile Include="ViewModels\Commands\Configuracion\SetAndSaveConfigCommand.cs" />
+    <Compile Include="ViewModels\Commands\EventArgs.cs" />
+    <Compile Include="ViewModels\Commands\EventRaiser.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Cuadre\CuadreLogin\SeleccionarGestorParaCuadreCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Cuadre\CuadreLogin\ValidarTokenChallengeCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Cuadre\Cuadre\AbrirDesgloseCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Cuadre\Cuadre\InitCuadreCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Cuadre\Cuadre\RegistrarCuadreCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Cuadre\Cuadre\SetRecomendacionCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Inicio\CalcularBancaBalanceCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Inicio\CerrarDialogoInicioCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Inicio\CreaNuevoDialogoInicioCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Inicio\IniciarControlEfectivoCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\ConsultaView\AnteriorCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\ConsultaView\ConsultarMovimientosCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\ConsultaView\PrimeroCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\ConsultaView\SiguienteCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\ConsultaView\UltimoCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\DesdeHastaView\AbrirModalTokenCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\DesdeHastaView\RegistrarTransferenciaCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\DesdeHastaView\RestablecerCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\DesdeHastaView\SeleccionarGestorCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\EnCajaView\AgregarMovimientoEnCajaCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\EnCajaView\RestablecerCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\EnCajaView\SeleccionarAnonimosCommand.cs" />
+    <Compile Include="ViewModels\Commands\FlujoEfectivo\Movimiento\EnCajaView\SeleccionarConceptoCommand.cs" />
+    <Compile Include="ViewModels\Commands\Home\CargarBalancesCommand.cs" />
+    <Compile Include="ViewModels\Commands\Login\LoginCommand.cs" />
+    <Compile Include="ViewModels\Commands\MainWindow\CambiarTerminalConfiguracionLocalCommand.cs" />
+    <Compile Include="ViewModels\Commands\MainWindow\IniciarCuadreCommand.cs" />
+    <Compile Include="ViewModels\Commands\MainWindow\LogoutCommand.cs" />
+    <Compile Include="ViewModels\Commands\MainWindow\UpdateCurrentViewModelCommand .cs" />
+    <Compile Include="ViewModels\Commands\Mensajes\GetMensajesCommand.cs" />
+    <Compile Include="ViewModels\Commands\Mensajes\SendMensajeCommand.cs" />
+    <Compile Include="ViewModels\Commands\Modulo\BancaBalanceConsultaCommand.cs" />
+    <Compile Include="ViewModels\Commands\Modulo\GeneraOtroBancaIdCommand.cs" />
+    <Compile Include="ViewModels\Commands\Recargas\CerrarDialogoImprimirTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Recargas\DialogConfirmTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Recargas\GetSuplidoresCommand.cs" />
+    <Compile Include="ViewModels\Commands\Recargas\SendRecargaCommand.cs" />
+    <Compile Include="ViewModels\Commands\RegistrarPC\RegistrarCommand.cs" />
+    <Compile Include="ViewModels\Commands\Reportes\AbrirModalRangoFechaCommand.cs" />
+    <Compile Include="ViewModels\Commands\Reportes\ChangeOpcionListTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Reportes\GetReportesCommand.cs" />
+    <Compile Include="ViewModels\Commands\Reportes\PrintReports.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\AnularTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\CerrarValidarPagoTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\ConsultarTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\CopiarTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\GetListadoTicketsCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\GetUltimosSorteosCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\PagarTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\RealizarApuestaCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\ReimprimirTicketCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\ValidarPagoTicketCommand.cs" />
+    <Compile Include="ViewModels\Errors\ErroresViewModel.cs" />
+    <Compile Include="ViewModels\Factories\IViewModelFactory.cs" />
+    <Compile Include="ViewModels\Factories\ViewModelFactory.cs" />
+    <Compile Include="ViewModels\Helpers\Booleano.cs" />
+    <Compile Include="ViewModels\Helpers\ComboboxConceptoHelper.cs" />
+    <Compile Include="ViewModels\Helpers\ComboboxQueHarasHelper.cs" />
+    <Compile Include="ViewModels\Helpers\ComboboxTransferirHelper.cs" />
+    <Compile Include="ViewModels\Helpers\InputHelper.cs" />
+    <Compile Include="ViewModels\Helpers\PrinterHelper.cs" />
+    <Compile Include="ViewModels\Helpers\WpfThreadHelper.cs" />
+    <Compile Include="ViewModels\InactvidadWindowViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\ModelObservable\ComboboxModels\ComboboxBase.cs" />
+    <Compile Include="ViewModels\ModelObservable\ComboboxModels\ComboboxConcepto.cs" />
+    <Compile Include="ViewModels\ModelObservable\ComboboxModels\ComboboxQueHaras.cs" />
+    <Compile Include="ViewModels\ModelObservable\ComboboxModels\ComboboxTransferir.cs" />
+    <Compile Include="ViewModels\ModelObservable\FacturaObservable.cs" />
+    <Compile Include="ViewModels\ModelObservable\MensajesObservable.cs" />
+    <Compile Include="ViewModels\ModelObservable\MovimientoObservable.cs" />
+    <Compile Include="ViewModels\ModelObservable\ProveedorRecargasObservable.cs" />
+    <Compile Include="ViewModels\ModelObservable\ReportesObservable.cs" />
+    <Compile Include="ViewModels\ModelObservable\SorteosObservable.cs" />
+    <Compile Include="ViewModels\PagedDataViewModel.cs" />
+    <Compile Include="ViewModels\ToastViewModel.cs" />
+    <Compile Include="Views\AttachedProperties\FocusBehaviour.cs" />
+    <Compile Include="Views\AttachedProperties\SeleccionaTodoBehaviour.cs" />
+    <Compile Include="Views\AttachedProperties\SoloNumerosBehaviour.cs" />
+    <Compile Include="Views\Controls\BarraNavegacionControl.xaml.cs">
+      <DependentUpon>BarraNavegacionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\PagerControl.xaml.cs">
+      <DependentUpon>PagerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\SpinnerPiston.xaml.cs">
+      <DependentUpon>SpinnerPiston.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\SpinnerPistonAlt.xaml.cs">
+      <DependentUpon>SpinnerPistonAlt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\WindowAppLoding.xaml.cs">
+      <DependentUpon>WindowAppLoding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowsModals\CombinacionWindowsModal.xaml.cs">
+      <DependentUpon>CombinacionWindowsModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowsModals\InactividadWindow.xaml.cs">
+      <DependentUpon>InactividadWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converters\CuadreGestorAccionConverter.cs" />
+    <Compile Include="Converters\EqualValueToParameterConverter.cs" />
+    <Compile Include="Converters\FromDateToDateConverter.cs" />
+    <Compile Include="Converters\PassMultipleValuesConverter.cs" />
+    <Compile Include="Extensions\AppExtension.cs" />
+    <Compile Include="Extensions\InactividadExtension.cs" />
+    <Compile Include="Extensions\LocalClientSettingExtension.cs" />
+    <Compile Include="Extensions\ObservableExtensions.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Modules\CincoMinutos\CincoMinutosView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Configuracion\ConfiguracionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Cuadre\Windows\CuadreDesglose\DesgloseWindows.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Cuadre\Windows\CuadreLogin\CuadreLoginResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Cuadre\Windows\CuadreLogin\CuadreLoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\CuadreResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\CuadreView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\Modal\DialogoToken.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\Modal\DialogoTokenResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Inicio\InicioView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Inicio\Modal\DialogInicio.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Inicio\Modal\DialogInicioResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\Modal\DialogoToken.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\Modal\DialogoTokenResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\MovimientoResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\MovimientoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\Views\View1\EnCajaResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\Views\View1\EnCajaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\Views\View2\DesdeHastaResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\Views\View2\DesdeHastaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\Views\View3\ConsultaMovimientoResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\FlujoEfectivo\Movimiento\Views\View3\ConsultaMovimientoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Home\HomeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\JuegaMas\JuegaMasView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Login\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Mensajeria\MensajeriaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\PagoServicios\PagoServiciosView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Recargas\Modal\DialogImprimirTicket.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Recargas\Modal\DialogImprimirTicketResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Recargas\RecargasView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RegistrarPC\RegistrarPCControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\RegistrarPC\RegistrarPCWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reporte\Modal\DialogoReporte.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reporte\Modal\DialogoReporteResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Reporte\ReporteView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sorteos\Modal\ConfirmarMontoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sorteos\Modal\ValidarPagoTicket.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Sorteos\SorteosView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StartUp\Resources\Style\ButtonsCustom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StartUp\Resources\Style\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StartUp\Resources\Style\ControlsCustom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\BarraNavegacionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\PagerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\SpinnerPiston.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\SpinnerPistonAlt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\WindowAppLoding.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowsModals\CombinacionWindowsModal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowsModals\InactividadWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Modules\CincoMinutos\CincoMinutosView.xaml.cs">
+      <DependentUpon>CincoMinutosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\CincoMinutos\CincoMinutosViewModel.cs" />
+    <Compile Include="Modules\Configuracion\ConfiguracionView.xaml.cs">
+      <DependentUpon>ConfiguracionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Configuracion\ConfiguracionViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\CuadreDesglose\DesgloseWindows.xaml.cs">
+      <DependentUpon>DesgloseWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\CuadreLogin\CuadreLoginView.xaml.cs">
+      <DependentUpon>CuadreLoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\CuadreLogin\CuadreLoginViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\CuadreView.xaml.cs">
+      <DependentUpon>CuadreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\CuadreViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\Modal\DialogoToken.xaml.cs">
+      <DependentUpon>DialogoToken.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\Modal\DialogoTokenViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\ViewModels\ArqueoResultanteViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\ViewModels\ConsultaInicialViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Cuadre\Windows\Cuadre\ViewModels\RecomendacionViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Inicio\InicioView.xaml.cs">
+      <DependentUpon>InicioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Inicio\InicioViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Inicio\Modal\DialogInicio.xaml.cs">
+      <DependentUpon>DialogInicio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Inicio\Modal\DialogInicioViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Modal\DialogoToken.xaml.cs">
+      <DependentUpon>DialogoToken.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Modal\DialogoTokenViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\MovimientoView.xaml.cs">
+      <DependentUpon>MovimientoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\MovimientoViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Views\View1\EnCajaView.xaml.cs">
+      <DependentUpon>EnCajaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Views\View1\EnCajaViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Views\View1\ViewModels\InputCajeraViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Views\View1\ViewModels\InputConceptoViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Views\View2\DesdeHastaView.xaml.cs">
+      <DependentUpon>DesdeHastaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Views\View2\DesdeHastaViewModel.cs" />
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Views\View3\ConsultaMovimientoView.xaml.cs">
+      <DependentUpon>ConsultaMovimientoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\FlujoEfectivo\Movimiento\Views\View3\ConsultaMovimientoViewModel.cs" />
+    <Compile Include="Modules\Home\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Home\HomeViewModel.cs" />
+    <Compile Include="Modules\JuegaMas\JuegaMasView.xaml.cs">
+      <DependentUpon>JuegaMasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\JuegaMas\JuegaMasViewModel.cs" />
+    <Compile Include="Modules\Login\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Login\LoginViewModel.cs" />
+    <Compile Include="Modules\Mensajeria\MensajeriaView.xaml.cs">
+      <DependentUpon>MensajeriaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Mensajeria\MensajeriaViewModel.cs" />
+    <Compile Include="Modules\PagoServicios\PagoServiciosView.xaml.cs">
+      <DependentUpon>PagoServiciosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\PagoServicios\PagoServiciosViewModel.cs" />
+    <Compile Include="Modules\Recargas\Modal\DialogImprimirTicket.xaml.cs">
+      <DependentUpon>DialogImprimirTicket.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Recargas\Modal\DialogImprimirTicketViewModel.cs" />
+    <Compile Include="Modules\Recargas\RecargasView.xaml.cs">
+      <DependentUpon>RecargasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Recargas\RecargasViewModel.cs" />
+    <Compile Include="Modules\RegistrarPC\RegistrarPCControl.xaml.cs">
+      <DependentUpon>RegistrarPCControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RegistrarPC\RegistrarPCControlViewModel.cs" />
+    <Compile Include="Modules\RegistrarPC\RegistrarPCWindow.xaml.cs">
+      <DependentUpon>RegistrarPCWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\RegistrarPC\RegistrarPCWindowViewModel.cs" />
+    <Compile Include="Modules\Reporte\Modal\DialogoReporte.xaml.cs">
+      <DependentUpon>DialogoReporte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reporte\Modal\DialogoReporteViewModel.cs" />
+    <Compile Include="Modules\Reporte\ReporteView.xaml.cs">
+      <DependentUpon>ReporteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Reporte\ReporteViewModel.cs" />
+    <Compile Include="Modules\Sorteos\Modal\ConfirmarMontoWindow.xaml.cs">
+      <DependentUpon>ConfirmarMontoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sorteos\Modal\ValidarPagoTicket.xaml.cs">
+      <DependentUpon>ValidarPagoTicket.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sorteos\Modal\ValidarPagoTicketViewModel.cs" />
+    <Compile Include="Modules\Sorteos\SorteosView.xaml.cs">
+      <DependentUpon>SorteosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Sorteos\SorteosViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClienteMarWPFWin7.Data\ClienteMarWPFWin7.Data.csproj">
+      <Project>{0f5d4501-e4a7-43da-92d5-931126b41615}</Project>
+      <Name>ClienteMarWPFWin7.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClienteMarWPFWin7.Domain\ClienteMarWPFWin7.Domain.csproj">
+      <Project>{1d9b6cfd-3fe0-464f-b1a9-ba31abdf5610}</Project>
+      <Name>ClienteMarWPFWin7.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KubeCustomPrinterLib\KubeCustomPrinterLib.csproj">
+      <Project>{a1b1a662-609f-461e-b371-bf81180a5e95}</Project>
+      <Name>KubeCustomPrinterLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj">
+      <Project>{7a839d18-0fee-4a3d-b284-690dea9dab4f}</Project>
+      <Name>MAR.AppLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartUp\Images\ControlEfectivo\DeBancaAGestor.png" />
+    <Resource Include="StartUp\Images\ControlEfectivo\DeGestorABanca.png" />
+    <Resource Include="StartUp\Images\ControlEfectivo\NoData.png" />
+    <Resource Include="StartUp\Images\ControlEfectivo\Rocket.png" />
+    <Resource Include="StartUp\Images\ControlEfectivo\Transfer.png" />
+    <Resource Include="StartUp\Images\fondo.png" />
+    <Resource Include="StartUp\Images\LogoMAR_OriginalBlancoPeq.png" />
+    <Resource Include="StartUp\Images\Logo\MateoNetLogo.jpg" />
+    <Resource Include="StartUp\Images\Operador\AlticeB_logo.png" />
+    <Resource Include="StartUp\Images\Operador\AlticeT_logo.png" />
+    <Resource Include="StartUp\Images\Operador\Claro_logo.png" />
+    <Resource Include="StartUp\Images\Operador\Digice_logo.jpg" />
+    <Resource Include="StartUp\Images\Operador\NatcomT_logo.png" />
+    <Resource Include="StartUp\Images\Operador\NatcomW_logo.jpg" />
+    <Resource Include="StartUp\Images\Operador\Orange_logo.png" />
+    <Resource Include="StartUp\Images\Operador\Tricom_logo.jpeg" />
+    <Resource Include="StartUp\Images\Operador\VivaT_logo.png" />
+    <Resource Include="StartUp\Images\Operador\Wind_logo.png" />
+    <Resource Include="StartUp\Images\splashscreen-MarCliente-empty.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets'))" />
+  </Target>
+</Project>

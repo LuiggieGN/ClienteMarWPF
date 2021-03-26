@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
+                    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+                    >
+
+ 
+
+
+    <LinearGradientBrush x:Key="MaterialDesignGradientBrush"
+                         StartPoint="0,0"
+                         EndPoint="1,1">
+        <LinearGradientBrush.RelativeTransform>
+            <TransformGroup>
+                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                <RotateTransform CenterY="0.5" CenterX="0.5" Angle="0"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </LinearGradientBrush.RelativeTransform>
+        <GradientStop Color="#3a3c3e" Offset="0"/>
+        <GradientStop Color="#3a3c3e" Offset="2"/>
+    </LinearGradientBrush>
+    <!--/Gradient Brush-->
+
+    <!--Overrides-->
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#5680E9"/>
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="#EBEBEB"/>
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonRipple" Color="#D2D2D2"/>
+    <!--/Overrides-->
+
+    <!--Global-->
+    <SolidColorBrush x:Key="Background" Color="White" />
+    <SolidColorBrush x:Key="Foreground" Color="#0F1218" />
+
+
+
+
+
+</ResourceDictionary>

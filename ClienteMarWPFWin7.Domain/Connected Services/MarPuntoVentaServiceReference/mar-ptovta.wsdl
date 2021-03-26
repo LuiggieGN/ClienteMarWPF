@@ -1,0 +1,2566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="mar.do" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="mar.do" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="mar.do">
+      <s:element name="StrCmd">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cmd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StrCmdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StrCmdResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogonWinBrowser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sesion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Llave" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogonWinBrowserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogonWinBrowserResult" type="tns:MAR_ExistingSession" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_ExistingSession">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SesionInfo" type="tns:MAR_Setting2" />
+          <s:element minOccurs="0" maxOccurs="1" name="POSInfo" type="tns:MAR_Array" />
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Setting2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          <s:element minOccurs="0" maxOccurs="1" name="Loterias" type="tns:ArrayOfMAR_Loteria2" />
+          <s:element minOccurs="0" maxOccurs="1" name="MoreOptions" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Session">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sesion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastTck" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LastPin" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrinterSize" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrinterHeader" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrinterFooter" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_Loteria2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Loteria2" nillable="true" type="tns:MAR_Loteria2" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Loteria2">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieLun" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieMar" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieMie" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieJue" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieVie" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieSab" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieDom" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreResumido" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LoteriaKey" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Imagen" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Oculta" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrecioQ" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrecioP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrecioT" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoQ1" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoQ2" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoQ3" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoP1" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoP2" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoP3" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoT1" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoT2" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoT3" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="MoreOptions" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Array">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cantidad" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Llave" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Logon2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Logon2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Logon2Result" type="tns:MAR_Setting2" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Logon">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogonResult" type="tns:MAR_Setting" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Setting">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          <s:element minOccurs="0" maxOccurs="1" name="Loterias" type="tns:ArrayOfMAR_Loteria" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_Loteria">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Loteria" nillable="true" type="tns:MAR_Loteria" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Loteria">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Numero" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieLun" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieMar" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieMie" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieJue" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieVie" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieSab" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CieDom" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NombreResumido" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LoteriaKey" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrecioQ" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrecioP" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PrecioT" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoQ1" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoQ2" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoQ3" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoP1" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoP2" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoP3" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoT1" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoT2" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PagoT3" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Init2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Init2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Init2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Init4">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Init4Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Init4Result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Logoff">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogoffResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LogoffResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Init3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HardwareKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Init3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Init3Result" type="tns:MAR_Setting" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Init">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Direccion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InitResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InitResult" type="tns:MAR_Array" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceMultiBet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="MultiApuesta" type="tns:MAR_MultiBet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_MultiBet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Headers" type="tns:ArrayOfMAR_BetHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfMAR_BetItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_BetHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_BetHeader" nillable="true" type="tns:MAR_BetHeader" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_BetHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cedula" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Nulo" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ticket" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TicketNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Grupo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="StrFecha" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StrHora" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Costo" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pago" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Solicitud" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_BetItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_BetItem" nillable="true" type="tns:MAR_BetItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_BetItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cantidad" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="QP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Costo" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pago" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PlaceMultiBetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceMultiBetResult" type="tns:MAR_MultiBet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceBet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Apuesta" type="tns:MAR_Bet" />
+            <s:element minOccurs="1" maxOccurs="1" name="Solicitud" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="ParaPasar" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Bet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cedula" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Nulo" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ticket" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TicketNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Grupo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="StrFecha" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StrHora" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Costo" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pago" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Solicitud" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfMAR_BetItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PlaceBetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceBetResult" type="tns:MAR_Bet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProducts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductsResult" type="tns:ArrayOfMAR_Producto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMAR_Producto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Producto" nillable="true" type="tns:MAR_Producto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Producto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SupID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Suplidor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Producto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Instruccion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Precio" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ValidWinner">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="TckNumero" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TicPin" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Pagar" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidWinnerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidWinnerResult" type="tns:MAR_ValWiner" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_ValWiner">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MAR_BaseReporte">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Aprobado" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LoteriaKey" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Ticket" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="err" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Monto" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MAR_BaseReporte">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Dia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hora" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConfirmTck">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmTckResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ConfirmMultiTck">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tcks" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConfirmMultiTckResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SetVentaFuera">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VFuera" type="tns:MAR_VentaFuera" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_VentaFuera">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Loteria" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="QVendido" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PVendido" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TVendido" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SacoPrimera" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SacoSegunda" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SacoTercera" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SacoPale" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SacoTriple" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="FechaDia" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetVentaFueraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetVentaFueraResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMensajeDestinos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMensajeDestinosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMensajeDestinosResult" type="tns:MAR_Bancas" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Bancas">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Bca" type="tns:ArrayOfMAR_Banca" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_Banca">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Banca" nillable="true" type="tns:MAR_Banca" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Banca">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Banca" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BanNombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BanContacto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BanTelefono" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IPAddr" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BanPrecioQ" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="BanPagaQ" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="BanComision" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="BanOnline" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PlaceAdmMsj">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="tns:MAR_Mensaje" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Mensaje">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MensajeID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Asunto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contenido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hora" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origen" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destino" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PlaceAdmMsjResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PlaceAdmMsjResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceMensaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceMensajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PlaceMensajeResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMensaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMensajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMensajeResult" type="tns:MAR_Mensajes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Mensajes">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="msj" type="tns:ArrayOfMAR_Mensaje" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewInterval" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_Mensaje">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Mensaje" nillable="true" type="tns:MAR_Mensaje" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PlaceMensaje2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DestinoBancaID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceMensaje2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceMensaje2Result" type="tns:MAR_Mensajes2" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Mensajes2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Enviado" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="msj" type="tns:ArrayOfMAR_Mensaje2" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bca" type="tns:ArrayOfMAR_Banca" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewInterval" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_Mensaje2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Mensaje2" nillable="true" type="tns:MAR_Mensaje2" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Mensaje2">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BancaID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MensajeID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Asunto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Contenido" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hora" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Origen" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destino" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Leido" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="SinLeerTotal" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMensaje2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="SoloSinLeer" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="SoloDestinoBancaId" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IncluirDestinos" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMensaje2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMensaje2Result" type="tns:MAR_Mensajes2" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CuentaMensaje">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CuentaMensajeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CuentaMensajeResult" type="tns:MAR_MensajesCount" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_MensajesCount">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MsjNuevos" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NewInterval" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Ganadores">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GanadoresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GanadoresResult" type="tns:MAR_Ganadores" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Ganadores">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MAR_BaseReporte">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Primero" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Segundo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tercero" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tickets" type="tns:ArrayOfMAR_Bet" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_Bet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Bet" nillable="true" type="tns:MAR_Bet" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Ganadores2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ganadores2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Ganadores2Result" type="tns:MAR_Ganadores" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ganadores3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ganadores3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Ganadores3Result" type="tns:MAR_Ganadores" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaTickets">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaTicketsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaTicketsResult" type="tns:MAR_Ganadores" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaTicketsAndroid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaTicketsAndroidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaTicketsAndroidResult" type="tns:MAR_Ganadores" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaPines">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaPinesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaPinesResult" type="tns:MAR_Pines" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_Pines">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MAR_BaseReporte">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Pines" type="tns:ArrayOfMAR_Pin" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfMAR_Pin">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Pin" nillable="true" type="tns:MAR_Pin" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Pin">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Pin" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Producto" type="tns:MAR_Producto" />
+          <s:element minOccurs="1" maxOccurs="1" name="Nulo" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Serie" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StrFecha" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StrHora" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Costo" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Solicitud" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Flag" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RptVenta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RptVentaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RptVentaResult" type="tns:MAR_RptVenta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_RptVenta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MAR_BaseReporte">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Primero" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Segundo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tercero" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Numeros" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Pales" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Tripletas" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Comision" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ComisionPorcQ" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ComisionPorcP" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ComisionPorcT" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="CPrimero" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="CSegundo" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="CTercero" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MPrimero" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MSegundo" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MTercero" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MPales" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MTripletas" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="CntTarjetas" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CntNumeros" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TicketsNulos" type="tns:ArrayOfMAR_Bet" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="RptSumaVta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RptSumaVtaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RptSumaVtaResult" type="tns:MAR_RptSumaVta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_RptSumaVta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MAR_BaseReporte">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Reglones" type="tns:ArrayOfMar_ReglonVta" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfMar_ReglonVta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Mar_ReglonVta" nillable="true" type="tns:Mar_ReglonVta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Mar_ReglonVta">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MAR_BaseReporte">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Reglon" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="VentaBruta" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Comision" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Saco" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Resultado" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="RptSumaVtaFec">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="FecDesde" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FecHasta" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RptSumaVtaFecResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RptSumaVtaFecResult" type="tns:MAR_RptSumaVta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RptSumaVtaFec2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="FecDesde" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FecHasta" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RptSumaVtaFec2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RptSumaVtaFec2Result" type="tns:MAR_RptSumaVta2" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_RptSumaVta2">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MAR_BaseReporte">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Reglones" type="tns:ArrayOfMar_ReglonVta" />
+              <s:element minOccurs="1" maxOccurs="1" name="RifDescuento" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ISRRetenido" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="VentaNumero">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VentaNumeroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VentaNumeroResult" type="tns:MAR_VentaNumero" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MAR_VentaNumero">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MAR_BaseReporte">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Err" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Numeros" type="tns:ArrayOfMAR_BetItem" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="VentaNumero3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HardwareKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Loteria" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VentaNumero3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VentaNumero3Result" type="tns:MAR_VentaNumero" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaTicketPagoRemoto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaTicketPagoRemotoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaTicketPagoRemotoResult" type="tns:MAR_Ganadores" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceLocalBet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="Apuesta" type="tns:MAR_Bet" />
+            <s:element minOccurs="1" maxOccurs="1" name="Solicitud" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PlaceLocalBetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PlaceLocalBetResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RePrint">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Ticket" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RePrintResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RePrintResult" type="tns:MAR_Bet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="TicketNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBetResult" type="tns:MAR_Bet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Anula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="TicketNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AnulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AnulaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Anula2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="TicketNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Anula2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Anula2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSuplidores">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSuplidoresResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSuplidoresResult" type="tns:ArrayOfMAR_Suplidor" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMAR_Suplidor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Suplidor" nillable="true" type="tns:MAR_Suplidor" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Suplidor">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SuplidorID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SupNombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SupInstruccion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUsuarios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsuariosResult" type="tns:ArrayOfMAR_Usuario" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMAR_Usuario">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MAR_Usuario" nillable="true" type="tns:MAR_Usuario" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MAR_Usuario">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UsuarioID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UsuNombre" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRecarga">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sesion" type="tns:MAR_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="Usuario" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Clave" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Suplidor" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Numero" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Monto" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="Solicitud" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecargaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecargaResult" type="tns:MAR_Pin" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmRecarga">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sesion" type="tns:MAR_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmRecargaResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ReverseRecarga">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Solicitud" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReverseRecargaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReverseRecargaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BalanceRecarga">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BalanceRecargaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BalanceRecargaResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BalanceRecargaRifero">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Source" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tipo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pRiferoID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BalanceRecargaRiferoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BalanceRecargaRiferoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="StrCmdSoapIn">
+    <wsdl:part name="parameters" element="tns:StrCmd" />
+  </wsdl:message>
+  <wsdl:message name="StrCmdSoapOut">
+    <wsdl:part name="parameters" element="tns:StrCmdResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogonWinBrowserSoapIn">
+    <wsdl:part name="parameters" element="tns:LogonWinBrowser" />
+  </wsdl:message>
+  <wsdl:message name="LogonWinBrowserSoapOut">
+    <wsdl:part name="parameters" element="tns:LogonWinBrowserResponse" />
+  </wsdl:message>
+  <wsdl:message name="Logon2SoapIn">
+    <wsdl:part name="parameters" element="tns:Logon2" />
+  </wsdl:message>
+  <wsdl:message name="Logon2SoapOut">
+    <wsdl:part name="parameters" element="tns:Logon2Response" />
+  </wsdl:message>
+  <wsdl:message name="LogonSoapIn">
+    <wsdl:part name="parameters" element="tns:Logon" />
+  </wsdl:message>
+  <wsdl:message name="LogonSoapOut">
+    <wsdl:part name="parameters" element="tns:LogonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Init2SoapIn">
+    <wsdl:part name="parameters" element="tns:Init2" />
+  </wsdl:message>
+  <wsdl:message name="Init2SoapOut">
+    <wsdl:part name="parameters" element="tns:Init2Response" />
+  </wsdl:message>
+  <wsdl:message name="Init4SoapIn">
+    <wsdl:part name="parameters" element="tns:Init4" />
+  </wsdl:message>
+  <wsdl:message name="Init4SoapOut">
+    <wsdl:part name="parameters" element="tns:Init4Response" />
+  </wsdl:message>
+  <wsdl:message name="LogoffSoapIn">
+    <wsdl:part name="parameters" element="tns:Logoff" />
+  </wsdl:message>
+  <wsdl:message name="LogoffSoapOut">
+    <wsdl:part name="parameters" element="tns:LogoffResponse" />
+  </wsdl:message>
+  <wsdl:message name="Init3SoapIn">
+    <wsdl:part name="parameters" element="tns:Init3" />
+  </wsdl:message>
+  <wsdl:message name="Init3SoapOut">
+    <wsdl:part name="parameters" element="tns:Init3Response" />
+  </wsdl:message>
+  <wsdl:message name="InitSoapIn">
+    <wsdl:part name="parameters" element="tns:Init" />
+  </wsdl:message>
+  <wsdl:message name="InitSoapOut">
+    <wsdl:part name="parameters" element="tns:InitResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceMultiBetSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceMultiBet" />
+  </wsdl:message>
+  <wsdl:message name="PlaceMultiBetSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceMultiBetResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceBetSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceBet" />
+  </wsdl:message>
+  <wsdl:message name="PlaceBetSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceBetResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProducts" />
+  </wsdl:message>
+  <wsdl:message name="GetProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidWinnerSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidWinner" />
+  </wsdl:message>
+  <wsdl:message name="ValidWinnerSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidWinnerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmTckSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmTck" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmTckSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmTckResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmMultiTckSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmMultiTck" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmMultiTckSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmMultiTckResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetVentaFueraSoapIn">
+    <wsdl:part name="parameters" element="tns:SetVentaFuera" />
+  </wsdl:message>
+  <wsdl:message name="SetVentaFueraSoapOut">
+    <wsdl:part name="parameters" element="tns:SetVentaFueraResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMensajeDestinosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMensajeDestinos" />
+  </wsdl:message>
+  <wsdl:message name="GetMensajeDestinosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMensajeDestinosResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceAdmMsjSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceAdmMsj" />
+  </wsdl:message>
+  <wsdl:message name="PlaceAdmMsjSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceAdmMsjResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceMensajeSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceMensaje" />
+  </wsdl:message>
+  <wsdl:message name="PlaceMensajeSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceMensajeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMensajeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMensaje" />
+  </wsdl:message>
+  <wsdl:message name="GetMensajeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMensajeResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceMensaje2SoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceMensaje2" />
+  </wsdl:message>
+  <wsdl:message name="PlaceMensaje2SoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceMensaje2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetMensaje2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetMensaje2" />
+  </wsdl:message>
+  <wsdl:message name="GetMensaje2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetMensaje2Response" />
+  </wsdl:message>
+  <wsdl:message name="CuentaMensajeSoapIn">
+    <wsdl:part name="parameters" element="tns:CuentaMensaje" />
+  </wsdl:message>
+  <wsdl:message name="CuentaMensajeSoapOut">
+    <wsdl:part name="parameters" element="tns:CuentaMensajeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GanadoresSoapIn">
+    <wsdl:part name="parameters" element="tns:Ganadores" />
+  </wsdl:message>
+  <wsdl:message name="GanadoresSoapOut">
+    <wsdl:part name="parameters" element="tns:GanadoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="Ganadores2SoapIn">
+    <wsdl:part name="parameters" element="tns:Ganadores2" />
+  </wsdl:message>
+  <wsdl:message name="Ganadores2SoapOut">
+    <wsdl:part name="parameters" element="tns:Ganadores2Response" />
+  </wsdl:message>
+  <wsdl:message name="Ganadores3SoapIn">
+    <wsdl:part name="parameters" element="tns:Ganadores3" />
+  </wsdl:message>
+  <wsdl:message name="Ganadores3SoapOut">
+    <wsdl:part name="parameters" element="tns:Ganadores3Response" />
+  </wsdl:message>
+  <wsdl:message name="ListaTicketsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaTickets" />
+  </wsdl:message>
+  <wsdl:message name="ListaTicketsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaTicketsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListaTicketsAndroidSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaTicketsAndroid" />
+  </wsdl:message>
+  <wsdl:message name="ListaTicketsAndroidSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaTicketsAndroidResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListaPinesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaPines" />
+  </wsdl:message>
+  <wsdl:message name="ListaPinesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaPinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="RptVentaSoapIn">
+    <wsdl:part name="parameters" element="tns:RptVenta" />
+  </wsdl:message>
+  <wsdl:message name="RptVentaSoapOut">
+    <wsdl:part name="parameters" element="tns:RptVentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RptSumaVtaSoapIn">
+    <wsdl:part name="parameters" element="tns:RptSumaVta" />
+  </wsdl:message>
+  <wsdl:message name="RptSumaVtaSoapOut">
+    <wsdl:part name="parameters" element="tns:RptSumaVtaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RptSumaVtaFecSoapIn">
+    <wsdl:part name="parameters" element="tns:RptSumaVtaFec" />
+  </wsdl:message>
+  <wsdl:message name="RptSumaVtaFecSoapOut">
+    <wsdl:part name="parameters" element="tns:RptSumaVtaFecResponse" />
+  </wsdl:message>
+  <wsdl:message name="RptSumaVtaFec2SoapIn">
+    <wsdl:part name="parameters" element="tns:RptSumaVtaFec2" />
+  </wsdl:message>
+  <wsdl:message name="RptSumaVtaFec2SoapOut">
+    <wsdl:part name="parameters" element="tns:RptSumaVtaFec2Response" />
+  </wsdl:message>
+  <wsdl:message name="VentaNumeroSoapIn">
+    <wsdl:part name="parameters" element="tns:VentaNumero" />
+  </wsdl:message>
+  <wsdl:message name="VentaNumeroSoapOut">
+    <wsdl:part name="parameters" element="tns:VentaNumeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="VentaNumero3SoapIn">
+    <wsdl:part name="parameters" element="tns:VentaNumero3" />
+  </wsdl:message>
+  <wsdl:message name="VentaNumero3SoapOut">
+    <wsdl:part name="parameters" element="tns:VentaNumero3Response" />
+  </wsdl:message>
+  <wsdl:message name="ListaTicketPagoRemotoSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaTicketPagoRemoto" />
+  </wsdl:message>
+  <wsdl:message name="ListaTicketPagoRemotoSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaTicketPagoRemotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="PlaceLocalBetSoapIn">
+    <wsdl:part name="parameters" element="tns:PlaceLocalBet" />
+  </wsdl:message>
+  <wsdl:message name="PlaceLocalBetSoapOut">
+    <wsdl:part name="parameters" element="tns:PlaceLocalBetResponse" />
+  </wsdl:message>
+  <wsdl:message name="RePrintSoapIn">
+    <wsdl:part name="parameters" element="tns:RePrint" />
+  </wsdl:message>
+  <wsdl:message name="RePrintSoapOut">
+    <wsdl:part name="parameters" element="tns:RePrintResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBetSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBet" />
+  </wsdl:message>
+  <wsdl:message name="GetBetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBetResponse" />
+  </wsdl:message>
+  <wsdl:message name="AnulaSoapIn">
+    <wsdl:part name="parameters" element="tns:Anula" />
+  </wsdl:message>
+  <wsdl:message name="AnulaSoapOut">
+    <wsdl:part name="parameters" element="tns:AnulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="Anula2SoapIn">
+    <wsdl:part name="parameters" element="tns:Anula2" />
+  </wsdl:message>
+  <wsdl:message name="Anula2SoapOut">
+    <wsdl:part name="parameters" element="tns:Anula2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetSuplidoresSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSuplidores" />
+  </wsdl:message>
+  <wsdl:message name="GetSuplidoresSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSuplidoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="GetUsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRecargaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecarga" />
+  </wsdl:message>
+  <wsdl:message name="GetRecargaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecargaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmRecargaSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmRecarga" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmRecargaSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmRecargaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReverseRecargaSoapIn">
+    <wsdl:part name="parameters" element="tns:ReverseRecarga" />
+  </wsdl:message>
+  <wsdl:message name="ReverseRecargaSoapOut">
+    <wsdl:part name="parameters" element="tns:ReverseRecargaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BalanceRecargaSoapIn">
+    <wsdl:part name="parameters" element="tns:BalanceRecarga" />
+  </wsdl:message>
+  <wsdl:message name="BalanceRecargaSoapOut">
+    <wsdl:part name="parameters" element="tns:BalanceRecargaResponse" />
+  </wsdl:message>
+  <wsdl:message name="BalanceRecargaRiferoSoapIn">
+    <wsdl:part name="parameters" element="tns:BalanceRecargaRifero" />
+  </wsdl:message>
+  <wsdl:message name="BalanceRecargaRiferoSoapOut">
+    <wsdl:part name="parameters" element="tns:BalanceRecargaRiferoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PtoVtaSoap">
+    <wsdl:operation name="StrCmd">
+      <wsdl:input message="tns:StrCmdSoapIn" />
+      <wsdl:output message="tns:StrCmdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogonWinBrowser">
+      <wsdl:input message="tns:LogonWinBrowserSoapIn" />
+      <wsdl:output message="tns:LogonWinBrowserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logon2">
+      <wsdl:input message="tns:Logon2SoapIn" />
+      <wsdl:output message="tns:Logon2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logon">
+      <wsdl:input message="tns:LogonSoapIn" />
+      <wsdl:output message="tns:LogonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Init2">
+      <wsdl:input message="tns:Init2SoapIn" />
+      <wsdl:output message="tns:Init2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Init4">
+      <wsdl:input message="tns:Init4SoapIn" />
+      <wsdl:output message="tns:Init4SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logoff">
+      <wsdl:input message="tns:LogoffSoapIn" />
+      <wsdl:output message="tns:LogoffSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Init3">
+      <wsdl:input message="tns:Init3SoapIn" />
+      <wsdl:output message="tns:Init3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Init">
+      <wsdl:input message="tns:InitSoapIn" />
+      <wsdl:output message="tns:InitSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMultiBet">
+      <wsdl:input message="tns:PlaceMultiBetSoapIn" />
+      <wsdl:output message="tns:PlaceMultiBetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceBet">
+      <wsdl:input message="tns:PlaceBetSoapIn" />
+      <wsdl:output message="tns:PlaceBetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProducts">
+      <wsdl:input message="tns:GetProductsSoapIn" />
+      <wsdl:output message="tns:GetProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidWinner">
+      <wsdl:input message="tns:ValidWinnerSoapIn" />
+      <wsdl:output message="tns:ValidWinnerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmTck">
+      <wsdl:input message="tns:ConfirmTckSoapIn" />
+      <wsdl:output message="tns:ConfirmTckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmMultiTck">
+      <wsdl:input message="tns:ConfirmMultiTckSoapIn" />
+      <wsdl:output message="tns:ConfirmMultiTckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetVentaFuera">
+      <wsdl:input message="tns:SetVentaFueraSoapIn" />
+      <wsdl:output message="tns:SetVentaFueraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMensajeDestinos">
+      <wsdl:input message="tns:GetMensajeDestinosSoapIn" />
+      <wsdl:output message="tns:GetMensajeDestinosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceAdmMsj">
+      <wsdl:input message="tns:PlaceAdmMsjSoapIn" />
+      <wsdl:output message="tns:PlaceAdmMsjSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMensaje">
+      <wsdl:input message="tns:PlaceMensajeSoapIn" />
+      <wsdl:output message="tns:PlaceMensajeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMensaje">
+      <wsdl:input message="tns:GetMensajeSoapIn" />
+      <wsdl:output message="tns:GetMensajeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMensaje2">
+      <wsdl:input message="tns:PlaceMensaje2SoapIn" />
+      <wsdl:output message="tns:PlaceMensaje2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMensaje2">
+      <wsdl:input message="tns:GetMensaje2SoapIn" />
+      <wsdl:output message="tns:GetMensaje2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CuentaMensaje">
+      <wsdl:input message="tns:CuentaMensajeSoapIn" />
+      <wsdl:output message="tns:CuentaMensajeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores">
+      <wsdl:input message="tns:GanadoresSoapIn" />
+      <wsdl:output message="tns:GanadoresSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores2">
+      <wsdl:input message="tns:Ganadores2SoapIn" />
+      <wsdl:output message="tns:Ganadores2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores3">
+      <wsdl:input message="tns:Ganadores3SoapIn" />
+      <wsdl:output message="tns:Ganadores3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaTickets">
+      <wsdl:input message="tns:ListaTicketsSoapIn" />
+      <wsdl:output message="tns:ListaTicketsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaTicketsAndroid">
+      <wsdl:input message="tns:ListaTicketsAndroidSoapIn" />
+      <wsdl:output message="tns:ListaTicketsAndroidSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaPines">
+      <wsdl:input message="tns:ListaPinesSoapIn" />
+      <wsdl:output message="tns:ListaPinesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RptVenta">
+      <wsdl:input message="tns:RptVentaSoapIn" />
+      <wsdl:output message="tns:RptVentaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVta">
+      <wsdl:input message="tns:RptSumaVtaSoapIn" />
+      <wsdl:output message="tns:RptSumaVtaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVtaFec">
+      <wsdl:input message="tns:RptSumaVtaFecSoapIn" />
+      <wsdl:output message="tns:RptSumaVtaFecSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVtaFec2">
+      <wsdl:input message="tns:RptSumaVtaFec2SoapIn" />
+      <wsdl:output message="tns:RptSumaVtaFec2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VentaNumero">
+      <wsdl:input message="tns:VentaNumeroSoapIn" />
+      <wsdl:output message="tns:VentaNumeroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VentaNumero3">
+      <wsdl:input message="tns:VentaNumero3SoapIn" />
+      <wsdl:output message="tns:VentaNumero3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaTicketPagoRemoto">
+      <wsdl:input message="tns:ListaTicketPagoRemotoSoapIn" />
+      <wsdl:output message="tns:ListaTicketPagoRemotoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PlaceLocalBet">
+      <wsdl:input message="tns:PlaceLocalBetSoapIn" />
+      <wsdl:output message="tns:PlaceLocalBetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RePrint">
+      <wsdl:input message="tns:RePrintSoapIn" />
+      <wsdl:output message="tns:RePrintSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBet">
+      <wsdl:input message="tns:GetBetSoapIn" />
+      <wsdl:output message="tns:GetBetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Anula">
+      <wsdl:input message="tns:AnulaSoapIn" />
+      <wsdl:output message="tns:AnulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Anula2">
+      <wsdl:input message="tns:Anula2SoapIn" />
+      <wsdl:output message="tns:Anula2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSuplidores">
+      <wsdl:input message="tns:GetSuplidoresSoapIn" />
+      <wsdl:output message="tns:GetSuplidoresSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarios">
+      <wsdl:input message="tns:GetUsuariosSoapIn" />
+      <wsdl:output message="tns:GetUsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecarga">
+      <wsdl:input message="tns:GetRecargaSoapIn" />
+      <wsdl:output message="tns:GetRecargaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmRecarga">
+      <wsdl:input message="tns:ConfirmRecargaSoapIn" />
+      <wsdl:output message="tns:ConfirmRecargaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReverseRecarga">
+      <wsdl:input message="tns:ReverseRecargaSoapIn" />
+      <wsdl:output message="tns:ReverseRecargaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BalanceRecarga">
+      <wsdl:input message="tns:BalanceRecargaSoapIn" />
+      <wsdl:output message="tns:BalanceRecargaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BalanceRecargaRifero">
+      <wsdl:input message="tns:BalanceRecargaRiferoSoapIn" />
+      <wsdl:output message="tns:BalanceRecargaRiferoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PtoVtaSoap" type="tns:PtoVtaSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StrCmd">
+      <soap:operation soapAction="mar.do/StrCmd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogonWinBrowser">
+      <soap:operation soapAction="mar.do/LogonWinBrowser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logon2">
+      <soap:operation soapAction="mar.do/Logon2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logon">
+      <soap:operation soapAction="mar.do/Logon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init2">
+      <soap:operation soapAction="mar.do/Init2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init4">
+      <soap:operation soapAction="mar.do/Init4" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logoff">
+      <soap:operation soapAction="mar.do/Logoff" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init3">
+      <soap:operation soapAction="mar.do/Init3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init">
+      <soap:operation soapAction="mar.do/Init" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMultiBet">
+      <soap:operation soapAction="mar.do/PlaceMultiBet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceBet">
+      <soap:operation soapAction="mar.do/PlaceBet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProducts">
+      <soap:operation soapAction="mar.do/GetProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidWinner">
+      <soap:operation soapAction="mar.do/ValidWinner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmTck">
+      <soap:operation soapAction="mar.do/ConfirmTck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmMultiTck">
+      <soap:operation soapAction="mar.do/ConfirmMultiTck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetVentaFuera">
+      <soap:operation soapAction="mar.do/SetVentaFuera" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensajeDestinos">
+      <soap:operation soapAction="mar.do/GetMensajeDestinos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceAdmMsj">
+      <soap:operation soapAction="mar.do/PlaceAdmMsj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMensaje">
+      <soap:operation soapAction="mar.do/PlaceMensaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensaje">
+      <soap:operation soapAction="mar.do/GetMensaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMensaje2">
+      <soap:operation soapAction="mar.do/PlaceMensaje2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensaje2">
+      <soap:operation soapAction="mar.do/GetMensaje2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CuentaMensaje">
+      <soap:operation soapAction="mar.do/CuentaMensaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores">
+      <soap:operation soapAction="mar.do/Ganadores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores2">
+      <soap:operation soapAction="mar.do/Ganadores2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores3">
+      <soap:operation soapAction="mar.do/Ganadores3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaTickets">
+      <soap:operation soapAction="mar.do/ListaTickets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaTicketsAndroid">
+      <soap:operation soapAction="mar.do/ListaTicketsAndroid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaPines">
+      <soap:operation soapAction="mar.do/ListaPines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RptVenta">
+      <soap:operation soapAction="mar.do/RptVenta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVta">
+      <soap:operation soapAction="mar.do/RptSumaVta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVtaFec">
+      <soap:operation soapAction="mar.do/RptSumaVtaFec" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVtaFec2">
+      <soap:operation soapAction="mar.do/RptSumaVtaFec2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VentaNumero">
+      <soap:operation soapAction="mar.do/VentaNumero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VentaNumero3">
+      <soap:operation soapAction="mar.do/VentaNumero3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaTicketPagoRemoto">
+      <soap:operation soapAction="mar.do/ListaTicketPagoRemoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceLocalBet">
+      <soap:operation soapAction="mar.do/PlaceLocalBet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RePrint">
+      <soap:operation soapAction="mar.do/RePrint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBet">
+      <soap:operation soapAction="mar.do/GetBet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Anula">
+      <soap:operation soapAction="mar.do/Anula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Anula2">
+      <soap:operation soapAction="mar.do/Anula2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSuplidores">
+      <soap:operation soapAction="mar.do/GetSuplidores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarios">
+      <soap:operation soapAction="mar.do/GetUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecarga">
+      <soap:operation soapAction="mar.do/GetRecarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmRecarga">
+      <soap:operation soapAction="mar.do/ConfirmRecarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseRecarga">
+      <soap:operation soapAction="mar.do/ReverseRecarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BalanceRecarga">
+      <soap:operation soapAction="mar.do/BalanceRecarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BalanceRecargaRifero">
+      <soap:operation soapAction="mar.do/BalanceRecargaRifero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PtoVtaSoap12" type="tns:PtoVtaSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StrCmd">
+      <soap12:operation soapAction="mar.do/StrCmd" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogonWinBrowser">
+      <soap12:operation soapAction="mar.do/LogonWinBrowser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logon2">
+      <soap12:operation soapAction="mar.do/Logon2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logon">
+      <soap12:operation soapAction="mar.do/Logon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init2">
+      <soap12:operation soapAction="mar.do/Init2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init4">
+      <soap12:operation soapAction="mar.do/Init4" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logoff">
+      <soap12:operation soapAction="mar.do/Logoff" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init3">
+      <soap12:operation soapAction="mar.do/Init3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Init">
+      <soap12:operation soapAction="mar.do/Init" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMultiBet">
+      <soap12:operation soapAction="mar.do/PlaceMultiBet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceBet">
+      <soap12:operation soapAction="mar.do/PlaceBet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProducts">
+      <soap12:operation soapAction="mar.do/GetProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidWinner">
+      <soap12:operation soapAction="mar.do/ValidWinner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmTck">
+      <soap12:operation soapAction="mar.do/ConfirmTck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmMultiTck">
+      <soap12:operation soapAction="mar.do/ConfirmMultiTck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetVentaFuera">
+      <soap12:operation soapAction="mar.do/SetVentaFuera" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensajeDestinos">
+      <soap12:operation soapAction="mar.do/GetMensajeDestinos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceAdmMsj">
+      <soap12:operation soapAction="mar.do/PlaceAdmMsj" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMensaje">
+      <soap12:operation soapAction="mar.do/PlaceMensaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensaje">
+      <soap12:operation soapAction="mar.do/GetMensaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceMensaje2">
+      <soap12:operation soapAction="mar.do/PlaceMensaje2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMensaje2">
+      <soap12:operation soapAction="mar.do/GetMensaje2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CuentaMensaje">
+      <soap12:operation soapAction="mar.do/CuentaMensaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores">
+      <soap12:operation soapAction="mar.do/Ganadores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores2">
+      <soap12:operation soapAction="mar.do/Ganadores2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ganadores3">
+      <soap12:operation soapAction="mar.do/Ganadores3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaTickets">
+      <soap12:operation soapAction="mar.do/ListaTickets" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaTicketsAndroid">
+      <soap12:operation soapAction="mar.do/ListaTicketsAndroid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaPines">
+      <soap12:operation soapAction="mar.do/ListaPines" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RptVenta">
+      <soap12:operation soapAction="mar.do/RptVenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVta">
+      <soap12:operation soapAction="mar.do/RptSumaVta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVtaFec">
+      <soap12:operation soapAction="mar.do/RptSumaVtaFec" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RptSumaVtaFec2">
+      <soap12:operation soapAction="mar.do/RptSumaVtaFec2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VentaNumero">
+      <soap12:operation soapAction="mar.do/VentaNumero" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VentaNumero3">
+      <soap12:operation soapAction="mar.do/VentaNumero3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaTicketPagoRemoto">
+      <soap12:operation soapAction="mar.do/ListaTicketPagoRemoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlaceLocalBet">
+      <soap12:operation soapAction="mar.do/PlaceLocalBet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RePrint">
+      <soap12:operation soapAction="mar.do/RePrint" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBet">
+      <soap12:operation soapAction="mar.do/GetBet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Anula">
+      <soap12:operation soapAction="mar.do/Anula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Anula2">
+      <soap12:operation soapAction="mar.do/Anula2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSuplidores">
+      <soap12:operation soapAction="mar.do/GetSuplidores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarios">
+      <soap12:operation soapAction="mar.do/GetUsuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecarga">
+      <soap12:operation soapAction="mar.do/GetRecarga" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmRecarga">
+      <soap12:operation soapAction="mar.do/ConfirmRecarga" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseRecarga">
+      <soap12:operation soapAction="mar.do/ReverseRecarga" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BalanceRecarga">
+      <soap12:operation soapAction="mar.do/BalanceRecarga" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BalanceRecargaRifero">
+      <soap12:operation soapAction="mar.do/BalanceRecargaRifero" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PtoVta">
+    <wsdl:port name="PtoVtaSoap" binding="tns:PtoVtaSoap">
+      <soap:address location="http://localhost/MarVentasService/mar-ptovta.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PtoVtaSoap12" binding="tns:PtoVtaSoap12">
+      <soap12:address location="http://localhost/MarVentasService/mar-ptovta.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
