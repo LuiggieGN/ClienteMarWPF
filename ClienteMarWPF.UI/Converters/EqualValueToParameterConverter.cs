@@ -19,4 +19,9 @@ namespace ClienteMarWPF.UI.Converters
         }
     }
 
+
+    class Sample
+    {
+
+    }
 }
