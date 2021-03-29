@@ -69,6 +69,7 @@
     <Compile Include="Exceptions\MarFileReadException.cs" />
     <Compile Include="Exceptions\MarFileWriteException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
+    <Compile Include="Helpers\CmdCommandRunner.cs" />
     <Compile Include="Helpers\CuadreHelper.cs" />
     <Compile Include="Helpers\CuadreToPrintHelper.cs" />
     <Compile Include="Helpers\DocumentToPrintGeneratorHelper.cs" />

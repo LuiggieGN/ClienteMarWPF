@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteMarWPFWin7.UI", "Cli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarClienteInstalador", "MarClienteInstalador\MarClienteInstalador.csproj", "{223C68BE-6518-4D61-A422-9427F1C37A4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAR.Config", "MAR.Config\MAR.Config.csproj", "{28B8785C-A360-4F6F-9488-9788D4C7B5DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{223C68BE-6518-4D61-A422-9427F1C37A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{223C68BE-6518-4D61-A422-9427F1C37A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{223C68BE-6518-4D61-A422-9427F1C37A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B8785C-A360-4F6F-9488-9788D4C7B5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B8785C-A360-4F6F-9488-9788D4C7B5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B8785C-A360-4F6F-9488-9788D4C7B5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B8785C-A360-4F6F-9488-9788D4C7B5DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

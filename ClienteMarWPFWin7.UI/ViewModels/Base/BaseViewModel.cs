@@ -11,8 +11,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Base
     public class BaseViewModel : INotifyPropertyChanged
     {
         public bool No { get => Booleano.No; }
+        
         public bool Si { get => Booleano.Si; }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

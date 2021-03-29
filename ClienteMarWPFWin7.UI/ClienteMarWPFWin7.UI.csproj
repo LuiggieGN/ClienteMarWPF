@@ -18,7 +18,7 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>ftp://ftp.site4now.net/marpruebas/Publicaciones/</PublishUrl>
+    <PublishUrl>C:\Publicaciones\Company\Mateo Comunicaciones\Desktop\MarWin7Client\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -28,14 +28,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://luiggie-001-site1.btempurl.com/Publicaciones/</InstallUrl>
-    <UpdateUrl>http://luiggie-001-site1.btempurl.com/Publicaciones/</UpdateUrl>
+    <InstallUrl>http://pruebasmar.ddns.net/clientewebWPF/</InstallUrl>
     <ProductName>MAR</ProductName>
     <PublisherName>Mateo Comunicaciones</PublisherName>
     <SuiteName>MAR - Cliente Windows</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>publish.html</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
+    <WebPage>instalar.htm</WebPage>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -636,7 +635,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClienteMarWPFWin7.UI_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

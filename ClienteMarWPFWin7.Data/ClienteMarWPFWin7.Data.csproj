@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MAR.Config">
-      <HintPath>..\ConfigLibrary\LUIGGIE\DATA002\MAR.Config.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -73,6 +70,10 @@
     <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj">
       <Project>{7a839d18-0fee-4a3d-b284-690dea9dab4f}</Project>
       <Name>MAR.AppLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MAR.Config\MAR.Config.csproj">
+      <Project>{28b8785c-a360-4f6f-9488-9788d4c7b5da}</Project>
+      <Name>MAR.Config</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
