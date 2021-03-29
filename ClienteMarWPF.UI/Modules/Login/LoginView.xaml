@@ -23,7 +23,8 @@
                 <materialDesign:PackIcon Kind="UserCircle" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="300" Foreground="White"/>
                 <Label Content="MAR" Foreground="{DynamicResource WhiteForeground}" FontSize="100" HorizontalContentAlignment="Center"  FontWeight="Black"/>
                 <Label Content="CONTROL MÁS ALLÁ DEL HORIZONTE" Foreground="{DynamicResource WhiteForeground}" FontSize="15" HorizontalContentAlignment="Center" Margin="0 -20" />
-                <Label Content="Distribuido por Mateo Comunicaciones" Foreground="{DynamicResource WhiteForeground}" FontSize="10" HorizontalContentAlignment="Center" Margin="0 20" />
+                <Label Content="Distribuido por Mateo Comunicaciones" Foreground="{DynamicResource WhiteForeground}" FontSize="10" HorizontalContentAlignment="Center" Margin="0 20 -10 -1" />
+                <Label Content="Contacto: 809-412-2900" Foreground="{DynamicResource WhiteForeground}" FontSize="15" HorizontalContentAlignment="Center" Margin="10 4 4 3" />
             </StackPanel>
         </Border>
 
@@ -47,7 +48,8 @@
                      Width="200"
                      Margin="0 30 0 10 " 
                      Style="{DynamicResource btn-dark}" 
-                     Click="Login">
+                     Click="Login"
+                     Name="BotonIniciar">
                 <Grid Margin="10,0" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions> 
                         <ColumnDefinition Width="*"/>
