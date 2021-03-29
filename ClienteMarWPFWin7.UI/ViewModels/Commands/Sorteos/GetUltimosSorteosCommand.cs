@@ -35,7 +35,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 foreach (var item in sorteos)
                 {
-                    var ganadors = SorteosService.GetUltimosSorteos(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
+                    var ganadors = SorteosService.GetGnadores3(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
                     if (ganadors.Fecha != null)
                     {
                         ViewModel.ganadores.Add(new UltimosSorteos { 

@@ -18,12 +18,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
     {
         public ICommand RealizarApuestaCommand { get; }
         public ICommand GetListadoTicketsCommand { get; }
-        public ICommand GetUltimosSorteosCommand { get; }
+        public ICommand GetGanadoresCommand { get; }
         public ICommand ValidarPagoTicketCommand { get; }
         //public ICommand CopiarTicketCommand { get; }
 
         public ObservableCollection<MAR_Bet> listaTicketsJugados;
-        public ObservableCollection<UltimosSorteos> ganadores;
+
+        public ObservableCollection<UltimosSorteos> ganadores; 
+
         public ObservableCollection<MAR_Bet> listadoTicketPrecargada;
         private ValidarPagoTicketViewModel _dialog;
         private string _ticketSeleccionado;
@@ -36,17 +38,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             RealizarApuestaCommand = new RealizarApuestaCommand(this, autenticador, sorteosService);
             //GetListadoTicketsCommand = new GetListadoTicketsCommand(this, autenticador, sorteosService,null);
-            GetUltimosSorteosCommand = new GetUltimosSorteosCommand(this, autenticador, sorteosService);
+            GetGanadoresCommand = new GetUltimosSorteosCommand(this, autenticador, sorteosService);
             ValidarPagoTicketCommand = new ValidarPagoTicketCommand(this, autenticador, sorteosService);
             
             
             listaTicketsJugados = new ObservableCollection<MAR_Bet>();
-            ganadores = new ObservableCollection<UltimosSorteos>();
+
+            ganadores = new ObservableCollection<UltimosSorteos>();  //@@Descomentar
+            
             listadoTicketPrecargada = new ObservableCollection<MAR_Bet>();
+
             //CopiarTicketCommand = new CopiarTicketCommand(this, autenticador, sorteosService);
             //GetListadoTicketsCommand.Execute(null);
-            GetUltimosSorteosCommand.Execute(null);
-           
+            //GetGanadoresCommand.Execute(null); @@Comentado por que no se sabe la necesidad -- Favor Notificar al Decomentar att:Luiggie 
+
         }
 
         public ObservableCollection<MAR_Bet> ListaTickets

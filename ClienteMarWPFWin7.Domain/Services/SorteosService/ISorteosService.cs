@@ -14,7 +14,7 @@ namespace ClienteMarWPFWin7.Domain.Services.SorteosService
         MAR_Bet RealizarApuesta(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, MAR_Bet Apuesta, double Solicitud, bool ParaPasar);
         void ConfirmarApuesta(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session);
         MAR_Ganadores ListaDeTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int LoteriaID, string Fecha);
-        MAR_Ganadores GetUltimosSorteos(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int LoteriaID, string Fecha);
+        MAR_Ganadores GetGnadores3(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int LoteriaID, string Fecha);
         MAR_ValWiner ConsultarTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin, bool Pagar = false);
         string AnularTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin);
         MAR_Bet ConsultarTicketSinPin(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero);
