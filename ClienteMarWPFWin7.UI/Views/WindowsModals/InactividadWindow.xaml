@@ -1,0 +1,76 @@
+﻿<Window x:Class="ClienteMarWPFWin7.UI.Views.WindowsModals.InactividadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Views.WindowsModals"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        ResizeMode="NoResize"
+        BorderThickness="0"
+        Padding="0"
+        Background="Transparent"     
+        WindowStartupLocation="CenterScreen"  
+        WindowStyle="None"     
+        Height="200"
+        Width="430"        
+         >
+
+    <md:Card 
+              Padding="0"
+              Background="{DynamicResource MaterialDesignCardBackground}"
+              md:ShadowAssist.ShadowDepth="Depth1">
+
+        <Grid>
+            <Border BorderThickness="0.5" BorderBrush="#000"   >
+
+
+                <StackPanel Orientation="Vertical">
+
+
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+
+                        <materialDesign:PackIcon Kind="Warning" Margin="17 0 0 5" VerticalAlignment="Center" Width="30" Height="30" Foreground="#DC3545"/>
+
+                        <TextBlock Foreground="Black"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   TextWrapping="Wrap" 
+                                   Margin="15 10 20 15"
+                                   Text="Alerta la sesión esta a punto de cerrarse !!"/>
+                                  
+
+                    </StackPanel>
+
+
+                    <TextBlock Foreground="Black"
+                               TextAlignment="Center"
+                               FontSize="15"
+                               TextWrapping="Wrap" 
+                               Margin="20 20 20 20"
+                               Text="La sesión se cerrará en los siguientes segundos:"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button  
+                                Style="{DynamicResource btn-danger}" 
+                                Foreground="White" 
+                                Width="200"
+                                Height="40" 
+                                Margin="0 10" 
+                                Command="{Binding CancelarCierreDeSesionCommand}">
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBlock Text="{Binding SegundosAMostrar}" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
+                                <materialDesign:PackIcon Kind="Cancel" Margin="7 2 0 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+
+                </StackPanel>
+
+            </Border>
+        </Grid>
+
+    </md:Card>
+
+</Window>

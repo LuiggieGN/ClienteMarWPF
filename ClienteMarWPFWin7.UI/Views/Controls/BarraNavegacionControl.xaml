@@ -1,0 +1,274 @@
+﻿<UserControl x:Class="ClienteMarWPFWin7.UI.Views.Controls.BarraNavegacionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:nav="clr-namespace:ClienteMarWPFWin7.Domain.Enums;assembly=ClienteMarWPFWin7.Domain"
+             xmlns:converters="clr-namespace:ClienteMarWPFWin7.UI.Converters"            
+             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:ClienteMarWPFWin7.UI"
+             xmlns:home="clr-namespace:ClienteMarWPFWin7.UI.Modules.Home"             
+             xmlns:reporte="clr-namespace:ClienteMarWPFWin7.UI.Modules.Reporte" 
+             xmlns:sorteos="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos" 
+             xmlns:inicioefectivo="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Inicio"
+             >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:EqualValueToParameterConverter x:Key="EqualValueToParameterConverter"/>
+        <Style x:Key="OverrideRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Background" Value="#F4F4F4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border  HorizontalAlignment="Left" x:Name="borderTemplate" Background="Transparent" VerticalAlignment="Center">
+                            <ContentPresenter x:Name="contentPresenter" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="borderTemplate" Value="#FFE4E4E4"/>
+                                <Setter Property="HorizontalAlignment" TargetName="contentPresenter" Value="Center"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="borderTemplate" Value="#FFA1A1A1"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type RadioButton}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <BulletDecorator Background="Transparent">
+                            <BulletDecorator.Bullet>
+                                <StackPanel x:Name="rad" Orientation="Horizontal" VerticalAlignment="Stretch">
+                                    <!--<Grid Width="0" Height="0">
+                                        <Ellipse Name="MainEllipse" Width="40" Height="40">
+                                            <Ellipse.Fill>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFC8C8C8" Offset="0"/>
+                                                    <GradientStop Color="#FFF7F7F7" Offset="0.991"/>
+                                                </LinearGradientBrush>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <Ellipse Margin="10,10,10,10"    Fill="#C0C0C0" Width="Auto" Height="Auto">
+                                        </Ellipse>
+                                        <Ellipse x:Name="Selected" Margin="10,10,10,10"     Width="Auto" Height="Auto" >
+                                            <Ellipse.Fill>
+                                                <SolidColorBrush Color="Navy"   />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                    </Grid>-->
+                                    <ContentPresenter  Margin="0,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </BulletDecorator.Bullet>
+                        </BulletDecorator>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="rad" Property="Background"  Value="LightBlue"/>
+                            </Trigger>-->
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter TargetName="rad" Property="Background" Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="rad" Property="Background" Value="#98cbf3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel >
+
+        <StackPanel x:Name="StackPanelMain" DockPanel.Dock="Top" >
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Home}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="AttachMoney" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <Label Content="Balances - F1" VerticalContentAlignment="Center" Margin="9 0" Foreground="White"  FontSize="15"/>
+                </StackPanel>
+            </Button>
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Sorteos}">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="CashRegister" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Sorteos - F2" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Expander Background="Transparent" Margin="0 2" Width="204" BorderBrush="Transparent" IsExpanded="False" Foreground="White">
+                <Expander.Header>
+                    <BulletDecorator Margin="-7 0 0 0">
+                        <BulletDecorator.Bullet>
+                            <materialDesign:PackIcon Kind="Router" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                        </BulletDecorator.Bullet>
+                        <TextBlock Text="Juegos" Margin="13 0" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="White" FontSize="16"  />
+                    </BulletDecorator>
+                </Expander.Header>
+
+                <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                    <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" >
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="Truck" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                            <TextBlock Text="Camión Millonario" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.JuegaMas}">
+                        <StackPanel Orientation="Horizontal" >
+                            <materialDesign:PackIcon Kind="PlusBox" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                            <TextBlock Text="Juega Mas" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Expander>
+
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}" Visibility="{Binding Permisos.PuedeVenderRecargas, Converter={ StaticResource BooleanToVisibilityConverter }}">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="Telephone" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Recargas" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="Dice5" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Cinco Minutos" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}"  Visibility="{Binding Permisos.Servicios, Converter={ StaticResource BooleanToVisibilityConverter }}">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="BulbOn" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Paga Facil" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Expander Background="Transparent" Margin="0 2" Width="204" BorderBrush="Transparent" IsExpanded="False" Foreground="White" Visibility="{Binding BancaConfiguracion.ControlEfectivoConfigDto.PuedeUsarControlEfectivo, Converter={ StaticResource BooleanToVisibilityConverter }}" >
+                <Expander.Header>
+                    <BulletDecorator Margin="-7,0,-20,0">
+                        <BulletDecorator.Bullet>
+                            <materialDesign:PackIcon Kind="Transfer" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                        </BulletDecorator.Bullet>
+                        <TextBlock Text="Flujo Efectivo" FontWeight="Medium" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0,0,0"   />
+                    </BulletDecorator>
+                </Expander.Header>
+
+                <ContentPresenter x:Name="PresenterEfectivo" Content="{Binding}">
+
+                    <ContentPresenter.Resources>
+
+                        <DataTemplate x:Key="TemplateNoPoseeFlujoEfectivo">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.InicioControlEfectivo}">
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Star" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                                        <TextBlock Text="Iniciar" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate x:Key="TemplatePoseeFlujoEfectivo">
+
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding IniciarCuadreCommand}">
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Money" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                                        <TextBlock Text="Cuadre Dia" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.RegistrosDeMovimiento}">
+                                    <StackPanel Orientation="Horizontal" >
+                                        <materialDesign:PackIcon Kind="Arrow" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                                        <TextBlock Text="Movimientos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+
+                        </DataTemplate>
+
+                    </ContentPresenter.Resources>
+
+                    <ContentPresenter.Style>
+                        <Style TargetType="{x:Type ContentPresenter}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding BancaConfiguracion.ControlEfectivoConfigDto.BancaYaInicioControlEfectivo}" Value="False">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource TemplateNoPoseeFlujoEfectivo}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding BancaConfiguracion.ControlEfectivoConfigDto.BancaYaInicioControlEfectivo}" Value="True">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource  TemplatePoseeFlujoEfectivo}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentPresenter.Style>
+
+
+                </ContentPresenter>
+            </Expander>
+
+
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="FileDocumentBoxSearch" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Reportes - F3" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Mensajeria}" >
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="Chat" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <Label  Content="Mensajeria - F10" Margin="9 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>            
+            
+            
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}"  CommandParameter="{x:Static nav:Modulos.Reporte}" >
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="WifiOff" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Ventas locales" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+
+
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+
+
+
+
+
+
+
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical">
+
+            <Separator BorderBrush="Orange"  Margin="10 10 10 0" Background="#00A8E8" />
+
+            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding LogoutCommand}" Click="Button_Click">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="Logout" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Salir" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+
+        </StackPanel>
+
+    </DockPanel>
+
+</UserControl>

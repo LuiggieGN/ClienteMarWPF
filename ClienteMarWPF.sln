@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.UI", "ClienteMarWPF.UI\ClienteMarWPF.UI.csproj", "{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.Domain", "ClienteMarWPF.Domain\ClienteMarWPF.Domain.csproj", "{0E2ED624-67BC-4470-83C1-7C7D4E552569}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClienteMarWPF.DataAccess", "ClienteMarWPF.DataAccess\ClienteMarWPF.DataAccess.csproj", "{DED348E5-E09C-40B5-8C89-82DB58343BC6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flujo.Entities", "Flujo.Entities\Flujo.Entities.csproj", "{41BBCCA4-1318-4234-A855-83958F1E5FF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flujo.DataAccess", "Flujo.DataAccess\Flujo.DataAccess.csproj", "{68D7E119-83EF-46D7-89AB-4B60F31570A2}"
@@ -29,24 +23,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KubeInterchangeDataLib", "K
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KubeTestApp", "KubeTestApp\KubeTestApp.csproj", "{143C9FEC-CEED-499A-B1EB-93A735E290D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteMarWPFWin7.Domain", "ClienteMarWPFWin7.Domain\ClienteMarWPFWin7.Domain.csproj", "{1D9B6CFD-3FE0-464F-B1A9-BA31ABDF5610}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteMarWPFWin7.Data", "ClienteMarWPFWin7.Data\ClienteMarWPFWin7.Data.csproj", "{0F5D4501-E4A7-43DA-92D5-931126B41615}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteMarWPFWin7.UI", "ClienteMarWPFWin7.UI\ClienteMarWPFWin7.UI.csproj", "{E8B110B9-6DE6-460A-96C4-F620C7AA4FF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarClienteInstalador", "MarClienteInstalador\MarClienteInstalador.csproj", "{223C68BE-6518-4D61-A422-9427F1C37A4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAR.Config", "MAR.Config\MAR.Config.csproj", "{28B8785C-A360-4F6F-9488-9788D4C7B5DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7448AC0-076D-4703-A12D-21FF4F4E4C0C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E2ED624-67BC-4470-83C1-7C7D4E552569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E2ED624-67BC-4470-83C1-7C7D4E552569}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E2ED624-67BC-4470-83C1-7C7D4E552569}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E2ED624-67BC-4470-83C1-7C7D4E552569}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DED348E5-E09C-40B5-8C89-82DB58343BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DED348E5-E09C-40B5-8C89-82DB58343BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DED348E5-E09C-40B5-8C89-82DB58343BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DED348E5-E09C-40B5-8C89-82DB58343BC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41BBCCA4-1318-4234-A855-83958F1E5FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41BBCCA4-1318-4234-A855-83958F1E5FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41BBCCA4-1318-4234-A855-83958F1E5FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -87,6 +79,26 @@ Global
 		{143C9FEC-CEED-499A-B1EB-93A735E290D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{143C9FEC-CEED-499A-B1EB-93A735E290D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{143C9FEC-CEED-499A-B1EB-93A735E290D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D9B6CFD-3FE0-464F-B1A9-BA31ABDF5610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D9B6CFD-3FE0-464F-B1A9-BA31ABDF5610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D9B6CFD-3FE0-464F-B1A9-BA31ABDF5610}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D9B6CFD-3FE0-464F-B1A9-BA31ABDF5610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F5D4501-E4A7-43DA-92D5-931126B41615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5D4501-E4A7-43DA-92D5-931126B41615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5D4501-E4A7-43DA-92D5-931126B41615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5D4501-E4A7-43DA-92D5-931126B41615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8B110B9-6DE6-460A-96C4-F620C7AA4FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B110B9-6DE6-460A-96C4-F620C7AA4FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8B110B9-6DE6-460A-96C4-F620C7AA4FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B110B9-6DE6-460A-96C4-F620C7AA4FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{223C68BE-6518-4D61-A422-9427F1C37A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{223C68BE-6518-4D61-A422-9427F1C37A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{223C68BE-6518-4D61-A422-9427F1C37A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{223C68BE-6518-4D61-A422-9427F1C37A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B8785C-A360-4F6F-9488-9788D4C7B5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B8785C-A360-4F6F-9488-9788D4C7B5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B8785C-A360-4F6F-9488-9788D4C7B5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B8785C-A360-4F6F-9488-9788D4C7B5DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
