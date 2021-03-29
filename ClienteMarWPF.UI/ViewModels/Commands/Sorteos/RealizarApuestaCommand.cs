@@ -22,6 +22,7 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
         private readonly ISorteosService SorteosService;
         private readonly IAuthenticator Autenticador;
         List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
+
         private int contadorTIcket=0;
         public RealizarApuestaCommand(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
@@ -78,15 +79,18 @@ namespace ClienteMarWPF.UI.ViewModels.Commands.Sorteos
             if (MarBetResponse.Err == null)
             {
                 var ticket = new ArrayOfInt() { MarBetResponse.Ticket };
+                var alerta = new SorteosView();
                 try
                 {  
                     ////////////////////////////////////////////////////////////////////////////////////////////////////
                     SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
+                    //alerta.Mensaje();
                     /////////////////////////////////////////////////////////////////////////////////////////////////////
                     ImprimirTickets(MarBetResponse,null);
                 }catch(Exception e)
                 {
                     Console.WriteLine(e.Message);
+                    //alerta.MensajeError();
                 }
                 //TemplateTicketHelper.
                 //SorteosService.ConfirmarApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion);

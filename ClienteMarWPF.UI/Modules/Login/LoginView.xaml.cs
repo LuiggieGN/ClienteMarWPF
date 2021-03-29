@@ -30,6 +30,15 @@ namespace ClienteMarWPF.UI.Modules.Login
             set { SetValue(LoginCommandProperty, value); }
         }
 
+        //private void PressTecla(object sender, KeyEventArgs e)
+        //{
+        //    switch( e.Key)
+        //    {
+        //        case Key.Enter:
+        //            Login(sender, e);
+        //            break;
+        //    }
+        //}
 
 
         public LoginView()
@@ -42,13 +51,15 @@ namespace ClienteMarWPF.UI.Modules.Login
         private void Login(object sender, RoutedEventArgs e) 
         {
             if (LoginCommand != null)
-            {                  
-                LoginCommand.Execute(PasswordControl.Password);
-            }        
+            {
+              
+             LoginCommand.Execute(PasswordControl.Password);
+
+            }
+
         }
 
-
-
+ 
 
 
     }// Fin de Clase LoginView

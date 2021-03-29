@@ -19,15 +19,21 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
     {
 
         public bool Confirmar { get; set; } = false;
+        public string Mensaje { get; set; } = "";
+        public string Texto { get; set; }
+
+
         public ConfirmarMontoWindow()
         {
             InitializeComponent();
-
+          
+          
         }
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Confirmar = false;
             this.Close();
         }
 
@@ -35,6 +41,26 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
         {
             Confirmar = true;
             this.Close();
+        }
+
+       
+        public void Mostrar(string texto)
+        {
+           Mensaje = $"Esta seguro que desea agregar esta quiniela de RD$ { texto }?";
+        }
+
+        private void PressTecla(object sender, KeyEventArgs e)
+        {
+            switch( e.Key )
+            {
+                case Key.Right:
+                    botonConfirmar.Focus();
+                    break;
+
+                case Key.Left:
+                    botonCancelar.Focus();
+                    break;
+            }
         }
 
     }

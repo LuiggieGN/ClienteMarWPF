@@ -23,6 +23,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using static ClienteMarWPF.Domain.Models.Dtos.SorteosDisponibles;
 
 namespace ClienteMarWPF.UI.Modules.Sorteos
@@ -38,7 +39,9 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         private DateTime lastKeyPress;
         private List<string> NumerosJugados;
         private static string ticketSeleccionado;
-        public bool prueba;
+
+
+        //ConfirmarMontoWindow modal = new ConfirmarMontoWindow();
 
 
         public static readonly DependencyProperty RealizarApuestaCommandProperty = DependencyProperty.Register("RealizarApuestaCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
@@ -76,12 +79,19 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
             combinations = SessionGlobals.SuperPaleDisponibles;
             listSorteo.DataContext = SorteosBinding;
+
+            
+            
             //MostrarSorteos();
         }
 
+      
 
-        #region LOGICA PARA SORTEOS
-        private void ValidateSelectOnlyTwo()
+    
+
+
+    #region LOGICA PARA SORTEOS
+    private void ValidateSelectOnlyTwo()
         {
             int count = 0;
             foreach (var item in SorteosBinding)
@@ -167,11 +177,14 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         }
         private List<SorteosObservable> ConvertToObservables(List<MAR_Loteria2> Sorteos)
         {
+            
             var SorteosObservables = new List<SorteosObservable>();
+
             foreach (var item in Sorteos)
             {
                 SorteosObservables.Add(new SorteosObservable { LoteriaID = item.Numero, Loteria = item.Nombre, IsSelected = false, Date = DateTime.Now });
             }
+
 
             return SorteosObservables;
         }
@@ -404,11 +417,6 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     }
                 }
 
-                //if( listSorteo.SelectedItem == null )
-                //{
-                //    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionarse una loteria", "Aviso");
-                //}
-
 
                 //if (GetListadoTicketsCommand != null)
                 //{
@@ -425,6 +433,26 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
             }
 
         }
+
+        //public void Mensaje()
+        //{
+        //    try
+        //    {
+        //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
+        //    }
+        //    catch( Exception e)
+        //    {
+        //        MessageBox.Show(e.Message);
+        //    }
+            
+        //}
+
+        //public void MensajeError()
+        //{
+        //    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Hubo un error en el proceso, intentelo de nuevo.", "Aviso");
+        //}
+
+
         private void OpenCombinacion()
         {
             var NumerosJugado = new List<string>();
@@ -510,7 +538,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     break;
 
                 case Key.Add:
-                    RealizaApuesta();
+                    Vender(sender, e);
                     break;    
             
                 case Key.F5:
@@ -524,7 +552,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     break;    
                     
                 case Key.F12:
-                    RealizaApuesta();
+                    Vender(sender,e);
                     break;     
                     
                 case Key.F11:
@@ -557,10 +585,18 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                     break;
 
                 case Key.Right:
-                    if (txtMonto.IsFocused || txtJugada.IsFocused)
+                    //if (txtMonto.IsFocused || txtJugada.IsFocused)
+                    //{
+                    //    listSorteo.Focus();
+                    //    listSorteo.SelectedIndex = 0;
+                    //}
+                    if (txtJugada.IsFocused)
                     {
                         listSorteo.Focus();
                         listSorteo.SelectedIndex = 0;
+                    }else if( txtMonto.IsFocused )
+                    {
+                        txtJugada.Focus();
                     }
                     break;
 
@@ -574,7 +610,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 case Key.Space:
                     SelectItem();
                     break;
-
+                    
             }
 
 
@@ -622,6 +658,8 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 vm.SorteoViewClass = this;
             }
         }
+
+        
         private void AgregaJugada(object sender, KeyEventArgs e)
         {
 
@@ -634,38 +672,62 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
                 if (s != null)
                 {
 
-                    if (txtMonto.Text != "" && txtJugada.Text != "" && txtMonto.Text != "0")
+                    if ( txtMonto.Text != "0" || txtMonto.Text != "00" )
                     {
-
-                        if (Convert.ToInt32(txtMonto.Text) <= 500)
+                        if (txtMonto.Text != "" && txtJugada.Text != "")
                         {
-                           
-                            AddItem();
-                            txtMonto.Text = "";
-                            txtJugada.Text = "";
+
+
+                            if (Convert.ToInt32(txtMonto.Text) <= 500)
+                            {
+
+                                AddItem();
+                                txtMonto.Text = ""; 
+                                txtJugada.Text = "";
+
+                            }
+                            else
+                            {
+                                modal.Owner = Application.Current.MainWindow;
+
+                                modal.ShowDialog();
+                                modal.Mostrar(txtMonto.Text);
+
+                                if (modal.Confirmar)
+                                {
+                                    AddItem();
+                                    txtMonto.Text = "";
+                                    txtJugada.Text = "";
+
+                                }
+                            }
 
                         }
                         else
                         {
-                            modal.Owner = Application.Current.MainWindow;
-                           
-                            modal.ShowDialog();
-
-                            if (modal.Confirmar)
+                            if(txtMonto.Text != "" && txtJugada.Text == "")
                             {
-                                AddItem();
-                                txtMonto.Text = "";
-                                txtJugada.Text = "";
-                               
+                                txtJugada.Focus();
+                                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("El campo de jugada no puede estar vacio.", "Aviso");
+                            }
+                            else if(txtJugada.Text != "" && txtMonto.Text == "")
+                            {
+                                txtMonto.Focus();
+                                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("El campo monto no puede estar vacio.", "Aviso");
+                            }
+                            else if(txtMonto.Text == "" && txtJugada.Text == "")
+                            {
+                                txtMonto.Focus();
+                                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Los campos no pueden estar vacios.", "Aviso");
                             }
                         }
-
-                      
                     }
                     else
                     {
-                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("El monto debe ser mayor a 0 pesos.", "Aviso");
+                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("El monto debe ser mayor a 0.", "Aviso");
                     }
+
+                   
                     if (s.Name == "txtJugada")
                     {
                         txtMonto.Focus();
@@ -689,11 +751,20 @@ namespace ClienteMarWPF.UI.Modules.Sorteos
         {
             if( SorteosBinding != null && SorteosBinding.Count > 0 && (SorteosBinding.Any(x => x.IsSelected == true)  ))
             {
-                RealizaApuesta();
+                if( ltJugada.Items.Count > 0)
+                {
+                    RealizaApuesta();
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
+                }
+                else
+                {
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
+                }
+
             }
             else
             {
-                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar la loteria.", "Aviso");
+                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar al menos un sorteo.", "Aviso");
             }
            
         }

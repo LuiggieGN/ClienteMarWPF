@@ -98,9 +98,21 @@ namespace ClienteMarWPF.UI
             bxMensaje.Visibility = Visibility.Visible;
             try
             {
-                SolidColorBrush mySolidColorBrush = new SolidColorBrush();
-                mySolidColorBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(color));
-                bxMensaje.Background = mySolidColorBrush;
+                if(title == "Excelente")
+                {
+                    color = "#2E9431";
+                    SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+                    mySolidColorBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(color));
+                    bxMensaje.Background = mySolidColorBrush;
+                }
+                else
+                {
+                    color = "#FFA00101";
+                    SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+                    mySolidColorBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(color));
+                    bxMensaje.Background = mySolidColorBrush;
+                }
+                
             }
             catch (Exception)
             {
