@@ -23,9 +23,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         //public ICommand CopiarTicketCommand { get; }
 
         public ObservableCollection<MAR_Bet> listaTicketsJugados;
-
-        public ObservableCollection<UltimosSorteos> ganadores; 
-
+        public ObservableCollection<UltimosSorteos> ganadores;
         public ObservableCollection<MAR_Bet> listadoTicketPrecargada;
         private ValidarPagoTicketViewModel _dialog;
         private string _ticketSeleccionado;
@@ -38,20 +36,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             RealizarApuestaCommand = new RealizarApuestaCommand(this, autenticador, sorteosService);
             //GetListadoTicketsCommand = new GetListadoTicketsCommand(this, autenticador, sorteosService,null);
-            GetGanadoresCommand = new GetUltimosSorteosCommand(this, autenticador, sorteosService);
+            GetGanadoresCommand = new GetGanadoresCommand(this, autenticador, sorteosService);
             ValidarPagoTicketCommand = new ValidarPagoTicketCommand(this, autenticador, sorteosService);
             
             
             listaTicketsJugados = new ObservableCollection<MAR_Bet>();
-
-            ganadores = new ObservableCollection<UltimosSorteos>();  //@@Descomentar
-            
+            ganadores = new ObservableCollection<UltimosSorteos>();
             listadoTicketPrecargada = new ObservableCollection<MAR_Bet>();
-
             //CopiarTicketCommand = new CopiarTicketCommand(this, autenticador, sorteosService);
             //GetListadoTicketsCommand.Execute(null);
-            //GetGanadoresCommand.Execute(null); @@Comentado por que no se sabe la necesidad -- Favor Notificar al Decomentar att:Luiggie 
 
+            //!!@@ Ojo => Bug
+            //GetGanadoresCommand.Execute(null); //@Bug!! hace que el modulo cargue demasiado lento debido a que se hace llamdas a metodo de servicio dentro de u foreach
+                                                      //    !! Si se descomenta favor notificar att: Jaasiel y Luiggie 
+           
         }
 
         public ObservableCollection<MAR_Bet> ListaTickets

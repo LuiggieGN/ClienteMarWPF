@@ -10,23 +10,23 @@ using System.Text;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 {
-    public class GetUltimosSorteosCommand: ActionCommand
+    public class GetGanadoresCommand: ActionCommand
     {
         private readonly SorteosViewModel ViewModel;
         private readonly ISorteosService SorteosService;
         private readonly IAuthenticator Autenticador;
 
-        public GetUltimosSorteosCommand(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
+        public GetGanadoresCommand(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
             ViewModel = viewModel;
             Autenticador = autenticador;
             SorteosService = sorteosService;
 
-            Action<object> comando = new Action<object>(GetUltimosSorteos);
+            Action<object> comando = new Action<object>(Ganadores3);
             base.SetAction(comando);
         }
 
-        private void GetUltimosSorteos(object parametro)
+        private void Ganadores3(object parametro)
         {
             ViewModel.ganadores.Clear();
             try
@@ -35,7 +35,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 foreach (var item in sorteos)
                 {
-                    var ganadors = SorteosService.GetGnadores3(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
+                    var ganadors = SorteosService.Ganadores3(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
                     if (ganadors.Fecha != null)
                     {
                         ViewModel.ganadores.Add(new UltimosSorteos { 
