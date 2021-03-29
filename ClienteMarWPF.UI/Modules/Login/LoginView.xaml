@@ -48,7 +48,8 @@
                      Width="200"
                      Margin="0 30 0 10 " 
                      Style="{DynamicResource btn-dark}" 
-                     Click="Login">
+                     Click="Login"
+                     Name="BotonIniciar">
                 <Grid Margin="10,0" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions> 
                         <ColumnDefinition Width="*"/>

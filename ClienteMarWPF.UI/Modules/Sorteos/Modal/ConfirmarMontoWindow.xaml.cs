@@ -26,7 +26,7 @@ namespace ClienteMarWPF.UI.Modules.Sorteos.Modal
         public ConfirmarMontoWindow()
         {
             InitializeComponent();
-          
+            botonCancelar.Focus();
           
         }
 

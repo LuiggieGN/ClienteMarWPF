@@ -30,22 +30,24 @@ namespace ClienteMarWPF.UI.Modules.Login
             set { SetValue(LoginCommandProperty, value); }
         }
 
-        //private void PressTecla(object sender, KeyEventArgs e)
-        //{
-        //    switch( e.Key)
-        //    {
-        //        case Key.Enter:
-        //            Login(sender, e);
-        //            break;
-        //    }
-        //}
-
-
+  
         public LoginView()
         {
             InitializeComponent();
+            BotonIniciar.Focus();
         }
 
+
+        private void PressTecla(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    //Login(sender, e);
+                    MessageBox.Show("Hiciste click");
+                    break;
+            }
+        }
 
 
         private void Login(object sender, RoutedEventArgs e) 
