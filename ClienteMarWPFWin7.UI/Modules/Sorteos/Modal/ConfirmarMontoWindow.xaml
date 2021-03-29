@@ -29,16 +29,15 @@
                 <StackPanel Orientation="Vertical" Margin="2,2,-2,-2">
 
 
-                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0" RenderTransformOrigin="0.499,1.118">
 
-                        <md:PackIcon Kind="Check" Margin="17 0 0 5" VerticalAlignment="Center" Width="30" Height="30" Foreground="#2EA625"/>
+                        <md:PackIcon Kind="Information" Margin="17 0 0 5" VerticalAlignment="Center" Width="30" Height="30" Foreground="#FF0000"/>
 
-                        <TextBlock Foreground="Black"
-                                   FontSize="30"
+                        <TextBlock 
                                    FontWeight="Bold"
                                    TextWrapping="Wrap" 
                                    Margin="15 10 20 15"
-                                   Text="Desea confirmar esta jugada?"/>
+                                   Text="¿Esta seguro que desea hacer una jugada con ese monto?" Foreground="Black" FontSize="18" VerticalAlignment="Center" Width="497" Height="26"/>
 
 
                     </StackPanel>
@@ -46,6 +45,7 @@
                     <StackPanel Orientation="Horizontal">
 
                         <Button  
+                                x:Name="botonCancelar"
                                 Margin="60px"
                                 Style="{DynamicResource btn-danger}" 
                                 Foreground="White" 

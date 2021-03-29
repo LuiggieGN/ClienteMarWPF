@@ -97,7 +97,7 @@ namespace ClienteMarWPFWin7.Data.Services
                 return new MAR_Ganadores();
             }
         }
-        public MAR_Ganadores GetGnadores3(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int LoteriaID, string Fecha)
+        public MAR_Ganadores Ganadores3(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int LoteriaID, string Fecha)
         {
             try
             {
