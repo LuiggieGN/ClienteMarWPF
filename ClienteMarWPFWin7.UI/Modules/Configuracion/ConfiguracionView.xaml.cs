@@ -28,6 +28,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
 
             ParentWindow = parent;
 
+
         }
 
         private void ConfiguracionWindow_Loaded(object sender, RoutedEventArgs e)
@@ -43,11 +44,35 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
             }
         }
 
+        private void PressTecla(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Right:
+                    BotonCerrar.Focus();
+                    break;
+
+                case Key.Left:
+                    BotonAutorizar.Focus();
+                    break;
+        
+                case Key.Down:
+                    BotonAutorizar.Focus();
+                    break;
+            }
+        }
+
+
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+            if ( e.Handled )
+            {
+                BotonAutorizar.Focus();
+            }
+           
         }
 
 
@@ -64,13 +89,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
                 if (clave == 159753)
                 {
                     PanelAutoriacion.Visibility = Visibility.Collapsed;
-                    PanelConfiguracion.Visibility = Visibility.Visible;
+                    PanelConfiguracion.Visibility = Visibility.Visible; 
                 }
                 else
                 {
                     PanelAutoriacion.Visibility = Visibility.Visible;
                     PanelConfiguracion.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("La clave es incorrecta",
+                    "Aviso", MessageBoxButton.OK);
                 }
+            }
+            else
+            {
+                MessageBox.Show("El campo de clave no puede estar vacio",
+                    "Aviso", MessageBoxButton.OK);
             }
 
 

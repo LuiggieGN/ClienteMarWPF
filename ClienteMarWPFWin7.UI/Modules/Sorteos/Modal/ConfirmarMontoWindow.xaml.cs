@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClienteMarWPFWin7.UI.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         public bool Confirmar { get; set; } = false;
         public string Mensaje { get; set; } = "";
         public string Texto { get; set; }
+
+        
 
 
         public ConfirmarMontoWindow()
@@ -46,9 +49,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
        
         public void Mostrar(string texto)
         {
+           var notificar = new BaseViewModel();
            Mensaje = $"Esta seguro que desea agregar esta quiniela de RD$ { texto }?";
+            //notificar.NotifyPropertyChanged(nameof(Mensaje));
         }
 
+       
         private void PressTecla(object sender, KeyEventArgs e)
         {
             switch( e.Key )

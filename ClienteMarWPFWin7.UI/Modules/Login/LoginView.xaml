@@ -24,6 +24,7 @@
                 <Label Content="MAR" Foreground="{DynamicResource WhiteForeground}" FontSize="100" HorizontalContentAlignment="Center"  FontWeight="Black"/>
                 <Label Content="CONTROL MÁS ALLÁ DEL HORIZONTE" Foreground="{DynamicResource WhiteForeground}" FontSize="15" HorizontalContentAlignment="Center" Margin="0 -20" />
                 <Label Content="Distribuido por Mateo Comunicaciones" Foreground="{DynamicResource WhiteForeground}" FontSize="10" HorizontalContentAlignment="Center" Margin="0 20" />
+                <Label Content="Contacto: 809-412-2900" Foreground="{DynamicResource WhiteForeground}" FontSize="18" HorizontalContentAlignment="Center" Margin="0 -10" />
             </StackPanel>
         </Border>
 
@@ -33,12 +34,12 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
                 <materialDesign:PackIcon Kind="Account" VerticalAlignment="Center" Width="30" Height="30" Foreground="{DynamicResource BackgroundFour}"/>
-                <TextBox  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" FontSize="16" materialDesign:HintAssist.Hint="Usuário" Width="250" Margin="10 0"/>
+                <TextBox x:Name="TxtUsername" PreviewKeyDown="PressTecla" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" FontSize="16" materialDesign:HintAssist.Hint="Usuario" Width="250" Margin="10 0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
                 <materialDesign:PackIcon Kind="Key" VerticalAlignment="Center" Width="30" Height="30" Foreground="{DynamicResource BackgroundFour}"/>
-                <PasswordBox x:Name="PasswordControl" materialDesign:HintAssist.Hint="Contraseña" FontSize="16" Width="250" Margin="10 0"/>
+                <PasswordBox PreviewKeyDown="PressTecla" x:Name="PasswordControl" materialDesign:HintAssist.Hint="Contraseña" FontSize="16" Width="250" Margin="10 0"/>
             </StackPanel>
 
             <Button  HorizontalAlignment="Center" 
@@ -47,7 +48,8 @@
                      Width="200"
                      Margin="0 30 0 10 " 
                      Style="{DynamicResource btn-dark}" 
-                     Click="Login">
+                     Click="Login"
+                     Name="botonIniciar">
                 <Grid Margin="10,0" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions> 
                         <ColumnDefinition Width="*"/>

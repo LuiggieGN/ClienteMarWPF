@@ -42,7 +42,7 @@
                             </StackPanel>
                         </Label>
                         <ScrollViewer Name="contenedorTicket"   Height="365"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                            <DataGrid x:Name ="tbVentas"  ItemsSource="{Binding ListaTickets, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid x:Name ="tbVentas"   ItemsSource="{Binding ListaTickets, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                                 <DataGrid.Columns >
                                     <DataGridTemplateColumn  Width="70" >
                                         <DataGridTemplateColumn.CellTemplate>
