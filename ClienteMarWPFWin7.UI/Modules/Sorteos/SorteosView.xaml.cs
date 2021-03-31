@@ -39,6 +39,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private DateTime lastKeyPress;
         private List<string> NumerosJugados;
         private static string ticketSeleccionado;
+        private string teclaSeleccionada="";
 
 
         //ConfirmarMontoWindow modal = new ConfirmarMontoWindow();
@@ -93,17 +94,23 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
     #region LOGICA PARA SORTEOS
     private void ValidateSelectOnlyTwo()
         {
-            int count = 0;
-            foreach (var item in SorteosBinding)
+            if (CrearSuper.IsChecked == true)
             {
-                
-                if (count <= 1 && item.IsSelected)
+                if (teclaSeleccionada == "Enter" || teclaSeleccionada == "Espacio")
                 {
-                    count++;
-                }
-                else
-                {
-                    item.IsSelected = false;
+                    int count = 0;
+                    foreach (var item in SorteosBinding)
+                    {
+
+                        if (count <= 1 && item.IsSelected)
+                        {
+                            count++;
+                        }
+                        else
+                        {
+                            item.IsSelected = false;
+                        }
+                    }
                 }
             }
         }
@@ -530,32 +537,51 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 case Key.Subtract:
                     RemoveItem();
+                    teclaSeleccionada = "";
                     //MostrarSorteos();
                     break;
 
                 case Key.Multiply:
+                    teclaSeleccionada = "";
                     OpenCombinacion();
                     break;
 
+                case Key.S://Para cambiar a venta de super pales
+                    teclaSeleccionada = "";
+                    CrearSuper.IsChecked = true;
+                    break;
+
+                case Key.N://Para cambiar a venta de loterias normales
+                    teclaSeleccionada = "";
+                    CrearSuper.IsChecked = false;
+                    break;
+
                 case Key.Add:
+                    teclaSeleccionada = "";
                     Vender(sender, e);
                     break;    
             
                 case Key.F5:
+                    teclaSeleccionada = "";
                     ticketSeleccionado = null;
                     ValidarPagoTicketCommand.Execute(null);
                     break;   
                     
                 case Key.F9:
+                    teclaSeleccionada = "";
                     RemoveItem();
                     //MostrarSorteos();
                     break;    
                     
                 case Key.F12:
+                    teclaSeleccionada = "";
                     Vender(sender,e);
+                    txtMonto.Focus();
+                    listSorteo.SelectedIndex = -1;
                     break;     
                     
                 case Key.F11:
+                    teclaSeleccionada = "";
                     if (txtMonto.IsFocused || txtJugada.IsFocused)
                     {
                         listSorteo.Focus();
@@ -569,22 +595,56 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     break;
 
                 case Key.Enter:
-                     SelectItem();
+                    teclaSeleccionada = "Enter";
+                    if (listSorteo.SelectedItem != null) { 
+                        if (CrearSuper.IsChecked==false) {
+                            var item = listSorteo.SelectedItem as SorteosObservable;
+                            var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = DateTime.Now; return x; });
+                            var VM = DataContext as SorteosViewModel;
+                            if (item.IsSelected == false)
+                            {
+                                item.IsSelected = true;
+
+                                var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
+                                if (posicionLoteriaEliminar == -1)
+                                {
+                                    VM.LoteriasMultiples.Add(item.LoteriaID);
+                                }
+
+                            }
+                            else if (item.IsSelected == true)
+                            {
+                                item.IsSelected = false;
+                                var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
+                                if (posicionLoteriaEliminar != -1)
+                                {
+                                    VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
+                                }
+                            }
+                        }
+                        else if (CrearSuper.IsChecked == true) { 
+                             SelectItem();
+                        }
+                    }
                     break;
 
                 case Key.Left:
+                    teclaSeleccionada = "";
                     TimeSpan lastTime = DateTime.Now.Subtract(lastKeyPress).Duration();
                     TimeSpan watingTime = TimeSpan.FromSeconds(1);
-
+                    
                     if (lastTime <= watingTime)
                     {
                         txtMonto.Focus();
+                        listSorteo.SelectedItem = null;
+                        listSorteo.SelectedIndex = -1;
                     }
                      lastKeyPress = DateTime.Now;
  
                     break;
 
                 case Key.Right:
+                    teclaSeleccionada = "";
                     //if (txtMonto.IsFocused || txtJugada.IsFocused)
                     //{
                     //    listSorteo.Focus();
@@ -597,18 +657,58 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }else if( txtMonto.IsFocused )
                     {
                         txtJugada.Focus();
+                        listSorteo.SelectedItem = null;
+                        listSorteo.SelectedIndex = -1;
+
                     }
                     break;
 
                 case Key.Up:
-                    if (listSorteo.SelectedIndex != 0 && listSorteo.SelectedIndex != 1)
-                    {
-                        listSorteo.SelectedIndex = listSorteo.SelectedIndex - 2;
+                    teclaSeleccionada = "";
+                    if (listSorteo.SelectedItem != null) { 
+                        if (listSorteo.SelectedIndex != 0 && listSorteo.SelectedIndex != 1)
+                        {
+                            listSorteo.SelectedIndex = listSorteo.SelectedIndex - 2;
+                        }
                     }
                     break;
 
                 case Key.Space:
-                    SelectItem();
+                    
+                    teclaSeleccionada = "Espacio";
+                    if (listSorteo.SelectedItem != null)
+                    {
+                        if (CrearSuper.IsChecked == false)
+                        {
+                            var item = listSorteo.SelectedItem as SorteosObservable;
+                            var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = DateTime.Now; return x; });
+                            var VM = DataContext as SorteosViewModel;
+                            if (item.IsSelected == false)
+                            {
+                                item.IsSelected = true;
+
+                                var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
+                                if (posicionLoteriaEliminar == -1)
+                                {
+                                    VM.LoteriasMultiples.Add(item.LoteriaID);
+                                }
+
+                            }
+                            else if (item.IsSelected == true)
+                            {
+                                item.IsSelected = false;
+                                var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
+                                if (posicionLoteriaEliminar != -1)
+                                {
+                                    VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
+                                }
+                            }
+                        }
+                        else if (CrearSuper.IsChecked == true)
+                        {
+                            SelectItem();
+                        }
+                    }
                     break;
                     
             }

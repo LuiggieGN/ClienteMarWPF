@@ -123,6 +123,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                MessageBox.Show("HA OCURRIDO UN ERROR,POR FAVOR COMUNICARSE CON EL DEPARTAMENTO DE SOPORTE!\n\n Error ocurrido: "+e.Message, "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
             }
 
         }
@@ -493,7 +494,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             juegaMasSesion.Usuario = marSesion.Usuario;
             juegaMasSesion.Err = marSesion.Err;
 
-            var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion, ViewModel.Fecha);
+            var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion,ViewModel.Fecha);
 
             //           var Deserealizado2 = DeserializarString(SinCorchetes.ToString());
             //var Deserializado = DeserializarJuegaMas(SinComillas.ToString());
@@ -502,7 +503,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             ViewModel.ObservableListadoPremios = "";
             if (resultado.OK==true)
             {
-                ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Visible;
+                //ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Visible;
                 var arrayJeison = JsonConvert.DeserializeObject(reportes.Respuesta);
                 ModelSerializePremios ModeloPremios = JsonConvert.DeserializeObject<ModelSerializePremios>(arrayJeison.ToString());
                 printData = ModeloPremios.PrintData;

@@ -138,28 +138,48 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 }
 
                 if (reimprimir == true)
-                {
-                    List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
-                    for (var i = 0; i < MoreOptions.Count; i++)
-                    {
-                        var ConfigValue = MoreOptions[i];
-                        var ArrayValue = ConfigValue.Split('|');
-                        if (ArrayValue[0] == "BANCA_PRINTER_CONFIG_LINE")
+                { 
+                     List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
+                    //var ReimprimirResponse = SorteosService.ReimprimirTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToInt32(ViewModelValidar.TicketPin));
+
+                    //if (ReimprimirResponse.Err == null)
+                    //{
+                       
+                        for (var i = 0; i < MoreOptions.Count; i++)
                         {
-                            ConfigPrinterModel configuracionConfigLine = new ConfigPrinterModel { ConfigKey = ArrayValue[0].ToString(), ConfigValue = ArrayValue[1].Replace('"', Convert.ToChar("'")).ToString() };
-                            configuracionConfigLine.ConfigValue.Replace(Convert.ToChar("'"), '"').ToString();
-                            ExistPrinterCOnfig = true;
-                            listaConfiguraciones.Add(configuracionConfigLine);
-                        }
-                        if (ArrayValue[0] == "BANCA_PRINTER_IMAGES_CONFIG")
-                        {
-                            ConfigPrinterModel configuracionConfigImage = new ConfigPrinterModel { ConfigKey = ArrayValue[0].ToString(), ConfigValue = ArrayValue[1].Replace('"', Convert.ToChar("'")).ToString() };
-                            configuracionConfigImage.ConfigValue.Replace(Convert.ToChar("'"), '"').ToString();
-                            ExistPrinterCOnfig = true;
-                            listaConfiguraciones.Add(configuracionConfigImage);
+                            var ConfigValue = MoreOptions[i];
+                            var ArrayValue = ConfigValue.Split('|');
+                            if (ArrayValue[0] == "BANCA_PRINTER_CONFIG_LINE")
+                            {
+                                ConfigPrinterModel configuracionConfigLine = new ConfigPrinterModel { ConfigKey = ArrayValue[0].ToString(), ConfigValue = ArrayValue[1].Replace('"', Convert.ToChar("'")).ToString() };
+                                configuracionConfigLine.ConfigValue.Replace(Convert.ToChar("'"), '"').ToString();
+                                ExistPrinterCOnfig = true;
+                                listaConfiguraciones.Add(configuracionConfigLine);
+                            }
+                            if (ArrayValue[0] == "BANCA_PRINTER_IMAGES_CONFIG")
+                            {
+                                ConfigPrinterModel configuracionConfigImage = new ConfigPrinterModel { ConfigKey = ArrayValue[0].ToString(), ConfigValue = ArrayValue[1].Replace('"', Convert.ToChar("'")).ToString() };
+                                configuracionConfigImage.ConfigValue.Replace(Convert.ToChar("'"), '"').ToString();
+                                ExistPrinterCOnfig = true;
+                                listaConfiguraciones.Add(configuracionConfigImage);
+                            }
+
                         }
 
-                    }
+                        ViewModelValidar.SetMensaje(mensaje: "La reimpresion del ticket fue completada exitosamente.",
+                                           icono: "Check",
+                                           background: "#28A745",
+                                           puedeMostrarse: true);
+                    //}
+                    //else
+                    //{
+                    //    ViewModelValidar.SetMensaje(mensaje: ReimprimirResponse.Err,
+                    //                         icono: "Error",
+                    //                         background: "#DC3545",
+                    //                         puedeMostrarse: true);
+                    //}
+                
+                    
                     ///Configuraciones printer
                     if (ExistPrinterCOnfig == true)
                     {

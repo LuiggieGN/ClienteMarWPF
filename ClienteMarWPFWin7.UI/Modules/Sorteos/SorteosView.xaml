@@ -76,7 +76,7 @@
                                         <MultiTrigger>
                                             <MultiTrigger.Conditions>
                                                 <Condition Property="IsMouseOver" Value="True"/>
-                                                <Condition Property="IsChecked" Value="False"/>
+                                                <Condition Property="IsChecked" Value="True"/>
                                             </MultiTrigger.Conditions>
                                         </MultiTrigger>
                                     </ControlTemplate.Triggers>
