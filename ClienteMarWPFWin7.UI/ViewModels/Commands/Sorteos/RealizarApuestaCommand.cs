@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using ClienteMarWPFWin7.UI.ViewModels.Commands.MainWindow;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 {
@@ -78,15 +79,28 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             if (MarBetResponse.Err == null)
             {
                 var ticket = new ArrayOfInt() { MarBetResponse.Ticket };
+                SorteosView sorteo = new SorteosView();
+
                 try
-                {  
+                {
+                    //Window d = Application.Current.Windows.OfType<Window>().Where(w => w.Name.Equals("vistaSorteo")).FirstOrDefault();
                     ////////////////////////////////////////////////////////////////////////////////////////////////////
                     SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
+                    ( Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
+                    //MessageBox.Show("Jugada realizada satisfactoriamente", "Confirmacion");
                     /////////////////////////////////////////////////////////////////////////////////////////////////////
-                    ImprimirTickets(MarBetResponse,null);
+                    try
+                    {
+                        ImprimirTickets(MarBetResponse, null);
+                    }catch( Exception e)
+                    {
+                        (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(e.Message, "Aviso");
+                    }
+                    
                 }catch(Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(e.Message, "Aviso");
+
                 }
                 //TemplateTicketHelper.
                 //SorteosService.ConfirmarApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion);

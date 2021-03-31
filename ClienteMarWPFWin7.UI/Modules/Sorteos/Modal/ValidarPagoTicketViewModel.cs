@@ -11,12 +11,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
+using System.Linq;
 
 namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 {
     public class ValidarPagoTicketViewModel: BaseViewModel
     {
-        
+
+        private ObservableCollection<MAR_Bet> listadotipojugadas;
         public ICommand CerrarValidarPagoTicketCommand { get; }
         public ICommand ConsultarTicketCommand { get; }
         public ICommand PagarTicketCommand { get; }
@@ -24,7 +26,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         public ICommand ReimprimirTicketCommand { get; }
         public ICommand GetListadoTicketsCommand { get; }
         public ICommand CopiarTicketCommand { get; }
-        public ObservableCollection<MAR_Bet> listaTicketsJugados;
+        public ObservableCollection<MAR_Bet> listaTicketsJugados { get => listadotipojugadas; 
+            set {
+                listadotipojugadas = value;
+                NotifyPropertyChanged(nameof(listadotipojugadas));
+                }}
+        
         public SorteosView claseSorteo;
         public SorteosViewModel SorteoVM;
         
@@ -208,6 +215,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             {
                 return listaTicketsJugados;
             }
+
 
         }
 

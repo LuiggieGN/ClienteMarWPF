@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using ClienteMarWPFWin7.UI.Extensions;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 {
@@ -42,14 +43,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 if (ViewModel.ListadoTicketsPrecargados.Count == 0) { 
 
+
+
                     foreach (var item in sorteos)
                     {
                     
                         var result = SorteosService.ListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
                         if (result.Tickets != null)
                         {
+
+                            var data = result.Tickets.OfType<MAR_Bet>();
                             
-                            var data = result.Tickets.OfType<MAR_Bet>().OrderByDescending(x => x.Ticket).ToList();
 
                             foreach (var ticket in data)
                             {
@@ -68,17 +72,25 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                     }
 
-                    
-                    ViewModel.ListadoTicketsPrecargados.OrderByDescending(x => x.Ticket).Reverse();
+                    ViewModelPago.listaTicketsJugados = ViewModelPago.listaTicketsJugados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
+                    ViewModel.ListadoTicketsPrecargados =  ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
                     string total = ViewModelPago.listaTicketsJugados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
                 }
                 else if (ViewModel.ListadoTicketsPrecargados.Count > 0)
                 {
+                    //var observable = new ObservableCollection<MAR_Bet>();
+                    //foreach (var item in ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse())
+                    //{
+                    //    observable.Add(new MAR_Bet() {
 
-                    ViewModelPago.listaTicketsJugados = ViewModel.ListadoTicketsPrecargados;
+                    //    });
+                    //}
+                    ViewModelPago.listaTicketsJugados = ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
                     string total = ViewModel.ListadoTicketsPrecargados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
+
+
 
                 }
             }

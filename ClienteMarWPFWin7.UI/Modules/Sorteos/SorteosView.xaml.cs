@@ -569,7 +569,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     break;
 
                 case Key.Enter:
-                     SelectItem();
+                    if( txtJugada.Text != "" && txtMonto.Text != "" )
+                    {
+                        SelectItem();
+                    }else if( txtMonto.Text != "" && txtJugada.Text == "" )
+                    {
+                        AgregaJugada(sender, e);
+                        txtJugada.Focus();
+                    }else if( txtMonto.Text == "" && txtJugada.Text != "")
+                    {
+                        AgregaJugada(sender, e);
+                        txtMonto.Focus();
+                    }
+                     
                     break;
 
                 case Key.Left:
@@ -672,7 +684,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 if (s != null)
                 {
 
-                    if ( txtMonto.Text != "0" || txtMonto.Text != "00" )
+                    if ( txtMonto.Text != "0")
                     {
                         if (txtMonto.Text != "" && txtJugada.Text != "")
                         {
@@ -715,11 +727,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 txtMonto.Focus();
                                 ((MainWindow)Window.GetWindow(this)).MensajesAlerta("El campo monto no puede estar vacio.", "Aviso");
                             }
-                            else if(txtMonto.Text == "" && txtJugada.Text == "")
-                            {
-                                txtMonto.Focus();
-                                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Los campos no pueden estar vacios.", "Aviso");
-                            }
+                            //else if(txtMonto.Text == "" && txtJugada.Text == "")
+                            //{
+                            //    txtMonto.Focus();
+                            //    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Los campos no pueden estar vacios.", "Aviso");
+                            //}
                         }
                     }
                     else
@@ -754,7 +766,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 if( ltJugada.Items.Count > 0)
                 {
                     RealizaApuesta();
-                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
+                    //((MainWindow)Window.GetWindow(this)).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
                 }
                 else
                 {

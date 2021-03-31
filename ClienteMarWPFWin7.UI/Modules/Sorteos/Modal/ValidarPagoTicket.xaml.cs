@@ -38,6 +38,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             }
         }
 
+        //public void OrdenarListTickte()
+        //{
+        //    tbVentas.Columns.
+        //}
+
         public UIElement OverlayOn
         {
             get

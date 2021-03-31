@@ -58,6 +58,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 return listaTicketsJugados;
             }
+          
 
         }
 
@@ -67,6 +68,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             get
             {
                 return listadoTicketPrecargada;
+            }
+            set
+            {
+                listadoTicketPrecargada = value;
+                NotifyPropertyChanged(nameof(listadoTicketPrecargada));
             }
 
         }
