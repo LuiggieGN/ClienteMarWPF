@@ -15,6 +15,7 @@ using ClienteMarWPFWin7.Domain.Exceptions;
 using ClienteMarWPFWin7.Data.Services.Helpers;
 
 using ClienteMarWPFWin7.Domain.JuegaMasService;
+using System.Windows.Forms;
 
 namespace ClienteMarWPFWin7.Data.Services
 {
