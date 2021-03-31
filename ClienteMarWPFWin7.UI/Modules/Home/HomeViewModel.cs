@@ -1,4 +1,6 @@
-﻿using ClienteMarWPFWin7.Domain.Services.BancaService;
+﻿
+
+using ClienteMarWPFWin7.Domain.Services.BancaService;
 using ClienteMarWPFWin7.Domain.Services.CajaService;
 
 using ClienteMarWPFWin7.UI.State.Authenticators;
@@ -10,7 +12,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 using System;
-
+using System.Text;
+using ClienteMarWPFWin7.Domain.Helpers;
 
 namespace ClienteMarWPFWin7.UI.Modules.Home
 {
@@ -33,7 +36,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Home
         public string Card_Ventas_Productos { get => DashboardService?.Card_Ventas_Productos ?? "*"; }
         public string Card_Comisiones { get => DashboardService?.Card_Comisiones ?? "*"; }
         public string Card_Anulaciones { get => DashboardService?.Card_Anulaciones ?? "*"; }
-        public string Card_Balances { get => DashboardService?.Card_Balances ?? "*"; } 
+        public string Card_Balances { get => DashboardService?.Card_Balances ?? "*"; }
         public string UltimaFechaDeActualizacion { get => DashboardService?.UltimaFechaDeActualizacionStr ?? ""; }
         public bool Cargando
         {
@@ -80,7 +83,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Home
         public ICommand CargarBalancesCommand { get; }
         #endregion
 
-        public HomeViewModel(IAuthenticator authenticatorService ,IDashboardCard dashboardService, IBancaService bancaService, ICajaService cajaService)
+        public HomeViewModel(IAuthenticator authenticatorService, IDashboardCard dashboardService, IBancaService bancaService, ICajaService cajaService)
         {
             AuthenticatorService = authenticatorService;
             DashboardService = dashboardService;
@@ -97,6 +100,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Home
                 CargarBalancesCommand.Execute(null);
                 dashboardService.IsLoadingForFirstTime = No;
             }
+
+
+            try
+            {
+                //CmdHelper.RunCmdCommand("explorer|http://pruebasmar.ddns.net/clienteweb/setup.exe");
+            }
+            catch
+            {
+
+            }
+
 
         }
 

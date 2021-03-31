@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
+using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 
 namespace ClienteMarWPFWin7.UI.Modules.Login
 {
@@ -35,6 +38,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Login
         public LoginView()
         {
             InitializeComponent();
+            TxtUsername.Focus();
         }
 
 
@@ -46,6 +50,41 @@ namespace ClienteMarWPFWin7.UI.Modules.Login
                 LoginCommand.Execute(PasswordControl.Password);
             }        
         }
+
+        private void PressTecla(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    if ( TxtUsername.Text != "" && PasswordControl.Password == "")
+                    {
+                        PasswordControl.Focus();
+                    }else if( TxtUsername.Text == "" && PasswordControl.Password != "")
+                    {
+                        TxtUsername.Focus();
+                    }
+                    else if( PasswordControl.IsFocused || TxtUsername.IsFocused ) 
+                    {
+                        try
+                        {
+                            var btnIniciar = botonIniciar;
+
+                            if (btnIniciar != null)
+                            {
+                                var peer = new ButtonAutomationPeer(btnIniciar);
+                                var invokeProvider = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                                invokeProvider?.Invoke();
+                            }
+                        }
+                        catch { }
+                    }
+                   
+                    
+                    break;
+
+            }
+        }
+
 
 
 

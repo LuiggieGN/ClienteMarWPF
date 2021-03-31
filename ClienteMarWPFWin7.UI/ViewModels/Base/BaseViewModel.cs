@@ -1,7 +1,8 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ClienteMarWPFWin7.UI.ViewModels.Helpers;
+using ClienteMarWPFWin7.Domain.Helpers;
+
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Base
 {
@@ -10,11 +11,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Base
 
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public bool No { get => Booleano.No; }
-        
-        public bool Si { get => Booleano.Si; }
-
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool Si { get => Booleano.Si; }
+        public bool No { get => Booleano.No; }     
+
 
         protected void NotifyPropertyChanged(params string[] propertyNames)
         {
