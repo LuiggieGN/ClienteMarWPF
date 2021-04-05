@@ -53,7 +53,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Home
             UltimaActualizacion = DateTime.Now;
 
             ViewModel.Cargando = Si;
-            ViewModel.UpdateCardsValue("*", "*", "*", "*", "*", null);
+            ViewModel.UpdateCardsValue("*", "*", "*", "*", "*", "*", null);
 
             bool bancaUsaControlEfectivo = false;
 
@@ -69,7 +69,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Home
 
             if (!bancaUsaControlEfectivo) // Si la BANCA no usa Control de Efectivo Ingresa aqui
             {
-                ViewModel.UpdateCardsValue("*", "*", "*", "*", "*", null);
+                ViewModel.UpdateCardsValue("*", "*", "*", "*", "*", "*", null);
                 return;
             }
 
@@ -77,7 +77,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Home
             bool CALL_ASYNC = Si;
             bool BREAK_INFINITY = No;
 
-            for (;;)
+            for (; ; )
             {
                 if (CALL_ASYNC)
                 {
@@ -98,7 +98,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Home
 
                 if (HomeViewModel.Worker.CancellationPending)
                 {
-                    ViewModel.UpdateCardsValue("*", "*", "*", "*", "*",null);
+                    ViewModel.UpdateCardsValue("*", "*", "*", "*", "*", "*", null);
                     e.Cancel = true;
                     break;
                 }
@@ -129,7 +129,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Home
             decimal totVentasLoterias = 0,
                     totVentasProductos = 0,
                     totComisiones = 0,
-                    totAnulaciones = 0;
+                    totAnulaciones = 0,
+                    totPagos = 0;
 
 
 
@@ -168,7 +169,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Home
 
             if (movmientos == null || movmientos.Count == 0)
             {
-                ViewModel.UpdateCardsValue("$0.00", "$0.00", "$0.00", "$0.00", bancaBalance, UltimaActualizacion);
+                ViewModel.UpdateCardsValue("$0.00", "$0.00", "$0.00", "$0.00", "$0.00", bancaBalance, UltimaActualizacion);
                 return;
             }
 
@@ -208,10 +209,21 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Home
 
 
 
+            totPagos = movmientos.Where(s => (
+                                                    (s.Categoria == "Egreso" && s.CategoriaSubTipoID == 9)  ||  // PagoGanador
+                                                    (s.Categoria == "Egreso" && s.CategoriaSubTipoID == 10) ||  // PagoGanadorRemoto                                      
+                                                    (s.Categoria == "Egreso" && s.CategoriaSubTipoID == 12) ||  // CL_PagoGanador                                      
+                                                    (s.Categoria == "Egreso" && s.CategoriaSubTipoID == 13)     // CL_PagoGanadorRemoto       
+
+                                                    )
+                                             ).Sum(x => x.EntradaOSalida);
+
+
             ViewModel.UpdateCardsValue("$" + totVentasLoterias.ToString("#,##0.00"),
                                        "$" + totVentasProductos.ToString("#,##0.00"),
                                        "$" + totComisiones.ToString("#,##0.00"),
                                        "$" + totAnulaciones.ToString("#,##0.00"),
+                                       "$" + totPagos.ToString("#,##0.00"),
                                            bancaBalance,
                                            UltimaActualizacion);
 
