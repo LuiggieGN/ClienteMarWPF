@@ -44,7 +44,7 @@
 
                     <StackPanel Orientation="Horizontal">
 
-                        <Button  
+                        <Button  PreviewKeyDown="PressTecla"
                                 x:Name="botonCancelar"
                                 Margin="60px"
                                 Style="{DynamicResource btn-danger}" 
@@ -58,7 +58,7 @@
                         </StackPanel>
                     </Button>
                         <Button  
-                           
+                                PreviewKeyDown="PressTecla"
                                 x:Name="botonConfirmar"
                                 Style="{DynamicResource btn-success}" 
                                 Foreground="White" 

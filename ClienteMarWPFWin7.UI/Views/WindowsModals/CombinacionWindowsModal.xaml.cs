@@ -73,20 +73,33 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
         private void NextTextBox(object sender, KeyEventArgs e)
         {
             TextBox s = e.Source as TextBox;
-            if (s != null && (s.Text.Length == 2 && s.Text != string.Empty))
+            if (s != null && (s.Text.Length == 2 && s.Text != string.Empty) || e.Key == Key.Right)
             {
                 s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
             }
+            else if (e.Key == Key.Left)
+            {
+                s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+            }
+            else if (e.Key == Key.Down)
+            {
+                s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+            }
+            else if (e.Key == Key.Up)
+            {
+                s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Up));
+            }
             e.Handled = true;
 
-            if (e.Key == Key.Enter)
-            {
-                if (s != null)
-                {
-                    s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                }
-                e.Handled = true;
-            }
+            //if (e.Key == Key.Enter)
+            //{
+            //    if (s != null)
+            //    {
+            //        s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            //    }
+            //    e.Handled = true;
+            //}
+
 
             var data = new List<string>();
             ListJugadas = new List<Jugada>();

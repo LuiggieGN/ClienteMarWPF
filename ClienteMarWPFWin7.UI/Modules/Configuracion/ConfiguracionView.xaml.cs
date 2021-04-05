@@ -28,6 +28,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
 
             ParentWindow = parent;
 
+            txtClaveAutorizacion.Focus();
+            BotonAutorizar.BorderThickness = new Thickness(2, 2, 2, 2);
+            BotonCerrar.BorderThickness = new Thickness(2, 2, 2, 2);
+            BotonAutorizar.BorderBrush = Brushes.Black;
+            BotonCerrar.BorderBrush = Brushes.Black;
 
         }
 
@@ -46,13 +51,28 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
 
         private void PressTecla(object sender, KeyEventArgs e)
         {
+            if (BotonCerrar.IsFocused)
+            {
+                BotonAutorizar.BorderBrush = Brushes.Blue;
+                BotonCerrar.BorderBrush = Brushes.Black;
+                BotonCerrar.BorderThickness = new Thickness(2, 2, 2, 2);
+
+            }
+            else if (BotonAutorizar.IsFocused)
+            {
+                BotonCerrar.BorderBrush = Brushes.Blue;
+                BotonAutorizar.BorderBrush = Brushes.Black;
+                BotonAutorizar.BorderThickness = new Thickness(2, 2, 2, 2);
+
+            }
+
             switch (e.Key)
             {
-                case Key.Right:
+                case Key.Left:
                     BotonCerrar.Focus();
                     break;
 
-                case Key.Left:
+                case Key.Right:
                     BotonAutorizar.Focus();
                     break;
         
