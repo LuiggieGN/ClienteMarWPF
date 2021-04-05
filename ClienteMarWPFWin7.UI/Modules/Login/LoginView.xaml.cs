@@ -85,10 +85,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Login
             }
         }
 
-
-
-
-
-
+        private void Carga(object sender, RoutedEventArgs e)
+        {
+            TxtUsername.Focus();
+        }
     }// Fin de Clase LoginView
 }// Fin de namespace 

@@ -30,7 +30,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             InitializeComponent();
             botonCancelar.Focus();
-          
+            botonCancelar.BorderThickness = new Thickness(2, 2, 2, 2);
+            botonConfirmar.BorderThickness = new Thickness(2, 2, 2, 2);
+            botonConfirmar.BorderBrush = Brushes.Black;
+            botonCancelar.BorderBrush = Brushes.Black;
         }
 
 
@@ -57,13 +60,28 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
        
         private void PressTecla(object sender, KeyEventArgs e)
         {
-            switch( e.Key )
+            if (botonCancelar.IsFocused)
             {
-                case Key.Right:
+                botonConfirmar.BorderBrush = Brushes.Blue;
+                botonCancelar.BorderBrush = Brushes.Black;
+                botonCancelar.BorderThickness = new Thickness(2, 2, 2, 2);
+
+            }
+            else if (botonConfirmar.IsFocused)
+            {
+                botonCancelar.BorderBrush = Brushes.Blue;
+                botonConfirmar.BorderBrush = Brushes.Black;
+                botonConfirmar.BorderThickness = new Thickness(2, 2, 2, 2);
+
+            }
+
+            switch ( e.Key )
+            {
+                case Key.Left:
                     botonConfirmar.Focus();
                     break;
 
-                case Key.Left:
+                case Key.Right:
                     botonCancelar.Focus();
                     break;
             }
