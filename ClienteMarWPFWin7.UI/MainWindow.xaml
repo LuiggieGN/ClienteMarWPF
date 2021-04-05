@@ -63,7 +63,7 @@
                                 <ColumnDefinition  />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <materialDesign:ColorZone Grid.ColumnSpan="3" Mode="Dark"  Background="{DynamicResource MenuTopBackground}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                            <materialDesign:ColorZone Grid.ColumnSpan="3" Mode="Dark"  Background="{DynamicResource BackgroundFour}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                                 <materialDesign:ColorZone.Effect>
                                     <DropShadowEffect BlurRadius="20" Opacity="0.50" ShadowDepth="-50"/>
                                 </materialDesign:ColorZone.Effect>

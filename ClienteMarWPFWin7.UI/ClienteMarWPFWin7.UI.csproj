@@ -670,7 +670,6 @@
     <Resource Include="StartUp\Images\ControlEfectivo\Transfer.png" />
     <Resource Include="StartUp\Images\fondo.png" />
     <Resource Include="StartUp\Images\LogoMAR_OriginalBlancoPeq.png" />
-    <Resource Include="StartUp\Images\Logo\MateoNetLogo.jpg" />
     <Resource Include="StartUp\Images\Operador\AlticeB_logo.png" />
     <Resource Include="StartUp\Images\Operador\AlticeT_logo.png" />
     <Resource Include="StartUp\Images\Operador\Claro_logo.png" />
@@ -694,6 +693,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartUp\Images\Logo\logomateo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="StartUp\Images\Logo\LogoMAR.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets')" />

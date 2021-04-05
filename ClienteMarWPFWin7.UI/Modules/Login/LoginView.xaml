@@ -20,16 +20,41 @@
 
         <Border Background="{DynamicResource BackgroundFour}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <materialDesign:PackIcon Kind="UserCircle" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="300" Foreground="White"/>
-                <Label Content="MAR" Foreground="{DynamicResource WhiteForeground}" FontSize="100" HorizontalContentAlignment="Center"  FontWeight="Black"/>
+
+
+                <Grid  Width="350" Height="200" Margin="15 150 15 0" >
+                    <StackPanel Margin="0 0 0 0">
+                        <StackPanel.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Logo/LogoMAR.png"  />
+                        </StackPanel.Background>
+                    </StackPanel>
+                </Grid>
+                
+
+                
+                <!--<materialDesign:PackIcon Kind="UserCircle" VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Height="300" Foreground="White"/>-->
+                <!--<Label Content="MAR" Foreground="{DynamicResource WhiteForeground}" FontSize="100" HorizontalContentAlignment="Center"  FontWeight="Black"/>-->
                 <Label Content="CONTROL MÁS ALLÁ DEL HORIZONTE" Foreground="{DynamicResource WhiteForeground}" FontSize="15" HorizontalContentAlignment="Center" Margin="0 -20" />
-                <Label Content="Distribuido por Mateo Comunicaciones" Foreground="{DynamicResource WhiteForeground}" FontSize="10" HorizontalContentAlignment="Center" Margin="0 20" />
+                <Label Content="Distribuido por Mateo Comunicaciones" Foreground="{DynamicResource WhiteForeground}" FontSize="12" HorizontalContentAlignment="Center" Margin="0 20" />
                 <Label Content="Contacto: 809-412-2900" Foreground="{DynamicResource WhiteForeground}" FontSize="18" HorizontalContentAlignment="Center" Margin="0 -10" />
+
+                <Grid  Width="260" Height="100" Margin="15 150 15 0" >
+                    <StackPanel Margin="0 0 0 -15">
+                        <StackPanel.Background>
+                            <ImageBrush Stretch="Uniform" ImageSource="pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Logo/logomateo.png"  />
+                        </StackPanel.Background>
+                    </StackPanel>
+                </Grid>
+
             </StackPanel>
         </Border>
 
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" >
+
+
+
+
             <Label Content="Punto de venta" FontSize="40" FontWeight="Light" HorizontalContentAlignment="Center" Foreground="{DynamicResource BackgroundFour}" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Mensajeria"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
-             >
+             x:Name="MensajeriaControlUsuario" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
