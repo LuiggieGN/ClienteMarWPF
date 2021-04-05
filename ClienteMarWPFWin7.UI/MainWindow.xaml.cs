@@ -214,7 +214,6 @@ namespace ClienteMarWPFWin7.UI
 
                     if (e.Key == Key.F1)
                     {
-                        //myVm.LogoutCommand?.Execute(null);
                         myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Home);
                     }
                     else if (e.Key == Key.F2)
@@ -227,6 +226,7 @@ namespace ClienteMarWPFWin7.UI
                     }
                     else if ((e.Key == Key.System && e.SystemKey == Key.F10))
                     {
+                        e.Handled = true;
                         myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Mensajeria);
                     }
 

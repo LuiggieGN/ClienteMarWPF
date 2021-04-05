@@ -32,6 +32,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
         public MensajeriaView()
         {
             InitializeComponent();
+            txtChatMensaje.Focus();
+            txtChatMensaje.UpdateLayout();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
