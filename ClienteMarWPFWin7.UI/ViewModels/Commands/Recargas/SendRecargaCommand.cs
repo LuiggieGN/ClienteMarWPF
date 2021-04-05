@@ -6,8 +6,10 @@ using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.State.Navigators;
 using ClienteMarWPFWin7.UI.State.PinterConfig;
 using ClienteMarWPFWin7.UI.ViewModels.Factories;
+using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 
@@ -20,8 +22,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
         private readonly IViewModelFactory _vistas;
         private readonly INavigator _nav;
         private readonly IRecargaService RecargaService;
-        public Random r = new Random();
-        public  int Solicitud = 0;
+        private readonly BackgroundWorker worker = new BackgroundWorker();
+        public int Solicitud = 0;
+        private bool RecargaSucess;
+        private string RecargaMensajeError = string.Empty;
+        private ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Pin Recarga;
         public SendRecargaCommand(RecargasViewModel viewModel, IAuthenticator autenticador, INavigator nav, IViewModelFactory vistas, IRecargaService recargaService) : base()
         {
             ViewModel = viewModel;
@@ -29,60 +34,127 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
             RecargaService = recargaService;
             _nav = nav;
             _vistas = vistas;
-            
-            Action<object> comando = new Action<object>(SendRecarga);
-            base.SetAction(comando);
+
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+
+            Action<object> comando = new Action<object>(Recargar);
+            Predicate<object> puede = new Predicate<object>(PuedeRecargar);
+            base.SetAction(comando, puede);
 
         }
 
 
-        private void SendRecarga(object parametro)
+
+
+        public bool PuedeRecargar(object parametro)
         {
-            ViewModel.ErrorMessage = string.Empty;
-           
+            return Si;      
+                
+                
+        }
 
+
+
+        public void Recargar(object password)
+        {
+            if (!worker.IsBusy) { worker.RunWorkerAsync(argument: password); }
             
+        }
 
-            if ((ViewModel.Provedor.OperadorID != 0) &&  (ViewModel.Telefono != null && ViewModel.Telefono != null) &&  Convert.ToDouble(ViewModel.Monto) != 0)
+
+
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            ViewModel.ErrorMessage = string.Empty;
+            ViewModel.Cargando = Si;
+
+            if ((ViewModel.Provedor.OperadorID != 0) && (ViewModel.Telefono != null && ViewModel.Telefono != null) && Convert.ToDouble(ViewModel.Monto) != 0)
             {
                 try
                 {
                     // Solicitud += 1;
                     SessionGlobals.GenerateNewSolicitudID(Autenticador.CurrentAccount.MAR_Setting2.Sesion.Sesion, true);
                     Solicitud = (int)SessionGlobals.SolicitudID;
-                    var recarga = RecargaService.GetRecarga(Autenticador.CurrentAccount.MAR_Setting2.Sesion,
+                    Recarga = RecargaService.GetRecarga(Autenticador.CurrentAccount.MAR_Setting2.Sesion,
                                                             Autenticador.CurrentAccount.MAR_Setting2.Sesion.Usuario, Autenticador.CurrentAccount.UsuarioDTO.UsuClave,
                                                             ViewModel.Provedor.OperadorID, ViewModel.Telefono, Convert.ToDouble(ViewModel.Monto), Solicitud);
 
-                    if(recarga.Err != null) 
+                    if (Recarga.Err != null)
                     {
-                        ViewModel.ErrorMessage = recarga.Err;
+                        RecargaSucess = No;
                     }
                     else
                     {
-                    RecargasIndexRecarga DATOSRecargas = new RecargasIndexRecarga() { UsuarioId = 0, Solicitud = Solicitud, Clave = "ok", Monto = recarga.Costo, Numero = recarga.Numero, Serie = recarga.Serie, Suplidor = "ok", SuplidorId = 0 };
-                    //RecargasIndexRecarga DATOSRecargas = new RecargasIndexRecarga() { Clave = "ok", Monto = 30, Numero = "809999999", Serie = "12334", Solicitud = 123434, Suplidor = "Claro", SuplidorId = 12, UsuarioId = 12 };//Para probar
-                       
-                        List<string[]> impresionRecargas = PrintJobs.FromImprimirRecarga(DATOSRecargas,Autenticador);
-                        TicketTemplateHelper.PrintTicket(impresionRecargas);
 
-                        ViewModel.Dialog = new DialogImprimirTicketViewModel(_nav, Autenticador, _vistas, RecargaService, DATOSRecargas);
-                        ViewModel.Dialog.Mostrar();
+                        RecargaSucess = Si;
                     }
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
+                  
+                    Recarga = new Domain.MarPuntoVentaServiceReference.MAR_Pin();
+                    RecargaSucess = No;
+                    Recarga.Err = "Ha ocurrido un error al momento de procesar la recarga.";
 
-                    ViewModel.ErrorMessage = e.Message;
+                    
                 }
             }
             else
             {
-                ViewModel.ErrorMessage = "Hay campos que no estan correctos.";
+               
+                Recarga = new Domain.MarPuntoVentaServiceReference.MAR_Pin();
+                RecargaSucess = No;
+                Recarga.Err = "hay campos que estan vacios.";
             }
 
-         
-     
+
+            ViewModel.Cargando = No;
+
+        }
+
+
+
+        private void worker_RunWorkerCompleted(object sender,
+                                                RunWorkerCompletedEventArgs e)
+        {
+            ViewModel.Cargando = Booleano.No;
+
+            if (!RecargaSucess)
+            {
+
+                ViewModel.ErrorMessage = Recarga.Err;
+                
+
+            }
+            else
+            {
+               var  DATOSRecargas = new RecargasIndexRecarga() { UsuarioId = 0, Solicitud = Solicitud, Clave = "ok", Monto = Recarga.Costo, Numero = Recarga.Numero, Serie = Recarga.Serie, Suplidor = "ok", SuplidorId = 0 };
+
+                
+                List<string[]> impresionRecargas = PrintJobs.FromImprimirRecarga(DATOSRecargas, Autenticador);
+                TicketTemplateHelper.PrintTicket(impresionRecargas);
+
+                ViewModel.Dialog = new DialogImprimirTicketViewModel(_nav, Autenticador, _vistas, RecargaService, DATOSRecargas);
+                ViewModel.Dialog.Mostrar();
+
+            }
+
+
+
+
+
+        }
+
+
+        private void SendRecarga(object parametro)
+        {
+
+
+
+
         }
     }
 }

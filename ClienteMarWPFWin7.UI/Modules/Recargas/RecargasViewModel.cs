@@ -28,13 +28,22 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         private string monto;
         private string telefono;
         private int cheked;
+        private bool _cargando;
         private DialogImprimirTicketViewModel _dialog;
 
         public MessageViewModel ErrorMessageViewModel { get; }
 
         public string ErrorMessage
         {
-            set => ErrorMessageViewModel.Message = value;
+            get
+            {
+                return  ErrorMessageViewModel.Message;
+            }
+            set
+            {
+                ErrorMessageViewModel.Message = value;
+                NotifyPropertyChanged(nameof(ErrorMessage));
+            }
         }
 
         public List<ProveedorRecargasObservable> ProveedorRecargasObservable = new List<ProveedorRecargasObservable>();
@@ -42,7 +51,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
 
 
-        public RecargasViewModel(IAuthenticator autenticador, IRecargaService recargaService,INavigator nav, IViewModelFactory vistas)
+        public RecargasViewModel(IAuthenticator autenticador, IRecargaService recargaService, INavigator nav, IViewModelFactory vistas)
         {
             ErrorMessageViewModel = new MessageViewModel();
             GetSuplidoresCommand = new GetSuplidoresCommand(this, autenticador, recargaService);
@@ -54,15 +63,16 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         public List<ProveedorRecargasObservable> _proveedorRecargasObservable;
 
 
-        public DialogImprimirTicketViewModel Dialog { 
-            get 
+        public DialogImprimirTicketViewModel Dialog
+        {
+            get
             {
                 return _dialog;
-            } 
-            set 
+            }
+            set
             {
                 _dialog = value; NotifyPropertyChanged(nameof(Dialog));
-            } 
+            }
         }
 
 
@@ -83,9 +93,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             set
             {
                 var valor = value;
-                    _provedor = value; NotifyPropertyChanged(nameof(Provedor));
+                _provedor = value; NotifyPropertyChanged(nameof(Provedor));
 
-              
+
 
 
 
@@ -94,13 +104,29 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             }
         }
 
-        public string Monto {
-            get 
+
+
+        public bool Cargando
+        {
+            get
+            {
+                return _cargando;
+            }
+            set
+            {
+                _cargando = value;
+                NotifyPropertyChanged(nameof(Cargando));
+            }
+        }
+
+        public string Monto
+        {
+            get
             {
                 return monto;
             }
 
-            set 
+            set
             {
                 monto = value;
                 NotifyPropertyChanged(nameof(Monto));
@@ -127,7 +153,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         {
             for (int i = 0; i < Proveedores.Count; i++)
             {
-                if(proveedorID == Proveedores[i].OperadorID)
+                if (proveedorID == Proveedores[i].OperadorID)
                 {
                     Proveedores[i].IsSelected = true;
                 }
@@ -136,7 +162,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     Proveedores[i].IsSelected = false;
                 }
 
-                
+
 
             }
 
@@ -144,8 +170,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         }
 
 
-      
-        
+
+
 
 
 

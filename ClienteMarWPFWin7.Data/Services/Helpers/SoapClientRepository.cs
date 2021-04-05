@@ -174,7 +174,7 @@ namespace ClienteMarWPFWin7.Data.Services.Helpers
                     splitaddress = serveraddress.Split('/');
                 }
 
-                splitaddress[splitaddress.Length - 1] = "mar-juegamas";
+                splitaddress[splitaddress.Length - 1] = "mar-juegamas.asmx";
 
                 endpoint = new EndpointAddress(string.Join("/", splitaddress));
 
