@@ -10,12 +10,13 @@ namespace ClienteMarWPFWin7.UI.State.DashboardCard
         public string Card_Ventas_Productos { get; set; }
         public string Card_Comisiones { get; set; }
         public string Card_Anulaciones { get; set; }
+        public string Card_Pagos { get; set; }
         public string Card_Balances { get; set; }
         public DateTime FechaAConsultar { get; set; }
 
 
         public DateTime? UltimaFechaDeActualizacion { get; set; }
-        public string UltimaFechaDeActualizacionStr =>  UltimaFechaDeActualizacion.HasValue ? $"Última Actualización : {UltimaFechaDeActualizacion.Value.ToString("hh:mm:ss tt")}" : "";
+        public string UltimaFechaDeActualizacionStr => UltimaFechaDeActualizacion.HasValue ? $"Última Actualización : {UltimaFechaDeActualizacion.Value.ToString("hh:mm:ss tt")}" : "";
 
 
         public bool IsLoadingForFirstTime { get; set; }
@@ -23,16 +24,17 @@ namespace ClienteMarWPFWin7.UI.State.DashboardCard
 
         public DashboardCard()
         {
+            IsLoadingForFirstTime = true;
+
+            SetFechaAConsultar(DateTime.Now);
+
             SetCardsValue(card_ventas_loterias: "*",
                           card_ventas_productos: "*",
                           card_comisiones: "*",
                           card_anulaciones: "*",
+                          card_pagos: "*",
                           card_balances: "*",
-                          ultimaActualizacion:null);
-
-            SetFechaAConsultar(DateTime.Now);
-
-            IsLoadingForFirstTime = true;
+                          ultimaActualizacion: null);
         }
 
 
@@ -40,6 +42,7 @@ namespace ClienteMarWPFWin7.UI.State.DashboardCard
                                   string card_ventas_productos,
                                   string card_comisiones,
                                   string card_anulaciones,
+                                  string card_pagos,
                                   string card_balances,
                                   DateTime? ultimaActualizacion)
         {
@@ -47,6 +50,7 @@ namespace ClienteMarWPFWin7.UI.State.DashboardCard
             Card_Ventas_Productos = card_ventas_productos;
             Card_Comisiones = card_comisiones;
             Card_Anulaciones = card_anulaciones;
+            Card_Pagos = card_pagos;
             Card_Balances = card_balances;
             UltimaFechaDeActualizacion = ultimaActualizacion;
         }

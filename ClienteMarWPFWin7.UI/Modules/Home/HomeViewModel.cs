@@ -36,6 +36,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Home
         public string Card_Ventas_Productos { get => DashboardService?.Card_Ventas_Productos ?? "*"; }
         public string Card_Comisiones { get => DashboardService?.Card_Comisiones ?? "*"; }
         public string Card_Anulaciones { get => DashboardService?.Card_Anulaciones ?? "*"; }
+        public string Card_Pagos { get => DashboardService?.Card_Pagos ?? "*"; }
         public string Card_Balances { get => DashboardService?.Card_Balances ?? "*"; }
         public string UltimaFechaDeActualizacion { get => DashboardService?.UltimaFechaDeActualizacionStr ?? ""; }
         public bool Cargando
@@ -83,7 +84,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Home
         public ICommand CargarBalancesCommand { get; }
         #endregion
 
-        public HomeViewModel(IAuthenticator authenticatorService, IDashboardCard dashboardService, IBancaService bancaService, ICajaService cajaService)
+        public HomeViewModel(IAuthenticator authenticatorService,
+                             IDashboardCard dashboardService, 
+                             IBancaService bancaService,
+                             ICajaService cajaService)
         {
             AuthenticatorService = authenticatorService;
             DashboardService = dashboardService;
@@ -124,13 +128,16 @@ namespace ClienteMarWPFWin7.UI.Modules.Home
                                      string card_ventas_productos,
                                      string card_comisiones,
                                      string card_anulaciones,
+                                     string card_pagos,
                                      string card_balances,
                                      DateTime? ultimaActualizacion)
         {
+
             DashboardService.SetCardsValue(card_ventas_loterias,
                                            card_ventas_productos,
                                            card_comisiones,
                                            card_anulaciones,
+                                           card_pagos,
                                            card_balances,
                                            ultimaActualizacion);
 
@@ -138,6 +145,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Home
                                   nameof(Card_Ventas_Productos),
                                   nameof(Card_Comisiones),
                                   nameof(Card_Anulaciones),
+                                  nameof(Card_Pagos),
                                   nameof(Card_Balances),
                                   nameof(UltimaFechaDeActualizacion));
 
