@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Recargas.Modal"
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Recargas"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" PreviewKeyDown="UserControl_PreviewKeyDown">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:controls1="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"
+             mc:Ignorable="d" PreviewKeyDown="UserControl_PreviewKeyDown"
+             >
 
     <Grid>
         <Grid x:Name="GridAOcultar">
@@ -102,11 +103,39 @@
                         <TextBox x:Name="monto"  Text="{Binding Monto , UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Monto" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidationTextBox"/>
                     </StackPanel>
 
-                    <Button Command="{Binding SendRecargaCommand}"  Style="{DynamicResource btn-success}" Foreground="White" Width="150" Height="40"  Margin="0 10" >
-                        <StackPanel Orientation="Horizontal" >
-                            <materialDesign:PackIcon Kind="CheckCircle" VerticalAlignment="Center" Width="20" Height="20" />
-                            <TextBlock Text="Procesar"  FontSize="18" VerticalAlignment="Center" Margin="5 0"/>
-                        </StackPanel>
+
+
+
+
+                    <Button  HorizontalAlignment="Center" 
+                     FontSize="18"
+                     Height="40" 
+                     Width="165"
+                     Margin="0 30 0 10 " 
+                     Style="{DynamicResource btn-success}" 
+                     Command="{Binding SendRecargaCommand}"
+                     Name="botonIniciar">
+                        <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0"
+                                Orientation="Horizontal">
+
+                                <controls1:SpinnerPiston Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="40"
+                                                Height="40"
+                                                Visibility="{Binding Cargando, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                <TextBlock Text="Procesar"
+                                   FontSize="18"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
                     </Button>
                     
                     <Label HorizontalContentAlignment="Center" FontSize="15"   Foreground="{DynamicResource BtnDangerBackgroundBrush}"  DataContext="{Binding ErrorMessageViewModel}" Content="{Binding Message}"  Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />

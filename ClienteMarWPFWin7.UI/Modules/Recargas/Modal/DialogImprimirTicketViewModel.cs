@@ -56,7 +56,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas.Modal
 
         }
 
-
+        public DialogImprimirTicketViewModel()
+        {
+        }
 
         public void Mostrar()
         {
