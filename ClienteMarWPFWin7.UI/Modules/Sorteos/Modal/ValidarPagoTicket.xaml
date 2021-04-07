@@ -48,18 +48,18 @@
                                         <DataGridTemplateColumn.CellTemplate>
 
                                             <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" Height="20" Margin="0 0">
-                                                    <Button  Style="{DynamicResource btn-primary}" Width="20" Height="20" HorizontalAlignment="Right"   Padding="1 0" Margin="2 0" >
+                                                <DockPanel Height="20" Margin="0 0">
+                                                    <Button  Style="{DynamicResource btn-primary}" Width="20" Height="20" MouseDown="GetTicketSeleccionado" HorizontalAlignment="Right"   Padding="0 0" Margin="2 0" >
                                                         <StackPanel Orientation="Horizontal" Margin="0 0" >
-                                                            <materialDesign:PackIcon Kind="ContentCopy" MouseDown="GetTicketSeleccionado" MouseEnter="PackIcon_MouseEnter" HorizontalContentAlignment="Left" Width="16"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="0 0" Padding="5 5" />
+                                                            <materialDesign:PackIcon Kind="ContentCopy" MouseDown="GetTicketSeleccionado" MouseEnter="PackIcon_MouseEnter" HorizontalContentAlignment="Left" Width="16"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="0 0" Padding="100 100"  Background="{DynamicResource BtnPrimaryBackgroundBrush}"/>
                                                         </StackPanel>
                                                     </Button>
-                                                    <Button  Style="{DynamicResource btn-success}" Width="20" Height="20" HorizontalAlignment="left"  Padding="1 0" Margin="2 0" >
+                                                    <Button  Style="{DynamicResource btn-success}" Width="20" Height="22" HorizontalAlignment="left"  Padding="1 0" Margin="2 0" >
                                                         <StackPanel Orientation="Horizontal" >
-                                                            <materialDesign:PackIcon Kind="Ticket" MouseDown="SeleccionarTicket" MouseEnter="PackIcon_MouseEnter" HorizontalContentAlignment="left" Width="16"   VerticalAlignment="stretch" HorizontalAlignment="left" Margin="0 0" Padding="5 5" />
+                                                            <materialDesign:PackIcon Kind="Ticket" MouseDown="SeleccionarTicket" MouseEnter="PackIcon_MouseEnter" HorizontalContentAlignment="left" Width="16"   VerticalAlignment="stretch" HorizontalAlignment="left" Margin="0 0" Padding="100 100" Background="{DynamicResource BtnSuccessBackgroundBrush}"/>
                                                         </StackPanel>
                                                     </Button>
-                                                </StackPanel>
+                                                </DockPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>

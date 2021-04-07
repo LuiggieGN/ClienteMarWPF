@@ -10,12 +10,13 @@
              xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Reporte.Modal"          
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800"
+             Name="VistaCompleta"
              >
 
 
     <Grid ScrollViewer.CanContentScroll="False" VerticalAlignment="Top" x:Name="Principal">
-        <Grid x:Name="GridAOcultar" ScrollViewer.CanContentScroll="False" Height="Auto"  VerticalAlignment="Stretch">
 
+        <Grid x:Name="GridAOcultar" ScrollViewer.CanContentScroll="False" Height="Auto"  VerticalAlignment="Stretch" MaxHeight="1250px">
             <Grid.Resources>
                 <DataTemplate x:Key="ListRadioButton">
                     <RadioButton GroupName="SorteosList"  IsChecked="{Binding IsSelected, Mode=TwoWay}">
@@ -69,13 +70,13 @@
                 <Label Content="Reportes" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
             </Border>
 
-            <Grid Grid.Row="1" Margin="5" ScrollViewer.CanContentScroll="False" VerticalAlignment="Top" Height="Auto" MaxHeight="460">
+            <Grid Grid.Row="1" Margin="10" ScrollViewer.CanContentScroll="False" VerticalAlignment="Top" Height="Auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="110" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -83,7 +84,7 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Width="168px" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="1" Margin="4 0 0 0">
                     <DatePicker Name="Fecha" Width="153" SelectedDate="{Binding Fecha, UpdateSourceTrigger=PropertyChanged}" Margin="10 0" materialDesign:HintAssist.Hint="Seleccionar Fecha"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Margin="0 50 0 0">
+                <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Margin="0 50 0 7">
                     <Label Margin="9 0" FontSize="10px">Loterias</Label>
                     <ComboBox x:Name="listSorteo" Margin="10 0" HorizontalAlignment="Left" ItemsSource="{Binding Sorteos}" SelectedItem="0" Width="148px" SelectionChanged="listSorteo_SelectionChanged" SelectedIndex="0">
                         <ComboBox.ItemTemplate >
@@ -122,7 +123,7 @@
                     </Grid>
                 </Popup>-->
 
-                <WrapPanel  Margin="0 0" Height="Auto" Width="Auto" HorizontalAlignment="Stretch"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" >
+                <WrapPanel  Margin="0 0 0 10" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" >
                     <!--<Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -212,25 +213,25 @@
             </StackPanel>-->
 
                 <!-- /////////////////// Template Vacio ///////////////////////// -->
-                <Grid HorizontalAlignment="Stretch"  Height="20" Width="Auto" Margin="15,0,0,4" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid HorizontalAlignment="Stretch"  Height="Auto" Width="Auto" Margin="15,0,0,4" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 
-                </Grid>
+                </Grid> 
                 <!-- /////////////////// Fin Template Vacio ///////////////////////// -->
-
+               
                 <!-- /////////////////// Template De Suma de ventas ///////////////////////// -->
-                <Grid Visibility="{Binding RPTSumaVentasVisibility}" HorizontalAlignment="Stretch"  Background="WhiteSmoke" Height="Auto" Width="Auto" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid x:Name="RPTSumaVentas" Visibility="{Binding RPTSumaVentasVisibility}" HorizontalAlignment="Stretch" Width="Auto" Margin="15,0,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="85px"></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="30px"></RowDefinition>
 
                     </Grid.RowDefinitions>
 
 
-                    <StackPanel Height="85px" Margin="0,0"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
+                    <StackPanel Margin="0,0"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                         <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
 
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
@@ -270,7 +271,6 @@
                                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 </Style.Setters>
                             </Style>
-
                         </DataGrid.Resources>
 
                         <DataGrid.Columns>
@@ -305,8 +305,8 @@
                 <!--- //////////////////// Fin Template Suma de ventas ///////////////////////-->
 
                 <!-- //////////////////// Template Reportes Ganadores //////////////////////-->
-                <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" Margin="15,0,0,4" VerticalContentAlignment="Top" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding RPTTicketGanadoresVisibility}">
-                    <Grid Background="WhiteSmoke" Name="GridGanadores" Visibility="{Binding RPTTicketGanadoresVisibility}" Width="Auto" Margin="0,0,0,4" VerticalAlignment="Top" HorizontalAlignment="Stretch" >
+                <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" Margin="15,0,0,0" VerticalContentAlignment="Top" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding RPTTicketGanadoresVisibility}">
+                    <Grid Background="WhiteSmoke" Name="GridGanadores" Visibility="{Binding RPTTicketGanadoresVisibility}" Width="Auto" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
@@ -508,7 +508,7 @@
                 <!--//////////////////////Fin Template Reportes Ganadores /////////////////// -->
 
                 <!-- //////////////////// Template Reportes Suma Ventas Por Fecha //////////////////////-->
-                <Grid Background="WhiteSmoke" Visibility="{Binding RPTSumVentaFechaVisibility}" Height="Auto" Width="Auto" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid Background="WhiteSmoke" Visibility="{Binding RPTSumVentaFechaVisibility}" Height="Auto" Width="Auto" Margin="15,0,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.Resources>
                         <Style TargetType="DataGridCell" x:Key="AlignLeft">
                             <Style.Setters >
@@ -572,7 +572,7 @@
                         </StackPanel>
                     </Button>
                     <!--ItemsSource="{Binding Source={StaticResource colection}}"-->
-                    <DataGrid x:Name="GridVentaFechas" Margin="0,0,0,30" BorderBrush="White" HorizontalScrollBarVisibility="Hidden" BorderThickness="0,0,0,0" Grid.Column="0" CanUserAddRows="False" ItemsSource="{Binding Source={StaticResource colection}}" Grid.Row="1" >
+                    <DataGrid x:Name="GridVentaFechas" Margin="0,0,0,0" BorderBrush="White" HorizontalScrollBarVisibility="Hidden" BorderThickness="0,0,0,30" Grid.Column="0" CanUserAddRows="False" ItemsSource="{Binding Source={StaticResource colection}}" Grid.Row="1" >
 
                         <DataGrid.GroupStyle>
                             <!-- for groups at top level.-->
@@ -617,7 +617,7 @@
                             </Style>
                             <Style TargetType="DataGridColumnHeader" x:Key="Altura">
                                 <Style.Setters>
-                                    <Setter Property="Height" Value="30" />
+                                    <Setter Property="Height" Value="Auto" />
                                     <Setter Property="Width" Value="AUTO" />
                                     <Setter Property="HorizontalAlignment" Value="Stretch" />
                                     <Setter Property="Foreground" Value="White" />
@@ -660,7 +660,7 @@
                 </Grid>
 
                 <!-- /////////////////// Template De Lista De Tarjetas ///////////////////////// -->
-                <Grid Visibility="{Binding RPTListTarjetasVisibility}"  Background="WhiteSmoke" Height="345" Width="Auto" HorizontalAlignment="Stretch" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid Visibility="{Binding RPTListTarjetasVisibility}"  Background="WhiteSmoke" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -857,7 +857,7 @@
                 <!--- //////////////////// Fin Template Reporte De Ventas ///////////////////////-->
 
                 <!-- /////////////////// Template De Lista De Ticket ///////////////////////// -->
-                <Grid Visibility="{Binding RPTLitTicketVisibility}"  VerticalAlignment="Top" Width="Auto" Margin="0,0,0,0"  HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid Visibility="{Binding RPTLitTicketVisibility}" Height="500px"  VerticalAlignment="Top" Width="Auto" Margin="0,0,0,0"  HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -889,7 +889,7 @@
                         <RadioButton IsEnabled="{Binding CanChangeOptionListTicket}" Margin="20 5" Content="Válidos"  Click="RadioButton_Click" Command="{Binding ChangeOptionListTicket}"></RadioButton>
                         <RadioButton IsEnabled="{Binding CanChangeOptionListTicket}" Margin="20 5" Content="Nulos"  Click="RadioButton_Click" Command="{Binding ChangeOptionListTicket}"></RadioButton>
                     </StackPanel>
-                    <DataGrid x:Name="GridListTicket"  Height="180" ScrollViewer.VerticalScrollBarVisibility="Visible" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ReporteListTicket}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid x:Name="GridListTicket"  Height="340px" ScrollViewer.VerticalScrollBarVisibility="Visible" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ReporteListTicket}" CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCell" x:Key="AlignLeft">
                                 <Style.Setters >
@@ -1170,7 +1170,7 @@
                 <!--- //////////////////// Fin Template de lista de Numeros ///////////////////////-->
 
                 <!-- /////////////////// Template De Lista De Pagos Remotos ///////////////////////// -->
-                <Grid Visibility="{Binding RPTPagosRemotosVisibility}" HorizontalAlignment="Stretch"  Background="WhiteSmoke"  Height="345" Width="Auto" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid Visibility="{Binding RPTPagosRemotosVisibility}" HorizontalAlignment="Stretch"  Background="WhiteSmoke"  Height="Auto" Width="Auto" Margin="15,0,0,4" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>

@@ -45,8 +45,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             listSorteo.SelectedIndex = 0;
             EnableScrollBars();
             NoAutogenerarColumnas();
-            
-           
         }
 
         private void EnableScrollBars()
@@ -170,6 +168,5 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             return OpcionTicketSeleccionado;
         }
 
-        
     }
 }
