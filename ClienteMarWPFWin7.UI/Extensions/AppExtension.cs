@@ -258,7 +258,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                     services.GetRequiredService<IAuthenticator>(),
                     services.GetRequiredService<IDashboardCard>(),
                     services.GetRequiredService<IBancaService>(),
-                    services.GetRequiredService<ICajaService>()
+                    services.GetRequiredService<ICajaService>() 
                );
             });
 

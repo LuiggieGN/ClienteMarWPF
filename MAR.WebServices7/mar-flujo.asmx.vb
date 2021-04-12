@@ -314,6 +314,19 @@ Public Class mar_flujo
                 Case 2006
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerBancaInactividad(bancaid)
+
+                Case 2007
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    Dim strdia = parametros(1).ToString()
+                    result = BancaLogic.LeerBancaMarOperacionesDia(bancaid, strdia)
+
+                Case 2008
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerBancaRemoteCmdCommand(bancaid)
+
+                Case 2009
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerEstadoBancaEstaActiva(bancaid)
 #End Region
 
 #Region "Cuadre"

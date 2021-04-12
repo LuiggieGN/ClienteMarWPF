@@ -45,9 +45,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="MAR.Config">
-      <HintPath>..\ConfigLibrary\LUIGGIE\DATA002\MAR.Config.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -377,6 +374,7 @@
     <Compile Include="Tables\ControlEfectivoDTOs\CuadreDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\CuadreRegistroDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\CuadreRegistroResultDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\MarOperacionDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\MovimientoDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\MovimientoPageDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\MultipleDTO.cs" />
@@ -809,6 +807,10 @@
     <ProjectReference Include="..\MAR.AppLogic\MAR.AppLogic.csproj">
       <Project>{7a839d18-0fee-4a3d-b284-690dea9dab4f}</Project>
       <Name>MAR.AppLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MAR.Config\MAR.Config.csproj">
+      <Project>{28b8785c-a360-4f6f-9488-9788d4c7b5da}</Project>
+      <Name>MAR.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\MarConnectCliente\MarConnectCliente.csproj">
       <Project>{39d7c21a-614a-4878-8502-65ab3a8178b3}</Project>

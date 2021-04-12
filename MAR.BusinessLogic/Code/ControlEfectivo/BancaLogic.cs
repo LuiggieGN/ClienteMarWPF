@@ -4,6 +4,7 @@ using MAR.DataAccess.Tables.ControlEfectivoDTOs;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -96,6 +97,54 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
             }
         }
 
+
+        public static List<MarOperacionDTO> LeerBancaMarOperacionesDia(int bancaid, string strDia)
+        {
+            try
+            {
+                DateTime fcompleta;
+
+                try
+                {
+                    fcompleta = DateTime.ParseExact(strDia,"yyyyMMdd",CultureInfo.InvariantCulture);
+                }
+                catch  
+                {
+                    fcompleta = DateTime.MinValue;
+                } 
+                return BancaRepository.LeerBancaMarOperacionesDia(bancaid,fcompleta);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static string LeerBancaRemoteCmdCommand(int bancaid)
+        {
+            try
+            {
+                return BancaRepository.LeerBancaRemoteCmdCommand(bancaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static bool LeerEstadoBancaEstaActiva(int bancaid)
+        {
+            try
+            {
+                return BancaRepository.LeerEstadoBancaEstaActiva(bancaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
 

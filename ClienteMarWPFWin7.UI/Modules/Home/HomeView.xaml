@@ -63,6 +63,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
 
@@ -235,7 +236,32 @@
                     </Border>
 
                     <!--NUMERO 6-->
-                    <Border Background="Green"  Margin="10" Height="125" Grid.Row="3" Grid.Column="1">
+                    <Border Background="Lavender"  Margin="10" Height="125" Grid.Row="3" Grid.Column="1">
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="60"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
+                                <materialDesign:PackIcon Kind="MoneyUsd" Width="85" Height="85" Foreground="Lavender"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <Label Content="{Binding Card_Descuentos_Productos}" FontSize="40"  Foreground="White" Padding="10"/>
+                            <Label Content="Descuento Productos" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
+
+                        </Grid>
+                    </Border>
+
+
+                    <!--NUMERO 7-->
+                    <Border Background="Green"  Margin="10" Height="125" Grid.Row="4" Grid.Column="0">
                         <Border.Effect>
                             <DropShadowEffect Opacity="0.3" BlurRadius="20"/>
                         </Border.Effect>
@@ -257,6 +283,10 @@
 
                         </Grid>
                     </Border>
+
+
+
+
 
                 </Grid>
             </DockPanel>

@@ -225,6 +225,93 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
             }
         }
 
+        public static List<MarOperacionDTO> LeerBancaMarOperacionesDia(int bancaid, DateTime dia)
+        {
+            try
+            {
+                var p = new DynamicParameters(); List<MarOperacionDTO> operaciones;
+                p.Add("@bancaid", bancaid);
+                p.Add("@fcompleta", dia);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    operaciones = db.Query<MarOperacionDTO>(BancaHelper.SelectMarOperaciones, p, commandType: CommandType.Text)?.ToList() ?? new List<MarOperacionDTO>();
+
+                    db.Close();
+                }
+
+                return operaciones;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static string LeerBancaRemoteCmdCommand(int bancaid)
+        {
+            try
+            {
+                DynamicParameters p = new DynamicParameters(); string comando = string.Empty;
+
+                p.Add("@bancaid", bancaid);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    List<string> comandos = db.Query<string>(BancaHelper.LeerBancaRemoteCmdCommand, p, commandType: CommandType.Text).ToList();
+
+                    if (comandos.Any())
+                    {
+                        comando = comandos.First();
+                    }
+
+                    db.Close();
+                }
+
+                return comando;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+        public static bool LeerEstadoBancaEstaActiva(int bancaid)
+        {
+            try
+            {
+                DynamicParameters p = new DynamicParameters(); bool bancaEstaActiva = false;
+                p.Add("@bancaid", bancaid);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    List<bool> estados = db.Query<bool>(BancaHelper.LeerEstadoBancaEstaActiva, p, commandType: CommandType.Text).ToList();
+
+                    if (estados.Any())
+                    {
+                        bancaEstaActiva = estados.First();
+                    }
+
+                    db.Close();
+                }
+
+                return bancaEstaActiva;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
 
 

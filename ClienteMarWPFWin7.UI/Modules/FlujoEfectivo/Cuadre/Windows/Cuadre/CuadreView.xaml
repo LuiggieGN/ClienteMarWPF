@@ -447,7 +447,8 @@
                                 FontSize="18" 
                                 Content="Registrar" 
                                 Style="{DynamicResource btn-success}"
-                                Command="{Binding RegistrarCuadreCommand}"/>
+                                Command="{Binding RegistrarCuadreCommand}" 
+                                CommandParameter="{Binding ElementName=CuadreVista}"/>
 
                             </StackPanel>
 

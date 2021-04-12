@@ -1,7 +1,9 @@
 ﻿
+#region Namespaces
 using ClienteMarWPFWin7.Domain.Enums;
 using ClienteMarWPFWin7.UI.ViewModels.Base;
 using System;
+using System.Deployment;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,32 +21,62 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-
+#endregion
 
 namespace ClienteMarWPFWin7.UI
 {
-
-
-
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-
-
 
         public MainWindow(MainWindowViewModel dataContext)
         {
             InitializeComponent();
-            DataContext = dataContext;
 
+            DesplegarVersionDeAplicacion();
+
+            DataContext = dataContext;
         }
+
+
+        #region App -Version
+        private void DesplegarVersionDeAplicacion()
+        {
+            var version = string.Empty;
+
+            try
+            {
+                if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
+                {
+                    var aplicacionDeploy = System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
+
+                    version = string.Format("{0}", aplicacionDeploy.CurrentVersion.ToString());
+                }
+                else
+                {
+                    version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error Titulo Version");
+                try
+                {
+                    version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                }
+                catch
+                {
+                    version = string.Empty;
+                }
+            }
+
+            base.Title = $"MAR Punto de Venta - Versión : {version}";
+
+        }//fin de metodo DeplegarVersionAplicacion( )
+        #endregion
 
         private void CerrarAplicacion_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-
         }
 
         private void OpenMenu_Click(object sender, RoutedEventArgs e)
