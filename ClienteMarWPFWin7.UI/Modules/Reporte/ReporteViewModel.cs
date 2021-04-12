@@ -87,6 +87,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
        
         private DataGrid _repoteSumFech;
         private ReportesDeVentas _reporteventas = new ReportesDeVentas();
+        private ObservableCollection<ReporteListaTicketsObservable> _ticketsNulosReportVentas = new ObservableCollection<ReporteListaTicketsObservable>();
         private TotalesListadoTicket _totalesListTicket = new TotalesListadoTicket();
         private PremiosVentas _premiosventas = new PremiosVentas();
         private bool canChangeOptionListTicket;
@@ -192,8 +193,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             get { return _totalBalance; }
             set { _totalBalance = value; NotifyPropertyChanged(nameof(TotalBalanSumVenFecha)); }
         }
-
-
         public string NombreLoteria
         {
             get { return _nombreloteria; }
@@ -205,6 +204,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             get { return _reporteventas; }
             set { _reporteventas = value; NotifyPropertyChanged(nameof(ReportesDeVentas)); }
 
+        }
+        public ObservableCollection<ReporteListaTicketsObservable> TicketNulosReporteVentas
+        {
+            get { return _ticketsNulosReportVentas; }
+            set { _ticketsNulosReportVentas = value; NotifyPropertyChanged(nameof(TicketNulosReporteVentas)); }
         }
 
         public Visibility RPTSumaVentasVisibility

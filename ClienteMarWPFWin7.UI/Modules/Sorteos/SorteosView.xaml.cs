@@ -80,9 +80,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
             combinations = SessionGlobals.SuperPaleDisponibles;
             listSorteo.DataContext = SorteosBinding;
-
-            
-            
             //MostrarSorteos();
         }
 

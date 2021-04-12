@@ -641,11 +641,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                 if (ReporteVenta.TicketsNulos.Length == 0) {
                     ViewModel.ReportesDeVentas.PremiosDisponibles = Visibility.Visible;
                 }
-                if (ReporteVenta.Primero == "" && ReporteVenta.Segundo == "" && ReporteVenta.Tercero=="")
+                if (ReporteVenta.TicketsNulos.Length > 0)
+                 {
+                     ViewModel.ReportesDeVentas.TicketNulosDisponibles = Visibility.Visible;
+                     ViewModel.ReportesDeVentas.TicketNulosNoDisponibles = Visibility.Hidden;
+                 }
+                if (ReporteVenta.TicketsNulos.Length == 0)
                 {
-                    ViewModel.ReportesDeVentas.TicketNulosDisponibles = Visibility.Visible;
+                    ViewModel.ReportesDeVentas.TicketNulosDisponibles = Visibility.Hidden;
+                    ViewModel.ReportesDeVentas.TicketNulosNoDisponibles = Visibility.Visible;
                 }
-
 
                 var TotalGanancia = (Convert.ToInt32((ReporteVenta.Numeros + ReporteVenta.Pales + ReporteVenta.Tripletas) - ReporteVenta.Comision)) - (Convert.ToInt32((ReporteVenta.MPrimero+ReporteVenta.MSegundo+ReporteVenta.MTercero) + ReporteVenta.MPales + ReporteVenta.MTripletas));
                 string TotalFormateado=null;
@@ -658,13 +663,20 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     TotalFormateado = ConvertirMonedaNegativos(TotalGanancia);
                     ViewModel.ReportesDeVentas.GananciaOPerdida = "PERDIDA:";
                 }
-
                 ViewModel.PremiosVentas.TotalNumerosPremiados = string.Format(nfi,"{0:C}",Convert.ToInt32(ReporteVenta.MPrimero + ReporteVenta.MSegundo + ReporteVenta.MTercero));
                 ViewModel.PremiosVentas.TotalPalesPremiados = string.Format(nfi,"{0:C}",ReporteVenta.MPales);
                 ViewModel.PremiosVentas.TotalTripletaPremiados = string.Format(nfi,"{0:C}",ReporteVenta.MTripletas);
                 ViewModel.PremiosVentas.TotalPremiados = string.Format(nfi,"{0:C}", Convert.ToInt32(ReporteVenta.MPrimero + ReporteVenta.MSegundo + ReporteVenta.MTercero) + Convert.ToInt32(ReporteVenta.MPales + ReporteVenta.MTripletas));
                 ViewModel.PremiosVentas.TotalGanancia = TotalFormateado;
 
+                ViewModel.TicketNulosReporteVentas = new ObservableCollection<ReporteListaTicketsObservable>() { };
+
+                for (var i=0; i < ReporteVenta.TicketsNulos.Length;i++)
+                {
+                    var TicketMarBet = ReporteVenta.TicketsNulos[i];
+                    ReporteListaTicketsObservable Ticket = new ReporteListaTicketsObservable() { Ticket = TicketMarBet.TicketNo, Hora = TicketMarBet.StrHora, MostrarNulos = Visibility.Hidden, Vendio = TicketMarBet.Costo.ToString("C2"), Saco = "0", Nulo = false };
+                    ViewModel.TicketNulosReporteVentas.Add(Ticket);
+                }
             }
             else
             {

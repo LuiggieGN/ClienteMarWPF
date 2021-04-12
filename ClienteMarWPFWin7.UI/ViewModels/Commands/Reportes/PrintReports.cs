@@ -206,7 +206,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             };
 
             List<string[]> PrintRPTVentas = PrintJobs.FromReporteVenta(TemplatePrintVenta, nombreLoteria,Autenticador);
-            TicketTemplateHelper.PrintTicket(PrintRPTVentas);
+            ReporteTemplateHelper.PrintReporte(TemplatePrintVenta,Autenticador);
         }
 
         private void PrintListaTicket(object Parametro)

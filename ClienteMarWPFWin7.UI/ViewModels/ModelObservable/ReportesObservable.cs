@@ -695,6 +695,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
         private string ventaNeta;
         private string gananciaoperdida;
         private Visibility premiosdisponibles;
+        private Visibility ticketnulosNodisponibles;
         private Visibility ticketnulosdisponibles;
         private List<string> premios;
         private List<string> ticketsNulos;
@@ -764,6 +765,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
         {
             get { return ticketnulosdisponibles; }
             set { ticketnulosdisponibles = value; NotifyPropertyChanged(nameof(TicketNulosDisponibles)); }
+        }
+        public Visibility TicketNulosNoDisponibles
+        {
+            get { return ticketnulosNodisponibles; }
+            set { ticketnulosNodisponibles = value; NotifyPropertyChanged(nameof(TicketNulosNoDisponibles)); }
         }
     }
 

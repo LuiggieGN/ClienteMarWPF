@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using ClienteMarWPFWin7.UI.Extensions;
+using System.Windows;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 {
@@ -43,18 +44,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 if (ViewModel.ListadoTicketsPrecargados.Count == 0) { 
 
-
-
                     foreach (var item in sorteos)
                     {
-                    
                         var result = SorteosService.ListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
                         if (result.Tickets != null)
                         {
-
                             var data = result.Tickets.OfType<MAR_Bet>();
                             
-
                             foreach (var ticket in data)
                             {
                                 ViewModelPago.listaTicketsJugados.Add(ticket);
@@ -89,14 +85,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     ViewModelPago.listaTicketsJugados = ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
                     string total = ViewModel.ListadoTicketsPrecargados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
-
-
-
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
         }
 
