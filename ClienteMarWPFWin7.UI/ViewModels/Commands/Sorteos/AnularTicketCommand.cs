@@ -52,7 +52,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     }
                     else
                     {
-                        ViewModel.SetMensaje(mensaje: AnularResponse ?? "Ha ocurrido un error al procesar la operaciòn",
+                        ViewModel.SetMensaje(mensaje: AnularResponse ?? "No esta autorizado para anular",
                                              icono: "Error",
                                              background: "#DC3545",
                                              puedeMostrarse: true);

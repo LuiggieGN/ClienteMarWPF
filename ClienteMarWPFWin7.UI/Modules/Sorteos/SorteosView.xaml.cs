@@ -578,17 +578,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     break;     
                     
                 case Key.F11:
-                    teclaSeleccionada = "";
-                    if (txtMonto.IsFocused || txtJugada.IsFocused)
-                    {
+                   
                         listSorteo.Focus();
                         listSorteo.SelectedIndex = 0;
-                    }
-                    else
-                    {
-                        txtMonto.Focus();
-                    }
-
+ 
                     break;
 
                 case Key.Enter:
@@ -649,8 +642,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     if (lastTime <= watingTime)
                     {
                         txtMonto.Focus();
-                        listSorteo.SelectedItem = null;
-                        listSorteo.SelectedIndex = -1;
+                       
                     }
                      lastKeyPress = DateTime.Now;
  
@@ -658,11 +650,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 case Key.Right:
                     teclaSeleccionada = "";
-                    //if (txtMonto.IsFocused || txtJugada.IsFocused)
-                    //{
-                    //    listSorteo.Focus();
-                    //    listSorteo.SelectedIndex = 0;
-                    //}
+                   
                     if (txtJugada.IsFocused)
                     {
                         listSorteo.Focus();
@@ -867,6 +855,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 if( ltJugada.Items.Count > 0)
                 {
                     RealizaApuesta();
+                    listSorteo.SelectedItem = null;
                     //((MainWindow)Window.GetWindow(this)).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
                 }
                 else

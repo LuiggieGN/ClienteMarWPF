@@ -90,7 +90,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
             e.Handled = regex.IsMatch(e.Text);
             if ( e.Handled )
             {
-                BotonAutorizar.Focus();
+                Button_Click(sender, e);
             }
            
         }

@@ -78,8 +78,21 @@ namespace ClienteMarWPFWin7.UI.Modules.Login
                         }
                         catch { }
                     }
-                   
                     
+                    break;
+
+                case Key.Up:
+                    if (PasswordControl.IsFocused)
+                    {
+                        TxtUsername.Focus();
+                    }
+                        break;
+
+                case Key.Down:
+                    if (TxtUsername.IsFocused)
+                    {
+                        PasswordControl.Focus();
+                    }
                     break;
 
             }

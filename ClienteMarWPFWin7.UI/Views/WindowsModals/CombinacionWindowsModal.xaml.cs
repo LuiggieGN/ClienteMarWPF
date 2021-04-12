@@ -188,7 +188,7 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
         {
             if (e.Key == Key.F7)
             {
-               Jugadas?.Invoke(ListJugadas);
+                Jugadas?.Invoke(ListJugadas);
                 this.Close();
             }
 
@@ -197,20 +197,25 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
                 this.Close();
             }
 
-            if( e.Key == Key.P)
+            if (e.Key == Key.P)
             {
                 txtPales.Focus();
-            }else if( e.Key == Key.Q)
+            } else if (e.Key == Key.Q)
             {
                 txtPuntos.Focus();
-            }else if( e.Key == Key.T )
+            } else if (e.Key == Key.T)
             {
                 txtTripleta.Focus();
             }
             else if (e.Key == Key.Add)
             {
                 AgregarButton(sender, e);
+            } else if (e.Key == Key.Subtract)
+            {
+                this.Close();
             }
+
+            
         }
 
         private List<int> GetNumberTextBox()
