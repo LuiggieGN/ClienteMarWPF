@@ -578,10 +578,18 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     break;     
                     
                 case Key.F11:
-                   
+
+                    if (!listSorteo.IsFocused)
+                    {
                         listSorteo.Focus();
                         listSorteo.SelectedIndex = 0;
- 
+                    }else if( listSorteo.IsFocused)
+                    {
+                        listSorteo.SelectedIndex += 1;
+                    }
+
+                    //listSorteo.Items.Count
+                       
                     break;
 
                 case Key.Enter:
@@ -645,23 +653,32 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                        
                     }
                      lastKeyPress = DateTime.Now;
+
+                    if( listSorteo.IsFocused)
+                    {
+                        txtMonto.Focus();
+                        listSorteo.SelectedItem = null;
+                    }
  
                     break;
 
                 case Key.Right:
                     teclaSeleccionada = "";
                    
-                    if (txtJugada.IsFocused)
-                    {
-                        listSorteo.Focus();
-                        listSorteo.SelectedIndex = 0;
-                    }else if( txtMonto.IsFocused )
+                    //if (txtJugada.IsFocused)
+                    //{
+                    //    listSorteo.Focus();
+                    //    listSorteo.SelectedIndex = 0;
+                    //}else 
+
+                    if( txtMonto.IsFocused )
                     {
                         txtJugada.Focus();
                         listSorteo.SelectedItem = null;
                         listSorteo.SelectedIndex = -1;
 
                     }
+
                     break;
 
                 case Key.Up:
