@@ -68,6 +68,43 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+
+            if(txtNumCom1.Text != "" && txtNumCom2.Text != "" || txtNumCom2.Text != "" && txtNumCom3.Text != "" ||
+                txtNumCom3.Text != "" && txtNumCom4.Text != "" || txtNumCom5.Text != "" && txtNumCom6.Text != "" ||
+                txtNumCom6.Text != "" && txtNumCom7.Text != "" || txtNumCom7.Text != "" && txtNumCom8.Text != "" ||
+                txtNumCom8.Text != "" && txtNumCom9.Text != "" || txtNumCom9.Text != "" && txtNumCom10.Text != "" |
+                txtNumCom10.Text != "" && txtNumCom11.Text != "" || txtNumCom11.Text != "" && txtNumCom12.Text != "" ||
+                txtNumCom12.Text != "" && txtNumCom13.Text != "" || txtNumCom13.Text != "" && txtNumCom14.Text != "" ||
+                txtNumCom14.Text != "" && txtNumCom15.Text != "" || txtNumCom15.Text != "" && txtNumCom16.Text != "" ||
+                txtNumCom16.Text != "" && txtNumCom17.Text != "" || txtNumCom17.Text != "" && txtNumCom18.Text != "" ||
+                txtNumCom18.Text != "" && txtNumCom19.Text != "" || txtNumCom19.Text != "" && txtNumCom20.Text != "")
+            {
+                txtPuntos.IsEnabled = true;
+                txtPales.IsEnabled = true;
+            }
+            else
+            {
+                txtPuntos.IsEnabled = false;
+                txtPales.IsEnabled = false;
+            }
+
+            if (txtNumCom1.Text != "" && txtNumCom2.Text != "" && txtNumCom3.Text != ""
+                || txtNumCom2.Text != "" && txtNumCom3.Text != "" && txtNumCom4.Text != "" ||
+                txtNumCom4.Text != "" && txtNumCom5.Text != "" && txtNumCom6.Text != "" || 
+                txtNumCom7.Text != "" && txtNumCom8.Text != "" && txtNumCom9.Text != "" ||
+                txtNumCom9.Text != "" && txtNumCom10.Text != "" && txtNumCom11.Text != "" ||
+                txtNumCom11.Text != "" && txtNumCom12.Text != "" && txtNumCom13.Text != "" ||
+                txtNumCom13.Text != "" && txtNumCom14.Text != "" && txtNumCom15.Text != "" ||
+                txtNumCom15.Text != "" && txtNumCom16.Text != "" && txtNumCom17.Text != "" |
+                txtNumCom18.Text != "" && txtNumCom19.Text != "" && txtNumCom20.Text != "" )
+            {
+                txtTripleta.IsEnabled = true;
+            }
+            else
+            {
+                txtTripleta.IsEnabled = false;
+            }
+           
         }
 
         private void NextTextBox(object sender, KeyEventArgs e)
@@ -88,6 +125,9 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
             else if (e.Key == Key.Up)
             {
                 s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Up));
+            }else if(e.Key == Key.Enter)
+            {
+                s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
             }
             e.Handled = true;
 
@@ -131,9 +171,17 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
 
         private void AgregarButton(object sender, RoutedEventArgs e)
         {
-
-            Jugadas?.Invoke(ListJugadas);
-            this.Close();
+            if( txtPales.Text != "0" && txtPuntos.Text != "0" && txtTripleta.Text != "0")
+            {
+                Jugadas?.Invoke(ListJugadas);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("El monto debe ser mayor a 0");
+            }
+            
+            
         }
 
         private void PressTecla(object sender, KeyEventArgs e)
@@ -147,6 +195,21 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
             if (e.Key == Key.F9)
             {
                 this.Close();
+            }
+
+            if( e.Key == Key.P)
+            {
+                txtPales.Focus();
+            }else if( e.Key == Key.Q)
+            {
+                txtPuntos.Focus();
+            }else if( e.Key == Key.T )
+            {
+                txtTripleta.Focus();
+            }
+            else if (e.Key == Key.Add)
+            {
+                AgregarButton(sender, e);
             }
         }
 

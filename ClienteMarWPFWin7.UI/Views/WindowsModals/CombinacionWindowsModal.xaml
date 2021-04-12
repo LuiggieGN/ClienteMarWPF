@@ -81,16 +81,16 @@
 
         <StackPanel Grid.Row="2" >
             <StackPanel Margin="5">
-                <TextBlock TextWrapping="Wrap" Text="Precio Pales" FontSize="14"/>
-                <TextBox x:Name="txtPales"  Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                <TextBlock TextWrapping="Wrap" Text="Monto por pales" FontSize="14"/>
+                <TextBox x:Name="txtPales" IsEnabled="false"  Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
             </StackPanel>
             <StackPanel Margin="5">
-                <TextBlock TextWrapping="Wrap" Text="Precio Tripleta" FontSize="14"/>
-                <TextBox x:Name="txtTripleta"  Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                <TextBlock TextWrapping="Wrap" Text="Monto por tripleta" FontSize="14"/>
+                <TextBox x:Name="txtTripleta" IsEnabled="false"  Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
             </StackPanel>
             <StackPanel Margin="5">
-                <TextBlock TextWrapping="Wrap" Text="Puntos por Numero" FontSize="14"/>
-                <TextBox x:Name="txtPuntos"  Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                <TextBlock TextWrapping="Wrap" Text="Monto por quiniela" FontSize="14"/>
+                <TextBox x:Name="txtPuntos" IsEnabled="false" Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
             </StackPanel>
         </StackPanel>
 
