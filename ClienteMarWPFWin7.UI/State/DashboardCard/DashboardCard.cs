@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ClienteMarWPFWin7.UI.State.DashboardCard
