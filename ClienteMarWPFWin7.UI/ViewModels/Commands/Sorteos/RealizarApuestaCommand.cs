@@ -433,9 +433,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 ///////////////////////////////////////////////////////////////////
                 try { 
                     SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
-                   
 
+                    (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
                     ImprimirTickets(null, multi);
+
                 } catch (Exception e) {
                     Console.WriteLine(e.Message);
                 }
