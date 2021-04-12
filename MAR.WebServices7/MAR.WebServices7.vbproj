@@ -61,9 +61,6 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MAR.Config">
-      <HintPath>..\ConfigLibrary\LUIGGIE\DATA002\MAR.Config.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -185,6 +182,10 @@
     <ProjectReference Include="..\MAR.BusinessLogic\MAR.BusinessLogic.csproj">
       <Project>{19c6aaeb-206f-44fb-b45c-8f2c29a63505}</Project>
       <Name>MAR.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MAR.Config\MAR.Config.csproj">
+      <Project>{28b8785c-a360-4f6f-9488-9788d4c7b5da}</Project>
+      <Name>MAR.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\MAR.DataAccess\MAR.DataAccess.csproj">
       <Project>{7c6c4701-be38-4cfe-b65b-01a31263e105}</Project>

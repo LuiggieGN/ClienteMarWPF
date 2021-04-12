@@ -237,6 +237,81 @@ namespace ClienteMarWPFWin7.Data.Services
             }
         }
 
+        public List<MarOperacionDTO> LeerBancaMarOperacionesDia(int bancaid, string strdia_yyyyMMdd)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+                toSend.Add(strdia_yyyyMMdd);
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerBancaMarOperacionesDia, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al procesar la lectura de operaciones en MAR");
+                }
+
+                var operaciones = JSONHelper.CreateNewFromJSONNullValueIgnore<List<MarOperacionDTO>>(llamada.Respuesta);
+
+                return operaciones;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public string LeerBancaComandoRemoteCmd(int bancaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerBancaRemoteCmdCommand, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al procesar la lectura del comando remote del command promt");
+                }
+
+                var comando = JSONHelper.CreateNewFromJSONNullValueIgnore<string>(llamada.Respuesta);
+
+                return comando;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public bool LeerEstadoBancaEstaActiva(int bancaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerEstadoBancaEstaActiva, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al procesar la lectura del estado banca esta activa");
+                }
+
+                var laBancaEstaActiva = JSONHelper.CreateNewFromJSONNullValueIgnore<bool>(llamada.Respuesta);
+
+                return laBancaEstaActiva;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+
 
 
     }//fin de clase

@@ -45,6 +45,9 @@
         Banca_LeerDeudaDeBanca = 2004, 
         Banca_LeerBancaConfiguraciones = 2005,       
         Banca_LeerInactividad = 2006,
+        Banca_LeerBancaMarOperacionesDia = 2007,
+        Banca_LeerBancaRemoteCmdCommand = 2008,
+        Banca_LeerEstadoBancaEstaActiva = 2009,
 
 
         Cuadre_Registrar = 3000,  

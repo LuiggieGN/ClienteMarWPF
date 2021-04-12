@@ -22,6 +22,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
         private decimal _cajaOrigenBalanceActual;
         private decimal _montoContado;
         private decimal _montoRetirarODepositar;
+        private Window VentanaCuadre; 
 
         public RegistrarCuadreCommand(CuadreViewModel viewmodel) : base()
         {
@@ -38,6 +39,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
 
         public void RegistrarCuadre(object parametro)
         {
+            this.VentanaCuadre = parametro as Window;
 
             if (_viewmodel != null &&
                 _viewmodel.CuadreBuilder != null &&
@@ -66,7 +68,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
 
                     if (_viewmodel.CanCreate)
                     {
-
                         if (_viewmodel.GestorStored.GestorSesion.Gestor.PrimerDTO.TipoAutenticacion == 2) // NO Challenge to Apply
                         {//NO REQUIERE TOKEN PARA CUADRAR
 
@@ -76,7 +77,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
                         {//REQUIERE TOKEN
 
                             ValidarGestorTarjetaTokenYCuadrar();
-                        }
+                        }                         
                     }
 
 
@@ -179,7 +180,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
                 _viewmodel.InitCuadreCommand?.Execute(null);   //@@ Re-Inicia vista para un nuevo cuadre
 
                 PrinterHelper.SendToPrinter(toPrint);          //@@Imprime Cuadre
+                PrinterHelper.SendToPrinter(toPrint);          //@@Imprime Cuadre
                 MessageBox.Show("El cuadre fue procesado", "Operación Completada", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.VentanaCuadre?.Close();
 
             }
             else

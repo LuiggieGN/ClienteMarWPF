@@ -37,9 +37,6 @@
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net40\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="MAR.Config">
-      <HintPath>..\ConfigLibrary\LUIGGIE\DATA002\MAR.Config.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -79,6 +76,10 @@
     <ProjectReference Include="..\Flujo.Entities\Flujo.Entities.csproj">
       <Project>{41bbcca4-1318-4234-a855-83958f1e5ff2}</Project>
       <Name>Flujo.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MAR.Config\MAR.Config.csproj">
+      <Project>{28b8785c-a360-4f6f-9488-9788d4c7b5da}</Project>
+      <Name>MAR.Config</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

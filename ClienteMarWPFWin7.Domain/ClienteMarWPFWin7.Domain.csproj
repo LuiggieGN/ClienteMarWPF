@@ -78,6 +78,7 @@
     <Compile Include="Models\Base\DataKeyBase.cs" />
     <Compile Include="Models\Base\IDataKeyBase.cs" />
     <Compile Include="Models\Dtos\BancaConfiguracionDTO.cs" />
+    <Compile Include="Models\Dtos\MarOperacionDTO.cs" />
     <Compile Include="Models\Dtos\BancaDTO.cs" />
     <Compile Include="Models\Dtos\ConfigPrinterModel.cs" />
     <Compile Include="Models\Dtos\CuentaDTO.cs" />

@@ -21,6 +21,11 @@ namespace ClienteMarWPFWin7.Domain.Services.BancaService
 
         int LeerInactividad(int bancaid);
 
+        List<MarOperacionDTO> LeerBancaMarOperacionesDia(int bancaid,string strdia_yyyyMMdd);
+
+        string LeerBancaComandoRemoteCmd(int bancaid);
+
+        bool LeerEstadoBancaEstaActiva(int bancaid);
 
     }
 }

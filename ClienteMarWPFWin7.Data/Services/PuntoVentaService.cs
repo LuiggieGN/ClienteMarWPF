@@ -14,6 +14,7 @@ using ClienteMarWPFWin7.Data.Services.Helpers;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using ClienteMarWPFWin7.Domain.Enums;
 
+
 namespace ClienteMarWPFWin7.Data.Services
 {
     public class PtoVaService : IPtoVaService
