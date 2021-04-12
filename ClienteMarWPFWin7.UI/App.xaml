@@ -56,7 +56,8 @@
             </DataTemplate> 
 
             <DataTemplate DataType="{x:Type  moduloReporte:ReporteViewModel}">
-                <moduloReporte:ReporteView />
+                <moduloReporte:ReporteView 
+                    GetReportesCommand="{Binding GetReportesCommmand}"/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type  moduloSorteos:SorteosViewModel}">

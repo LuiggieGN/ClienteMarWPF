@@ -150,7 +150,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 bool ExistPrinterCOnfig = false;
                 int CantidadLoterias = ViewModel.LoteriasMultiples.Count;
                 
-
                 var firma = VentasIndexTicket.GeneraFirma(MarBetResponse.StrFecha, MarBetResponse.StrHora, MarBetResponse.TicketNo, MarBetResponse.Items);
                 var datosTicket = SessionGlobals.LoteriasTodas.Where(x => x.Numero == MarBetResponse.Loteria).ToList();
                 var NombreLoteria = datosTicket[0].Nombre;
@@ -163,7 +162,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     contadorTIcket = contadorTIcket + 1;
                 }
                 
-
                 SorteosTicketModels TICKET = new SorteosTicketModels
                 {
                     Costo = Convert.ToInt32(MarBetResponse.Costo),

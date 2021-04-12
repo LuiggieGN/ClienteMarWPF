@@ -36,7 +36,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
         private readonly ReporteViewModel ViewModel;
         public ObservableCollection<ReporteListaTicketsObservable> listaTicket=new ObservableCollection<ReporteListaTicketsObservable>() { };
         public ObservableCollection<ReporteListaTicketsObservable> listaTicketVolatil;
-        
+
+        public static readonly DependencyProperty GetReportesCommandProperty = DependencyProperty.Register("GetReportesCommand", typeof(ICommand), typeof(ReporteView), new PropertyMetadata(null));
+
+
+        public ICommand GetReportesCommand
+        {
+            get { return (ICommand)GetValue(GetReportesCommandProperty); }
+            set { SetValue(GetReportesCommandProperty, value); }
+        }
 
         public ReporteView()
         {
@@ -57,9 +65,79 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             ScrollViewer.SetVerticalScrollBarVisibility(this.GridTicketPendientesPagoss, ScrollBarVisibility.Visible);
             ScrollViewer.SetVerticalScrollBarVisibility(this.GridTicketSinReclamar, ScrollBarVisibility.Visible);
             ScrollViewer.SetVerticalScrollBarVisibility(this.TempleateListaTarjetas, ScrollBarVisibility.Visible);
+            ScrollViewer.SetVerticalScrollBarVisibility(this.GridListTicketNulosVentas, ScrollBarVisibility.Visible);
         }
 
-       
+
+        private void PressTecla(object sender, KeyEventArgs e)
+        {
+            var textFecha = VisualTreeHelper.GetChild(Fecha, 0);
+            var reportes = ListReportes.Children;
+            var posicionReporte = 0;
+            object objectoReporte = new object();
+            
+            
+            foreach(var reporte in reportes)
+            {
+                var rep = reporte as Control;
+                objectoReporte = rep;
+                if (rep.IsFocused==true) {
+                    posicionReporte = reportes.IndexOf(rep);
+                    posicionReporte = posicionReporte + 1;
+                }
+            }
+
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    
+                    if (listSorteo.IsFocused)
+                    {
+                        listSorteo.IsDropDownOpen = true;
+                    }
+                    if (true)
+                    {
+                        Fecha.IsDropDownOpen=true;
+                    }
+                    if (posicionReporte != 0)
+                    {
+                        reporteid_Click(objectoReporte, e);
+                        if (GetReportesCommand != null)
+                        {
+                            GetReportesCommand.Execute(null);
+                        }
+                    }
+                    break;
+
+                case Key.Down:
+                    if (Fecha.AreAnyTouchesOver)
+                    {
+                        listSorteo.Focus();
+                    }
+                    break;
+
+                case Key.Up:
+                    if (listSorteo.IsFocused)
+                    {
+                        contenedorFecha.Focus();
+                    }
+                     
+                    break;
+
+                case Key.Right:
+                    if (Fecha.IsFocused || listSorteo.IsFocused) {
+                        btnRPTVentas.Focus();
+                    }
+                    break;
+                case Key.Left:
+                    if (btnRPTVentas.IsFocused)
+                    {
+                        contenedorFecha.Focus();
+                    }
+                    break;
+            }
+        }
+
         private void reporteid_Click(object sender, RoutedEventArgs e)
         {
             
@@ -168,5 +246,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             return OpcionTicketSeleccionado;
         }
 
+        private void VistaCompleta_Loaded(object sender, RoutedEventArgs e)
+        {
+            Fecha.Focus();
+           
+        }
     }
 }
