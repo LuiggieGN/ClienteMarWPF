@@ -23,6 +23,21 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
     public partial class RecargasView : UserControl
     {
         public ObservableCollection<ProveedorRecargasObservable> Proveedors;
+        int contador = 0;
+        public static readonly DependencyProperty RecargaCommandProperty = DependencyProperty.Register("SendRecargaCommand", typeof(ICommand), typeof(RecargasView), new PropertyMetadata(null));
+
+        public ICommand SendRecargaCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(RecargaCommandProperty);
+
+            }
+            set { SetValue(RecargaCommandProperty, value); }
+        }
+
+
+
         public bool IsArrow { get; set; } = false;
         // public ProveedorRecargasObservable Provedor { get; set; }
         public ProveedorRecargasObservable ProveedorSelect { get; set; }
@@ -30,23 +45,16 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         public RecargasView()
         {
             InitializeComponent();
-            //Proveedors = new ObservableCollection<ProveedorRecargasObservable> {
-            //    new ProveedorRecargasObservable(){ OperadorID=1, IsSelected=false, Operador="Claro", Pais="DO", Url = "pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Operador/Claro_logo.png" },
-            //    new ProveedorRecargasObservable(){ OperadorID=2, IsSelected=false, Operador="Altice", Pais="DO", Url = "pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Operador/AlticeB_logo.png" },
-            //    new ProveedorRecargasObservable(){ OperadorID=3, IsSelected=false, Operador="Viva", Pais="DO", Url = "pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Operador/VivaT_logo.png" },
-            //    new ProveedorRecargasObservable(){ OperadorID=5, IsSelected=false, Operador="Tricon", Pais="DO", Url = "pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Operador/Tricom_logo.jpeg" },
-            //    new ProveedorRecargasObservable(){ OperadorID=5, IsSelected=false, Operador="Wind", Pais="DO", Url = "pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Operador/Wind_logo.png" },
-            //    new ProveedorRecargasObservable(){ OperadorID=4, IsSelected=false, Operador="Digicel", Pais="HT", Url = "pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Operador/Digice_logo.jpg" },
-            //    new ProveedorRecargasObservable(){ OperadorID=6, IsSelected=false, Operador="Natcom", Pais="HT", Url = "pack://application:,,,/ClienteMarWPFWin7.UI;component/StartUp/Images/Operador/NatcomW_logo.jpg" }
-            //};
+            IsArrow = true;
+  
 
-            //listSorteo.DataContext = Proveedors;
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+            
         }
 
     
@@ -82,6 +90,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
                 case Key.Enter:
                     IsArrow = true;
+
+                   
+
                     FocusInputs();
                     break;
 
@@ -93,8 +104,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                         proveedores.SelectedIndex = 0;
                         //var prueba = (List<ProveedorRecargasObservable>) proveedores.ItemsSource;
                         //proveedores.SelectedItem = prueba.First();
-                       
-
 
                     }
                     break;
@@ -131,17 +140,18 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
            
                 //var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
                 //seleccionado.IsSelected = true;
-                if (telefono.Text.Length > 0 && monto.Text.Length > 0)
+                if (telefono.Text.Trim().Length > 0 && monto.Text.Length > 0)
                 {
-                   
+                    SendRecargaCommand.Execute("");
 
-                }
+            }
                 else
                 {
                     if (telefono.IsFocused)
                     {
 
                         monto.Focus();
+                        
                     }
                     else
                     {
@@ -166,6 +176,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
         private void proveedores_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(contador  == 0)
+            {
+                proveedores.SelectedIndex = 0;
+                proveedores.Focus();
+                contador++;
+            }
+
+          
+
             if (!IsArrow)
             {
                 var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
@@ -180,8 +199,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             IsArrow = false;
         }
 
+        private void botonIniciar_Click(object sender, RoutedEventArgs e)
+        {
+            if(SendRecargaCommand != null)
+            {
+                SendRecargaCommand.Execute(null);
+            }
+        }
 
-
-
+     
     }
 }
