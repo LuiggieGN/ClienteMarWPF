@@ -47,6 +47,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCa
                 {
                     _viewmodel.InputConcepto.Muestro = false;
                 }
+
+                _viewmodel.FocusEnCambioDeConcepto?.Invoke();
             }// fin de if 
 
         }//fin de metodo ComboboxSeleccionCambio

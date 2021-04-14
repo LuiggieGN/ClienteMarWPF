@@ -11,7 +11,10 @@
              xmlns:view2="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View2"
              xmlns:view3="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View3"
              xmlns:dialogo="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Modal"
-             d:DesignHeight="840" d:DesignWidth="1000">
+             d:DesignHeight="840" d:DesignWidth="1000"
+             PreviewKeyDown="OnTeclaKeyDownModuloMovimiento"
+             
+             >
 
     <Grid>
         <Grid x:Name="GridAOcultar">
@@ -33,38 +36,40 @@
                    FontWeight="Bold"/>
             </Border>
 
-            <dragablz:TabablzControl  Grid.Row="1"
+            <dragablz:TabablzControl  x:Name="TabsControl"
+                                      Grid.Row="1"
                                       AllowDrop="False"                                    
-                                      Margin="4 3 4 0" >
-                <TabItem IsSelected="True" Background="Red">
+                                      Margin="4 3 4 0"  
+                                      SelectionChanged="CuandoTabCambia">
+                <TabItem IsSelected="True" Background="Red" TabIndex="0">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"  >
                             <materialDesign:PackIcon Kind="Arrow" Width="30" Height="30" Foreground="#FF00A8E8" />
                             <TextBox  Text="Registra Ingresos y Gastos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
                         </StackPanel>
                     </TabItem.Header>
-                    <view1:EnCajaView DataContext="{Binding View1}"  />
+                    <view1:EnCajaView x:Name="UserControl1" DataContext="{Binding View1}"  Loaded="CuandoUserControl1Carga"  />
                 </TabItem>
 
-                <TabItem Height="50">
+                <TabItem Height="50" TabIndex="1">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
                             <materialDesign:PackIcon Kind="Cash" Foreground="#FF00A8E8" Width="30" Height="30" />
                             <TextBox  Text="Entrega y Recibo de Dinero" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
                         </StackPanel>
                     </TabItem.Header>
-                    <view2:DesdeHastaView DataContext="{Binding View2}" SeleccionarGestorCommand="{Binding SeleccionarGestorCommand}" RestablecerCommand="{Binding RestablecerCommand}"/>
+                    <view2:DesdeHastaView x:Name="UserControl2" DataContext="{Binding View2}" SeleccionarGestorCommand="{Binding SeleccionarGestorCommand}" RestablecerCommand="{Binding RestablecerCommand}"/>
                 </TabItem>
 
-                <TabItem Height="50">
+                <TabItem Height="50" TabIndex="2">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
                             <materialDesign:PackIcon Kind="FindInPage" Foreground="#FF00A8E8" Width="30" Height="30" />
-                            <TextBox  Text="Consulta tus Movimientos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
+                            <TextBox Text="Consulta tus Movimientos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
                         </StackPanel>
                     </TabItem.Header>
                     <DockPanel>
-                        <view3:ConsultaMovimientoView DataContext="{Binding View3}"  />
+                        <view3:ConsultaMovimientoView x:Name="UserControl3" DataContext="{Binding View3}"  />
                     </DockPanel>
                 </TabItem>
 

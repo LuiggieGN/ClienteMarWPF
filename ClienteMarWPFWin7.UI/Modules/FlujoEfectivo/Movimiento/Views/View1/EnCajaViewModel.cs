@@ -153,6 +153,10 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
 
         public ToastViewModel Toast => _toast;
 
+        public Action FocusEnCambioDeConcepto { get; set; }
+        public Action FocusAlAgregarMovimiento{ get; set; }
+        public Action FocusAlFallar{ get; set; }
+        public Action FocusCuandoHayErrorEnElModeloACrear { get; set; }
 
         #endregion
 

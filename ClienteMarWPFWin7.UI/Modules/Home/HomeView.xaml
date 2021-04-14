@@ -227,7 +227,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
-                                <materialDesign:PackIcon Kind="MoneyUsd" Width="85" Height="85" Foreground="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <materialDesign:PackIcon Kind="Payment" Width="85" Height="85" Foreground="LightGray"  HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Grid>
                             <Label Content="{Binding Card_Pagos}" FontSize="40"  Foreground="White" Padding="10"/>
                             <Label Content="Pagos" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
@@ -251,7 +251,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid Grid.Column="1" Grid.RowSpan="2" Background="White">
-                                <materialDesign:PackIcon Kind="MoneyUsd" Width="85" Height="85" Foreground="Lavender"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <materialDesign:PackIcon Kind="Discount" Width="85" Height="85" Foreground="Lavender"  HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Grid>
                             <Label Content="{Binding Card_Descuentos_Productos}" FontSize="40"  Foreground="White" Padding="10"/>
                             <Label Content="Descuento Productos" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
