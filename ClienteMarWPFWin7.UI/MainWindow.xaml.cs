@@ -57,8 +57,7 @@ namespace ClienteMarWPFWin7.UI
                 }
             }
             catch
-            {
-                MessageBox.Show("Error Titulo Version");
+            {            
                 try
                 {
                     version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();

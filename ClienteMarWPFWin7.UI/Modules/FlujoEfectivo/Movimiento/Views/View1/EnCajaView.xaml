@@ -8,7 +8,8 @@
              xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
-             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"             
+             >
     <UserControl.Resources>
        <ResourceDictionary>           
            
@@ -117,6 +118,7 @@
                                />
                         </StackPanel>
                         <ComboBox  
+                                   x:Name="ComboQueHaras"
                                    Grid.Row="1"
                                    Grid.Column="1"
                                    FontSize="16"
@@ -132,6 +134,7 @@
                                    ItemsSource="{Binding Path=ComboESOpciones}"
                                    SelectedItem="{Binding Path=ComboESSeleccion}"   
                                    BorderThickness="1"
+                                   KeyDown="OnKeyDown"
                              >
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -181,6 +184,7 @@
                                      Margin="0 0 0 10">
 
                             <ComboBox  
+                                   x:Name="ComboConcepto"
                                    FontSize="16"
                                    FontWeight="Medium"
                                    Height="45"
@@ -193,7 +197,8 @@
                                    IsEditable="False"
                                    ItemsSource="{Binding Path=ComboConceptoOpciones}"
                                    SelectedItem="{Binding Path=ComboConceptoSeleccion}"   
-                                   BorderThickness="1"
+                                   BorderThickness="1"                            
+                                   KeyDown="OnKeyDown"
                              >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -206,11 +211,12 @@
                                     <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction 
                                                             Command="{Binding Path= SeleccionarConceptoCommand}"
-                                        ></i:InvokeCommandAction>
+                                        ></i:InvokeCommandAction>                                       
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>       
                             <TextBox
+                                   x:Name="txtConcepto"
                                    FontSize="16"
                                    FontWeight="Normal"
                                    Height="45"
@@ -222,7 +228,9 @@
                                    materialDesign:HintAssist.Hint="Ingrese un concepto"
                                    DataContext="{Binding Path= InputConcepto}"
                                    Visibility="{Binding Muestro, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                   Text="{Binding Texto, UpdateSourceTrigger=PropertyChanged}" />
+                                   Text="{Binding Texto, UpdateSourceTrigger=PropertyChanged}"                                 
+                                   KeyDown="OnKeyDown"
+                                />
 
                         </StackPanel>    
 
@@ -251,6 +259,7 @@
                                 >    
                             
                             <TextBox
+                                   x:Name="txtComentario"
                                    FontSize="16"
                                    FontWeight="Medium"
                                    Height="70"
@@ -258,11 +267,12 @@
                                    TextAlignment="Left"
                                    Padding="0 0 0 0"  
                                    TextWrapping="Wrap"
-                                   AcceptsReturn="True"
+                                   AcceptsReturn="False"
                                    VerticalScrollBarVisibility="Visible"                               
                                    materialDesign:HintAssist.Hint="Ingrese un comentario"
                                    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" 
                                    Text="{Binding Comentario, UpdateSourceTrigger=PropertyChanged}"
+                                   KeyDown="OnKeyDown"
                                />
                             
                         </StackPanel>
@@ -294,6 +304,7 @@
                                      Visibility="{Binding  MuestroSeccionCajera, Converter={StaticResource BooleanToVisibilityConverter}}">
  
                             <TextBox
+                                   x:Name="txtCajera"
                                    FontSize="16"
                                    FontWeight="Medium"
                                    Height="45"
@@ -305,6 +316,7 @@
                                    DataContext="{Binding Path= InputCajera}"
                                    Visibility="{Binding Muestro, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Text="{Binding Cajera, UpdateSourceTrigger=PropertyChanged}"
+                                   KeyDown="OnKeyDown"
                                />
                         </StackPanel>
 
@@ -334,6 +346,7 @@
                                 >
 
                             <TextBox
+                                   x:Name="txtMonto"
                                    FontSize="16"
                                    FontWeight="Medium"
                                    Height="45"
@@ -345,6 +358,7 @@
                                    behaviours:SoloNumerosBehaviour.Habilitado="True"   
                                    behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                    Text="{Binding Monto, UpdateSourceTrigger=PropertyChanged }"
+                                   KeyDown="OnKeyDown"
                                />
                         </StackPanel>
 
@@ -362,14 +376,14 @@
                                     <Button Width="220" 
                                             Height="40"
                                             Margin="5"
-                                            Content="Restablecer" 
+                                            Content="Restablecer - F5" 
                                             Style="{DynamicResource btn-secondary}"
                                             Command="{Binding RestablecerCommand}"/>
                                         
                                     <Button Width="220"
                                             Height="40"                                
                                             Margin="5"
-                                            Content="Nuevo Movimiento" 
+                                            Content="Nuevo Movimiento - F6" 
                                             Style="{DynamicResource btn-success}"
                                             Command="{Binding AgregarMovimientoEnCajaCommand}"/>                            
 

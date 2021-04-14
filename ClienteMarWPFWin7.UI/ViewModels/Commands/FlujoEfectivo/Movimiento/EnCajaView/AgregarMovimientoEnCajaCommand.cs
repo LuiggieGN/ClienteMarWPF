@@ -84,18 +84,22 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.EnCa
 
                         if (result.FueProcesado)
                         {
-
-
                             _aut.RefrescarBancaBalance();          //@@Actualizo el Balance de Banca 
                             _viewmodel.Comentario = string.Empty;
                             _viewmodel.Monto = string.Empty;
                             _viewmodel.Toast.ShowSuccess("Operación Completada");
                             ImprimirTransaccion(result);
+                            _viewmodel.FocusAlAgregarMovimiento?.Invoke();
                         }
                         else
                         {
+                            _viewmodel.FocusAlFallar?.Invoke();
                             _viewmodel.Toast.ShowError("Ha ocurrido un error al procesar la operación");
                         }
+                    }
+                    else
+                    {
+                        _viewmodel.FocusCuandoHayErrorEnElModeloACrear?.Invoke();
                     }
                 }
                 catch
