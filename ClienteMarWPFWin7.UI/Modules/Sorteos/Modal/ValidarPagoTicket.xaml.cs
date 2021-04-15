@@ -23,7 +23,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
     {
         private bool _padreFueHabilitado = true;
          private static string ticketSeleccionado;
-       
+        
 
 
         public bool CargarDialogo
@@ -61,6 +61,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         public static readonly DependencyProperty CopiarTicketCommandProperty = DependencyProperty.Register("CopiarTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
 
 
+        public static readonly DependencyProperty ConsultarTicketCommandProperty = DependencyProperty.Register("ConsultarTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
+        public static readonly DependencyProperty ReimprimirTicketCommandProperty = DependencyProperty.Register("ReimprimirTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
+        public static readonly DependencyProperty AnularTicketCommandProperty = DependencyProperty.Register("AnularTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
+
+
         public ICommand GetListadoTicketsCommand
         {
             get { return (ICommand)GetValue(GetListadoTicketsCommandProperty); }
@@ -71,6 +76,24 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             get { return (ICommand)GetValue(CopiarTicketCommandProperty); }
             set { SetValue(CopiarTicketCommandProperty, value); }
+        }
+
+        public ICommand ConsultarTicketCommand
+        {
+            get { return (ICommand)GetValue(ConsultarTicketCommandProperty); }
+            set { SetValue(ConsultarTicketCommandProperty, value); }
+        }
+
+        public ICommand ReimprimirTicketCommand
+        {
+            get { return (ICommand)GetValue(ReimprimirTicketCommandProperty); }
+            set { SetValue(ReimprimirTicketCommandProperty, value); }
+        }
+
+        public ICommand AnularTicketCommand
+        {
+            get { return (ICommand)GetValue(AnularTicketCommandProperty); }
+            set { SetValue(AnularTicketCommandProperty, value); }
         }
 
 
@@ -176,5 +199,40 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                 }
             }
         }
+
+        private void vistaPago_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var VM = DataContext as ValidarPagoTicketViewModel;
+
+            switch (e.Key)
+            {
+                case Key.F4:
+                    if(VM.ConsultarTicketCommand != null)
+                    {
+                        VM.ConsultarTicketCommand.Execute(null);
+                    }
+                    break;
+
+                case Key.F8:
+                        if (VM.ReimprimirTicketCommand != null)
+                        {
+                            VM.ReimprimirTicketCommand.Execute(null);
+                        }
+                    break;
+
+                case Key.F7:
+                    if(VM.AnularTicketCommand != null)
+                    {
+                        VM.AnularTicketCommand.Execute(null);
+                    }
+                    break;
+
+            }
+
+           
+        }
+
+
+       
     }
 }

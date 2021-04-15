@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Name="vistaPago" PreviewKeyDown="vistaPago_PreviewKeyDown"
             >
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -195,7 +195,7 @@
                         <Button  Style="{DynamicResource btn-primary}" Command="{Binding ConsultarTicketCommand}" Foreground="White" Width="145">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="FormatListChecks"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
-                                <TextBlock Text="Consultar F5"  VerticalAlignment="Center"/>
+                                <TextBlock Text="Consultar F4"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -203,14 +203,14 @@
 
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
-                                <TextBlock Text="Reimprimir F12"  VerticalAlignment="Center"/>
+                                <TextBlock Text="Reimprimir F8"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
                         <Button  Style="{DynamicResource btn-danger}" Command="{Binding AnularTicketCommand}" Foreground="White" Width="145"  Margin="5 0" >
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
-                                <TextBlock Text="Anular F9"  VerticalAlignment="Center"/>
+                                <TextBlock Text="Anular F7"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 

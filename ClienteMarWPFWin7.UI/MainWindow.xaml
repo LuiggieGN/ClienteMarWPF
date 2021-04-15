@@ -71,7 +71,7 @@
                                         <Button Command="{Binding CambiarTerminalConfiguracionLocalCommand}">
                                             <WrapPanel>
                                                 <materialDesign:PackIcon Kind="Tools" Width="20" Height="20" Margin="2 0"  />
-                                                <TextBlock>Configuraciones</TextBlock>
+                                                <TextBlock>Configuraciones (F4) </TextBlock>
                                             </WrapPanel>
                                         </Button>
 

@@ -59,11 +59,11 @@
 
             </StackPanel>
 
-            <StackPanel   x:Name="PanelConfiguracion" Visibility="Collapsed">
+            <StackPanel PreviewKeyDown="PressTecla"   x:Name="PanelConfiguracion" Visibility="Collapsed">
                 <Label Content="Configuracion del sistema"  Foreground="SlateGray" />
 
                 <StackPanel Orientation="Horizontal" >
-                    <TextBox  materialDesign:HintAssist.Hint="Banca ID" Text="{Binding BancaID, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Name="bancaid" materialDesign:HintAssist.Hint="Banca ID" Text="{Binding BancaID, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <TextBox  materialDesign:HintAssist.Hint="Direccion IP" Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <ComboBox  materialDesign:HintAssist.Hint="Tipo Ticket" ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}"  SelectedValue="{Binding Ticket, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="150" Margin="10 5 10 0"  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                 </StackPanel>
