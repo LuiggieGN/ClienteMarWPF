@@ -12,7 +12,7 @@
              xmlns:view3="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View3"
              xmlns:dialogo="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Modal"
              d:DesignHeight="840" d:DesignWidth="1000"
-             PreviewKeyDown="OnTeclaKeyDownModuloMovimiento"
+             PreviewKeyDown="OnPreviewKeyDown"
              
              >
 
@@ -48,7 +48,7 @@
                             <TextBox  Text="Registra Ingresos y Gastos" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
                         </StackPanel>
                     </TabItem.Header>
-                    <view1:EnCajaView x:Name="UserControl1" DataContext="{Binding View1}"  Loaded="CuandoUserControl1Carga"  />
+                    <view1:EnCajaView x:Name="UserControl1" DataContext="{Binding View1}"  Loaded="Carga1"  />
                 </TabItem>
 
                 <TabItem Height="50" TabIndex="1">
@@ -58,7 +58,7 @@
                             <TextBox  Text="Entrega y Recibo de Dinero" Foreground="White"  FontSize="14" FontWeight="Medium" BorderBrush="{x:Null}" Padding="0"  Margin="3 1 0 0" FontFamily="Segoe UI"/>
                         </StackPanel>
                     </TabItem.Header>
-                    <view2:DesdeHastaView x:Name="UserControl2" DataContext="{Binding View2}" SeleccionarGestorCommand="{Binding SeleccionarGestorCommand}" RestablecerCommand="{Binding RestablecerCommand}"/>
+                    <view2:DesdeHastaView x:Name="UserControl2" DataContext="{Binding View2}" SeleccionarGestorCommand="{Binding SeleccionarGestorCommand}" RestablecerCommand="{Binding RestablecerCommand}" Loaded="Carga2"/>
                 </TabItem>
 
                 <TabItem Height="50" TabIndex="2">

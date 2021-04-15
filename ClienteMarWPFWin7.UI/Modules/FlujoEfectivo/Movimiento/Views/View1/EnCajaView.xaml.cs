@@ -117,11 +117,11 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
                 {
                     e.Handled = true;
 
-                    if (!Submit())
-                    {
-                        FallowNext();
-                    }
-
+                    //if (!Submit()) // -- Aqui valido si se puede hacer el submit y lo realizo de lo contrario se enfoca el proximo
+                    //{
+                    //    FallowNext();
+                    //}
+                    FallowNext();
                 }
                 else if (e.Key == Key.Tab)
                 {
@@ -138,10 +138,11 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
                 {
                     e.Handled = true;
 
-                    if (!Submit())
-                    {
-                        FallowNext();
-                    }
+                    //if (!Submit()) // -- Aqui valido si se puede hacer el submit y lo realizo de lo contrario se enfoca el proximo
+                    //{
+                    //    FallowNext();
+                    //}
+                    FallowNext();
 
                 }
                 else if (e.Key == Key.Tab)
@@ -154,41 +155,41 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
         }
 
 
-        private bool Submit() 
-        {
-            bool canSubmit = false;
+        //private bool Submit()  // Esto realiza el submit de los datos 
+        //{
+        //    bool canSubmit = false;
 
-            bool combo1 = ComboQueHaras.SelectedItem != null,
-                 combo2 = ComboQueHaras.SelectedItem != null,
-                 inputConcepto = true,
-                 inputComentario = !InputHelper.InputIsBlank(txtComentario.Text),
-                 inputCajera = true,
-                 inputMonto = !InputHelper.InputIsBlank(txtMonto.Text);
+        //    bool combo1 = ComboQueHaras.SelectedItem != null,
+        //         combo2 = ComboQueHaras.SelectedItem != null,
+        //         inputConcepto = true,
+        //         inputComentario = !InputHelper.InputIsBlank(txtComentario.Text),
+        //         inputCajera = true,
+        //         inputMonto = !InputHelper.InputIsBlank(txtMonto.Text);
 
-            if (txtConcepto.IsVisible)
-            {
-                inputConcepto = !InputHelper.InputIsBlank(txtConcepto.Text);
-            }
+        //    if (txtConcepto.IsVisible)
+        //    {
+        //        inputConcepto = !InputHelper.InputIsBlank(txtConcepto.Text);
+        //    }
 
-            if (txtCajera.IsVisible)
-            {
-                inputCajera = !InputHelper.InputIsBlank(txtCajera.Text);
-            }
+        //    if (txtCajera.IsVisible)
+        //    {
+        //        inputCajera = !InputHelper.InputIsBlank(txtCajera.Text);
+        //    }
 
-            if (combo1 && combo2 && inputConcepto && inputComentario && inputCajera && inputMonto)
-            {
-                canSubmit = true;
+        //    if (combo1 && combo2 && inputConcepto && inputComentario && inputCajera && inputMonto)
+        //    {
+        //        canSubmit = true;
 
-                var vm = DataContext as EnCajaViewModel;
+        //        var vm = DataContext as EnCajaViewModel;
 
-                if (vm != null)
-                {
-                    vm.AgregarMovimientoEnCajaCommand.Execute(null);
-                }
-            }
+        //        if (vm != null)
+        //        {
+        //            vm.AgregarMovimientoEnCajaCommand.Execute(null);
+        //        }
+        //    }
 
-            return canSubmit;        
-        }
+        //    return canSubmit;        
+        //}
 
         private void FallowNext() 
         {
@@ -217,6 +218,13 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
                 ComboQueHaras.Focus();
             }
         }
+
+        private void OnFocus(object sender, RoutedEventArgs e)
+        {
+            UIElement elementToSave = sender as UIElement;
+            MovimientoView.Tab0_LastFocusControl = elementToSave;
+        }
+
 
 
 

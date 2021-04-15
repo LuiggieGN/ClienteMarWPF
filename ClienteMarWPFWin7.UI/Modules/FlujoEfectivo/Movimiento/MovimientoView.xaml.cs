@@ -19,6 +19,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
     {
         private int TabSelectedIndex;
 
+        public static UIElement Tab0_LastFocusControl = null;
+
         public MovimientoView()
         {
             InitializeComponent();
@@ -32,21 +34,21 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
         {
             if (e.OriginalSource == TabsControl)
             {
-                TabSelectedIndex = TabsControl.SelectedIndex;
+                TabSelectedIndex = TabsControl.SelectedIndex; 
 
-                AplicarLogicaInicioDeFocusSegunTabSeleccionado();
+                IniciaFocusAlCambiarTab();
             }
         }
 
 
-        private void AplicarLogicaInicioDeFocusSegunTabSeleccionado()
+        private void IniciaFocusAlCambiarTab()
         {
 
             var vm = DataContext as MovimientoViewModel;
 
             switch (TabSelectedIndex)
             {
-                case 0: //@@                                          - Modulo de Registro Ingresos y Gastos
+                case 0: //@@                                                                        - Modulo de Registro Ingresos y Gastos
 
                     var control1 = UserControl1;
                     var control1Contexto = vm?.View1 ?? (EnCajaViewModel)null;
@@ -60,12 +62,12 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                         var TxtComentario = control1.txtComentario;
                         var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
 
-                        if (control1Contexto.InputConcepto.Muestro)
+                        if (Tab0_LastFocusControl == null)
                         {
                             timer.Tick += (sender, args) =>
                             {
                                 timer.Stop();
-                                TxtConcepto.Focus();
+                                TxtComentario.Focus();
                             };
                         }
                         else
@@ -73,9 +75,26 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                             timer.Tick += (sender, args) =>
                             {
                                 timer.Stop();
-                                TxtComentario.Focus();
-                            };                            
+                                Tab0_LastFocusControl.Focus();
+                            };
                         }
+
+                        //if (control1Contexto.InputConcepto.Muestro)  // Esto carga el focus solo en el primer elemento 
+                        //{
+                        //    timer.Tick += (sender, args) =>
+                        //    {
+                        //        timer.Stop();
+                        //        TxtConcepto.Focus();
+                        //    };
+                        //}
+                        //else
+                        //{
+                        //    timer.Tick += (sender, args) =>
+                        //    {
+                        //        timer.Stop();
+                        //        TxtComentario.Focus();
+                        //    };                            
+                        //}
 
                         timer.Start();
                     }
@@ -85,23 +104,31 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
             }
         }
 
-        private void CuandoUserControl1Carga(object sender, RoutedEventArgs e)
+        private void Carga1(object sender, RoutedEventArgs e)
         {
-            var encajaview = UserControl1;
- 
+            Tab0_LastFocusControl = null;
+
+
+            var encajaview = UserControl1; 
             if (encajaview != null )
             {
                 encajaview.CuandoVistaCarga();
             }
 
-           AplicarLogicaInicioDeFocusSegunTabSeleccionado();
+            IniciaFocusAlCambiarTab();
         }
 
-        private void OnTeclaKeyDownModuloMovimiento(object sender, KeyEventArgs e)
+
+        private void Carga2(object sender, RoutedEventArgs e)
         {
-            if (TabSelectedIndex == 0)//@@                                          - Modulo de Registro Ingresos y Gastos
+ 
+        }
+
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (TabSelectedIndex == 0)//@@                                              - Modulo de Registro Ingresos y Gastos
             {
-                if ( e.Key == Key.F5 || (e.Key == Key.System && e.SystemKey == Key.F5))
+                if ( e.Key == Key.F9 || (e.Key == Key.System && e.SystemKey == Key.F9))
                 {
                     e.Handled = true;
                     var vm = DataContext as MovimientoViewModel;
@@ -111,7 +138,11 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                         encajaviewmodel.RestablecerCommand?.Execute(null);
                     }
                 }
-                else if (e.Key == Key.F6 || (e.Key == Key.System && e.SystemKey == Key.F6))
+                else if (
+                     ( e.Key == Key.F12 || (e.Key == Key.System && e.SystemKey == Key.F12)) ||
+                     ( e.Key == Key.Add || (e.Key == Key.System && e.SystemKey == Key.Add)  ) ||
+                     ( e.Key == Key.OemPlus || (e.Key == Key.System && e.SystemKey == Key.OemPlus)  ) 
+                )
                 {
                     e.Handled = true;
                     var vm = DataContext as MovimientoViewModel;
@@ -121,8 +152,12 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                         encajaviewmodel.AgregarMovimientoEnCajaCommand?.Execute(null);
                     }
                 }
-            }
+            }//fin de If
         }
+
+
+
+
 
 
 

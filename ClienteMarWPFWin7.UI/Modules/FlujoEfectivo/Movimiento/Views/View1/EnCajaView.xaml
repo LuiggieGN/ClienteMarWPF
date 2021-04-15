@@ -100,6 +100,7 @@
                                    TextAlignment="Left"
                                    Padding="8 8 0 0" 
                                    Text="{Binding NombreBanca, UpdateSourceTrigger=PropertyChanged}"
+                                   GotFocus="OnFocus"                                   
                                />
                             
                             
@@ -135,6 +136,7 @@
                                    SelectedItem="{Binding Path=ComboESSeleccion}"   
                                    BorderThickness="1"
                                    KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" 
                              >
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -199,6 +201,7 @@
                                    SelectedItem="{Binding Path=ComboConceptoSeleccion}"   
                                    BorderThickness="1"                            
                                    KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" 
                              >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -230,6 +233,7 @@
                                    Visibility="{Binding Muestro, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Text="{Binding Texto, UpdateSourceTrigger=PropertyChanged}"                                 
                                    KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" 
                                 />
 
                         </StackPanel>    
@@ -273,6 +277,7 @@
                                    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" 
                                    Text="{Binding Comentario, UpdateSourceTrigger=PropertyChanged}"
                                    KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" 
                                />
                             
                         </StackPanel>
@@ -317,6 +322,7 @@
                                    Visibility="{Binding Muestro, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Text="{Binding Cajera, UpdateSourceTrigger=PropertyChanged}"
                                    KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" 
                                />
                         </StackPanel>
 
@@ -359,6 +365,7 @@
                                    behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                    Text="{Binding Monto, UpdateSourceTrigger=PropertyChanged }"
                                    KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" 
                                />
                         </StackPanel>
 
@@ -376,14 +383,14 @@
                                     <Button Width="220" 
                                             Height="40"
                                             Margin="5"
-                                            Content="Restablecer - F5" 
+                                            Content="Restablecer - F9" 
                                             Style="{DynamicResource btn-secondary}"
                                             Command="{Binding RestablecerCommand}"/>
                                         
                                     <Button Width="220"
                                             Height="40"                                
                                             Margin="5"
-                                            Content="Nuevo Movimiento - F6" 
+                                            Content="Nuevo Movimiento - F12 ( + )" 
                                             Style="{DynamicResource btn-success}"
                                             Command="{Binding AgregarMovimientoEnCajaCommand}"/>                            
 
