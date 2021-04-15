@@ -321,6 +321,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Visible;
                     ViewModel.ReportesGanadores.HeightTicketNoGanadores = 50;
                 }
+                if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() == 0)
+                {
+                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 4;
+                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 5;
+                    ViewModel.ReportesGanadores.PosicionBalance = 6;
+                }
                 else
                 {
                     ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
@@ -386,8 +394,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                 if (TicketPagados.Count() > 0) { ViewModel.ReportesGanadores.PagadosVisibility = Visibility.Visible; EliminarTicketPagos = true; }
                 else if (TicketPagados.Count() == 0) { ViewModel.ReportesGanadores.PagadosVisibility = Visibility.Hidden; }
+                
                 if (TicketPendientePagos.Count() > 0) { ViewModel.ReportesGanadores.PendientePagarVisibility = Visibility.Visible; EliminarTicketPendientePagos = false; }
                 else if (TicketPendientePagos.Count() == 0) { ViewModel.ReportesGanadores.PendientePagarVisibility = Visibility.Hidden; }
+                
                 if (TicketSinReclamar.Count() > 0) { ViewModel.ReportesGanadores.SinReclamarVisibility = Visibility.Visible; EliminarTicketSinReclamar = false; }
                 else if (TicketSinReclamar.Count() == 0) { ViewModel.ReportesGanadores.SinReclamarVisibility = Visibility.Hidden; }
 

@@ -403,9 +403,9 @@
                         <!--_________________________________________________________________________________________________________________-->
                         <!-- ____________________________________________________ Ticket Pendientes De Pagos ____________________________________________________ -->
 
-                        <Label Grid.ColumnSpan="4"  Grid.Column="0" Visibility="{Binding ReportesGanadores.PendientePagarVisibility}" Grid.Row="{Binding ReportesGanadores.PosicionTituloPendientesPagos}" FontSize="14" Height="Auto" Width="Auto" FontWeight="Bold" Foreground="White" Background="MediumSeaGreen"  Content="Ticket Pendientes De" HorizontalAlignment="Stretch"></Label>
+                        <Label Grid.ColumnSpan="4"  Grid.Column="0" Visibility="{Binding ReportesGanadores.PendientePagarVisibility}" Grid.Row="{Binding ReportesGanadores.PosicionTituloPendientesPagos}" FontSize="14" Height="Auto" Width="Auto" FontWeight="Bold" Foreground="White" Background="MediumSeaGreen" HorizontalContentAlignment="Center"  Content="Ticket Pendientes De Pago" HorizontalAlignment="Stretch"></Label>
 
-                        <DataGrid Visibility="{Binding ReportesGanadores.PendientePagarVisibility}" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="{Binding ReportesGanadores.PosicionTituloPendientesPagos}" ItemsSource="{Binding ReportesGanadores.PendientesPagar}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid Visibility="{Binding ReportesGanadores.PendientePagarVisibility}" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="{Binding ReportesGanadores.PosicionTablaPendientesPagos}" ItemsSource="{Binding ReportesGanadores.PendientesPagar}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Resources>
                                 <Style TargetType="DataGridCell" x:Key="AlignLeft">
                                     <Style.Setters >
@@ -718,10 +718,10 @@
                         </DataGrid.Resources>
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="columnaTarjeta1" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*" Header="Suplidor"  Binding="{Binding Suplidor}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
-                            <DataGridTextColumn x:Name="columnaTarjeta2" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*" Header="Hora" Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="columnaTarjeta1" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}"  Width="*" Header="Suplidor"  Binding="{Binding Suplidor}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="columnaTarjeta2" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}"  Width="*" Header="Hora" Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                             <DataGridTextColumn x:Name="columnaTarjeta3" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*" Header="Precio." Binding="{Binding Precio}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
-                            <DataGridTextColumn x:Name="columnaTarjeta4" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="*" Header="Serie" Binding="{Binding Serie}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                            <DataGridTextColumn x:Name="columnaTarjeta4" HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}"  Width="*" Header="Serie" Binding="{Binding Serie}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid Grid.Column="0" Grid.Row="2" Width="{Binding ElementName=TempleateListaTarjetas,Path=Width}" HorizontalAlignment="Stretch" Grid.ColumnSpan="4" Height="25px" Margin="0,0,18,0" Background="MediumSeaGreen" VerticalAlignment="Bottom">
