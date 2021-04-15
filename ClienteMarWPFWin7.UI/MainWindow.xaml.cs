@@ -21,13 +21,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using ClienteMarWPFWin7.UI.Modules.Configuracion;
 #endregion
 
 namespace ClienteMarWPFWin7.UI
 {
     public partial class MainWindow : Window
     {
-
+        private readonly MainWindowViewModel _viewmodel;
         public MainWindow(MainWindowViewModel dataContext)
         {
             InitializeComponent();
@@ -268,6 +269,24 @@ namespace ClienteMarWPFWin7.UI
                     {
                         Close();
                     }
+
+                   
+
+                    if (e.Key == Key.F4)
+                    {
+                        var main = Application.Current.MainWindow;
+                        var ventana = new ConfiguracionView(main, DataContext);
+                        ventana.Owner = main;
+                        ventana.ShowDialog();
+                    }
+
+                    //if ((bool)ventana.ShowDialog())
+                    //{
+                    //    if( e.Key == Key.Escape)
+                    //    {
+                    //        ventana.Close();
+                    //    }
+                    //}
 
                     //if ((e.Key == Key.System && e.SystemKey == Key.F9) && Keyboard.Modifiers == ModifierKeys.Alt) // Alt + F9
                     //{

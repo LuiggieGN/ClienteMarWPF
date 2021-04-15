@@ -91,14 +91,14 @@
 
         <StackPanel x:Name="StackPanelMain" DockPanel.Dock="Top" >
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Home}">
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Home}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="AttachMoney" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <Label Content="Balances - F1" VerticalContentAlignment="Center" Margin="9 0" Foreground="White"  FontSize="15"/>
                 </StackPanel>
             </Button>
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Sorteos}">
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Sorteos}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="CashRegister" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Sorteos - F2" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -132,21 +132,21 @@
             </Expander>
 
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}" Visibility="{Binding Permisos.PuedeVenderRecargas, Converter={ StaticResource BooleanToVisibilityConverter }}">
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}" Visibility="{Binding Permisos.PuedeVenderRecargas, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Telephone" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Recargas" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Dice5" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Cinco Minutos" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}"  Visibility="{Binding Permisos.Servicios, Converter={ StaticResource BooleanToVisibilityConverter }}">
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}"  Visibility="{Binding Permisos.Servicios, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="BulbOn" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Paga Facil" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -221,7 +221,7 @@
 
 
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="FileDocumentBoxSearch" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Reportes - F3" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -229,15 +229,15 @@
             </Button>
 
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Mensajeria}" >
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Mensajeria}" >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Chat" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <Label  Content="Mensajeria - F10" Margin="9 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
-            </Button>            
-            
-            
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}"  CommandParameter="{x:Static nav:Modulos.Reporte}" >
+            </Button>
+
+
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}"  CommandParameter="{x:Static nav:Modulos.Reporte}" >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="WifiOff" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Ventas locales" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -262,7 +262,7 @@
 
             <Separator BorderBrush="Orange"  Margin="10 10 10 0" Background="#00A8E8" />
 
-            <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding LogoutCommand}" Click="Button_Click">
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding LogoutCommand}" Click="Button_Click">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Logout" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Salir" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>

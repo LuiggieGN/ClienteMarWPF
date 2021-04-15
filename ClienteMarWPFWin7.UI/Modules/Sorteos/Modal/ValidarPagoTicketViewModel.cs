@@ -48,7 +48,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             ConsultarTicketCommand = new ConsultarTicketCommand(this, autenticador, sorteosService);
             PagarTicketCommand = new PagarTicketCommand(this, autenticador, sorteosService);
             AnularTicketCommand = new AnularTicketCommand(this, autenticador, sorteosService);
-            ReimprimirTicketCommand =new CopiarTicketCommand(viewModel, autenticador, sorteosService,true,this);
+            ReimprimirTicketCommand = new CopiarTicketCommand(viewModel, autenticador, sorteosService,true,this);
             CopiarTicketCommand = new CopiarTicketCommand(viewModel, autenticador, sorteosService,false,this);
             SorteoVM = viewModel;            
             //this.TicketNumero = new SorteosView().GetTicketNumeroPrecargar();
@@ -239,5 +239,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                 NotifyPropertyChanged(nameof(TotalVentas));
             }
         }
+
+      
     }
 }

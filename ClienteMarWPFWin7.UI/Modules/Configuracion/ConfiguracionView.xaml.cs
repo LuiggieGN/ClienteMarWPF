@@ -38,14 +38,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
 
         private void ConfiguracionWindow_Loaded(object sender, RoutedEventArgs e)
         {
+
             if (ParentWindow != null)
             {
                 this.Left = ParentWindow.Left + (ParentWindow.Width - this.ActualWidth) / 2;
                 this.Top = ParentWindow.Top + (ParentWindow.Height - this.ActualHeight) / 2;
+                
             }
             else
             {
                 CenterWindowOnScreen();
+               
             }
         }
 
@@ -75,10 +78,18 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
                 case Key.Right:
                     BotonAutorizar.Focus();
                     break;
-        
-                case Key.Down:
-                    BotonAutorizar.Focus();
+
+                case Key.Escape:
+                    if(bancaid.IsFocused || !bancaid.IsFocused)
+                    {
+                        if (PanelConfiguracion.Visibility == Visibility.Visible)
+                        {
+                            Cerrar(sender, e);
+                        }
+                    }
+                   
                     break;
+               
             }
         }
 
@@ -88,11 +99,26 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-            if ( e.Handled )
+            if (e.Handled)
             {
-                Button_Click(sender, e);
+                if (Keyboard.IsKeyDown(Key.Enter))
+                {
+                    Button_Click(sender, e);
+                }
             }
-           
+               
+            if(!e.Handled || e.Handled)
+            {
+                if (Keyboard.IsKeyDown(Key.Escape))
+                {
+                    if(PanelAutoriacion.Visibility == Visibility.Visible && PanelConfiguracion.Visibility == Visibility.Collapsed)
+                    {
+                        Button_Click_1(sender, e);
+                    }
+
+                }
+            }
+
         }
 
 
@@ -147,5 +173,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
         {
             Close();
         }
+
+       
     }
 }
