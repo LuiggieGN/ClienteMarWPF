@@ -85,7 +85,8 @@
 
 
 
-                        <ComboBox                    
+                        <ComboBox  
+                                   x:Name="ComboTransferir"
                                    Grid.Row="0"
                                    Grid.Column="1"
                                    FontSize="16"
@@ -100,7 +101,9 @@
                                    IsEditable="False"
                                    ItemsSource="{Binding Path=ComboTransferirOpciones}"
                                    SelectedItem="{Binding Path=ComboTransferirSeleccion}"        
-                                   BorderThickness="1">
+                                   BorderThickness="1"
+                                   KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" >
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" 
@@ -177,7 +180,9 @@
                                      Margin="0 0 0 25" >
 
                             <StackPanel Orientation="Horizontal">
-                                <Border BorderBrush="#FFE6DDDD" BorderThickness="1" Margin="0 3 3 3" >
+                                <Border BorderBrush="#FFE6DDDD" 
+                                        BorderThickness="1" 
+                                        Margin="0 3 3 3" >
                                     <PasswordBox
                                                 x:Name="PasswordControl"     
                                                 FontSize="20"
@@ -189,25 +194,23 @@
                                                 HorizontalContentAlignment="Center"
                                                 VerticalContentAlignment="Center"
                                                 materialDesign:HintAssist.Hint="Id de Gestor"          
-                                                behaviours:SeleccionaTodoBehaviour.Habilitado="True" Width="271"       
+                                                behaviours:SeleccionaTodoBehaviour.Habilitado="True"
+                                                Width="271"       
                                                 SnapsToDevicePixels="True"
-                                                BorderBrush="Transparent"/>
+                                                BorderBrush="Transparent"
+                                                KeyDown="OnKeyDown"
+                                                GotFocus="OnFocus" />
                                 </Border>
-
-
-                                <!--<Button  Width="80"
-                                            Height="45"                                
-                                            Margin="0 0 3 0"                                          
-                                            Style="{DynamicResource btn-secondary}">
-                                    <materialDesign:PackIcon Kind="Undo" VerticalAlignment="Center" Width="30" Height="30"/>
-                                </Button>-->
 
                                 <Button Width="80"
                                             Height="45"                                
                                             Margin="0"                                            
                                             Style="{DynamicResource btn-success}"
                                             Click="SeleccionarGestor">
-                                    <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center" Width="30" Height="30" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="F5 " FontSize="18" Margin="0 3 0 0"/>
+                                        <materialDesign:PackIcon Kind="Check" VerticalAlignment="Center" Width="30" Height="30" />
+                                    </StackPanel>
                                 </Button>
                             </StackPanel>
                             <StackPanel Orientation="Vertical">
@@ -265,6 +268,7 @@
                                               Margin="0 0 0 10"
                                          >
                                     <TextBox
+                                            x:Name="TxtInfoGestor1"
                                             FontSize="16"
                                             FontWeight="Medium"
                                             Height="45"
@@ -276,7 +280,8 @@
                                             BorderBrush="Transparent"
                                             BorderThickness="0"
                                             Text="{Binding NomGestor, UpdateSourceTrigger=PropertyChanged }"
-                                        />
+                                            KeyDown="OnKeyDown"
+                                            GotFocus="OnFocus" />
                                 </StackPanel>
 
 
@@ -301,6 +306,7 @@
                                               Orientation="Vertical"                           
                                               Margin="0 0 0 10" >
                                     <TextBox
+                                            x:Name="TxtInfoBanca1"
                                             FontSize="16"
                                             FontWeight="Medium"
                                             Height="45"
@@ -312,7 +318,8 @@
                                             BorderBrush="Transparent"
                                             BorderThickness="0"
                                             Text="{Binding NomBanca, UpdateSourceTrigger=PropertyChanged }"                                            
-                                        />
+                                            KeyDown="OnKeyDown" 
+                                            GotFocus="OnFocus" />
                                 </StackPanel>
 
                             </Grid>
@@ -351,6 +358,7 @@
                                               Margin="0 0 0 10"
                                          >
                                     <TextBox
+                                            x:Name="TxtInfoBanca2"
                                             FontSize="16"
                                             FontWeight="Medium"
                                             Height="45"
@@ -362,7 +370,8 @@
                                             BorderBrush="Transparent"
                                             BorderThickness="0"
                                             Text="{Binding NomBanca, UpdateSourceTrigger=PropertyChanged }"                                          
-                                        />
+                                            KeyDown="OnKeyDown" 
+                                            GotFocus="OnFocus" />
                                 </StackPanel>
 
 
@@ -387,6 +396,7 @@
                                               Orientation="Vertical"                           
                                               Margin="0 0 0 10" >
                                     <TextBox
+                                            x:Name="TxtInfoGestor2"
                                             FontSize="16"
                                             FontWeight="Medium"
                                             Height="45"
@@ -398,7 +408,8 @@
                                             BorderBrush="Transparent"
                                             BorderThickness="0"
                                             Text="{Binding NomGestor, UpdateSourceTrigger=PropertyChanged }"
-                                        />
+                                            KeyDown="OnKeyDown"
+                                            GotFocus="OnFocus" />
                                 </StackPanel>
 
                             </Grid>
@@ -428,6 +439,7 @@
                                      Margin="0 0 0 10"                            
                                 >
                             <TextBox
+                                   x:Name="TxtComentario"                                
                                    FontSize="16"
                                    FontWeight="Medium"
                                    Height="70"
@@ -435,11 +447,13 @@
                                    TextAlignment="Left"
                                    Padding="0 0 0 0"  
                                    TextWrapping="Wrap"
-                                   AcceptsReturn="True"
+                                   AcceptsReturn="False"
                                    VerticalScrollBarVisibility="Visible"                               
                                    materialDesign:HintAssist.Hint="Ingrese un comentario"
                                    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}" 
-                                   Text="{Binding Comentario, UpdateSourceTrigger=PropertyChanged}"  />
+                                   Text="{Binding Comentario, UpdateSourceTrigger=PropertyChanged}"
+                                   KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" />
                         </StackPanel>
 
 
@@ -468,6 +482,7 @@
                                 >
 
                             <TextBox
+                                   x:Name="TxtCajera" 
                                    FontSize="16"
                                    FontWeight="Medium"
                                    Height="45"
@@ -479,7 +494,8 @@
                                    DataContext="{Binding Path= InputCajera}"
                                    Visibility="{Binding Muestro, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Text="{Binding Cajera, UpdateSourceTrigger=PropertyChanged}"
-                               />
+                                   KeyDown="OnKeyDown" 
+                                   GotFocus="OnFocus" />
                         </StackPanel>
 
 
@@ -506,6 +522,7 @@
                                 >
 
                             <TextBox
+                                   x:Name="TxtMonto"                                 
                                    FontSize="16"
                                    FontWeight="Medium"
                                    Height="45"
@@ -517,7 +534,8 @@
                                    behaviours:SoloNumerosBehaviour.Habilitado="True"   
                                    behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                    Text="{Binding Monto, UpdateSourceTrigger=PropertyChanged }"
-                               />
+                                   KeyDown="OnKeyDown"
+                                   GotFocus="OnFocus" />
                         </StackPanel>
 
 
@@ -534,14 +552,14 @@
                         <Button Width="200" 
                                             Height="40"
                                             Margin="5"
-                                            Content="Restablecer" 
+                                            Content="Restablecer - F9" 
                                             Style="{DynamicResource btn-secondary}"
                                             Click="Restablecer"/>
 
                         <Button Width="200"
                                             Height="40"                                
                                             Margin="5"
-                                            Content="Registrar" 
+                                            Content="Registrar - F12 ( + )" 
                                             Style="{DynamicResource btn-success}"
                                             Visibility="{Binding  MuestroBotonNuevaTrasferencia, Converter={StaticResource BooleanToVisibilityConverter}}" 
                                             Command="{Binding AbrirModalTokenCommand}" />

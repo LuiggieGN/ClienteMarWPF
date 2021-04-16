@@ -116,11 +116,6 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
                 if (e.Key == Key.Enter)
                 {
                     e.Handled = true;
-
-                    //if (!Submit()) // -- Aqui valido si se puede hacer el submit y lo realizo de lo contrario se enfoca el proximo
-                    //{
-                    //    FallowNext();
-                    //}
                     FallowNext();
                 }
                 else if (e.Key == Key.Tab)
@@ -136,12 +131,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
 
                 if (e.Key == Key.Enter)
                 {
-                    e.Handled = true;
-
-                    //if (!Submit()) // -- Aqui valido si se puede hacer el submit y lo realizo de lo contrario se enfoca el proximo
-                    //{
-                    //    FallowNext();
-                    //}
+                    e.Handled = true; 
                     FallowNext();
 
                 }
@@ -153,44 +143,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1
                 }
             }
         }
-
-
-        //private bool Submit()  // Esto realiza el submit de los datos 
-        //{
-        //    bool canSubmit = false;
-
-        //    bool combo1 = ComboQueHaras.SelectedItem != null,
-        //         combo2 = ComboQueHaras.SelectedItem != null,
-        //         inputConcepto = true,
-        //         inputComentario = !InputHelper.InputIsBlank(txtComentario.Text),
-        //         inputCajera = true,
-        //         inputMonto = !InputHelper.InputIsBlank(txtMonto.Text);
-
-        //    if (txtConcepto.IsVisible)
-        //    {
-        //        inputConcepto = !InputHelper.InputIsBlank(txtConcepto.Text);
-        //    }
-
-        //    if (txtCajera.IsVisible)
-        //    {
-        //        inputCajera = !InputHelper.InputIsBlank(txtCajera.Text);
-        //    }
-
-        //    if (combo1 && combo2 && inputConcepto && inputComentario && inputCajera && inputMonto)
-        //    {
-        //        canSubmit = true;
-
-        //        var vm = DataContext as EnCajaViewModel;
-
-        //        if (vm != null)
-        //        {
-        //            vm.AgregarMovimientoEnCajaCommand.Execute(null);
-        //        }
-        //    }
-
-        //    return canSubmit;        
-        //}
-
+        
         private void FallowNext() 
         {
             if (ComboQueHaras.IsFocused)

@@ -22,6 +22,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public ICommand ValidarPagoTicketCommand { get; }
         //public ICommand CopiarTicketCommand { get; }
 
+        public  IAuthenticator Autenticador { get; }
+
         public ObservableCollection<MAR_Bet> listaTicketsJugados;
         public ObservableCollection<UltimosSorteos> ganadores;
         public ObservableCollection<MAR_Bet> listadoTicketPrecargada;
@@ -34,6 +36,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         public SorteosViewModel(IAuthenticator autenticador, ISorteosService sorteosService)
         {
+            Autenticador = autenticador;
             RealizarApuestaCommand = new RealizarApuestaCommand(this, autenticador, sorteosService);
             //GetListadoTicketsCommand = new GetListadoTicketsCommand(this, autenticador, sorteosService,null);
             GetGanadoresCommand = new GetGanadoresCommand(this, autenticador, sorteosService);

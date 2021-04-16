@@ -117,10 +117,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
                         _viewmodel.Monto = string.Empty;
                         _viewmodel.Toast.ShowSuccess("Operación Completada");
                         ImprimirTransaccion(result);
+                        _viewmodel.FocusOperacionCompletada?.Invoke();
                     }
                     else
                     {
                         _viewmodel.Toast.ShowError("Ha ocurrido un error al procesar la operación");
+                        _viewmodel.FocusAlFallar?.Invoke();
                     }
                 }
                 catch
