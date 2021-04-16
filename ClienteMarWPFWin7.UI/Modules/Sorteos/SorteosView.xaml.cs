@@ -25,7 +25,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using static ClienteMarWPFWin7.Domain.Models.Dtos.SorteosDisponibles;
-
+using ClienteMarWPFWin7.Data.Services;
 
 namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 {
@@ -41,7 +41,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private List<string> NumerosJugados;
         private static string ticketSeleccionado;
         private string teclaSeleccionada="";
-      
+        private DispatcherTimer Timer;
+
         public string vista { get; set; }
         
 
@@ -80,14 +81,48 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
             combinations = SessionGlobals.SuperPaleDisponibles;
             listSorteo.DataContext = SorteosBinding;
-            
-          
+
+            //Timer que corre cada x segundos
+            Timer = new DispatcherTimer();
+            Timer.Tick += new EventHandler(RunEachTime);
+            Timer.Interval = TimeSpan.FromSeconds(5);
+            Timer.Start();
             //MostrarSorteos();
         }
 
-      
-    #region LOGICA PARA SORTEOS
-    private void ValidateSelectOnlyTwo()
+
+        private void RunEachTime(object sender, EventArgs e)
+        {
+            try
+            {
+                var sorteos = new SorteosDataService();
+                var sessionHacienda = new ClienteMarWPFWin7.Domain.HaciendaService.MAR_Session();
+
+                var vm = DataContext as SorteosViewModel;
+                var setting = vm.Autenticador.CurrentAccount.MAR_Setting2;
+
+                var sessionPuntoVenta = setting.Sesion;
+                sessionHacienda.Banca = sessionPuntoVenta.Banca;
+                sessionHacienda.Usuario = sessionPuntoVenta.Usuario;
+                sessionHacienda.Sesion = sessionPuntoVenta.Sesion;
+                sessionHacienda.Err = sessionPuntoVenta.Err;
+                sessionHacienda.LastTck = sessionPuntoVenta.LastTck;
+                sessionHacienda.LastPin = sessionPuntoVenta.LastPin;
+                sessionHacienda.PrinterSize = sessionPuntoVenta.PrinterSize;
+                sessionHacienda.PrinterHeader = sessionPuntoVenta.PrinterHeader;
+                sessionHacienda.PrinterFooter = sessionPuntoVenta.PrinterFooter;
+                var sorteosdisponibles = sorteos.GetSorteosDisponibles(sessionHacienda);
+                SessionGlobals.GetLoteriasDisponibles(setting.Loterias, sorteosdisponibles);
+
+            }
+            catch
+            {
+
+            }
+        }
+
+        #region LOGICA PARA SORTEOS
+        private void ValidateSelectOnlyTwo()
         {
             if (CrearSuper.IsChecked == true)
             {

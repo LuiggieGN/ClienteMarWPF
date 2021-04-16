@@ -53,10 +53,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
                     {
                         DesplegarVentanaDeToken();
                     }
+                    else
+                    {
+                        _viewmodel.FocusCuandoHayErrorEnElModeloACrear?.Invoke();
+                    }
                 }
                 catch
                 {
                     _viewmodel.Toast.ShowError("Ha ocurrido un error al procesar la operación. Verificar conexión de Internet");
+                    _viewmodel.FocusAlFallar?.Invoke();
                 }
             }
         }
@@ -76,7 +81,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
             _viewmodel.MovimientoVm.Dialog = new DialogoTokenViewModel(
                 $"{tokenPosicion}",
                 secretToken,
-                new ActionCommand((object p) => _viewmodel.MovimientoVm.Dialog.Ocultar()),
+                new ActionCommand((object p) => {
+                    
+                    _viewmodel.MovimientoVm.Dialog.Ocultar();
+                    _viewmodel.FocusAlFallar?.Invoke();
+                }),
                 new RegistrarTransferenciaCommand(_viewmodel, _cajaService)
             );
 

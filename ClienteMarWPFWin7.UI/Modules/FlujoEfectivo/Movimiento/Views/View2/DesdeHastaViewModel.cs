@@ -49,6 +49,15 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View2
         private string _formImageSource;
         #endregion
 
+
+        #region Action
+        public Action FocusEnCambioDeTipoDeTransferencia { get; set; }
+        public Action FocusOperacionCompletada { get; set; }
+        public Action FocusAlFallar { get; set; }
+        public Action FocusCuandoHayErrorEnElModeloACrear { get; set; }
+        #endregion
+
+
         #region Propiedades
         public IAuthenticator Aut => _aut;
         public MovimientoViewModel MovimientoVm => _movimientoVm;
@@ -95,6 +104,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View2
                                       nameof(EsSalidaParaLaBanca),
                                       nameof(InputCajera),
                                       nameof(FormImageSource));
+
+                FocusEnCambioDeTipoDeTransferencia?.Invoke();
             }
         }
         public ObservableCollection<ComboboxTransferir> ComboTransferirOpciones

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Modal
 {
@@ -89,6 +90,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Modal
             Visibility = Visibility.Visible;
             _padreFueHabilitado = OverlayOn.IsEnabled;
             OverlayOn.IsEnabled = false;
+
+            PasswordPin.Focus();
         }
 
 
@@ -104,6 +107,18 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Modal
         {
             InitializeComponent();
             Visibility = Visibility.Hidden;
+            PasswordPin.Focus();
+
+            //var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(400) };
+            //timer.Tick += (sender, args) =>
+            //{
+            //    timer.Stop();
+            //    PasswordPin.Focus();
+            //};
+
+            //timer.Start();
+
+
         }
 
 
@@ -115,6 +130,16 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Modal
             }
         }
 
+        private void root_Loaded(object sender, RoutedEventArgs e)
+        {
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(400) };
+            timer.Tick += (s1, args) =>
+            {
+                timer.Stop();
+                PasswordPin.Focus();
+            };
 
+            timer.Start();
+        }
     }//fin de clase
 }

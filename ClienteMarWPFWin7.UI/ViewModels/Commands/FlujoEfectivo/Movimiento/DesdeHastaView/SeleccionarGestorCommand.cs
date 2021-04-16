@@ -45,42 +45,59 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
 
                     var datosGestor = _multipleService.LeerUsuarioSuCajaYSuTarjetaPorPinDeUsuario(pin);
                     
-                    SetGestor(datosGestor);
+                    var esValido = SetGestor(datosGestor);
+
+                    if (esValido)
+                    {
+                        pass.Clear();
+                        _viewmodel.FocusOperacionCompletada?.Invoke();
+                    }
+                    else
+                    {
+                        pass.Clear();
+                        pass.Focus();
+                    }
                 }
                 catch
                 {
                     SetInvalidGestor();
                     _viewmodel.Toast.ShowError("Ha ocurrido un error al procesar la operación. Verificar conexión de Internet");
+                    pass.Clear();
+                    pass.Focus();
                 }
+            }
+            else
+            {
+                pass.Clear();
+                pass.Focus();
             } 
 
-            pass.Clear();
-            pass.Focus();
+
         }
 
 
         #region Validaciones de SubMit
-        private void SetGestor(MultipleDTO<MUsuarioDTO, CajaDTO, TarjetaDTO> gestor)
+        private bool SetGestor(MultipleDTO<MUsuarioDTO, CajaDTO, TarjetaDTO> gestor)
         {
             if (gestor.PrimerDTO == null) // Si esto es asi el usuario no fue encontrado
             {
                 SetInvalidGestor();
                 _viewmodel.Errores.AgregarError(nameof(_viewmodel.PinGestor), "* Número de pin inválido");
-                return;
+                return false;
             }
 
             if (gestor.PrimerDTO.UsuActivo == false)
             {
                 SetInvalidGestor();
                 _viewmodel.Errores.AgregarError(nameof(_viewmodel.PinGestor), "* Usuario deshabilitado.");
-                return;
+                return false;
             }
 
             if (gestor.SegundoDTO == null)
             {
                 SetInvalidGestor();
                 _viewmodel.Errores.AgregarError(nameof(_viewmodel.PinGestor), "* Usuario no posee Control de Efectivo activo.");
-                return;
+                return false;
             }
 
             if (gestor.TercerDTO == null ||
@@ -89,10 +106,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
             {
                 SetInvalidGestor();
                 _viewmodel.Errores.AgregarError(nameof(_viewmodel.PinGestor), "* No posee tarjeta de tokens. Favor.. Contactarse con supervisor.");
-                return;
+                return false;
             }
 
-            SetValidGestor(gestor);
+            SetValidGestor(gestor); return true;
         }
 
         private void ResetErrors()
