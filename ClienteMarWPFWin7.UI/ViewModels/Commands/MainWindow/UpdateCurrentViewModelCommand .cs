@@ -6,6 +6,7 @@ using System.Windows.Input;
 
 using ClienteMarWPFWin7.Domain.Enums;
 using ClienteMarWPFWin7.UI.Modules.Home;
+using ClienteMarWPFWin7.UI.Modules.Sorteos;
 using ClienteMarWPFWin7.UI.State.Navigators;
 using ClienteMarWPFWin7.UI.ViewModels;
 using ClienteMarWPFWin7.UI.ViewModels.Factories;
@@ -37,6 +38,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.MainWindow
             if (HomeViewModel.Worker != null && HomeViewModel.Worker.WorkerSupportsCancellation)
             {
                 HomeViewModel.Worker.CancelAsync();
+            }
+
+            if (SorteosView.Timer != null )
+            {
+                SorteosView.Timer.Stop();
+                SorteosView.Timer = null;
             }
 
             if (parameter is Modulos)

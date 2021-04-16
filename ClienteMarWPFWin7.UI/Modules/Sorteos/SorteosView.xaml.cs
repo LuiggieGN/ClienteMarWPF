@@ -41,7 +41,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private List<string> NumerosJugados;
         private static string ticketSeleccionado;
         private string teclaSeleccionada="";
-        private DispatcherTimer Timer;
+        public  static DispatcherTimer Timer { get; set; } 
 
         public string vista { get; set; }
         
@@ -82,6 +82,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             combinations = SessionGlobals.SuperPaleDisponibles;
             listSorteo.DataContext = SorteosBinding;
 
+            if (Timer != null)
+            {
+                Timer.Stop();
+            }
             //Timer que corre cada x segundos
             Timer = new DispatcherTimer();
             Timer.Tick += new EventHandler(RunEachTime);
@@ -99,21 +103,24 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 var sessionHacienda = new ClienteMarWPFWin7.Domain.HaciendaService.MAR_Session();
 
                 var vm = DataContext as SorteosViewModel;
-                var setting = vm.Autenticador.CurrentAccount.MAR_Setting2;
 
-                var sessionPuntoVenta = setting.Sesion;
-                sessionHacienda.Banca = sessionPuntoVenta.Banca;
-                sessionHacienda.Usuario = sessionPuntoVenta.Usuario;
-                sessionHacienda.Sesion = sessionPuntoVenta.Sesion;
-                sessionHacienda.Err = sessionPuntoVenta.Err;
-                sessionHacienda.LastTck = sessionPuntoVenta.LastTck;
-                sessionHacienda.LastPin = sessionPuntoVenta.LastPin;
-                sessionHacienda.PrinterSize = sessionPuntoVenta.PrinterSize;
-                sessionHacienda.PrinterHeader = sessionPuntoVenta.PrinterHeader;
-                sessionHacienda.PrinterFooter = sessionPuntoVenta.PrinterFooter;
-                var sorteosdisponibles = sorteos.GetSorteosDisponibles(sessionHacienda);
-                SessionGlobals.GetLoteriasDisponibles(setting.Loterias, sorteosdisponibles);
+                if (vm != null)
+                {
+                    var setting = vm.Autenticador.CurrentAccount.MAR_Setting2;
 
+                    var sessionPuntoVenta = setting.Sesion;
+                    sessionHacienda.Banca = sessionPuntoVenta.Banca;
+                    sessionHacienda.Usuario = sessionPuntoVenta.Usuario;
+                    sessionHacienda.Sesion = sessionPuntoVenta.Sesion;
+                    sessionHacienda.Err = sessionPuntoVenta.Err;
+                    sessionHacienda.LastTck = sessionPuntoVenta.LastTck;
+                    sessionHacienda.LastPin = sessionPuntoVenta.LastPin;
+                    sessionHacienda.PrinterSize = sessionPuntoVenta.PrinterSize;
+                    sessionHacienda.PrinterHeader = sessionPuntoVenta.PrinterHeader;
+                    sessionHacienda.PrinterFooter = sessionPuntoVenta.PrinterFooter;
+                    var sorteosdisponibles = sorteos.GetSorteosDisponibles(sessionHacienda);
+                    SessionGlobals.GetLoteriasDisponibles(setting.Loterias, sorteosdisponibles);
+                }
             }
             catch
             {
