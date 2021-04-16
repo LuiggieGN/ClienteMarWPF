@@ -141,8 +141,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     case "Header":
                         WriteText(g, AUTENTICATION.BancaConfiguracion.BancaDto.BanNombre+" ID:"+ AUTENTICATION.BancaConfiguracion.BancaDto.BancaID , FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "REPORTE DE VENTAS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: "+nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
@@ -259,8 +261,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     case "Header":
                         WriteText(g, AUTENTICATION.BancaConfiguracion.BancaDto.BanNombre + " ID:" + AUTENTICATION.BancaConfiguracion.BancaDto.BancaID, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "LISTA DE NUMEROS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "","","","","","" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
                         break;
@@ -409,10 +413,12 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     case "Header":
                         WriteText(g, AUTENTICATION.BancaConfiguracion.BancaDto.BanNombre + " ID:" + AUTENTICATION.BancaConfiguracion.BancaDto.BancaID, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "LISTADO DE TICKETS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
+                        WriteTextColumn(g, new List<string> { ".", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
                         break;
                  
@@ -486,8 +492,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     case "Header":
                         WriteText(g, AUTENTICATION.BancaConfiguracion.BancaDto.BanNombre + " ID:" + AUTENTICATION.BancaConfiguracion.BancaDto.BancaID, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "SUMA DE VENTAS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
                         break;
@@ -558,8 +566,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     case "Header":
                         WriteText(g, AUTENTICATION.BancaConfiguracion.BancaDto.BanNombre + " ID:" + AUTENTICATION.BancaConfiguracion.BancaDto.BancaID, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "TICKET GANADORES", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
@@ -714,8 +724,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     case "Header":
                         WriteText(g, AUTENTICATION.BancaConfiguracion.BancaDto.BanNombre + " ID:" + AUTENTICATION.BancaConfiguracion.BancaDto.BancaID, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "PAGOS REMOTOS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
                         break;
@@ -776,11 +788,14 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         break;
                     case "Header":
                         WriteText(g, AUTENTICATION.BancaConfiguracion.BancaDto.BanNombre + " ID:" + AUTENTICATION.BancaConfiguracion.BancaDto.BancaID, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, "LISTADO DE TARJETAS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, "VENTAS POR FECHA", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
+                        WriteText(g, "Desde: " + FechaHelper.FormatFecha(Convert.ToDateTime(ViewModel.FechaInicio),
+                                    FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, "Hasta: " + FechaHelper.FormatFecha(Convert.ToDateTime(ViewModel.FechaFin),
+                                    FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteTextColumn(g, new List<string> { ".", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
                         break;
 
@@ -851,12 +866,15 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         break;
                     case "Header":
                         WriteText(g, AUTENTICATION.BancaConfiguracion.BancaDto.BanNombre + " ID:" + AUTENTICATION.BancaConfiguracion.BancaDto.BancaID, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, "LISTADO DE TARJETAS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, "VENTAS POR FECHA", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
-
-                        break;
+                         WriteText(g, "Desde: "+ FechaHelper.FormatFecha(Convert.ToDateTime(ViewModel.FechaInicio),
+                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, "Hasta: " + FechaHelper.FormatFecha(Convert.ToDateTime(ViewModel.FechaFin),
+                                    FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteTextColumn(g, new List<string> { ".", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
+                       break;
 
                     case "VentasFecha":
                         WriteTextColumn(g, new List<string> { "Fecha  ", "Venta", "Comis.", "Saco", "Balan." }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
