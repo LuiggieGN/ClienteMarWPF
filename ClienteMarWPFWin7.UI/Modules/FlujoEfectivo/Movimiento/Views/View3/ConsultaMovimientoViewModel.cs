@@ -67,6 +67,11 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View3
         public ICommand ConsultarMovimientosCommand { get; private set; }
         #endregion
 
+        #region Actions
+        public Action FocusOperacionCompletada { get; set; }
+        public Action FocusOperacionFallida { get; set; }
+        #endregion
+
         public ConsultaMovimientoViewModel(IAuthenticator aut, ICajaService cajaService)
         {
             _toast = new ToastViewModel();
