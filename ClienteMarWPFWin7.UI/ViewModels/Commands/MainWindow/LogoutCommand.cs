@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using ClienteMarWPFWin7.Domain.Enums;
 using ClienteMarWPFWin7.UI.Extensions;
 using ClienteMarWPFWin7.UI.Modules.Home;
+using ClienteMarWPFWin7.UI.Modules.Sorteos;
 using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.State.Navigators;
 using ClienteMarWPFWin7.UI.ViewModels;
@@ -44,6 +45,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.MainWindow
                 _viewModelFactory != null
                 )
             {
+                CierraTodosLosTimersPendientes();
 
                 CierraTodosLosPendientesBackgroundWorkers();
 
@@ -56,6 +58,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.MainWindow
         }
 
 
+
+        private void CierraTodosLosTimersPendientes() 
+        {
+            if (SorteosView.Timer != null)
+            {
+                SorteosView.Timer.Stop();
+
+                SorteosView.Timer = null;
+            }
+
+        }
 
 
         private void CierraTodosLosPendientesBackgroundWorkers()
