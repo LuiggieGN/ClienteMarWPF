@@ -20,11 +20,13 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
     {
         private bool FlatCargando1 = true;
         private bool FlatCargando2 = false;
+        private bool FlatCargando3 = false;
 
         private int TabSelectedIndex;
 
         public static UIElement Tab0_LastFocusControl = null;
         public static UIElement Tab1_LastFocusControl = null;
+        public static UIElement Tab2_LastFocusControl = null;
 
         public MovimientoView()
         {
@@ -32,19 +34,22 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
 
             FlatCargando1 = true;
             FlatCargando2 = false;
+            FlatCargando3 = false;
 
             TabSelectedIndex = 0;
+
             TabsControl.SelectedIndex = TabSelectedIndex;
 
             Tab0_LastFocusControl = null;
             Tab1_LastFocusControl = null;
+            Tab2_LastFocusControl = null;
         }
 
         private void CuandoTabCambia(object sender, SelectionChangedEventArgs e)
         {
             if (e.OriginalSource == TabsControl)
             {
-                TabSelectedIndex = TabsControl.SelectedIndex; 
+                TabSelectedIndex = TabsControl.SelectedIndex;
 
                 IniciaFocusAlCambiarTab();
             }
@@ -58,16 +63,17 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
 
             switch (TabSelectedIndex)
             {
-                case 0: //@@                                                                        - Modulo de Registro Ingresos y Gastos
+                case 0: //@@                                                                        - Modulo de Registro de Ingresos y Gastos
 
                     FlatCargando1 = true;
                     FlatCargando2 = false;
+                    FlatCargando3 = false;
 
-                    var control1 = UserControl1; 
+                    var control1 = UserControl1;
 
                     if (control1 != null &&
                         control1.IsLoaded)
-                    {                   
+                    {
                         var TxtComentario = control1.txtComentario;
                         var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(400) };
 
@@ -92,18 +98,19 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                     break;
 
 
-                case 1: //@@                                                                        - Modulo de Registro Entrega y Recibo de Dinero
+                case 1: //@@                                                                        - Modulo de Registro de Entrega y Recibo de Dinero
 
                     FlatCargando1 = false;
                     FlatCargando2 = true;
+                    FlatCargando3 = false;
 
-                    var control2 = UserControl2; 
+                    var control2 = UserControl2;
 
                     if (control2 != null &&
-                        control2.IsLoaded )
+                        control2.IsLoaded)
                     {
                         var PassGestor = control2.PasswordControl;
- 
+
                         var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(400) };
 
                         if (Tab1_LastFocusControl == null)
@@ -125,6 +132,41 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                         timer.Start();
                     }
                     break;
+                case 2: //@@                                                                        - Modulo de Consulta de Movimientos
+
+                    FlatCargando1 = false;
+                    FlatCargando2 = false;
+                    FlatCargando3 = true;
+
+                    var control3 = UserControl3;
+
+                    if (control3 != null &&
+                        control3.IsLoaded)
+                    {
+                        var PickerInicio = control3.DatePickerFechaInicio;
+
+                        var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(400) };
+
+                        if (Tab2_LastFocusControl == null)
+                        {
+                            timer.Tick += (sender, args) =>
+                            {
+                                timer.Stop();
+                                PickerInicio.Focus();                                
+                            };
+                        }
+                        else
+                        {
+                            timer.Tick += (sender, args) =>
+                            {
+                                timer.Stop();
+                                Tab2_LastFocusControl.Focus();
+                            };
+                        }
+                        timer.Start();
+                    }
+                    break;
+
 
 
 
@@ -160,11 +202,29 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
             }
         }
 
+        private void Carga3(object sender, RoutedEventArgs e)
+        {
+            if (FlatCargando3 == true)
+            {
+                var consultamovimientoview = UserControl3;
+                if (consultamovimientoview != null)
+                {
+                    consultamovimientoview.CuandoVistaCarga();
+                }
+
+                IniciaFocusAlCambiarTab();
+            }
+        }
+
+
+
+
+
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (TabSelectedIndex == 0)// @@                                              - Modulo de Registro Ingresos y Gastos
+            if (TabSelectedIndex == 0)// @@                                              
             {
-                if ( e.Key == Key.F9 || (e.Key == Key.System && e.SystemKey == Key.F9))
+                if (e.Key == Key.F9 || (e.Key == Key.System && e.SystemKey == Key.F9))
                 {
                     e.Handled = true;
                     var vm = DataContext as MovimientoViewModel;
@@ -175,9 +235,9 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                     }
                 }
                 else if (
-                     ( e.Key == Key.F12 || (e.Key == Key.System && e.SystemKey == Key.F12)) ||
-                     ( e.Key == Key.Add || (e.Key == Key.System && e.SystemKey == Key.Add)  ) ||
-                     ( e.Key == Key.OemPlus || (e.Key == Key.System && e.SystemKey == Key.OemPlus)  ) 
+                     (e.Key == Key.F12 || (e.Key == Key.System && e.SystemKey == Key.F12)) ||
+                     (e.Key == Key.Add || (e.Key == Key.System && e.SystemKey == Key.Add)) ||
+                     (e.Key == Key.OemPlus || (e.Key == Key.System && e.SystemKey == Key.OemPlus))
                 )
                 {
                     e.Handled = true;
@@ -195,7 +255,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                 {
                     e.Handled = true;
                     var vm = DataContext as MovimientoViewModel;
-                    if (vm!= null)
+                    if (vm != null)
                     {
                         var desdehastaview = UserControl2;
 
@@ -263,15 +323,39 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                 }
 
 
-            }//fin else if TabSelectedIndex == 1
+            }
+            else if (TabSelectedIndex == 2)
+            {
+                if (e.Key == Key.F5 || (e.Key == Key.System && e.SystemKey == Key.F5))
+                {
+                    e.Handled = true;
+                    var vm = DataContext as MovimientoViewModel;
+                    if (vm != null && vm.View3 != null && vm.View3.From.HasValue && vm.View3.To.HasValue)
+                    {
+                        vm.View3.ConsultarMovimientosCommand?.Execute(null);
+                    }// fin if Vm
+                }
+                else if (e.Key == Key.F6 || (e.Key == Key.System && e.SystemKey == Key.F6))
+                {
+                    e.Handled = true;
 
+                    if (UserControl3 != null)
+                    {
+                        UserControl3.DatePickerFechaInicio.IsDropDownOpen = true;
+                    }
+                }
+                else if (e.Key == Key.F7 || (e.Key == Key.System && e.SystemKey == Key.F7))
+                {
+                    e.Handled = true;
 
+                    if (UserControl3 != null)
+                    {
+                        UserControl3.DatePickerFechaFin.IsDropDownOpen = true;
+                    }
+                }
+            }
 
-
-
-
-
-        }
+        }//fin de evento OnPreviewKeyDown
 
 
 

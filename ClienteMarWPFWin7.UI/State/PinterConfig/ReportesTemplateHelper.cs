@@ -871,7 +871,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 var data = GetValueForProperty(Value, item.ConfigKey) == null ? "" : GetValueForProperty(Value, item.ConfigValue);
 
                 switch (item.ConfigKey)
-                {
+                { 
                     case "Logo":
                         WriteImage(g, data.ToString(), 12);
                         break;

@@ -69,12 +69,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Cons
                     _viewmodel.Movimientos.VistaPaginada = result.SegundoDTO.ToListOfMovimientoObservable();
 
                     _viewmodel.PageWasChanged();
-                    
+
+                    _viewmodel.FocusOperacionCompletada?.Invoke();
                     _viewmodel.Toast.ShowSuccess("Operación Completada.");
                 }
             }
             catch
             {
+                _viewmodel.FocusOperacionFallida?.Invoke();
                 _viewmodel.Toast.ShowError("Ha ocurrido un error al procesar la operación.Verificar conexión de internet.");
             }
         }

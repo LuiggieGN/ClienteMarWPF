@@ -187,10 +187,11 @@
                                           FontSize="16"
                                           FontWeight="Medium"
                                           VerticalContentAlignment="Center"
-                                          Content="Desde"                                 
+                                          Content="Desde (F6)"                                 
                                        />
                         </StackPanel>
                         <DatePicker 
+                             x:Name="DatePickerFechaInicio"
                              Grid.Row="0"
                              Grid.Column="1" 
                              FontSize="16"
@@ -203,7 +204,10 @@
                              materialDesign:HintAssist.Hint="Fecha de Inicio"  
                              SelectedDate="{Binding Path=From, Mode=TwoWay , StringFormat='dd-mm-yyyy'}"
                              DisplayDateEnd="{Binding To, Converter={StaticResource FromDateToDateConverter}, ConverterParameter={x:Static sys:DateTime.Now}}"                   
-                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                             Keyboard.PreviewKeyUp="OnKeyUp" 
+                             GotKeyboardFocus="OnKeyboardGotFocus"
+                             KeyDown="OnKeyDown"/>
 
           
 
@@ -218,10 +222,11 @@
                                     FontSize="16"
                                     FontWeight="Medium"
                                     VerticalContentAlignment="Center"
-                                    Content="Hasta"                                 
+                                    Content="Hasta (F7)"                                 
                                       />
                         </StackPanel>
                         <DatePicker  
+                                  x:Name="DatePickerFechaFin"
                                   Grid.Row="1"
                                   Grid.Column="1"     
                                   FontSize="16"
@@ -235,7 +240,9 @@
                                   DisplayDateStart="{Binding From}"
                                   DisplayDateEnd="{x:Static sys:DateTime.Now}"
                                   Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                              />
+                                  Keyboard.PreviewKeyUp="OnKeyUp" 
+                                  KeyDown="OnKeyDown"
+                                  GotKeyboardFocus="OnKeyboardGotFocus"/>
 
                     </Grid>
 
@@ -245,7 +252,7 @@
                                     VerticalAlignment="Center"
                                     Margin="5 15 20 15">
 
-                        <Button Width="170"
+                        <Button Width="200"
                                 Height="40"                                
                                 Margin="5 5 85 5"                                       
                                 Style="{DynamicResource btn-success}"
@@ -254,7 +261,7 @@
                             <StackPanel Orientation="Horizontal" >
 
                                 <TextBlock 
-                                               Text="Consultar" 
+                                               Text="Consultar - F5" 
                                                VerticalAlignment="Center"
                                                FontSize="20"
                                                FontWeight="Medium"

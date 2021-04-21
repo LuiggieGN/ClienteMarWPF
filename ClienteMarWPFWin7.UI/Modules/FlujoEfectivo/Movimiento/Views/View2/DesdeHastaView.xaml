@@ -547,7 +547,7 @@
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Margin="0 21 0 35">
+                                Margin="0 21 17 35">
 
                         <Button Width="200" 
                                             Height="40"

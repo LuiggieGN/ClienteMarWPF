@@ -69,7 +69,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <DockPanel>
-                        <view3:ConsultaMovimientoView x:Name="UserControl3" DataContext="{Binding View3}"  />
+                        <view3:ConsultaMovimientoView x:Name="UserControl3" DataContext="{Binding View3}" Loaded="Carga3"/>
                     </DockPanel>
                 </TabItem>
 
