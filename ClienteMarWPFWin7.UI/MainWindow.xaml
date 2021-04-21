@@ -197,7 +197,7 @@
                                     </Button.Triggers>
                                     <materialDesign:PackIcon Kind="Menu" Foreground="{DynamicResource WhiteForeground}" Width="30" Height="30"/>
                                 </Button>
-                                <Button x:Name="CloseMenuSTB" DockPanel.Dock="Right" Click="CloseMenu_Click" Background="Transparent" BorderBrush="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed">
+                                <Button IsTabStop="False" Focusable="False" x:Name="CloseMenuSTB" DockPanel.Dock="Right" Click="CloseMenu_Click" Background="Transparent" BorderBrush="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed">
                                     <Button.Triggers>
                                         <EventTrigger RoutedEvent="ButtonBase.Click">
                                             <BeginStoryboard Storyboard="{StaticResource CloseMenuStoryboard}"/>
