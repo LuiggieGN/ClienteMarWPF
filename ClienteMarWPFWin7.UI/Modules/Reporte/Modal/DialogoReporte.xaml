@@ -7,7 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
              xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"             
              mc:Ignorable="d" 
-             x:Name="root">
+             x:Name="root"
+             PreviewKeyDown="PressTecla">
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -34,6 +35,17 @@
                     <TextBlock Style="{ DynamicResource ModalDialogHeaderStyle}" Text="Introduzca Rango De Fecha" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15"/>
 
                     <Grid Margin="3,22,10,3"  Grid.Row="1" >
+                        <Grid.Resources>
+                            <Style x:Key="MyFocusCheckbox">
+                                <Setter Property="Control.Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Rectangle StrokeThickness="1" Margin="-1,1,-1,1" Stroke="Black" HorizontalAlignment="Left" StrokeDashArray="1 2" SnapsToDevicePixels="true" Width="15"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Grid.Resources>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
@@ -54,7 +66,7 @@
                             <DatePicker x:Name="FechaInicio" SelectedDate="{Binding FechaInicio,StringFormat='dd/MM/yyyy'}" Grid.Row="0" Height="30px" Margin="0,0,20,0" Grid.Column="1"></DatePicker>
                             <Label FontSize="14" Grid.Row="1" HorizontalAlignment="Center" Grid.Column="0" VerticalAlignment="Center">Hasta:</Label>
                             <DatePicker  x:Name="FechaFin" SelectedDate="{Binding FechaFin,StringFormat='dd/MM/yyyy'}" Grid.Row="1" Grid.Column="1" Margin="0,0,20,0"></DatePicker>
-                            <CheckBox IsChecked="{Binding SoloTotales}" Grid.Row="2" Margin="0,0,20,0" VerticalAlignment="Top" Grid.Column="1" Content="Resumido (solo totales)"></CheckBox>
+                            <CheckBox x:Name="SoloTotales" FocusVisualStyle="{DynamicResource MyFocusCheckbox}" Focusable="True"  IsChecked="{Binding SoloTotales}" Grid.Row="2" Margin="0,0,20,0" VerticalAlignment="Top" Grid.Column="1" Content="Resumido (solo totales)"></CheckBox>
                         </Grid>
 
 
@@ -64,10 +76,21 @@
                     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="2" Margin="0 15 15 4">
                         <StackPanel Orientation="Horizontal"  
                                     HorizontalAlignment="Right">
-                            <Button Style="{DynamicResource  BotonCancelarStyle}" 
+                            <StackPanel.Resources>
+                                <Style x:Key="FocusBoton">
+                                    <Setter Property="ItemsControl.Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Border Margin="-3px -3px" BorderBrush="SpringGreen" BorderThickness="3" CornerRadius="5" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Button x:Name="btnCancelar" FocusVisualStyle="{DynamicResource FocusBoton}" Style="{DynamicResource  BotonCancelarStyle}" 
                                     Content="Cancelar" 
                                     Click="Cancelar"/>
-                            <Button Style="{DynamicResource BotonAceptarStyle}" 
+                            <Button x:Name="btnAceptar" FocusVisualStyle="{DynamicResource FocusBoton}" Style="{DynamicResource BotonAceptarStyle}" 
                                     Content="Aceptar" 
                                     Click="Aceptar"/>
                         </StackPanel>

@@ -36,8 +36,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
         private readonly ReporteViewModel ViewModel;
         public ObservableCollection<ReporteListaTicketsObservable> listaTicket=new ObservableCollection<ReporteListaTicketsObservable>() { };
         public ObservableCollection<ReporteListaTicketsObservable> listaTicketVolatil;
-
+        
         public static readonly DependencyProperty GetReportesCommandProperty = DependencyProperty.Register("GetReportesCommand", typeof(ICommand), typeof(ReporteView), new PropertyMetadata(null));
+        public static readonly DependencyProperty PrintReportsProperty = DependencyProperty.Register("PrintReportsCommand", typeof(ICommand), typeof(ReporteView), new PropertyMetadata(null));
 
 
         public ICommand GetReportesCommand
@@ -46,10 +47,16 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             set { SetValue(GetReportesCommandProperty, value); }
         }
 
+        public ICommand PrintReportsCommand
+        {
+            get { return (ICommand)GetValue(PrintReportsProperty); }
+            set { SetValue(PrintReportsProperty, value); }
+        }
         public ReporteView()
         {
             InitializeComponent();
-           
+            var VM = DataContext as ReporteViewModel;
+            
             listSorteo.SelectedIndex = 0;
             EnableScrollBars();
             NoAutogenerarColumnas();
@@ -75,9 +82,23 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             var reportes = ListReportes.Children;
             var posicionReporte = 0;
             object objectoReporte = new object();
-            
-            
-            foreach(var reporte in reportes)
+            var VM = DataContext as ReporteViewModel;
+
+            if (VM != null)
+            {
+                GetReportesCommand = VM.ObtenerReportes;
+                PrintReportsCommand = VM.PrintReportes;
+            }
+
+            var AlgunReporteFocus = false;
+            for (var i = 0; i < ListReportes.Children.Count; i++)
+            {
+                if (ListReportes.Children[i].IsFocused)
+                {
+                    AlgunReporteFocus = true;
+                }
+            }
+            foreach (var reporte in reportes)
             {
                 var rep = reporte as Control;
                 objectoReporte = rep;
@@ -86,7 +107,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
                     posicionReporte = posicionReporte + 1;
                 }
             }
-
             switch (e.Key)
             {
                 case Key.Enter:
@@ -95,7 +115,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
                     {
                         listSorteo.IsDropDownOpen = true;
                     }
-                    if (true)
+                    if (Fecha.IsKeyboardFocusWithin==true)
                     {
                         Fecha.IsDropDownOpen=true;
                     }
@@ -107,33 +127,61 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
                             GetReportesCommand.Execute(null);
                         }
                     }
+                    if (AlgunReporteFocus==true)
+                    {
+                        GetReportesCommand.Execute(null);
+                    }
                     break;
 
                 case Key.Down:
-                    if (Fecha.AreAnyTouchesOver)
-                    {
-                        listSorteo.Focus();
+                    if (Fecha.IsDropDownOpen == false) { 
+                        if (listSorteo.IsFocused == false && ListReportes.IsFocused == false)
+                        {
+                            if (AlgunReporteFocus==false) {
+                                listSorteo.Focus();
+                            }
+                        }
                     }
                     break;
 
                 case Key.Up:
-                    if (listSorteo.IsFocused)
+                    if (Fecha.IsDropDownOpen == false)
                     {
-                        contenedorFecha.Focus();
+
+                        if (listSorteo.IsFocused && AlgunReporteFocus == false)
+                        {
+                            contenedorFecha.Focus();
+                        }
                     }
                      
                     break;
 
                 case Key.Right:
-                    if (Fecha.IsFocused || listSorteo.IsFocused) {
-                        btnRPTVentas.Focus();
+                    if (Fecha.IsDropDownOpen == false)
+                    {
+
+                        if (listSorteo.IsFocused == false && ListReportes.IsFocused == false && AlgunReporteFocus == false)
+                        {
+                            ListReportes.Focus();
+                            ListReportes.Children[0].Focus();
+                        }
+                        if (listSorteo.IsFocused)
+                        {
+                            btnRPTVentas.Focus();
+                        }
                     }
                     break;
                 case Key.Left:
-                    if (btnRPTVentas.IsFocused)
+                    if (Fecha.IsDropDownOpen == false)
                     {
-                        contenedorFecha.Focus();
+                        if (btnRPTVentas.IsFocused)
+                        {
+                            contenedorFecha.Focus();
+                        }
                     }
+                    break;
+                case Key.F6:
+                        PrintReportsCommand.Execute(null);
                     break;
             }
         }

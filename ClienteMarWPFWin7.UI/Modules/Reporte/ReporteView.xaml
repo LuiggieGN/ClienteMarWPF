@@ -136,58 +136,69 @@
                         <RowDefinition Height="35"></RowDefinition>
                         <RowDefinition Height="35"></RowDefinition>
                     </Grid.RowDefinitions>-->
-                  
-                    <Button Name="btnRPTVentas" Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="170" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="0">
+                    <WrapPanel.Resources>
+                        <Style x:Key="FocusReportes">
+                            <Setter Property="ItemsControl.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border Margin="-3px -3px" BorderBrush="SpringGreen" BorderThickness="3" CornerRadius="5" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </WrapPanel.Resources>
+
+                    <Button Name="btnRPTVentas" Style="{DynamicResource btn-primary}" FocusVisualStyle="{DynamicResource FocusReportes}" Grid.Column="0" MinWidth="170" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                             <materialDesign:PackIcon HorizontalContentAlignment="Left" Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock HorizontalAlignment="Left" Text="{Binding  Reportes[0].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="170" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="0">
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="170" FocusVisualStyle="{DynamicResource FocusReportes}" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[1].Nombre}"  Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="170" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="0">
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="170" FocusVisualStyle="{DynamicResource FocusReportes}" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                             <materialDesign:PackIcon HorizontalContentAlignment="Left" HorizontalAlignment="Left" Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock HorizontalAlignment="Left" Text="{Binding  Reportes[2].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="170" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="1">
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="170" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="1">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[3].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="170" Click="reporteid_Click" HorizontalContentAlignment="Center" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="1">
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="170" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Center" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="1">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[4].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="170" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="1">
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="170" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="1">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[5].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="170" HorizontalContentAlignment="Left" Click="reporteid_Click" Command="{Binding Path=AbrirModalRangoFechaCommand}" Width="170" HorizontalAlignment="Stretch" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="170" FocusVisualStyle="{DynamicResource FocusReportes}" HorizontalContentAlignment="Left" Click="reporteid_Click" Command="{Binding Path=AbrirModalRangoFechaCommand}" Width="170" HorizontalAlignment="Stretch" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[6].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
-                    
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="170" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
+
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="170" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[7].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
-                    <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="170" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
+                    <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="170" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="170" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" Grid.Row="2">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[8].Nombre}" Foreground="White" VerticalAlignment="Top"/>
@@ -240,10 +251,10 @@
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
 
                     </StackPanel>
-                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                            <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                         </StackPanel>
                     </Button>
 
@@ -330,10 +341,10 @@
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                         </StackPanel>
-                        <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
+                        <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                             <StackPanel Orientation="Horizontal" >
-                                <materialDesign:PackIcon Kind="Printer" Margin="0 0 0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                                <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                                <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                             </StackPanel>
                         </Button>
                         <!-- ___________________________________________________ Premios ______________________________________________________ -->
@@ -566,10 +577,10 @@
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding LabelDesde,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding LabelHasta,Mode=OneWay}"></Label>
                     </StackPanel>
-                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                            <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                         </StackPanel>
                     </Button>
                     <!--ItemsSource="{Binding Source={StaticResource colection}}"-->
@@ -678,10 +689,10 @@
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     </StackPanel>
-                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                            <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                         </StackPanel>
                     </Button>
 
@@ -789,10 +800,10 @@
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
 
                         </StackPanel>
-                        <Button  Style="{DynamicResource btn-primary}"  Grid.Column="4" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
+                        <Button  Style="{DynamicResource btn-primary}"  Grid.Column="4" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                                <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                             </StackPanel>
                         </Button>
 
@@ -919,10 +930,10 @@
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                     </StackPanel>
-                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                            <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                         </StackPanel>
                     </Button>
 
@@ -1032,10 +1043,10 @@
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                         </StackPanel>
-                        <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
+                        <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                                <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                             </StackPanel>
                         </Button>
 
@@ -1230,10 +1241,10 @@
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     </StackPanel>
-                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4">
+                    <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                            <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                         </StackPanel>
                     </Button>
 
@@ -1312,10 +1323,10 @@
                         
                         <!--<TextBlock Text="{Binding ObservableListadoPremios}" Width="300" Height="400px"></TextBlock>-->
                         <Label Content="{Binding ObservableListadoPremios}" Height="Auto"></Label>
-                        <Button  Style="{DynamicResource btn-primary}" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="50" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 0 4" >
+                        <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer" Margin="0 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-
+                                <Label Foreground="White" Margin="0 0" VerticalAlignment="Top">- F6</Label>
                             </StackPanel>
                         </Button>
                     </Grid>

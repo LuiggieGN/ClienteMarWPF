@@ -133,6 +133,87 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte.Modal
             }
         }
 
+        private void PressTecla(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
 
+                    if (FechaInicio.IsKeyboardFocusWithin==true)
+                    {
+                        FechaInicio.IsDropDownOpen = true;
+                        FechaFin.IsDropDownOpen = false;
+                    }
+                    if (FechaFin.IsKeyboardFocusWithin == true)
+                    {
+                        FechaInicio.IsDropDownOpen = false;
+                        FechaFin.IsDropDownOpen = true;
+                    }
+                    if (SoloTotales.IsFocused)
+                    {
+                        if (SoloTotales.IsChecked==true)
+                        {
+                            SoloTotales.IsChecked = false;
+                        }else
+                        if (SoloTotales.IsChecked == false)
+                        {
+                            SoloTotales.IsChecked = true;
+                        }
+                    }
+                    break;
+
+                case Key.Down:
+                    if (FechaInicio.IsKeyboardFocusWithin == true)
+                    {
+                        FechaFin.Focus();
+                    }else if (FechaFin.IsKeyboardFocusWithin == true)
+                    {
+                        SoloTotales.Focus();
+                    }else if (SoloTotales.IsFocused==true)
+                    {
+                        btnCancelar.Focus();
+                    }
+                    break;
+
+                case Key.Up:
+                    if (btnCancelar.IsFocused || btnAceptar.IsFocused)
+                    {
+                        SoloTotales.Focus();
+                    }else if (SoloTotales.IsFocused)
+                    {
+                        FechaFin.Focus();
+                    }else if (FechaFin.IsKeyboardFocusWithin)
+                    {
+                        FechaInicio.Focus();
+                    }
+                    else if (FechaInicio.IsKeyboardFocusWithin)
+                    {
+                        
+                    }
+
+                    break;
+
+                case Key.Right:
+                    if (btnCancelar.IsFocused)
+                    {
+                        btnAceptar.Focus();
+                    }
+                    if (FechaFin.IsKeyboardFocusWithin==true)
+                    {
+                        SoloTotales.Focus();
+                    }
+                    break;
+                case Key.Left:
+                    if (btnAceptar.IsFocused)
+                    {
+                        btnCancelar.Focus();
+                    }
+                    break;
+                case Key.Escape:
+                    Cancelar(sender,e);
+                    break;
+            }
+
+        }
     }//fin de clase
 }
