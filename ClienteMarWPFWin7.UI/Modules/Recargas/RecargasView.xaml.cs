@@ -112,11 +112,35 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 case Key.Left:
 
                     IsArrow = true;
+                    if (monto.IsFocused)
+                    {
+                        telefono.Focus();
+                    }
+
+                    if (proveedores.IsFocused)
+                    {
+                        proveedores.SelectedIndex -= 1;
+
+                        if(proveedores.SelectedIndex == -1)
+                        {
+                            proveedores.SelectedIndex = 0;
+                        }
+                    }
                     break;
 
 
                 case Key.Right:
                     IsArrow = true;
+                    if (telefono.IsFocused)
+                    {
+                        FocusInputs();
+
+                    }
+
+                    if (proveedores.IsFocused)
+                    {
+                        proveedores.SelectedIndex += 1;
+                    }
 
                     break;
 
@@ -124,6 +148,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 case Key.Down:
 
                     IsArrow = true;
+                    telefono.Focus();
                   
                     break;
 
