@@ -25,7 +25,7 @@
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsChecked" Value="True">
-                                            <Setter TargetName="fondoC" Property="Background" Value="#00171F"/>
+                                            <Setter TargetName="fondoC" Property="Background" Value="#00CC66"/>
                                             <Setter TargetName="title" Property="Foreground" Value="White"/>
                                             <!--<Setter TargetName="faicon2" Property="Foreground" Value="White"/>-->
                                             <Setter Property="Effect">
@@ -65,7 +65,7 @@
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsChecked" Value="True">
-                                            <Setter TargetName="fondoC" Property="Background" Value="#00171F"/>
+                                            <Setter TargetName="fondoC" Property="Background" Value="#00CC66"/>
                                             <Setter TargetName="title" Property="Foreground" Value="White"/>
                                             <!--<Setter TargetName="faicon2" Property="Foreground" Value="White"/>-->
                                             <Setter Property="Effect">
@@ -90,8 +90,12 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="458*"/>
+            <RowDefinition Height="285*"/>
+        </Grid.RowDefinitions>
 
-        <Grid x:Name="GridAOcultar">
+        <Grid x:Name="GridAOcultar" Margin="0,0,0,0.2" Grid.RowSpan="2">
             <Grid.RowDefinitions >
                 <RowDefinition Height="Auto" />
                 <RowDefinition/>
@@ -251,7 +255,8 @@
                         </StackPanel>
 
 
-                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}"  BorderThickness="0 0 0 0"  VerticalAlignment="Top"  Height="350"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
+                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}" BorderThickness="0 0 0 0"  VerticalAlignment="Top"  Height="350"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
+
                             <ListBox.Resources>
                                 <Style TargetType="ListBox">
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -306,7 +311,8 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                --><!--<DataGridTemplateColumn Header="Anular"  Width="*" >
+                                -->
+                    <!--<DataGridTemplateColumn Header="Anular"  Width="*" >
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button  Style="{DynamicResource btn-danger}" Command="{Binding CopiarTicketCommand}" Width="30" Height="30" HorizontalAlignment="Left"  MouseDown="ExtraerTicketSelect" Padding="8 0">
@@ -316,7 +322,8 @@
                                             </Button>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>--><!--
+                                </DataGridTemplateColumn>-->
+                    <!--
                                 <DataGridTextColumn   Header="Ticket No."  Binding="{Binding TicketNo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Bold"/>
                                 <DataGridTextColumn   Header="Ticket"  Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold"/>
                                 <DataGridTextColumn   Header="Hora"   Width="*" Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Bold"/>
@@ -325,7 +332,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>-->
-                   
+
                     <Label Content="Ultimos Sorteos" HorizontalContentAlignment="Center" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
                     <ScrollViewer   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <DataGrid x:Name ="tbSorteos"  ItemsSource="{Binding UltimosSorteos, UpdateSourceTrigger=PropertyChanged}"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
@@ -420,9 +427,9 @@
 
         </Grid>
 
-        <controls:ValidarPagoTicket DataContext="{Binding Dialog}" Panel.ZIndex="500" OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}" CargarDialogo="{Binding Path=MuestroDialogo}"/>
+        <controls:ValidarPagoTicket DataContext="{Binding Dialog}" Panel.ZIndex="500" OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}" CargarDialogo="{Binding Path=MuestroDialogo}" Margin="-2,-6,2,6.2" Grid.RowSpan="2"/>
 
     </Grid>
-    
+
 
 </UserControl>
