@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
                xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
+              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"     
              mc:Ignorable="d" PreviewKeyDown="PressTecla" KeyUp="OnKeyUp" Name="vistaSorteo" Loaded="SelectCampo"
              >
     <UserControl.Resources>
@@ -285,6 +286,41 @@
 
                         </ListBox>
 
+
+
+                        <Label Content="Sorteos Seleccionados: " HorizontalContentAlignment="Left" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
+
+                        <ItemsControl 
+                              x:Name="sorteosSeleccionados"                                    
+                              FocusVisualStyle="{x:Null}"  
+                              HorizontalContentAlignment="Stretch" 
+                              MinHeight="300" 
+                              MinWidth="400"
+                              HorizontalAlignment="Stretch"
+                              Padding="0 4 0 0" BorderThickness="2" BorderBrush="#ccc">
+
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="0 0 0 1" BorderBrush="#ccc" Margin="5 0 4 3" Height="30" CornerRadius="0" Background="White">
+
+                                        <md:Card Background="#00CC66">
+                                            <Label  Content="{Binding SorteoNombre}" VerticalAlignment="Center" Padding="7 0 0 0"  FontSize="20" Foreground="White" />
+                                        </md:Card>
+
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" Background="White"  />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+
+                        </ItemsControl>
+                        
+
                     </StackPanel>
 
                     <!--<Label Content="Ventas de Hoy" HorizontalAlignment="Center"/>-->
@@ -346,49 +382,11 @@
                         </DataGrid>
                     </ScrollViewer>-->
 
-                    <Label Content="Sorteos Seleccionados" HorizontalContentAlignment="Left" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
-                    <!--<ListView x:Name="sorteosSeleccionados" ItemsSource="{Binding}" BorderBrush="Azure"  BorderThickness="1 1 1 1" 
-                             Margin="0 7 0 0" Background="#ccc" Height="250"
-                             VerticalAlignment="Top" HorizontalAlignment="Stretch" 
-                              ScrollViewer.HorizontalScrollBarVisibility ="Disabled" Padding="1 0 0 1">
-
-                      
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Border Background="White" BorderBrush="DarkGray"  BorderThickness="0,0,0,2" 
-                                       Margin="0" Padding="0 0 0 0">
-                                    --><!--<StackPanel Margin="3 5 3 5" Orientation= "Horizontal" Background="White" >--><!--
-                                        <TextBlock Text="{Binding SorteoNombre}" FontSize="16"
-                                                  Height="30" VerticalAlignment="Center" Width="300" Padding="7 0 0 0" Margin="0 0 0 0" />
-                                    --><!--</StackPanel>--><!--
-                                </Border>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
 
 
-                    </ListView>-->
+         
 
-                    <ListView x:Name="sorteosSeleccionados" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="1" HorizontalAlignment="Stretch"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                    <!--<Border Background="White" BorderBrush="DarkGray" HorizontalAlignment="Stretch"  BorderThickness="0,0,0,2" 
-                                       Margin="0" Padding="0 0 0 0">-->
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="White">
-                                            <TextBlock Text="{Binding SorteoNombre}" Width="Auto" FontSize="16"
-                                                  Height="30" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                                                       Padding="7 0 0 0" Margin="0 0 0 0" />
-                                        </StackPanel>
-                                    <!--</Border>-->
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+
 
 
 
