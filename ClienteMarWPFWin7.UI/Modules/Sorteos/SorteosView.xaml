@@ -6,11 +6,11 @@
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
                xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
-             mc:Ignorable="d" PreviewKeyDown="PressTecla" Name="vistaSorteo" Loaded="SelectCampo"
+             mc:Ignorable="d" PreviewKeyDown="PressTecla" KeyUp="OnKeyUp" Name="vistaSorteo" Loaded="SelectCampo"
              >
     <UserControl.Resources>
         <DataTemplate x:Key="ListCheckBoxTemplate">
-            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Click="CheckBox_Click" >
+            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Click="CheckBox_Click" Checked="CheckBox_Checked_1">
                 <CheckBox.Resources>
                     <Style TargetType="{x:Type CheckBox}">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -50,7 +50,7 @@
         </DataTemplate>
         <!--- GroupName="SorteosList"-->
         <DataTemplate x:Key="ListRadioButton" >
-            <CheckBox  IsChecked="{Binding IsSelected, Mode=TwoWay}" Click="CheckBox_ClickOne">
+            <CheckBox  IsChecked="{Binding IsSelected, Mode=TwoWay}" Click="CheckBox_ClickOne" Checked="CheckBox_Checked">
                 <CheckBox.Resources>
                     <Style TargetType="{x:Type CheckBox}">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -255,7 +255,7 @@
                         </StackPanel>
 
 
-                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}" BorderThickness="0 0 0 0"  VerticalAlignment="Top"  Height="350"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled" PreviewKeyUp="listSorteo_PreviewKeyUp">
+                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}" BorderThickness="0 0 0 0"  VerticalAlignment="Top"  Height="350"   ScrollViewer.HorizontalScrollBarVisibility ="Disabled">
 
                             <ListBox.Resources>
                                 <Style TargetType="ListBox">
@@ -333,7 +333,7 @@
                         </DataGrid>
                     </ScrollViewer>-->
 
-                    <Label Content="Ultimos Sorteos" HorizontalContentAlignment="Center" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
+                    <!--<Label Content="Ultimos Sorteos" HorizontalContentAlignment="Center" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
                     <ScrollViewer   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <DataGrid x:Name ="tbSorteos"  ItemsSource="{Binding UltimosSorteos, UpdateSourceTrigger=PropertyChanged}"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Columns>
@@ -341,10 +341,55 @@
                                 <DataGridTextColumn   Width="*" Header="1ra" Binding="{Binding Primero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn   Width="*" Header="2da" Binding="{Binding Segundo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn   Width="*" Header="3ra" Binding="{Binding Tercero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                <!--<DataGridTextColumn   Header="Hora"    Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />-->
+                                --><!--<DataGridTextColumn   Header="Hora"    Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />--><!--
                             </DataGrid.Columns>
                         </DataGrid>
-                    </ScrollViewer>
+                    </ScrollViewer>-->
+
+                    <Label Content="Sorteos Seleccionados" HorizontalContentAlignment="Left" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
+                    <!--<ListView x:Name="sorteosSeleccionados" ItemsSource="{Binding}" BorderBrush="Azure"  BorderThickness="1 1 1 1" 
+                             Margin="0 7 0 0" Background="#ccc" Height="250"
+                             VerticalAlignment="Top" HorizontalAlignment="Stretch" 
+                              ScrollViewer.HorizontalScrollBarVisibility ="Disabled" Padding="1 0 0 1">
+
+                      
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" BorderBrush="DarkGray"  BorderThickness="0,0,0,2" 
+                                       Margin="0" Padding="0 0 0 0">
+                                    --><!--<StackPanel Margin="3 5 3 5" Orientation= "Horizontal" Background="White" >--><!--
+                                        <TextBlock Text="{Binding SorteoNombre}" FontSize="16"
+                                                  Height="30" VerticalAlignment="Center" Width="300" Padding="7 0 0 0" Margin="0 0 0 0" />
+                                    --><!--</StackPanel>--><!--
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+
+                    </ListView>-->
+
+                    <ListView x:Name="sorteosSeleccionados" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="1" HorizontalAlignment="Stretch"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <!--<Border Background="White" BorderBrush="DarkGray" HorizontalAlignment="Stretch"  BorderThickness="0,0,0,2" 
+                                       Margin="0" Padding="0 0 0 0">-->
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="White">
+                                            <TextBlock Text="{Binding SorteoNombre}" Width="Auto" FontSize="16"
+                                                  Height="30" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                                       Padding="7 0 0 0" Margin="0 0 0 0" />
+                                        </StackPanel>
+                                    <!--</Border>-->
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
 
 
 
@@ -427,7 +472,7 @@
 
         </Grid>
 
-        <controls:ValidarPagoTicket DataContext="{Binding Dialog}" Panel.ZIndex="500" OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}" CargarDialogo="{Binding Path=MuestroDialogo}" Margin="-2,-6,2,6.2" Grid.RowSpan="2"/>
+        <!--<controls:ValidarPagoTicket DataContext="{Binding Dialog}" Panel.ZIndex="500" OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}" CargarDialogo="{Binding Path=MuestroDialogo}" Margin="-2,-6,2,6.2" Grid.RowSpan="2"/>-->
 
     </Grid>
 
