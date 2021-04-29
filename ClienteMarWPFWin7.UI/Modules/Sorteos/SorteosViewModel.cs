@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Timers;
 using System.Windows.Input;
+using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
 
 namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 {
@@ -111,6 +112,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                _listJugadas= value; NotifyPropertyChanged(nameof(ListadoJugada));
             }
         }
+
+     
 
         #region PropertyOfView
         //###########################################################

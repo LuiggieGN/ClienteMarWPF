@@ -129,7 +129,7 @@
                         HorizontalContentAlignment="Center"
                         PreviewTextInput="NumberValidationTextBox"
                         KeyDown="AgregaJugada"
-                            Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
                             
                            
                         />
@@ -138,7 +138,7 @@
                         Text="{Binding Jugada, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:HintAssist.Hint="Jugada"
                       materialDesign:HintAssist.FloatingScale="0.90"
-                             Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                             Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
                         Width="130" 
                         Margin="5 1 5 1"
                         FontSize="15"
@@ -150,7 +150,7 @@
                         />
                     </StackPanel>
 
-                    <ScrollViewer   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 1 0 16"  Height="250"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <ScrollViewer   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 8 0 16"  Height="250"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <DataGrid x:Name="ltJugada"  ItemsSource="{Binding}" FontSize="18"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True" Background="AliceBlue">
                             <DataGrid.Columns>
                                 <DataGridTextColumn  Binding="{Binding TipoJugada}" Width="*"  Header="Tipo Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
@@ -217,7 +217,7 @@
                             <Label x:Name="txtTotalVenta" VerticalContentAlignment="Center" Foreground="#28A745" Content="{Binding TotalVentas, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" />
                         </StackPanel>
                     </Border>-->
-                    <StackPanel x:Name="SorteosYLoterias" Grid.Column="1" Visibility="Visible">
+                    <StackPanel x:Name="SorteosYLoterias" Grid.Column="1" Visibility="Visible" Margin="0 6 0 6">
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Text="Regulares" VerticalAlignment="Center" FontSize="16"  FontWeight="Bold" MouseDown="Regulares_MouseDown">
@@ -257,7 +257,7 @@
                         </StackPanel>
 
 
-                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}" BorderThickness="0 0 0 0" VerticalAlignment="Top"  MaxHeight="250" Height="Auto" Margin="0 3 0 27"  ScrollViewer.HorizontalScrollBarVisibility ="Disabled">
+                        <ListBox x:Name="listSorteo" ItemsSource="{Binding}" BorderThickness="0 0 0 0" VerticalAlignment="Top"  MaxHeight="250" Height="Auto" Margin="0 4 0 10"  ScrollViewer.HorizontalScrollBarVisibility ="Disabled">
 
                             <ListBox.Resources>
                                 <Style TargetType="ListBox">
@@ -289,9 +289,11 @@
 
 
 
-                        <Label Content="Sorteos Seleccionados: " HorizontalContentAlignment="Left" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 0 0 0" />
+                        <Label  x:Name="CantidadSorteos" HorizontalContentAlignment="Left" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 10 0 10" />
 
-                        <ItemsControl 
+
+                        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" MaxHeight="300">
+                            <ItemsControl 
                               x:Name="sorteosSeleccionados"                                    
                               FocusVisualStyle="{x:Null}"  
                               HorizontalContentAlignment="Stretch" 
@@ -301,26 +303,70 @@
                               Padding="0 4 0 0" BorderThickness="2" BorderBrush="#ccc">
 
 
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BorderThickness="0 0 0 1" BorderBrush="#ccc" Margin="5 0 4 3" Height="30" CornerRadius="0" Background="White">
+                                <ItemsControl.ItemTemplate >
+                                    <DataTemplate>
+                                        <Border  BorderThickness="0 0 0 1" BorderBrush="#ccc" Margin="5 0 4 3" Height="30" CornerRadius="0" Background="White">
 
-                                        <md:Card Background="#00CC66">
-                                            <Label  Content="{Binding SorteoNombre}" VerticalAlignment="Center" Padding="7 0 0 0"  FontSize="20" Foreground="White" />
-                                        </md:Card>
+                                            
+                                                <md:Card Background="#00CC66">
+                                                    <Label  Content="{Binding SorteoNombre}" VerticalAlignment="Center" Padding="7 0 0 0"  FontSize="20" Foreground="White"/>
+                                                </md:Card>
 
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical" Background="White"  />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical" Background="White"  />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
 
 
-                        </ItemsControl>
-                        
+                            </ItemsControl>
+                        </ScrollViewer>
+
+
+                        <!--<Button  Style="{DynamicResource btn-dark}" Foreground="White" Width="160"  Margin="0 5 0 5">
+                            <StackPanel Orientation="Horizontal" >
+                               
+                                <TextBlock Text="Quitar Sorteo" Foreground="White" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>-->
+
+
+
+                        <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0 10 0 0">
+
+                            <Button  Style="{DynamicResource btn-dark}" Foreground="White" Width="160" Click="QuitarUno" Margin="5 0">
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text=" Quitar Sorteo"  VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button  Style="{DynamicResource btn-secondary}" Foreground="White" Width="160" Click="BorrarTodo" Margin="5 0">
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text="Quitar todos" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" Margin="0 8">
+
+                            <Button  Style="{DynamicResource MaterialDesignRaisedAccentButton}"  Foreground="White" Width="160" Margin="5 0" Background="{DynamicResource MenuTopBackground}" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="Agregar sorteo" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button  Style="{DynamicResource btn-warning}"  Foreground="White" Width="160" Margin="5 0"  >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                    <TextBlock Text="Combinar todos" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+
 
                     </StackPanel>
 
