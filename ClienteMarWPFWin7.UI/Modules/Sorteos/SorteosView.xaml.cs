@@ -818,6 +818,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             var strToday = DateTime.Now.ToString("yyyyMMddHHmmss", CultureInfo.InvariantCulture);
             var today = DateTime.ParseExact(strToday, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
+            var listado = (IEnumerable<SorteosAvender>)ListSorteosVender;
+            var lista = new List<SorteosAvender>(listado);
 
             switch (e.Key)
             {
@@ -899,7 +901,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
                             var VM = DataContext as SorteosViewModel;
                             if (item.IsSelected == false)
-                            {
+                            {                              
                                 item.IsSelected = true;
 
                                 var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
@@ -908,15 +910,18 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                     VM.LoteriasMultiples.Add(item.LoteriaID);
                                 }
 
+                                AgregarSorteoAVender(item);
                             }
                             else if (item.IsSelected == true)
                             {
+                                int loteriaid = item.LoteriaID;
                                 item.IsSelected = false;
                                 var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
                                 if (posicionLoteriaEliminar != -1)
                                 {
                                     VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
                                 }
+                               RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
                             }
                         }
                         //    else if (CrearSuper.IsChecked == true)
@@ -1053,16 +1058,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 {
                                     VM.LoteriasMultiples.Add(item.LoteriaID);
                                 }
-
+                                AgregarSorteoAVender(item);
                             }
                             else if (item.IsSelected == true)
                             {
+                                int loteriaid = item.LoteriaID;
                                 item.IsSelected = false;
                                 var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
                                 if (posicionLoteriaEliminar != -1)
                                 {
                                     VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
                                 }
+                                RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+                                // RemoverSorteoAVender(loteriaId: loteriaid, indice: ListSorteosVender.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
                             }
                         }
                         //    else if (CrearSuper.IsChecked == true)
@@ -1390,13 +1398,23 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 if(CrearSuper.IsChecked == false)
                 {
+                    var YaEstaSeleccionada = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == sorteo.LoteriaID);
+
                     if (sorteo.IsSelected == true)
                     {
-                        ListSorteosVender.Add(new SorteosAvender()
+                        if (YaEstaSeleccionada.Count() > 0)
                         {
-                            SorteoNombre = sorteo.Loteria,
-                            Sorteo = sorteo
-                        });
+                            MessageBox.Show("Esta combinacion esta en la lista o no esta disponible");
+                            return;
+                        }
+                        else
+                        {
+                            ListSorteosVender.Add(new SorteosAvender()
+                            {
+                                SorteoNombre = sorteo.Loteria,
+                                Sorteo = sorteo
+                            });
+                        }
                     }
                     else
                     {
@@ -1414,13 +1432,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }
                 }
                   
-                if(CrearSuper.IsChecked == true)
-                {
-                    ListSorteosVender.Add(new SorteosAvender()
-                    {
-                        SorteoNombre = nombreSuperPales
-                    });
-                }
+                //if(CrearSuper.IsChecked == true)
+                //{
+                //    ListSorteosVender.Add(new SorteosAvender()
+                //    {
+                //        SorteoNombre = nombreSuperPales
+                //    });
+                //}
 
 
                 sorteosSeleccionados.ItemsSource = ListSorteosVender;
@@ -1501,25 +1519,44 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     var YaEstaSeleccionada = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == Convert.ToInt32(loteriaCombinada.ToArray()[0]));
                     if(YaEstaSeleccionada.Count() > 0)
                     {
+                        foreach (var i in SuperPales)
+                        {
+                            i.IsSelected = false;
+                        }
+
                         MessageBox.Show("Esta combinacion esta en la lista o no esta disponible");
                     }
                     else
                     {
-                        SorteosObservable sorteoCopia = new SorteosObservable() { Date = sorteo.Date, Loteria = sorteo.Loteria, IsSelected = false, LoteriaID = sorteo.LoteriaID };
+                        SorteosObservable sorteoCopia = new SorteosObservable() { Date = sorteo.Date, Loteria = sorteo.Loteria, IsSelected = true, LoteriaID = sorteo.LoteriaID };
                         sorteoCopia.LoteriaID = Convert.ToInt32(loteriaCombinada.ToArray()[0]);
                         ListSorteosVender.Add(new SorteosAvender()
                         {
                             SorteoNombre = nombreSuperPales,
                             Sorteo = sorteoCopia
                         });
+
                         foreach (var i in SuperPales)
                         {
                             i.IsSelected = false;
+                        }
+
+                        foreach(var x in SorteosBinding)
+                        {
+                            if(x.LoteriaID == sorteoCopia.LoteriaID)
+                            {
+                                x.IsSelected = true;
+                            }
                         }
                         Console.WriteLine(loteriaCombinada.ToArray());
                     }                  
                 }else if (loteriaCombinada.Count() == 0)
                 {
+                    foreach (var i in SuperPales)
+                    {
+                        i.IsSelected = false;
+                    }
+
                     MessageBox.Show("Esta combinacion esta en la lista o no esta disponible");
                   
                 }
@@ -1552,31 +1589,85 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             var objectoLoteria = (sender as Control);
             SorteosObservable sorteo = objectoLoteria.DataContext as SorteosObservable;
+            //var sorteoavender = new SorteosAvender() { SorteoNombre = sorteo.Loteria, Sorteo = sorteo };
+            int loteriaid = ListSorteosVender.Last().Sorteo.LoteriaID;
+            var listado = (IEnumerable<SorteosAvender>)ListSorteosVender;
+            var lista = new List<SorteosAvender>(listado);
+            //if (ListSorteosVender.Count > 0)
+            //{
+            //    int IndiceSorteoARemover = ListSorteosVender.Last().Sorteo.LoteriaID;
+
+            //    foreach (var i in SorteosBinding)
+            //    {
+
+            //        if (i.LoteriaID == IndiceSorteoARemover)
+            //        {
+            //            i.IsSelected = false;
+            //        }
+            //    }
+
+            //    ListSorteosVender.Remove(ListSorteosVender.Last());
+
+            //    sorteosSeleccionados.ItemsSource = ListSorteosVender;
+            //    SeleccionadasLista = ListSorteosVender.Count();
+            //    CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
+
+            //}
+
+                RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+
+        }
+
+        private void AgregarSorteoAVender(SorteosObservable sorteo)
+        {
+            var sorteoavender = new SorteosAvender() { SorteoNombre = sorteo.Loteria, Sorteo = sorteo };
+           
+            ListSorteosVender.Add(new SorteosAvender()
+            {
+                SorteoNombre = sorteo.Loteria,
+                Sorteo = sorteo
+            });
+
+            sorteosSeleccionados.ItemsSource = ListSorteosVender;
+            SeleccionadasLista = ListSorteosVender.Count();
+            CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
+
+        }
+
+        private void RemoverSorteoAVender(int loteriaId,int indice)
+        {
 
             if (ListSorteosVender.Count > 0)
             {
-                Console.WriteLine(ListSorteosVender.Last().Sorteo.Loteria);
 
                 foreach (var i in SorteosBinding)
                 {
-              
-                    if (i.Loteria == ListSorteosVender.Last().Sorteo.Loteria)
+
+                    if (i.LoteriaID == loteriaId)
                     {
                         i.IsSelected = false;
-                       
                     }
                 }
 
-                ListSorteosVender.Remove(ListSorteosVender.Last());
+              
+                if(indice >= 0)
+                {
+                    try
+                    {                   
+                        ListSorteosVender.RemoveAt(indice);
+                    }
+                    catch 
+                    {
+
+                    }
+                }
 
                 sorteosSeleccionados.ItemsSource = ListSorteosVender;
                 SeleccionadasLista = ListSorteosVender.Count();
                 CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
 
             }
-
         }
-
 
 
             //private void AddLoteriaMultiples()
