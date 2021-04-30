@@ -1555,46 +1555,26 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (ListSorteosVender.Count > 0)
             {
+                Console.WriteLine(ListSorteosVender.Last().Sorteo.Loteria);
+
+                foreach (var i in SorteosBinding)
+                {
+              
+                    if (i.Loteria == ListSorteosVender.Last().Sorteo.Loteria)
+                    {
+                        i.IsSelected = false;
+                       
+                    }
+                }
 
                 ListSorteosVender.Remove(ListSorteosVender.Last());
+
                 sorteosSeleccionados.ItemsSource = ListSorteosVender;
                 SeleccionadasLista = ListSorteosVender.Count();
                 CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
 
-                //var SorteoQuitar = 0;
-                //sorteo.IsSelected = false;
-
-                //for (var i = 0; i < ListSorteosVender.Count; i++)
-                //{
-                //    if (ListSorteosVender[i].SorteoNombre == sorteo.Loteria)
-                //    {
-                //        //SorteoQuitar = i;
-                //        sorteo.IsSelected = false;
-                //    }
-                //}
-
-                //foreach (var i in SorteosBinding)
-                //{
-                //    if (i.LoteriaID == ListSorteosVender.Last().Sorteo.LoteriaID)
-                //    {
-                //        i.IsSelected = false;
-                //    }
-                //    //Console.WriteLine(SorteosBinding.Where(x => x.IsSelected == true).Count());
-                //    //else if(i.LoteriaID == ListSorteosVender.LastOrDefault().Sorteo.LoteriaID)
-                //    //{
-                //    //    i.IsSelected = false;
-                //    //}
-
-                //}
             }
 
-            //var loteriaIDListado = ListSorteosVender.Where(y => y.Sorteo.IsSelected == true).Select(x => x.Sorteo.LoteriaID);
-            //var loteriaIDSeleccion = SorteosBinding.Where(x => x.IsSelected == true).Select(y => y.LoteriaID);
-
-            //if (loteriaIDListado == loteriaIDSeleccion)
-            //{
-               
-            //}
         }
 
 
