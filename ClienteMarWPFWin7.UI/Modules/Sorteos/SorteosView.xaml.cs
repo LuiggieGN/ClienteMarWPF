@@ -610,75 +610,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             RefreshListJugadas();
         }
-        private void RealizaApuesta()
-        {
-            var VM = DataContext as SorteosViewModel;
-
-            if (ltJugada.Items.Count > 0)
-            {
-                var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
-                var Loteria = 0;
-                if (sorteos.Count > 1 && CrearSuper.IsChecked == true)
-                {
-                    int sorteoComb = FindCombinations(sorteos.Select(x => x.LoteriaID).ToList());
-                    if (sorteoComb < 0)
-                    {
-                        FindCombinationsNotExist();
-                    }
-                    else
-                    {
-                        Loteria = sorteoComb;
-                    }
-                }
-                else if (VM.LoteriasMultiples.Count > 0 && CrearSuper.IsChecked == false)
-                {
-
-                    Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
-                    if (RealizarApuestaCommand != null)
-                    {
-                        foreach (var sorteosSeleccionados in SorteosBinding.Where(x => x.IsSelected == true))
-                        {
-                            RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = sorteosSeleccionados.LoteriaID });
-                        }
-                        VM.LoteriasMultiples = new List<int>();
-
-                    }
-                }
 
 
-                //if (GetListadoTicketsCommand != null)
-                //{
-                //    GetListadoTicketsCommand.Execute(null);
-                //}
-
-                LimpiarApuesta();
-                RefreshListJugadas();
-            }
-            else
-            {
-                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista o debe seleccionar una loteria.", "Aviso");
-
-            }
-
-        }
-
-        //public void Mensaje()
-        //{
-        //    try
-        //    {
-        //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
-        //    }
-        //    catch( Exception e)
-        //    {
-        //        MessageBox.Show(e.Message);
-        //    }
-
-        //}
-
-        //public void MensajeError()
-        //{
-        //    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Hubo un error en el proceso, intentelo de nuevo.", "Aviso");
-        //}
+    
 
 
         private void OpenCombinacion()
@@ -1273,69 +1207,116 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             RemoveItem();
             //MostrarSorteos();
         }
+
+
+        private void ResetearFormularioVenta() 
+        {
+            listSorteo.SelectedItem = null;
+            listSorteo.Items.Refresh();            
+            ListSorteosVender.Clear();
+            CantidadSorteos.Content = "0 Sorteos seleccionados";
+            txtMonto.Focus();
+        }
         private void Vender(object sender, RoutedEventArgs e)
         {
+            int cuentaSorteos = ListSorteosVender.Count, 
+                cuentaJugadas = ltJugada.Items.Count;
 
-            if (SorteosBinding != null && SorteosBinding.Count > 0 && (SorteosBinding.Any(x => x.IsSelected == true)))
+            if (cuentaSorteos > 0  && cuentaJugadas > 0 )
             {
-
-                if (ltJugada.Items.Count > 0)
-                {
-                    RealizaApuesta();
-                    listSorteo.SelectedItem = null;
-                    listSorteo.Items.Refresh();
-                    txtMonto.Focus();
-                    //((MainWindow)Window.GetWindow(this)).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
-                }
-                else
-                {
-                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
-                }
-
+                RealizarVenta();
+                ResetearFormularioVenta();
             }
             else
             {
-                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar al menos un sorteo.", "Aviso");
-                listSorteo.Focus();
-                listSorteo.SelectedIndex = 0;
+                if (cuentaSorteos == 0)
+                {                     
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar al menos un sorteo.", "Aviso");                   
+                    listSorteo.Focus();
+                    listSorteo.SelectedIndex = 0;
+
+                }else if (cuentaJugadas == 0)
+                {
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
+                }
+            }
+        }
+
+        private void RealizarVenta() 
+        {
+            var sorteoviewmodel = DataContext as SorteosViewModel;
+            if (sorteoviewmodel != null)
+            {
+                if (RealizarApuestaCommand != null)
+                {
+                    for (int i = 0; i < ListSorteosVender.Count; i++)
+                    {
+                        RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = ListSorteosVender[i].Sorteo.LoteriaID });
+                    }
+                    sorteoviewmodel.LoteriasMultiples = new List<int>();
+                }
+
+                LimpiarApuesta();
+                RefreshListJugadas();
+            }
+        }
+
+        private void RealizaApuesta()
+        {
+            var VM = DataContext as SorteosViewModel;
+
+            if (ltJugada.Items.Count > 0)
+            {
+                var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
+                var Loteria = 0;
+                if (sorteos.Count > 1 && CrearSuper.IsChecked == true)
+                {
+                    int sorteoComb = FindCombinations(sorteos.Select(x => x.LoteriaID).ToList());
+                    if (sorteoComb < 0)
+                    {
+                        FindCombinationsNotExist();
+                    }
+                    else
+                    {
+                        Loteria = sorteoComb;
+                    }
+                }
+                else if (VM.LoteriasMultiples.Count > 0 && CrearSuper.IsChecked == false)
+                {
+
+                    Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
+                    if (RealizarApuestaCommand != null)
+                    {
+                        foreach (var sorteosSeleccionados in SorteosBinding.Where(x => x.IsSelected == true))
+                        {
+                            RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = sorteosSeleccionados.LoteriaID });
+                        }
+                        VM.LoteriasMultiples = new List<int>();
+
+                    }
+                }
+
+
+
+
+                LimpiarApuesta();
+                RefreshListJugadas();
+            }
+            else
+            {
+                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista o debe seleccionar una loteria.", "Aviso");
 
             }
 
         }
+
+
+
         private void btnCombinar(object sender, RoutedEventArgs e)
         {
             OpenCombinacion();
         }
-        //public void GetTicketSeleccionado(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (tbVentas.SelectedItem != null) { 
-        //        MAR_Bet Ticket = (MAR_Bet)tbVentas.SelectedItem;
-        //        ticketSeleccionado = Ticket.TicketNo;
-        //        if (CopiarTicketCommand != null)
-        //        {
-        //            CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = Ticket.TicketNo });
-
-        //        }
-        //        GetJugadasTicket();
-        //    }
-        //}
-
-        //public void GetPrecargarTicketSeleccionado(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (tbVentas.SelectedItem != null)
-        //    {
-        //        MAR_Bet Ticket = (MAR_Bet)tbVentas.SelectedItem;
-        //        ticketSeleccionado = Ticket.TicketNo.ToString();
-
-        //        ValidarPagoTicketCommand.Execute(null);
-        //    }
-
-        //}
-
-        //public string GetTicketNumeroPrecargar()
-        //{
-        //    return ticketSeleccionado;
-        //}
+       
 
         public void GetJugadasTicket()
         {
