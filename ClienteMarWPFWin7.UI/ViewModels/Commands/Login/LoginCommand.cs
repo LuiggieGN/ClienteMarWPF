@@ -47,7 +47,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Login
 
         public void IniciarSesion(object password)
         {
-            worker.RunWorkerAsync(argument: password);
+            if (!worker.IsBusy)
+            {
+                worker.RunWorkerAsync(argument: password);
+            }
         }
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)

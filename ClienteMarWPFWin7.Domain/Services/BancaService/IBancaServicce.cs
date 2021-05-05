@@ -27,5 +27,7 @@ namespace ClienteMarWPFWin7.Domain.Services.BancaService
 
         bool LeerEstadoBancaEstaActiva(int bancaid);
 
+        decimal LeerVentaDeHoyDeLoterias(int bancaid);
+
     }
 }

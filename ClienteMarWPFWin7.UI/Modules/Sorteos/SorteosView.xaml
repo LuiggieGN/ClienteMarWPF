@@ -103,7 +103,7 @@
             </Grid.RowDefinitions>
 
             <Border Background="{DynamicResource MenuLeftBackground}" Height="40">
-                <Label Content="Ventas de Sorteos" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
+                <Label Content="{Binding TotalVendidoHoy, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
             </Border>
 
 

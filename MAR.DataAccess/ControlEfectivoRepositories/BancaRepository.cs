@@ -313,6 +313,31 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         }
 
 
+        public static decimal LeerVentaDeHoyDeLoterias(int bancaid)
+        {
+            try
+            {
+                var p = new DynamicParameters(); decimal totalvendido = 0;
+                p.Add("@bancaid", bancaid);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    totalvendido = db.Query<decimal>(BancaHelper.LeerBancaVentaDeHoyDeLoterias, p, commandType: CommandType.Text).First();
+
+                    db.Close();
+                }
+
+                return totalvendido;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
 
 
     }//fin de clase

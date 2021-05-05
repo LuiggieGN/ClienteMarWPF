@@ -275,7 +275,8 @@ namespace ClienteMarWPFWin7.UI.Extensions
             {
                 return () => new SorteosViewModel(
                     services.GetRequiredService<IAuthenticator>(),
-                    services.GetRequiredService<ISorteosService>()
+                    services.GetRequiredService<ISorteosService>(),
+                    services.GetRequiredService<IBancaService>()
                 );
             });
 

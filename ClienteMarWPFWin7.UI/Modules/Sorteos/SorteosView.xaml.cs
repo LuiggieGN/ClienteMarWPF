@@ -106,7 +106,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             Timer.Interval = TimeSpan.FromSeconds(5);
             Timer.Start();
             //MostrarSorteos();
-
+            
             SeleccionadasLista = ListSorteosVender.Count();
             CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
         }

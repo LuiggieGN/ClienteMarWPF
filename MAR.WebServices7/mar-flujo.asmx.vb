@@ -289,7 +289,6 @@ Public Class mar_flujo
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerBancaLastCuadreId(bancaid)
 
-
                 Case 2001
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerBancaLastTransaccionesApartirDelUltimoCuadre(bancaid)
@@ -327,6 +326,10 @@ Public Class mar_flujo
                 Case 2009
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerEstadoBancaEstaActiva(bancaid)
+
+                Case 2010
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    result = BancaLogic.LeerVentaDeHoyDeLoterias(bancaid)
 #End Region
 
 #Region "Cuadre"

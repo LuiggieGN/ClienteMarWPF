@@ -48,6 +48,7 @@
         Banca_LeerBancaMarOperacionesDia = 2007,
         Banca_LeerBancaRemoteCmdCommand = 2008,
         Banca_LeerEstadoBancaEstaActiva = 2009,
+        Banca_LeerVentaDeHoyDeLoterias = 2010,
 
 
         Cuadre_Registrar = 3000,  
