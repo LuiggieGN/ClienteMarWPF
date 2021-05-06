@@ -49,6 +49,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public IEnumerable<int> loteriaCombinada { get; set; }
 
         public bool SorteoItemFocused { get; set; }
+        public bool TxtMontoFocus { get; set; }
+        public bool TxtJugadaFocus { get; set; }
 
         public static readonly DependencyProperty RealizarApuestaCommandProperty = DependencyProperty.Register("RealizarApuestaCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
         //public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
@@ -867,51 +869,59 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 case Key.Left:
                     teclaSeleccionada = "";
-                    //TimeSpan lastTime = DateTime.Now.Subtract(lastKeyPress).Duration();
-                    //TimeSpan watingTime = TimeSpan.FromSeconds(1);
 
-                    //if (lastTime <= watingTime)
-                    //{
-                    //    txtMonto.Focus();
+                    if (listSorteo.SelectedIndex == 0)
+                    {
+                        e.Handled = true;
+                        txtMonto.Focus();
+                        listSorteo.SelectedIndex = -1;
+                        e.Handled = false;
+                        listSorteo.Items.Refresh();
+                        return;
+                    }
 
-                    //}
-                    //lastKeyPress = DateTime.Now;
+                    if(TxtJugadaFocus == true)
+                    {
+                        e.Handled = true;
+                        txtMonto.Focus();
+                        e.Handled = false;
+                        listSorteo.Items.Refresh();
+                        return;
+                    }
 
-                    //if (listSorteo.IsFocused)
-                    //{
-                    //    //txtMonto.Focus();
-                    //    //listSorteo.SelectedItem = null;
-                    //    //(Keyboard.FocusedElement as UIElement).MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
-                    //}
-                    
                     //if (SorteoItemFocused == true)
                     //{
                     //    e.Handled = true;
-                    //    if (listSorteo.SelectedIndex == 0)
-                    //    {
-                    //        txtMonto.Focus();
-                    //        listSorteo.SelectedIndex = -1;
-                    //    }
-                    //    var indiceASeguir = listSorteo.SelectedIndex - 1;
                     //    listSorteo.Focus();
-                    //    if (indiceASeguir <= -1)
-                    //    {
-                    //        listSorteo.SelectedIndex = 0;
-                    //        return;
-                    //    }
-                    //    else
-                    //    {
-
-                    //        listSorteo.SelectedIndex = indiceASeguir;
-
-                    //    }
+                    //    listSorteo.SelectedIndex -= 1;
+                    //    listSorteo.Items.Refresh();
+                    //    e.Handled = false;
                     //    return;
                     //}
-  
+
                     break;
 
                 case Key.Right:
                     teclaSeleccionada = "";
+
+                    if (TxtMontoFocus == true)
+                    {
+                        e.Handled = true;
+                        txtJugada.Focus();
+                        e.Handled = false;
+                        listSorteo.Items.Refresh();
+                        return;
+                    }
+
+                    if(TxtJugadaFocus == true)
+                    {
+                        e.Handled = true;
+                        listSorteo.Focus();
+                        listSorteo.SelectedIndex = 0;
+                        e.Handled = false;
+                        listSorteo.Items.Refresh();
+                        return;
+                    }
 
                     //if (SorteoItemFocused == true)
                     //{
@@ -920,35 +930,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     //    if (listSorteo.SelectedIndex == (listSorteo.Items.Count - 1))
                     //    {
                     //        listSorteo.SelectedIndex = 0;
+                    //        listSorteo.Items.Refresh();
+                    //        e.Handled = false;
                     //        return;
                     //    }
                     //    else
                     //    {
                     //        listSorteo.SelectedIndex += 1;
-
+                    //        listSorteo.Items.Refresh();
                     //    }
+                    //    //e.Handled = false;
                     //    return;
-                    //}
-
-
-                    //if (txtMonto.IsFocused)
-                    //{
-                    //    txtJugada.Focus();
-                    //    listSorteo.SelectedItem = null;
-                    //    listSorteo.SelectedIndex = -1;
-
-                    //}
-
-                    //if (txtJugada.IsFocused)
-                    //{
-                    //    listSorteo.Focus();
-                    //    listSorteo.SelectedIndex = 0;
-                    //}
-
-                    //if (listSorteo.IsFocused)
-                    //{
-                    //    //listSorteo.SelectedIndex += 1;
-                    //    //MoveToNextUIElement(e);
                     //}
 
                     break;
@@ -1482,8 +1474,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         {
                             i.IsSelected = false;
                         }
-
-                        MessageBox.Show("Esta combinacion esta en la lista o no esta disponible");
+                         ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion esta en la lista o no esta disponible.", "Aviso");
                     }
                     else
                     {
@@ -1516,8 +1507,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         i.IsSelected = false;
                     }
 
-                    MessageBox.Show("Esta combinacion esta en la lista o no esta disponible");
-                  
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion esta en la lista o no esta disponible.", "Aviso");
+
                 }
 
                 loteria1 = 0;
@@ -1541,7 +1532,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 item.IsSelected = false;
             }
-            listSorteo.Focus();
+            txtMonto.Focus();
         }
 
         private void QuitarUno(object sender, RoutedEventArgs e)
@@ -1636,6 +1627,26 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void listSorteo_LostFocus(object sender, RoutedEventArgs e)
         {
             SorteoItemFocused = false;
+        }
+
+        private void txtMonto_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TxtMontoFocus = true;
+        }
+
+        private void txtMonto_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TxtMontoFocus = false;
+        }
+
+        private void txtJugada_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TxtJugadaFocus = true;
+        }
+
+        private void txtJugada_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TxtJugadaFocus = false;
         }
 
 
