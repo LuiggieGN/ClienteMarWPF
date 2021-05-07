@@ -316,7 +316,7 @@
                               Padding="0 4 0 0" BorderThickness="2" BorderBrush="#ccc">
 
 
-                                <ItemsControl.ItemTemplate >
+                                <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border  BorderThickness="0 0 0 1" BorderBrush="#ccc" Margin="5 0 4 3" Height="30" CornerRadius="0" Background="White">
                                           
@@ -325,7 +325,12 @@
                                                            Padding="7 0 0 0" 
                                                            FontSize="20" Foreground="White" Width="300" MaxWidth="300" DockPanel.Dock="Left"/>
                                                     <Button Background="#00CC66"
-                                                            DockPanel.Dock="Right" Width="50" Margin="80 0 0 0" VerticalAlignment="Center">
+                                                            DockPanel.Dock="Right" 
+                                                            Width="50" 
+                                                            Margin="80 0 0 0"
+                                                            VerticalAlignment="Center"
+                                                            Click="EliminarSoloUnSorteoSeleccionado"
+                                                            Tag="{Binding Path=Sorteo.LoteriaID}">
                                                         <StackPanel Orientation="Horizontal" >
                                                             <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
                                                         </StackPanel>
