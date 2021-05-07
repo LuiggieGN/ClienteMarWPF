@@ -159,7 +159,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     sessionHacienda.PrinterHeader = sessionPuntoVenta.PrinterHeader;
                     sessionHacienda.PrinterFooter = sessionPuntoVenta.PrinterFooter;
                     var sorteosdisponibles = sorteos.GetSorteosDisponibles(sessionHacienda);
-                    SessionGlobals.GetLoteriasDisponibles(setting.Loterias, sorteosdisponibles);
+                    if(sorteosdisponibles.OK == true)
+                    {
+                        SessionGlobals.GetLoteriasDisponibles(setting.Loterias, sorteosdisponibles);
+
+                    }
                     combinations = SessionGlobals.SuperPaleDisponibles;
                    
 
