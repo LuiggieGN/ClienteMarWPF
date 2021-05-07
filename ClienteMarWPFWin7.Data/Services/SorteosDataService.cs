@@ -31,7 +31,9 @@ namespace ClienteMarWPFWin7.Data.Services
             }
             catch (Exception)
             {
-                return new MAR_HaciendaResponse();
+                var errResponse = new MAR_HaciendaResponse();
+                errResponse.OK = false;
+                return errResponse;
             }
 
         }
