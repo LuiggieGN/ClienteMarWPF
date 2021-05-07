@@ -112,7 +112,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             SeleccionadasLista = ListSorteosVender.Count();
             CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
-
+          
         }
 
 
@@ -1647,6 +1647,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void txtJugada_LostFocus(object sender, RoutedEventArgs e)
         {
             TxtJugadaFocus = false;
+        }
+
+        private void EliminarSoloUnSorteoSeleccionado(object sender, RoutedEventArgs e)
+        {
+            int loteriaid = int.Parse((sender as Button)?.Tag?.ToString() ?? "0");
+            var listado = (IEnumerable<SorteosAvender>)ListSorteosVender;
+            var lista = new List<SorteosAvender>(listado);   
+            RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
         }
 
 
