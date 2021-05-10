@@ -66,6 +66,7 @@
                     RealizarApuestaCommand="{Binding RealizarApuestaCommand}" 
                     ValidarPagoTicketCommand="{Binding ValidarPagoTicketCommand}"
                     CopiarTicketCommand="{Binding CopiarTicketCommand}"
+                    GetListadoTicketsCommand="{Binding GetListadoTicketsCommand}"
                    
                     />
             </DataTemplate>

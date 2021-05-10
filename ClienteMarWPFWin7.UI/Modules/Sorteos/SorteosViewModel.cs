@@ -30,6 +30,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public ObservableCollection<MAR_Bet> listadoTicketPrecargada;
         private ValidarPagoTicketViewModel _dialog;
         private string _ticketSeleccionado;
+        private string _labelVendidoHoy;
         private List<Jugada> _listJugadas;
         public SorteosView SorteoViewClass { get; set;}
 
@@ -43,8 +44,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             GetGanadoresCommand = new GetGanadoresCommand(this, autenticador, sorteosService);
             ValidarPagoTicketCommand = new ValidarPagoTicketCommand(this, autenticador, sorteosService);
             
-            
+            //GetListadoTicketsCommand = new GetListadoTicketsCommand(this, autenticador, sorteosService,new ValidarPagoTicketViewModel(this, autenticador, sorteosService));
+            //GetListadoTicketsCommand.Execute(null);
+
             listaTicketsJugados = new ObservableCollection<MAR_Bet>();
+            
             ganadores = new ObservableCollection<UltimosSorteos>();
             listadoTicketPrecargada = new ObservableCollection<MAR_Bet>();
             //CopiarTicketCommand = new CopiarTicketCommand(this, autenticador, sorteosService);
@@ -53,8 +57,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //!!@@ Ojo => Bug
             //GetGanadoresCommand.Execute(null); //@Bug!! hace que el modulo cargue demasiado lento debido a que se hace llamdas a metodo de servicio dentro de u foreach
                                                       //    !! Si se descomenta favor notificar att: Jaasiel y Luiggie 
-           
+           GetListadoTicketsCommand = new GetListadoTicketsCommand(this, autenticador, sorteosService, new ValidarPagoTicketViewModel(this, autenticador, sorteosService));
+           GetListadoTicketsCommand.Execute(null);
         }
+
 
         public ObservableCollection<MAR_Bet> ListaTickets
         {
@@ -142,6 +148,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 _ticketSeleccionado = value;
                 NotifyPropertyChanged(nameof(TicketSeleccionado));
+            }
+        }
+
+        public string LabelVendidoHoy
+        {
+            get
+            {
+                return _labelVendidoHoy;
+            }
+            set
+            {
+                _labelVendidoHoy = value;
+                NotifyPropertyChanged(nameof(LabelVendidoHoy));
             }
         }
 

@@ -103,7 +103,10 @@
             </Grid.RowDefinitions>
 
             <Border Background="{DynamicResource MenuLeftBackground}" Height="40">
-                <Label Content="Ventas de Sorteos" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Ventas de Sorteos" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
+                    <Label FontSize="18" VerticalContentAlignment="Center" FontWeight="Bold" Foreground="White" Content="{Binding LabelVendidoHoy}"></Label>
+                </StackPanel>
             </Border>
 
 
@@ -164,6 +167,7 @@
                     <StackPanel Width="280" Grid.Row="1"  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 -20" >
                         <Label x:Name="txtMontoTotal" Content="$ 00.00" FontWeight="Bold" FontSize="40" Foreground="#28A745" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
                         <Label Content="Total Monto de Jugadas" Margin="0 -20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15"  />
+                       
                     </StackPanel>
 
                     <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0 40 0 0">
@@ -205,12 +209,11 @@
 
 
                 </StackPanel>
-
+                
 
                 <!--VENTAS Y CONSULTA-->
                 <StackPanel x:Name="VentasYConsulta" Grid.Column="1" Visibility="Visible" HorizontalAlignment="Center" Margin="5 0">
-
-
+                   
                     <!--<Border BorderThickness="0 0 0 0" BorderBrush="Black">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                             <Label Content="Ventas de Hoy: "  VerticalContentAlignment="Center" FontSize="18"   BorderThickness="0 0 0 0" />

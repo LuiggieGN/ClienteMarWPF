@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using ClienteMarWPFWin7.UI.ViewModels.Commands.MainWindow;
+using System.Globalization;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 {
@@ -229,8 +230,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
-                } 
-            
+                }
+                string total = ViewModel.ListadoTicketsPrecargados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
+                ViewModel.TotalVentas = total;
+
             }
             if (multi != null)
             {
@@ -372,6 +375,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                         contadorTIcket = 0;
                     }
                 }
+                string total = ViewModel.ListadoTicketsPrecargados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
+                ViewModel.TotalVentas = total;
             }
         }
 

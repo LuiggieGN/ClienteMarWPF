@@ -87,6 +87,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             SuperPales = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
             combinations = SessionGlobals.SuperPaleDisponibles;
             ListSorteosVender = new ObservableCollection<SorteosAvender>();
+            
+            
 
             if (CrearSuper.IsChecked == false)
             {
@@ -725,6 +727,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 case Key.S://Para cambiar a venta de super pales
                     teclaSeleccionada = "";
                     CrearSuper.IsChecked = true;
+                    //GetListadoTicketsCommand.Execute(null);
                     break;
 
                 case Key.N://Para cambiar a venta de loterias normales
@@ -1200,6 +1203,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             if (cuentaSorteos > 0  && cuentaJugadas > 0 )
             {
                 RealizarVenta();
+                GetListadoTicketsCommand.Execute(null);
                 ResetearFormularioVenta();
             }
             else

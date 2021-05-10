@@ -40,6 +40,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             ViewModel.listaTicketsJugados.Clear();
             try
             {
+                
                 var sorteos = SessionGlobals.LoteriasTodas;
 
                 if (ViewModel.ListadoTicketsPrecargados.Count == 0) { 
@@ -85,6 +86,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     ViewModelPago.listaTicketsJugados = ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
                     string total = ViewModel.ListadoTicketsPrecargados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
+                    ViewModel.LabelVendidoHoy = "|     Vendido hoy: "+ total;
                 }
             }
             catch (Exception e)
