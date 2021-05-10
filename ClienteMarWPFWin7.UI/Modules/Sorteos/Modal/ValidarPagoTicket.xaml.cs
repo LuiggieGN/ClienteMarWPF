@@ -59,7 +59,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         public static readonly DependencyProperty OverlayOnProperty = DependencyProperty.Register("OverlayOn", typeof(UIElement), typeof(ValidarPagoTicket), new UIPropertyMetadata(null));
         public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
         public static readonly DependencyProperty CopiarTicketCommandProperty = DependencyProperty.Register("CopiarTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
-
+        public static readonly DependencyProperty CerrarValidarPagoTicketCommandProperty = DependencyProperty.Register("CerrarValidarPagoTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ConsultarTicketCommandProperty = DependencyProperty.Register("ConsultarTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
         public static readonly DependencyProperty ReimprimirTicketCommandProperty = DependencyProperty.Register("ReimprimirTicketCommand", typeof(ICommand), typeof(ValidarPagoTicket), new PropertyMetadata(null));
@@ -94,6 +94,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             get { return (ICommand)GetValue(AnularTicketCommandProperty); }
             set { SetValue(AnularTicketCommandProperty, value); }
+        }
+
+        public ICommand CerrarValidarPagoTicketCommand
+        {
+            get { return (ICommand)GetValue(CerrarValidarPagoTicketCommandProperty); }
+            set { SetValue(CerrarValidarPagoTicketCommandProperty, value); }
         }
 
 
@@ -227,12 +233,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                     }
                     break;
 
+                case Key.Escape:
+                    if(VM.CerrarValidarPagoTicketCommand != null)
+                    {
+                        VM.CerrarValidarPagoTicketCommand.Execute(null);
+                    }
+                    break;
+
             }
 
            
         }
 
-
-       
     }
 }

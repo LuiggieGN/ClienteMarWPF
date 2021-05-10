@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using ClienteMarWPFWin7.UI.Modules.Sorteos;
 
 namespace ClienteMarWPFWin7.UI.Views.WindowsModals
 {
@@ -38,6 +38,19 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LlenarCamposConNumerosJugados();
+
+            if(txtNumCom1.Text != "" && txtNumCom2.Text != "")
+            {
+                txtPuntos.IsEnabled = true;
+                txtPales.IsEnabled = true;
+            }
+            
+            if (txtNumCom1.Text != "" && txtNumCom2.Text != "" && txtNumCom3.Text != "")
+            {
+                txtPuntos.IsEnabled = true;
+                txtPales.IsEnabled = true;
+                txtTripleta.IsEnabled = true;
+            }
         }
 
         private void LlenarCamposConNumerosJugados()
@@ -187,6 +200,7 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
 
         private void PressTecla(object sender, KeyEventArgs e)
         {
+
             if (e.Key == Key.F7)
             {
                 Jugadas?.Invoke(ListJugadas);
@@ -229,6 +243,7 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
             } else if (e.Key == Key.Subtract)
             {
                 this.Close();
+                
             }
 
             

@@ -90,6 +90,7 @@
                         </Border>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="70px">
                             <TextBox
+                                x:Name="TxtTicket"
                       Text="{Binding TicketNumero, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:HintAssist.Hint="Ticket"
                       materialDesign:HintAssist.FloatingScale="0.90"
@@ -101,6 +102,7 @@
                         HorizontalContentAlignment="Center"
                         />
                             <TextBox
+                                x:Name="TxtPin"
                       Text="{Binding TicketPin, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:HintAssist.Hint="Pin"
                       materialDesign:HintAssist.FloatingScale="0.90"

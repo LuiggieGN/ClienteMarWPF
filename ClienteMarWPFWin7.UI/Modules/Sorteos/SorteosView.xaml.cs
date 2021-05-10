@@ -501,7 +501,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 }
 
 
-
+                
             }
         }
         public void RefreshListJugadas()
@@ -788,11 +788,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 case Key.S://Para cambiar a venta de super pales
                     teclaSeleccionada = "";
                     CrearSuper.IsChecked = true;
+                    listSorteo.Focus();
+                    listSorteo.SelectedIndex = 0;
                     break;
 
-                case Key.N://Para cambiar a venta de loterias normales
+                case Key.R://Para cambiar a venta de loterias normales
                     teclaSeleccionada = "";
                     CrearSuper.IsChecked = false;
+                    listSorteo.Focus();
+                    listSorteo.SelectedIndex = 0;
                     break;
 
                 case Key.Add:
@@ -870,8 +874,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         listSorteo.SelectedIndex = 0;
                     }
 
-                    
-
                     break;
 
                 case Key.Enter:
@@ -934,7 +936,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     if (listSorteo.SelectedIndex == 0)
                     {
                         e.Handled = true;
-                        txtMonto.Focus();
+                        txtJugada.Focus();
                         listSorteo.SelectedIndex = -1;
                         e.Handled = false;
                         listSorteo.Items.Refresh();
@@ -1127,6 +1129,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void CrearSuper_Unchecked(object sender, RoutedEventArgs e)
         {
             MostrarSuper();
+            listSorteo.Focus();
+            listSorteo.SelectedIndex = 0;
             // RemoveAllSeletion();
         }
         private void CrearSuper_Checked(object sender, RoutedEventArgs e)
@@ -1134,6 +1138,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //var item = sender as SorteosObservable;
             //teclaSeleccionada = "Enter";
             MostrarSuper(false);
+            listSorteo.Focus();
+            listSorteo.SelectedIndex = 0;
             //ValidateSelectOnlyTwo(item);
         }
         private void SelectCampo(object sender, RoutedEventArgs e)
@@ -1266,7 +1272,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 }else if (cuentaJugadas == 0)
                 {
                     ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
+                    txtMonto.Focus();
+                    listSorteo.SelectedIndex = -1;
                 }
+
+                //if(CrearSuper.IsChecked == true)
+                //{
+                //    var cuenta = SuperPales.Where(x => x.IsSelected == true).Count();
+                //    if(cuenta < 2)
+                //    {
+                //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar dos sorteos.", "Aviso");
+                //        listSorteo.Focus();
+                //        listSorteo.SelectedIndex = 0;
+                //    }
+                //}
             }
         }
 
@@ -1400,7 +1419,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void CheckBox_ClickOne(object sender, RoutedEventArgs e)
         {
             var VM = DataContext as SorteosViewModel;
-
+            
             if (VM != null)
             {
                 var objectoLoteria = (sender as Control);
@@ -1519,7 +1538,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             SorteosObservable sorteo = objectoLoteria.DataContext as SorteosObservable;
             var sorteoavender = new SorteosAvender() { SorteoNombre = sorteo.Loteria, Sorteo = sorteo };
             var loteriaSeleccionadas = SuperPales.Where(x => x.IsSelected == true).ToArray();
-      
+            
+
             ValidateSelectOnlyTwo(sender);
 
             loteriaCombinada = combinations.Where(x => (x.LoteriaID1 == loteria1 && x.LoteriaID2 == loteria2) || (x.LoteriaID1 == loteria2 && x.LoteriaID2 == loteria1)).Select(y => y.LoteriaIDDestino);
@@ -1594,6 +1614,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 item.IsSelected = false;
             }
             txtMonto.Focus();
+            listSorteo.SelectedIndex = -1;
         }
 
         private void QuitarUno(object sender, RoutedEventArgs e)
