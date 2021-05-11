@@ -93,6 +93,20 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
         }
 
+        private static string ConversionNumeroNegativo(int NumeroConvert)
+        {
+            string conversion = "";
+            if (NumeroConvert < 0)
+            {
+               conversion = "-"+NumeroConvert.ToString("C2");
+            }
+            else if (NumeroConvert >= 0){
+               conversion = NumeroConvert.ToString("C2");
+            }
+
+            return conversion;
+        }
+
         private static void TemplateRPTVentas(object sender, PrintPageEventArgs e)
         {
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
@@ -485,10 +499,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             positionWrite = 0;
 
-            var totalVenta = Valor.Reglones.Sum(x => x.Resultado);
+            var totalVenta = Valor.Reglones.Sum(x => x.VentaBruta);
             var totalComision = Valor.Reglones.Sum(x => x.Comision);
             var totalSaco = Valor.Reglones.Sum(x => x.Saco);
-            var totalBalance = Valor.Reglones.Sum(x => x.VentaBruta);
+            var totalBalance = Valor.Reglones.Sum(x => x.Resultado);
 
             foreach (var item in valores)
             {
@@ -509,7 +523,6 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
                         break;
-
                     case "SumasVentas":
                         WriteTextColumn(g, new List<string> { "Concep.", "Venta", "Comis.", "Saco", "Balan." }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
@@ -517,12 +530,11 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         {
                             foreach (var venta in Valor.Reglones)
                             {
-
-                                WriteTextColumn(g, new List<string> { venta.Reglon, venta.Resultado.ToString("C2"), venta.Comision.ToString("C2"), venta.Saco.ToString("C2"), venta.VentaBruta.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { venta.Reglon,venta.VentaBruta.ToString("C2") , venta.Comision.ToString("C2"), venta.Saco.ToString("C2"),ConversionNumeroNegativo(Convert.ToInt32(venta.Resultado))}, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                             }
                             WriteLine(g);
-                            WriteTextColumn(g, new List<string> { "Totales", totalVenta.ToString("C2"), totalComision.ToString("C2"), totalSaco.ToString("C2"), totalBalance.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                            WriteTextColumn(g, new List<string> { "Totales", totalVenta.ToString("C2"), totalComision.ToString("C2"), totalSaco.ToString("C2"), ConversionNumeroNegativo(Convert.ToInt32(totalBalance)) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             WriteTextColumn(g, new List<string> { ".", "", " ", "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
                         }

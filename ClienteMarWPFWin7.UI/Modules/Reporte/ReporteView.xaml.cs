@@ -113,7 +113,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
                     
                     if (listSorteo.IsFocused)
                     {
-                        listSorteo.IsDropDownOpen = true;
+                        
                     }
                     if (Fecha.IsKeyboardFocusWithin==true)
                     {
@@ -148,7 +148,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
                     if (Fecha.IsDropDownOpen == false)
                     {
 
-                        if (listSorteo.IsFocused && AlgunReporteFocus == false)
+                        if (listSorteo.IsFocused==true && listSorteo.IsDropDownOpen == false)
                         {
                             contenedorFecha.Focus();
                         }
@@ -240,16 +240,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
 
             MAR_Loteria2 objeto = ((sender as ComboBox).SelectedItem as MAR_Loteria2);
             if (objeto != null) {
-                Loteria = objeto.LoteriaKey;
+                var VM = DataContext as ReporteViewModel;
+                VM.LoteriaID = objeto.Numero;
                 NombreLoteria = objeto.Nombre;
             } 
             
         }
 
-        public int GetLoteriaID()
-        {
-            return Loteria;
-        }
+        
 
         //public void OcultarModal(object sender, RoutedEventArgs e)
         //{
@@ -298,6 +296,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
         {
             Fecha.Focus();
            
+        }
+
+        private void listSorteo_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            listSorteo.IsDropDownOpen = true;
+            listSorteo.IsManipulationEnabled = true;
         }
     }
 }

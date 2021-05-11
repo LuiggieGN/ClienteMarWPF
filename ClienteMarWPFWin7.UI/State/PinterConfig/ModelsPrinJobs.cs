@@ -175,7 +175,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 var iK = seed % 10;
                 sb2.Append(iK.ToString());
             }
-            return sb.ToString() + sb2.ToString().Substring(sb2.Length - 5);
+            return sb.ToString() + sb2.ToString().Substring(sb2.Length - 2);
 
         }
 
