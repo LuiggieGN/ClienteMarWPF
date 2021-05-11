@@ -87,7 +87,7 @@
                 </StackPanel>
                 <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Margin="0 50 0 7">
                     <Label Margin="9 0" FontSize="10px">Loterias</Label>
-                    <ComboBox x:Name="listSorteo" Margin="10 0" HorizontalAlignment="Left" ItemsSource="{Binding Sorteos}" SelectedItem="0" Width="148px" SelectionChanged="listSorteo_SelectionChanged" SelectedIndex="0">
+                    <ComboBox KeyDown="listSorteo_KeyDown" x:Name="listSorteo" Margin="10 0" HorizontalAlignment="Left" ItemsSource="{Binding Sorteos}" SelectedItem="0" Width="148px" SelectionChanged="listSorteo_SelectionChanged" SelectedIndex="0">
                         <ComboBox.ItemTemplate >
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" >

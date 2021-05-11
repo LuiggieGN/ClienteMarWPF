@@ -143,12 +143,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
         }
         private void PrintReporteGanadores(object Parametro)
         {
-            int loteriaId = new ReporteView().GetLoteriaID();
+            
             var nombreLoteria = new ReporteView().GetNombreLoteria();
-            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteriaId, ViewModel.Fecha);
+            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
 
             MAR_Ganadores ModelMarGanadores = new MAR_Ganadores() { Dia = Reporte.Dia, Err = Reporte.Err, Fecha = Reporte.Fecha, Hora = Reporte.Hora, Primero = Reporte.Primero, Segundo = Reporte.Segundo, Tercero = Reporte.Tercero, Tickets = Reporte.Tickets };
-            ReportesIndexGanadores indexGanadores = new ReportesIndexGanadores() { Loteria = loteriaId, Fecha = Convert.ToDateTime(Reporte.Fecha), Primero = Reporte.Primero, Segundo = Reporte.Segundo, Tercero = Reporte.Tercero, Sorteo = nombreLoteria };
+            ReportesIndexGanadores indexGanadores = new ReportesIndexGanadores() { Loteria = ViewModel.LoteriaID, Fecha = Convert.ToDateTime(Reporte.Fecha), Primero = Reporte.Primero, Segundo = Reporte.Segundo, Tercero = Reporte.Tercero, Sorteo = nombreLoteria };
             //List<string[]> reporteGanadoresPrint = PrintJobs.FromReporteDeGanadores(ModelMarGanadores, indexGanadores,Autenticador);
             ReporteTemplateHelper.PrintReporte(ModelMarGanadores,Autenticador,ViewModel,true);
         }
@@ -163,18 +163,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
 
         private void PrintListaNumeros(object Parametro)
         {
-            int loteriaId = new ReporteView().GetLoteriaID();
+            
             var nombreLoteria = new ReporteView().GetNombreLoteria();
-            var Reporte = ReportesService.ReporteListadoNumero(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteriaId, ViewModel.Fecha);
+            var Reporte = ReportesService.ReporteListadoNumero(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
             MAR_VentaNumero ListaNumero = new MAR_VentaNumero() { Dia = Reporte.Dia, Err = Reporte.Err, Fecha = Reporte.Fecha, Hora = Reporte.Hora, Loteria = Reporte.Loteria, Numeros = Reporte.Numeros };
             //List<string[]> PrintNumero = PrintJobs.FromListaDeNumeros(ListaNumero, Reporte.Fecha, nombreLoteria,Autenticador);
             ReporteTemplateHelper.PrintReporte(ListaNumero,Autenticador,ViewModel);
         }
         private void PrintVentas(object Parametro)
         {
-            int loteria = new ReporteView().GetLoteriaID();
+           
             var nombreLoteria = new ReporteView().GetNombreLoteria();
-            var ReporteVenta = ReportesService.ReporteDeVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteria, ViewModel.Fecha);
+            var ReporteVenta = ReportesService.ReporteDeVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
             
             MAR_RptVenta TemplatePrintVenta = new MAR_RptVenta(){
                 CntNumeros = ReporteVenta.CntNumeros,
@@ -213,8 +213,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
         private void PrintListaTicket(object Parametro)
         {
             var NombreLoteria = new ReporteView().GetNombreLoteria();
-            var LoteriaID = new ReporteView().GetLoteriaID();
-            var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, LoteriaID, ViewModel.Fecha);
+            
+            var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
             MAR_Ganadores ModelMarGanadores = new MAR_Ganadores() { Dia = ReporteTicket.Dia, Err = ReporteTicket.Err, Fecha = ReporteTicket.Fecha, Hora = ReporteTicket.Hora, Primero = ReporteTicket.Primero, Segundo = ReporteTicket.Segundo, Tercero = ReporteTicket.Tercero, Tickets = ReporteTicket.Tickets };
             //List<string[]> reporteTicketPrint = PrintJobs.FromReporteListadoDeTickets(ModelMarGanadores, NombreLoteria,Autenticador);
             ReporteTemplateHelper.PrintReporte(ModelMarGanadores,Autenticador,ViewModel);

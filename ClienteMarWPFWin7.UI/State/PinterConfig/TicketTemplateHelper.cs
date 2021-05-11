@@ -59,10 +59,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             }
 
             pd.PrintController = new StandardPrintController();
-            //pd.DefaultPageSettings.Margins.Left = 5;
-            //pd.DefaultPageSettings.Margins.Right = 5;
-            //pd.DefaultPageSettings.Margins.Top = 5;
-            //pd.DefaultPageSettings.Margins.Bottom = 5;
+            
             pd.DefaultPageSettings.PaperSize = paperSize;
             pd.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
             pd.Print();

@@ -181,7 +181,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             ViewModel.NombreReporte = NombreReporte;
 
             ViewModel.FechaActualReport = DiaSemanaReporte + " " + Convert.ToDateTime(FechaRepote).Day + "-" + mesAnnoReporte + "-" + Convert.ToDateTime(FechaRepote).Year + " " + DateTime.Now.ToShortTimeString(); ;
-            ViewModel.FechaReporte = DiaSemanaActual + ", " + DateTime.Now.Day + "-" + mesAnnoActual + "-" + DateTime.Now.Year + " " + DateTime.Now.ToShortTimeString();
+            ViewModel.FechaReporte = DiaSemanaActual + ", " + DateTime.Now.Day + "-" + mesAnnoActual + "-" + DateTime.Now.Year;
             ViewModel.LabelDesde = "Desde " + TraducirDiaSemana(Convert.ToDateTime(Desde).DayOfWeek.ToString()) + ", " + Convert.ToDateTime(Desde).ToString("dd-MMM-yyyy");
             ViewModel.LabelHasta = "Hasta " + TraducirDiaSemana(Convert.ToDateTime(Hasta).DayOfWeek.ToString()) + ", " + Convert.ToDateTime(Hasta).ToString("dd-MMM-yyyy");
             ViewModel.NombreLoteria = "Loteria: " + Loteria;
@@ -272,9 +272,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         private void RPTGanadores(object parametro)
         {
 
-            int loteriaId = new ReporteView().GetLoteriaID();
             var nombreLoteria = new ReporteView().GetNombreLoteria();
-            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteriaId, ViewModel.Fecha.ToString());
+            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha.ToString());
             var ReporteOrdenado = Reporte.Tickets.OrderBy(reporte => reporte.Solicitud).ToArray();
             ViewModel.ReportesGanadores = new EstadoDeTicketGanadores();
             ViewModel.ReportesGanadores.PendientesPagar = new ObservableCollection<ReportesGanadoresObservable>() { };
@@ -604,9 +603,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
         private void RPTVentas(object parametro)
         {
-            int loteria = new ReporteView().GetLoteriaID();
             var nombreLoteria = new ReporteView().GetNombreLoteria();
-            var ReporteVenta = ReportesService.ReporteDeVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteria, ViewModel.Fecha);
+            var ReporteVenta = ReportesService.ReporteDeVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
 
             if (ReporteVenta.Err == null)
             {
@@ -768,6 +766,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                         ViewModel.ReportesSumVentasPorFecha = List;
                         ViewModel.ReportesSumVentasPorFecha = null;
                         ViewModel.ReportesSumVentasPorFecha = List;
+                        ViewModel.ReportesSumVentasPorFecha = null;
+                        ViewModel.ReportesSumVentasPorFecha = List;
                         TotalesGeneralesFormat(totalGeneralVenta, totalGeneralComision, totalGeneralSaco, totalGeneralBalance);
 
                         ////////////////////////// Restablecer valores //////////////////////////////
@@ -858,9 +858,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         }
         private void RPTListaNumero(object parametro)
         {
-            int loteriaId = new ReporteView().GetLoteriaID();
+            
             var nombreLoteria = new ReporteView().GetNombreLoteria();
-            var Reporte = ReportesService.ReporteListadoNumero(Autenticador.CurrentAccount.MAR_Setting2.Sesion, loteriaId, ViewModel.Fecha);
+            var Reporte = ReportesService.ReporteListadoNumero(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
 
             if (Reporte.Numeros != null)
             {
@@ -1145,8 +1145,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         private void RPTListTickets(object parametros)
         {
             var NombreLoteria = new ReporteView().GetNombreLoteria();
-            var LoteriaID = new ReporteView().GetLoteriaID();
-            var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, LoteriaID, ViewModel.Fecha.ToString());
+            var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha.ToString());
             
             ObservableCollection<ReporteListaTicketsObservable> ListadoTicket = new ObservableCollection<ReporteListaTicketsObservable>() { };
             ObservableCollection<ReporteListaTicketsObservable> ListadoAllDataTicket = new ObservableCollection<ReporteListaTicketsObservable>() { };
