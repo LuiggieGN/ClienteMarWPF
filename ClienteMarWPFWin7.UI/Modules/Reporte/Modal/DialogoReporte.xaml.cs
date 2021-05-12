@@ -163,10 +163,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte.Modal
                     break;
 
                 case Key.Down:
-                    if (FechaInicio.IsKeyboardFocusWithin == true)
+                    if (FechaInicio.IsKeyboardFocusWithin == true && FechaInicio.IsDropDownOpen == false)
                     {
                         FechaFin.Focus();
-                    }else if (FechaFin.IsKeyboardFocusWithin == true)
+                    }else if (FechaFin.IsKeyboardFocusWithin == true && FechaFin.IsDropDownOpen == false)
                     {
                         SoloTotales.Focus();
                     }else if (SoloTotales.IsFocused==true)
@@ -182,7 +182,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte.Modal
                     }else if (SoloTotales.IsFocused)
                     {
                         FechaFin.Focus();
-                    }else if (FechaFin.IsKeyboardFocusWithin)
+                    }else if (FechaFin.IsKeyboardFocusWithin && FechaFin.IsDropDownOpen == false)
                     {
                         FechaInicio.Focus();
                     }

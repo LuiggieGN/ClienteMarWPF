@@ -34,6 +34,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public SorteosView SorteoViewClass { get; set;}
 
         public List<int> loteriasMultiples = new List<int>() { };
+        public bool buscarTicketsInService;//Variable para buscar en listado de ticket
 
         public SorteosViewModel(IAuthenticator autenticador, ISorteosService sorteosService)
         {
@@ -79,6 +80,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 NotifyPropertyChanged(nameof(listadoTicketPrecargada));
             }
 
+        }
+
+        public bool BuscarTicketsInService
+        {
+            get
+            {
+                return buscarTicketsInService;
+            }
+            set
+            {
+                buscarTicketsInService = value;
+                NotifyPropertyChanged(nameof(BuscarTicketsInService));
+            }
         }
 
         public ObservableCollection<UltimosSorteos> UltimosSorteos
