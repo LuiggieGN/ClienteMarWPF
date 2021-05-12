@@ -34,8 +34,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         
         public SorteosView claseSorteo;
         public SorteosViewModel SorteoVM;
+       
         
-
         public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
 

@@ -22,6 +22,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         private readonly ValidarPagoTicketViewModel ViewModelPago;
        private readonly ISorteosService SorteosService;
         private readonly IAuthenticator Autenticador;
+        private int BusquedaTickets=0;
 
         public GetListadoTicketsCommand(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService,ValidarPagoTicketViewModel viewModelValidar)
         {
@@ -42,7 +43,29 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             {
                 var sorteos = SessionGlobals.LoteriasTodas;
 
-                if (ViewModel.ListadoTicketsPrecargados.Count == 0) { 
+                if (ViewModel.BuscarTicketsInService == false)
+                {
+                    foreach (var item in sorteos)
+                    {
+                        var result = SorteosService.ListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
+                        if (result.Tickets != null)
+                        {
+                            var data = result.Tickets.OfType<MAR_Bet>();
+
+                            foreach (var ticket in data)
+                            {
+                                ViewModelPago.listaTicketsJugados.Add(ticket);
+                                ViewModel.ListadoTicketsPrecargados.Add(ticket);
+                            }
+                        }
+                    }
+
+                    ViewModelPago.listaTicketsJugados = ViewModelPago.listaTicketsJugados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
+                    ViewModel.ListadoTicketsPrecargados = ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
+                    string total = ViewModelPago.listaTicketsJugados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
+                    ViewModelPago.TotalVentas = total;
+                    ViewModel.BuscarTicketsInService = true;
+                }else if (ViewModel.ListadoTicketsPrecargados.Count == 0  && ViewModel.BuscarTicketsInService == true) { 
 
                     foreach (var item in sorteos)
                     {
