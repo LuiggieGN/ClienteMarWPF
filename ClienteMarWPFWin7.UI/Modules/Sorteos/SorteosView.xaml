@@ -160,6 +160,17 @@
                                 <DataGridTextColumn  Binding="{Binding TipoJugada}" Width="*"  Header="Tipo Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn  Binding="{Binding Jugadas}"    Width="*" Header="Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn  Binding="{Binding Monto}"      Width="*" Header="Monto $"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Click="QuitarDeJugadas" Style="{DynamicResource btn-danger}">
+                                                <StackPanel Orientation="Horizontal" >
+                                                    <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
+                                                </StackPanel>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>

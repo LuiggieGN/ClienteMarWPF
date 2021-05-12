@@ -589,6 +589,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     ListJugadas.Remove(ListJugadas.LastOrDefault());
                 }
             }
+          
 
             RefreshListJugadas();
         }
@@ -777,6 +778,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             switch (e.Key)
             {
 
+                case Key.Delete:
+                    RemoveItem();
+                    if (ltJugada.Items.Count == 0)
+                    {
+                        txtMonto.Focus();
+
+                    }
+                    break;
+
                 case Key.Subtract:
                     RemoveItem();
                     teclaSeleccionada = "";
@@ -820,6 +830,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 case Key.F9:
                     teclaSeleccionada = "";
                     RemoveItem();
+                    if (ltJugada.Items.Count == 0)
+                    {
+                        txtMonto.Focus();
+                        
+                    }
                     break;
 
                 case Key.F12:
@@ -1191,6 +1206,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void Quitar(object sender, RoutedEventArgs e)
         {
             RemoveItem();
+            if (ltJugada.Items.Count == 0)
+            {
+                txtMonto.Focus();
+
+            }
             //MostrarSorteos();
         }
 
@@ -1865,6 +1885,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 }
             }
             catch { }
+        }
+
+        private void QuitarDeJugadas(object sender, RoutedEventArgs e)
+        {
+            RemoveItem();
+            if(ltJugada.Items.Count == 0)
+            {
+                txtMonto.Focus();
+
+            }
+
         }
 
 
