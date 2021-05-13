@@ -243,6 +243,7 @@
     <Compile Include="ViewModels\Commands\Sorteos\CopiarTicketCommand.cs" />
     <Compile Include="ViewModels\Commands\Sorteos\GetListadoTicketsCommand.cs" />
     <Compile Include="ViewModels\Commands\Sorteos\GetUltimosSorteosCommand.cs" />
+    <Compile Include="ViewModels\Commands\Sorteos\LeerBancaTotalVendidoHoyCommand.cs" />
     <Compile Include="ViewModels\Commands\Sorteos\PagarTicketCommand.cs" />
     <Compile Include="ViewModels\Commands\Sorteos\RealizarApuestaCommand.cs" />
     <Compile Include="ViewModels\Commands\Sorteos\ReimprimirTicketCommand.cs" />

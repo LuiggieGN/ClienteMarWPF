@@ -440,12 +440,54 @@ group by Tipo, TipoMovimiento, KeyMovimiento, BancaID, FechaMovimiento
         internal static string LeerEstadoBancaEstaActiva = "select top 1 isnull( (  select top 1 BanActivo from dbo.MBancas where BancaID = @bancaid ), 0) as ActivoEstado";
 
 
+        internal static string LeerBancaVentaDeHoyDeLoterias = @"
+declare @hoysolofecha date = getdate();
+declare @ventadehoy money = 0;
+
+
+set @ventadehoy = isnull(
+
+    (
+        select sum(tablatickets.TicCosto)
+        from (        
+              select  TicCosto  from DTickets WITH (NOLOCK) where TicNulo=0 and BancaID = @bancaid and convert(date,TicFecha) = @hoysolofecha 
+              union all
+              select  TicCosto  from HTickets where TicNulo=0 and BancaID = @bancaid and convert(date,TicFecha) = @hoysolofecha 
+			  
+        ) as tablatickets
+    ),
+	
+	0
+);
+
+select @ventadehoy TotalVendidoHoy;
+        ";
 
 
 
 
+        internal static string LeerBancaVentaDeHoyDeProductos = @"
+declare @hoysolofecha date = getdate();
+declare @ventadeproductoshoy money = 0;
+
+set @ventadeproductoshoy = isnull(
+
+    (
+        select sum(t.Ingresos)
+        from (        
+              select  Ingresos  from VP_Transaccion WITH (NOLOCK) where Activo=1 and BancaID = @bancaid and convert(date,FechaIngreso) = @hoysolofecha 
+              union all
+              select  Ingresos  from VP_HTransaccion where Activo=1 and BancaID = @bancaid and convert(date,FechaIngreso) = @hoysolofecha 
+			  
+        ) as t
+    ),
+	
+	0
+);
 
 
+select @ventadeproductoshoy TotalVendidoDeProductosHoy;
+        ";
 
 
 

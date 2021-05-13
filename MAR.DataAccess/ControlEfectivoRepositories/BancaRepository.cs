@@ -282,7 +282,6 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         }
 
 
-
         public static bool LeerEstadoBancaEstaActiva(int bancaid)
         {
             try
@@ -305,6 +304,56 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
                 }
 
                 return bancaEstaActiva;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static decimal LeerVentaDeHoyDeLoterias(int bancaid)
+        {
+            try
+            {
+                var p = new DynamicParameters(); decimal totalvendido = 0;
+                p.Add("@bancaid", bancaid);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    totalvendido = db.Query<decimal>(BancaHelper.LeerBancaVentaDeHoyDeLoterias, p, commandType: CommandType.Text).First();
+
+                    db.Close();
+                }
+
+                return totalvendido;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static decimal LeerVentaDeHoyDeProductos(int bancaid)
+        {
+            try
+            {
+                var p = new DynamicParameters(); decimal totalvendido = 0;
+                p.Add("@bancaid", bancaid);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    totalvendido = db.Query<decimal>(BancaHelper.LeerBancaVentaDeHoyDeProductos, p, commandType: CommandType.Text).First();
+
+                    db.Close();
+                }
+
+                return totalvendido;
             }
             catch (Exception ex)
             {

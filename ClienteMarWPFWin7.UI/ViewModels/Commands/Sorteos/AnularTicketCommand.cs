@@ -3,6 +3,7 @@ using ClienteMarWPFWin7.UI.Modules.Sorteos.Modal;
 using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -45,6 +46,32 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 {
                     if (AnularResponse != null && AnularResponse.Equals("OK"))
                     {
+
+                        #region Actualiza lo Vendido Hoy
+
+                        var ticket = ViewModel.ListaTickets.Where(t => t.TicketNo.Equals(numero)).FirstOrDefault();
+
+                        if (ticket != null && ViewModel.SorteoVM != null)
+                        {
+                            try
+                            {
+                                decimal ticketCosto = Convert.ToDecimal(ticket.Costo);
+
+                                if (ViewModel.SorteoVM.TotalesCargados.Value == true)
+                                {
+                                    ViewModel.SorteoVM.AgregarAlTotalVendidoHoy((-1 * ticketCosto));
+                                }
+                                else
+                                {
+                                    ViewModel.SorteoVM.AgregarTransaccionPendiente((-1 * ticketCosto));
+                                }
+
+                            }
+                            catch { }
+                        }
+
+                        #endregion
+
                         ViewModel.SetMensaje(mensaje: "La anulaciòn del ticket fue completada exitosamente.",
                                              icono: "Check",
                                              background: "#28A745",
