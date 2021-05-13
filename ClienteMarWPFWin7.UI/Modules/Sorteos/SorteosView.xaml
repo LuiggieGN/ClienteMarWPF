@@ -104,7 +104,7 @@
             </Grid.RowDefinitions>
 
             <Border Background="{DynamicResource MenuLeftBackground}" Height="40">
-                <Label Content="Ventas de Sorteos" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
+                <Label Content="{Binding TotalVendidoHoy, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
             </Border>
 
 
@@ -190,7 +190,7 @@
                             </StackPanel>
                         </Button>
 
-                        <Button  Style="{DynamicResource btn-success}" Foreground="White" Width="160"  Margin="5 0" Click="Vender">
+                        <Button x:Name="botonVender"  Style="{DynamicResource btn-success}" Foreground="White" Width="160"  Margin="5 0" Click="Vender">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="AddCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                                 <TextBlock Text="Vender F12 +" Foreground="White" VerticalAlignment="Center"/>

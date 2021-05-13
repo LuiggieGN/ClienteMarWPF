@@ -147,6 +147,33 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
         }
 
 
+        public static decimal LeerVentaDeHoyDeLoterias(int bancaid)
+        {
+            try
+            {
+                return BancaRepository.LeerVentaDeHoyDeLoterias(bancaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static decimal LeerVentaDeHoyDeProductos(int bancaid)
+        {
+            try
+            {
+                return BancaRepository.LeerVentaDeHoyDeProductos(bancaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
 
     }//fin de clase
 }

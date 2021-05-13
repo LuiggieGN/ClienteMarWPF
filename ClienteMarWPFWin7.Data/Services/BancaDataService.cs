@@ -310,6 +310,55 @@ namespace ClienteMarWPFWin7.Data.Services
             }
         }
 
+        public decimal LeerVentaDeHoyDeLoterias(int bancaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerVentaDeHoyDeLoterias, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al leer la venta de hoy para esta banca");
+                }
+
+                var totalvendido = JSONHelper.CreateNewFromJSONNullValueIgnore<decimal>(llamada.Respuesta);
+
+                return totalvendido;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+        public decimal LeerVentaDeHoyDeProductos(int bancaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerVentaDeHoyDeProductos, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al leer la venta de hoy para esta banca");
+                }
+
+                var totalvendido = JSONHelper.CreateNewFromJSONNullValueIgnore<decimal>(llamada.Respuesta);
+
+                return totalvendido;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
 
 
 

@@ -1225,6 +1225,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
         private void Vender(object sender, RoutedEventArgs e)
         {
+            botonVender.IsEnabled = false;
+
             int cuentaSorteos = ListSorteosVender.Count, 
                 cuentaJugadas = ltJugada.Items.Count;
 
@@ -1276,6 +1278,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 //    }
                 //}
             }
+
+            botonVender.IsEnabled = true;
         }
 
         private void RealizarVenta() 
@@ -1291,7 +1295,31 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     {
                         RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = ListSorteosVender[i].Sorteo.LoteriaID });
                     }
-                   
+
+
+                    var vm = DataContext as SorteosViewModel;
+                    if (vm != null && vm.TotalesCargados.HasValue)
+                    {
+                        decimal nuevoMonto = 0;
+                        if (ListJugadas != null && ListJugadas.Any())
+                        {
+                            nuevoMonto = ListJugadas.Sum(x => x.Monto);
+                        }
+
+                        if (vm.TotalesCargados.Value  == true)
+                        {
+                            vm.AgregarAlTotalVendidoHoy(nuevoMonto);
+                        }
+                        else
+                        {
+                            vm.AgregarTransaccionPendiente(nuevoMonto);
+                        }
+                    }
+
+
+
+
+
                 }
 
                 LimpiarApuesta();
