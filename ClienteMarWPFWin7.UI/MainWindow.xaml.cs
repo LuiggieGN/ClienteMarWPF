@@ -260,6 +260,10 @@ namespace ClienteMarWPFWin7.UI
                     {
                         e.Handled = true;
                         myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Mensajeria);
+                    }else if(e.Key == Key.E)
+                    {
+                        e.Handled = true;
+                        myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.EnLinea);
                     }
 
                 }//fin if EstaLogueado = true

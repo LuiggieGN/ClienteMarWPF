@@ -20,6 +20,7 @@ using ClienteMarWPFWin7.UI.State.Navigators;
 
 
 using ClienteMarWPFWin7.UI.ViewModels.Base;
+using ClienteMarWPFWin7.UI.Modules.EnLinea;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Factories
 {
@@ -37,6 +38,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Factories
         private readonly CreateViewModel<InicioViewModel> _createInicioControlEfectivoViewModel;       
         private readonly CreateViewModel<MovimientoViewModel> _createMovimientoControlEfectivoViewModel;
         private readonly CreateViewModel<JuegaMasViewModel> _createJuegaMasViewModel;
+        private readonly CreateViewModel<EnLineaViewModel> _createEnLineaViewModel;
 
 
         public ViewModelFactory(
@@ -50,7 +52,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Factories
            CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel, 
            CreateViewModel<InicioViewModel> createInicioControlEfectivoViewModel,
            CreateViewModel<MovimientoViewModel> createMovimientoControlEfectivoViewModel,
-           CreateViewModel<JuegaMasViewModel> createJuegaMasViewModel
+           CreateViewModel<JuegaMasViewModel> createJuegaMasViewModel,
+           CreateViewModel<EnLineaViewModel> createEnLineaViewModel
+
 
         )
         {
@@ -65,6 +69,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Factories
             _createInicioControlEfectivoViewModel = createInicioControlEfectivoViewModel;
             _createMovimientoControlEfectivoViewModel = createMovimientoControlEfectivoViewModel;
             _createJuegaMasViewModel = createJuegaMasViewModel;
+            _createEnLineaViewModel = createEnLineaViewModel;
 
         }
 
@@ -97,6 +102,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Factories
                     return _createInicioControlEfectivoViewModel();
                 case Modulos.RegistrosDeMovimiento:
                     return _createMovimientoControlEfectivoViewModel();
+                case Modulos.EnLinea:
+                    return _createEnLineaViewModel();
                 default:
                     throw new ArgumentException("El ViewType no tiene ViewModel.", "viewType");
             }

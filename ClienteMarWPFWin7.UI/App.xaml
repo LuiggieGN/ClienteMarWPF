@@ -12,6 +12,7 @@
              xmlns:moduloMensajeria="clr-namespace:ClienteMarWPFWin7.UI.Modules.Mensajeria"   
              xmlns:moduloPagoServicios="clr-namespace:ClienteMarWPFWin7.UI.Modules.PagoServicios"   
              xmlns:moduloValidarPagos="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"   
+             xmlns:moduloEnLinea="clr-namespace:ClienteMarWPFWin7.UI.Modules.EnLinea"
              xmlns:modulo="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos"   
              xmlns:efectivoInicio="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Inicio"
              xmlns:efectivoMovimiento="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento"
@@ -53,8 +54,12 @@
 
             <DataTemplate DataType="{x:Type  moduloHome:HomeViewModel}">
                 <moduloHome:HomeView />
-            </DataTemplate> 
-            
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type  moduloEnLinea:EnLineaViewModel}">
+                <moduloEnLinea:EnLinea />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type  moduloReporte:ReporteViewModel}">
                 <moduloReporte:ReporteView 
                     GetReportesCommand="{Binding GetReportesCommmand}"
