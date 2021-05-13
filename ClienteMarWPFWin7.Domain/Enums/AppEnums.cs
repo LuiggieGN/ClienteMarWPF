@@ -20,6 +20,7 @@
         PagoServicios = 8,
         Configuracion = 9,
         JuegaMas = 10,
+        EnLinea = 11,
         InicioControlEfectivo = 100,
         RegistrosDeMovimiento = 101
     }   

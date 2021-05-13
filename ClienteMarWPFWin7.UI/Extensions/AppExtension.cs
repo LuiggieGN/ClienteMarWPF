@@ -55,6 +55,7 @@ using System;
 using System.Windows;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using ClienteMarWPFWin7.UI.Views.Controls;
+using ClienteMarWPFWin7.UI.Modules.EnLinea;
 
 #endregion
 
@@ -350,6 +351,11 @@ namespace ClienteMarWPFWin7.UI.Extensions
                     services.GetRequiredService<ICajaService>(),
                     services.GetRequiredService<IMultipleService>()
                 );
+            });
+
+            coleccionDeServicios.AddSingleton<CreateViewModel<EnLineaViewModel>>(services =>
+            {
+                return () => new EnLineaViewModel();
             });
             #endregion
 
