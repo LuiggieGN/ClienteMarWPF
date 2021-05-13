@@ -158,6 +158,10 @@
     </ApplicationDefinition>
     <Compile Include="Extensions\ColeccionExtension.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Modules\EnLinea\EnLinea.xaml.cs">
+      <DependentUpon>EnLinea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EnLinea\EnLineaViewModel.cs" />
     <Compile Include="State\Accounts\AccountStore.cs" />
     <Compile Include="State\Accounts\GestorStore.cs" />
     <Compile Include="State\Accounts\IAccountStore.cs" />
@@ -274,6 +278,7 @@
     <Compile Include="Views\AttachedProperties\FocusBehaviour.cs" />
     <Compile Include="Views\AttachedProperties\SeleccionaTodoBehaviour.cs" />
     <Compile Include="Views\AttachedProperties\SoloNumerosBehaviour.cs" />
+    <Compile Include="Views\AttachedProperties\WebBrowserHelper.cs" />
     <Compile Include="Views\Controls\BarraNavegacionControl.xaml.cs">
       <DependentUpon>BarraNavegacionControl.xaml</DependentUpon>
     </Compile>
@@ -322,6 +327,10 @@
     <Page Include="Modules\Configuracion\ConfiguracionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\EnLinea\EnLinea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\FlujoEfectivo\Cuadre\Windows\CuadreDesglose\DesgloseWindows.xaml">
       <Generator>MSBuild:Compile</Generator>
