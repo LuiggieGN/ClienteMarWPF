@@ -782,14 +782,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             switch (e.Key)
             {
-                case Key.Back:
+                case Key.Delete:
                     RemoveItem();
                     if (ltJugada.Items.Count == 0)
                     {
                         txtMonto.Focus();
                     }
                     break;
-
 
                 case Key.Subtract:
                     RemoveItem();
