@@ -127,11 +127,7 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
             if (s != null && (s.Text.Length == 2 && s.Text != string.Empty) || e.Key == Key.Right)
             {
                 s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-            }
-            else if (e.Key == Key.Left)
-            {
-                s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
-            }
+            }   
             else if (e.Key == Key.Down)
             {
                 s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
@@ -142,6 +138,16 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
             }else if(e.Key == Key.Enter)
             {
                 s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            }
+            
+            if (e.Key == Key.Left)
+            {
+                s.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+
+                if (txtNumCom1.IsFocused)
+                {
+                    txtNumCom1.Focus();
+                }
             }
             e.Handled = true;
 
@@ -181,6 +187,7 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
         private void CloseButton(object sender, RoutedEventArgs e)
         {
             this.Close();
+           
         }
 
         private void AgregarButton(object sender, RoutedEventArgs e)
@@ -189,12 +196,17 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
             {
                 Jugadas?.Invoke(ListJugadas);
                 this.Close();
+                
             }
             else
             {
                 MessageBox.Show("El monto debe ser mayor a 0");
             }
             
+            if(txtPales.Text == "" && txtPuntos.Text == "" && txtTripleta.Text == "")
+            {
+                MessageBox.Show("No fue posible realizar la operacion, los campos de montos no pueden estar vacios");
+            }
             
         }
 

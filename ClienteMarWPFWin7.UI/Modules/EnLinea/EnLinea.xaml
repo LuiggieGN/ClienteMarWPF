@@ -6,10 +6,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.EnLinea"
         mc:Ignorable="d"
-        Height="450" Width="800"      
+        Height="720" Width="900"      
         >
     <Grid>
-        <WebBrowser behaviours:WebBrowserHelper.Url="{Binding Url}"
+        <!--<ProgressBar x:Name="barra" Width="700" Height="35" Minimum="0" Maximum="100"
+                   Value="{Binding WorkerState}" ></ProgressBar>-->
+        
+        <WebBrowser x:Name="browser" behaviours:WebBrowserHelper.Url="{Binding Url}"
                     HorizontalAlignment="Center"></WebBrowser>
+        
     </Grid>
 </UserControl>

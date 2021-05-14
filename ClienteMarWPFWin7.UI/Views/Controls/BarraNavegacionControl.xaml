@@ -117,7 +117,7 @@
                 </Expander.Header>
 
                 <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                    <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" >
+                    <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="Truck" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                             <TextBlock Text="Camión Millonario" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
@@ -140,12 +140,12 @@
                 </StackPanel>
             </Button>
 
-            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
+            <!--<Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Dice5" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Cinco Minutos" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
-            </Button>
+            </Button>-->
 
             <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}"  Visibility="{Binding Permisos.Servicios, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
@@ -222,12 +222,7 @@
 
 
 
-            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
-                <StackPanel Orientation="Horizontal" >
-                    <materialDesign:PackIcon Kind="FileDocumentBoxSearch" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Reportes - F3" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+           
 
 
             <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Mensajeria}" >
@@ -253,6 +248,12 @@
                 </StackPanel>
             </Button>
 
+            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="FileDocumentBoxSearch" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
+                    <TextBlock Text="Reportes - F3" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
 
 
 

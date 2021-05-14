@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls1="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos"
@@ -9,6 +10,7 @@
                xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
               xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"     
              mc:Ignorable="d" PreviewKeyDown="PressTecla" KeyUp="OnKeyUp" Name="vistaSorteo" Loaded="SelectCampo"
+             
              >
     <UserControl.Resources>
         <DataTemplate x:Key="ListCheckBoxTemplate">
@@ -190,11 +192,34 @@
                             </StackPanel>
                         </Button>
 
-                        <Button x:Name="botonVender"  Style="{DynamicResource btn-success}" Foreground="White" Width="160"  Margin="5 0" Click="Vender">
-                            <StackPanel Orientation="Horizontal" >
+                        <Button x:Name="botonVender"  Style="{DynamicResource btn-success}" Foreground="White" Width="160" Height="32" Margin="5 0" Click="Vender">
+                            <!--<StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="AddCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                                 <TextBlock Text="Vender F12 +" Foreground="White" VerticalAlignment="Center"/>
-                            </StackPanel>
+                            </StackPanel>-->
+                            <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"
+                                Orientation="Horizontal">
+
+                                  
+                                    <materialDesign:PackIcon Kind="AddCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                                    <TextBlock Text="Vender"
+                                               
+                                   
+                                   Foreground="White"
+                                   VerticalAlignment="Center"/>
+                                    <controls1:SpinnerPiston x:Name="Spinner" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="60"
+                                                Height="40"
+                                                Visibility="Visible"/>
+                                </StackPanel>
+                            </Grid>
                         </Button>
 
                     </StackPanel>
@@ -225,6 +250,10 @@
                         </Button>
 
                         <Button x:Name="btnSeleccionaJugada" Click="SeleccionarJugada" Content="Selecciona jugada">
+
+                        </Button>
+
+                        <Button x:Name="btnSeleccionarTablaJugadaPrimerRow" Click="SeleccionarPrimerRowTablaJugada" Content="Selecciona jugada">
 
                         </Button>
                     </StackPanel>

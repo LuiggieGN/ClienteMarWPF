@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,23 +20,51 @@ namespace ClienteMarWPFWin7.UI.Modules.EnLinea
     /// </summary>
     public partial class EnLinea : UserControl
     {
+        //private BackgroundWorker _bgWorker = new BackgroundWorker();
+
+        //private int _workerState;
+
+        //public int WorkerState
+        //{
+        //    get
+        //    {
+        //        return _workerState;
+        //    }
+        //    set
+        //    {
+        //        _workerState = value;
+        //        if (PropertyChanged != null)
+        //            PropertyChanged(this, new PropertyChangedEventArgs("WorkerState"));
+        //    }
+        //}
         public EnLinea()
         {
             InitializeComponent();
+            //browser.Visibility = Visibility.Hidden;
+            //barra.Visibility = Visibility.Visible;
+
+            //_bgWorker.DoWork += (s, e) =>
+            //{
+            //    for (int i = 0; i <= 100; i++)
+            //    {
+            //        System.Threading.Thread.Sleep(100);
+            //        WorkerState = i;
+            //    }
+            //    MessageBox.Show("Estoy aqui!!");
+                
+            //};
+
+            
+            //_bgWorker.RunWorkerAsync();
+            //barra.Visibility = Visibility.Hidden;
+            //browser.Visibility = Visibility.Visible;
         }
 
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        web.Source = new Uri("https://www.google.com/");
+    //#region PropertyChangedMember
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //   // Loaded = "Window_Loaded"
-        //}
+    //public event PropertyChangedEventHandler PropertyChanged;
+
+    //#endregion
+
     }
 }
