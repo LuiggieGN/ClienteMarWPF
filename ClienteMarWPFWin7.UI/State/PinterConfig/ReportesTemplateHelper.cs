@@ -313,6 +313,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                                 if (i <= numerosQuinielas.ToList().Count)
                                 {
                                     var Colunm1 = numerosQuinielas.ToArray()[i];
+                                    WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), "", "", "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
 
                                 }
                             }
@@ -834,15 +835,15 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                                 var VentasDeLoteria = Valor.Reglones.Where(x => x.Reglon.ToLower() == loteria.ToLower());
                                 foreach (var ventaFecha in VentasDeLoteria)
                                 {
-                                    WriteTextColumn(g, new List<string> { FechaHelper.FormatFecha(Convert.ToDateTime(ventaFecha.Fecha), FechaHelper.FormatoEnum.FechaCorta), ventaFecha.Resultado.ToString("C2"), ventaFecha.Comision.ToString("C2"), ventaFecha.Saco.ToString("C2"), ventaFecha.VentaBruta.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                    WriteTextColumn(g, new List<string> { FechaHelper.FormatFecha(Convert.ToDateTime(ventaFecha.Fecha), FechaHelper.FormatoEnum.FechaCorta),ventaFecha.VentaBruta.ToString("C2"), ventaFecha.Comision.ToString("C2"), ventaFecha.Saco.ToString("C2"),  ventaFecha.Resultado.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                                 }
                                 WriteLineFinas(g);
-                                WriteTextColumn(g, new List<string> { "Total:", VentasDeLoteria.Sum(x => x.Resultado).ToString("C2"), VentasDeLoteria.Sum(x => x.Comision).ToString("C2"), VentasDeLoteria.Sum(x => x.Saco).ToString("C2"), VentasDeLoteria.Sum(x => x.VentaBruta).ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { "Total:",VentasDeLoteria.Sum(x => x.VentaBruta).ToString("C2") , VentasDeLoteria.Sum(x => x.Comision).ToString("C2"), VentasDeLoteria.Sum(x => x.Saco).ToString("C2"),  VentasDeLoteria.Sum(x => x.Resultado).ToString("C2")}, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                                 WriteTextColumn(g, new List<string> { ".", "", "", "", "" }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                             }
                             WriteLine(g);
-                            WriteTextColumn(g, new List<string> { "Total General:", Valor.Reglones.Sum(x => x.Resultado).ToString("C2"), Valor.Reglones.Sum(x => x.Comision).ToString("C2"), Valor.Reglones.Sum(x => x.Saco).ToString("C2"), Valor.Reglones.Sum(x => x.VentaBruta).ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                            WriteTextColumn(g, new List<string> { "Total General:",Valor.Reglones.Sum(x => x.VentaBruta).ToString("C2") , Valor.Reglones.Sum(x => x.Comision).ToString("C2"), Valor.Reglones.Sum(x => x.Saco).ToString("C2"),Valor.Reglones.Sum(x => x.Resultado).ToString("C2")  }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             WriteTextColumn(g, new List<string> { ".", "", "", "", "" }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         }
@@ -908,12 +909,12 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                                 WriteLine(g);
                                 WriteTextColumn(g, new List<string> { loteria }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
                                 WriteLine(g);
-                                WriteTextColumn(g, new List<string> { "Total:", Valor.Reglones.Where(x => x.Reglon == loteria).Sum(x => x.Resultado).ToString("C2"), Valor.Reglones.Where(x => x.Reglon == loteria).Sum(x => x.Comision).ToString("C2"), Valor.Reglones.Where(x => x.Reglon == loteria).Sum(x => x.Saco).ToString("C2"), Valor.Reglones.Where(x => x.Reglon == loteria).Sum(x => x.VentaBruta).ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { "Total:",Valor.Reglones.Where(x => x.Reglon == loteria).Sum(x => x.VentaBruta).ToString("C2") , Valor.Reglones.Where(x => x.Reglon == loteria).Sum(x => x.Comision).ToString("C2"), Valor.Reglones.Where(x => x.Reglon == loteria).Sum(x => x.Saco).ToString("C2"),Valor.Reglones.Where(x => x.Reglon == loteria).Sum(x => x.Resultado).ToString("C2")  }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                                 WriteTextColumn(g, new List<string> { ".", "", "", "", "" }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                             }
                             WriteLine(g);
-                            WriteTextColumn(g, new List<string> { "Total General:", Valor.Reglones.Sum(x => x.Resultado).ToString("C2"), Valor.Reglones.Sum(x => x.Comision).ToString("C2"), Valor.Reglones.Sum(x => x.Saco).ToString("C2"), Valor.Reglones.Sum(x => x.VentaBruta).ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                            WriteTextColumn(g, new List<string> { "Total General:",Valor.Reglones.Sum(x => x.VentaBruta).ToString("C2") , Valor.Reglones.Sum(x => x.Comision).ToString("C2"), Valor.Reglones.Sum(x => x.Saco).ToString("C2"),  Valor.Reglones.Sum(x => x.Resultado).ToString("C2")}, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             WriteTextColumn(g, new List<string> { ".", "", "", "", "" }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         }
                         break;

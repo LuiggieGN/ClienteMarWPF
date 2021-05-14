@@ -193,13 +193,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         {
             try
             {
-                var Reporte = ReportesService.ReporteSumVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Fecha);
+                var Reporte = ReportesService.ReporteSumVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion,ViewModel.Fecha);
                 ObservableCollection<ReportesSumVentasObservable> List = new ObservableCollection<ReportesSumVentasObservable>() { };
                 NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
 
                 if (Reporte.Reglones != null)
                 {
-                    HeaderReporte(Reporte.Fecha, "SUMA DE VENTAS", null, null, null);
+                    HeaderReporte(Convert.ToDateTime(Reporte.Fecha).ToString("yyyy-MM-dd"), "SUMA DE VENTAS", null, null, null);
 
                     ViewModel.RPTSumaVentasVisibility = System.Windows.Visibility.Visible;
                     var totalresultados = 0;
@@ -264,7 +264,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                MessageBox.Show(e.Message,"Cliente Mar",MessageBoxButton.OK,MessageBoxImage.Error);
             }
 
         }
@@ -512,7 +512,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             ViewModel.ObservableListadoPremios = "";
             if (resultado.OK==true)
             {
-                //ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Visible;
+                ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Visible;
                 var arrayJeison = JsonConvert.DeserializeObject(reportes.Respuesta);
                 ModelSerializePremios ModeloPremios = JsonConvert.DeserializeObject<ModelSerializePremios>(arrayJeison.ToString());
                 printData = ModeloPremios.PrintData;

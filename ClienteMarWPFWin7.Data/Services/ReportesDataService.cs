@@ -22,8 +22,8 @@ namespace ClienteMarWPFWin7.Data.Services
 
         public MAR_RptSumaVta ReporteSumVentas(MAR_Session session, string Fecha)
         {
-            var fecha =Convert.ToDateTime(Fecha).Date.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("en-Us"));
-            return clientePuntoDeVenta.RptSumaVta(session,fecha);
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
+            return clientePuntoDeVenta.RptSumaVta(session,fecha.ToString());
         }
         public MAR_Ganadores ReportesGanadores(MAR_Session session,int Loteria ,string Fecha)
         {
@@ -46,7 +46,7 @@ namespace ClienteMarWPFWin7.Data.Services
         }
 
         public MAR_VentaNumero ReporteListadoNumero(MAR_Session session, int loteria, string Fecha) {
-            var fecha = Convert.ToDateTime(Fecha).Date.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("en-Us"));
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
             return clientePuntoDeVenta.VentaNumero(session, loteria, fecha);
         }
         public MAR_RptVenta ReporteDeVentas(MAR_Session session, int loteria, string Fecha)
