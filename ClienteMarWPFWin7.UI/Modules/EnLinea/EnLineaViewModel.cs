@@ -22,7 +22,7 @@ namespace ClienteMarWPFWin7.UI.Modules.EnLinea
         }
         public EnLineaViewModel()
         {
-            url = "https://www.google.com/";
+            url = "http://pruebasmar.ddns.net/AndroidUI";
         }
         
     }

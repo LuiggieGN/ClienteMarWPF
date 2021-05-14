@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -96,6 +97,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //if (CrearSuper.IsChecked == false)
             //{
                 listSorteo.DataContext = SorteosBinding;
+            Spinner.Visibility = Visibility.Collapsed;
             //}
             //else if (CrearSuper.IsChecked == true)
             //{
@@ -512,8 +514,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             ltJugada.ItemsSource = new List<Jugada>();
             ltJugada.ItemsSource = ListJugadas;
             ltJugada.Items.Refresh();
-            string total = ListJugadas.Sum(x => x.Monto).ToString();
-            txtMontoTotal.Content = (Decimal.Parse(total)).ToString("C");
+            var total = ListJugadas?.Sum(x => x.Monto) ?? 0;
+            var cantidadLoterias = ListSorteosVender?.Count() ?? 0;
+            var cantidadTotal = (total * cantidadLoterias).ToString();
+            txtMontoTotal.Content = (Decimal.Parse(cantidadTotal)).ToString("C");
         }
         public void AddItem(Jugada NuevaJugada = null)
         {
@@ -654,6 +658,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             };
 
             combinacion.ShowDialog();
+            txtMonto.Focus();
         }
         private void MostrarSuper(bool visible = true)
         {
@@ -777,15 +782,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             switch (e.Key)
             {
-
-                case Key.Delete:
+                case Key.Back:
                     RemoveItem();
                     if (ltJugada.Items.Count == 0)
                     {
                         txtMonto.Focus();
-
                     }
                     break;
+
 
                 case Key.Subtract:
                     RemoveItem();
@@ -835,6 +839,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         txtMonto.Focus();
                         
                     }
+                    RefreshListJugadas();
+
                     break;
 
                 case Key.F12:
@@ -897,6 +903,29 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     break;
 
+                case Key.Down:
+
+                    if (txtMonto.IsFocused)
+                    {
+                        TriggerButtonClickEvent(btnSeleccionarTablaJugadaPrimerRow);
+
+                        //if ((ltJugada.Items.Count > 0) &&
+                        // (ltJugada.Columns.Count > 0))
+                        //{
+                        //    //Select the first column of the first item. 
+                        //    ltJugada.CurrentCell = new DataGridCellInfo(ltJugada.Items[0], ltJugada.Columns[0]);
+                        //    ltJugada.SelectedCells.Add(ltJugada.CurrentCell);
+                        //}
+                    }
+                    break;
+
+                case Key.Up:
+                    if (ltJugada.IsFocused)
+                    {
+                        txtMonto.Focus();
+                    }
+                    break;
+
                 case Key.Enter:
 
                     teclaSeleccionada = "Enter";
@@ -948,6 +977,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         AgregaJugada(sender, e);
                     }
 
+                    RefreshListJugadas();
 
                     break;
 
@@ -1038,6 +1068,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             }
                         }                    
                     }
+
+                    RefreshListJugadas();
                     break;
             }
 
@@ -1211,6 +1243,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 txtMonto.Focus();
 
             }
+
+            RefreshListJugadas();
             //MostrarSorteos();
         }
 
@@ -1223,14 +1257,42 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             CantidadSorteos.Content = "0 Sorteos seleccionados";
             txtMonto.Focus();
         }
+
+        private bool ventaThreadIsBusy = false;
         private void Vender(object sender, RoutedEventArgs e)
         {
-            botonVender.IsEnabled = false;
+            if (ventaThreadIsBusy == false)
+            {
+                Spinner.Visibility = Visibility.Visible;
 
-            int cuentaSorteos = ListSorteosVender.Count, 
+                Task.Factory.StartNew(() => {
+                    Thread.Sleep(1000);
+                    ventaThreadIsBusy = true;
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Background,
+                    new Action(() => {
+                        try
+                        {
+                            RegistrarVenta();
+                        }
+                        catch
+                        {
+
+                        }
+                        ventaThreadIsBusy = false;
+                        Spinner.Visibility = Visibility.Collapsed;
+                    }));
+                });
+            }
+        }
+
+        private void RegistrarVenta()
+        {
+
+            int cuentaSorteos = ListSorteosVender.Count,
                 cuentaJugadas = ltJugada.Items.Count;
 
-            if (cuentaSorteos > 0  && cuentaJugadas > 0 )
+            if (cuentaSorteos > 0 && cuentaJugadas > 0)
             {
                 RealizarVenta();
                 ResetearFormularioVenta();
@@ -1238,16 +1300,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             else
             {
                 if (cuentaSorteos == 0)
-                {                     
-                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar al menos un sorteo.", "Aviso");                   
+                {
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar al menos un sorteo.", "Aviso");
                     listSorteo.Focus();
                     listSorteo.SelectedIndex = 0;
 
-                }else if (cuentaJugadas == 0)
+                }
+                else if (cuentaJugadas == 0)
                 {
                     ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
 
-                    if(txtMonto.Text == "" && txtJugada.Text == "")
+                    if (txtMonto.Text == "" && txtJugada.Text == "")
                     {
                         txtMonto.Focus();
                         listSorteo.SelectedIndex = -1;
@@ -1278,8 +1341,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 //    }
                 //}
             }
-
-            botonVender.IsEnabled = true;
         }
 
         private void RealizarVenta() 
@@ -1301,9 +1362,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     if (vm != null && vm.TotalesCargados.HasValue)
                     {
                         decimal nuevoMonto = 0;
+                        int numeroLoterias = ListSorteosVender?.Count() ?? 0;
+
                         if (ListJugadas != null && ListJugadas.Any())
                         {
                             nuevoMonto = ListJugadas.Sum(x => x.Monto);
+                            nuevoMonto *= numeroLoterias;
                         }
 
                         if (vm.TotalesCargados.Value  == true)
@@ -1492,6 +1556,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 SeleccionadasLista = ListSorteosVender.Count();
                 CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
 
+                RefreshListJugadas();
                 //if (sorteo.IsSelected==true) {
                 //    var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(sorteo.LoteriaID);
                 //    if (posicionLoteriaEliminar == -1)
@@ -1619,7 +1684,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             sorteosSeleccionados.ItemsSource = ListSorteosVender;
             SeleccionadasLista = ListSorteosVender.Count();
             CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
-  
+
+            RefreshListJugadas();
         }
 
         private void BorrarTodo(object sender, RoutedEventArgs e)
@@ -1632,6 +1698,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
             txtMonto.Focus();
             listSorteo.SelectedIndex = -1;
+
+            RefreshListJugadas();
+
         }
 
         private void QuitarUno(object sender, RoutedEventArgs e)
@@ -1664,7 +1733,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //}
 
                 RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
-
+            RefreshListJugadas();
         }
 
         private void AgregarSorteoAVender(SorteosObservable sorteo)
@@ -1716,6 +1785,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
 
             }
+
+            RefreshListJugadas();
         }
 
         private void listSorteo_GotFocus(object sender, RoutedEventArgs e)
@@ -1886,6 +1957,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
                 #endregion
             }
+            RefreshListJugadas();
         }
 
         private void SeleccionarMonto(object sender, RoutedEventArgs e)
@@ -1924,6 +1996,21 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             }
 
+        }
+
+        private void SeleccionarPrimerRowTablaJugada(object sender, RoutedEventArgs e)
+        {
+            if (ltJugada.Items.Count > 0)
+            {
+                ltJugada.Focus();
+                DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
+                if (row != null)
+                {
+                    row.IsSelected = true;                   
+                    row.Focus();
+                    TxtMontoFocus = false;
+                }
+            }
         }
 
 

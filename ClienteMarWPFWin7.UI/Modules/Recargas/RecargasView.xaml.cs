@@ -133,8 +133,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     IsArrow = true;
                     if (telefono.IsFocused)
                     {
-                        FocusInputs();
 
+                        //FocusInputs();
+                        monto.Focus();
                     }
 
                     if (proveedores.IsFocused)
@@ -169,7 +170,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 {
                     SendRecargaCommand.Execute("");
 
-            }
+                }
                 else
                 {
                     if (telefono.IsFocused)
