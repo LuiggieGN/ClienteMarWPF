@@ -121,7 +121,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
         {
             _viewmodel.MuestroBotonNuevaTrasferencia = false;
             _viewmodel.Gestor = null;
-            _viewmodel.NomGestor = "-- Seleccionar Gestor --";
+            _viewmodel.NomGestor = ""; // Esto era lo que tenia _viewmodel.NomGestor = "-- Seleccionar Gestor --"
         }
 
         private void SetValidGestor(MultipleDTO<MUsuarioDTO, CajaDTO, TarjetaDTO> gestor)
