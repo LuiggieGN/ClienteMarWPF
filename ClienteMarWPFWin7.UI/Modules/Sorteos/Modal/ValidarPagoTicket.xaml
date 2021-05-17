@@ -42,21 +42,26 @@
                             </StackPanel>
                         </Label>
                         <ScrollViewer Name="contenedorTicket"   Height="365"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                            <DataGrid x:Name ="tbVentas"   ItemsSource="{Binding ListaTickets, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid x:Name ="tbVentas"   ItemsSource="{Binding ListaTickets, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False" RowDetailsVisibilityMode="Visible"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        
+                                        <EventSetter Event="MouseUp" Handler="DataGridCell_MouseDown"/>
+                                    </Style>
+                                    <Style TargetType="{x:Type DataGridRow}">
+                                        <EventSetter Event="MouseEnter" Handler="DataGridRow_MouseEnter"/>
+                                        <EventSetter Event="LostMouseCapture" Handler="DataGridRow_LostMouseCapture"/>
+                                    </Style>
+                                </DataGrid.Resources>
                                 <DataGrid.Columns >
-                                    <DataGridTemplateColumn  Width="70" >
+                                    <DataGridTemplateColumn  Width="50" >
                                         <DataGridTemplateColumn.CellTemplate>
 
                                             <DataTemplate>
                                                 <DockPanel Height="20" Margin="0 0">
-                                                    <Button  Style="{DynamicResource btn-primary}" Width="20" Height="20" MouseDown="GetTicketSeleccionado" HorizontalAlignment="Right"   Padding="0 0" Margin="2 0" >
+                                                    <Button  Style="{DynamicResource btn-primary}" Width="20" Height="20" MouseDown="GetTicketSeleccionado" HorizontalAlignment="Center"   Padding="0 0" Margin="2 0" >
                                                         <StackPanel Orientation="Horizontal" Margin="0 0" >
                                                             <materialDesign:PackIcon Kind="ContentCopy" MouseDown="GetTicketSeleccionado" MouseEnter="PackIcon_MouseEnter" HorizontalContentAlignment="Left" Width="16"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="0 0" Padding="100 100"  Background="{DynamicResource BtnPrimaryBackgroundBrush}"/>
-                                                        </StackPanel>
-                                                    </Button>
-                                                    <Button  Style="{DynamicResource btn-success}" Width="20" Height="22" HorizontalAlignment="left"  Padding="1 0" Margin="2 0" >
-                                                        <StackPanel Orientation="Horizontal" >
-                                                            <materialDesign:PackIcon Kind="Ticket" MouseDown="SeleccionarTicket" MouseEnter="PackIcon_MouseEnter" HorizontalContentAlignment="left" Width="16"   VerticalAlignment="stretch" HorizontalAlignment="left" Margin="0 0" Padding="100 100" Background="{DynamicResource BtnSuccessBackgroundBrush}"/>
                                                         </StackPanel>
                                                     </Button>
                                                 </DockPanel>
@@ -74,10 +79,10 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>-->
-                                    <DataGridTextColumn   Header="Ticket No." Width="*" Binding="{Binding TicketNo}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Regular"/>
-                                    <DataGridTextColumn   Header="Ticket" Width="*"  Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
-                                    <DataGridTextColumn   Header="Hora"   Width="*" Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
-                                    <DataGridTextColumn   Header="Monto $"  Width="*"  Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular" />
+                                    <DataGridTextColumn   Header="Ticket No." Width="*"  Binding="{Binding TicketNo}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Regular"/>
+                                    <DataGridTextColumn   Header="Ticket" Width="*"      Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
+                                    <DataGridTextColumn   Header="Hora"   Width="*"      Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
+                                    <DataGridTextColumn   Header="Monto $"  Width="*"    Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular" />
 
                                 </DataGrid.Columns>
                             </DataGrid>

@@ -28,7 +28,7 @@ namespace ClienteMarWPFWin7.Data.Services
         public MAR_Ganadores ReportesGanadores(MAR_Session session,int Loteria ,string Fecha)
         {
             var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
-            return clientePuntoDeVenta.Ganadores3(session,Loteria,fecha);
+            return clientePuntoDeVenta.Ganadores2(session,Loteria,fecha);
         }
 
         public MAR_RptSumaVta2 ReporteVentasPorFecha(MAR_Session session, string Desde, string Hasta)
@@ -41,7 +41,7 @@ namespace ClienteMarWPFWin7.Data.Services
 
         public MAR_Pines ReporteListaTarjetas(MAR_Session session, string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).Date.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("en-Us"));
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
             return clientePuntoDeVenta.ListaPines(session,fecha);
         }
 
@@ -51,7 +51,7 @@ namespace ClienteMarWPFWin7.Data.Services
         }
         public MAR_RptVenta ReporteDeVentas(MAR_Session session, int loteria, string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).Date.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("en-Us"));
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
             return clientePuntoDeVenta.RptVenta(session, loteria, fecha);
         }
         public MAR_Ganadores ReporteListaDeTicket(MAR_Session session, int loteria, string Fecha)
@@ -61,7 +61,7 @@ namespace ClienteMarWPFWin7.Data.Services
         }
         public MAR_Ganadores ReporteListaPagosRemotos(MAR_Session session, string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).Date.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("en-Us"));
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
             return clientePuntoDeVenta.ListaTicketPagoRemoto(session, fecha);
         }
 

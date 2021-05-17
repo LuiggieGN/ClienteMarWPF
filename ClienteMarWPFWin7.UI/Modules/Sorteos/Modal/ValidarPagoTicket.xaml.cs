@@ -245,5 +245,25 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
            
         }
 
+        private void DataGridRow_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var elemento = (sender as Control);
+            elemento.Focus();
+            MAR_Bet ticket = (MAR_Bet)elemento.DataContext;
+            ticketSeleccionado = ticket.TicketNo;
+        }
+
+        private void DataGridRow_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+             var Vm = DataContext as ValidarPagoTicketViewModel;
+             Vm.TicketNumero = GetTicketNumber();
+        }
+
+        private void DataGridCell_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var Vm = DataContext as ValidarPagoTicketViewModel;
+            Vm.TicketNumero = GetTicketNumber();
+        }
+
     }
 }
