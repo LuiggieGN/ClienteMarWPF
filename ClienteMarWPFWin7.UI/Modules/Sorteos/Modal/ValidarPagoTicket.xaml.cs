@@ -265,5 +265,18 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             Vm.TicketNumero = GetTicketNumber();
         }
 
+        private void CopiarTicketInput(object sender, MouseButtonEventArgs e)
+        {
+            var VM = DataContext as ValidarPagoTicketViewModel;
+            if (VM.CopiarTicketCommand != null)
+            {
+                if (VM.TicketNumero != null && VM.TicketNumero.Length != 0)
+                {
+                    VM.CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = VM.TicketNumero });
+                    VM.SorteoVM.SorteoViewClass.GetJugadasTicket();
+                }
+
+            }
+        }
     }
 }

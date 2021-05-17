@@ -16,7 +16,7 @@
                 <Border.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Opacity="0.5" Direction="270" ShadowDepth="0.7" />
                 </Border.BitmapEffect>
-                <Grid  Width="550px" Height="Auto" >
+                <Grid  Width="650px" Height="Auto" >
 
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -32,7 +32,7 @@
 
                         <Label  Foreground="White" Background="{StaticResource BackgroundFour}" FontSize="18"  Name="titulo" >
                             <StackPanel Orientation="Horizontal" Width="{Binding ElementName=titulo,Path=ActualWidth}" HorizontalAlignment="Center" Name="stacktitulo">
-                                <Label Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="50,0,0,0" Width="450px">Ticket De Hoy</Label>
+                                <Label Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="50,0,0,0" Width="550px">Ticket De Hoy</Label>
                                 <Button Grid.Row="3" HorizontalAlignment="Right" Width="50" HorizontalContentAlignment="Left" Style="{DynamicResource btn-warning}" Command="{Binding CerrarValidarPagoTicketCommand}" Foreground="White" Background="{StaticResource BackgroundFour}" BorderBrush="{StaticResource BackgroundFour}" >
                                     <StackPanel Orientation="Horizontal" >
                                         <materialDesign:PackIcon Kind="WindowClose" VerticalAlignment="Center" />
@@ -88,7 +88,7 @@
                             </DataGrid>
                         </ScrollViewer>
                         <Border BorderThickness="0 0 0 0" BorderBrush="Black">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10" >
                                 <Label Content="Ventas de Hoy: "  VerticalContentAlignment="Center" FontSize="14"   BorderThickness="0 0 0 0" />
                                 <Label x:Name="txtTotalVenta" VerticalContentAlignment="Center" Margin="0 0 20 0" FontWeight="Bold"  Foreground="Black" Content="{Binding TotalVentas, UpdateSourceTrigger=PropertyChanged}"  FontSize="14" />
                             </StackPanel><!-- Foreground="#28A745"-->
@@ -199,14 +199,21 @@
 
                     <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Margin="10" Height="40px">
 
-                        <Button  Style="{DynamicResource btn-primary}" Command="{Binding ConsultarTicketCommand}" Foreground="White" Width="145">
+                        <Button  Style="{DynamicResource btn-success}" Command="{Binding ConsultarTicketCommand}" Foreground="White" Width="145">
                             <StackPanel Orientation="Horizontal" >
-                                <materialDesign:PackIcon Kind="FormatListChecks"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
-                                <TextBlock Text="Consultar F4"  VerticalAlignment="Center"/>
+                                <materialDesign:PackIcon Kind="Money"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
+                                <TextBlock Text="Pagar F4"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
-                        <Button  Style="{DynamicResource btn-success}"  Command="{Binding ReimprimirTicketCommand}"  Foreground="White" Width="160"  Margin="5 0">
+                        <Button  Style="{DynamicResource btn-primary}" MouseDown="CopiarTicketInput" Foreground="White" Width="145"  Margin="5 0">
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="ContentCopy"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
+                                <TextBlock Text="Copiar F4"  VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button  Style="{DynamicResource btn-warning}"  Command="{Binding ReimprimirTicketCommand}"  Foreground="White" Width="160"  Margin="5 0">
 
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />

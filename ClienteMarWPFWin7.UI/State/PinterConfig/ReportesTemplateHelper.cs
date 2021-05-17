@@ -180,7 +180,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         TotalVentas = Convert.ToInt32(Valor.Numeros + Valor.Pales + Valor.Tripletas);
                         VentasNeta = Convert.ToInt32(TotalVentas - Valor.Comision);
                         var TotalGanancia = (Convert.ToInt32((Valor.Numeros + Valor.Pales + Valor.Tripletas) - Valor.Comision)) - (Convert.ToInt32((Valor.MPrimero + Valor.MSegundo + Valor.MTercero) + Valor.MPales + Valor.MTripletas));
-                        var TotalPremiados = string.Format(nfi, "{0:C}", Convert.ToInt32(Valor.MPrimero + Valor.MSegundo + Valor.MTercero) + Convert.ToInt32(Valor.MPales + Valor.MTripletas));
+                        var TotalPremiados = (Convert.ToInt32(Valor.MPrimero + Valor.MSegundo + Valor.MTercero) + Convert.ToInt32(Valor.MPales + Valor.MTripletas)).ToString("C2");
 
                         WriteTextColumn(g, new List<string> { "Numeros:      ", Valor.Numeros.ToString("C2") }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
                         WriteTextColumn(g, new List<string> { "Numeros (RD$):", Valor.CntNumeros.ToString("C2") }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
@@ -264,7 +264,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             positionWrite = 0;
 
-            foreach (var item in valores)
+            try{foreach (var item in valores)
             {
                 var data = GetValueForProperty(Value, item.ConfigKey) == null ? "" : GetValueForProperty(Value, item.ConfigValue);
 
@@ -393,6 +393,11 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                 }
 
+            } 
+            }
+            catch (Exception E)
+            {
+                Console.WriteLine(E.Message);
             }
             positionWrite = 0;
             g.Dispose();

@@ -32,8 +32,9 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             Value = value;
             ImprimirCopias = ImprimirCopia;
             CantidadLoterias = cantidadLoterias;
+            var width = pd.PrinterSettings.DefaultPageSettings.PaperSize.Width;
             //paperSize = papers.FirstOrDefault();
-             paperSize = new PaperSize("nose", 280, 0);
+             paperSize = new PaperSize("nose",width, 0);
 
             if (value is string)
             {
@@ -60,8 +61,9 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             pd.PrintController = new StandardPrintController();
             
-            pd.DefaultPageSettings.PaperSize = paperSize;
-            pd.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
+            pd.DefaultPageSettings.PaperSize = pd.DefaultPageSettings.PaperSize;
+            //pd.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0);
+            pd.DefaultPageSettings.Margins = new Margins(pd.DefaultPageSettings.Margins.Left, pd.DefaultPageSettings.Margins.Top, pd.DefaultPageSettings.Margins.Right, pd.DefaultPageSettings.Margins.Bottom);
             pd.Print();
 
         }
