@@ -256,5 +256,31 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
 
 
 
+        public static bool LeerCajaExiste(int cajaid)
+        {
+            try
+            {
+                DynamicParameters p = new DynamicParameters(); bool existe = false;
+                p.Add("@cajaid", cajaid);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    existe = db.Query<bool>(CajaHelper.QueryCajaExiste, p, commandType: CommandType.Text).First();
+
+                    db.Close();
+                }
+
+                return existe;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
     }//fin de clase
 }

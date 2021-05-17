@@ -334,7 +334,20 @@ end catch
            end
 
            select 1 As Completado;
-        "; 
+        ";
 
-    }
+
+		internal static string QueryCajaExiste = @"select top 1 isnull((select top 1 1 from flujo.Caja where CajaID = @cajaid),0) As Existe;";
+
+
+
+
+
+
+
+
+
+
+
+	}
 }

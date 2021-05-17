@@ -282,6 +282,9 @@ Public Class mar_flujo
                 Case 1008
                     Dim jsonPaginaRequest = parametros(0).ToString()
                     result = CajaLogic.LeerMovimientosNoPaginados(jsonPaginaRequest)
+                Case 1009
+                    Dim cajaid = Integer.Parse(parametros(0).ToString())
+                    result = CajaLogic.LeerCajaExiste(cajaid)
 #End Region
 
 #Region "Bancas"

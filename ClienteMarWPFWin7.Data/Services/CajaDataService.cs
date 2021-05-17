@@ -252,6 +252,34 @@ namespace ClienteMarWPFWin7.Data.Services
             }
         }
 
+        public bool LeerCajaExiste(int cajaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(cajaid));
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Caja_LeerCajaExiste, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al procesar la operacion de lectura");
+                }
+
+                var existe = JSONHelper.CreateNewFromJSONNullValueIgnore<bool>(llamada.Respuesta);
+
+                return existe;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+
+
+
 
     }//fin de clase
 }

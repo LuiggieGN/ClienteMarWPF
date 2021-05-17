@@ -37,6 +37,7 @@
         Caja_LeerCajaDisponibilidad = 1006,  // -- NOT IMPLEMENTED YET    Por CajaID
         Caja_LeerCajaBalanceMinimo = 1007,
         Caja_LeerMovimientosNoPaginados = 1008,
+        Caja_LeerCajaExiste = 1009,
 
 
         Banca_LeerBancaLastCuadreId = 2000,                                 
