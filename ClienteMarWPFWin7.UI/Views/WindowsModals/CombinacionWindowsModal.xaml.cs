@@ -236,15 +236,25 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
             }
             else if (e.Key == Key.Add)
             {
-                if(txtPales.Text == "" || txtPales.Text == "0")
+                //if(txtPales.Text == "" || txtPales.Text == "0")
+                //{
+                //    txtPales.Focus();
+                //}else if (txtTripleta.Text == "" || txtTripleta.Text == "0")
+                //{
+                //    txtTripleta.Focus();
+                //}else if(txtPuntos.Text == "" || txtPuntos.Text == "0")
+                //{
+                //    txtPuntos.Focus();
+                //}
+                if (txtPuntos.Text == "" || txtPuntos.Text == "0")
+                {
+                    txtPuntos.Focus();
+                }else if(txtPales.Text == "" || txtPales.Text == "0")
                 {
                     txtPales.Focus();
                 }else if (txtTripleta.Text == "" || txtTripleta.Text == "0")
                 {
                     txtTripleta.Focus();
-                }else if(txtPuntos.Text == "" || txtPuntos.Text == "0")
-                {
-                    txtPuntos.Focus();
                 }
                 else
                 {

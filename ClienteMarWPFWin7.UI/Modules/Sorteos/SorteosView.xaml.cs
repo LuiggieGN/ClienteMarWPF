@@ -55,6 +55,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public bool SorteoItemFocused { get; set; }
         public bool TxtMontoFocus { get; set; }
         public bool TxtJugadaFocus { get; set; }
+        public bool CrearSuperFocus { get; set; }
 
         public static readonly DependencyProperty RealizarApuestaCommandProperty = DependencyProperty.Register("RealizarApuestaCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
         //public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
@@ -819,6 +820,30 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     e.Handled = false;
                     break;
 
+                case Key.Divide:
+
+                    if (CrearSuper.IsChecked == true)
+                    {
+                        e.Handled = true;
+                        CrearSuper.IsChecked = false;
+                        e.Handled = false;
+                        listSorteo.Focus();
+                        listSorteo.SelectedIndex = 0;
+
+                    }
+                    else if (CrearSuper.IsChecked == false)
+                    {
+                        e.Handled = true;
+                        CrearSuper.IsChecked = true;
+                        e.Handled = false;
+                        listSorteo.Focus();
+                        listSorteo.SelectedIndex = 0;
+
+                    }
+
+
+                    break;
+
                 case Key.Add:
                     teclaSeleccionada = "";
                     Vender(sender, e);
@@ -832,7 +857,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 case Key.F9:
                     teclaSeleccionada = "";
-                    RemoveItem();
+                    //RemoveItem();
+                    ListJugadas.Clear();
                     if (ltJugada.Items.Count == 0)
                     {
                         txtMonto.Focus();
@@ -1238,7 +1264,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             //RemoveItem();
 
-            ltJugada.ItemsSource = null;
+            ListJugadas.Clear();
             ltJugada.Items.Refresh();
 
             if (ltJugada.Items.Count == 0)
@@ -2014,6 +2040,16 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     TxtMontoFocus = false;
                 }
             }
+        }
+
+        private void CrearSuper_GotFocus(object sender, RoutedEventArgs e)
+        {
+            CrearSuperFocus = true;
+        }
+
+        private void CrearSuper_LostFocus(object sender, RoutedEventArgs e)
+        {
+            CrearSuperFocus = false;
         }
 
 
