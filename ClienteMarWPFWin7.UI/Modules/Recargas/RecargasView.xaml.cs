@@ -230,6 +230,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             if(SendRecargaCommand != null)
             {
                 SendRecargaCommand.Execute(null);
+                telefono.Text = "";
+                monto.Text = "";
+                proveedores.Focus();
+                proveedores.SelectedIndex = 0;
             }
         }
 

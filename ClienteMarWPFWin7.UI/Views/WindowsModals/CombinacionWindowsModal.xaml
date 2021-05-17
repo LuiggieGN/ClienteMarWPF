@@ -80,6 +80,11 @@
         </Grid>
 
         <StackPanel Grid.Row="2" >
+            
+            <StackPanel Margin="5">
+                <TextBlock TextWrapping="Wrap" Text="Monto por quiniela" FontSize="14"/>
+                <TextBox x:Name="txtPuntos" IsEnabled="false" Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+            </StackPanel>
             <StackPanel Margin="5">
                 <TextBlock TextWrapping="Wrap" Text="Monto por pales" FontSize="14"/>
                 <TextBox x:Name="txtPales" IsEnabled="false"  Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
@@ -88,10 +93,7 @@
                 <TextBlock TextWrapping="Wrap" Text="Monto por tripleta" FontSize="14"/>
                 <TextBox x:Name="txtTripleta" IsEnabled="false"  Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
             </StackPanel>
-            <StackPanel Margin="5">
-                <TextBlock TextWrapping="Wrap" Text="Monto por quiniela" FontSize="14"/>
-                <TextBox x:Name="txtPuntos" IsEnabled="false" Width="290" PreviewTextInput="NumberValidationTextBox"  KeyUp="NextTextBox" HorizontalAlignment="Left"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
-            </StackPanel>
+           
         </StackPanel>
 
         <StackPanel Grid.Row="2" Background="White" Orientation="Horizontal" HorizontalAlignment="Center" Width="325" VerticalAlignment="Bottom" Margin="0 20"  Height="40">
