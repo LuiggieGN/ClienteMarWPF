@@ -1137,7 +1137,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                 }
             }else if (Reporte.Err != null)
             {
-                MostrarMensajes(Reporte.Err,"MAR-Cliente","INFO");
+                //MostrarMensajes(Reporte.Err,"MAR-Cliente","INFO");
             }
             
            }
