@@ -1236,7 +1236,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
         private void Quitar(object sender, RoutedEventArgs e)
         {
-            RemoveItem();
+            //RemoveItem();
+
+            ltJugada.ItemsSource = null;
+            ltJugada.Items.Refresh();
+
             if (ltJugada.Items.Count == 0)
             {
                 txtMonto.Focus();
