@@ -254,7 +254,7 @@
                                 <materialDesign:PackIcon Kind="Discount" Width="85" Height="85" Foreground="Lavender"  HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Grid>
                             <Label Content="{Binding Card_Descuentos_Productos}" FontSize="40"  Foreground="White" Padding="10"/>
-                            <Label Content="Descuento Productos" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
+                            <Label Content="Salida de Terceros" Grid.Row="1" VerticalContentAlignment="Center" FontWeight="Normal" Foreground="#000" Grid.ColumnSpan="2" Padding="20 0" FontSize="20" />
 
                         </Grid>
                     </Border>
