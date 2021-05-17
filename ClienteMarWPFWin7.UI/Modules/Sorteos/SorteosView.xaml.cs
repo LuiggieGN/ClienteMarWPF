@@ -3,6 +3,7 @@ using ClienteMarWPFWin7.Data.Services;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using ClienteMarWPFWin7.Domain.Models.Dtos;
 using ClienteMarWPFWin7.UI.Modules.Sorteos.Modal;
+using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
 using ClienteMarWPFWin7.UI.Views.WindowsModals;
 using System;
@@ -852,7 +853,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 case Key.F5:
                     teclaSeleccionada = "";
                     ticketSeleccionado = null;
-                    ValidarPagoTicketCommand.Execute(null);
+                    //ValidarPagoTicketCommand.Execute(null);
+                    AbrirDialogoConsulta(sender, e);
                     break;
 
                 case Key.F9:
@@ -2050,6 +2052,51 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void CrearSuper_LostFocus(object sender, RoutedEventArgs e)
         {
             CrearSuperFocus = false;
+        }
+
+        private void AbrirDialogoConsulta(object sender, RoutedEventArgs e)
+        {
+            Action seleccionar = () => {
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
+
+                if (InputHelper.InputIsBlank(txtMonto.Text))
+                {
+                    timer.Tick += (s, args) =>
+                    {
+                        timer.Stop();
+                        txtMonto.Focus();
+                    };
+                    timer.Start();
+
+                    return;
+                }
+
+                if (InputHelper.InputIsBlank(txtJugada.Text))
+                {
+                    timer.Tick += (s, args) =>
+                    {
+                        timer.Stop();
+                        txtJugada.Focus();
+
+                    };
+                    timer.Start();
+
+                    return;
+                }
+
+                timer.Tick += (s, args) =>
+                {
+                    timer.Stop();
+                    txtMonto.Focus();
+                };
+                timer.Start();
+            };
+
+            if(ValidarPagoTicketCommand != null)
+            {
+                ValidarPagoTicketCommand.Execute(seleccionar);
+            }
+
         }
 
 
