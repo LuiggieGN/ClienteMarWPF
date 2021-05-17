@@ -234,7 +234,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View2
 
             _nomBanca = _aut?.BancaConfiguracion?.BancaDto?.BanContacto;
 
-            _nomGestor = "-- Seleccionar Gestor --";
+            _nomGestor = "";  //_nomGestor = "-- Seleccionar Gestor --"; esto era lo que tenia
 
             _comentario = string.Empty;
 
