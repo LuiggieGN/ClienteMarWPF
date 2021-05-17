@@ -272,10 +272,14 @@
                             <Label x:Name="txtTotalVenta" VerticalContentAlignment="Center" Foreground="#28A745" Content="{Binding TotalVentas, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" />
                         </StackPanel>
                     </Border>-->
+                    <!--<Label Margin="0 5 0 0" Content="Presione la tecla '/' para moverse entre regulares-super pales"></Label>-->
                     <StackPanel x:Name="SorteosYLoterias" Grid.Column="1" Visibility="Visible" Margin="0 6 0 6">
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Text="Regulares" VerticalAlignment="Center" FontSize="16"  FontWeight="Bold" MouseDown="Regulares_MouseDown">
+
+
+                            <TextBlock  VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" MouseDown="Regulares_MouseDown">
+                                   <Underline>Regulares</Underline> 
                                 <TextBlock.Resources>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -292,7 +296,8 @@
                                 </TextBlock.Resources>
                             </TextBlock>
                             <ToggleButton x:Name="CrearSuper" Margin="10 24" Unchecked="CrearSuper_Unchecked" Checked="CrearSuper_Checked" />
-                            <TextBlock Text="SuperPales" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
+                            <TextBlock VerticalAlignment="Center" FontSize="18" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
+                                <Underline>SuperPales</Underline>
                                 <TextBlock.Resources>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
