@@ -122,5 +122,19 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
         }
 
 
+        public static bool LeerCajaExiste(int cajaid)
+        {
+            try
+            {
+                return CajaRepository.LeerCajaExiste(cajaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
     }//fin de clase
 }

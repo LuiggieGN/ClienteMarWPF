@@ -27,5 +27,8 @@ namespace ClienteMarWPFWin7.Domain.Services.CajaService
         CajaDTO LeerCajaDeUsuarioPorUsuarioId(int usuarioid);
 
         bool SetearCajaDisponibilidad(CajaDisponibilidadDTO disponibilidad);
+
+        bool LeerCajaExiste(int cajaid);
+
     }
 }

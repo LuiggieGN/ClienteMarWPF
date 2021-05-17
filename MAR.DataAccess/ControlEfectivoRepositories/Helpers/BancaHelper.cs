@@ -478,13 +478,16 @@ set @ventadeproductoshoy = isnull(
               select  Ingresos  from VP_Transaccion WITH (NOLOCK) where Activo=1 and BancaID = @bancaid and convert(date,FechaIngreso) = @hoysolofecha 
               union all
               select  Ingresos  from VP_HTransaccion where Activo=1 and BancaID = @bancaid and convert(date,FechaIngreso) = @hoysolofecha 
+			  union all
+              select  PinCosto as Ingresos from PDPines WITH (NOLOCK) where  BancaID = @bancaid and PinNulo <> convert(int,1)  and convert(date,PinFecha) = @hoysolofecha 
+              union all
+              select  PinCosto as Ingresos from PHPines where  BancaID = @bancaid and PinNulo <> convert(int,1)  and convert(date,PinFecha) = @hoysolofecha  
 			  
         ) as t
     ),
 	
 	0
 );
-
 
 select @ventadeproductoshoy TotalVendidoDeProductosHoy;
         ";
