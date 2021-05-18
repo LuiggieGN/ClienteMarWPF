@@ -1761,6 +1761,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //}
 
                 RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+
+            if(sorteosSeleccionados.Items.Count == 0)
+            {
+                listSorteo.SelectedIndex = -1;
+                listSorteo.Items.Refresh();
+                txtMonto.Focus();
+            }
+
             RefreshListJugadas();
         }
 
@@ -1830,7 +1838,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void txtMonto_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtMontoFocus = true;
-
+           
+            listSorteo.SelectedIndex = -1;
+            listSorteo.Items.Refresh();
         }
 
         private void txtMonto_LostFocus(object sender, RoutedEventArgs e)
@@ -1845,6 +1855,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             TxtJugadaFocus = true;
             (sender as TextBox)?.SelectAll();
 
+            listSorteo.SelectedIndex = -1;
+            listSorteo.Items.Refresh();
         }
 
         private void txtJugada_LostFocus(object sender, RoutedEventArgs e)
@@ -1858,6 +1870,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             var listado = (IEnumerable<SorteosAvender>)ListSorteosVender;
             var lista = new List<SorteosAvender>(listado);   
             RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+
+            if(sorteosSeleccionados.Items.Count == 0)
+            {
+                txtMonto.Focus();
+                listSorteo.SelectedIndex = -1;
+                listSorteo.Items.Refresh();
+            }
         }
 
         private void CombinarTodo(object sender, RoutedEventArgs e)
@@ -2094,6 +2113,24 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 ValidarPagoTicketCommand.Execute(seleccionar);
             }
 
+        }
+
+        private void ltJugada_GotFocus(object sender, RoutedEventArgs e)
+        {
+            listSorteo.SelectedIndex = -1;
+            listSorteo.Items.Refresh();
+        }
+
+        private void Button_GotFocus(object sender, RoutedEventArgs e)
+        {
+            listSorteo.SelectedIndex = -1;
+            listSorteo.Items.Refresh();
+        }
+
+        private void Button_GotFocus_1(object sender, RoutedEventArgs e)
+        {
+            listSorteo.SelectedIndex = -1;
+            listSorteo.Items.Refresh();
         }
 
         //private void AddLoteriaMultiples()

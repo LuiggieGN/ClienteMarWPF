@@ -10,7 +10,6 @@
                xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
               xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"     
              mc:Ignorable="d" PreviewKeyDown="PressTecla" KeyUp="OnKeyUp" Name="vistaSorteo" Loaded="SelectCampo"
-             
              >
     <UserControl.Resources>
         <DataTemplate x:Key="ListCheckBoxTemplate">
@@ -158,7 +157,7 @@
                     </StackPanel>
 
                     <ScrollViewer   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 8 0 16"  Height="250"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                        <DataGrid x:Name="ltJugada"  ItemsSource="{Binding}" FontSize="18"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True" Background="AliceBlue">
+                        <DataGrid GotFocus="ltJugada_GotFocus" x:Name="ltJugada"  ItemsSource="{Binding}" FontSize="18"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True" Background="AliceBlue">
                             <DataGrid.Columns>
                                 <DataGridTextColumn  Binding="{Binding TipoJugada}" Width="*"  Header="Tipo Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn  Binding="{Binding Jugadas}"    Width="*" Header="Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
@@ -227,14 +226,14 @@
 
                     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" Margin="0 8">
 
-                        <Button  Style="{DynamicResource MaterialDesignRaisedAccentButton}" Click="btnCombinar" Foreground="White" Width="160" Margin="5 0" Background="{DynamicResource MenuTopBackground}" >
+                        <Button GotFocus="Button_GotFocus" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Click="btnCombinar" Foreground="White" Width="160" Margin="5 0" Background="{DynamicResource MenuTopBackground}" >
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <materialDesign:PackIcon Kind="ShuffleVariant" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                                 <TextBlock Text="Combinar *" Foreground="White" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
-                        <Button  Style="{DynamicResource btn-dark}" Click="AbrirDialogoConsulta" Mouse.MouseEnter="Button_MouseEnter" Foreground="White" Width="160" Margin="5 0"  >
+                        <Button GotFocus="Button_GotFocus_1"  Style="{DynamicResource btn-dark}" Click="AbrirDialogoConsulta" Mouse.MouseEnter="Button_MouseEnter" Foreground="White" Width="160" Margin="5 0"  >
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                                 <materialDesign:PackIcon Kind="Invoice" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                                 <TextBlock Text="Copiar F5" Foreground="White" VerticalAlignment="Center"/>
