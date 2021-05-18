@@ -85,6 +85,7 @@
                 <moduloValidarPagos:ValidarPagoTicket
                    GetListadoTicketsCommand="{Binding GetListadoTicketsCommand}"
                    CopiarTicketCommand="{Binding CopiarTicketCommand}"
+  
                     />
             </DataTemplate>
             
