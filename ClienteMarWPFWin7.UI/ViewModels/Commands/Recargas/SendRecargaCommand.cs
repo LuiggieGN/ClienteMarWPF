@@ -67,7 +67,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-
+           
             ViewModel.ErrorMessage = string.Empty;
             ViewModel.Cargando = Si;
 
@@ -117,8 +117,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
 
 
 
-        private void worker_RunWorkerCompleted(object sender,
-                                                RunWorkerCompletedEventArgs e)
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             ViewModel.Cargando = Booleano.No;
 
@@ -132,20 +131,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
             else
             {
                var  DATOSRecargas = new RecargasIndexRecarga() { UsuarioId = 0, Solicitud = Solicitud, Clave = "ok", Monto = Recarga.Costo, Numero = Recarga.Numero, Serie = Recarga.Serie, Suplidor = "ok", SuplidorId = 0 };
-
-                
-                List<string[]> impresionRecargas = PrintJobs.FromImprimirRecarga(DATOSRecargas, Autenticador);
-                TicketTemplateHelper.PrintTicket(impresionRecargas);
-
                 ViewModel.Dialog = new DialogImprimirTicketViewModel(_nav, Autenticador, _vistas, RecargaService, DATOSRecargas);
                 ViewModel.Dialog.Mostrar();
+                ViewModel.Telefono = null;
+                ViewModel.Monto = null;
 
             }
-
-
-
-
-
         }
 
 

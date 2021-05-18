@@ -236,7 +236,7 @@
                         <Button  Style="{DynamicResource btn-dark}" Command="{Binding ValidarPagoTicketCommand}" Mouse.MouseEnter="Button_MouseEnter" Foreground="White" Width="160" Margin="5 0"  >
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                                 <materialDesign:PackIcon Kind="Invoice" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
-                                <TextBlock Text="Consultar F5" Foreground="White" VerticalAlignment="Center"/>
+                                <TextBlock Text="Copiar F5" Foreground="White" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 

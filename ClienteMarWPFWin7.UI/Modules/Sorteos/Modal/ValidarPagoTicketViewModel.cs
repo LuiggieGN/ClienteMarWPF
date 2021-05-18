@@ -116,7 +116,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             }
         }
 
-       
         public string MensajeResponse
         {
             get
