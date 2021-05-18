@@ -244,7 +244,7 @@
                     Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.EnLinea}" >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Public" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="En linea" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Version web" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 

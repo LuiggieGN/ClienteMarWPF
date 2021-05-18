@@ -121,6 +121,7 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 2">
                         <TextBox
+                            
                             GotFocus="txtMonto_GotFocus" LostFocus="txtMonto_LostFocus"
                             
                         Name="txtMonto"
@@ -278,8 +279,8 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
 
-                            <TextBlock  VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" MouseDown="Regulares_MouseDown">
-                                   <Underline>Regulares</Underline> 
+                            <TextBlock Name="TextBlockRegulares"  VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" MouseDown="Regulares_MouseDown">
+                                   
                                 <TextBlock.Resources>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -296,8 +297,8 @@
                                 </TextBlock.Resources>
                             </TextBlock>
                             <ToggleButton x:Name="CrearSuper" Margin="10 24" Unchecked="CrearSuper_Unchecked" Checked="CrearSuper_Checked" />
-                            <TextBlock VerticalAlignment="Center" FontSize="18" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
-                                <Underline>SuperPales</Underline>
+                            <TextBlock Name="TextBlockSuper" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
+                                
                                 <TextBlock.Resources>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
