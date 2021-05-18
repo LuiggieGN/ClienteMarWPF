@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
+             xmlns:controls1="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"
              mc:Ignorable="d" Name="vistaPago" PreviewKeyDown="vistaPago_PreviewKeyDown"
             >
     <UserControl.Resources>
@@ -213,18 +214,42 @@
                             </StackPanel>
                         </Button>
 
-                        <Button  x:Name="botonReImprimir" Style="{DynamicResource btn-warning}" Click="ReImprimirTicket"   Foreground="White" Width="160"  Margin="5 0">
+                        <Button  x:Name="botonReImprimir"
+                                 Style="{DynamicResource btn-warning}" 
+                                 Click="ReImprimirTicket" 
+                                 Foreground="White"
+                                 Width="160"
+                                 Margin="5 0">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                                 <TextBlock Text="Reimprimir F8"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
-                        <Button  Style="{DynamicResource btn-danger}" Command="{Binding AnularTicketCommand}" Foreground="White" Width="145"  Margin="5 0" >
-                            <StackPanel Orientation="Horizontal" >
-                                <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
-                                <TextBlock Text="Anular F7"  VerticalAlignment="Center"/>
-                            </StackPanel>
+                        <Button x:Name="botonAnular" 
+                                Style="{DynamicResource btn-danger}"
+                                Click="AnularTicket"                              
+                                Foreground="White" 
+                                Width="150"
+                                Margin="5 0">
+                            <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="RemoveCircle" Margin="1 1 5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+
+                                    <TextBlock Text="Anular F7" Foreground="White" VerticalAlignment="Center"/>
+
+                                    <controls1:SpinnerPiston x:Name="SpinnerAnular" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="60"
+                                                Height="40"
+                                                Visibility="Collapsed"/>
+                                </StackPanel>
+                            </Grid>
                         </Button>
 
 
