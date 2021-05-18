@@ -223,17 +223,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                     break;
 
                 case Key.F8:
-                    if (VM.ReimprimirTicketCommand != null)
-                    {
-                        VM.ReimprimirTicketCommand.Execute(null);
-                    }
+                    ReImprimirTicket(sender, e);
                     break;
 
                 case Key.F7:
-                    if (VM.AnularTicketCommand != null)
-                    {
-                        VM.AnularTicketCommand.Execute(null);
-                    }
+                    AnularTicket(sender, e);
                     break;
 
                 case Key.Escape:
@@ -260,7 +254,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             var Vm = DataContext as ValidarPagoTicketViewModel;
             Vm.TicketNumero = GetTicketNumber();
-            
+
         }
 
         private void DataGridCell_MouseDown(object sender, MouseButtonEventArgs e)
@@ -309,7 +303,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                             {
                                 ReimprimirTicketCommand?.Execute(null);
                             }
-                            catch {  }
+                            catch { }
 
                             var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
                             timer.Tick += (s, args) =>
@@ -329,5 +323,63 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 
         }//fin de metodo
 
-    }
+
+
+        private bool anularThreadIsBusy = false;
+        private void AnularTicket(object sender, RoutedEventArgs e)
+        {
+            if (AnularTicketCommand != null)
+            {
+                string noTicket = TxtTicket.Text;
+                string pin = TxtPin.Text;
+
+                if (
+                     anularThreadIsBusy == false &&
+                    (!InputHelper.InputIsBlank(noTicket)) &&
+                    (!InputHelper.InputIsBlank(pin))
+
+                    )
+                {
+                    botonAnular.IsEnabled = false;
+                    SpinnerAnular.Visibility = Visibility.Visible;
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        anularThreadIsBusy = true;
+                        System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                        {
+                            try
+                            {
+                                AnularTicketCommand?.Execute(null);
+                                SpinnerAnular.Visibility = Visibility.Collapsed;
+                            }
+                            catch { }
+
+                            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
+                            timer.Tick += (s, args) =>
+                            {
+                                timer.Stop();
+                                botonAnular.IsEnabled = true;
+                                SpinnerAnular.Visibility = Visibility.Collapsed;
+                                anularThreadIsBusy = false;
+                            };
+                            timer.Start();
+
+                        }));
+                    });
+
+                }//fin de If thread is busy
+
+            }//fin de If comando no es null
+
+        }//fin de metodo
+
+
+
+
+
+
+    }//fin de Clase
 }
