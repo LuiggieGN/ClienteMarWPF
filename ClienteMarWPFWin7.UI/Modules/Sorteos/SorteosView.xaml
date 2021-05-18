@@ -601,7 +601,7 @@
 
         </Grid>
 
-        <controls:ValidarPagoTicket DataContext="{Binding Dialog}" Panel.ZIndex="500" OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}" CargarDialogo="{Binding Path=MuestroDialogo}" Margin="-2,-6,2,6.2" Grid.RowSpan="2"/>
+        <controls:ValidarPagoTicket DataContext="{Binding Dialog}" Panel.ZIndex="500" OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}" CargarDialogo="{Binding Path=MuestroDialogo}" Margin="-2,-6,2,6.2" Grid.RowSpan="2" ReimprimirTicketCommand="{Binding ReimprimirTicketCommand}"/>
 
     </Grid>
 

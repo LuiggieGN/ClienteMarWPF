@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading.Tasks;
+using System.Windows.Threading;
+using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 
 namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 {
@@ -22,8 +25,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
     public partial class ValidarPagoTicket : UserControl
     {
         private bool _padreFueHabilitado = true;
-         private static string ticketSeleccionado;
-        
+        private static string ticketSeleccionado;
+
 
 
         public bool CargarDialogo
@@ -155,7 +158,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             InitializeComponent();
             Visibility = Visibility.Hidden;
-            
+
             //GetListadoTicketsCommand.Execute(null);
         }
 
@@ -181,11 +184,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             Vm.TicketNumero = GetTicketNumber();
         }
 
-       
+
         private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
         {
             var elemento = (sender as Control);
-            MAR_Bet ticket = (MAR_Bet) elemento.DataContext;
+            MAR_Bet ticket = (MAR_Bet)elemento.DataContext;
             ticketSeleccionado = ticket.TicketNo;
         }
 
@@ -213,28 +216,28 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             switch (e.Key)
             {
                 case Key.F4:
-                    if(VM.ConsultarTicketCommand != null)
+                    if (VM.ConsultarTicketCommand != null)
                     {
                         VM.ConsultarTicketCommand.Execute(null);
                     }
                     break;
 
                 case Key.F8:
-                        if (VM.ReimprimirTicketCommand != null)
-                        {
-                            VM.ReimprimirTicketCommand.Execute(null);
-                        }
+                    if (VM.ReimprimirTicketCommand != null)
+                    {
+                        VM.ReimprimirTicketCommand.Execute(null);
+                    }
                     break;
 
                 case Key.F7:
-                    if(VM.AnularTicketCommand != null)
+                    if (VM.AnularTicketCommand != null)
                     {
                         VM.AnularTicketCommand.Execute(null);
                     }
                     break;
 
                 case Key.Escape:
-                    if(VM.CerrarValidarPagoTicketCommand != null)
+                    if (VM.CerrarValidarPagoTicketCommand != null)
                     {
                         VM.CerrarValidarPagoTicketCommand.Execute(null);
                     }
@@ -242,7 +245,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 
             }
 
-           
+
         }
 
         private void DataGridRow_MouseEnter(object sender, MouseEventArgs e)
@@ -255,8 +258,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 
         private void DataGridRow_LostMouseCapture(object sender, MouseEventArgs e)
         {
-             var Vm = DataContext as ValidarPagoTicketViewModel;
-             Vm.TicketNumero = GetTicketNumber();
+            var Vm = DataContext as ValidarPagoTicketViewModel;
+            Vm.TicketNumero = GetTicketNumber();
         }
 
         private void DataGridCell_MouseDown(object sender, MouseButtonEventArgs e)
@@ -278,5 +281,57 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 
             }
         }
+
+
+
+        private bool reImprimirTicketThreadIsBusy = false;
+        private void ReImprimirTicket(object sender, RoutedEventArgs e)
+        {
+            if (ReimprimirTicketCommand != null)
+            {
+                string noTicket = TxtTicket.Text;
+
+                if (reImprimirTicketThreadIsBusy == false && (!InputHelper.InputIsBlank(noTicket)))
+                {
+                    botonReImprimir.IsEnabled = false;
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        reImprimirTicketThreadIsBusy = true;
+                        System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                        {
+                            try
+                            {
+                                ReimprimirTicketCommand?.Execute(null);
+                            }
+                            catch {  }
+
+                            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
+                            timer.Tick += (s, args) =>
+                            {
+                                timer.Stop();
+                                botonReImprimir.IsEnabled = true;
+                                reImprimirTicketThreadIsBusy = false;
+                            };
+                            timer.Start();
+
+                        }));
+                    });
+
+                }//fin de If thread is busy
+
+            }//fin de If comando no es null
+
+        }//fin de metodo
+
+
+
+
+
+
+
+
     }
 }

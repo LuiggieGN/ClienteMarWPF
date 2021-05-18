@@ -213,8 +213,7 @@
                             </StackPanel>
                         </Button>
 
-                        <Button  Style="{DynamicResource btn-warning}"  Command="{Binding ReimprimirTicketCommand}"  Foreground="White" Width="160"  Margin="5 0">
-
+                        <Button  x:Name="botonReImprimir" Style="{DynamicResource btn-warning}" Click="ReImprimirTicket"   Foreground="White" Width="160"  Margin="5 0">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Printer"  VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                                 <TextBlock Text="Reimprimir F8"  VerticalAlignment="Center"/>
