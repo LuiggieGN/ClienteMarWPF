@@ -25,8 +25,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
         private void ValidarPagoTicket(object parametro)
         {
-            var accion = parametro as Action;
-            ViewModel.Dialog = new ValidarPagoTicketViewModel(ViewModel, Autenticador,  SorteosService, accion);
+            var acciones = parametro as Tuple<Action,Action>;
+
+            ViewModel.Dialog = new ValidarPagoTicketViewModel(ViewModel, Autenticador,  SorteosService, acciones.Item1,acciones.Item2);
             ViewModel.Dialog.Mostrar();
         }
     }

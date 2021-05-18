@@ -36,8 +36,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         public SorteosViewModel SorteoVM;
 
         public Action SeleccionarInputVacios;
-        
-        public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService,Action seleccionarInputsVacios)
+        public Action SeleccionarTxtTicket;
+
+        public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService,Action seleccionarInputsVacios,Action seleccionarTxtTicket)
         {
 
             SetMensajeToDefaultSate();
@@ -53,6 +54,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             CopiarTicketCommand = new CopiarTicketCommand(viewModel, autenticador, sorteosService,false,this);
             SorteoVM = viewModel;
             SeleccionarInputVacios = seleccionarInputsVacios;
+            SeleccionarTxtTicket = seleccionarTxtTicket;
             //this.TicketNumero = new SorteosView().GetTicketNumeroPrecargar();
             GetListadoTicketsCommand.Execute(null);
 
@@ -188,7 +190,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         public void Mostrar()
         {
             MuestroDialogo = true;
-
+            SeleccionarTxtTicket?.Invoke();
         }
 
         public void Ocultar()

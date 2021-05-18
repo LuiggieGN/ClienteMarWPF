@@ -260,12 +260,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             var Vm = DataContext as ValidarPagoTicketViewModel;
             Vm.TicketNumero = GetTicketNumber();
+            
         }
 
         private void DataGridCell_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var Vm = DataContext as ValidarPagoTicketViewModel;
             Vm.TicketNumero = GetTicketNumber();
+            TxtPin.Focus();
+
         }
 
         private void CopiarTicketInput(object sender, MouseButtonEventArgs e)
@@ -325,13 +328,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             }//fin de If comando no es null
 
         }//fin de metodo
-
-
-
-
-
-
-
 
     }
 }
