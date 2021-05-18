@@ -2072,7 +2072,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         private void AbrirDialogoConsulta(object sender, RoutedEventArgs e)
         {
+            Action focusNumeroTicket = () =>
+            {
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
+                timer.Tick += (s, args) =>
+                {
+                    timer.Stop();
+                    ConsultaModal.TxtTicket.Focus();
+                };
+                timer.Start();
+            };
+
             Action seleccionar = () => {
+
                 var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
 
                 if (InputHelper.InputIsBlank(txtMonto.Text))
@@ -2110,7 +2122,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if(ValidarPagoTicketCommand != null)
             {
-                ValidarPagoTicketCommand.Execute(seleccionar);
+                var acciones = new Tuple<Action, Action>(seleccionar, focusNumeroTicket);
+
+                ValidarPagoTicketCommand.Execute(acciones);
             }
 
         }
