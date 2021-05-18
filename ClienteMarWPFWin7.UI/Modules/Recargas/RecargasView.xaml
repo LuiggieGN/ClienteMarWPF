@@ -112,8 +112,8 @@
                      Height="40" 
                      Width="165"
                      Margin="0 30 0 10 " 
-                     Style="{DynamicResource btn-success}" 
                      Click="botonIniciar_Click"
+                     Style="{DynamicResource btn-success}" 
                      Name="botonIniciar">
                         <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>

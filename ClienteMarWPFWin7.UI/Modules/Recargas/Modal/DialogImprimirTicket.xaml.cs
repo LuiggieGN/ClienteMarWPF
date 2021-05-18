@@ -97,8 +97,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas.Modal
         {
             InitializeComponent();
             Visibility = Visibility.Hidden;
-            botonSalir.Focusable=true;
-            botonSalir.Focus();
+            botonSalir.Focusable = true;
+            FocusManager.SetIsFocusScope(botonSalir, false);
         }
     }
 }

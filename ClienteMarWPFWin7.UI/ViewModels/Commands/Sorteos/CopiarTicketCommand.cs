@@ -1,4 +1,5 @@
 ﻿using ClienteMarWPFWin7.Data;
+using ClienteMarWPFWin7.Data;
 using ClienteMarWPFWin7.Domain.Models.Dtos;
 using ClienteMarWPFWin7.Domain.Services.SorteosService;
 using ClienteMarWPFWin7.UI.Modules.Sorteos;
@@ -65,38 +66,54 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             //{
 
 
-            var ObteniendoJugadaPrecargada = ViewModel.ListadoTicketsPrecargados.Where(x => x.TicketNo == NumeroTicket);
-            var posicion = 0;
-            MAR_Bet NuevaJugada = null;
-            bool resetearJugdas = false;
-            foreach (var jugada in ObteniendoJugadaPrecargada)
-            {
+            var ObteniendoJugadaPrecargada = ViewModel.ListadoTicketsPrecargados.Where(x => x.TicketNo == NumeroTicket); 
+                List<MAR_BetItem> ListadoJugadasTicket = new List<MAR_BetItem>() { };
+                var posicion = 0;
+                MAR_Bet NuevaJugada = null;
+                bool resetearJugdas = false;
+                var jugadasPorTickets = new MAR_Bet { };
+                if (ObteniendoJugadaPrecargada.Count() > 0)
+                { 
+                   foreach (var jugada in ObteniendoJugadaPrecargada)
+                   {
                 
-                if (jugada.Items == null)
-                {
-                    resetearJugdas = true;
-                    posicion = ViewModel.ListadoTicketsPrecargados.IndexOf(jugada);
+                        if (jugada.Items == null)
+                        {
+                            resetearJugdas = true;
+                            posicion = ViewModel.ListadoTicketsPrecargados.IndexOf(jugada);
                     
-                    List<MAR_BetItem> ListadoJugadasTicket = new List<MAR_BetItem>() { };
-                    var jugadasPorTickets = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, NumeroTicket);
+                            
+                            jugadasPorTickets = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, NumeroTicket);
+                            foreach (var Jugada in jugadasPorTickets.Items) {
+                                    MAR_BetItem JugadaTicket = new MAR_BetItem() { Cantidad = Jugada.Cantidad, Costo = Jugada.Costo, Loteria = Jugada.Loteria, Numero = Jugada.Numero, Pago = Jugada.Pago, QP = Jugada.QP };
+                                    ListadoJugadasTicket.Add(JugadaTicket);
+                            }
+                            NuevaJugada = new MAR_Bet() { TicketNo = jugada.TicketNo, Cedula = jugada.Cedula, Cliente = jugada.Cliente, Costo = jugada.Costo, Err = jugada.Err, Grupo = jugada.Grupo, Items = ListadoJugadasTicket.ToArray(), Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = jugadasPorTickets.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket };
+                    
+                            jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
+                         } else { 
+                            jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = jugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = jugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
+                        }
+                    
+                    }
+                        if (resetearJugdas == true) { 
+                            ViewModel.ListadoTicketsPrecargados.RemoveAt(posicion);
+                            ViewModel.ListadoTicketsPrecargados.Add(NuevaJugada);
+                        }
+                } 
+                else if(ObteniendoJugadaPrecargada.Count() == 0)
+                {
+                    jugadasPorTickets = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, NumeroTicket);
+                    var jugada = jugadasPorTickets;
 
-                    foreach (var Jugada in jugadasPorTickets.Items) {
-                            MAR_BetItem JugadaTicket = new MAR_BetItem() { Cantidad = Jugada.Cantidad, Costo = Jugada.Costo, Loteria = Jugada.Loteria, Numero = Jugada.Numero, Pago = Jugada.Pago, QP = Jugada.QP };
-                            ListadoJugadasTicket.Add(JugadaTicket);
+                    foreach (var Jugada in jugadasPorTickets.Items)
+                    {
+                        MAR_BetItem JugadaTicket = new MAR_BetItem() { Cantidad = Jugada.Cantidad, Costo = Jugada.Costo, Loteria = Jugada.Loteria, Numero = Jugada.Numero, Pago = Jugada.Pago, QP = Jugada.QP };
+                        ListadoJugadasTicket.Add(JugadaTicket);
                     }
                     NuevaJugada = new MAR_Bet() { TicketNo = jugada.TicketNo, Cedula = jugada.Cedula, Cliente = jugada.Cliente, Costo = jugada.Costo, Err = jugada.Err, Grupo = jugada.Grupo, Items = ListadoJugadasTicket.ToArray(), Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = jugadasPorTickets.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket };
-                    
-                    jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
-                 }
-                    else { 
-                    jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = jugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = jugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
-                }
-                    
-            }
 
-                if (resetearJugdas == true) { 
-                    ViewModel.ListadoTicketsPrecargados.RemoveAt(posicion);
-                    ViewModel.ListadoTicketsPrecargados.Add(NuevaJugada);
+                    jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
                 }
                 //jugadas = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, data.TicketNo);
                 //var TicketSeleccionado = ViewModel.ListadoTicketsPrecargados.Where(x => x.TicketNo == data.TicketNo);
@@ -144,7 +161,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                     //if (ReimprimirResponse.Err == null)
                     //{
-                       
+                        
                         for (var i = 0; i < MoreOptions.Count; i++)
                         {
                             var ConfigValue = MoreOptions[i];
@@ -209,7 +226,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                             Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
                             TextReviseJugada = "Revise su jugada. Buena Suerte!"
                         };
-                        TicketTemplateHelper.PrintTicket(TICKET, null, true);
+                        if (TICKET.Nulo==false)
+                        {
+                            TicketTemplateHelper.PrintTicket(TICKET, null, true);
+                        }
+                        else
+                        {
+                            ViewModelValidar.SetMensaje(mensaje: "La reimpresion del ticket no fue realizada porque el ticket ya fue anulado.",
+                                          icono: "Check",
+                                          background: "#FF0000",
+                                          puedeMostrarse: true);
+                        }
+                        
                     }
                 }
                 else
