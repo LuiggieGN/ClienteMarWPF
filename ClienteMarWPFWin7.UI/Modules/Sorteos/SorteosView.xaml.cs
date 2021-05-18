@@ -20,6 +20,7 @@ using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
 using static ClienteMarWPFWin7.Domain.Models.Dtos.SorteosDisponibles;
@@ -96,9 +97,18 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             combinations = SessionGlobals.SuperPaleDisponibles;
             ListSorteosVender = new ObservableCollection<SorteosAvender>();
 
+            // Agregar underline y texto de regulares (Toogle)
+            TextBlockRegulares.Inlines.Add(new Underline(new Run("R")));
+            TextBlockRegulares.Inlines.Add(new Run("egulares"));
+
+            // Agregar underline y texto en super pales (Toogle)
+
+            TextBlockSuper.Inlines.Add(new Underline(new Run("S")));
+            TextBlockSuper.Inlines.Add(new Run("uperPale"));
+
             //if (CrearSuper.IsChecked == false)
             //{
-                listSorteo.DataContext = SorteosBinding;
+            listSorteo.DataContext = SorteosBinding;
             Spinner.Visibility = Visibility.Collapsed;
             //}
             //else if (CrearSuper.IsChecked == true)
@@ -821,29 +831,29 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     e.Handled = false;
                     break;
 
-                case Key.Divide:
+                //case Key.Divide:
 
-                    if (CrearSuper.IsChecked == true)
-                    {
-                        e.Handled = true;
-                        CrearSuper.IsChecked = false;
-                        e.Handled = false;
-                        listSorteo.Focus();
-                        listSorteo.SelectedIndex = 0;
+                //    if (CrearSuper.IsChecked == true)
+                //    {
+                //        e.Handled = true;
+                //        CrearSuper.IsChecked = false;
+                //        e.Handled = false;
+                //        listSorteo.Focus();
+                //        listSorteo.SelectedIndex = 0;
 
-                    }
-                    else if (CrearSuper.IsChecked == false)
-                    {
-                        e.Handled = true;
-                        CrearSuper.IsChecked = true;
-                        e.Handled = false;
-                        listSorteo.Focus();
-                        listSorteo.SelectedIndex = 0;
+                //    }
+                //    else if (CrearSuper.IsChecked == false)
+                //    {
+                //        e.Handled = true;
+                //        CrearSuper.IsChecked = true;
+                //        e.Handled = false;
+                //        listSorteo.Focus();
+                //        listSorteo.SelectedIndex = 0;
 
-                    }
+                //    }
 
 
-                    break;
+                //    break;
 
                 case Key.Add:
                     teclaSeleccionada = "";
@@ -1292,29 +1302,64 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private bool ventaThreadIsBusy = false;
         private void Vender(object sender, RoutedEventArgs e)
         {
-            if (ventaThreadIsBusy == false)
+            int cuentaSorteos = ListSorteosVender.Count,
+                cuentaJugadas = ltJugada.Items.Count;
+
+            if(cuentaSorteos == 0)
             {
-                Spinner.Visibility = Visibility.Visible;
-
-                Task.Factory.StartNew(() => {
-                    Thread.Sleep(1000);
-                    ventaThreadIsBusy = true;
-                    System.Windows.Application.Current.Dispatcher.BeginInvoke(
-                    DispatcherPriority.Background,
-                    new Action(() => {
-                        try
-                        {
-                            RegistrarVenta();
-                        }
-                        catch
-                        {
-
-                        }
-                        ventaThreadIsBusy = false;
-                        Spinner.Visibility = Visibility.Collapsed;
-                    }));
-                });
+                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar al menos un sorteo.", "Aviso");
+                listSorteo.Focus();
+                listSorteo.SelectedIndex = 0;
             }
+            else if (cuentaJugadas == 0)
+            {
+                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
+
+                if (txtMonto.Text == "" && txtJugada.Text == "")
+                {
+                    txtMonto.Focus();
+                    listSorteo.SelectedIndex = -1;
+                }
+
+                if (txtMonto.Text != "" && txtJugada.Text == "")
+                {
+                    txtJugada.Focus();
+                    listSorteo.SelectedIndex = -1;
+                }
+
+                if (txtMonto.Text == "" && txtJugada.Text != "")
+                {
+                    txtMonto.Focus();
+                    listSorteo.SelectedIndex = -1;
+                }
+            }
+            else
+            {
+                if (ventaThreadIsBusy == false)
+                {
+                    Spinner.Visibility = Visibility.Visible;
+
+                    Task.Factory.StartNew(() => {
+                        Thread.Sleep(1000);
+                        ventaThreadIsBusy = true;
+                        System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() => {
+                            try
+                            {
+                                RegistrarVenta();
+                            }
+                            catch
+                            {
+
+                            }
+                            ventaThreadIsBusy = false;
+                            Spinner.Visibility = Visibility.Collapsed;
+                        }));
+                    });
+                }
+            }
+            
         }
 
         private void RegistrarVenta()
@@ -1328,50 +1373,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 RealizarVenta();
                 ResetearFormularioVenta();
             }
-            else
-            {
-                if (cuentaSorteos == 0)
-                {
-                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar al menos un sorteo.", "Aviso");
-                    listSorteo.Focus();
-                    listSorteo.SelectedIndex = 0;
-
-                }
-                else if (cuentaJugadas == 0)
-                {
-                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista.", "Aviso");
-
-                    if (txtMonto.Text == "" && txtJugada.Text == "")
-                    {
-                        txtMonto.Focus();
-                        listSorteo.SelectedIndex = -1;
-                    }
-
-                    if (txtMonto.Text != "" && txtJugada.Text == "")
-                    {
-                        txtJugada.Focus();
-                        listSorteo.SelectedIndex = -1;
-                    }
-
-                    if (txtMonto.Text == "" && txtJugada.Text != "")
-                    {
-                        txtMonto.Focus();
-                        listSorteo.SelectedIndex = -1;
-                    }
-
-                }
-
-                //if(CrearSuper.IsChecked == true)
-                //{
-                //    var cuenta = SuperPales.Where(x => x.IsSelected == true).Count();
-                //    if(cuenta < 2)
-                //    {
-                //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar dos sorteos.", "Aviso");
-                //        listSorteo.Focus();
-                //        listSorteo.SelectedIndex = 0;
-                //    }
-                //}
-            }
+        
         }
 
         private void RealizarVenta() 
@@ -1410,11 +1412,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             vm.AgregarTransaccionPendiente(nuevoMonto);
                         }
                     }
-
-
-
-
-
                 }
 
                 LimpiarApuesta();
@@ -2098,10 +2095,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
 
         }
-
-
-
-
 
         //private void AddLoteriaMultiples()
         //{
