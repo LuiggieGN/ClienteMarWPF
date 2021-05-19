@@ -31,5 +31,7 @@ namespace ClienteMarWPFWin7.Domain.Services.BancaService
 
         decimal LeerVentaDeHoyDeProductos(int bancaid);
 
+        bool LeerBancaTicketFueAnulado(string noTicket);
+
     }
 }

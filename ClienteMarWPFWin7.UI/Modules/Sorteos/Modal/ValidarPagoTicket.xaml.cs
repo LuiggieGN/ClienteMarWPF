@@ -196,7 +196,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             return ticketSeleccionado;
         }
-
+                      
         private void ReimprimirTicket(object sender, RoutedEventArgs e)
         {
             if (ticketSeleccionado != null)

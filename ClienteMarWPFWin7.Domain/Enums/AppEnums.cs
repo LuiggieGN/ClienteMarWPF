@@ -27,7 +27,7 @@
     
 
     public enum EfectivoFunciones
-    {        
+    { 
         Caja_RegistrarMovimientoEnBanca = 1000,     
         Caja_RegistrarMovimientoDesdeHasta = 1001,  
         Caja_LeerMovimientos = 1002,                
@@ -52,6 +52,7 @@
         Banca_LeerEstadoBancaEstaActiva = 2009,
         Banca_LeerVentaDeHoyDeLoterias = 2010,
         Banca_LeerVentaDeHoyDeProductos = 2011,
+        Banca_LeerTicketFueAnulado = 2012,
 
 
         Cuadre_Registrar = 3000,  
