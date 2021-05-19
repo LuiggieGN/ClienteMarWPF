@@ -59,13 +59,13 @@
 
             </StackPanel>
 
-            <StackPanel PreviewKeyDown="PressTecla"   x:Name="PanelConfiguracion" Visibility="Collapsed">
+            <StackPanel PreviewKeyDown="PressTecla"   x:Name="PanelConfiguracion" Visibility="Collapsed" >
                 <Label Content="Configuracion del sistema"  Foreground="SlateGray" />
 
                 <StackPanel Orientation="Horizontal" >
                     <TextBox Name="bancaid" materialDesign:HintAssist.Hint="Banca ID" Text="{Binding BancaID, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox  materialDesign:HintAssist.Hint="Direccion IP" Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <ComboBox  materialDesign:HintAssist.Hint="Tipo Ticket" ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}"  SelectedValue="{Binding Ticket, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="150" Margin="10 5 10 0"  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    <TextBox Name="direccionip"  materialDesign:HintAssist.Hint="Direccion IP" Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="10 0"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <ComboBox Name="ticket"  materialDesign:HintAssist.Hint="Tipo Ticket" ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}"  SelectedValue="{Binding Ticket, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="150" Margin="10 5 10 0"  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                 </StackPanel>
 
                 <StackPanel  Orientation="Horizontal"  VerticalAlignment="Top" Margin="0 40 0 0">
@@ -76,7 +76,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button  Style="{DynamicResource btn-success}" Command="{Binding SaveConfigCommand}" CommandParameter="{Binding ElementName=WindowConfig}" Foreground="White" Width="200" Height="35" Margin="10 0">
+                    <Button  Style="{DynamicResource btn-success}"  Command="{Binding SaveConfigCommand}" CommandParameter="{Binding ElementName=WindowConfig}" Foreground="White" Width="200" Height="35" Margin="10 0">
                         <StackPanel Orientation="Horizontal" >
                             <materialDesign:PackIcon Kind="CheckCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="Guardar Cambios" Foreground="White" VerticalAlignment="Center"/>
@@ -84,6 +84,21 @@
                     </Button>
 
                 </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Visibility="Hidden">
+                    <Button x:Name="btnSeleccionaID" Click="SeleccionaID" Content="Selecciona monto">
+
+                    </Button>
+
+                    <Button x:Name="btnSeleccionaIP" Click="SeleccionaIP" Content="Selecciona jugada">
+
+                    </Button>
+
+                    <!--<Button x:Name="btnSeleccionaTicket" Click="SeleccionarPrimerRowTablaJugada" Content="Selecciona jugada">
+
+                    </Button>-->
+                </StackPanel>
+
 
                 <Label Content="Configuracion Externas"  Foreground="SlateGray" Margin="0 20 0 0"  />
 
@@ -99,7 +114,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button    Style="{StaticResource MaterialDesignFlatButton}" Width="210" Height="150" Margin="20 0" ToolTip="Instalar Camion Millonario">
+                    <Button    Style="{StaticResource MaterialDesignFlatButton}" Width="210" Name="botonConfirmar" Height="150" Margin="20 0" ToolTip="Instalar Camion Millonario">
                         <StackPanel HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <materialDesign:PackIcon Kind="Truck" Width="100" Height="100" Foreground="{DynamicResource MenuLeftBackground}" HorizontalAlignment="Center"/>
