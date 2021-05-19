@@ -495,6 +495,25 @@ select @ventadeproductoshoy TotalVendidoDeProductosHoy;
 
 
 
+        internal static string LeerTicketFueAnuladoEstadoPorNoTicket = @"
+
+declare @tablatickets table (TicketId int, FueAnulado bit);
+declare @fueAnulado   bit = 0; 
+
+insert into @tablatickets(TicketId, FueAnulado)
+select TicketID as TicketId,  TicNulo as FueAnulado from DTickets WITH (NOLOCK) where TicNumero = @noTicket  
+union all
+select TicketID as TicketId,  TicNulo as FueAnulado from HTickets where TicNumero = @noTicket 
+order by TicketID desc;
+
+set @fueAnulado =  isnull((select top 1 FueAnulado from @tablatickets),0);
+
+select @fueAnulado FueAnulado;
+
+        ";
+
+
+
 
 
     }

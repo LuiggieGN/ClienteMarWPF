@@ -173,6 +173,20 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
         }
 
 
+        public static bool LeerBancaTicketFueAnulado(string noTicket)
+        {
+            try
+            {
+                return BancaRepository.LeerBancaTicketFueAnulado(noTicket); 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
 
 
     }//fin de clase

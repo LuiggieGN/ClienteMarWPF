@@ -359,6 +359,33 @@ namespace ClienteMarWPFWin7.Data.Services
             }
         }
 
+        public bool LeerBancaTicketFueAnulado(string noTicket)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(noTicket);
+
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerTicketFueAnulado, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al leer si el ticket fue anulado enviando no. de ticket");
+                }
+
+                var ticketFueAnulado = JSONHelper.CreateNewFromJSONNullValueIgnore<bool>(llamada.Respuesta);
+
+                return ticketFueAnulado;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
+
+
 
 
 

@@ -338,6 +338,11 @@ Public Class mar_flujo
                 Case 2011
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerVentaDeHoyDeProductos(bancaid)
+                Case 2012
+                    Dim noTicket = parametros(0).ToString()
+                    result = BancaLogic.LeerBancaTicketFueAnulado(noTicket)
+
+
 #End Region
 
 #Region "Cuadre"

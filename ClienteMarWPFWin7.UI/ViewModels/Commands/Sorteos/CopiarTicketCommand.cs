@@ -155,8 +155,36 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 }
 
                 if (reimprimir == true)
-                { 
-                     List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
+                {
+
+                    #region Logica Valida Ticket Fue Anulado By LJNG
+
+                    try
+                    {
+                        bool ticketFueAnulado = ViewModelValidar.SorteoVM.BancaServicio.LeerBancaTicketFueAnulado(noTicket:ViewModelValidar.TicketNumero);
+                        if (ticketFueAnulado)
+                        {
+                            ViewModelValidar.SetMensaje(mensaje: "El ticket ya fue anulado. No se puede re-imprimir",
+                                             icono: "Error",
+                                             background: "#DC3545",
+                                             puedeMostrarse: true);
+                            return;
+                        }
+                    }
+                    catch 
+                    {
+                        ViewModelValidar.SetMensaje(mensaje: "No se puede comunicar con el servicio de Mar",
+                                         icono: "Error",
+                                         background: "#DC3545",
+                                         puedeMostrarse: true);
+
+                        return;
+                    }
+                    #endregion
+
+
+
+                    List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
                     //var ReimprimirResponse = SorteosService.ReimprimirTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToInt32(ViewModelValidar.TicketPin));
 
                     //if (ReimprimirResponse.Err == null)

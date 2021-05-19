@@ -363,6 +363,38 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
 
 
 
+        public static bool LeerBancaTicketFueAnulado(string noTicket)
+        {
+            try
+            {
+                DynamicParameters p = new DynamicParameters(); bool ticketFueAnuladoEstado = false;
+                p.Add("@noTicket", noTicket??string.Empty);
+
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    List<bool> estados = db.Query<bool>(BancaHelper.LeerTicketFueAnuladoEstadoPorNoTicket, p, commandType: CommandType.Text).ToList();
+
+                    if (estados.Any())
+                    {
+                        ticketFueAnuladoEstado = estados.First();
+                    }
+
+                    db.Close();
+                }
+
+                return ticketFueAnuladoEstado;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
 
     }//fin de clase
 }
