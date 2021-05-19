@@ -755,6 +755,33 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     break;
 
+                case Key.D0:
+                    teclaSeleccionada = "D0";
+                    if (listSorteo.SelectedItem != null)
+                    {
+                        if (CrearSuper.IsChecked == true)
+                        {
+                            var item = listSorteo.SelectedItem as SorteosObservable;
+
+                            if (item.IsSelected == false)
+                            {
+
+                                item.IsSelected = true;
+
+                            }
+                            else if (item.IsSelected == true)
+                            {
+                                item.IsSelected = false;
+
+                            }
+                            ValidateSelectOnlyTwo(sender);
+
+                        }
+
+                    }
+
+                    break;
+
 
                 case Key.Space:
 
@@ -1104,6 +1131,44 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
                             }
                         }                    
+                    }
+
+                    RefreshListJugadas();
+                    break;
+
+                case Key.D0:
+                    teclaSeleccionada = "D0";
+                    if (listSorteo.SelectedItem != null)
+                    {
+                        if (CrearSuper.IsChecked == false)
+                        {
+                            var item = listSorteo.SelectedItem as SorteosObservable;
+                            var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
+                            var VM = DataContext as SorteosViewModel;
+                            if (item.IsSelected == false)
+                            {
+                                item.IsSelected = true;
+
+                                var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
+                                if (posicionLoteriaEliminar == -1)
+                                {
+                                    VM.LoteriasMultiples.Add(item.LoteriaID);
+                                }
+
+                                AgregarSorteoAVender(item);
+                            }
+                            else if (item.IsSelected == true)
+                            {
+                                int loteriaid = item.LoteriaID;
+                                item.IsSelected = false;
+                                var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
+                                if (posicionLoteriaEliminar != -1)
+                                {
+                                    VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
+                                }
+                                RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+                            }
+                        }
                     }
 
                     RefreshListJugadas();
@@ -2074,7 +2139,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             Action focusNumeroTicket = () =>
             {
-                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
                 timer.Tick += (s, args) =>
                 {
                     timer.Stop();
@@ -2085,7 +2150,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             Action seleccionar = () => {
 
-                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1000) };
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
 
                 if (InputHelper.InputIsBlank(txtMonto.Text))
                 {
