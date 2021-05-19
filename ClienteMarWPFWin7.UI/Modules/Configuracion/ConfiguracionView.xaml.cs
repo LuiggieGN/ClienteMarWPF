@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 
 namespace ClienteMarWPFWin7.UI.Modules.Configuracion
 {
@@ -19,6 +21,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
     {
 
         public Window ParentWindow;
+        public static readonly DependencyProperty SaveConfigCommandProperty = DependencyProperty.Register("SaveConfigCommand", typeof(ICommand), typeof(ConfiguracionView), new PropertyMetadata(null));
+
+        public ICommand SaveConfigCommand
+        {
+            get { return (ICommand)GetValue(SaveConfigCommandProperty); }
+            set { SetValue(SaveConfigCommandProperty, value); }
+        }
 
         public ConfiguracionView(Window parent, object context)
         {
@@ -73,10 +82,31 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
             {
                 case Key.Left:
                     BotonCerrar.Focus();
+                    if (direccionip.IsFocused)
+                    {
+                        bancaid.Focus();
+                        TriggerButtonClickEvent(btnSeleccionaID);
+
+                    }else if (ticket.IsFocused)
+                    {
+                        direccionip.Focus();
+                        TriggerButtonClickEvent(btnSeleccionaIP);
+                    }
                     break;
 
                 case Key.Right:
                     BotonAutorizar.Focus();
+
+                    if (bancaid.IsFocused)
+                    {
+                        direccionip.Focus();
+                        TriggerButtonClickEvent(btnSeleccionaIP);
+                    }
+                    else if (direccionip.IsFocused)
+                    {
+                        ticket.Focus();
+                    }
+
                     break;
 
                 case Key.Escape:
@@ -87,9 +117,18 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
                             Cerrar(sender, e);
                         }
                     }
-                   
+
                     break;
-               
+
+                //case Key.Down:
+                //    if (bancaid.IsFocused)
+                //    {
+                //        botonConfirmar.Focus();
+
+                //    }
+                //    break;
+
+
             }
         }
 
@@ -135,7 +174,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
                 if (clave == 159753)
                 {
                     PanelAutoriacion.Visibility = Visibility.Collapsed;
-                    PanelConfiguracion.Visibility = Visibility.Visible; 
+                    PanelConfiguracion.Visibility = Visibility.Visible;
+                    bancaid.Focus();
+                    TriggerButtonClickEvent(btnSeleccionaID);
                 }
                 else
                 {
@@ -174,6 +215,33 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
             Close();
         }
 
-       
+        private void SeleccionaID(object sender, RoutedEventArgs e)
+        {
+            bancaid.Focus();
+            bancaid.SelectAll();
+        }
+
+        private void SeleccionaIP(object sender, RoutedEventArgs e)
+        {
+            direccionip.Focus();
+            direccionip.SelectAll();
+        }
+
+        public void TriggerButtonClickEvent(Button boton)
+        {
+            try
+            {
+
+                if (boton != null)
+                {
+                    var peer = new ButtonAutomationPeer(boton);
+                    var invokeProvider = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                    invokeProvider?.Invoke();
+                }
+            }
+            catch { }
+        }
+
+   
     }
 }
