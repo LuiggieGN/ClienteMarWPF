@@ -33,6 +33,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
     public partial class SorteosView : UserControl
     {
         private List<SorteosObservable> SorteosBinding;
+        private List<SorteosObservable> SorteoBindingSinSuperPales;
         public List<SorteosObservable> represorteoseleccionados;
         private List<SorteosObservable> SuperPales;
         private List<SuperPaleDisponible> combinations;
@@ -93,6 +94,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             ListJugadas = new List<Jugada>();
             NumerosJugados = new List<string>();
             SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
+            SorteoBindingSinSuperPales = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
             SuperPales = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
             combinations = SessionGlobals.SuperPaleDisponibles;
             ListSorteosVender = new ObservableCollection<SorteosAvender>();
@@ -108,7 +110,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             //if (CrearSuper.IsChecked == false)
             //{
-            listSorteo.DataContext = SorteosBinding;
+            listSorteo.DataContext = SorteoBindingSinSuperPales;
             Spinner.Visibility = Visibility.Collapsed;
             //}
             //else if (CrearSuper.IsChecked == true)
@@ -145,15 +147,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 if (vm != null)
                 {
-                    List<int> LoteriasExistentes = new List<int>();
+                    List<int> LoteriasExistentesSinSuperPales = new List<int>();
                     List<int> SoloLoteriasExistentes = new List<int>();
 
-                    var clonLoteriasYSuper = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
+                    var clonLoteriasSinSuper = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
                     var clonLoterias = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
 
-                    foreach (var loteria in clonLoteriasYSuper)
+                    foreach (var loteria in clonLoteriasSinSuper)
                     {
-                        LoteriasExistentes.Add(loteria.LoteriaID);
+                        LoteriasExistentesSinSuperPales.Add(loteria.LoteriaID);
 
                     }
 
@@ -184,13 +186,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     combinations = SessionGlobals.SuperPaleDisponibles;
                    
 
-                    foreach (var i in LoteriasExistentes) // Esto contiene loterias y super pales
+                    foreach (var i in LoteriasExistentesSinSuperPales) // Esto contiene loterias y super pales
                     {
 
-                            if (SessionGlobals.LoteriasYSupersDisponibles.FindIndex(x => x.Numero == i) == -1)
+                            if (SessionGlobals.LoteriasDisponibles.FindIndex(x => x.Numero == i) == -1)
                             {
-                                var loteriaEliminar = SorteosBinding.FindIndex(x => x.LoteriaID == i);
-                                SorteosBinding.RemoveAt(loteriaEliminar);
+                                var loteriaEliminar = SorteoBindingSinSuperPales.FindIndex(x => x.LoteriaID == i);
+                                SorteoBindingSinSuperPales.RemoveAt(loteriaEliminar);
 
                                 int lotEliminar2 = -1;
                                 int counter = 0;
@@ -252,12 +254,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         }
                     }
 
-                    foreach (var i in SessionGlobals.LoteriasYSupersDisponibles)
+                    foreach (var i in SessionGlobals.LoteriasDisponibles)
                     {
                         SorteosObservable objetoAgregar = new SorteosObservable() { Date = DateTime.Now, IsSelected = false, Loteria = i.Nombre, LoteriaID = i.Numero };
-                            if (LoteriasExistentes.FindIndex(x => x == i.Numero) == -1)
+                            if (LoteriasExistentesSinSuperPales.FindIndex(x => x == i.Numero) == -1)
                             {
-                                SorteosBinding.Add(objetoAgregar);
+                                SorteoBindingSinSuperPales.Add(objetoAgregar);
                                 //SuperPales.Add(objetoAgregar);
                                 listSorteo.Items.Refresh();
                             }
@@ -275,7 +277,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     if (CrearSuper.IsChecked == false)
                     {
-                        listSorteo.DataContext = SorteosBinding;
+                        listSorteo.DataContext = SorteoBindingSinSuperPales;
 
                     }
                     if (CrearSuper.IsChecked == true)
@@ -614,17 +616,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             if (listSorteo.SelectedItem != null)
             {
                 var item = listSorteo.SelectedItem as SorteosObservable;
-                var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = DateTime.Now; return x; }).FirstOrDefault();
+                var sorteoChangeSelect = SorteoBindingSinSuperPales.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = DateTime.Now; return x; }).FirstOrDefault();
                 //if (sorteoChangeSelect.IsSelected == false && CrearSuper.IsChecked == false)
                 //{
                 //    SorteosSave.LoteriasResponse.Remove(sorteoChangeSelect.LoteriaID);
                 //}
-                var sorteosIsSelect = SorteosBinding.Where(x => x.IsSelected == true).ToList();
+                var sorteosIsSelect = SorteoBindingSinSuperPales.Where(x => x.IsSelected == true).ToList();
 
                 if (sorteosIsSelect.Count == 3 && CrearSuper.IsChecked == true)
                 {
 
-                    var listLastModify = SorteosBinding.Where(x => x.LoteriaID != item.LoteriaID && x.IsSelected == true).ToList();
+                    var listLastModify = SorteoBindingSinSuperPales.Where(x => x.LoteriaID != item.LoteriaID && x.IsSelected == true).ToList();
                     var firstDate = listLastModify.First().Date.TimeOfDay;
                     var lastDate = listLastModify.Last().Date.TimeOfDay;
 
@@ -686,7 +688,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (visible)
             {
-                listSorteo.DataContext = SorteosBinding;
+                listSorteo.DataContext = SorteoBindingSinSuperPales;
             }
             else
             {
@@ -696,7 +698,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
         private void RemoveAllSeletion()
         {
-            foreach (var item in SorteosBinding)
+            foreach (var item in SorteoBindingSinSuperPales)
             {
                 item.IsSelected = false;
             }
@@ -998,7 +1000,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         if (CrearSuper.IsChecked == false)
                         {
                             var item = listSorteo.SelectedItem as SorteosObservable;
-                            var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
+                            var sorteoChangeSelect = SorteoBindingSinSuperPales.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
                             var VM = DataContext as SorteosViewModel;
                             if (item.IsSelected == false)
                             {                              
@@ -1106,7 +1108,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         if (CrearSuper.IsChecked == false)
                         {
                             var item = listSorteo.SelectedItem as SorteosObservable;
-                            var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
+                            var sorteoChangeSelect = SorteoBindingSinSuperPales.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
                             var VM = DataContext as SorteosViewModel;
                             if (item.IsSelected == false)
                             {
@@ -1143,7 +1145,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         if (CrearSuper.IsChecked == false)
                         {
                             var item = listSorteo.SelectedItem as SorteosObservable;
-                            var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
+                            var sorteoChangeSelect = SorteoBindingSinSuperPales.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
                             var VM = DataContext as SorteosViewModel;
                             if (item.IsSelected == false)
                             {
@@ -1218,7 +1220,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void Regulares_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CrearSuper.IsChecked = false;
-            foreach (var item in SorteosBinding)
+            foreach (var item in SorteoBindingSinSuperPales)
             {
                 item.IsSelected = false;
             }
@@ -1490,7 +1492,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (ltJugada.Items.Count > 0)
             {
-                var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
+                var sorteos = SorteoBindingSinSuperPales.Where(x => x.IsSelected == true).ToList();
                 var Loteria = 0;
                 if (sorteos.Count > 1 && CrearSuper.IsChecked == true)
                 {
@@ -1510,7 +1512,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
                     if (RealizarApuestaCommand != null)
                     {
-                        foreach (var sorteosSeleccionados in SorteosBinding.Where(x => x.IsSelected == true))
+                        foreach (var sorteosSeleccionados in SorteoBindingSinSuperPales.Where(x => x.IsSelected == true))
                         {
                             RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = sorteosSeleccionados.LoteriaID });
                         }
@@ -1574,7 +1576,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             var loteria = (sender as CheckBox);
             var loteriaSeleccionada = loteria.DataContext as SorteosObservable;
-            foreach (var item in SorteosBinding)
+            foreach (var item in SorteoBindingSinSuperPales)
             {
                 if (loteriaSeleccionada.LoteriaID == item.LoteriaID)
                 {
@@ -1747,7 +1749,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             i.IsSelected = false;
                         }
 
-                        foreach(var x in SorteosBinding)
+                        foreach(var x in SorteoBindingSinSuperPales)
                         {
                             if(x.LoteriaID == sorteoCopia.LoteriaID)
                             {
@@ -1785,7 +1787,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             ListSorteosVender.Clear();
             CantidadSorteos.Content = "0 Sorteos seleccionados";
-            foreach (var item in SorteosBinding)
+            foreach (var item in SorteoBindingSinSuperPales)
             {
                 item.IsSelected = false;
             }
@@ -1859,7 +1861,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             if (ListSorteosVender.Count > 0)
             {
 
-                foreach (var i in SorteosBinding)
+                foreach (var i in SorteoBindingSinSuperPales)
                 {
 
                     if (i.LoteriaID == loteriaId)
@@ -2054,7 +2056,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 if(superPaleDisponibles.Count > 0)
                 {
-                    foreach (var x in SorteosBinding)
+                    foreach (var x in SorteoBindingSinSuperPales)
                     {
                         if (superPaleDisponibles.Any(y => y == x.LoteriaID))
                         {
