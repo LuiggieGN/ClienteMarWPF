@@ -206,18 +206,15 @@
                                 Orientation="Horizontal">
 
                                   
-                                    <materialDesign:PackIcon Kind="AddCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
-                                    <TextBlock Text="Vender"
-                                               
-                                   
-                                   Foreground="White"
-                                   VerticalAlignment="Center"/>
+                                    <materialDesign:PackIcon Kind="AddCircle" Margin="5 0 3 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                                    <TextBlock Text="Vender F12 +" Foreground="White" VerticalAlignment="Center"/>
                                     <controls1:SpinnerPiston x:Name="Spinner" Background="Transparent"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center" 
                                                 Width="60"
                                                 Height="40"
-                                                Visibility="Visible"/>
+                                                Visibility="Visible"
+                                                Margin="-15 0 0 0"/>
                                 </StackPanel>
                             </Grid>
                         </Button>

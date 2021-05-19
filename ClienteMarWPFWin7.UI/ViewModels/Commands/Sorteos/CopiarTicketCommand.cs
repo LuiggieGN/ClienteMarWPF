@@ -173,7 +173,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     }
                     catch 
                     {
-                        ViewModelValidar.SetMensaje(mensaje: "No se puede comunicar con el servicio de Mar",
+                        ViewModelValidar.SetMensaje(mensaje: "Verificar conexión de internet. No se pudo establecer conexón al servicio de Mar.",
                                          icono: "Error",
                                          background: "#DC3545",
                                          puedeMostrarse: true);

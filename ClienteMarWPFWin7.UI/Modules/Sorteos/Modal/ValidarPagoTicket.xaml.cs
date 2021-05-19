@@ -196,7 +196,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             return ticketSeleccionado;
         }
-                      
+
         private void ReimprimirTicket(object sender, RoutedEventArgs e)
         {
             if (ticketSeleccionado != null)
@@ -305,7 +305,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                             }
                             catch { }
 
-                            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
+                            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
                             timer.Tick += (s, args) =>
                             {
                                 timer.Stop();
@@ -346,6 +346,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                     Task.Factory.StartNew(() =>
                     {
                         anularThreadIsBusy = true;
+                        System.Threading.Thread.Sleep(1000);
                         System.Windows.Application.Current.Dispatcher.BeginInvoke(
                         DispatcherPriority.Background,
                         new Action(() =>
@@ -353,20 +354,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                             try
                             {
                                 AnularTicketCommand?.Execute(null);
-                                SpinnerAnular.Visibility = Visibility.Collapsed;
                             }
                             catch { }
 
-                            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(5000) };
-                            timer.Tick += (s, args) =>
-                            {
-                                timer.Stop();
-                                botonAnular.IsEnabled = true;
-                                SpinnerAnular.Visibility = Visibility.Collapsed;
-                                anularThreadIsBusy = false;
-                            };
-                            timer.Start();
-
+                            botonAnular.IsEnabled = true;
+                            SpinnerAnular.Visibility = Visibility.Collapsed;
+                            anularThreadIsBusy = false;
                         }));
                     });
 
