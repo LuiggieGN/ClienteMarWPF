@@ -154,11 +154,11 @@ namespace ClienteMarWPFWin7.Data.Services
             }
         }
 
-         public MAR_Bet ReimprimirTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int TicketPin)
+         public MAR_Bet ReimprimirTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int TicketID)
         {
             try
             {
-                return clientePuntoDeVenta.RePrint(session,TicketPin);
+                return clientePuntoDeVenta.RePrint(session, TicketID);
 
             }
             catch( Exception)

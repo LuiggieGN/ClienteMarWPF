@@ -71,7 +71,7 @@
                     RealizarApuestaCommand="{Binding RealizarApuestaCommand}" 
                     ValidarPagoTicketCommand="{Binding ValidarPagoTicketCommand}"
                     CopiarTicketCommand="{Binding CopiarTicketCommand}"
-                   
+                    
                     />
             </DataTemplate>
 
@@ -85,6 +85,7 @@
                 <moduloValidarPagos:ValidarPagoTicket
                    GetListadoTicketsCommand="{Binding GetListadoTicketsCommand}"
                    CopiarTicketCommand="{Binding CopiarTicketCommand}"
+                   ReimprimirTicketCommand="{Binding ReimprimirTicketCommand}"
   
                     />
             </DataTemplate>

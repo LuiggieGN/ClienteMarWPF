@@ -18,7 +18,7 @@ namespace ClienteMarWPFWin7.Domain.Services.SorteosService
         MAR_ValWiner ConsultarTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin, bool Pagar = false);
         string AnularTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero, string TicketPin);
         MAR_Bet ConsultarTicketSinPin(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, string TicketNumero);
-        MAR_Bet ReimprimirTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int TicketPin);
+        MAR_Bet ReimprimirTicket(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, int TicketID);
 
     }
 }
