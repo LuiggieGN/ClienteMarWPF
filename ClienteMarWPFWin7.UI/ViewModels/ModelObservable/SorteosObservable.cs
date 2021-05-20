@@ -34,6 +34,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
             set { _date = value; NotifyPropertyChanged(nameof(Date)); }
         }
 
+        public string Tipo { get; set; } = "T";
+
 
     }
 
