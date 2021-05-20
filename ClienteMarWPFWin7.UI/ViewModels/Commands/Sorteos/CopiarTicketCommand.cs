@@ -157,7 +157,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 if (reimprimir == true)
                 {
 
-                    #region Logica Valida Ticket Fue Anulado By LJNG
+                    /*
+
+                    // Logica Valida Ticket Fue Anulado By LJNG
 
                     try
                     {
@@ -180,9 +182,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                         return;
                     }
-                    #endregion
+                    
 
-
+                    */
 
                     List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
                     //var ReimprimirResponse = SorteosService.ReimprimirTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToInt32(ViewModelValidar.TicketPin));
