@@ -157,30 +157,30 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 if (reimprimir == true)
                 {
 
-                    #region Logica Valida Ticket Fue Anulado By LJNG
+                    //#region Logica Valida Ticket Fue Anulado By LJNG
 
-                    try
-                    {
-                        bool ticketFueAnulado = ViewModelValidar.SorteoVM.BancaServicio.LeerBancaTicketFueAnulado(noTicket:ViewModelValidar.TicketNumero);
-                        if (ticketFueAnulado)
-                        {
-                            ViewModelValidar.SetMensaje(mensaje: "El ticket ya fue anulado. No se puede re-imprimir",
-                                             icono: "Error",
-                                             background: "#DC3545",
-                                             puedeMostrarse: true);
-                            return;
-                        }
-                    }
-                    catch 
-                    {
-                        ViewModelValidar.SetMensaje(mensaje: "Verificar conexión de internet. No se pudo establecer conexón al servicio de Mar.",
-                                         icono: "Error",
-                                         background: "#DC3545",
-                                         puedeMostrarse: true);
+                    //try
+                    //{
+                    //    bool ticketFueAnulado = ViewModelValidar.SorteoVM.BancaServicio.LeerBancaTicketFueAnulado(noTicket:ViewModelValidar.TicketNumero);
+                    //    if (ticketFueAnulado)
+                    //    {
+                    //        ViewModelValidar.SetMensaje(mensaje: "El ticket ya fue anulado. No se puede re-imprimir",
+                    //                         icono: "Error",
+                    //                         background: "#DC3545",
+                    //                         puedeMostrarse: true);
+                    //        return;
+                    //    }
+                    //}
+                    //catch 
+                    //{
+                    //    ViewModelValidar.SetMensaje(mensaje: "Verificar conexión de internet. No se pudo establecer conexón al servicio de Mar.",
+                    //                     icono: "Error",
+                    //                     background: "#DC3545",
+                    //                     puedeMostrarse: true);
 
-                        return;
-                    }
-                    #endregion
+                    //    return;
+                    //}
+                    //#endregion
 
 
 
