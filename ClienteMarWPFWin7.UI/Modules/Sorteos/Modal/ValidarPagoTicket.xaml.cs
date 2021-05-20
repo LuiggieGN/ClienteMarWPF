@@ -259,7 +259,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             var Vm = DataContext as ValidarPagoTicketViewModel;
             Vm.TicketNumero = GetTicketNumber();
             TxtPin.Focus();
-
+            //this.Focus();
         }
 
         #region Consultar Ticket Ganador
