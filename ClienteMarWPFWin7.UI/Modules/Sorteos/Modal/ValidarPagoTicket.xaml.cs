@@ -202,9 +202,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             if (ticketSeleccionado != null)
             {
                 var VM = DataContext as ValidarPagoTicketViewModel;
-                if (VM.CopiarTicketCommand != null)
+                if (VM.ReimprimirTicketCommand != null)
                 {
-                    VM.CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = ticketSeleccionado });
+                    ReimprimirTicketCommand?.Execute(null);
                 }
             }
         }

@@ -50,7 +50,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             ConsultarTicketCommand = new ConsultarTicketCommand(this, autenticador, sorteosService);
             PagarTicketCommand = new PagarTicketCommand(this, autenticador, sorteosService);
             AnularTicketCommand = new AnularTicketCommand(this, autenticador, sorteosService);
-            ReimprimirTicketCommand = new CopiarTicketCommand(viewModel, autenticador, sorteosService,true,this);
+            ReimprimirTicketCommand = new ReimprimirTicketCommand(this, autenticador, sorteosService,viewModel);
             CopiarTicketCommand = new CopiarTicketCommand(viewModel, autenticador, sorteosService,false,this);
             SorteoVM = viewModel;
             SeleccionarInputVacios = seleccionarInputsVacios;

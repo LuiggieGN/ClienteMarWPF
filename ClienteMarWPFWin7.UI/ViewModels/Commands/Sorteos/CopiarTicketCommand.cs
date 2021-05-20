@@ -154,9 +154,24 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 }
 
-                if (reimprimir == true)
+                /*if (reimprimir == true)
                 {
+                    var ReimprimirResponse = SorteosService.ReimprimirTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, "8642057");
 
+                    if (ReimprimirResponse.Err == null)
+                    {
+                        ViewModelValidar.SetMensaje(mensaje: "La reimpresion del ticket fue completada exitosamente.",
+                                           icono: "Check",
+                                           background: "#28A745",
+                                           puedeMostrarse: true);
+                    }
+                    else
+                    {
+                        ViewModelValidar.SetMensaje(mensaje: ReimprimirResponse.Err,
+                                             icono: "Error",
+                                             background: "#DC3545",
+                                             puedeMostrarse: true);
+                    }
                     /*
 
                     // Logica Valida Ticket Fue Anulado By LJNG
@@ -184,7 +199,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     }
                     
 
-                    */
 
                     List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
                     //var ReimprimirResponse = SorteosService.ReimprimirTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToInt32(ViewModelValidar.TicketPin));
@@ -276,7 +290,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     Thread.Sleep(700);
                     ViewModelValidar.CerrarValidarPagoTicketCommand.Execute(null);
                     
-                }
+                }*/
             }
 
             //jugadas = TicketSeleccionado[0].;
