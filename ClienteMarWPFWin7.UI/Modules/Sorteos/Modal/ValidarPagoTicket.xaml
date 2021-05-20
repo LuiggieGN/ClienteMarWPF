@@ -45,6 +45,8 @@
                         <ScrollViewer Name="contenedorTicket"   Height="365"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                             <DataGrid x:Name ="tbVentas"   ItemsSource="{Binding ListaTickets, UpdateSourceTrigger=PropertyChanged}" CanUserSortColumns="False" RowDetailsVisibilityMode="Visible"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                                 <DataGrid.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                    Color="#0000FF"/>
                                     <Style TargetType="{x:Type DataGridCell}">
                                         
                                         <EventSetter Event="MouseUp" Handler="DataGridCell_MouseDown"/>

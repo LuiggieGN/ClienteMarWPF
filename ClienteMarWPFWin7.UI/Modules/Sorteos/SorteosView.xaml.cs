@@ -109,7 +109,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //if (CrearSuper.IsChecked == false)
             //{
             listSorteo.DataContext = SorteosBinding;
-            Spinner.Visibility = Visibility.Collapsed;
+            Spinner.Visibility = Visibility.Collapsed; // Spinner de boton vender
+            SpinnerConsulta.Visibility = Visibility.Collapsed; // Spinner de boton consultar
             //}
             //else if (CrearSuper.IsChecked == true)
             //{
@@ -891,7 +892,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     teclaSeleccionada = "";
                     ticketSeleccionado = null;
                     //ValidarPagoTicketCommand.Execute(null);
-                    AbrirDialogoConsulta(sender, e);
+                    Consultar(sender, e);
                     break;
 
                 case Key.F9:
@@ -2210,6 +2211,34 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             listSorteo.SelectedIndex = -1;
             listSorteo.Items.Refresh();
+        }
+
+        private bool consultaThreadIsBusy = false;
+        private void Consultar(object sender, RoutedEventArgs e)
+        {
+            if (consultaThreadIsBusy == false)
+            {
+                SpinnerConsulta.Visibility = Visibility.Visible;
+
+                Task.Factory.StartNew(() => {
+                    Thread.Sleep(1000);
+                    consultaThreadIsBusy = true;
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Background,
+                    new Action(() => {
+                        try
+                        {
+                            AbrirDialogoConsulta(sender, e);
+                        }
+                        catch
+                        {
+
+                        }
+                        consultaThreadIsBusy = false;
+                        SpinnerConsulta.Visibility = Visibility.Collapsed;
+                    }));
+                });
+            }
         }
 
         //private void AddLoteriaMultiples()
