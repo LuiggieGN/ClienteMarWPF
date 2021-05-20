@@ -193,19 +193,12 @@
                         </Button>
 
                         <Button x:Name="botonVender"  Style="{DynamicResource btn-success}" Foreground="White" Width="160" Height="32" Margin="5 0" Click="Vender">
-                            <!--<StackPanel Orientation="Horizontal" >
-                                <materialDesign:PackIcon Kind="AddCircle" Margin="5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
-                                <TextBlock Text="Vender F12 +" Foreground="White" VerticalAlignment="Center"/>
-                            </StackPanel>-->
                             <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0"
-                                Orientation="Horizontal">
-
-                                  
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="AddCircle" Margin="5 0 3 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                                     <TextBlock Text="Vender F12 +" Foreground="White" VerticalAlignment="Center"/>
                                     <controls1:SpinnerPiston x:Name="Spinner" Background="Transparent"
@@ -603,6 +596,8 @@
                                     OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}"
                                     CargarDialogo="{Binding Path=MuestroDialogo}" 
                                     Margin="-2,-6,2,6.2" Grid.RowSpan="2" 
+                                    ConsultarTicketCommand="{Binding ConsultarTicketCommand}"
+                                    CopiarTicketCommand="{Binding CopiarTicketCommand}"
                                     ReimprimirTicketCommand="{Binding ReimprimirTicketCommand}"
                                     AnularTicketCommand="{Binding AnularTicketCommand}"/> 
 

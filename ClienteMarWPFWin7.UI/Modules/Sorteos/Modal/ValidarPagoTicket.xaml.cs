@@ -216,10 +216,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             switch (e.Key)
             {
                 case Key.F4:
-                    if (VM.ConsultarTicketCommand != null)
-                    {
-                        VM.ConsultarTicketCommand.Execute(null);
-                    }
+                    ConsultarGanador(sender, e);
                     break;
 
                 case Key.F8:
@@ -265,36 +262,163 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 
         }
 
-        private void CopiarTicketInput(object sender, MouseButtonEventArgs e)
+        #region Consultar Ticket Ganador
+        private bool consultarGanadorThreadIsBusy = false;
+        private void ConsultarGanador(object sender, RoutedEventArgs e)
         {
-            var VM = DataContext as ValidarPagoTicketViewModel;
-            if (VM.CopiarTicketCommand != null)
-            {
-                if (VM.TicketNumero != null && VM.TicketNumero.Length != 0)
-                {
-                    VM.CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = VM.TicketNumero });
-                    VM.SorteoVM.SorteoViewClass.GetJugadasTicket();
-                }
-
-            }
-        }
-
-
-
-        private bool reImprimirTicketThreadIsBusy = false;
-        private void ReImprimirTicket(object sender, RoutedEventArgs e)
-        {
-            if (ReimprimirTicketCommand != null)
+            var vm = DataContext as ValidarPagoTicketViewModel;
+            if (ConsultarTicketCommand != null && vm != null)
             {
                 string noTicket = TxtTicket.Text;
+                string pin = TxtPin.Text;
+                bool noTicketEsVacio = InputHelper.InputIsBlank(noTicket);
+                bool pinEsVacio = InputHelper.InputIsBlank(pin);
 
-                if (reImprimirTicketThreadIsBusy == false && (!InputHelper.InputIsBlank(noTicket)))
+                if (noTicketEsVacio || pinEsVacio)
                 {
-                    botonReImprimir.IsEnabled = false;
+                    vm.SetMensaje(mensaje: "Favor digitar el \"Ticket No.\" y \"Pin\" ",
+                                         icono: "Error",
+                                         background: "#DC3545",
+                                         puedeMostrarse: true);
+
+                    if (noTicketEsVacio)
+                    {
+                        TxtTicket.Focus(); return;
+                    }
+
+                    if (pinEsVacio)
+                    {
+                        TxtPin.Focus(); return;
+                    }
+                }
+
+                if (
+                     consultarGanadorThreadIsBusy == false &&
+                    (!noTicketEsVacio) &&
+                    (!pinEsVacio)
+
+                    )
+                {
+                    botonConsultarGanador.IsEnabled = false;
+                    SpinnerConsultarGanador.Visibility = Visibility.Visible;
 
                     Task.Factory.StartNew(() =>
                     {
+                        consultarGanadorThreadIsBusy = true;
+                        System.Threading.Thread.Sleep(1000);
+                        System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                        {
+                            try
+                            {
+                                ConsultarTicketCommand?.Execute(null);
+                            }
+                            catch { }
+
+                            botonConsultarGanador.IsEnabled = true;
+                            SpinnerConsultarGanador.Visibility = Visibility.Collapsed;
+                            consultarGanadorThreadIsBusy = false;
+                        }));
+                    });
+
+                }//fin de If thread is busy
+
+            }//fin de If comando no es null
+
+        }//fin de metodo
+        #endregion
+
+        #region Copiar Ticket
+        private bool copiarTicketThreadIsBusy = false;
+        private void CopiarTicketInput(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ValidarPagoTicketViewModel;
+
+            if (CopiarTicketCommand != null && vm != null)
+            {
+                string noTicket = TxtTicket.Text;
+                bool noTicketEsVacio = InputHelper.InputIsBlank(noTicket);
+
+                if (noTicketEsVacio)
+                {
+                    vm.SetMensaje(mensaje: "Favor digitar el \"Ticket No.\"",
+                                         icono: "Error",
+                                         background: "#DC3545",
+                                         puedeMostrarse: true);
+
+                    TxtTicket.Focus(); return;
+                }
+
+                if (copiarTicketThreadIsBusy == false && (!noTicketEsVacio))
+                {
+                    botonCopiar.IsEnabled = false;
+                    SpinnerCopiar.Visibility = Visibility.Visible;
+                    Task.Factory.StartNew(() =>
+                    {
+                        copiarTicketThreadIsBusy = true;
+                        System.Threading.Thread.Sleep(777);
+                        System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                        {
+                            try
+                            {
+                                CopiarTicketCommand?.Execute(new TicketCopiadoResponse { TicketNo = noTicket });
+                            }
+                            catch { }
+
+                            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
+                            timer.Tick += (s, args) =>
+                            {
+                                timer.Stop();
+                                botonCopiar.IsEnabled = true;
+                                SpinnerCopiar.Visibility = Visibility.Collapsed;
+                                copiarTicketThreadIsBusy = false;
+                                vm.SorteoVM.SorteoViewClass.GetJugadasTicket();
+                            };
+                            timer.Start();
+
+                        }));
+                    });
+
+                }//fin de If thread is busy
+
+            }//fin de If comando no es null
+
+        }//fin de metodo
+        #endregion
+
+        #region Re-Imprimir Ticket
+        private bool reImprimirTicketThreadIsBusy = false;
+        private void ReImprimirTicket(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ValidarPagoTicketViewModel;
+
+            if (ReimprimirTicketCommand != null && vm != null)
+            {
+                string noTicket = TxtTicket.Text;
+                bool noTicketEsVacio = InputHelper.InputIsBlank(noTicket);
+
+                if (noTicketEsVacio)
+                {
+                    vm.SetMensaje(mensaje: "Favor digitar el \"Ticket No.\"",
+                                         icono: "Error",
+                                         background: "#DC3545",
+                                         puedeMostrarse: true);
+
+                    TxtTicket.Focus(); return;
+                }
+
+
+                if (reImprimirTicketThreadIsBusy == false && (!noTicketEsVacio))
+                {
+                    botonReImprimir.IsEnabled = false;
+                    SpinnerReImprimir.Visibility = Visibility.Visible;
+                    Task.Factory.StartNew(() =>
+                    {
                         reImprimirTicketThreadIsBusy = true;
+                        System.Threading.Thread.Sleep(1000);
                         System.Windows.Application.Current.Dispatcher.BeginInvoke(
                         DispatcherPriority.Background,
                         new Action(() =>
@@ -310,6 +434,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                             {
                                 timer.Stop();
                                 botonReImprimir.IsEnabled = true;
+                                SpinnerReImprimir.Visibility = Visibility.Collapsed;
                                 reImprimirTicketThreadIsBusy = false;
                             };
                             timer.Start();
@@ -322,21 +447,42 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             }//fin de If comando no es null
 
         }//fin de metodo
+        #endregion
 
-
-
+        #region Anular Ticket
         private bool anularThreadIsBusy = false;
         private void AnularTicket(object sender, RoutedEventArgs e)
         {
-            if (AnularTicketCommand != null)
+            var vm = DataContext as ValidarPagoTicketViewModel;
+            if (AnularTicketCommand != null && vm != null)
             {
                 string noTicket = TxtTicket.Text;
                 string pin = TxtPin.Text;
+                bool noTicketEsVacio = InputHelper.InputIsBlank(noTicket);
+                bool pinEsVacio = InputHelper.InputIsBlank(pin);
+
+                if (noTicketEsVacio || pinEsVacio)
+                {
+                    vm.SetMensaje(mensaje: "Favor digitar el \"Ticket No.\" y \"Pin\" ",
+                                         icono: "Error",
+                                         background: "#DC3545",
+                                         puedeMostrarse: true);
+
+                    if (noTicketEsVacio)
+                    {
+                        TxtTicket.Focus(); return;
+                    }
+
+                    if (pinEsVacio)
+                    {
+                        TxtPin.Focus(); return;
+                    }
+                }
 
                 if (
                      anularThreadIsBusy == false &&
-                    (!InputHelper.InputIsBlank(noTicket)) &&
-                    (!InputHelper.InputIsBlank(pin))
+                    (!noTicketEsVacio) &&
+                    (!pinEsVacio)
 
                     )
                 {
@@ -368,6 +514,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             }//fin de If comando no es null
 
         }//fin de metodo
+        #endregion
+
+
+
+
 
 
 
