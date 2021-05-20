@@ -92,7 +92,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             InitializeComponent();
             ListJugadas = new List<Jugada>();
             NumerosJugados = new List<string>();
-            SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
+            SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
             SuperPales = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
             combinations = SessionGlobals.SuperPaleDisponibles;
             ListSorteosVender = new ObservableCollection<SorteosAvender>();
@@ -130,7 +130,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             SeleccionadasLista = ListSorteosVender.Count();
             CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
-          
+
         }
 
 
@@ -146,21 +146,23 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 if (vm != null)
                 {
-                    List<int> LoteriasExistentes = new List<int>();
+
                     List<int> SoloLoteriasExistentes = new List<int>();
+                    List<int> SoloSuperPaleExistentes = new List<int>();
 
-                    var clonLoteriasYSuper = ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles);
                     var clonLoterias = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
+                    var clonSuperPales = ConvertToObservablesSuperPales(SessionGlobals.SuperPaleDisponibles);
 
-                    foreach (var loteria in clonLoteriasYSuper)
-                    {
-                        LoteriasExistentes.Add(loteria.LoteriaID);
-
-                    }
 
                     foreach (var loteria in clonLoterias)
                     {
                         SoloLoteriasExistentes.Add(loteria.LoteriaID);
+
+                    }
+
+                    foreach (var super in clonSuperPales)
+                    {
+                        SoloSuperPaleExistentes.Add(super.LoteriaIDDestino);
 
                     }
 
@@ -177,99 +179,88 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     sessionHacienda.PrinterHeader = sessionPuntoVenta.PrinterHeader;
                     sessionHacienda.PrinterFooter = sessionPuntoVenta.PrinterFooter;
                     var sorteosdisponibles = sorteos.GetSorteosDisponibles(sessionHacienda);
-                    if(sorteosdisponibles.OK == true)
+                    if (sorteosdisponibles.OK == true)
                     {
                         SessionGlobals.GetLoteriasDisponibles(setting.Loterias, sorteosdisponibles);
 
                     }
                     combinations = SessionGlobals.SuperPaleDisponibles;
-                   
 
-                    foreach (var i in LoteriasExistentes) // Esto contiene loterias y super pales
+
+                    foreach (var i in SoloLoteriasExistentes) // Este foreach elimina los sorteos tradicionales no disponibles, tanto para loterias tradicionales y super pales
                     {
-
-                            if (SessionGlobals.LoteriasYSupersDisponibles.FindIndex(x => x.Numero == i) == -1)
-                            {
-                                var loteriaEliminar = SorteosBinding.FindIndex(x => x.LoteriaID == i);
-                                SorteosBinding.RemoveAt(loteriaEliminar);
-
-                                int lotEliminar2 = -1;
-                                int counter = 0;
-                                foreach (var item in ListSorteosVender)
-                                {
-                                    if (item.Sorteo.LoteriaID == i)
-                                    {
-                                        lotEliminar2 = counter;
-                                        break;
-                                    }
-                                    ++counter;
-                                }
-
-                                if (lotEliminar2 != -1)
-                                {
-                                    ListSorteosVender.RemoveAt(lotEliminar2);
-                                    sorteosSeleccionados.ItemsSource = ListSorteosVender;
-                                    SeleccionadasLista = ListSorteosVender.Count();
-                                    CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
-                                }
-                                listSorteo.Items.Refresh();
-                            }
-
-
-                    }
-
-                    foreach(var i in SoloLoteriasExistentes) // Esto contiene solo loterias
-                    {
-
                         if (SessionGlobals.LoteriasDisponibles.FindIndex(x => x.Numero == i) == -1)
                         {
-                            var loteriaEliminar = SuperPales.FindIndex(x => x.LoteriaID == i);
+                            var idLoteriaTradicional = SorteosBinding.FindIndex(y => y.LoteriaID == i);
+                            var idLoteriaSuperPales = SuperPales.FindIndex(x => x.LoteriaID == i);
 
-                            if (loteriaEliminar >= 0)
+                            if (idLoteriaTradicional >= 0)
                             {
-                                SuperPales.RemoveAt(loteriaEliminar);
+                                SorteosBinding.RemoveAt(idLoteriaTradicional);
                             }
 
-                            //int lotEliminar2 = -1;
-                            //int counter = 0;
-                            //foreach (var item in ListSorteosVender)
-                            //{
-                            //    if (item.Sorteo.LoteriaID == i)
-                            //    {
-                            //        lotEliminar2 = counter;
-                            //        break;
-                            //    }
-                            //    ++counter;
-                            //}
+                            if (idLoteriaSuperPales >= 0)
+                            {
+                                SuperPales.RemoveAt(idLoteriaSuperPales);
+                            }
 
-                            //if (lotEliminar2 != -1)
-                            //{
-                            //    ListSorteosVender.RemoveAt(lotEliminar2);
-                            //    sorteosSeleccionados.ItemsSource = ListSorteosVender;
-                            //    SeleccionadasLista = ListSorteosVender.Count();
-                            //    CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
-                            //}
+                            int sorteoAVenderIndice = -1;
+                            int cuentaIndice = 0;
+                            foreach (var item in ListSorteosVender)
+                            {
+                                if (item.Sorteo.LoteriaID == i)
+                                {
+                                    sorteoAVenderIndice = cuentaIndice;
+                                    break;
+                                }
+                                ++cuentaIndice;
+                            }
+
+                            if (sorteoAVenderIndice >= 0)
+                            {
+                                ListSorteosVender.RemoveAt(sorteoAVenderIndice);
+                                sorteosSeleccionados.ItemsSource = ListSorteosVender;
+                                SeleccionadasLista = ListSorteosVender.Count();
+                                CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
+                            }
                             listSorteo.Items.Refresh();
                         }
                     }
 
-                    foreach (var i in SessionGlobals.LoteriasYSupersDisponibles)
+
+                    int cuentaIndice2 = 0;
+                    foreach (var item in ListSorteosVender)
                     {
-                        SorteosObservable objetoAgregar = new SorteosObservable() { Date = DateTime.Now, IsSelected = false, Loteria = i.Nombre, LoteriaID = i.Numero };
-                            if (LoteriasExistentes.FindIndex(x => x == i.Numero) == -1)
+                        if (item.Sorteo.Tipo.Equals("S", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (SessionGlobals.SuperPaleDisponibles.FindIndex(x => x.LoteriaIDDestino == item.Sorteo.LoteriaID) == -1)
                             {
-                                SorteosBinding.Add(objetoAgregar);
-                                //SuperPales.Add(objetoAgregar);
-                                listSorteo.Items.Refresh();
+                                try
+                                {
+                                    ListSorteosVender.RemoveAt(cuentaIndice2);
+                                    sorteosSeleccionados.ItemsSource = ListSorteosVender;
+                                    SeleccionadasLista = ListSorteosVender.Count();
+                                    CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
+                                    listSorteo.Items.Refresh();
+                                }
+                                catch
+                                {
+
+                                }
                             }
+                        }
+                        ++cuentaIndice2;
                     }
+
 
                     foreach (var i in SessionGlobals.LoteriasDisponibles)
                     {
-                        SorteosObservable objetoAgregar = new SorteosObservable() { Date = DateTime.Now, IsSelected = false, Loteria = i.Nombre, LoteriaID = i.Numero };
+                        SorteosObservable objetoAgregarTradicional = new SorteosObservable() { Date = DateTime.Now, IsSelected = false, Loteria = i.Nombre, LoteriaID = i.Numero };
+                        SorteosObservable objetoAgregarSuper = new SorteosObservable() { Date = DateTime.Now, IsSelected = false, Loteria = i.Nombre, LoteriaID = i.Numero };
                         if (SoloLoteriasExistentes.FindIndex(x => x == i.Numero) == -1)
                         {
-                            SuperPales.Add(objetoAgregar);
+                            SuperPales.Add(objetoAgregarSuper);
+                            SorteosBinding.Add(objetoAgregarTradicional);
                             listSorteo.Items.Refresh();
                         }
                     }
@@ -283,12 +274,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     {
                         listSorteo.DataContext = SuperPales;
 
-                    } 
+                    }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -305,7 +296,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     foreach (var i in SuperPales)
                     {
-                        if (i.LoteriaID != loteria1 && i.LoteriaID != loteria2 )
+                        if (i.LoteriaID != loteria1 && i.LoteriaID != loteria2)
                         {
                             i.IsSelected = false;
                         }
@@ -340,7 +331,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 if (loteriaSeleccionadas.Count() == 2 && loteria1 != 0 && loteria2 != 0)
                 {
                     int? va = null, vb = null;
-                    
+
                     loteriaCombinada = combinations.Where(x => (x.LoteriaID1 == loteria1 && x.LoteriaID2 == loteria2) || (x.LoteriaID1 == loteria2 && x.LoteriaID2 == loteria1)).Select(y => y.LoteriaIDDestino);
 
                     if (loteriaCombinada.Any())
@@ -365,7 +356,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }
 
                 }
-                }
+            }
 
 
 
@@ -451,6 +442,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             return SorteosObservables;
         }
+
+        private List<SuperPaleDisponible> ConvertToObservablesSuperPales(List<SuperPaleDisponible> superPale)
+        {
+            var SuperPaleObservables = new List<SuperPaleDisponible>();
+
+            foreach (var item in superPale)
+            {
+                SuperPaleObservables.Add(new SuperPaleDisponible { LoteriaID1 = item.LoteriaID1, LoteriaID2 = item.LoteriaID2, LoteriaIDDestino = item.LoteriaIDDestino });
+            }
+
+
+            return SuperPaleObservables;
+        }
+
         private List<MAR_Loteria2> ConvertToSorteos(List<SorteosObservable> SorteosObservable)
         {
             var Sorteos = new List<MAR_Loteria2>();
@@ -519,7 +524,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 }
 
 
-                
+
             }
         }
         public void RefreshListJugadas()
@@ -606,7 +611,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     ListJugadas.Remove(ListJugadas.LastOrDefault());
                 }
             }
-          
+
 
             RefreshListJugadas();
         }
@@ -675,23 +680,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
         private void MostrarSuper(bool visible = true)
         {
-
-            var sorteosDisponibles = ConvertToSorteos(ConvertToObservables(SessionGlobals.LoteriasYSupersDisponibles));
-            var sorteosRegularesIds = sorteosDisponibles.Select(x => x.LoteriaKey).Except(combinations.Select(x => x.LoteriaIDDestino)).ToList();
-            var sorteosResult = new List<MAR_Loteria2>();
-            foreach (var item in sorteosRegularesIds)
-            {
-                var sorteo = sorteosDisponibles.Where(x => x.LoteriaKey == item).FirstOrDefault();
-                sorteosResult.Add(sorteo);
-            }
-
             if (visible)
             {
                 listSorteo.DataContext = SorteosBinding;
             }
             else
             {
-                //SuperPales = ConvertToObservables(sorteosResult);
                 listSorteo.DataContext = SuperPales;
             }
         }
@@ -818,7 +812,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             var today = DateTime.ParseExact(strToday, "yyyyMMddHHmmss", CultureInfo.InvariantCulture);
             var listado = (IEnumerable<SorteosAvender>)ListSorteosVender;
             var lista = new List<SorteosAvender>(listado);
-            
+
 
             switch (e.Key)
             {
@@ -902,7 +896,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     if (ltJugada.Items.Count == 0)
                     {
                         txtMonto.Focus();
-                        
+
                     }
                     RefreshListJugadas();
 
@@ -1002,7 +996,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             var sorteoChangeSelect = SorteosBinding.Where(x => x.LoteriaID == item.LoteriaID).Select(x => { x.IsSelected = !x.IsSelected; x.Date = today; return x; });
                             var VM = DataContext as SorteosViewModel;
                             if (item.IsSelected == false)
-                            {                              
+                            {
                                 item.IsSelected = true;
 
                                 var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(item.LoteriaID);
@@ -1022,9 +1016,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 {
                                     VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
                                 }
-                               RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+                                RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
                             }
-                        }                    
+                        }
                     }
 
                     if (txtJugada.Text != "" && txtMonto.Text != "")
@@ -1052,7 +1046,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     if (listSorteo.SelectedIndex == 0)
                     {
                         e.Handled = true;
-                        txtJugada.Focus();                        
+                        txtJugada.Focus();
                         listSorteo.SelectedIndex = -1;
                         e.Handled = false;
                         listSorteo.Items.Refresh();
@@ -1061,7 +1055,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         return;
                     }
 
-                    if(TxtJugadaFocus == true)
+                    if (TxtJugadaFocus == true)
                     {
                         e.Handled = true;
                         txtMonto.Focus();
@@ -1079,7 +1073,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     if (TxtMontoFocus == true)
                     {
-                        e.Handled = true;                       
+                        e.Handled = true;
                         txtJugada.Focus();
                         e.Handled = false;
                         listSorteo.Items.Refresh();
@@ -1088,14 +1082,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         return;
                     }
 
-                    if(TxtJugadaFocus == true)
+                    if (TxtJugadaFocus == true)
                     {
                         listSorteo.Focus();
                         listSorteo.SelectedIndex = 0;
-                        listSorteo.Items.Refresh();                        
+                        listSorteo.Items.Refresh();
                     }
 
-                 
+
 
                     break;
 
@@ -1131,7 +1125,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 }
                                 RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
                             }
-                        }                    
+                        }
                     }
 
                     RefreshListJugadas();
@@ -1303,7 +1297,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 {
                                     txtJugada.Focus();
                                 }
-                               
+
                                 ((MainWindow)Window.GetWindow(this)).MensajesAlerta("El campo de jugada no puede estar vacio.", "Aviso");
                             }
                             else if (txtJugada.Text != "" && txtMonto.Text == "")
@@ -1315,7 +1309,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 }
                                 ((MainWindow)Window.GetWindow(this)).MensajesAlerta("El campo monto no puede estar vacio.", "Aviso");
                             }
-                          
+
                         }
                     }
                     else
@@ -1356,10 +1350,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
 
 
-        private void ResetearFormularioVenta() 
+        private void ResetearFormularioVenta()
         {
             listSorteo.SelectedItem = null;
-            listSorteo.Items.Refresh();            
+            listSorteo.Items.Refresh();
             ListSorteosVender.Clear();
             CantidadSorteos.Content = "0 Sorteos seleccionados";
             txtMonto.Focus();
@@ -1371,7 +1365,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             int cuentaSorteos = ListSorteosVender.Count,
                 cuentaJugadas = ltJugada.Items.Count;
 
-            if(cuentaSorteos == 0)
+            if (cuentaSorteos == 0)
             {
                 ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Debe seleccionar al menos un sorteo.", "Aviso");
                 listSorteo.Focus();
@@ -1405,12 +1399,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     Spinner.Visibility = Visibility.Visible;
 
-                    Task.Factory.StartNew(() => {
+                    Task.Factory.StartNew(() =>
+                    {
                         Thread.Sleep(1000);
                         ventaThreadIsBusy = true;
                         System.Windows.Application.Current.Dispatcher.BeginInvoke(
                         DispatcherPriority.Background,
-                        new Action(() => {
+                        new Action(() =>
+                        {
                             try
                             {
                                 RegistrarVenta();
@@ -1425,7 +1421,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     });
                 }
             }
-            
+
         }
 
         private void RegistrarVenta()
@@ -1439,10 +1435,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 RealizarVenta();
                 ResetearFormularioVenta();
             }
-        
+
         }
 
-        private void RealizarVenta() 
+        private void RealizarVenta()
         {
             var sorteoviewmodel = DataContext as SorteosViewModel;
             if (sorteoviewmodel != null)
@@ -1469,7 +1465,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             nuevoMonto *= numeroLoterias;
                         }
 
-                        if (vm.TotalesCargados.Value  == true)
+                        if (vm.TotalesCargados.Value == true)
                         {
                             vm.AgregarAlTotalVendidoHoy(nuevoMonto);
                         }
@@ -1540,7 +1536,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             OpenCombinacion();
         }
-       
+
 
         public void GetJugadasTicket()
         {
@@ -1594,14 +1590,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void CheckBox_ClickOne(object sender, RoutedEventArgs e)
         {
             var VM = DataContext as SorteosViewModel;
-            
+
             if (VM != null)
             {
                 var objectoLoteria = (sender as Control);
                 SorteosObservable sorteo = objectoLoteria.DataContext as SorteosObservable;
                 var sorteoavender = new SorteosAvender() { SorteoNombre = sorteo.Loteria, Sorteo = sorteo };
 
-                if(CrearSuper.IsChecked == false)
+                if (CrearSuper.IsChecked == false)
                 {
                     var YaEstaSeleccionada = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == sorteo.LoteriaID);
 
@@ -1636,7 +1632,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         ListSorteosVender.RemoveAt(SorteoQuitar);
                     }
                 }
-                  
+
                 //if(CrearSuper.IsChecked == true)
                 //{
                 //    ListSorteosVender.Add(new SorteosAvender()
@@ -1714,7 +1710,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             SorteosObservable sorteo = objectoLoteria.DataContext as SorteosObservable;
             var sorteoavender = new SorteosAvender() { SorteoNombre = sorteo.Loteria, Sorteo = sorteo };
             var loteriaSeleccionadas = SuperPales.Where(x => x.IsSelected == true).ToArray();
-            
+
 
             ValidateSelectOnlyTwo(sender);
 
@@ -1722,10 +1718,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (loteriaSeleccionadas.Count() == 2 && loteria1 != 0 && loteria2 != 0)
             {
-                if(loteriaCombinada.Count() == 1)
+                if (loteriaCombinada.Count() == 1)
                 {
                     var YaEstaSeleccionada = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == Convert.ToInt32(loteriaCombinada.ToArray()[0]));
-                    if(YaEstaSeleccionada.Count() > 0)
+                    if (YaEstaSeleccionada.Count() > 0)
                     {
                         foreach (var i in SuperPales)
                         {
@@ -1737,34 +1733,40 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     {
                         SorteosObservable sorteoCopia = new SorteosObservable() { Date = sorteo.Date, Loteria = sorteo.Loteria, IsSelected = true, LoteriaID = sorteo.LoteriaID };
                         sorteoCopia.LoteriaID = Convert.ToInt32(loteriaCombinada.ToArray()[0]);
-                        ListSorteosVender.Add(new SorteosAvender()
+
+                        var agrega = new SorteosAvender()
                         {
                             SorteoNombre = nombreSuperPales,
                             Sorteo = sorteoCopia
-                        });
+                        };
+
+                        agrega.Sorteo.Tipo = "S";
+
+                        ListSorteosVender.Add(agrega);
 
                         foreach (var i in SuperPales)
                         {
                             i.IsSelected = false;
                         }
 
-                        foreach(var x in SorteosBinding)
+                        foreach (var x in SorteosBinding)
                         {
-                            if(x.LoteriaID == sorteoCopia.LoteriaID)
+                            if (x.LoteriaID == sorteoCopia.LoteriaID)
                             {
                                 x.IsSelected = true;
                             }
                         }
                         //Console.WriteLine(loteriaCombinada.ToArray());
-                    }                  
-                }else if (loteriaCombinada.Count() == 0)
+                    }
+                }
+                else if (loteriaCombinada.Count() == 0)
                 {
                     foreach (var i in SuperPales)
                     {
                         i.IsSelected = false;
                     }
 
-                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion esta en la lista o no esta disponible.", "Aviso");
+                   ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion esta en la lista o no esta disponible.", "Aviso");
 
                 }
 
@@ -1772,7 +1774,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 loteria2 = 0;
                 listSorteo.Items.Refresh();
             }
-            
+
 
 
             sorteosSeleccionados.ItemsSource = ListSorteosVender;
@@ -1826,9 +1828,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             //}
 
-                RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+            RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
 
-            if(sorteosSeleccionados.Items.Count == 0)
+            if (sorteosSeleccionados.Items.Count == 0)
             {
                 listSorteo.SelectedIndex = -1;
                 listSorteo.Items.Refresh();
@@ -1841,7 +1843,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void AgregarSorteoAVender(SorteosObservable sorteo)
         {
             var sorteoavender = new SorteosAvender() { SorteoNombre = sorteo.Loteria, Sorteo = sorteo };
-           
+
             ListSorteosVender.Add(new SorteosAvender()
             {
                 SorteoNombre = sorteo.Loteria,
@@ -1854,7 +1856,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         }
 
-        private void RemoverSorteoAVender(int loteriaId,int indice)
+        private void RemoverSorteoAVender(int loteriaId, int indice)
         {
 
             if (ListSorteosVender.Count > 0)
@@ -1869,14 +1871,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }
                 }
 
-              
-                if(indice >= 0)
+
+                if (indice >= 0)
                 {
                     try
-                    {                   
+                    {
                         ListSorteosVender.RemoveAt(indice);
                     }
-                    catch 
+                    catch
                     {
 
                     }
@@ -1904,7 +1906,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void txtMonto_GotFocus(object sender, RoutedEventArgs e)
         {
             TxtMontoFocus = true;
-           
+
             listSorteo.SelectedIndex = -1;
             listSorteo.Items.Refresh();
         }
@@ -1913,7 +1915,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             TxtMontoFocus = false;
             (sender as TextBox)?.SelectAll();
-           
+
         }
 
         private void txtJugada_GotFocus(object sender, RoutedEventArgs e)
@@ -1934,10 +1936,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             int loteriaid = int.Parse((sender as Button)?.Tag?.ToString() ?? "0");
             var listado = (IEnumerable<SorteosAvender>)ListSorteosVender;
-            var lista = new List<SorteosAvender>(listado);   
+            var lista = new List<SorteosAvender>(listado);
             RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
 
-            if(sorteosSeleccionados.Items.Count == 0)
+            if (sorteosSeleccionados.Items.Count == 0)
             {
                 txtMonto.Focus();
                 listSorteo.SelectedIndex = -1;
@@ -1947,22 +1949,22 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         private void CombinarTodo(object sender, RoutedEventArgs e)
         {
-            if(CrearSuper.IsChecked == true)
+            if (CrearSuper.IsChecked == true)
             {
-                var combinauno = new List<Tuple<int,string>>();
+                var combinauno = new List<Tuple<int, string>>();
                 var combinados = new List<Tuple<int, string>>();
-                var combinacionesTodas = new List<Tuple<int, int,string>>();
-                var combinacionesDisponibles = new List<Tuple<int, int,string,int>>();
-                var combinacionesNoDisponibles = new List<Tuple<int, int,string,int>>();
+                var combinacionesTodas = new List<Tuple<int, int, string>>();
+                var combinacionesDisponibles = new List<Tuple<int, int, string, int>>();
+                var combinacionesNoDisponibles = new List<Tuple<int, int, string, int>>();
                 var idsCombinacionesDisponibles = new List<Tuple<int, int, int>>();
 
                 foreach (var item in SessionGlobals.LoteriasDisponibles)
-                {                 
+                {
                     combinauno.Add(new Tuple<int, string>(item.Numero, item.NombreResumido));
-                    combinados.Add(new Tuple<int, string>(item.Numero, item.NombreResumido));  
+                    combinados.Add(new Tuple<int, string>(item.Numero, item.NombreResumido));
                 }
 
-                foreach(var item in combinations)
+                foreach (var item in combinations)
                 {
                     idsCombinacionesDisponibles.Add(new Tuple<int, int, int>(item.LoteriaID1, item.LoteriaID2, item.LoteriaIDDestino));
                 }
@@ -1975,7 +1977,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         if (combinauno[i].Item1 != combinados[j].Item1)
                         {
                             combinacionesTodas.Add(new Tuple<int, int, string>(
-                                combinauno[i].Item1, 
+                                combinauno[i].Item1,
                                 combinados[j].Item1,
                                 $"SP {combinauno[i].Item2} - {combinados[j].Item2}")
                                 );
@@ -2021,7 +2023,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 if (combinacionesNoDisponibles.Count > 0)
                 {
-                    MessageBox.Show(sorteoNoDisponible,"Combinaciones no disponibles",MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show(sorteoNoDisponible, "Combinaciones no disponibles", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
                 #endregion
@@ -2032,28 +2034,33 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 for (int i = 0; i < combinacionesDisponibles.Count; i++)
                 {
-                    var nuevoSorteo = new SorteosObservable() 
-                    { 
-                      Date = DateTime.Today,
-                      Loteria = combinacionesDisponibles[i].Item3, 
-                      IsSelected = true, 
-                      LoteriaID = combinacionesDisponibles[i].Item4 
+                    var nuevoSorteo = new SorteosObservable()
+                    {
+                        Date = DateTime.Today,
+                        Loteria = combinacionesDisponibles[i].Item3,
+                        IsSelected = true,
+                        LoteriaID = combinacionesDisponibles[i].Item4
                     };
+
 
                     if (!ListSorteosVender.Any(b => b.Sorteo.LoteriaID == nuevoSorteo.LoteriaID))
                     {
-                        ListSorteosVender.Add(new SorteosAvender()
+                        var agrega = new SorteosAvender()
                         {
                             SorteoNombre = combinacionesDisponibles[i].Item3,
                             Sorteo = nuevoSorteo
-                        });
+                        };
+
+                        agrega.Sorteo.Tipo = "S";
+
+                        ListSorteosVender.Add(agrega);
 
                         superPaleDisponibles.Add(combinacionesDisponibles[i].Item4);
                     }
 
                 }
 
-                if(superPaleDisponibles.Count > 0)
+                if (superPaleDisponibles.Count > 0)
                 {
                     foreach (var x in SorteosBinding)
                     {
@@ -2076,7 +2083,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void SeleccionarMonto(object sender, RoutedEventArgs e)
         {
             txtMonto.Focus();
-            txtMonto.SelectAll();          
+            txtMonto.SelectAll();
         }
 
         private void SeleccionarJugada(object sender, RoutedEventArgs e)
@@ -2089,7 +2096,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             try
             {
-            
+
                 if (boton != null)
                 {
                     var peer = new ButtonAutomationPeer(boton);
@@ -2103,7 +2110,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void QuitarDeJugadas(object sender, RoutedEventArgs e)
         {
             RemoveItem();
-            if(ltJugada.Items.Count == 0)
+            if (ltJugada.Items.Count == 0)
             {
                 txtMonto.Focus();
 
@@ -2119,7 +2126,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
                 if (row != null)
                 {
-                    row.IsSelected = true;                   
+                    row.IsSelected = true;
                     row.Focus();
                     TxtMontoFocus = false;
                 }
@@ -2149,7 +2156,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 timer.Start();
             };
 
-            Action seleccionar = () => {
+            Action seleccionar = () =>
+            {
 
                 var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
 
@@ -2186,7 +2194,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 timer.Start();
             };
 
-            if(ValidarPagoTicketCommand != null)
+            if (ValidarPagoTicketCommand != null)
             {
                 var acciones = new Tuple<Action, Action>(seleccionar, focusNumeroTicket);
 
@@ -2220,12 +2228,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 SpinnerConsulta.Visibility = Visibility.Visible;
 
-                Task.Factory.StartNew(() => {
+                Task.Factory.StartNew(() =>
+                {
                     Thread.Sleep(1000);
                     consultaThreadIsBusy = true;
                     System.Windows.Application.Current.Dispatcher.BeginInvoke(
                     DispatcherPriority.Background,
-                    new Action(() => {
+                    new Action(() =>
+                    {
                         try
                         {
                             AbrirDialogoConsulta(sender, e);
@@ -2412,12 +2422,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
     }
 
     public class SorteosAvender
-        {
-            public string SorteoNombre { get; set; }
-            public SorteosObservable Sorteo { get; set; }
-        }
-
+    {
+        public string SorteoNombre { get; set; }
+        public SorteosObservable Sorteo { get; set; }
     }
+
+}
 
 
 
