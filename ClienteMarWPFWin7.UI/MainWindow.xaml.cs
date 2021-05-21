@@ -247,6 +247,7 @@ namespace ClienteMarWPFWin7.UI
                     //    Close();
                     //}
 
+
                     if (e.Key == Key.F1)
                     {
                         myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Home);
@@ -257,13 +258,37 @@ namespace ClienteMarWPFWin7.UI
                     }
                     else if (e.Key == Key.F3)
                     {
-                        myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Reporte);
+                        bool puedeVenderRecargas = myVm?.AutService?.Permisos?.PuedeVenderRecargas ?? false;
+
+                        if (puedeVenderRecargas)
+                        {
+                            myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Recargas);
+                        }
                     }
                     else if ((e.Key == Key.System && e.SystemKey == Key.F10))
                     {
                         e.Handled = true;
-                        myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Mensajeria);
+                        myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Reporte);
                     }
+
+
+                    //if (e.Key == Key.F1)
+                    //{
+                    //    myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Home);
+                    //}
+                    //else if (e.Key == Key.F2)
+                    //{
+                    //    myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Sorteos);
+                    //}
+                    //else if (e.Key == Key.F3)
+                    //{
+                    //    myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Reporte);
+                    //}
+                    //else if ((e.Key == Key.System && e.SystemKey == Key.F10))
+                    //{
+                    //    e.Handled = true;
+                    //    myVm.UpdateCurrentViewModelCommand?.Execute(Modulos.Mensajeria);
+                    //}
 
                 }//fin if EstaLogueado = true
                 else

@@ -136,7 +136,7 @@
             <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}" Visibility="{Binding Permisos.PuedeVenderRecargas, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Telephone" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Recargas" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Recargas - F3" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
@@ -228,7 +228,7 @@
             <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Mensajeria}" >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Chat" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <Label  Content="Mensajeria - F10" Margin="9 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <Label  Content="Mensajeria" Margin="9 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
@@ -251,7 +251,7 @@
             <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="FileDocumentBoxSearch" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                    <TextBlock Text="Reportes - F3" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    <TextBlock Text="Reportes - F10" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
