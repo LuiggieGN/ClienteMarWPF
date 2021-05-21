@@ -22,6 +22,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using ClienteMarWPFWin7.UI.Modules.Configuracion;
+using System.Deployment.Application;
+using System.IO;
+using Microsoft.Win32;
 #endregion
 
 namespace ClienteMarWPFWin7.UI
@@ -298,6 +301,9 @@ namespace ClienteMarWPFWin7.UI
             }//fin de if myVm
 
         }//fin de metodo OnTeclaKeyDown
+
+
+     
 
 
 

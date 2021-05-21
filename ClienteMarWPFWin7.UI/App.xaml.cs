@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 using System.Globalization;
+using System.Deployment.Application;
+using System.Reflection;
 
 #endregion
 
@@ -19,7 +21,7 @@ namespace ClienteMarWPFWin7.UI
     public partial class App : Application
     {
 
-       // private static readonly TimeSpan InactivityTimeLimit = TimeSpan.FromMinutes(5);
+        // private static readonly TimeSpan InactivityTimeLimit = TimeSpan.FromMinutes(5);
 
 
         private readonly BackgroundWorker worker = new BackgroundWorker();
@@ -30,18 +32,19 @@ namespace ClienteMarWPFWin7.UI
         [STAThread]
         protected override void OnStartup(StartupEventArgs e)
         {
+
             // ** Overrinding default Application |Culture Info to spanish|
             Thread.CurrentThread.CurrentCulture = new CultureInfo("es-DO");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-DO");
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-            
+
 
             base.OnStartup(e);
 
 
             worker.DoWork += worker_DoWork;
             worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-            
+
 
             this.VentanaCargando = new WindowAppLoding();
             this.VentanaCargando.Show();
@@ -107,11 +110,15 @@ namespace ClienteMarWPFWin7.UI
             {
                 VentanaPrincipal.Close();
             }
-                       
-            Application.Current.Shutdown(); 
+
+            Application.Current.Shutdown();
         }
 
 
+
+
+
+ 
 
 
 
