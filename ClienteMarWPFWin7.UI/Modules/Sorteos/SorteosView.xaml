@@ -449,9 +449,9 @@
                                 </StackPanel>
                             </Button>-->
 
-                            <Button Click="CombinarTodo" Background="{DynamicResource MenuTopBackground}" Focusable="False" Foreground="White" Width="160" Margin="5 0"  >
+                            <Button x:Name="botonSuper" Visibility="Collapsed" Click="CombinarTodo" Background="{DynamicResource MenuTopBackground}" Focusable="False" Foreground="White" Width="160" Margin="5 0"  >
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                    <TextBlock Text="Combinar todos" Foreground="White" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Combinar Super-P" Foreground="White" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
 

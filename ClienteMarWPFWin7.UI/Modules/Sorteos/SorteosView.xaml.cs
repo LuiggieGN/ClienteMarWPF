@@ -1212,6 +1212,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
         private void Regulares_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            botonSuper.Visibility = Visibility.Collapsed;
             CrearSuper.IsChecked = false;
             foreach (var item in SorteosBinding)
             {
@@ -1220,6 +1221,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
         private void SuperPales_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            botonSuper.Visibility = Visibility.Visible;
             CrearSuper.IsChecked = true;
         }
         private void CrearSuper_Unchecked(object sender, RoutedEventArgs e)
@@ -1227,12 +1229,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             MostrarSuper();
             listSorteo.Focus();
             listSorteo.SelectedIndex = 0;
+            botonSuper.Visibility = Visibility.Collapsed;
         }
         private void CrearSuper_Checked(object sender, RoutedEventArgs e)
         {
             MostrarSuper(false);
             listSorteo.Focus();
             listSorteo.SelectedIndex = 0;
+            botonSuper.Visibility = Visibility.Visible;
         }
         private void SelectCampo(object sender, RoutedEventArgs e)
         {
