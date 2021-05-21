@@ -1413,7 +1413,27 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         {
                             try
                             {
-                                RegistrarVenta();
+                                if (CrearSuper.IsChecked == true)
+                                {
+                                    foreach (var item in ListJugadas)
+                                    {
+                                        if (item.TipoJugada == "  Pale")
+                                        {
+                                            RegistrarVenta();
+                                        }
+                                        else
+                                        {
+                                            ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
+                                        }
+
+                                    }
+                                }
+                                else
+                                {
+                                    RegistrarVenta();
+                                }
+
+
                             }
                             catch
                             {
