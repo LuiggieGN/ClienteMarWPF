@@ -153,6 +153,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     jugadasNuevoSinPrinter.Add(jugadaSinPrinter);
 
                 }
+                ViewModel.ListadoJugada = listJugadas;
+                Thread.Sleep(700);
+                ViewModelValidar.CerrarValidarPagoTicketCommand.Execute(null);
 
                 /*if (reimprimir == true)
                 {

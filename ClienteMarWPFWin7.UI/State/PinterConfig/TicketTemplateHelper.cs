@@ -502,6 +502,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         break;
                     case "Texto":
                         WriteText(g, Valor.TextReviseJugada, (FontSize-2), FontStyle.Regular.ToString().ToLower(), Alignament);
+                        WriteText(g, ".", (FontSize - 2), FontStyle.Regular.ToString().ToLower(), Alignament);
                         break;
                     case "Linea":
                         WriteLineFinas(g);

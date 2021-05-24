@@ -247,7 +247,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         {
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
             Graphics g = e.Graphics;
-            int FontSize = 11;
+            int FontSize = 8;
             string AlignamenCenter = "center";
             string AlignamentLft = "left";
             var Valor = Value as MAR_VentaNumero;
@@ -264,7 +264,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             positionWrite = 0;
 
-            try{foreach (var item in valores)
+            try{
+                foreach (var item in valores)
             {
                 var data = GetValueForProperty(Value, item.ConfigKey) == null ? "" : GetValueForProperty(Value, item.ConfigValue);
 
@@ -293,29 +294,34 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteTextColumn(g, new List<string> { "Num-", "Cant", "Num-", "Cant", "Num-", "Cant" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
                         if (numerosQuinielas.ToList().Count > 0)
                         {
-                            for (var i = 0; i < numerosQuinielas.ToList().Count; i = +3)
-                            {
-                                if (i + 3 <= numerosQuinielas.ToList().Count)
-                                {
-                                    var Colunm1 = numerosQuinielas.ToArray()[i];
+                                for (int i = 0; i < numerosQuinielas.Count(); i = i + 3){
+                                    if (i + 2 <= numerosQuinielas.Count() - 1)
+                                    {
+                                        var Colunm1 = numerosQuinielas.ToArray()[i];
                                     var Colunm2 = numerosQuinielas.ToArray()[i + 1];
                                     var Colunm3 = numerosQuinielas.ToArray()[i + 2];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), Colunm2.Numero, Colunm2.Costo.ToString("C2"), Colunm3.Numero, Colunm3.Costo.ToString("C2") }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
-
-                                }
-                                if (i + 2 <= numerosQuinielas.ToList().Count)
+                                        
+                                    continue;
+                                }else
+                                if (i + 1 <= numerosQuinielas.Count() - 1)
                                 {
                                     var Colunm1 = numerosQuinielas.ToArray()[i];
                                     var Colunm2 = numerosQuinielas.ToArray()[i + 1];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), Colunm2.Numero, Colunm2.Costo.ToString("C2"), "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
-
+                                        
+                                    continue;
                                 }
-                                if (i <= numerosQuinielas.ToList().Count)
+                                    else
+                                if (i <= numerosQuinielas.Count() - 1)
                                 {
                                     var Colunm1 = numerosQuinielas.ToArray()[i];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), "", "", "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
-
+                                        
+                                     continue;
                                 }
+                                
+                               
                             }
                             var TotalNumeros = numerosQuinielas.Sum(x => x.Costo);
                             WriteTextColumn(g, new List<string> { "----------------------------------------------------" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
@@ -325,24 +331,24 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         {
                             WriteTextColumn(g, new List<string> { "====Detalle de pales vendidos====" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             WriteTextColumn(g, new List<string> { "Num-", "Cant", "Num-", "Cant", "Num-", "Cant" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
-                            for (var i = 0; i < numerosPales.ToList().Count; i = +3)
+                            for (int i = 0; i < numerosPales.Count(); i = i + 3)
                             {
-                                if (i + 3 <= numerosPales.ToList().Count)
+                                if (i + 2 <= numerosPales.Count() - 1)
                                 {
                                     var Colunm1 = numerosPales.ToArray()[i];
                                     var Colunm2 = numerosPales.ToArray()[i + 1];
                                     var Colunm3 = numerosPales.ToArray()[i + 2];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), Colunm2.Numero, Colunm2.Costo.ToString("C2"), Colunm3.Numero, Colunm3.Costo.ToString("C2") }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
 
-                                }
-                                if (i + 2 <= numerosPales.ToList().Count)
+                                }else
+                                if (i + 1 <= numerosPales.Count() - 1)
                                 {
                                     var Colunm1 = numerosPales.ToArray()[i];
                                     var Colunm2 = numerosPales.ToArray()[i + 1];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), Colunm2.Numero, Colunm2.Costo.ToString("C2"), "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
 
-                                }
-                                if (i <= numerosPales.ToList().Count)
+                                }else
+                                if (i <= numerosPales.Count() - 1)
                                 {
                                     var Colunm1 = numerosPales.ToArray()[i];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), "", "", "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
@@ -359,24 +365,24 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             WriteTextColumn(g, new List<string> { "====Detalle de tripletas vendidos====" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             WriteTextColumn(g, new List<string> { "Num-", "Cant", "Num-", "Cant", "Num-", "Cant" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
-                            for (var i = 0; i < numerosTripletas.ToList().Count; i = +3)
+                            for (int i = 0; i < numerosTripletas.Count(); i = i + 3)
                             {
-                                if (i + 3 <= numerosTripletas.ToList().Count)
+                                if (i + 2 <= numerosTripletas.Count() - 1)
                                 {
                                     var Colunm1 = numerosTripletas.ToArray()[i];
                                     var Colunm2 = numerosTripletas.ToArray()[i + 1];
                                     var Colunm3 = numerosTripletas.ToArray()[i + 2];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), Colunm2.Numero, Colunm2.Costo.ToString("C2"), Colunm3.Numero, Colunm3.Costo.ToString("C2") }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
 
-                                }
-                                if (i + 2 <= numerosTripletas.ToList().Count)
+                                }else
+                                if (i + 1 <= numerosTripletas.Count() - 1)
                                 {
                                     var Colunm1 = numerosTripletas.ToArray()[i];
                                     var Colunm2 = numerosTripletas.ToArray()[i + 1];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), Colunm2.Numero, Colunm2.Costo.ToString("C2"), "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
 
-                                }
-                                if (i <= numerosTripletas.ToList().Count)
+                                }else
+                                if (i <= numerosTripletas.Count() - 1)
                                 {
                                     var Colunm1 = numerosTripletas.ToArray()[i];
                                     WriteTextColumn(g, new List<string> { Colunm1.Numero, Colunm1.Costo.ToString("C2"), "", "", "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft); ;
@@ -390,10 +396,9 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteTextColumn(g, new List<string> { "." }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
                         break;
+                    }
 
-                }
-
-            } 
+                } 
             }
             catch (Exception E)
             {
