@@ -161,6 +161,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions\ColeccionExtension.cs" />
+    <Compile Include="Extensions\FileExtension.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Modules\EnLinea\EnLinea.xaml.cs">
       <DependentUpon>EnLinea.xaml</DependentUpon>
