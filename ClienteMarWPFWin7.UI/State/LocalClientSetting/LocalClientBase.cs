@@ -23,6 +23,20 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
 
         protected const string IniFileKey = "MAR Initialize 2.0";
 
+        protected LocalClientSettingDTO LeerConfiguracionPorDefecto()
+        {
+            var configuracion = new LocalClientSettingDTO();
+            configuracion.BancaId = 1;
+            configuracion.LF = 1;
+            configuracion.Direccion = "0.0.0.0";
+            configuracion.Identidad = "0";
+            configuracion.Tickets = 1;
+            configuracion.Espera = 60;
+            configuracion.ServerIP = string.Empty;
+            return configuracion;
+        }
+
+
 
 
 
@@ -45,14 +59,12 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
 
                 return localsetting;
             }
-            catch(Exception error)
+            catch (Exception error)
             {
                 throw error;
             }
 
         }//fin de metodo ReadBackUp 
-
-
         protected void CreateBackUp(LocalClientSettingDTO newsetting)
         {
             try

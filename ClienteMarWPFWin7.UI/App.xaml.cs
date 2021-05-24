@@ -57,7 +57,8 @@ namespace ClienteMarWPFWin7.UI
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(777);
+            FileExtension.Iniciar();
         }
 
 

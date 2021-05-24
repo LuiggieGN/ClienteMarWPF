@@ -21,7 +21,6 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
                 _localClientSettings = value;
             }
         }
-
         public void ReadDektopLocalSetting()
         {
             try
@@ -87,6 +86,7 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
             }
             catch
             {
+                #region Leyendo BackUp cuando el archivo no se puede leer
                 try
                 {
                     if (File.Exists(fileDirectory))
@@ -94,15 +94,24 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
                         File.Delete(fileDirectory);
                     }
 
-                    var backupSetting = base.ReadBackUp();
-
-                    WriteIniFile(backupSetting);   
+                    WriteIniFile(base.ReadBackUp());
                 }
-                catch  
+                catch
                 {
-                    this.LocalClientSettings = null;
-                    throw new MarFileReadException("Configuraciòn de banca no pudo cargar");
+                    try
+                    {
+                        #region Leyendo configuracion por defecto si la lectura de BackUp falla
+                        WriteIniFile(base.LeerConfiguracionPorDefecto());
+                        #endregion
+                    }
+                    catch  
+                    {
+                        this.LocalClientSettings = null;
+                        throw new MarFileReadException("Configuraciòn de banca no pudo cargar");
+                    }
                 }
+
+                #endregion
             }
         }
 

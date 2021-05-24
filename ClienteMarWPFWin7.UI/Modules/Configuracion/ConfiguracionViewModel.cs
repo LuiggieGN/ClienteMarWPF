@@ -78,8 +78,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
             }
             catch 
             {
-                _localsetting.BancaId = 0;
-                _localsetting.LF = 0;
+                _localsetting.BancaId = 1;
+                _localsetting.LF = 1;
                 _localsetting.Direccion = "0.0.0.0" ;
                 _localsetting.Identidad = "0";
                 _localsetting.Tickets = 1;
