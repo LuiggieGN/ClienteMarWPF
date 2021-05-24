@@ -74,7 +74,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Mar.ico</ApplicationIcon>
+    <ApplicationIcon>LogoMARGlobal.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -719,6 +719,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Mar.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LogoMARGlobal.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.0\build\MaterialDesignThemes.targets')" />
