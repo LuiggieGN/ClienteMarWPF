@@ -274,7 +274,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha.ToString());
-            var ReporteOrdenado = Reporte.Tickets.OrderBy(reporte => reporte.Solicitud).ToArray();
             ViewModel.ReportesGanadores = new EstadoDeTicketGanadores();
             ViewModel.ReportesGanadores.PendientesPagar = new ObservableCollection<ReportesGanadoresObservable>() { };
             ViewModel.ReportesGanadores.Pagados = new ObservableCollection<ReportesGanadoresObservable>() { };
@@ -282,7 +281,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
             if (Reporte.Err == null)
             {
-
+                if (Reporte.Tickets != null) { 
                 EstadoDeTicketGanadores Ganadores = new EstadoDeTicketGanadores() { };
                 NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
 
@@ -433,7 +432,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                 ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos + TotalSinReclamar);
 
-
+                }
+                else if(Reporte.Tickets==null)
+                {
+                    MostrarMensajes("No existen tickets ganadores en la fecha y loteria seleccionadas", "MAR-Cliente", "INFO");
+                }
             }
             else if (Reporte.Err != null)
             {
