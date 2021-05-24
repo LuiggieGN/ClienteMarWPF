@@ -1572,16 +1572,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 var jugadas = Vm.ListadoJugada;
                 ltJugada.ItemsSource = new List<Jugada>();
                 ListJugadas = new List<Jugada>();
-                foreach (var jugada in jugadas)
+                if (jugadas != null && jugadas.Count() > 0)
                 {
-                    txtJugada.Text = jugada.Jugadas;
-                    txtMonto.Text = jugada.Monto.ToString();
-                    AddItem(jugada);
-                    RefreshListJugadas();
-
+                 foreach (var jugada in jugadas)
+                   {
+                       txtJugada.Text = jugada.Jugadas;
+                       txtMonto.Text = jugada.Monto.ToString();
+                       AddItem(jugada);
+                       RefreshListJugadas();
+                    }
+                     txtJugada.Text = "";
+                     txtMonto.Text = "";
                 }
-                txtJugada.Text = "";
-                txtMonto.Text = "";
+               
                 //MostrarSorteos();
             }
         }

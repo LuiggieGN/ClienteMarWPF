@@ -274,6 +274,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha.ToString());
+            if (Reporte.Tickets != null) { 
             var ReporteOrdenado = Reporte.Tickets.OrderBy(reporte => reporte.Solicitud).ToArray();
             ViewModel.ReportesGanadores = new EstadoDeTicketGanadores();
             ViewModel.ReportesGanadores.PendientesPagar = new ObservableCollection<ReportesGanadoresObservable>() { };
@@ -432,7 +433,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                 ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);
 
                 ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos + TotalSinReclamar);
-
+                }
 
             }
             else if (Reporte.Err != null)
@@ -864,6 +865,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
             if (Reporte.Numeros != null)
             {
+                try { 
                 ViewModel.RPTListNumerosVisibility = System.Windows.Visibility.Visible;
                 ReporteListNumeroColumns ReporteListNumeros = new ReporteListNumeroColumns();
                 HeaderReporte(Reporte.Fecha, "LISTADO DE NUMEROS", nombreLoteria, null, null);
@@ -1092,7 +1094,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                                 NumeroColumn1 = NumerosTripleta[i].Numero,
                                 CantidadColumn1 = string.Format(nfi, "{0:C}", NumerosTripleta[i].Cantidad),
                                 NumeroColumn2 = NumerosTripleta[i + 1].Numero,
-                                CantidadColumn2 = string.Format(nfi, "{0:C}", NumerosPales[i + 1].Cantidad),
+                                CantidadColumn2 = string.Format(nfi, "{0:C}", NumerosTripleta[i + 1].Cantidad),
                                 NumeroColumn3 = NumerosTripleta[i + 2].Numero,
                                 CantidadColumn3 = string.Format(nfi, "{0:C}", NumerosTripleta[i + 2].Cantidad)
                             };
@@ -1135,11 +1137,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                 {
                     ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
                 }
+
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message,"MAR-Cliente",MessageBoxButton.OK,MessageBoxImage.Error);
+                }
             }else if (Reporte.Err != null)
             {
                 //MostrarMensajes(Reporte.Err,"MAR-Cliente","INFO");
-            }
             
+            }
            }
 
         private void RPTListTickets(object parametros)
