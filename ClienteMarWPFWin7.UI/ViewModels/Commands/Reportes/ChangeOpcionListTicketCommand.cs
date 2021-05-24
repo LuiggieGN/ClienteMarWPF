@@ -39,7 +39,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             {
                 foreach (var ticket in ViewModel.ReporteAllDataListTicket)
                 {
-                    if (ticket.Nulo==false)
+                    if (ticket.Nulo==false || ticket.Saco == "Nulo")
                     {
                         observable.Add(ticket);
                     }
@@ -51,7 +51,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             {
                 foreach (var ticket in ViewModel.ReporteAllDataListTicket)
                 {
-                    if (ticket.Nulo == true)
+                    if (ticket.Nulo == true || ticket.Saco == "Nulo")
                     {
                         observable.Add(ticket);
                     }
