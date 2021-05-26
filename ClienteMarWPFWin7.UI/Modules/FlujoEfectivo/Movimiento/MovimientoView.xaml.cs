@@ -1,17 +1,12 @@
-﻿using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1;
+﻿using ClienteMarWPFWin7.Domain.Models.Dtos;
+using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View1;
 using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View2;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Collections.Generic; 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
@@ -23,13 +18,18 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
         private bool FlatCargando3 = false;
 
         private int TabSelectedIndex;
+        private string TabKey;
 
         public static UIElement Tab0_LastFocusControl = null;
         public static UIElement Tab1_LastFocusControl = null;
         public static UIElement Tab2_LastFocusControl = null;
 
+        Dictionary<int, string> TrackingTabs;
+
         public MovimientoView()
         {
+            TrackingTabs = new Dictionary<int, string>();
+
             InitializeComponent();
 
             FlatCargando1 = true;
@@ -43,6 +43,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
             Tab0_LastFocusControl = null;
             Tab1_LastFocusControl = null;
             Tab2_LastFocusControl = null;
+
+            LeePermisoDeControlDeEfectivo();
         }
 
         private void CuandoTabCambia(object sender, SelectionChangedEventArgs e)
@@ -50,6 +52,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
             if (e.OriginalSource == TabsControl)
             {
                 TabSelectedIndex = TabsControl.SelectedIndex;
+
+                TabKey = TrackTabSeleccionado(indiceDeSeguimiento: TabSelectedIndex);
 
                 IniciaFocusAlCambiarTab();
             }
@@ -61,9 +65,9 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
 
             var vm = DataContext as MovimientoViewModel;
 
-            switch (TabSelectedIndex)
+            switch (TabKey)
             {
-                case 0: //@@                                                                        - Modulo de Registro de Ingresos y Gastos
+                case "Tab_0": //@@                                                                        - Modulo de Registro de Ingresos y Gastos
 
                     FlatCargando1 = true;
                     FlatCargando2 = false;
@@ -98,7 +102,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                     break;
 
 
-                case 1: //@@                                                                        - Modulo de Registro de Entrega y Recibo de Dinero
+                case "Tab_1": //@@                                                                        - Modulo de Registro de Entrega y Recibo de Dinero
 
                     FlatCargando1 = false;
                     FlatCargando2 = true;
@@ -132,7 +136,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                         timer.Start();
                     }
                     break;
-                case 2: //@@                                                                        - Modulo de Consulta de Movimientos
+                case "Tab_2": //@@                                                                        - Modulo de Consulta de Movimientos
 
                     FlatCargando1 = false;
                     FlatCargando2 = false;
@@ -217,12 +221,102 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
         }
 
 
+        private void LeePermisoDeControlDeEfectivo()
+        {
+            var ventaPrincipal = Application.Current.MainWindow;
+            var vm = ventaPrincipal.DataContext as MainWindowViewModel;
+
+            if (vm != null)
+            {
+                PermisosDTO permisos = vm.AutService.Permisos;
+
+                TrackingTabs[0] = "Tab_0"; //Tab Entrda y Salida de Dinero
+                TrackingTabs[1] = "Tab_1"; //Tab Entrega de Efectivo
+                TrackingTabs[2] = "Tab_2"; //Tab Consulta de Movimiento
 
 
+                if (
+                      permisos.Permiso_Flujo_Efectivo_Registrar_Movimiento == false &&
+                      permisos.Permiso_Flujo_Efectivo_Entrega_De_Efectivo  == false
+                   )
+                {
+                    TrackingTabs = new Dictionary<int, string>();
+                    TrackingTabs[0] = "Tab_2";
+                }
+                else if (permisos.Permiso_Flujo_Efectivo_Registrar_Movimiento == true &&
+                         permisos.Permiso_Flujo_Efectivo_Entrega_De_Efectivo  == false)
+                {
+                    TrackingTabs = new Dictionary<int, string>();
+                    TrackingTabs[0] = "Tab_0";
+                    TrackingTabs[1] = "Tab_2";
+                }
+                else if (permisos.Permiso_Flujo_Efectivo_Registrar_Movimiento == false &&
+                         permisos.Permiso_Flujo_Efectivo_Entrega_De_Efectivo == true)
+                {
+                    TrackingTabs = new Dictionary<int, string>();
+                    TrackingTabs[0] = "Tab_1";
+                    TrackingTabs[1] = "Tab_2";
+                }
+
+
+                #region Removiendo Tabs No Permitidos
+                if (permisos.Permiso_Flujo_Efectivo_Registrar_Movimiento == false) // Oculto Registrar (E/S) de dinero
+                {
+                    UserControl1.Visibility = Visibility.Collapsed;
+                    TabsControl.Items.Remove(TabOne);
+                }
+
+                if (permisos.Permiso_Flujo_Efectivo_Entrega_De_Efectivo == false) // Oculto Entrega y Recibo de dinero
+                {
+                    UserControl2.Visibility = Visibility.Collapsed;
+                    TabsControl.Items.Remove(TabTwo);
+                }
+                #endregion
+
+
+                if (permisos.Permiso_Flujo_Efectivo_Registrar_Movimiento == true)
+                {
+                    SetearTabSeleccionado(cargando: 1, tab: "Tab_0");
+                }
+                else if(permisos.Permiso_Flujo_Efectivo_Entrega_De_Efectivo == true)
+                {
+                    SetearTabSeleccionado(cargando: 2, tab: "Tab_1");
+                }
+                else
+                {
+                    SetearTabSeleccionado(cargando: 3, tab: "Tab_2");
+                }
+
+
+
+
+
+
+
+
+            }//fin de if vm != null       
+        }
+
+        private void SetearTabSeleccionado(int cargando, string tab) 
+        {
+            FlatCargando1 = cargando == 1 ? true : false;
+            FlatCargando2 = cargando == 2 ? true : false;
+            FlatCargando3 = cargando == 3 ? true : false;
+
+            TabKey = tab;
+
+            TabSelectedIndex = LeerKeyDesdeElValor(tab);
+
+            TabsControl.SelectedIndex = TabSelectedIndex;
+
+            Tab0_LastFocusControl = null;
+            Tab1_LastFocusControl = null;
+            Tab2_LastFocusControl = null;
+        }
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (TabSelectedIndex == 0)// @@                                              
+            if (TabKey == "Tab_0")// @@                                              
             {
                 if (e.Key == Key.F9 || (e.Key == Key.System && e.SystemKey == Key.F9))
                 {
@@ -249,7 +343,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                     }
                 }
             }
-            else if (TabSelectedIndex == 1)
+            else if (TabKey == "Tab_1")
             {
                 if (e.Key == Key.F5 || (e.Key == Key.System && e.SystemKey == Key.F5))
                 {
@@ -324,7 +418,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
 
 
             }
-            else if (TabSelectedIndex == 2)
+            else if (TabKey == "Tab_2")
             {
                 if (e.Key == Key.F5 || (e.Key == Key.System && e.SystemKey == Key.F5))
                 {
@@ -360,11 +454,45 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
 
 
 
+        private string TrackTabSeleccionado(int indiceDeSeguimiento) 
+        {
+            if (TrackingTabs == null || TrackingTabs.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            if (TrackingTabs.ContainsKey(indiceDeSeguimiento))
+            {
+                return TrackingTabs[indiceDeSeguimiento];
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+
+        private int LeerKeyDesdeElValor(string tab) 
+        {
+            if (TrackingTabs == null || TrackingTabs.Count == 0)
+            {
+                return -1;
+            }
+
+            try
+            {
+              return TrackingTabs.FirstOrDefault(x => x.Value == tab).Key;
+
+            }
+            catch {  
+
+                return -1;
+            }        
+        }
 
 
 
 
 
-
-    }
+    }//fin de clase
 }
