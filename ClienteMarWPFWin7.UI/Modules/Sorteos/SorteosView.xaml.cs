@@ -139,6 +139,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             try
             {
+
                 var sorteos = new SorteosDataService();
                 var sessionHacienda = new ClienteMarWPFWin7.Domain.HaciendaService.MAR_Session();
 
@@ -426,7 +427,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             NumerosJugados = new List<string>();
             RemoveAllSeletion();
             ltJugada.ItemsSource = new List<Jugada>();
-            txtMontoTotal.Content = "$0.00";
+            txtMontoTotal.Content = "$00.00";
             //MostrarSorteos();
         }
         private List<SorteosObservable> ConvertToObservables(List<MAR_Loteria2> Sorteos)
@@ -527,15 +528,249 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             }
         }
+
+        #region PrecioPales
+        public void ObtenerPrecioPales()
+        {
+            //IEnumerable<double> precioLoterias;
+            var numeroLoteria = 0;
+            var precioYdia = new List<Tuple<double, int>>();
+
+            if (ListSorteosVender.Count() > 0)
+            {
+                foreach (var loteria in ListSorteosVender)
+                {
+                    numeroLoteria = loteria.Sorteo.LoteriaID;
+                }
+
+                var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == numeroLoteria);
+
+                if (collecion.ToArray()[0].Numero == numeroLoteria)
+                {
+                    var diaActual = DateTime.Now.DayOfWeek.ToString();
+
+                    switch (diaActual)
+                    {
+                        case "Monday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioP, x.CieLun)).ToList();
+                            break;
+
+                        case "Tuesday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioP, x.CieMar)).ToList();
+                            break;
+
+                        case "Wednesday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioP, x.CieMie)).ToList();
+                            break;
+
+                        case "Thursday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioP, x.CieJue)).ToList();
+                            break;
+
+                        case "Friday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioP, x.CieVie)).ToList();
+                            break;
+
+                        case "Saturday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioP, x.CieSab)).ToList();
+                            break;
+
+                        case "Sunday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioP, x.CieDom)).ToList();
+                            break;
+                    }
+
+                    var total = ListJugadas?.Sum(x => x.Monto) ?? 0;
+                    var cantidadLoterias = ListSorteosVender?.Count() ?? 0;
+
+                    //foreach(var precio in SessionGlobals.LoteriasDisponibles)
+                    //{
+                        
+                    //}
+
+                    if (precioYdia != null && precioYdia.Count > 0)
+                    {
+                        var cantidadTotal = (total * precioYdia.ToArray()[0].Item1 * cantidadLoterias).ToString();
+                        txtMontoTotal.Content = (Decimal.Parse(cantidadTotal)).ToString("C");
+                    }
+                    
+                    
+
+                }
+
+            }
+        }
+        #endregion
+
+        #region PrecioQuiniela
+        public void ObtenerPrecioQuinielas()
+        {
+            var numeroLoteria = 0;
+            var precioYdia = new List<Tuple<double, int>>();
+
+            if (ListSorteosVender.Count() > 0)
+            {
+                foreach (var loteria in ListSorteosVender)
+                {
+                    numeroLoteria = loteria.Sorteo.LoteriaID;
+                }
+
+                var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == numeroLoteria);
+
+                if (collecion.ToArray()[0].Numero == numeroLoteria)
+                {
+                    var diaActual = DateTime.Now.DayOfWeek.ToString();
+
+                    switch (diaActual)
+                    {
+                        case "Monday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioQ, x.CieLun)).ToList();
+                            break;
+
+                        case "Tuesday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMar)).ToList();
+                            break;
+
+                        case "Wednesday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMie)).ToList();
+                            break;
+
+                        case "Thursday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioQ, x.CieJue)).ToList();
+                            break;
+
+                        case "Friday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioQ, x.CieVie)).ToList();
+                            break;
+
+                        case "Saturday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioQ, x.CieSab)).ToList();
+                            break;
+
+                        case "Sunday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioQ, x.CieDom)).ToList();
+                            break;
+
+                    }
+
+                    var total = ListJugadas?.Sum(x => x.Monto) ?? 0;
+                    var cantidadLoterias = ListSorteosVender?.Count() ?? 0;
+
+                    foreach (var monto in precioYdia)
+                    {
+                        var cantidadTotal = (total * (monto.Item1 * cantidadLoterias)).ToString();
+                        txtMontoTotal.Content = (Decimal.Parse(cantidadTotal)).ToString("C");
+
+                    }
+                }
+
+            }
+        }
+        #endregion
+
+        #region PrecioTripleta
+        public void ObtenerPrecioTripletas()
+        {
+            var numeroLoteria = 0;
+            var precioYdia = new List<Tuple<double, int>>();
+
+            if (ListSorteosVender.Count() > 0)
+            {
+                foreach (var loteria in ListSorteosVender)
+                {
+                    numeroLoteria = loteria.Sorteo.LoteriaID;
+                }
+
+                var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == numeroLoteria);
+
+                if (collecion.ToArray()[0].Numero == numeroLoteria)
+                {
+                    var diaActual = DateTime.Now.DayOfWeek.ToString();
+
+                    switch (diaActual)
+                    {
+                        case "Monday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioT, x.CieLun)).ToList();
+                            break;
+
+                        case "Tuesday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioT, x.CieMar)).ToList();
+                            break;
+
+                        case "Wednesday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioT, x.CieMie)).ToList();
+                            break;
+
+                        case "Thursday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioT, x.CieJue)).ToList();
+                            break;
+
+                        case "Friday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioT, x.CieVie)).ToList();
+                            break;
+
+                        case "Saturday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioT, x.CieSab)).ToList();
+                            break;
+
+                        case "Sunday":
+                            precioYdia = SessionGlobals.LoteriasYSupersDisponibles.Where(y => y.Numero == numeroLoteria).Select(x => new Tuple<double, int>(x.PrecioT, x.CieDom)).ToList();
+                            break;
+
+                    }
+
+                    var total = ListJugadas?.Sum(x => x.Monto) ?? 0;
+                    var cantidadLoterias = ListSorteosVender?.Count() ?? 0;
+
+                    foreach (var monto in precioYdia)
+                    {
+                        var cantidadTotal = (total * (monto.Item1 * cantidadLoterias)).ToString();
+                        txtMontoTotal.Content = (Decimal.Parse(cantidadTotal)).ToString("C");
+
+                    }
+                }
+
+            }
+        }
+        #endregion
+
         public void RefreshListJugadas()
         {
             ltJugada.ItemsSource = new List<Jugada>();
             ltJugada.ItemsSource = ListJugadas;
             ltJugada.Items.Refresh();
-            var total = ListJugadas?.Sum(x => x.Monto) ?? 0;
-            var cantidadLoterias = ListSorteosVender?.Count() ?? 0;
-            var cantidadTotal = (total * cantidadLoterias).ToString();
-            txtMontoTotal.Content = (Decimal.Parse(cantidadTotal)).ToString("C");
+
+            if (ListSorteosVender.Count() == 0 || ltJugada.Items.Count == 0)
+            {
+                txtMontoTotal.Content = "$00.00";
+            }
+
+            foreach (var item in ListJugadas)
+            {
+
+                #region Pales
+                if (item.TipoJugada == "  Pale" || item.TipoJugada == "Pale") // En caso de que sea pale
+                {
+                    ObtenerPrecioPales();
+                } // Fin caso pale
+                #endregion
+
+                #region Quiniela
+                if (item.TipoJugada == "  Quiniela" || item.TipoJugada == "Quiniela") // En caso de que sea quiniela
+                {
+                    ObtenerPrecioQuinielas();
+                } // Fin caso quiniela
+                #endregion
+
+                #region Tripleta
+                if (item.TipoJugada == "  Tripleta" || item.TipoJugada == "Tripleta") // En caso de que sea tripleta
+                {
+                    ObtenerPrecioTripletas();
+                } // Fin caso tripleta
+                #endregion
+            }
+
+
         }
         public void AddItem(Jugada NuevaJugada = null)
         {
@@ -1417,22 +1652,28 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 {
                                     foreach (var item in ListJugadas)
                                     {
-                                        if (item.TipoJugada == "  Pale")
+                                        foreach (var sorteo in ListSorteosVender)
                                         {
-                                            RegistrarVenta();
-                                        }
-                                        else
-                                        {
-                                            ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
-                                        }
+                                            if (item.TipoJugada != "  Pale")
+                                            {
+                                                if (sorteo.SorteoNombre.Contains("SP"))
+                                                {
+                                                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
+                                                }
 
+                                            }
+                                            else
+                                            {
+                                                RegistrarVenta();
+                                            }
+                                        }
                                     }
                                 }
                                 else
                                 {
                                     RegistrarVenta();
                                 }
-
+                                //RegistrarVenta();
 
                             }
                             catch
@@ -2451,7 +2692,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public SorteosObservable Sorteo { get; set; }
     }
 
+
 }
+
 
 
 
