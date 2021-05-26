@@ -1413,26 +1413,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         {
                             try
                             {
-                                if (CrearSuper.IsChecked == true)
-                                {
-                                    foreach (var item in ListJugadas)
-                                    {
-                                        if (item.TipoJugada == "  Pale")
-                                        {
-                                            RegistrarVenta();
-                                        }
-                                        else
-                                        {
-                                            ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
-                                        }
 
-                                    }
-                                }
-                                else
-                                {
-                                    RegistrarVenta();
-                                }
-
+                                RegistrarVenta();
 
                             }
                             catch
@@ -1574,17 +1556,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 ListJugadas = new List<Jugada>();
                 if (jugadas != null && jugadas.Count() > 0)
                 {
-                 foreach (var jugada in jugadas)
-                   {
-                       txtJugada.Text = jugada.Jugadas;
-                       txtMonto.Text = jugada.Monto.ToString();
-                       AddItem(jugada);
-                       RefreshListJugadas();
+                    foreach (var jugada in jugadas)
+                    {
+                        txtJugada.Text = jugada.Jugadas;
+                        txtMonto.Text = jugada.Monto.ToString();
+                        AddItem(jugada);
+                        RefreshListJugadas();
                     }
-                     txtJugada.Text = "";
-                     txtMonto.Text = "";
+                    txtJugada.Text = "";
+                    txtMonto.Text = "";
                 }
-               
+
                 //MostrarSorteos();
             }
         }
