@@ -168,7 +168,6 @@ namespace ClienteMarWPFWin7.UI.State.Authenticators
                 if (ArrayValue[0] == "BANCA_VENDE_CINCOMINUTOS")
                 {
                     permisos.CincoMinutos = true;
-
                 }
                 else if (ArrayValue[0] == "BANCA_PAGA_SERVICIOS")
                 {
@@ -182,8 +181,15 @@ namespace ClienteMarWPFWin7.UI.State.Authenticators
                 {
                     permisos.PuedeVenderBingo = true;
                 }
-            }
-
+                else if (ArrayValue[0].Equals("BANCA_FLUJO_REGISTRAR_MOVIMIENTOS", StringComparison.OrdinalIgnoreCase) && ArrayValue[1].Equals("TRUE", StringComparison.OrdinalIgnoreCase))
+                {
+                    permisos.Permiso_Flujo_Efectivo_Registrar_Movimiento = true;
+                }
+                else if (ArrayValue[0].Equals("BANCA_FLUJO_ENTREGA_EFECTIVO", StringComparison.OrdinalIgnoreCase) && ArrayValue[1].Equals("TRUE", StringComparison.OrdinalIgnoreCase))
+                {
+                    permisos.Permiso_Flujo_Efectivo_Entrega_De_Efectivo = true;
+                }
+            } 
             Permisos = permisos;
         }
 

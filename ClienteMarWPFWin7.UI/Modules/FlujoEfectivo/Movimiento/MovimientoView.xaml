@@ -41,7 +41,7 @@
                                       AllowDrop="False"                                    
                                       Margin="4 3 4 0"  
                                       SelectionChanged="CuandoTabCambia">
-                <TabItem IsSelected="True" Background="Red" TabIndex="0">
+                <TabItem x:Name="TabOne" Background="Red" TabIndex="0">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"  >
                             <materialDesign:PackIcon Kind="Arrow" Width="30" Height="30" Foreground="#FF00A8E8" />
@@ -51,7 +51,7 @@
                     <view1:EnCajaView x:Name="UserControl1" DataContext="{Binding View1}"  Loaded="Carga1"  />
                 </TabItem>
 
-                <TabItem Height="50" TabIndex="1">
+                <TabItem x:Name="TabTwo" Height="50" TabIndex="1">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
                             <materialDesign:PackIcon Kind="Cash" Foreground="#FF00A8E8" Width="30" Height="30" />
@@ -61,7 +61,7 @@
                     <view2:DesdeHastaView x:Name="UserControl2" DataContext="{Binding View2}" SeleccionarGestorCommand="{Binding SeleccionarGestorCommand}" RestablecerCommand="{Binding RestablecerCommand}" Loaded="Carga2"/>
                 </TabItem>
 
-                <TabItem Height="50" TabIndex="2">
+                <TabItem x:Name="TabThree" Height="50" TabIndex="2">
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0"   >
                             <materialDesign:PackIcon Kind="FindInPage" Foreground="#FF00A8E8" Width="30" Height="30" />

@@ -39,6 +39,8 @@ namespace ClienteMarWPFWin7.Domain.Models.Dtos
         public bool MedirInactividad { get; set; }
         public int MinutosIncatividad { get; set; }
         public bool PuedeVenderBingo { get; set; }
-    }
+        public bool Permiso_Flujo_Efectivo_Registrar_Movimiento { get; set; } = false;
+        public bool Permiso_Flujo_Efectivo_Entrega_De_Efectivo { get; set; } = false;
 
+    }
 }
