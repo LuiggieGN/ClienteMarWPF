@@ -234,6 +234,24 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                     }
                     break;
 
+                case Key.F6:
+                    CopiarTicketInput(sender, e);
+                    break;
+
+                case Key.Right:
+                    if (TxtTicket.IsFocused)
+                    {
+                        TxtPin.Focus();
+                    }
+                    break;
+
+                case Key.Left:
+                    if (TxtPin.IsFocused)
+                    {
+                        TxtTicket.Focus();
+                    }
+                    break;
+
             }
 
 

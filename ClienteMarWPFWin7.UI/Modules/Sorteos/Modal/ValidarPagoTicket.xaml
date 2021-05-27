@@ -83,7 +83,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>-->
                                     <DataGridTextColumn   Header="Ticket No." Width="*"  Binding="{Binding TicketNo}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Regular"/>
-                                    <DataGridTextColumn   Header="Ticket" Width="*"      Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
+                                    <!--<DataGridTextColumn   Header="Ticket" Width="*"      Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>-->
                                     <DataGridTextColumn   Header="Hora"   Width="*"      Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
                                     <DataGridTextColumn   Header="Monto $"  Width="*"    Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular" />
 
@@ -241,7 +241,7 @@
                                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ContentCopy" Margin="1 1 5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
 
-                                    <TextBlock Text="Copiar" Foreground="White" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Copiar F6" Foreground="White" VerticalAlignment="Center"/>
 
                                     <controls1:SpinnerPiston x:Name="SpinnerCopiar" Background="Transparent"
                                                 HorizontalAlignment="Center"
