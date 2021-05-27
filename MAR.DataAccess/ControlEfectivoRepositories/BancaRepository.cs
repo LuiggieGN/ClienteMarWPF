@@ -329,7 +329,7 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
                 }
 
                 return totalvendido;
-            }
+            } 
             catch (Exception ex)
             {
                 throw ex;
