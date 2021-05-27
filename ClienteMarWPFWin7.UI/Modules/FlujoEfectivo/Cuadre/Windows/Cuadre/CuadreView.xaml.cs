@@ -66,6 +66,15 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             catch { }
         }
 
+        private void CuandoTeclaSube_VentanaPrincipal(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                OnCerrarVentanaClick(sender, e);
+            }
+        }
+
+
 
 
 
