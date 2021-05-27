@@ -182,6 +182,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             if (InputHelper.InputIsBlank(this.MontoContado))
             {
                 monto = 0;
+                SetRecomendacionCommand?.Execute(monto);
             }
             else
             {

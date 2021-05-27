@@ -55,12 +55,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
             {
                 try
                 {
-                    if (_viewmodel.CuadreGestorAccion == CuadreGestorAccion.Retirar) // Caja Origen es la de la banca
-                    {
-                        _cajaOrigenBalanceActual = _viewmodel.CuadreBuilder.LeerCajaBalance(_viewmodel.AutService.BancaConfiguracion.CajaEfectivoDto.CajaID);
+                    SetMontoContado();
+
+                    if (_viewmodel.CuadreGestorAccion == CuadreGestorAccion.Retirar)
+                    {// Caja Origen es la de la --BANCA
+                     //_cajaOrigenBalanceActual = _viewmodel.CuadreBuilder.LeerCajaBalance(_viewmodel.AutService.BancaConfiguracion.CajaEfectivoDto.CajaID); // Este codigo fue removido porque el balance de la banca equivale al monto contado
+
+
+                        _cajaOrigenBalanceActual = _montoContado;                  
+                    
                     }
-                    else // Caja Origen es la del gestor
-                    {
+                    else
+                    {// Caja Origen es la del --GESTOR
                         _cajaOrigenBalanceActual = _viewmodel.CuadreBuilder.LeerCajaBalance(_viewmodel.GestorStored.GestorSesion.Gestor.SegundoDTO.CajaID);
                     }
 
@@ -192,26 +198,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
         }
         private void ValidarSubmit()
         {
-            ResetErrors();
-
-            if (InputHelper.InputIsBlank(_viewmodel.MontoContado))
-            {
-                _montoContado = 0;
-            }
-            else
-            {
-                decimal montoConvertido;
-                bool montoNoEsValido = !decimal.TryParse(_viewmodel.MontoContado, NumberStyles.Any, new CultureInfo("en-US"), out montoConvertido);
-
-                if (montoNoEsValido || montoConvertido <= 0)
-                {
-                    _montoContado = 0;
-                }
-                else
-                {
-                    _montoContado = montoConvertido;
-                }
-            }
+            ResetErrors();            
 
             if (InputHelper.InputIsBlank(_viewmodel.MontoDepositoORetiro))
             {
@@ -248,6 +235,29 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
             _viewmodel.Errores.EliminarError(nameof(_viewmodel.NombreCajera));
         }
 
+
+
+        private void SetMontoContado() 
+        {
+            if (InputHelper.InputIsBlank(_viewmodel.MontoContado))
+            {
+                _montoContado = 0;
+            }
+            else
+            {
+                decimal montoConvertido;
+                bool montoNoEsValido = !decimal.TryParse(_viewmodel.MontoContado, NumberStyles.Any, new CultureInfo("en-US"), out montoConvertido);
+
+                if (montoNoEsValido || montoConvertido <= 0)
+                {
+                    _montoContado = 0;
+                }
+                else
+                {
+                    _montoContado = montoConvertido;
+                }
+            }
+        }
 
 
 

@@ -30,7 +30,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
 
         public void SetRecomendacion(object monto)
         {
-            var montoContadoPorGestor = Convert.ToDecimal(monto?.ToString(), new CultureInfo("en-US"));
+            decimal montoContadoPorGestor = 0;
+            try
+            {
+                montoContadoPorGestor = Convert.ToDecimal(monto?.ToString(), new CultureInfo("en-US"));
+            }
+            catch  
+            {
+                montoContadoPorGestor = 0;
+            }
 
             if (_viewmodel != null &&
                 _viewmodel.ConsultaInicial != null)
