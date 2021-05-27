@@ -18,12 +18,14 @@
         ResizeMode="NoResize"
         Loaded="OnLoaded" 
         Closing="OnCerrarVentanaClosing"
+        KeyUp="CuandoTeclaSube_VentanaPrincipal"
         Height="800"
         Width="990"
         MaxHeight="800"
         MaxWidth="990"      
         x:Name="CuadreVista"
-        Title="{Binding Titulo}">
+        Title="{Binding Titulo}"
+        >
     <Window.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
