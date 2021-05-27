@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
+
+using System;
 
 namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
 {
@@ -20,12 +16,15 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
         public CuadreLoginView(Window parent)
         {
             InitializeComponent();
+
             ParentWindow = parent;
+
+            SetFocusEnTiempo(PassGestorPin, TimeSpan.FromMilliseconds(700));
         }
 
         private void CancelarCuadre(object sender, RoutedEventArgs e)
         {
-           Close();
+            Close();
         }
 
         private void CuadreLoginWindow_Loaded(object sender, RoutedEventArgs e)
@@ -33,5 +32,37 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
             this.Left = ParentWindow.Left + (ParentWindow.Width - this.ActualWidth) / 2;
             this.Top = ParentWindow.Top + (ParentWindow.Height - this.ActualHeight) / 2;
         }
-    }
+
+        private void CuandoTeclaSube(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var vm = DataContext as CuadreLoginViewModel;
+
+                if (vm != null)
+                {
+                    vm.SeleccionarGestor?.Execute(new object[] { PassGestorPin, PassTokenTarjeta, CuadreLoginWindow });
+                }
+            }
+        }
+
+        private void SetFocusEnTiempo(Control control, TimeSpan tiempo)
+        {
+            var timer = new DispatcherTimer();
+            timer.Interval = tiempo;
+            timer.Tick += (sender, args) => {
+                timer.Stop();
+                if (control != null)
+                {
+                    control.Focus();
+                }
+            };
+            timer.Start();
+        }
+
+
+
+
+
+    }//fin de clase
 }

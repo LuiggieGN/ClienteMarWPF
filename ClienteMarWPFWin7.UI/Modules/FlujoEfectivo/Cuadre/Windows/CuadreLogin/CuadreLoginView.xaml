@@ -62,7 +62,8 @@
                                      materialDesign:HintAssist.Hint="Id de Gestor"   
                                      behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                      SnapsToDevicePixels="True"
-                                     BorderBrush="Transparent"/>
+                                     BorderBrush="Transparent" 
+                                     KeyUp="CuandoTeclaSube"/>
                     </Border>
                     <Button Width="55"
                             Height="48"                                
