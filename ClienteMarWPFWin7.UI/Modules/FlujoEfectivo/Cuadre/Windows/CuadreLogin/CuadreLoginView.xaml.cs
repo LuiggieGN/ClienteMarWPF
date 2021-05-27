@@ -12,14 +12,13 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
     public partial class CuadreLoginView : Window
     {
         public Window ParentWindow;
-
         public CuadreLoginView(Window parent)
         {
             InitializeComponent();
 
             ParentWindow = parent;
 
-            SetFocusEnTiempo(PassGestorPin, TimeSpan.FromMilliseconds(700));
+            SetFocusEnTiempo(PassGestorPin, TimeSpan.FromMilliseconds(777));
         }
 
         private void CancelarCuadre(object sender, RoutedEventArgs e)
@@ -33,7 +32,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
             this.Top = ParentWindow.Top + (ParentWindow.Height - this.ActualHeight) / 2;
         }
 
-        private void CuandoTeclaSube(object sender, KeyEventArgs e)
+        private void CuandoTeclaSube_InputIdGestor(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -43,6 +42,14 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
                 {
                     vm.SeleccionarGestor?.Execute(new object[] { PassGestorPin, PassTokenTarjeta, CuadreLoginWindow });
                 }
+            }
+        }
+
+        private void CuandoTeclaSube_VentanaPrincipal(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                CancelarCuadre(sender, e);
             }
         }
 
@@ -64,5 +71,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin
 
 
 
+
+
+
     }//fin de clase
-}
+}//fin de namespace
