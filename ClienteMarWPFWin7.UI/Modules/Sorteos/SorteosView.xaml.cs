@@ -131,6 +131,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             SeleccionadasLista = ListSorteosVender.Count();
             CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
 
+            vistaSorteo.Focus();
+
         }
 
 
@@ -822,6 +824,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     {
                         txtMonto.Focus();
                     }
+                    else
+                    {
+                        txtMonto.Focus();
+                    }
                     break;
 
                 case Key.Subtract:
@@ -839,7 +845,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 case Key.S://Para cambiar a venta de super pales
                     teclaSeleccionada = "";
                     e.Handled = true;
-                    CrearSuper.IsChecked = true;                   
+                    CrearSuper.IsChecked = true;
                     listSorteo.Focus();
                     e.Handled = false;
                     break;
@@ -941,28 +947,29 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     break;
 
-                case Key.Down:
+                //case Key.Down:
 
-                    if (txtMonto.IsFocused)
-                    {
-                        TriggerButtonClickEvent(btnSeleccionarTablaJugadaPrimerRow);
+                //    if (txtMonto.IsFocused)
+                //    {
+                //        TriggerButtonClickEvent(btnSeleccionarTablaJugadaPrimerRow);
 
-                        //if ((ltJugada.Items.Count > 0) &&
-                        // (ltJugada.Columns.Count > 0))
-                        //{
-                        //    //Select the first column of the first item. 
-                        //    ltJugada.CurrentCell = new DataGridCellInfo(ltJugada.Items[0], ltJugada.Columns[0]);
-                        //    ltJugada.SelectedCells.Add(ltJugada.CurrentCell);
-                        //}
-                    }
-                    break;
+                //        //if ((ltJugada.Items.Count > 0) &&
+                //        // (ltJugada.Columns.Count > 0))
+                //        //{
+                //        //    //Select the first column of the first item. 
+                //        //    ltJugada.CurrentCell = new DataGridCellInfo(ltJugada.Items[0], ltJugada.Columns[0]);
+                //        //    ltJugada.SelectedCells.Add(ltJugada.CurrentCell);
+                //        //}
+                //    }
+                //    break;
 
-                case Key.Up:
-                    if (ltJugada.IsFocused)
-                    {
-                        txtMonto.Focus();
-                    }
-                    break;
+                //case Key.Up:
+                //    if (ltJugada.IsFocused)
+                //    {
+                //        TxtMontoFocus = true;
+
+                //    }
+                //    break;
 
                 case Key.Enter:
 
@@ -1417,10 +1424,31 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (cuentaSorteos > 0 && cuentaJugadas > 0)
             {
-                RealizarVenta();
-                ResetearFormularioVenta();
-            }
+                if (CrearSuper.IsChecked == true)
+                {
+                    foreach (var item in ListJugadas)
+                    {
+                        foreach (var sorteo in ListSorteosVender)
+                        {
+                            if ((item.TipoJugada != "  Pale" || item.TipoJugada != "Pale") || (item.TipoJugada != "  Tripleta" || item.TipoJugada != "Tripleta"))
+                            {
+                                if (sorteo.SorteoNombre.Contains("SP"))
+                                {
+                                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
+                                }
 
+                            }
+                            else
+                            {
+                                RegistrarVenta();
+                                ResetearFormularioVenta();
+                            }
+                        }
+                    }
+
+                }
+
+            }
         }
 
         private void RealizarVenta()
@@ -2009,12 +2037,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 for (int i = 0; i < combinacionesNoDisponibles.Count; i++)
                 {
                     sorteoNoDisponible += $" ** {combinacionesNoDisponibles[i].Item3} **{ Environment.NewLine}";
-
                 }
 
                 if (combinacionesNoDisponibles.Count > 0)
                 {
-                    MessageBox.Show(sorteoNoDisponible, "Combinaciones no disponibles", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(sorteoNoDisponible.PadRight(799).Substring(0, 799).TrimEnd() + "\n \nFavor solicitar combinaciones a la central", "Combinaciones no disponibles", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
                 #endregion
@@ -2112,9 +2139,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         private void SeleccionarPrimerRowTablaJugada(object sender, RoutedEventArgs e)
         {
+
             if (ltJugada.Items.Count > 0)
             {
-                ltJugada.Focus();
+                //ltJugada.Focus();
                 DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
                 if (row != null)
                 {
@@ -2242,6 +2270,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 });
             }
         }
+
+
 
         //private void AddLoteriaMultiples()
         //{
