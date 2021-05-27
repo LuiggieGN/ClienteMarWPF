@@ -827,55 +827,34 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 case Key.Subtract:
                     RemoveItem();
                     teclaSeleccionada = "";
+                    txtMonto.Focus();
                     //MostrarSorteos();
                     break;
 
                 case Key.Multiply:
                     teclaSeleccionada = "";
-                    OpenCombinacion();
+                    btnCombinar(sender, e);
                     break;
 
                 case Key.S://Para cambiar a venta de super pales
                     teclaSeleccionada = "";
-                    CrearSuper.IsChecked = true;
                     e.Handled = true;
+                    CrearSuper.IsChecked = true;                   
                     listSorteo.Focus();
-                    listSorteo.SelectedIndex = 0;
                     e.Handled = false;
                     break;
 
                 case Key.R://Para cambiar a venta de loterias normales
                     teclaSeleccionada = "";
-                    CrearSuper.IsChecked = false;
                     e.Handled = true;
+                    CrearSuper.IsChecked = false;
                     listSorteo.Focus();
-                    listSorteo.SelectedIndex = 0;
                     e.Handled = false;
                     break;
 
-                //case Key.Divide:
-
-                //    if (CrearSuper.IsChecked == true)
-                //    {
-                //        e.Handled = true;
-                //        CrearSuper.IsChecked = false;
-                //        e.Handled = false;
-                //        listSorteo.Focus();
-                //        listSorteo.SelectedIndex = 0;
-
-                //    }
-                //    else if (CrearSuper.IsChecked == false)
-                //    {
-                //        e.Handled = true;
-                //        CrearSuper.IsChecked = true;
-                //        e.Handled = false;
-                //        listSorteo.Focus();
-                //        listSorteo.SelectedIndex = 0;
-
-                //    }
-
-
-                //    break;
+                case Key.Q:
+                    BorrarTodo(sender, e);
+                    break;
 
                 case Key.Add:
                     teclaSeleccionada = "";
@@ -1540,7 +1519,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         private void btnCombinar(object sender, RoutedEventArgs e)
         {
+            txtMonto.Text = "";
+            txtJugada.Text = "";
             OpenCombinacion();
+
         }
 
 
@@ -1736,7 +1718,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         {
                             i.IsSelected = false;
                         }
-                         ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion esta en la lista o no esta disponible.", "Aviso");
+                         ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion ya esta en la lista.", "Aviso");
                     }
                     else
                     {
@@ -1775,7 +1757,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         i.IsSelected = false;
                     }
 
-                   ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion esta en la lista o no esta disponible.", "Aviso");
+                   ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion no esta disponible.", "Aviso");
 
                 }
 
@@ -2119,6 +2101,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private void QuitarDeJugadas(object sender, RoutedEventArgs e)
         {
             RemoveItem();
+            txtMonto.Focus();
             if (ltJugada.Items.Count == 0)
             {
                 txtMonto.Focus();
