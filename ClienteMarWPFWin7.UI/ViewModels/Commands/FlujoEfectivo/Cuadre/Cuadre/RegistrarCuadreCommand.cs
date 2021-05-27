@@ -22,7 +22,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
         private decimal _cajaOrigenBalanceActual;
         private decimal _montoContado;
         private decimal _montoRetirarODepositar;
-        private Window VentanaCuadre; 
+        private Window VentanaCuadre;
 
         public RegistrarCuadreCommand(CuadreViewModel viewmodel) : base()
         {
@@ -77,7 +77,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
                         {//REQUIERE TOKEN
 
                             ValidarGestorTarjetaTokenYCuadrar();
-                        }                         
+                        }
                     }
 
 
@@ -232,7 +232,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
 
                     if ((_cajaOrigenBalanceActual - _montoRetirarODepositar) < 0)
                     {
-                        _viewmodel.Errores.AgregarError(nameof(_viewmodel.MontoDepositoORetiro), $"* Fondos Insuficientes." + Environment.NewLine + $"   - Balance en caja de({(_viewmodel.CuadreGestorAccion == CuadreGestorAccion.Depositar ? "Gestor" : "Banca")}) : { _cajaOrigenBalanceActual.ToString("C", new CultureInfo("en-US")) }." + Environment.NewLine + $"   - Monto a Transferir : { _montoRetirarODepositar.ToString("C", new CultureInfo("en-US")) }");
+                        _viewmodel.Errores.AgregarError(nameof(_viewmodel.MontoDepositoORetiro), $"* Fondos Insuficientes." + Environment.NewLine + $"   - Balance en caja de({(_viewmodel.CuadreGestorAccion == CuadreGestorAccion.Depositar ? "Gestor" : "Banca")}) : { (_viewmodel.CuadreGestorAccion == CuadreGestorAccion.Depositar ? "Fondos Insuficientes." : _cajaOrigenBalanceActual.ToString("C", new CultureInfo("en-US")))}." + Environment.NewLine + $"   - Monto a Transferir : { _montoRetirarODepositar.ToString("C", new CultureInfo("en-US")) }");
                     }
                 }
             }
