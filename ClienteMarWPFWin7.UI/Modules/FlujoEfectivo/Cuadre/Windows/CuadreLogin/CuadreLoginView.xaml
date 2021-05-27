@@ -16,7 +16,9 @@
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterOwner"
         Background="Transparent"    
-        x:Name="CuadreLoginWindow" Loaded="CuadreLoginWindow_Loaded">
+        x:Name="CuadreLoginWindow" 
+        Loaded="CuadreLoginWindow_Loaded"
+        KeyUp="CuandoTeclaSube_VentanaPrincipal">
     <Window.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -63,7 +65,7 @@
                                      behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                      SnapsToDevicePixels="True"
                                      BorderBrush="Transparent" 
-                                     KeyUp="CuandoTeclaSube"/>
+                                     KeyUp="CuandoTeclaSube_InputIdGestor"/>
                     </Border>
                     <Button Width="55"
                             Height="48"                                
