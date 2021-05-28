@@ -809,6 +809,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }
                     break;
 
+                //case Key.F5:
+                //    teclaSeleccionada = "";
+                //    ticketSeleccionado = null;
+                //    //ValidarPagoTicketCommand.Execute(null);
+                //    Consultar(sender, e);
+                //    break;
+
             }
         }
 
@@ -951,29 +958,36 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     break;
 
-                //case Key.Down:
+                case Key.Down:
 
-                //    if (txtMonto.IsFocused)
-                //    {
-                //        TriggerButtonClickEvent(btnSeleccionarTablaJugadaPrimerRow);
+                    if (txtMonto.IsFocused)
+                    {
+                        TriggerButtonClickEvent(btnSeleccionarTablaJugadaPrimerRow);
+                        ltJugada.Focus();
+                        //if ((ltJugada.Items.Count > 0) &&
+                        // (ltJugada.Columns.Count > 0))
+                        //{
+                        //    //Select the first column of the first item. 
+                        //    ltJugada.CurrentCell = new DataGridCellInfo(ltJugada.Items[0], ltJugada.Columns[0]);
+                        //    ltJugada.SelectedCells.Add(ltJugada.CurrentCell);
+                        //}
+                    }
+                    break;
 
-                //        //if ((ltJugada.Items.Count > 0) &&
-                //        // (ltJugada.Columns.Count > 0))
-                //        //{
-                //        //    //Select the first column of the first item. 
-                //        //    ltJugada.CurrentCell = new DataGridCellInfo(ltJugada.Items[0], ltJugada.Columns[0]);
-                //        //    ltJugada.SelectedCells.Add(ltJugada.CurrentCell);
-                //        //}
-                //    }
-                //    break;
+                case Key.Up:
+                    if (ltJugada.IsFocused)
+                    {
+                        txtMonto.Focus();
+                        TxtMontoFocus = true;
+                        DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
+                        if (row != null)
+                        {
+                            row.IsSelected = false;
+                            
+                        }
 
-                //case Key.Up:
-                //    if (ltJugada.IsFocused)
-                //    {
-                //        TxtMontoFocus = true;
-
-                //    }
-                //    break;
+                    }
+                    break;
 
                 case Key.Enter:
 
@@ -1061,22 +1075,53 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 case Key.Right:
                     teclaSeleccionada = "";
 
-                    if (TxtMontoFocus == true)
+                    //if (TxtMontoFocus == true)
+                    //{
+                    //    e.Handled = true;
+                    //    txtJugada.Focus();
+                    //    e.Handled = false;
+                    //    listSorteo.Items.Refresh();
+                    //    //SeleccionarJugada(sender, e);
+                    //    TriggerButtonClickEvent(btnSeleccionaJugada);
+                    //    return;
+                    //}
+
+                    //if (TxtJugadaFocus == true)
+                    //{
+                    //    listSorteo.Focus();
+                    //    listSorteo.SelectedIndex = 0;
+                    //    listSorteo.Items.Refresh();
+                    //}
+
+                    if (SorteoItemFocused == true)
                     {
                         e.Handled = true;
-                        txtJugada.Focus();
-                        e.Handled = false;
-                        listSorteo.Items.Refresh();
-                        //SeleccionarJugada(sender, e);
-                        TriggerButtonClickEvent(btnSeleccionaJugada);
+                        listSorteo.Focus();
+                        if (listSorteo.SelectedIndex == (listSorteo.Items.Count - 1))
+                        {
+                            listSorteo.SelectedIndex = 0;
+                            e.Handled = false;
+                            listSorteo.Items.Refresh();
+                            return;
+                        }
+                        else
+                        {
+                            listSorteo.SelectedIndex += 1;
+                            listSorteo.Items.Refresh();
+                        }
                         return;
                     }
 
-                    if (TxtJugadaFocus == true)
+                    if (TxtMontoFocus == true)
                     {
+                        AgregaJugada(sender, e);
+                        txtJugada.Focus();
+                    }
+                    else if (TxtJugadaFocus == true)
+                    {
+                        AgregaJugada(sender, e);
                         listSorteo.Focus();
                         listSorteo.SelectedIndex = 0;
-                        listSorteo.Items.Refresh();
                     }
 
 
@@ -1395,7 +1440,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     Task.Factory.StartNew(() =>
                     {
-                        Thread.Sleep(1000);
+                        Thread.Sleep(3000);
                         ventaThreadIsBusy = true;
                         System.Windows.Application.Current.Dispatcher.BeginInvoke(
                         DispatcherPriority.Background,
@@ -1430,10 +1475,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 if (CrearSuper.IsChecked == true)
                 {
+
                     foreach (var item in ListJugadas)
                     {
                         foreach (var sorteo in ListSorteosVender)
                         {
+
                             if (item.TipoJugada == "  Pale" || item.TipoJugada == "Pale")
                             {
                                 RealizarVenta();
@@ -1444,11 +1491,59 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 if (sorteo.SorteoNombre.Contains("SP"))
                                 {
                                     ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
+
                                 }
 
                             }
+
+                            //if (item.TipoJugada == "  Pale" || item.TipoJugada == "Pale")
+                            //{
+                            for (var i = 0; i < ListJugadas.Count; i++)
+                            {
+                                if (ListJugadas[i].TipoJugada == "  Quiniela" || ListJugadas[i].TipoJugada == "  Tripleta")
+                                {
+                                    ventaThreadIsBusy = false;
+                                    Spinner.Visibility = Visibility.Collapsed;
+
+                                    if (MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                                    {
+
+                                        ventaThreadIsBusy = true;
+                                        Spinner.Visibility = Visibility.Visible;
+
+                                        ListJugadas.RemoveAt(i);
+                                        ltJugada.Items.Refresh();
+                                        RefreshListJugadas();
+                                        RealizarVenta();
+                                        ResetearFormularioVenta();
+                                    }
+                                    else
+                                    {
+                                        return;
+                                    }
+
+                                }
+                                else
+                                {
+                                    RealizarVenta();
+                                    ResetearFormularioVenta();
+                                }
+                            }
+
+                            //}
+                            //else
+                            //{
+                            //    if (sorteo.SorteoNombre.Contains("SP"))
+                            //    {
+                            //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
+                            //        //MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                            //    }
+
+                            //}
                         }
                     }
+
+
 
                 }
                 else
@@ -2153,13 +2248,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             if (ltJugada.Items.Count > 0)
             {
                 //ltJugada.Focus();
-                DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
-                if (row != null)
+                
+                for(var i = 0; i < ltJugada.Items.Count; i++)
                 {
-                    row.IsSelected = true;
-                    row.Focus();
-                    TxtMontoFocus = false;
+                    DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+
+                    if (row != null)
+                    {
+                        row.IsSelected = true;
+                        row.Focus();
+                        TxtMontoFocus = false;
+                    }
                 }
+               
             }
         }
 
@@ -2260,7 +2361,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 Task.Factory.StartNew(() =>
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(5000);
                     consultaThreadIsBusy = true;
                     System.Windows.Application.Current.Dispatcher.BeginInvoke(
                     DispatcherPriority.Background,
@@ -2279,6 +2380,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }));
                 });
             }
+        }
+
+        private void vistaSorteo_GotFocus(object sender, RoutedEventArgs e)
+        {
+            
         }
 
 

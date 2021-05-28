@@ -163,9 +163,12 @@
                                                           Width="20"
                                                           Height="20" />
                                 <TextBlock  
+                                            TextWrapping="WrapWithOverflow"
                                            VerticalAlignment="Center"
                                            FontSize="15"
-                                           Padding="10"     
+                                           Padding="10"
+                                            Height="60"
+                                    Width="600"
                                            Text="{Binding MensajeResponse, UpdateSourceTrigger=PropertyChanged}"
                                            />
                             </StackPanel>
@@ -310,7 +313,6 @@
 
 
                     </WrapPanel>
-
 
 
                 </Grid>
