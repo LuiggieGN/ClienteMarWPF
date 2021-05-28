@@ -63,6 +63,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                                         icono: "Check",
                                         background: "#28A745",
                                         puedeMostrarse: true);
+                    ViewModel.TicketNumero = null;
+                    ViewModel.TicketPin = null;
                 }
            
             }

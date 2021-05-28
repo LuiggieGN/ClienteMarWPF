@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Globalization;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
 {
@@ -32,6 +33,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
 
         private void ChangeOpcion(object parametro)
         {
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
             string OpcionSeleccionado =new ReporteView().ObtenerSeleccionTicket();
             ObservableCollection <ReporteListaTicketsObservable> observable = new ObservableCollection<ReporteListaTicketsObservable>() { };
 
@@ -39,8 +41,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             {
                 foreach (var ticket in ViewModel.ReporteAllDataListTicket)
                 {
-                    if (ticket.Nulo==false || ticket.Saco == "Nulo")
+                    if (ticket.Nulo==false && ticket.Saco != "Nulo")
                     {
+                        ticket.Saco =  string.Format(nfi, "{0:C}",ticket.Saco).ToString();
                         observable.Add(ticket);
                     }
                 }

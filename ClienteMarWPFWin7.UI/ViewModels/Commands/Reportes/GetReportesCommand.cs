@@ -43,8 +43,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
             Action<object> comando = new Action<object>(EnviarReportes);
             base.SetAction(comando);
-
-           
         }
 
 
@@ -292,7 +290,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                 var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 3);
                 var TicketSinReclamar = Reporte.Tickets.Where(ticket => ticket.Solicitud == 6);
-                var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 5);
+                var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 4);
 
                 if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() > 0)
                 {
@@ -414,9 +412,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                 foreach (var pagados in TicketPagados)
                 {
-                    TotalPagados = TotalPagados + Convert.ToInt32(pagados.Pago);
-                    ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagados.StrFecha).ToString("dd-MMM-yyyy") + " " + pagados.StrHora, Monto = string.Format(nfi, "{0:C}", pagados.Pago), Tickets = pagados.TicketNo };
-                    ViewModel.ReportesGanadores.Pagados.Add(Modelo);
+                    TotalPagados = TotalPagados + Convert.ToInt32(pagados.Items.Sum(x => x.Pago));
+                    foreach(var pagado in pagados.Items) { 
+                        ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagados.StrFecha).ToString("dd-MMM-yyyy") + " " + pagados.StrHora, Monto = string.Format(nfi, "{0:C}", pagado.Pago), Tickets = pagados.TicketNo };
+                        ViewModel.ReportesGanadores.Pagados.Add(Modelo);
+                    }
                 }
 
                 ReportesGanadoresObservable ModeloTotalesPagados = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = string.Format(nfi, "{0:C}", TotalPagados) };
@@ -567,6 +567,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             string AnteComa = "";
             string LuegoComa = "";
             string CantidadConvertido = "";
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
+            if (cantidad.ToString().Length == 2)
+            {
+                CantidadConvertido = cantidad.ToString();
+            }
+            if (cantidad.ToString().Length == 3)
+            {
+                CantidadConvertido = cantidad.ToString();
+            }
 
             if (cantidad.ToString().Length == 4)
             {
@@ -591,15 +600,38 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             if (cantidad.ToString().Length == 7)
             {
                 var segundaComa = "";
-                AnteComa = cantidad.ToString().Substring(0, 2) + ",";
-                segundaComa = cantidad.ToString().Substring(3, 6) + ",";
+                AnteComa = cantidad.ToString().Substring(0, 4) + ",";
+                segundaComa = cantidad.ToString().Substring(4, 3);
                 LuegoComa = cantidad.ToString().Substring(7, cantidad.ToString().Length-7);
+                CantidadConvertido = AnteComa + segundaComa;
+            }
+            if (cantidad.ToString().Length == 8)
+            {
+                var segundaComa = "";
+                AnteComa = cantidad.ToString().Substring(0, 2) + ",";
+                segundaComa = cantidad.ToString().Substring(2, 3)+",";
+                LuegoComa = cantidad.ToString().Substring(5, 3);
                 CantidadConvertido = AnteComa + segundaComa + LuegoComa;
-
+            }
+            if (cantidad.ToString().Length == 9)
+            {
+                var segundaComa = "";
+                AnteComa = cantidad.ToString().Substring(0, 3) + ",";
+                segundaComa = cantidad.ToString().Substring(3, 3) + ",";
+                LuegoComa = cantidad.ToString().Substring(6, 3);
+                CantidadConvertido = AnteComa + segundaComa + LuegoComa;
+            }
+            if (cantidad.ToString().Length == 10)
+            {
+                var segundaComa = "";
+                AnteComa = cantidad.ToString().Substring(0, 4) + ",";
+                segundaComa = cantidad.ToString().Substring(4, 3) + ",";
+                LuegoComa = cantidad.ToString().Substring(7, 3);
+                CantidadConvertido = AnteComa + segundaComa + LuegoComa;
             }
 
 
-            return "$"+CantidadConvertido+".00";
+            return "$" +CantidadConvertido+".00";
         }
 
         private void RPTVentas(object parametro)
@@ -854,7 +886,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             else if (totalSacoGeneral <= 0) { ViewModel.TotalSacoSumVenFecha = "$" + totalSacoGeneral; }
 
             if (totalBalanceGeneral >= 0) { ViewModel.TotalBalanSumVenFecha = string.Format(nfi, "{0:C}", totalBalanceGeneral); }
-            else if (totalBalanceGeneral <= 0) { ViewModel.TotalBalanSumVenFecha = "$" + totalBalanceGeneral; }
+            else if (totalBalanceGeneral < 0) { ViewModel.TotalBalanSumVenFecha = ConvertirMonedaNegativos(totalBalanceGeneral); }
 
         }
         private void RPTListaNumero(object parametro)
@@ -1172,8 +1204,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                    if (opcionSeleccionada=="Válidos") { 
                        foreach (var ticket in ReporteTicket.Tickets.Where(ticket => ticket.Nulo==false))
                        {
+                        
                           ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
-                          { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = ticket.Pago.ToString() };
+                          { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = ticket.Pago.ToString("C2") };
                           objectoTicket.MostrarNulos = Visibility.Visible;
                           ListadoTicket.Add(objectoTicket);
                        }
@@ -1193,7 +1226,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                         foreach (var ticket in ReporteTicket.Tickets)
                         {
                             var saco = "";
-                            if (ticket.Nulo==false) { saco = ticket.Pago.ToString(); }
+                            if (ticket.Nulo==false) { saco = string.Format(nfi, "{0:C}", ticket.Pago); }
                             if (ticket.Nulo==true) { saco = "Nulo"; }
                             ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
                             { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = saco };
@@ -1214,7 +1247,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                    foreach (var ticket in ReporteTicket.Tickets)
                    {
                         var saco = "";
-                        if (ticket.Nulo == false) { saco = ticket.Pago.ToString(); }
+                        if (ticket.Nulo == false) { saco = ticket.Pago.ToString("C2"); }
                         if (ticket.Nulo == true) { saco = "Nulo"; }
                         ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
                         { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = string.Format(nfi, "{0:C}", ticket.Costo), Saco = saco };
