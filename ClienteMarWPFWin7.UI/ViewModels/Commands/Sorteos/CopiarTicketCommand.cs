@@ -104,6 +104,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 else if(ObteniendoJugadaPrecargada.Count() == 0)
                 {
                     jugadasPorTickets = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, NumeroTicket);
+                    if (jugadasPorTickets.Err != null)
+                    {
+                        ViewModelValidar.SetMensaje(mensaje: jugadasPorTickets.Err,
+                                        icono: "Error",
+                                        background: "#DC3545",
+                                        puedeMostrarse: true);
+                        return;
+                    }
+                    else if (jugadasPorTickets.Err == null)
+                    { 
                     var jugada = jugadasPorTickets;
 
                     foreach (var Jugada in jugadasPorTickets.Items)
@@ -114,6 +124,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     NuevaJugada = new MAR_Bet() { TicketNo = jugada.TicketNo, Cedula = jugada.Cedula, Cliente = jugada.Cliente, Costo = jugada.Costo, Err = jugada.Err, Grupo = jugada.Grupo, Items = ListadoJugadasTicket.ToArray(), Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = jugadasPorTickets.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket };
 
                     jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
+                    }
                 }
                 //jugadas = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, data.TicketNo);
                 //var TicketSeleccionado = ViewModel.ListadoTicketsPrecargados.Where(x => x.TicketNo == data.TicketNo);

@@ -33,8 +33,8 @@ namespace ClienteMarWPFWin7.Data.Services
 
         public MAR_RptSumaVta2 ReporteVentasPorFecha(MAR_Session session, string Desde, string Hasta)
         {
-            var f1 = Convert.ToDateTime(Desde).Date.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("en-Us"));
-            var f2 = Convert.ToDateTime(Hasta).Date.ToString("MM-dd-yyyy", CultureInfo.CreateSpecificCulture("en-Us"));
+            var f1 = Convert.ToDateTime(Desde).ToString("yyyy-MM-dd");
+            var f2 = Convert.ToDateTime(Hasta).ToString("yyyy-MM-dd");
 
             return clientePuntoDeVenta.RptSumaVtaFec2(session,f1,f2);
         }

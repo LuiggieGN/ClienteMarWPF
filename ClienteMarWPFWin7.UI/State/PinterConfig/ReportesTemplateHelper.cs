@@ -106,6 +106,77 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             return conversion;
         }
+        private static string ConvertirMonedaNegativos(int cantidad)
+        {
+            string AnteComa = "";
+            string LuegoComa = "";
+            string CantidadConvertido = "";
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
+            if (cantidad.ToString().Length == 2)
+            {
+                CantidadConvertido = cantidad.ToString();
+            }
+            if (cantidad.ToString().Length == 3)
+            {
+                CantidadConvertido = cantidad.ToString();
+            }
+
+            if (cantidad.ToString().Length == 4)
+            {
+
+                CantidadConvertido = cantidad.ToString();
+
+            }
+            if (cantidad.ToString().Length == 5)
+            {
+                AnteComa = cantidad.ToString().Substring(0, 2) + ",";
+                LuegoComa = cantidad.ToString().Substring(2, (cantidad.ToString().Length) - 2);
+                CantidadConvertido = AnteComa + LuegoComa;
+
+            }
+            if (cantidad.ToString().Length == 6)
+            {
+                AnteComa = cantidad.ToString().Substring(0, 3) + ",";
+                LuegoComa = cantidad.ToString().Substring(3, cantidad.ToString().Length - 3);
+                CantidadConvertido = AnteComa + LuegoComa;
+
+            }
+            if (cantidad.ToString().Length == 7)
+            {
+                var segundaComa = "";
+                AnteComa = cantidad.ToString().Substring(0, 4) + ",";
+                segundaComa = cantidad.ToString().Substring(4, 3);
+                LuegoComa = cantidad.ToString().Substring(7, cantidad.ToString().Length - 7);
+                CantidadConvertido = AnteComa + segundaComa;
+            }
+            if (cantidad.ToString().Length == 8)
+            {
+                var segundaComa = "";
+                AnteComa = cantidad.ToString().Substring(0, 2) + ",";
+                segundaComa = cantidad.ToString().Substring(2, 3) + ",";
+                LuegoComa = cantidad.ToString().Substring(5, 3);
+                CantidadConvertido = AnteComa + segundaComa + LuegoComa;
+            }
+            if (cantidad.ToString().Length == 9)
+            {
+                var segundaComa = "";
+                AnteComa = cantidad.ToString().Substring(0, 3) + ",";
+                segundaComa = cantidad.ToString().Substring(3, 3) + ",";
+                LuegoComa = cantidad.ToString().Substring(6, 3);
+                CantidadConvertido = AnteComa + segundaComa + LuegoComa;
+            }
+            if (cantidad.ToString().Length == 10)
+            {
+                var segundaComa = "";
+                AnteComa = cantidad.ToString().Substring(0, 4) + ",";
+                segundaComa = cantidad.ToString().Substring(4, 3) + ",";
+                LuegoComa = cantidad.ToString().Substring(7, 3);
+                CantidadConvertido = AnteComa + segundaComa + LuegoComa;
+            }
+
+
+            return "$" + CantidadConvertido + ".00";
+        }
 
         private static void TemplateRPTVentas(object sender, PrintPageEventArgs e)
         {
@@ -203,7 +274,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         }
                         else if (TotalGanancia < 0)
                         {
-                            WriteTextColumn(g, new List<string> { "Perdida:", TotalGanancia.ToString("C2") }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
+                            WriteTextColumn(g, new List<string> { "Perdida:", ConvertirMonedaNegativos(TotalGanancia) }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
                         }
 
