@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
 using ClienteMarWPFWin7.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
+using System;
 
 namespace ClienteMarWPFWin7.UI.Extensions
 {
@@ -27,7 +28,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                         MovimientoId = item.MovimientoID,
                         Fecha = item.Fecha,
                         Referencia = item.Referencia,
-                        Descripcion = item.Descripcion,
+                        Descripcion = item.Descripcion == null ? string.Empty: item.Descripcion.Replace("&nbsp;", " ").Replace("<br/>", Environment.NewLine+ Environment.NewLine).Replace("Bal.", Environment.NewLine + "Bal.").Replace(Environment.NewLine+Environment.NewLine+"Com:","Com:") ,
                         EntradaOSalida = item.EntradaOSalida,
                         Balance = item.Balance
                     });
