@@ -361,8 +361,8 @@
                         <Button  Style="{DynamicResource btn-danger}" HorizontalAlignment="Right" 
                                  Focusable="False" Padding="0" Foreground="White" Width="130" Click="BorrarTodo" Margin="5 5 5 5">
                             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-                                
-                                <TextBlock Text="Quitar todos" TextAlignment="Center"  VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                                <TextBlock x:Name="botonQuitarTodo"  FontSize="15" TextAlignment="Center"  VerticalAlignment="Center" HorizontalAlignment="Center"  />
                                 <materialDesign:PackIcon Kind="RemoveCircle" Margin="-6 0 -6 0" VerticalAlignment="Center" HorizontalAlignment="Left"
                                                          Width="50" Height="25" Foreground="White"/>
                                
