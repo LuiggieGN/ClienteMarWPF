@@ -18,6 +18,25 @@
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />            
             <converters:FromDateToDateConverter x:Key="FromDateToDateConverter"/>
 
+            <Style x:Key="alternatingStyle" TargetType="{x:Type ListViewItem}">
+                <Style.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                        <Setter Property="Background" Value="AliceBlue"></Setter>
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                        <Setter Property="Background" Value="White"></Setter>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="White"/>
+                    </Trigger>
+                </Style.Triggers>
+                <Style.Resources>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Focusable" Value="false"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+
             <Style x:Key="GridHeader" TargetType="{x:Type GridViewColumnHeader}">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -38,7 +57,7 @@
             </Style>
             
             <DataTemplate x:Key="IsCuadreTemplate">
-                <Grid>
+                <Grid Margin="0 7 0 7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150" />
                         <ColumnDefinition Width="170" />
@@ -78,7 +97,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="IsNoCuadreTemplate">
-                <Grid>
+                <Grid Margin="0 7 0 7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150" />
                         <ColumnDefinition Width="170" />
@@ -119,7 +138,7 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ClienteMarWPFWin7.UI;component/Modules/FlujoEfectivo/Movimiento/Views/View3/ConsultaMovimientoResources.xaml" />
-             </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
  
@@ -305,17 +324,19 @@
 
                             <ListView x:Name="VistaDeMovimientos"
                                       ItemsSource="{Binding Movimientos.VistaPaginada}" 
-                                      ItemTemplateSelector="{StaticResource MovimientoDataTemplate}"                                         
+                                      ItemTemplateSelector="{StaticResource MovimientoDataTemplate}"    
+                                      ItemContainerStyle="{StaticResource alternatingStyle}"
+                                      AlternationCount="2"
                                       VerticalAlignment="Top"
                                       ScrollViewer.VerticalScrollBarVisibility="Visible"
                                       ScrollViewer.CanContentScroll="False"
                                       Margin="5 50 5 5"
                                       FontSize="16" >
-                                <ListView.ItemContainerStyle>
+                                <!--<ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="Focusable" Value="false"/>
                                     </Style>
-                                </ListView.ItemContainerStyle>
+                                </ListView.ItemContainerStyle>-->
 
                             </ListView>
                         </Grid>
