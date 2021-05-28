@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿ 
 using System.Windows;
-
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Controls; 
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+ 
 using ClienteMarWPFWin7.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.State.CuadreBuilders;
 
-using System.Threading;
-using System.Globalization;
+using System;
+ 
 
 
 namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
 {
-
     public partial class CuadreView : Window
     {
         public Window ParentWindow;
@@ -33,7 +25,9 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             _builder = cuadreBuilder;
 
             InitializeComponent();
+
             ParentWindow = parentWindow;
+            
             DataContext = cuadreContext;
 
             inpMontoContado.Focus();
@@ -47,7 +41,6 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
 
         private void OnCerrarVentanaClick(object sender, RoutedEventArgs e)
         {
-
             SetCajaDeBancaDisponible();
             Close();
         }
@@ -66,17 +59,140 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             catch { }
         }
 
-        private void CuandoTeclaSube_VentanaPrincipal(object sender, KeyEventArgs e)
+        private void CuandoTeclaBaja_VentanaPrincipal(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-                OnCerrarVentanaClick(sender, e);
+                OnCerrarVentanaClick(sender, e); return;
+            }
+
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                LogicaSigueAlSiguienteInputDescendiendo();
+            }
+            else if (e.Key == Key.Tab)
+            {
+                e.Handled = true;               
+                LogicaSigueAlSiguienteInputDescendiendo();
+            } 
+        }
+
+        private void CuandoTeclaSube_VentanaPrincipal(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Down)
+            {
+                e.Handled = true;
+                LogicaSigueAlSiguienteInputDescendiendo();
+            }
+            else if (e.Key == Key.Up)
+            {
+                e.Handled = true;
+                LogicaSigueAlSiguienteInputAscendiendo();
+            }
+        }
+
+        #region Descendiendo
+
+        private void LogicaSigueAlSiguienteInputDescendiendo()
+        {
+            if (txtDescripcionBanca.IsFocused)
+            {
+                txtDescripcionBalance.Focus();
+            }
+            else if (txtDescripcionBalance.IsFocused)
+            {
+                txtDescripcionBalanceMinimo.Focus();
+            }
+            else if (txtDescripcionBalanceMinimo.IsFocused)
+            {
+                txtDescripcionMontoPorPagar.Focus();
+            }
+            else if (txtDescripcionMontoPorPagar.IsFocused)
+            {
+                inpMontoContado.Focus();
+                inpMontoContado.Select(inpMontoContado?.Text?.Length ?? 0, 0);
+            }
+            else if (inpMontoContado.IsFocused)
+            {
+                txtArqueoResultante.Focus();
+            }
+            else if (txtArqueoResultante.IsFocused)
+            {
+                txtMontoARetirarODepositar.Focus();
+                txtMontoARetirarODepositar.Select(txtMontoARetirarODepositar?.Text?.Length ?? 0, 0);
+            }
+            else if (txtMontoARetirarODepositar.IsFocused)
+            {
+                txtNombreCajera.Focus();
+                txtNombreCajera.Select(txtNombreCajera?.Text?.Length ?? 0, 0);
+            }
+            else if (txtNombreCajera.IsFocused)
+            {
+                inpMontoContado.Focus();
             }
         }
 
 
+        #endregion
+
+        #region Ascendiendo
+
+        private void LogicaSigueAlSiguienteInputAscendiendo()
+        {
+            if (txtNombreCajera.IsFocused)
+            {
+                txtMontoARetirarODepositar.Focus();
+                txtMontoARetirarODepositar.Select(txtMontoARetirarODepositar?.Text?.Length ?? 0, 0);
+            }
+            else if (txtMontoARetirarODepositar.IsFocused)
+            {
+                txtArqueoResultante.Focus();
+            }
+            else if (txtArqueoResultante.IsFocused)
+            {
+                inpMontoContado.Focus();
+                inpMontoContado.Select(inpMontoContado?.Text?.Length ?? 0, 0);
+            }
+            else if (inpMontoContado.IsFocused)
+            {
+                txtDescripcionMontoPorPagar.Focus();
+            }
+            else if (txtDescripcionMontoPorPagar.IsFocused)
+            {
+                txtDescripcionBalanceMinimo.Focus();
+            }
+            else if (txtDescripcionBalanceMinimo.IsFocused)
+            {
+                txtDescripcionBalance.Focus();
+            }
+            else if (txtDescripcionBalance.IsFocused)
+            {
+                txtDescripcionBanca.Focus();
+            }
+            else if (txtDescripcionBanca.IsFocused)
+            {
+                txtNombreCajera.Focus();
+                txtNombreCajera.Select(txtNombreCajera?.Text?.Length ?? 0, 0);
+            }
+        } 
+
+
+        #endregion
 
 
 
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+    }//fin de clase
 }

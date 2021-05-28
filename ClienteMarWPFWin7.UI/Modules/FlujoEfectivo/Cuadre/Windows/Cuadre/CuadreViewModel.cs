@@ -44,7 +44,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             set { _habilitarBotones = value; NotifyPropertyChanged(nameof(HabilitarBotones)); }
         }
         public string GestorNombre { get; }
-        public string BancaNombre { get; }
+        public string BancaNombre { get; set; }
         public ConsultaInicialViewModel ConsultaInicial
         {
             get => _consultaInicial;
