@@ -650,13 +650,13 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             positionWrite = 0;
 
-            var TicketPendientePagos = Valor.Tickets.Where(ticket => ticket.Solicitud == 3);
+            var TicketPendientePagos = Valor.Tickets.Where(ticket => ticket.Solicitud == 4);
             var TicketSinReclamar = Valor.Tickets.Where(ticket => ticket.Solicitud == 6);
             var TicketPagados = Valor.Tickets.Where(ticket => ticket.Solicitud == 5);
 
-            var totalDeTicketPendientePagos = TicketPendientePagos.Sum(x => x.Costo);
-            var totalDeTicketSinReclamar = TicketSinReclamar.Sum(x => x.Costo);
-            var totalDeTicketPagados = TicketPagados.Sum(x => x.Costo);
+            var totalDeTicketPendientePagos = TicketPendientePagos.Sum(x => x.Pago);
+            var totalDeTicketSinReclamar = TicketSinReclamar.Sum(x => x.Pago);
+            var totalDeTicketPagados = TicketPagados.Sum(x => x.Pago);
 
             foreach (var item in valores)
             {
@@ -688,7 +688,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             foreach (var pagados in TicketPagados)
                             {
-                                WriteTextColumn(g, new List<string> { pagados.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pagados.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pagados.StrHora.ToString(), pagados.Costo.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { pagados.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pagados.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pagados.StrHora.ToString(), pagados.Items.Sum(x => x.Pago).ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter); ;
                             }
                             WriteLineFinas(g);
                             WriteTextColumn(g, new List<string> { "Total:", "", "", totalDeTicketPagados.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
@@ -700,7 +700,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             foreach (var pendientesPagos in TicketPendientePagos)
                             {
-                                WriteTextColumn(g, new List<string> { pendientesPagos.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pendientesPagos.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pendientesPagos.StrHora, pendientesPagos.Costo.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { pendientesPagos.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pendientesPagos.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pendientesPagos.StrHora, pendientesPagos.Items.Sum(x => x.Pago).ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             }
                             WriteLineFinas(g);
                             WriteTextColumn(g, new List<string> { "Total:", "", "", totalDeTicketPendientePagos.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
@@ -712,14 +712,14 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             foreach (var sinReclamar in TicketSinReclamar)
                             {
-                                WriteTextColumn(g, new List<string> { sinReclamar.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(sinReclamar.StrFecha), FechaHelper.FormatoEnum.FechaCorta), sinReclamar.StrHora, sinReclamar.Costo.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { sinReclamar.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(sinReclamar.StrFecha), FechaHelper.FormatoEnum.FechaCorta), sinReclamar.StrHora, sinReclamar.Pago.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             }
                             WriteLineFinas(g);
                             WriteTextColumn(g, new List<string> { "Total:", "", "", totalDeTicketSinReclamar.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         }
                         WriteLine(g);
-                        WriteTextColumn(g, new List<string> { "T.General:", "", "", Valor.Tickets.Sum(x => x.Costo).ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteTextColumn(g, new List<string> { "T.General:", "", "", Valor.Tickets.Sum(x => x.Pago).ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "." }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         break;

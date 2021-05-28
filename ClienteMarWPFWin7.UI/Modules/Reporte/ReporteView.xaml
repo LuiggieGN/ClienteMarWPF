@@ -7,7 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:dialogo="clr-namespace:ClienteMarWPFWin7.UI.Modules.Reporte.Modal"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Reporte.Modal"          
+             xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Reporte.Modal"   
+             xmlns:converters="clr-namespace:ClienteMarWPFWin7.UI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800"
              Name="VistaCompleta"
@@ -284,9 +285,20 @@
                                 </Style.Setters>
                             </Style>
                         </DataGrid.Resources>
+                        
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="140" Header="CONCEPTO"  Binding="{Binding Concepto}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
+                            <!--<DataGridTemplateColumn Header="Net Chng" Width="*" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        --><!--<TextBlock Text="{Binding Balance}" Foreground="{Binding Balance, Converter={StaticResource negativeToColorConverter}}" />--><!--
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+
+                            <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignLeft}" Width="140" Header="CONCEPTO"  Binding="{Binding Concepto}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}">
+                                
+                            </DataGridTextColumn>
                             <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*" Header="VENTA" Binding="{Binding Resultado}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                             <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*" Header="COMIS." Binding="{Binding Comision}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>
                             <DataGridTextColumn HeaderStyle="{StaticResource Altura}" CellStyle="{StaticResource AlignRight}" Width="*" Header="SACO" Binding="{Binding Saco}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"></DataGridTextColumn>

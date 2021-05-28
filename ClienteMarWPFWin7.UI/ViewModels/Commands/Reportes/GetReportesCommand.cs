@@ -288,9 +288,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                 HeaderReporte(Reporte.Fecha, "TICKETS GANADORES", new ReporteView().GetNombreLoteria(), null, null);
                 ViewModel.RPTTicketGanadoresVisibility = System.Windows.Visibility.Visible;
 
-                var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 3);
+                var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 4);
                 var TicketSinReclamar = Reporte.Tickets.Where(ticket => ticket.Solicitud == 6);
-                var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 4);
+                var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 5);
 
                 if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() > 0)
                 {
@@ -403,9 +403,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                 foreach (var pendientepago in TicketPendientePagos)
                 {
-                    TotalPendientePagos = TotalPendientePagos + Convert.ToInt32(pendientepago.Pago);
-                    ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepago.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepago.StrHora, Monto = string.Format(nfi, "{0:C}", pendientepago.Pago), Tickets = pendientepago.TicketNo };
-                    ViewModel.ReportesGanadores.PendientesPagar.Add(Modelo);
+                    TotalPendientePagos  = TotalPendientePagos + Convert.ToInt32(pendientepago.Items.Sum(x => x.Pago));
+                        foreach (var pendientepagado in pendientepago.Items)
+                        {
+                            ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepago.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepago.StrHora, Monto = string.Format(nfi, "{0:C}", pendientepagado.Pago), Tickets = pendientepago.TicketNo };
+                            ViewModel.ReportesGanadores.PendientesPagar.Add(Modelo);
+                        }
                 }
                 ReportesGanadoresObservable ModeloTotalesPendientePagos = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = string.Format(nfi, "{0:C}", TotalPendientePagos) };
                 ViewModel.ReportesGanadores.PendientesPagar.Add(ModeloTotalesPendientePagos);
@@ -413,10 +416,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                 foreach (var pagados in TicketPagados)
                 {
                     TotalPagados = TotalPagados + Convert.ToInt32(pagados.Items.Sum(x => x.Pago));
-                    foreach(var pagado in pagados.Items) { 
-                        ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagados.StrFecha).ToString("dd-MMM-yyyy") + " " + pagados.StrHora, Monto = string.Format(nfi, "{0:C}", pagado.Pago), Tickets = pagados.TicketNo };
+                    
+                        ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagados.StrFecha).ToString("dd-MMM-yyyy") + " " + pagados.StrHora, Monto = string.Format(nfi, "{0:C}", pagados.Items.Sum(x => x.Pago)), Tickets = pagados.TicketNo };
                         ViewModel.ReportesGanadores.Pagados.Add(Modelo);
-                    }
                 }
 
                 ReportesGanadoresObservable ModeloTotalesPagados = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = string.Format(nfi, "{0:C}", TotalPagados) };
