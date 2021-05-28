@@ -18,6 +18,7 @@
         ResizeMode="NoResize"
         Loaded="OnLoaded" 
         Closing="OnCerrarVentanaClosing"
+        KeyDown="CuandoTeclaBaja_VentanaPrincipal"
         KeyUp="CuandoTeclaSube_VentanaPrincipal"
         Height="800"
         Width="990"
@@ -111,7 +112,8 @@
                                   Content="Banca"                                 
                                />
                                 </StackPanel>
-                                <TextBlock 
+                                <TextBox 
+                                   x:Name="txtDescripcionBanca"
                                    Grid.Row="0"
                                    Grid.Column="1"
                                    FontSize="16"
@@ -123,7 +125,9 @@
                                    TextAlignment="Left"
                                    Padding="8 8 0 0" 
                                    Text="{Binding BancaNombre, UpdateSourceTrigger=PropertyChanged}"
-                               />
+                                   IsReadOnly="True"
+                                   BorderThickness="0"
+                                 />
 
 
                                 <StackPanel Grid.Row="1"
@@ -138,7 +142,8 @@
                                   VerticalContentAlignment="Center"
                                   Content="Balance"/>
                                 </StackPanel>
-                                <TextBlock 
+                                <TextBox 
+                                   x:Name="txtDescripcionBalance"
                                    Grid.Row="1"
                                    Grid.Column="1"
                                    FontSize="16"
@@ -150,8 +155,11 @@
                                    TextAlignment="Left"
                                    Padding="8 8 0 0" 
                                    DataContext="{Binding ConsultaInicial}"
-                                   Text="{Binding FBancaBalance}"
-                                   Foreground="{Binding ForegroundBancaBalance}"/>
+                                   Text="{Binding FBancaBalance, Mode=OneWay}"
+                                   Foreground="{Binding ForegroundBancaBalance}"
+                                   IsReadOnly="True"
+                                   BorderThickness="0"
+                                    />
 
 
 
@@ -168,7 +176,8 @@
                                   Content="Balance Mínimo"                                 
                                />
                                 </StackPanel>
-                                <TextBlock 
+                                <TextBox
+                                   x:Name="txtDescripcionBalanceMinimo"
                                    Grid.Row="2"
                                    Grid.Column="1"
                                    FontSize="16"
@@ -180,8 +189,10 @@
                                    TextAlignment="Left"
                                    Padding="8 8 0 0" 
                                    DataContext="{Binding ConsultaInicial}"
-                                   Text="{Binding FBalanceMinimo}"
-                                   Foreground="{Binding ForegroundBancaBalanceMinimo}"/>
+                                   Text="{Binding FBalanceMinimo, Mode=OneWay}"
+                                   Foreground="{Binding ForegroundBancaBalanceMinimo}"
+                                   IsReadOnly="True"
+                                   BorderThickness="0"/>
 
 
 
@@ -191,7 +202,7 @@
                                     Orientation="Horizontal"
                                     HorizontalAlignment="Right"
                                     Margin="5">
-                                    <materialDesign:PackIcon Kind="ComputerClassic" VerticalAlignment="Center" Width="30" Height="30" Foreground="{DynamicResource BackgroundFour}"/>
+                                    <materialDesign:PackIcon Kind="Wallet" VerticalAlignment="Center" Width="30" Height="30" Foreground="{DynamicResource BackgroundFour}"/>
                                     <Label                                  
                                   FontSize="16"
                                   FontWeight="Medium"
@@ -199,7 +210,8 @@
                                   Content="Monto Por Pagar"                                 
                                />
                                 </StackPanel>
-                                <TextBlock 
+                                <TextBox
+                                   x:Name="txtDescripcionMontoPorPagar"
                                    Grid.Row="3"
                                    Grid.Column="1"
                                    FontSize="16"
@@ -211,9 +223,11 @@
                                    TextAlignment="Left"
                                    Padding="8 8 0 0" 
                                    DataContext="{Binding ConsultaInicial}"
-                                   Text="{Binding FDeuda}"
+                                   Text="{Binding FDeuda, Mode=OneWay}"
                                    Foreground="{Binding ForegroundBancaDeuda}"
-                               />
+                                   IsReadOnly="True"
+                                   BorderThickness="0"
+                                />
 
 
 
@@ -260,14 +274,17 @@
                                                 behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                                 SnapsToDevicePixels="True"
                                                 BorderBrush="Transparent"
-                                                Text="{Binding MontoContado, Delay=300, UpdateSourceTrigger=PropertyChanged}"/>
+                                                Text="{Binding MontoContado, Delay=300, UpdateSourceTrigger=PropertyChanged}"
+                                                IsTabStop="True"
+                                                    />
                                             </Border>
                                             <Button Width="55"
                                             Height="48"                                
                                             Margin="0"                                            
                                             Style="{DynamicResource btn-dark}"
                                             Padding="0 0 0 0"
-                                            Command="{Binding AbrirDesgloseCommand}">
+                                            Command="{Binding AbrirDesgloseCommand}" 
+                                                    IsTabStop="False">
                                                 <materialDesign:PackIcon Kind="Money" VerticalAlignment="Center" Width="30" Height="30" />
                                                 <Button.CommandParameter>
                                                     <MultiBinding Converter="{StaticResource PassMultipleValuesConverter}" >
@@ -286,7 +303,7 @@
                                     Orientation="Horizontal"
                                     HorizontalAlignment="Right"
                                     Margin="5">
-                                    <materialDesign:PackIcon Kind="CashRegister" VerticalAlignment="Center" Width="30" Height="30" Foreground="{DynamicResource BackgroundFour}"/>
+                                    <materialDesign:PackIcon Kind="CalculatorVariant" VerticalAlignment="Center" Width="30" Height="30" Foreground="{DynamicResource BackgroundFour}"/>
 
                                     <Label FontSize="16"
                                    FontWeight="Medium"
@@ -294,7 +311,8 @@
                                    DataContext="{Binding ArqueoResultante}"
                                    Content="{Binding Arqueo}"/>
                                 </StackPanel>
-                                <TextBlock 
+                                <TextBox 
+                                   x:Name="txtArqueoResultante"
                                    Grid.Row="5"
                                    Grid.Column="1"
                                    FontSize="16"
@@ -306,8 +324,11 @@
                                    TextAlignment="Left"
                                    Padding="8 8 0 0" 
                                    DataContext="{Binding ArqueoResultante}"
-                                   Text="{Binding FDineroResultante}"
-                                   Foreground="{Binding ColorFDineroResultante}"/>
+                                   Text="{Binding FDineroResultante, Mode=OneWay}"
+                                   Foreground="{Binding ColorFDineroResultante}"
+                                   IsReadOnly="True"
+                                   BorderThickness="0"
+                                    />
 
 
 
@@ -370,7 +391,9 @@
                                    Grid.Column="1"
                                    Orientation="Vertical">
 
-                                    <TextBox FontSize="16"
+                                    <TextBox 
+                                     x:Name="txtMontoARetirarODepositar"
+                                     FontSize="16"
                                      FontWeight="Medium"                                          
                                      Height="45"                                                    
                                      Padding="10 0 0 0"  
@@ -383,7 +406,8 @@
                                      behaviours:SoloNumerosBehaviour.Habilitado="True"  
                                      behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                      SnapsToDevicePixels="True" Width="354"
-                                     Text="{Binding MontoDepositoORetiro, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding MontoDepositoORetiro, UpdateSourceTrigger=PropertyChanged}"
+                                      />
 
                                 </StackPanel>
 
@@ -408,7 +432,9 @@
                                    Grid.Column="1"
                                    Orientation="Vertical">
 
-                                    <TextBox FontSize="16"
+                                    <TextBox 
+                                     x:Name="txtNombreCajera"   
+                                     FontSize="16"
                                      FontWeight="Medium"                                          
                                      Height="45"                                                    
                                      Padding="10 0 0 0"  
@@ -419,7 +445,8 @@
                                      VerticalContentAlignment="Center"
                                      materialDesign:HintAssist.Hint="Ingrese el nombre de la cajera"   
                                      SnapsToDevicePixels="True" Width="353"
-                                     Text="{Binding NombreCajera, UpdateSourceTrigger=PropertyChanged}"/>
+                                     Text="{Binding NombreCajera, UpdateSourceTrigger=PropertyChanged}"
+                                      />
 
                                 </StackPanel>
 
