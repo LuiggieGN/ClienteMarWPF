@@ -106,6 +106,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             TextBlockSuper.Inlines.Add(new Underline(new Run("S")));
             TextBlockSuper.Inlines.Add(new Run("uperPale"));
 
+            // Agregar underline y texto en boton quitar todos
+            botonQuitarTodo.Inlines.Add(new Underline(new Run("Q")));
+            botonQuitarTodo.Inlines.Add(new Run("uitar todos"));
+
             //if (CrearSuper.IsChecked == false)
             //{
             listSorteo.DataContext = SorteosBinding;
@@ -1430,7 +1434,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     {
                         foreach (var sorteo in ListSorteosVender)
                         {
-                            if ((item.TipoJugada != "  Pale" || item.TipoJugada != "Pale") || (item.TipoJugada != "  Tripleta" || item.TipoJugada != "Tripleta"))
+                            if (item.TipoJugada == "  Pale" || item.TipoJugada == "Pale")
+                            {
+                                RealizarVenta();
+                                ResetearFormularioVenta();
+                            }
+                            else
                             {
                                 if (sorteo.SorteoNombre.Contains("SP"))
                                 {
@@ -1438,14 +1447,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 }
 
                             }
-                            else
-                            {
-                                RegistrarVenta();
-                                ResetearFormularioVenta();
-                            }
                         }
                     }
 
+                }
+                else
+                {
+                    RealizarVenta();
+                    ResetearFormularioVenta();
                 }
 
             }
@@ -2041,7 +2050,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 if (combinacionesNoDisponibles.Count > 0)
                 {
-                    MessageBox.Show(sorteoNoDisponible.PadRight(799).Substring(0, 799).TrimEnd() + "\n \nFavor solicitar combinaciones a la central", "Combinaciones no disponibles", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var Texto = $"{ Environment.NewLine} { Environment.NewLine} Estos y otros sorteos no estan disponibles { Environment.NewLine} Favor solicitar combinaciones a la central { Environment.NewLine} ";
+                    MessageBox.Show(sorteoNoDisponible.PadRight(800).Substring(0, 800).TrimEnd() + Texto, "Combinaciones no disponibles", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
                 #endregion
