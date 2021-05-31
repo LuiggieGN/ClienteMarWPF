@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace ClienteMarWPFWin7.UI.Modules.Reporte
 {
@@ -150,7 +151,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
 
                         if (listSorteo.IsFocused==true && listSorteo.IsDropDownOpen == false)
                         {
-                            contenedorFecha.Focus();
+                            //contenedorFecha.Focus();
                         }
                     }
                      
@@ -176,7 +177,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
                     {
                         if (btnRPTVentas.IsFocused)
                         {
-                            contenedorFecha.Focus();
+                            //contenedorFecha.Focus();
                         }
                     }
                     break;
@@ -303,6 +304,72 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
 
             listSorteo.IsDropDownOpen = true;
             listSorteo.IsManipulationEnabled = true;
+        }
+    }
+
+    public class negativeToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value != null)
+            {
+                
+
+                if (value.ToString().Contains("(") || value.ToString().Contains("-")) { 
+                    return Brushes.Red;
+                }
+                
+                return Brushes.Green;
+                
+            }
+
+            return Brushes.Black;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NullColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value != null)
+            {
+                
+                if (value.ToString() == "Nulo")
+                {
+                    return Brushes.Red;
+                }
+            }
+
+            return Brushes.Black;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class redColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value != null)
+            {
+
+                if (int.Parse(value.ToString()) > 0)
+                {
+                    return Brushes.Red;
+                }
+            }
+
+            return Brushes.Black;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
