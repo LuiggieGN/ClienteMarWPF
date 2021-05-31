@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ClienteMarWPFWin7.UI.Modules.Sorteos.SorteosView"
+﻿<UserControl  x:Class="ClienteMarWPFWin7.UI.Modules.Sorteos.SorteosView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,8 +10,10 @@
                xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
               xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"     
              mc:Ignorable="d" PreviewKeyDown="PressTecla" KeyUp="OnKeyUp" Name="vistaSorteo" Loaded="SelectCampo"
-             GotFocus="vistaSorteo_GotFocus"
-             >
+              Focusable="True"
+              MouseLeave="vistaSorteo_MouseLeave"
+            >
+
     <UserControl.Resources>
         <DataTemplate x:Key="ListCheckBoxTemplate">
             <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Click="CheckBox_Click" Checked="CheckBox_Checked_1">
@@ -118,6 +120,7 @@
 
 
                 <!--COLUMN LEFT-->
+                
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 2">
                         <TextBox
@@ -248,7 +251,7 @@
                             </Grid>
                         </Button>
 
-                        
+
 
                     </StackPanel>
 
@@ -287,7 +290,7 @@
 
 
                             <TextBlock Name="TextBlockRegulares"  VerticalAlignment="Center" FontSize="18"  FontWeight="Bold" MouseDown="Regulares_MouseDown">
-                                   
+
                                 <TextBlock.Resources>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -305,7 +308,7 @@
                             </TextBlock>
                             <ToggleButton x:Name="CrearSuper" Margin="10 24" Unchecked="CrearSuper_Unchecked" Checked="CrearSuper_Checked" />
                             <TextBlock Name="TextBlockSuper" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" MouseDown="SuperPales_MouseDown">
-                                
+
                                 <TextBlock.Resources>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -325,8 +328,8 @@
                         </StackPanel>
 
 
+                        <!--<ListBox MouseDoubleClick="sorteosSeleccionados_MouseDoubleClick" x:Name="listSorteo" GotFocus="listSorteo_GotFocus" LostFocus="listSorteo_LostFocus" ItemsSource="{Binding}" BorderThickness="0 0 0 0" VerticalAlignment="Top"  MaxHeight="250" Height="Auto" Margin="0 4 0 10"  ScrollViewer.HorizontalScrollBarVisibility ="Disabled">-->
                         <ListBox x:Name="listSorteo" GotFocus="listSorteo_GotFocus" LostFocus="listSorteo_LostFocus" ItemsSource="{Binding}" BorderThickness="0 0 0 0" VerticalAlignment="Top"  MaxHeight="250" Height="Auto" Margin="0 4 0 10"  ScrollViewer.HorizontalScrollBarVisibility ="Disabled">
-
                             <ListBox.Resources>
                                 <Style TargetType="ListBox">
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -358,7 +361,7 @@
 
 
                         <Label  x:Name="CantidadSorteos" HorizontalContentAlignment="Left" BorderThickness="0 0 0 0" BorderBrush="Black" FontSize="18" Margin="0 8 0 -37" />
-                        
+
                         <Button  Style="{DynamicResource btn-danger}" HorizontalAlignment="Right" 
                                  Focusable="False" Padding="0" Foreground="White" Width="130" Click="BorrarTodo" Margin="5 5 5 5">
                             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" >
@@ -366,13 +369,14 @@
                                 <TextBlock x:Name="botonQuitarTodo"  FontSize="15" TextAlignment="Center"  VerticalAlignment="Center" HorizontalAlignment="Center"  />
                                 <materialDesign:PackIcon Kind="RemoveCircle" Margin="-6 0 -6 0" VerticalAlignment="Center" HorizontalAlignment="Left"
                                                          Width="50" Height="25" Foreground="White"/>
-                               
+
                             </WrapPanel>
                         </Button>
 
 
                         <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" MaxHeight="300">
                             <ItemsControl 
+                              
                               x:Name="sorteosSeleccionados"                                    
                               FocusVisualStyle="{x:Null}"  
                               HorizontalContentAlignment="Stretch" 
@@ -385,24 +389,24 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border  BorderThickness="0 0 0 1" BorderBrush="#ccc" Margin="5 0 4 3" Height="30" CornerRadius="0" Background="White">
-                                          
-                                                <DockPanel Background="#00CC66">
-                                                    <Label Content="{Binding SorteoNombre}" 
+
+                                            <DockPanel Background="#00CC66">
+                                                <Label Content="{Binding SorteoNombre}" 
                                                            Padding="7 0 0 0" 
                                                            FontSize="20" Foreground="White" Width="300" MaxWidth="300" DockPanel.Dock="Left"/>
-                                                    <Button Background="#00CC66"
+                                                <Button Background="#00CC66"
                                                             DockPanel.Dock="Right" 
                                                             Width="50" 
                                                             Margin="80 0 0 0"
                                                             VerticalAlignment="Center"
                                                             Click="EliminarSoloUnSorteoSeleccionado"
                                                             Tag="{Binding Path=Sorteo.LoteriaID}">
-                                                        <StackPanel Orientation="Horizontal" >
-                                                            <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
-                                                        </StackPanel>
-                                                    </Button>
-                                                </DockPanel>
-                                            
+                                                    <StackPanel Orientation="Horizontal" >
+                                                        <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
+                                                    </StackPanel>
+                                                </Button>
+                                            </DockPanel>
+
                                         </Border>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -515,14 +519,16 @@
                                 <DataGridTextColumn   Width="*" Header="1ra" Binding="{Binding Primero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn   Width="*" Header="2da" Binding="{Binding Segundo}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn   Width="*" Header="3ra" Binding="{Binding Tercero}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                --><!--<DataGridTextColumn   Header="Hora"    Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />--><!--
+                                -->
+                    <!--<DataGridTextColumn   Header="Hora"    Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />-->
+                    <!--
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>-->
 
 
 
-         
+
 
 
 
@@ -608,7 +614,7 @@
 
         </Grid>
 
-         <controls:ValidarPagoTicket x:Name="ConsultaModal" 
+        <controls:ValidarPagoTicket x:Name="ConsultaModal" 
                                     DataContext="{Binding Dialog}"
                                     Panel.ZIndex="500" 
                                     OverlayOn="{ Binding ElementName=GridAOcultar, Mode=OneWay}"
@@ -617,7 +623,7 @@
                                     ConsultarTicketCommand="{Binding ConsultarTicketCommand}"
                                     CopiarTicketCommand="{Binding CopiarTicketCommand}"
                                     ReimprimirTicketCommand="{Binding ReimprimirTicketCommand}"
-                                    AnularTicketCommand="{Binding AnularTicketCommand}"/> 
+                                    AnularTicketCommand="{Binding AnularTicketCommand}"/>
 
     </Grid>
 
