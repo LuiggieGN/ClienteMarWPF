@@ -253,7 +253,7 @@
                             <DataGridTemplateColumn HeaderStyle="{StaticResource Altura}" Header="SACO" Width="*" IsReadOnly="True"  CellStyle="{StaticResource AlignRight}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Saco,StringFormat={}{0:n2}}" Foreground="{Binding Saco, Converter={StaticResource redColor}}" />
+                                        <TextBlock Text="{Binding Saco,StringFormat={}{0:n2}}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -625,7 +625,7 @@
                             <DataGridTemplateColumn HeaderStyle="{StaticResource Altura}" Header="Saco" Width="*" IsReadOnly="True"  CellStyle="{StaticResource AlignRight}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Saco,StringFormat={}{0:n2}}" Foreground="{Binding Saco, Converter={StaticResource redColor}}" />
+                                        <TextBlock Text="{Binding Saco,StringFormat={}{0:n2}}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
