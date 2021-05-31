@@ -71,7 +71,6 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.ViewM
 
         #endregion
 
-
         public ArqueoResultanteViewModel()
         {
             _arqueo = "Arqueo";

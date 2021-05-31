@@ -9,7 +9,7 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
     public interface ILocalClientSettingStore
     {
         LocalClientSettingDTO LocalClientSettings { get; set; }
-        void ReadDektopLocalSetting();
+        void ReadDektopLocalSetting(bool CanWriteServerFile = false);
         void WriteDesktopLocalSetting(LocalClientSettingDTO setting);
     }
 }

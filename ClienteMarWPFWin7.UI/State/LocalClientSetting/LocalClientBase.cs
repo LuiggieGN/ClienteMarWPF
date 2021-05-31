@@ -1,4 +1,5 @@
 ﻿
+using ClienteMarWPFWin7.Data.Services;
 using ClienteMarWPFWin7.Domain.Enums;
 using ClienteMarWPFWin7.Domain.Models.Dtos;
 
@@ -12,15 +13,13 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
     public class LocalClientBase
     {
         protected const string BaseDirectory = @"C:\MAR";
-
-        protected const string FileName = "Mar.ini";
-
         protected const string BackUp_BaseDirectory = @"C:\MAR\Log";
 
+        protected const string FileName = "Mar.ini";
         protected const string BackUp_FileName = "Marbk.ini";
+        protected const string ServerTxt_FileName = "server.txt";
 
         protected const MarSettingExt FileExtension = MarSettingExt.ini;
-
         protected const string IniFileKey = "MAR Initialize 2.0";
 
         protected LocalClientSettingDTO LeerConfiguracionPorDefecto()
@@ -128,6 +127,28 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
 
 
 
+        protected void CrearServerTxtFile()
+        {
+            try
+            {
+                string txtServerFileLocation = Path.Combine(new string[] { BaseDirectory, ServerTxt_FileName });
+
+                if (File.Exists(txtServerFileLocation))
+                {
+                    File.Delete(txtServerFileLocation);
+                }
+
+                var server = new ServerDataService();
+
+                string dominio = server.LeerDominioPorDefecto();
+
+                File.WriteAllLines(txtServerFileLocation, new string[] { dominio });
+            }
+            catch
+            {
+
+            }//fin de catch              
+        }
 
 
 

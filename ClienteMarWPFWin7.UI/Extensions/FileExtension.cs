@@ -1,7 +1,8 @@
 ﻿
 using ClienteMarWPFWin7.UI.State.LocalClientSetting;
 using ClienteMarWPFWin7.Domain.Models.Dtos;
-using System;
+using ClienteMarWPFWin7.Data.Services;
+
 using System.IO;
 using IniParser;
 using IniParser.Model;
@@ -10,27 +11,25 @@ namespace ClienteMarWPFWin7.UI.Extensions
 {
     public class FileExtension : LocalClientBase
     {
-
-        public static void Iniciar() 
+        public static void Iniciar()
         {
             var extension = new FileExtension();
-            extension.CreateAppRequiredFiles();        
+            extension.CreateAppRequiredFiles();
         }
-
 
         private void CreateAppRequiredFiles()
         {
             if (!Directory.Exists(BaseDirectory))
             {
                 try
-                {
-                    // Este codigo de ejecuta cuando la carpeta de MAR no ha sido instalada correctamente
+                {                                                                                  
                     Directory.CreateDirectory(BaseDirectory);
                     LocalClientSettingDTO configuracion = base.LeerConfiguracionPorDefecto();
                     CrearMarIni(configuracion);
                     CrearMarIniBackUp(configuracion);
+                    CrearServerTxtFile();
                 }
-                catch  
+                catch
                 {
 
                 }//fin de catch
@@ -40,11 +39,11 @@ namespace ClienteMarWPFWin7.UI.Extensions
         }//fin de metodo
 
 
-        private void CrearMarIni(LocalClientSettingDTO configuracion) 
+        private void CrearMarIni(LocalClientSettingDTO configuracion)
         {
             try
             {
-                var fileDirectory = Path.Combine(new string[] { BaseDirectory, FileName });               
+                var fileDirectory = Path.Combine(new string[] { BaseDirectory, FileName });
                 var parser = new FileIniDataParser();
                 var keyAndData = new KeyDataCollection();
                 keyAndData.AddKey("Banca", configuracion.BancaId.ToString());
@@ -65,25 +64,41 @@ namespace ClienteMarWPFWin7.UI.Extensions
 
                 parser.WriteFile(fileDirectory, setting);
             }
-            catch 
+            catch
             {
 
-                  
+
             }//fin de catch 
         }//fin de metodo
 
-        private void CrearMarIniBackUp(LocalClientSettingDTO configuracion) 
+        private void CrearMarIniBackUp(LocalClientSettingDTO configuracion)
         {
             try
             {
                 base.CreateBackUp(configuracion);
             }
-            catch  
+            catch
             {
 
             }//fin de catch
-
         }//fin de metodo
+
+
+
+        private new void CrearServerTxtFile()
+        {
+            try
+            {
+                base.CrearServerTxtFile();
+            }
+            catch
+            {
+
+            }//fin de catch        
+        }//fin de metodo
+
+
+
 
 
 

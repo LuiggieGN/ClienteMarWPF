@@ -21,14 +21,14 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
                 _localClientSettings = value;
             }
         }
-        public void ReadDektopLocalSetting()
+        public void ReadDektopLocalSetting(bool CanWriteServerFile = false)
         {
             try
             {
                 switch (FileExtension)
                 {
                     case MarSettingExt.ini:
-                        ReadIniFile();
+                        ReadIniFile(CanWriteServerFile);
                         break;
                     default:
                         throw new NotImplementedException();
@@ -61,7 +61,7 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
         }
 
 
-        private void ReadIniFile()
+        private void ReadIniFile(bool CanWriteServerFile = false)
         {
             string fileDirectory = Path.Combine(new string[] { BaseDirectory, FileName });
 
@@ -83,6 +83,10 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
 
                 this.LocalClientSettings = clienteSetting;
 
+                if (CanWriteServerFile)
+                {
+                    base.CrearServerTxtFile();
+                }
             }
             catch
             {
@@ -193,6 +197,8 @@ namespace ClienteMarWPFWin7.UI.State.LocalClientSetting
                 this.LocalClientSettings = null;
                 throw new MarFileWriteException("Hubo un error al crear o actualizar configuracion local", FileName);
             }
+
+            base.CrearServerTxtFile();
 
         }//fin de metodo WriteIniFile( )
 
