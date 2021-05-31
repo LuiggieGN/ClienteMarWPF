@@ -160,6 +160,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\negativeToColorConverter.cs" />
     <Compile Include="Extensions\ColeccionExtension.cs" />
     <Compile Include="Extensions\FileExtension.cs" />
     <Compile Include="MainWindowViewModel.cs" />

@@ -43,7 +43,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 {
                     if (ticket.Nulo==false && ticket.Saco != "Nulo")
                     {
-                        ticket.Saco =  string.Format(nfi, "{0:C}",ticket.Saco).ToString();
+                        ticket.Saco = ticket.Saco.ToString();
                         observable.Add(ticket);
                     }
                 }

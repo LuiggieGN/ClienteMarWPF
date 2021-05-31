@@ -39,11 +39,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
     public class ReportesSumVentasObservable : BaseViewModel
     {
 
-        private string saco;
-        private string resultado;
-        private string comision;
+        private int saco;
+        private int resultado;
+        private int comision;
         private string concepto;
-        private string balance;
+        private int balance;
         
 
         public string Concepto
@@ -52,23 +52,23 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
             set { concepto = value; NotifyPropertyChanged(nameof(Concepto)); }
         }
 
-        public string Resultado
+        public int Resultado
         {
             get { return resultado; }
             set { resultado = value; NotifyPropertyChanged(nameof(Resultado)); }
         }
 
-        public string Comision
+        public int Comision
         {
             get { return comision; }
             set { comision = value; NotifyPropertyChanged(nameof(Comision)); }
         }
-        public string Saco
+        public int Saco
         {
             get { return saco; }
             set { saco = value; NotifyPropertyChanged(nameof(Saco)); }
         }
-        public string Balance
+        public int Balance
         {
             get { return balance; }
             set { balance = value; NotifyPropertyChanged(nameof(Balance)); }
@@ -93,11 +93,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
     {
 
         public string fecha;
-        private string saco;
-        private string resultado;
-        private string comision;
+        private int saco;
+        private int resultado;
+        private int comision;
         private string concepto;
-        private string balance;
+        private int balance;
 
         public string Fecha
         {
@@ -111,23 +111,23 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
             set { concepto = value; NotifyPropertyChanged(nameof(Concepto)); }
         }
 
-        public string Resultado
+        public int Resultado
         {
             get { return resultado; }
             set { resultado = value; NotifyPropertyChanged(nameof(Resultado)); }
         }
 
-        public string Comision
+        public int Comision
         {
             get { return comision; }
             set { comision = value; NotifyPropertyChanged(nameof(Comision)); }
         }
-        public string Saco
+        public int Saco
         {
             get { return saco; }
             set { saco = value; NotifyPropertyChanged(nameof(Saco)); }
         }
-        public string Balance
+        public int Balance
         {
             get { return balance; }
             set { balance = value; NotifyPropertyChanged(nameof(Balance)); }
@@ -139,7 +139,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
     {
 
         private string _fecha;
-        private string _monto;
+        private int _monto;
         private string _categoria;
         private string _Tickets;
 
@@ -150,7 +150,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
             set { _fecha = value; NotifyPropertyChanged(nameof(Fecha)); }
         }
 
-        public string Monto
+        public int Monto
         {
             get { return _monto; }
             set { _monto = value; NotifyPropertyChanged(nameof(Monto)); }
@@ -506,23 +506,23 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
         private string _numerosColumn1;
         private string _numerosColumn2;
         private string _numerosColumn3;
-        private string _cantidadColumn1;
-        private string _cantidadColumn2;
-        private string _cantidadColumn3;
+        private int _cantidadColumn1;
+        private int _cantidadColumn2;
+        private int _cantidadColumn3;
         
 
-        public string CantidadColumn1
+        public int CantidadColumn1
         {
             get { return _cantidadColumn1; }
             set { _cantidadColumn1 = value; NotifyPropertyChanged(nameof(CantidadColumn1)); }
         }
 
-        public string CantidadColumn2
+        public int CantidadColumn2
         {
             get { return _cantidadColumn2; }
             set { _cantidadColumn2 = value; NotifyPropertyChanged(nameof(CantidadColumn2)); }
         }
-        public string CantidadColumn3
+        public int CantidadColumn3
         {
             get { return _cantidadColumn3; }
             set { _cantidadColumn3 = value; NotifyPropertyChanged(nameof(CantidadColumn3)); }
@@ -777,7 +777,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
     {
         string ticket;
         string hora;
-        string vendio;
+        int vendio;
         string saco;
         bool nulo;
         Visibility mostrarNulos;
@@ -792,7 +792,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
             get { return hora; }
             set { hora = value; NotifyPropertyChanged(nameof(Hora)); }
         }
-        public string Vendio
+        public int Vendio
         {
             get { return vendio; }
             set { vendio = value; NotifyPropertyChanged(nameof(Vendio)); }
