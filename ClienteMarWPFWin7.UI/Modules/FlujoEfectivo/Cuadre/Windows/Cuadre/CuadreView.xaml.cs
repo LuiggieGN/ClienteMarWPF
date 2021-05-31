@@ -7,8 +7,7 @@ using ClienteMarWPFWin7.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.State.CuadreBuilders;
 
-using System;
- 
+using System; 
 
 
 namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
@@ -63,7 +62,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
         {
             if (e.Key == Key.Escape)
             {
-                OnCerrarVentanaClick(sender, e); return;
+                OnCerrarVentanaClick(sender, e);
+                return;
             }
 
             if (e.Key == Key.Enter)

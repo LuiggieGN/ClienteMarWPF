@@ -129,6 +129,7 @@
     <Compile Include="Services\RecargaService\IRecargaService.cs" />
     <Compile Include="Services\ReportesService\IReportesServices.cs" />
     <Compile Include="Services\RutaService\IRutaService.cs" />
+    <Compile Include="Services\ServerService\IServerService.cs" />
     <Compile Include="Services\SorteosService\ISorteosService.cs" />
     <Compile Include="Services\TieService\ITieService.cs" />
   </ItemGroup>

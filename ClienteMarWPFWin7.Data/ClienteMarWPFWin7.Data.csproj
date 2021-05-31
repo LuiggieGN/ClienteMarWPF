@@ -53,6 +53,7 @@
     <Compile Include="Services\CuadreDataService.cs" />
     <Compile Include="Services\Helpers\SoapClientRepository.cs" />
     <Compile Include="Services\JuegaMasDataService.cs" />
+    <Compile Include="Services\ServerDataService.cs" />
     <Compile Include="Services\MensajesDataService.cs" />
     <Compile Include="Services\MultipleDataService.cs" />
     <Compile Include="Services\PuntoVentaService.cs" />

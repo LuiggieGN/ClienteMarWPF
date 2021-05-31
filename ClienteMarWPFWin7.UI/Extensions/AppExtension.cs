@@ -111,7 +111,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                 var Ptova = sp.GetService<IPtoVaService>();
 
 
-                ReaderAndWriterIniFile.ReadDektopLocalSetting();
+                ReaderAndWriterIniFile.ReadDektopLocalSetting(CanWriteServerFile:true);
 
 
                 var Sys = ReaderAndWriterIniFile.LocalClientSettings;
