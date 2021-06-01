@@ -75,7 +75,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
            
             bet.Loteria = apuesta.LoteriaID;
 
-            var MarBetResponse = SorteosService.RealizarApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, bet, SessionGlobals.SolicitudID, true);
+            var MarBetResponse = SorteosService.RealizarApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, bet, SessionGlobals.SolicitudID, false);
             if (MarBetResponse.Err == null)
             {
                 var ticket = new ArrayOfInt() { MarBetResponse.Ticket };
@@ -107,7 +107,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             }
             else
             {
-                MessageBox.Show(MarBetResponse.Err,"Aviso", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show(MarBetResponse.Err,"Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
             }   
 
         }
@@ -415,9 +415,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     {
                         ticket.Add(item.Ticket);
                     }
-
                 }
-
                 /////////////////// Asignado cmapos faltantes en multi /////////////
                 multi.Headers[0].TicketNo = MultiBetResponse.Headers[0].TicketNo;
                 multi.Headers[0].Ticket = MultiBetResponse.Headers[0].Ticket;
