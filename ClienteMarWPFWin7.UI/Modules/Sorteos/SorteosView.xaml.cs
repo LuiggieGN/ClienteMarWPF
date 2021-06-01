@@ -42,6 +42,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private static string ticketSeleccionado;
         private string teclaSeleccionada = "";
         public static DispatcherTimer Timer { get; set; }
+        public static DispatcherTimer Timer2 { get; set; }
         public string vista { get; set; }
 
         public int loteria1 { get; set; }
@@ -58,6 +59,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public bool TxtMontoFocus { get; set; }
         public bool TxtJugadaFocus { get; set; }
         public bool CrearSuperFocus { get; set; }
+        public int contador { get; set; }
+        public int indice1 { get; set; }
+        public int indice2 { get; set; }
 
         public static readonly DependencyProperty RealizarApuestaCommandProperty = DependencyProperty.Register("RealizarApuestaCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
         //public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
@@ -135,6 +139,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             SeleccionadasLista = ListSorteosVender.Count();
             CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
 
+            contador = 0;
         }
 
 
@@ -808,58 +813,74 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }
                     break;
 
-                    //case Key.Left:
+                //case Key.Left:
+                //    Console.WriteLine(listSorteo.SelectedItems.ToString());
+                //    Console.WriteLine(listSorteo.ItemContainerGenerator.IndexFromContainer(listSorteoItem));
 
-                    //    if (SorteoItemFocused == true)
-                    //    {
-                    //        //Timer que corre cada x segundos
-                    //        Timer2 = new DispatcherTimer();
-                    //        Timer2.Tick += new EventHandler(EjecutandoTimer);
-                    //        Timer2.Interval = TimeSpan.FromSeconds(1);
-                    //        Timer2.Start();
-                    //        Timer2.Stop();
+                //    var indiceAlmacenado = listSorteo.SelectedIndex;
 
-                    //        //Timer que corre cada x segundos
-                    //        Timer2 = new DispatcherTimer();
-                    //        Timer2.Tick += new EventHandler(EjecutandoTimer2);
-                    //        Timer2.Interval = TimeSpan.FromSeconds(2);
-                    //        Timer2.Start();
+                //    Console.WriteLine(listSorteo.SelectedIndex);
 
-                    //        //contador++;
-                    //        if (contador > 1)
-                    //        {
-                    //            e.Handled = true;
-                    //            txtJugada.Focus();
-                    //            listSorteo.SelectedIndex = -1;
-                    //            e.Handled = false;
-                    //            listSorteo.Items.Refresh();
-                    //            //SeleccionarJugada(sender, e);
-                    //            TriggerButtonClickEvent(btnSeleccionaJugada);
-                    //            return;
-                    //        }
 
-                    //    }
-                    //    break;
+                //    if (listSorteo.SelectedIndex)
+                //    {
 
-                    //case Key.F5:
-                    //    teclaSeleccionada = "";
-                    //    ticketSeleccionado = null;
-                    //    //ValidarPagoTicketCommand.Execute(null);
-                    //    Consultar(sender, e);
-                    //    break;
+                //    }
+                //    break;
+
+                case Key.Left:
+
+                    if (SorteoItemFocused == true)
+                    {
+                        indice1 = listSorteo.SelectedIndex;
+
+                        //Timer que corre cada x segundos
+                        Timer2 = new DispatcherTimer();
+                        Timer2.Tick += new EventHandler(EjecutandoTimer);
+                        Timer2.Interval = TimeSpan.FromSeconds(1);
+                        Timer2.Start();
+                        Timer2.Stop();
+
+                        //Timer que corre cada x segundos
+                        if(Timer2.IsEnabled == false)
+                        {
+                            Timer2 = new DispatcherTimer();
+                            Timer2.Tick += new EventHandler(EjecutandoTimer2);
+                            Timer2.Interval = TimeSpan.FromSeconds(3);
+                            Timer2.Start();
+                        }
+
+                        if (contador > 1)
+                        {
+                            if (indice1 == indice2)
+                            {
+                                e.Handled = true;
+                                txtJugada.Focus();
+                                listSorteo.SelectedIndex = -1;
+                                e.Handled = false;
+                                listSorteo.Items.Refresh();
+                                //SeleccionarJugada(sender, e);
+                                TriggerButtonClickEvent(btnSeleccionaJugada);
+                                return;
+                            }
+                        }
+                    }
+                    break;
 
             }
         }
 
-        //private void EjecutandoTimer(object sender, EventArgs e)
-        //{
-        //    contador = 1;
-        //}
+        private void EjecutandoTimer(object sender, EventArgs e)
+        {
+            contador = 1;
+            indice1 = listSorteo.SelectedIndex;
+        }
 
-        //private void EjecutandoTimer2(object sender, EventArgs e)
-        //{
-        //    contador = 2;
-        //}
+        private void EjecutandoTimer2(object sender, EventArgs e)
+        {
+            contador = 2;
+            indice2 = listSorteo.SelectedIndex;
+        }
 
         private void PressTecla(object sender, KeyEventArgs e)
         {
@@ -1001,21 +1022,22 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 case Key.Down:
 
-                    if (txtMonto.IsFocused)
+                    if (txtMonto.IsFocused || txtJugada.IsFocused)
                     {
-                        TriggerButtonClickEvent(btnSeleccionarTablaJugadaPrimerRow);
+                        //TriggerButtonClickEvent(btnSeleccionarTablaJugadaPrimerRow);
                         ltJugada.Focus();
 
-                    }
+                        DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
 
-                    //if (SorteoItemFocused == true)
-                    //{
-                    //    //if (listSorteo.SelectedIndex == 0)
-                    //    //{
-                    //    //    listSorteo.SelectedIndex = 2;
-                    //    //}
-                    //    listSorteo.SelectedIndex += 1;
-                    //}
+                        if (row != null)
+                        {
+                            row.IsSelected = true;
+                            row.Focus();
+                            TxtMontoFocus = false;
+                        }
+                        //SeleccionarPrimerRowTablaJugada(sender, e);
+
+                    }
 
                     break;
 
@@ -2429,6 +2451,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
 
         private bool consultaThreadIsBusy = false;
+        private DependencyObject listSorteoItem;
+
         private void Consultar(object sender, RoutedEventArgs e)
         {
             if (consultaThreadIsBusy == false)
