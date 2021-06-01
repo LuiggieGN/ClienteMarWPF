@@ -11,11 +11,30 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Helpers
 {
     public static class PrinterHelper
     {
+        static string eClear;
+        static string eDrawer;
+        static string eCut;
+        static string LineCut;
+
+        static PrinterHelper()
+        {
+            eClear = ((char)27) + "@";
+            eDrawer = eClear + ((char)27) + "p" + ((char)0) + ".}";
+            eCut = ((char)27) + "i" + ((char)13) + ((char)10);
+            LineCut = "\n\n" + eCut + eDrawer;
+
+        }
 
         public static bool SendToPrinter(string pPrintText)
         {
+
             var ps = new PrinterSettings();
-            RawPrinterHelper.SendStringToPrinter(ps.PrinterName, pPrintText);
+
+            if (pPrintText == null || pPrintText == string.Empty)
+            {
+                return false;
+            }
+            RawPrinterHelper.SendStringToPrinter(ps.PrinterName, pPrintText+LineCut);
             //if (PrinterSettings.InstalledPrinters.Count == 0 || ps.PrinterName == null)
             //{
             //    //    Imprimir al puerto LPT1
