@@ -330,8 +330,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                 }
                 else if (
                      (e.Key == Key.F12 || (e.Key == Key.System && e.SystemKey == Key.F12)) ||
-                     (e.Key == Key.Add || (e.Key == Key.System && e.SystemKey == Key.Add)) ||
-                     (e.Key == Key.OemPlus || (e.Key == Key.System && e.SystemKey == Key.OemPlus))
+                     (e.Key == Key.Add || (e.Key == Key.System && e.SystemKey == Key.Add))
+                     //||(e.Key == Key.OemPlus || (e.Key == Key.System && e.SystemKey == Key.OemPlus))
                 )
                 {
                     e.Handled = true;
@@ -389,8 +389,9 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
                 }
                 else if (
                      (e.Key == Key.F12 || (e.Key == Key.System && e.SystemKey == Key.F12)) ||
-                     (e.Key == Key.Add || (e.Key == Key.System && e.SystemKey == Key.Add)) ||
-                     (e.Key == Key.OemPlus || (e.Key == Key.System && e.SystemKey == Key.OemPlus))
+                     (e.Key == Key.Add || (e.Key == Key.System && e.SystemKey == Key.Add)) 
+                     
+                     //||(e.Key == Key.OemPlus || (e.Key == Key.System && e.SystemKey == Key.OemPlus))
                 )
                 {
                     e.Handled = true;

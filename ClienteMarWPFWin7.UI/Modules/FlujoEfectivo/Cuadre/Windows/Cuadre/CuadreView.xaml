@@ -259,7 +259,7 @@
                                         <StackPanel Orientation="Horizontal"  Width="Auto">
                                             <Border BorderBrush="#000" 
                                             BorderThickness="1" 
-                                            Margin="3 3 3 3" Width="296"  >
+                                            Margin="3 3 3 3" Width="285"  >
                                                 <TextBox     
                                                 x:Name="inpMontoContado"
                                                 FontSize="16"
@@ -278,14 +278,19 @@
                                                 IsTabStop="True"
                                                     />
                                             </Border>
-                                            <Button Width="55"
+                                            <Button Width="66"
                                             Height="48"                                
                                             Margin="0"                                            
                                             Style="{DynamicResource btn-dark}"
                                             Padding="0 0 0 0"
                                             Command="{Binding AbrirDesgloseCommand}" 
                                                     IsTabStop="False">
-                                                <materialDesign:PackIcon Kind="Money" VerticalAlignment="Center" Width="30" Height="30" />
+
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="F6" VerticalAlignment="Center" Margin="0 0 3 0"/>
+                                                    <materialDesign:PackIcon Kind="Money" VerticalAlignment="Center" Width="30" Height="30" />
+                                                </StackPanel>
+                                                
                                                 <Button.CommandParameter>
                                                     <MultiBinding Converter="{StaticResource PassMultipleValuesConverter}" >
                                                         <Binding Path="." ElementName="CuadreVista"></Binding>
@@ -466,18 +471,21 @@
                                 Height="40"
                                 Margin="5"
                                 FontSize="18" 
-                                Content="Cerrar" 
+                                Content="Cerrar - F9" 
                                 Style="{DynamicResource btn-dark}"
-                                Click="OnCerrarVentanaClick"/>
+                                Click="OnCerrarVentanaClick"
+                                Focusable="False"
+                                IsTabStop="True"/>
 
-                                <Button Width="135"
+                                <Button Width="190"
                                 Height="40"                                
                                 Margin="5"
                                 FontSize="18" 
-                                Content="Registrar" 
+                                Content="Registrar - F12 ( + )" 
                                 Style="{DynamicResource btn-success}"
                                 Command="{Binding RegistrarCuadreCommand}" 
-                                CommandParameter="{Binding ElementName=CuadreVista}"/>
+                                CommandParameter="{Binding ElementName=CuadreVista}"
+                                IsTabStop="True"/>
 
                             </StackPanel>
 

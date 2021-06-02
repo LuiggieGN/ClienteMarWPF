@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -27,6 +27,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
             Resultado = 0;
             calc = new CalcularDesgloseLogic();
             ParentWindow = parentWindow;
+            txtm1.Focus();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -38,12 +39,26 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
         private void EscribirNumeros(object sender, KeyEventArgs e)
         {
 
+            if (e.Key == Key.F7)
+            {
+                LimpiarCampos(sender, e); return;
+            }
+            else if (e.Key == Key.F8)
+            {
+                ProcesarClick(sender, e); return;
+            }
+            else if (e.Key == Key.F11)
+            {
+                CerrarVentana(sender, e); return;
+            }
+
             if ((e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key == Key.Back))
             {
                 e.Handled = false;
                 calc.Calcular(txtm1.Text, txtm5.Text, txtm10.Text, txtm25.Text, txtm50.Text, txtm100.Text, txtm200.Text, txtm500.Text, txtm1000.Text, txtm2000.Text);
                 Resultado = calc.result;
-                lblTotalContado.Text = Resultado?.ToString("$#,##0.00", CultureInfo.CreateSpecificCulture("en-US"))??string.Empty;
+                lblTotalContado.Text = Resultado?.ToString("$#,##0.00", CultureInfo.CreateSpecificCulture("en-US")) ?? string.Empty;
+                return;
             }
             else
             {
@@ -61,7 +76,57 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
                 }
 
                 e.Handled = true;
+                return;
             }
+
+            var inp = e.Source as TextBox;
+
+            if (inp != null)
+            {
+                if (e.Key == Key.Right)
+                {
+                    if (txtm2000.IsFocused)
+                    {
+                        txtm1.Focus(); return;
+                    }
+
+                    inp.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+                else if (e.Key == Key.Down)
+                {
+                    if (txtm50.IsFocused)
+                    {
+                        txtm1.Focus(); return;
+                    }
+                    else if (txtm2000.IsFocused)
+                    {
+                        txtm100.Focus(); return;
+                    }
+                    inp.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+                }
+                else if (e.Key == Key.Up)
+                {
+                    if (txtm1.IsFocused)
+                    {
+                        txtm50.Focus(); return;
+                    }
+                    else if (txtm100.IsFocused)
+                    {
+                        txtm2000.Focus(); return;
+                    }
+                    inp.MoveFocus(new TraversalRequest(FocusNavigationDirection.Up));
+
+                }
+                else if (e.Key == Key.Left)
+                {
+                    if (txtm1.IsFocused)
+                    {
+                        txtm1.Focus(); return;
+                    }
+                    inp.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                }
+            }//fin de if inp != null
+
 
         }
 
@@ -82,6 +147,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
         private void LimpiarCampos(object sender, RoutedEventArgs e)
         {
             LimpiarTextBox();
+            txtm1.Focus();
         }
 
 
@@ -93,7 +159,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
         }
 
         private void ProcesarClick(object sender, RoutedEventArgs e)
-        { 
+        {
             Close();
         }
 
@@ -112,6 +178,26 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
             lblTotalContado.Text = "$0.00";
             Resultado = 0;
         }
+
+        private void CuandoTeclaSube_VentanaPrincipal(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F7)
+            {
+                e.Handled = true;
+                LimpiarCampos(sender, e);
+            }
+            else if (e.Key == Key.F8)
+            {
+                e.Handled = true;
+                ProcesarClick(sender, e);
+            }
+            else if (e.Key == Key.F9)
+            {
+                e.Handled = true;
+                CerrarVentana(sender, e);
+            }
+        }
+
 
 
     }// fin de clase

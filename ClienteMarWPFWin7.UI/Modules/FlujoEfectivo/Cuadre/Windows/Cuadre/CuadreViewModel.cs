@@ -113,6 +113,10 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
         public ICommand RegistrarCuadreCommand { get; }
         #endregion
 
+        #region Action
+        public Action SetFocusOnMontoContado { get; set; }
+        #endregion
+
         public CuadreViewModel(IAuthenticator aut, GestorStore gestorStore, ICuadreBuilder cuadreBuilder)
         {
 
