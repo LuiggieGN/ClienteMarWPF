@@ -269,170 +269,177 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha.ToString());
             if (Reporte.Tickets != null) { 
-            var ReporteOrdenado = Reporte.Tickets.OrderBy(reporte => reporte.Solicitud).ToArray();
+           
             ViewModel.ReportesGanadores = new EstadoDeTicketGanadores();
             ViewModel.ReportesGanadores.PendientesPagar = new ObservableCollection<ReportesGanadoresObservable>() { };
             ViewModel.ReportesGanadores.Pagados = new ObservableCollection<ReportesGanadoresObservable>() { };
             ViewModel.ReportesGanadores.SinReclamar = new ObservableCollection<ReportesGanadoresObservable>() { };
 
-            if (Reporte.Err == null)
-            {
-
-                EstadoDeTicketGanadores Ganadores = new EstadoDeTicketGanadores() { };
-                NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
-
-                HeaderReporte(Reporte.Fecha, "TICKETS GANADORES", new ReporteView().GetNombreLoteria(), null, null);
-                ViewModel.RPTTicketGanadoresVisibility = System.Windows.Visibility.Visible;
-
-                var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 4);
-                var TicketSinReclamar = Reporte.Tickets.Where(ticket => ticket.Solicitud == 6);
-                var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 5);
-
-                if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() > 0)
+                if (Reporte.Err == null)
                 {
-                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
-                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 4;
-                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 5;
-                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 6;
-                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 7;
-                    ViewModel.ReportesGanadores.PosicionBalance = 8;
-                }
-                if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() == 0)
-                {
-                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
-                    ViewModel.ReportesGanadores.PosicionBalance = 4;
-                    ViewModel.ReportesGanadores.HeightTicketNoGanadores = 10;
-                }
-                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() == 0)
-                {
-                    ViewModel.ReportesGanadores.PosicionTituloPagados = 3;
-                    ViewModel.ReportesGanadores.PosicionTablaPagados = 4;
-                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 5;
-                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 6;
-                    ViewModel.ReportesGanadores.PosicionBalance = 9;
-                    ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Visible;
-                    ViewModel.ReportesGanadores.HeightTicketNoGanadores = 50;
-                }
-                if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() == 0)
-                {
-                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
-                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 4;
-                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 5;
-                    ViewModel.ReportesGanadores.PosicionBalance = 6;
-                }
-                else
-                {
-                    ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
-                    ViewModel.ReportesGanadores.HeightTicketNoGanadores = 10;
-                }
-                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() == 0)
-                {
-                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 3;
-                    ViewModel.ReportesGanadores.PosicionBalance = 4;
-                }
-                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
-                {
-                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 3;
-                    ViewModel.ReportesGanadores.PosicionBalance = 4;
-                }
-                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() > 0)
-                {
-                    ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 3;
-                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 4;
-                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 5;
-                    ViewModel.ReportesGanadores.PosicionBalance = 6;
-                }
-                if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
-                {
-                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 3;
-                    ViewModel.ReportesGanadores.PosicionBalance = 4;
-                }
-                if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
-                {
-                    ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
-                    ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
-                    ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 4;
-                    ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 5;
-                    ViewModel.ReportesGanadores.PosicionBalance = 6;
-                }
 
-                ViewModel.ReportesGanadores.PendientesPagar.Clear();
-                ViewModel.ReportesGanadores.SinReclamar.Clear();
-                ViewModel.ReportesGanadores.Pagados.Clear();
+                    EstadoDeTicketGanadores Ganadores = new EstadoDeTicketGanadores() { };
+                    NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
 
-                var TotalPendientePagos = 0;
-                var TotalPagados = 0;
-                var TotalSinReclamar = 0;
+                    HeaderReporte(Reporte.Fecha, "TICKETS GANADORES", new ReporteView().GetNombreLoteria(), null, null);
+                    ViewModel.RPTTicketGanadoresVisibility = System.Windows.Visibility.Visible;
 
-                bool EliminarTicketPagos = false;
-                bool EliminarTicketPendientePagos = false;
-                bool EliminarTicketSinReclamar = false;
-
-                if (Reporte.Primero != null || Reporte.Segundo != null || Reporte.Tercero != null)
-                {
-                    ViewModel.ReportesGanadores.MostrarPremiosVisibity = Visibility.Visible;
-                    ViewModel.ReportesGanadores.NoMostrarPremiosVisibity = Visibility.Hidden;
-
-                    if (Reporte.Primero != "") { ViewModel.ReportesGanadores.Primera = Reporte.Primero; } else { ViewModel.ReportesGanadores.Primera = "--"; }
-                    if (Reporte.Segundo != "") { ViewModel.ReportesGanadores.Segunda = Reporte.Segundo; } else { ViewModel.ReportesGanadores.Segunda = "--"; }
-                    if (Reporte.Tercero != "") { ViewModel.ReportesGanadores.Tercera = Reporte.Tercero; } else { ViewModel.ReportesGanadores.Tercera = "--"; }
-                }
-                else { ViewModel.ReportesGanadores.MostrarPremiosVisibity = Visibility.Hidden; ViewModel.ReportesGanadores.NoMostrarPremiosVisibity = Visibility.Visible; }
-
-                if (TicketPagados.Count() > 0) { ViewModel.ReportesGanadores.PagadosVisibility = Visibility.Visible; EliminarTicketPagos = true; }
-                else if (TicketPagados.Count() == 0) { ViewModel.ReportesGanadores.PagadosVisibility = Visibility.Hidden; }
-                
-                if (TicketPendientePagos.Count() > 0) { ViewModel.ReportesGanadores.PendientePagarVisibility = Visibility.Visible; EliminarTicketPendientePagos = false; }
-                else if (TicketPendientePagos.Count() == 0) { ViewModel.ReportesGanadores.PendientePagarVisibility = Visibility.Hidden; }
-                
-                if (TicketSinReclamar.Count() > 0) { ViewModel.ReportesGanadores.SinReclamarVisibility = Visibility.Visible; EliminarTicketSinReclamar = false; }
-                else if (TicketSinReclamar.Count() == 0) { ViewModel.ReportesGanadores.SinReclamarVisibility = Visibility.Hidden; }
-
-                new ReporteView().EliminandoTemplateGanadores(EliminarTicketPagos, EliminarTicketPendientePagos, EliminarTicketSinReclamar);
-
-                foreach (var pendientepago in TicketPendientePagos)
-                {
-                    TotalPendientePagos  = TotalPendientePagos + Convert.ToInt32(pendientepago.Items.Sum(x => x.Pago));
-                        foreach (var pendientepagado in pendientepago.Items)
-                        {
-                            ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepago.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepago.StrHora, Monto =(int) pendientepagado.Pago, Tickets = pendientepago.TicketNo };
-                            ViewModel.ReportesGanadores.PendientesPagar.Add(Modelo);
-                        }
-                }
-                ReportesGanadoresObservable ModeloTotalesPendientePagos = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPendientePagos };
-                ViewModel.ReportesGanadores.PendientesPagar.Add(ModeloTotalesPendientePagos);
-
-                foreach (var pagados in TicketPagados)
-                {
-                    TotalPagados = TotalPagados + Convert.ToInt32(pagados.Items.Sum(x => x.Pago));
                     
-                        ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagados.StrFecha).ToString("dd-MMM-yyyy") + " " + pagados.StrHora, Monto =(int) pagados.Items.Sum(x => x.Pago), Tickets = pagados.TicketNo };
-                        ViewModel.ReportesGanadores.Pagados.Add(Modelo);
+                        var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 4);
+                        var TicketSinReclamar = Reporte.Tickets.Where(ticket => ticket.Solicitud == 6);
+                        var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 5);
+
+
+
+                        if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() > 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                            ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                            ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 4;
+                            ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 5;
+                            ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 6;
+                            ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 7;
+                            ViewModel.ReportesGanadores.PosicionBalance = 8;
+                        }
+                        if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() == 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                            ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                            ViewModel.ReportesGanadores.PosicionBalance = 4;
+                            ViewModel.ReportesGanadores.HeightTicketNoGanadores = 10;
+                        }
+                        if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() == 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloPagados = 3;
+                            ViewModel.ReportesGanadores.PosicionTablaPagados = 4;
+                            ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 5;
+                            ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 6;
+                            ViewModel.ReportesGanadores.PosicionBalance = 9;
+                            ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Visible;
+                            ViewModel.ReportesGanadores.HeightTicketNoGanadores = 50;
+                        }
+                        if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() == 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                            ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                            ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 4;
+                            ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 5;
+                            ViewModel.ReportesGanadores.PosicionBalance = 6;
+                        }
+                        else
+                        {
+                            ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
+                            ViewModel.ReportesGanadores.HeightTicketNoGanadores = 10;
+                        }
+                        if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() == 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 2;
+                            ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 3;
+                            ViewModel.ReportesGanadores.PosicionBalance = 4;
+                        }
+                        if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 2;
+                            ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 3;
+                            ViewModel.ReportesGanadores.PosicionBalance = 4;
+                        }
+                        if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() > 0 && TicketSinReclamar.Count() > 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloPendientesPagos = 2;
+                            ViewModel.ReportesGanadores.PosicionTablaPendientesPagos = 3;
+                            ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 4;
+                            ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 5;
+                            ViewModel.ReportesGanadores.PosicionBalance = 6;
+                        }
+                        if (TicketPagados.Count() == 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 2;
+                            ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 3;
+                            ViewModel.ReportesGanadores.PosicionBalance = 4;
+                        }
+                        if (TicketPagados.Count() > 0 && TicketPendientePagos.Count() == 0 && TicketSinReclamar.Count() > 0)
+                        {
+                            ViewModel.ReportesGanadores.PosicionTituloPagados = 2;
+                            ViewModel.ReportesGanadores.PosicionTablaPagados = 3;
+                            ViewModel.ReportesGanadores.PosicionTituloSinReclamar = 4;
+                            ViewModel.ReportesGanadores.PosicionTablaSinReclamar = 5;
+                            ViewModel.ReportesGanadores.PosicionBalance = 6;
+                        }
+
+                        ViewModel.ReportesGanadores.PendientesPagar.Clear();
+                        ViewModel.ReportesGanadores.SinReclamar.Clear();
+                        ViewModel.ReportesGanadores.Pagados.Clear();
+
+                        var TotalPendientePagos = 0;
+                        var TotalPagados = 0;
+                        var TotalSinReclamar = 0;
+
+                        bool EliminarTicketPagos = false;
+                        bool EliminarTicketPendientePagos = false;
+                        bool EliminarTicketSinReclamar = false;
+
+                        if (Reporte.Primero != null || Reporte.Segundo != null || Reporte.Tercero != null)
+                        {
+                            ViewModel.ReportesGanadores.MostrarPremiosVisibity = Visibility.Visible;
+                            ViewModel.ReportesGanadores.NoMostrarPremiosVisibity = Visibility.Hidden;
+
+                            if (Reporte.Primero != "") { ViewModel.ReportesGanadores.Primera = Reporte.Primero; } else { ViewModel.ReportesGanadores.Primera = "--"; }
+                            if (Reporte.Segundo != "") { ViewModel.ReportesGanadores.Segunda = Reporte.Segundo; } else { ViewModel.ReportesGanadores.Segunda = "--"; }
+                            if (Reporte.Tercero != "") { ViewModel.ReportesGanadores.Tercera = Reporte.Tercero; } else { ViewModel.ReportesGanadores.Tercera = "--"; }
+                        }
+                        else { ViewModel.ReportesGanadores.MostrarPremiosVisibity = Visibility.Hidden; ViewModel.ReportesGanadores.NoMostrarPremiosVisibity = Visibility.Visible; }
+
+                        if (TicketPagados.Count() > 0) { ViewModel.ReportesGanadores.PagadosVisibility = Visibility.Visible; EliminarTicketPagos = true; }
+                        else if (TicketPagados.Count() == 0) { ViewModel.ReportesGanadores.PagadosVisibility = Visibility.Hidden; }
+
+                        if (TicketPendientePagos.Count() > 0) { ViewModel.ReportesGanadores.PendientePagarVisibility = Visibility.Visible; EliminarTicketPendientePagos = false; }
+                        else if (TicketPendientePagos.Count() == 0) { ViewModel.ReportesGanadores.PendientePagarVisibility = Visibility.Hidden; }
+
+                        if (TicketSinReclamar.Count() > 0) { ViewModel.ReportesGanadores.SinReclamarVisibility = Visibility.Visible; EliminarTicketSinReclamar = false; }
+                        else if (TicketSinReclamar.Count() == 0) { ViewModel.ReportesGanadores.SinReclamarVisibility = Visibility.Hidden; }
+
+                        new ReporteView().EliminandoTemplateGanadores(EliminarTicketPagos, EliminarTicketPendientePagos, EliminarTicketSinReclamar);
+
+                        foreach (var pendientepago in TicketPendientePagos)
+                        {
+                            TotalPendientePagos = TotalPendientePagos + Convert.ToInt32(pendientepago.Items.Sum(x => x.Pago));
+                            foreach (var pendientepagado in pendientepago.Items)
+                            {
+                                ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepago.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepago.StrHora, Monto = (int)pendientepagado.Pago, Tickets = pendientepago.TicketNo };
+                                ViewModel.ReportesGanadores.PendientesPagar.Add(Modelo);
+                            }
+                        }
+                        ReportesGanadoresObservable ModeloTotalesPendientePagos = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPendientePagos };
+                        ViewModel.ReportesGanadores.PendientesPagar.Add(ModeloTotalesPendientePagos);
+
+                        foreach (var pagados in TicketPagados)
+                        {
+                            TotalPagados = TotalPagados + Convert.ToInt32(pagados.Items.Sum(x => x.Pago));
+
+                            ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagados.StrFecha).ToString("dd-MMM-yyyy") + " " + pagados.StrHora, Monto = (int)pagados.Items.Sum(x => x.Pago), Tickets = pagados.TicketNo };
+                            ViewModel.ReportesGanadores.Pagados.Add(Modelo);
+                        }
+
+                        ReportesGanadoresObservable ModeloTotalesPagados = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPagados };
+                        ViewModel.ReportesGanadores.Pagados.Add(ModeloTotalesPagados);
+
+                        foreach (var sinreclamar in TicketSinReclamar)
+                        {
+                            TotalSinReclamar = TotalSinReclamar + Convert.ToInt32(sinreclamar.Pago);
+                            ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(sinreclamar.StrFecha).ToString("dd-MMM-yyyy") + " " + sinreclamar.StrHora, Monto = (int)sinreclamar.Pago, Tickets = sinreclamar.TicketNo };
+                            ViewModel.ReportesGanadores.SinReclamar.Add(Modelo);
+
+                        }
+                        ReportesGanadoresObservable ModeloTotalesSinReclamar = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalSinReclamar };
+                        ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);
+
+                        ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos + TotalSinReclamar);
                 }
-
-                ReportesGanadoresObservable ModeloTotalesPagados = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPagados };
-                ViewModel.ReportesGanadores.Pagados.Add(ModeloTotalesPagados);
-
-                foreach (var sinreclamar in TicketSinReclamar)
-                {
-                    TotalSinReclamar = TotalSinReclamar + Convert.ToInt32(sinreclamar.Pago);
-                    ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(sinreclamar.StrFecha).ToString("dd-MMM-yyyy") + " " + sinreclamar.StrHora, Monto = (int) sinreclamar.Pago, Tickets = sinreclamar.TicketNo };
-                    ViewModel.ReportesGanadores.SinReclamar.Add(Modelo);
-
-                }
-                ReportesGanadoresObservable ModeloTotalesSinReclamar = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalSinReclamar };
-                ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);
-
-                ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos + TotalSinReclamar);
-                }
-
+            }
+            else if (Reporte.Tickets == null)
+            {
+                MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
             else if (Reporte.Err != null)
             {
@@ -893,281 +900,311 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var Reporte = ReportesService.ReporteListadoNumero(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
 
-            if (Reporte.Numeros != null)
+            if (Reporte.Err == null)
             {
-                try { 
-                ViewModel.RPTListNumerosVisibility = System.Windows.Visibility.Visible;
-                ReporteListNumeroColumns ReporteListNumeros = new ReporteListNumeroColumns();
-                HeaderReporte(Reporte.Fecha, "LISTADO DE NUMEROS", nombreLoteria, null, null);
-                NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
-                var Numeros = Reporte.Numeros;
-                var NumerosQuinielas = Reporte.Numeros.Where(ticket => ticket.QP == "Q").ToList();
-                var NumerosPales = Reporte.Numeros.Where(ticket => ticket.QP == "P").ToList();
-                var NumerosTripleta = Reporte.Numeros.Where(ticket => ticket.QP == "T").ToList();
-                ReporteListNumeros.Quiniela = new ObservableCollection<ReportesListaNumerosObservable>() { };
-                ReporteListNumeros.Tripleta = new ObservableCollection<ReportesListaNumerosObservable>() { };
-                ReporteListNumeros.Pale = new ObservableCollection<ReportesListaNumerosObservable>() { };
-
-                if (NumerosQuinielas.Count > 0 && NumerosPales.Count > 0 && NumerosTripleta.Count > 0)
-                {
-                    ReporteListNumeros.PosicionTituloQuiniela = 1;
-                    ReporteListNumeros.PosicionTablaQuiniela = 2;
-                    ReporteListNumeros.PosicionTotalesQuiniela = 3;
-                    ReporteListNumeros.PosicionTituloPale = 4; 
-                    ReporteListNumeros.PosicionTablaPale = 5;
-                    ReporteListNumeros.PosicionTotalesPale = 6;
-                    ReporteListNumeros.PosicionTituloTripleta = 7;
-                    ReporteListNumeros.PosicionTablaTripleta = 8;
-                    ReporteListNumeros.PosicionTotalesTripleta = 9;
-                }
-                if (NumerosQuinielas.Count == 0 && NumerosPales.Count > 0 && NumerosTripleta.Count > 0)
-                {
-                    ReporteListNumeros.PosicionTituloPale = 1;
-                    ReporteListNumeros.PosicionTablaPale = 2;
-                    ReporteListNumeros.PosicionTotalesPale = 3;
-                    ReporteListNumeros.PosicionTituloTripleta = 4;
-                    ReporteListNumeros.PosicionTablaTripleta = 5;
-                    ReporteListNumeros.PosicionTotalesTripleta = 6;
-                }
-                if (NumerosQuinielas.Count == 0 && NumerosPales.Count == 0 && NumerosTripleta.Count > 0)
-                {
-                    ReporteListNumeros.PosicionTituloTripleta = 1;
-                    ReporteListNumeros.PosicionTablaTripleta = 2;
-                    ReporteListNumeros.PosicionTotalesTripleta = 3;
-                }
-                if (NumerosQuinielas.Count > 0 && NumerosPales.Count == 0 && NumerosTripleta.Count > 0)
-                {
-                    ReporteListNumeros.PosicionTituloQuiniela = 1;
-                    ReporteListNumeros.PosicionTablaQuiniela = 2;
-                    ReporteListNumeros.PosicionTotalesQuiniela = 3;
-                    ReporteListNumeros.PosicionTituloTripleta = 4;
-                    ReporteListNumeros.PosicionTablaTripleta = 5;
-                    ReporteListNumeros.PosicionTotalesTripleta = 6;
-                }
-
-                if (NumerosQuinielas.Count > 1) 
-                {
-                    var totalCantidadQuiniela = 0;
-                    var totalPagoQuiniela = 0;
-                    ViewModel.ReportesListaNumeros.QuinielaVisibilty = Visibility.Visible;
-
-                   
-                    for (int i = 0; i < NumerosQuinielas.Count; i = i + 3)
-                    {
-                       
-                        if (i + 2 <= NumerosQuinielas.Count - 1)
+                try {
+                    if (Reporte.Numeros != null) {
+                        if (Reporte.Numeros.Count() > 0)
                         {
-                            ReportesListaNumerosObservable objectoQuiniela = new ReportesListaNumerosObservable()
+                            ReporteListNumeroColumns ReporteListNumeros = new ReporteListNumeroColumns();
+                            HeaderReporte(Reporte.Fecha, "LISTADO DE NUMEROS", nombreLoteria, null, null);
+                            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
+                            var Numeros = Reporte.Numeros;
+                            var NumerosQuinielas = Reporte.Numeros.Where(ticket => ticket.QP == "Q").ToList();
+                            var NumerosPales = Reporte.Numeros.Where(ticket => ticket.QP == "P").ToList();
+                            var NumerosTripleta = Reporte.Numeros.Where(ticket => ticket.QP == "T").ToList();
+                            ReporteListNumeros.Quiniela = new ObservableCollection<ReportesListaNumerosObservable>() { };
+                            ReporteListNumeros.Tripleta = new ObservableCollection<ReportesListaNumerosObservable>() { };
+                            ReporteListNumeros.Pale = new ObservableCollection<ReportesListaNumerosObservable>() { };
+
+                            if (NumerosQuinielas.Count == 0 && NumerosPales.Count == 0 && NumerosTripleta.Count == 0)
                             {
-                                NumeroColumn1 = NumerosQuinielas[i].Numero,
-                                CantidadColumn1 = (int) NumerosQuinielas[i].Cantidad,
+                                MessageBox.Show("No existen numeros correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                            else
+                            {
+                                ViewModel.RPTListNumerosVisibility = System.Windows.Visibility.Visible;
+                            }
 
-                                NumeroColumn2 = NumerosQuinielas[i + 1].Numero,
-                                CantidadColumn2 = (int )NumerosQuinielas[i + 1].Cantidad,
+                            if (NumerosQuinielas.Count > 0 && NumerosPales.Count > 0 && NumerosTripleta.Count > 0)
+                            {
+                                ViewModel.ReportesListaNumeros.PosicionTituloQuiniela = 1;
+                                ViewModel.ReportesListaNumeros.PosicionTablaQuiniela = 2;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesQuiniela = 3;
+                                ViewModel.ReportesListaNumeros.PosicionTituloPale = 4;
+                                ViewModel.ReportesListaNumeros.PosicionTablaPale = 5;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesPale = 6;
+                                ViewModel.ReportesListaNumeros.PosicionTituloTripleta = 7;
+                                ViewModel.ReportesListaNumeros.PosicionTablaTripleta = 8;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesTripleta = 9;
+                            }
+                            if (NumerosQuinielas.Count == 0 && NumerosPales.Count > 0 && NumerosTripleta.Count > 0)
+                            {
+                                ViewModel.ReportesListaNumeros.PosicionTituloPale = 1;
+                                ViewModel.ReportesListaNumeros.PosicionTablaPale = 2;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesPale = 3;
+                                ViewModel.ReportesListaNumeros.PosicionTituloTripleta = 4;
+                                ViewModel.ReportesListaNumeros.PosicionTablaTripleta = 5;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesTripleta = 6;
+                            }
+                            if (NumerosQuinielas.Count == 0 && NumerosPales.Count == 0 && NumerosTripleta.Count > 0)
+                            {
+                                ViewModel.ReportesListaNumeros.PosicionTituloTripleta = 1;
+                                ViewModel.ReportesListaNumeros.PosicionTablaTripleta = 2;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesTripleta = 3;
+                            }
+                            if (NumerosQuinielas.Count > 0 && NumerosPales.Count == 0 && NumerosTripleta.Count > 0)
+                            {
+                                ViewModel.ReportesListaNumeros.PosicionTituloQuiniela = 1;
+                                ViewModel.ReportesListaNumeros.PosicionTablaQuiniela = 2;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesQuiniela = 3;
+                                ViewModel.ReportesListaNumeros.PosicionTituloTripleta = 4;
+                                ViewModel.ReportesListaNumeros.PosicionTablaTripleta = 5;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesTripleta = 6;
+                            }
+                            if (NumerosQuinielas.Count == 0 && NumerosPales.Count > 0 && NumerosTripleta.Count == 0)
+                            {
+                                ViewModel.ReportesListaNumeros.PosicionTituloPale = 1;
+                                ViewModel.ReportesListaNumeros.PosicionTablaPale = 2;
+                                ViewModel.ReportesListaNumeros.PosicionTotalesPale = 3;
+                            }
 
-                                NumeroColumn3 = NumerosQuinielas[i + 2].Numero,
-                                CantidadColumn3 = (int) NumerosQuinielas[i + 2].Cantidad
-                            };
-                            ReporteListNumeros.Quiniela.Add(objectoQuiniela);
-                            ViewModel.ReportesListaNumeros.Quiniela = ReporteListNumeros.Quiniela;
-                            
-                            continue;
+                            if (NumerosQuinielas.Count > 1)
+                            {
+                                var totalCantidadQuiniela = 0;
+                                var totalPagoQuiniela = 0;
+                                ViewModel.ReportesListaNumeros.QuinielaVisibilty = Visibility.Visible;
+
+
+                                for (int i = 0; i < NumerosQuinielas.Count; i = i + 3)
+                                {
+
+                                    if (i + 2 <= NumerosQuinielas.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoQuiniela = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosQuinielas[i].Numero,
+                                            CantidadColumn1 = NumerosQuinielas[i].Cantidad.ToString("C2"),
+
+                                            NumeroColumn2 = NumerosQuinielas[i + 1].Numero,
+                                            CantidadColumn2 = NumerosQuinielas[i + 1].Cantidad.ToString("C2"),
+
+                                            NumeroColumn3 = NumerosQuinielas[i + 2].Numero,
+                                            CantidadColumn3 = NumerosQuinielas[i + 2].Cantidad.ToString("C2")
+                                        };
+                                        ReporteListNumeros.Quiniela.Add(objectoQuiniela);
+                                        ViewModel.ReportesListaNumeros.Quiniela = ReporteListNumeros.Quiniela;
+
+                                        continue;
+                                    }
+                                    if (i + 1 <= NumerosQuinielas.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoQuiniela = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosQuinielas[i].Numero,
+                                            CantidadColumn1 = NumerosQuinielas[i].Cantidad.ToString("C2"),
+                                            NumeroColumn2 = NumerosQuinielas[i + 1].Numero,
+                                            CantidadColumn2 = NumerosQuinielas[i + 1].Cantidad.ToString("C2"),
+
+                                        };
+                                        ReporteListNumeros.Quiniela.Add(objectoQuiniela);
+                                        ViewModel.ReportesListaNumeros.Quiniela = ReporteListNumeros.Quiniela;
+                                        continue;
+                                    }
+
+                                    if (i <= NumerosQuinielas.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoQuiniela = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosQuinielas[i].Numero,
+                                            CantidadColumn1 = NumerosQuinielas[i].Cantidad.ToString("C2")
+                                        };
+                                        ReporteListNumeros.Quiniela.Add(objectoQuiniela);
+                                        ViewModel.ReportesListaNumeros.Quiniela = ReporteListNumeros.Quiniela;
+                                        continue;
+                                    }
+                                }
+                                foreach (var quiniela in NumerosQuinielas) { totalCantidadQuiniela = totalCantidadQuiniela + Convert.ToInt32(quiniela.Cantidad); totalPagoQuiniela = totalPagoQuiniela + Convert.ToInt32(quiniela.Pago); }
+                                ViewModel.ReportesListaNumeros.TotalCantidaQuiniela = string.Format(nfi, "{0:C}", totalCantidadQuiniela);
+                                ViewModel.ReportesListaNumeros.TotalPagoQuiniela = string.Format(nfi, "{0:C}", totalPagoQuiniela);
+
+                            }
+                            else if (NumerosQuinielas.Count == 1)
+                            {
+                                ViewModel.ReportesListaNumeros.QuinielaVisibilty = Visibility.Visible;
+                                ReportesListaNumerosObservable objectoQuiniela = new ReportesListaNumerosObservable()
+                                {
+                                    NumeroColumn1 = NumerosQuinielas[0].Numero,
+                                    CantidadColumn1 = NumerosQuinielas[0].Cantidad.ToString("C2")
+
+                                };
+                                ReporteListNumeros.Quiniela.Add(objectoQuiniela);
+                                ViewModel.ReportesListaNumeros.Quiniela = ReporteListNumeros.Quiniela;
+                                ViewModel.ReportesListaNumeros.TotalCantidaQuiniela = string.Format(nfi, "{0:C}", NumerosQuinielas[0].Cantidad); ;
+                                ViewModel.ReportesListaNumeros.TotalPagoQuiniela = string.Format(nfi, "{0:C}", NumerosQuinielas[0].Pago);
+
+                            }
+                            else if (NumerosQuinielas.Count == 0)
+                            {
+                                ViewModel.ReportesListaNumeros.QuinielaVisibilty = Visibility.Hidden;
+                            }
+
+                            if (NumerosPales.Count > 1)
+                            {
+                                var totalCantidadPale = 0;
+                                var totalPagoPale = 0;
+                                ViewModel.ReportesListaNumeros.PaleVisibility = Visibility.Visible;
+                                for (int i = 0; i < NumerosPales.Count; i = i + 3)
+                                {
+
+                                    if (i + 2 <= NumerosPales.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoPale = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosPales[i].Numero,
+                                            CantidadColumn1 = NumerosPales[i].Cantidad.ToString("C2"),
+                                            NumeroColumn2 = NumerosPales[i + 1].Numero,
+                                            CantidadColumn2 = NumerosPales[i + 1].Cantidad.ToString("C2"),
+                                            NumeroColumn3 = NumerosPales[i + 2].Numero,
+                                            CantidadColumn3 = NumerosPales[i + 2].Cantidad.ToString("C2")
+                                        };
+                                        ReporteListNumeros.Pale.Add(objectoPale);
+                                        ViewModel.ReportesListaNumeros.Pale = ReporteListNumeros.Pale;
+                                        continue;
+                                    }
+                                    if (i + 1 <= NumerosPales.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoPale = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosPales[i].Numero,
+                                            CantidadColumn1 = NumerosPales[i].Cantidad.ToString("C2"),
+
+                                            NumeroColumn2 = NumerosPales[i + 1].Numero,
+                                            CantidadColumn2 = NumerosPales[i + 1].Cantidad.ToString("C2"),
+
+                                        };
+                                        ReporteListNumeros.Pale.Add(objectoPale);
+                                        ViewModel.ReportesListaNumeros.Pale = ReporteListNumeros.Pale;
+                                        continue;
+                                    }
+                                    if (i <= NumerosPales.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoPale = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosPales[i].Numero,
+                                            CantidadColumn1 = NumerosPales[i].Cantidad.ToString("C2")
+                                        };
+                                        ReporteListNumeros.Pale.Add(objectoPale);
+                                        ViewModel.ReportesListaNumeros.Pale = ReporteListNumeros.Pale;
+                                        continue;
+                                    }
+                                }
+                                foreach (var pale in NumerosPales) { totalCantidadPale = totalCantidadPale + Convert.ToInt32(pale.Cantidad); totalPagoPale = totalPagoPale + Convert.ToInt32(pale.Pago); }
+
+                                ViewModel.ReportesListaNumeros.TotalCantidadPale = string.Format(nfi, "{0:C}", totalCantidadPale); ;
+                                ViewModel.ReportesListaNumeros.TotalPagoPale = string.Format(nfi, "{0:C}", totalPagoPale);
+                            }
+                            else if (NumerosPales.Count == 1)
+                            {
+                                ViewModel.ReportesListaNumeros.PaleVisibility = Visibility.Visible;
+                                ReportesListaNumerosObservable objectoPale = new ReportesListaNumerosObservable()
+                                {
+                                    NumeroColumn1 = NumerosPales[0].Numero,
+                                    CantidadColumn1 = NumerosPales[0].Cantidad.ToString("C2")
+
+                                };
+                                ReporteListNumeros.Pale.Add(objectoPale);
+                                ViewModel.ReportesListaNumeros.Pale = ReporteListNumeros.Pale;
+                                ViewModel.ReportesListaNumeros.TotalCantidadPale = string.Format(nfi, "{0:C}", NumerosPales[0].Cantidad); ;
+                                ViewModel.ReportesListaNumeros.TotalPagoPale = string.Format(nfi, "{0:C}", NumerosPales[0].Pago);
+                            }
+                            else if (NumerosPales.Count == 0)
+                            {
+                                ViewModel.ReportesListaNumeros.PaleVisibility = Visibility.Hidden;
+                            }
+                            if (NumerosTripleta.Count == 1)
+                            {
+                                ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Visible;
+                                ReportesListaNumerosObservable ObjectoTripleta = new ReportesListaNumerosObservable()
+                                {
+                                    NumeroColumn1 = NumerosTripleta[0].Numero,
+                                    CantidadColumn1 = NumerosTripleta[0].Cantidad.ToString("C2")
+                                };
+                                ReporteListNumeros.Tripleta.Add(ObjectoTripleta);
+                                ViewModel.ReportesListaNumeros.Tripleta = ReporteListNumeros.Tripleta;
+                                ViewModel.ReportesListaNumeros.TotalCantidadTripleta = string.Format(nfi, "{0:C}", NumerosTripleta[0].Cantidad); ;
+                                ViewModel.ReportesListaNumeros.TotalPagoTripleta = string.Format(nfi, "{0:C}", NumerosTripleta[0].Pago);
+                            }
+                            else if (NumerosTripleta.Count > 1)
+                            {
+                                var totalCantidadTripleta = 0;
+                                var totalPagoTripleta = 0;
+                                ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Visible;
+                                for (int i = 0; i < NumerosTripleta.Count; i = i + 3)
+                                {
+                                    if (i + 2 <= NumerosTripleta.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoTripleta = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosTripleta[i].Numero,
+                                            CantidadColumn1 = NumerosTripleta[i].Cantidad.ToString("C2"),
+                                            NumeroColumn2 = NumerosTripleta[i + 1].Numero,
+                                            CantidadColumn2 = NumerosTripleta[i + 1].Cantidad.ToString("C2"),
+                                            NumeroColumn3 = NumerosTripleta[i + 2].Numero,
+                                            CantidadColumn3 = NumerosTripleta[i + 2].Cantidad.ToString("C2")
+                                        };
+                                        ReporteListNumeros.Tripleta.Add(objectoTripleta);
+                                        ViewModel.ReportesListaNumeros.Tripleta = ReporteListNumeros.Tripleta;
+                                        continue;
+                                    }
+                                    if (i + 1 <= NumerosTripleta.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoTripleta = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosTripleta[i].Numero,
+                                            CantidadColumn1 = NumerosTripleta[i].Cantidad.ToString("C2"),
+                                            NumeroColumn2 = NumerosTripleta[i + 1].Numero,
+                                            CantidadColumn2 = NumerosTripleta[i + 1].Cantidad.ToString("C2")
+                                        };
+                                        ReporteListNumeros.Tripleta.Add(objectoTripleta);
+                                        ViewModel.ReportesListaNumeros.Tripleta = ReporteListNumeros.Tripleta;
+                                        continue;
+                                    }
+                                    if (i <= NumerosTripleta.Count - 1)
+                                    {
+                                        ReportesListaNumerosObservable objectoTripleta = new ReportesListaNumerosObservable()
+                                        {
+                                            NumeroColumn1 = NumerosTripleta[i].Numero,
+                                            CantidadColumn1 = NumerosTripleta[i].Cantidad.ToString("C2")
+                                        };
+                                        ReporteListNumeros.Tripleta.Add(objectoTripleta);
+                                        ViewModel.ReportesListaNumeros.Tripleta = ReporteListNumeros.Tripleta;
+                                        continue;
+                                    }
+                                }
+                                foreach (var tripleta in NumerosTripleta) { totalCantidadTripleta = totalCantidadTripleta + Convert.ToInt32(tripleta.Cantidad); totalPagoTripleta = totalPagoTripleta + Convert.ToInt32(tripleta.Pago); }
+
+                                ViewModel.ReportesListaNumeros.TotalCantidadTripleta = string.Format(nfi, "{0:C}", totalCantidadTripleta); ;
+                                ViewModel.ReportesListaNumeros.TotalPagoTripleta = string.Format(nfi, "{0:C}", totalPagoTripleta);
+
+                            }
+                            else if (NumerosTripleta.Count == 0)
+                            {
+                                ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
+                            }
                         }
-                        if (i + 1 <= NumerosQuinielas.Count - 1)
+                        else if(Reporte.Numeros.Count() == 0)
                         {
-                            ReportesListaNumerosObservable objectoQuiniela = new ReportesListaNumerosObservable()
-                            {
-                                NumeroColumn1 = NumerosQuinielas[i].Numero,
-                                CantidadColumn1 = (int) NumerosQuinielas[i].Cantidad,
-                                NumeroColumn2 = NumerosQuinielas[i + 1].Numero,
-                                CantidadColumn2 = (int) NumerosQuinielas[i + 1].Cantidad,
+                            MessageBox.Show("No existen numeros correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                            };
-                            ReporteListNumeros.Quiniela.Add(objectoQuiniela);
-                            ViewModel.ReportesListaNumeros.Quiniela = ReporteListNumeros.Quiniela;
-                            continue;
-                        }
-
-                        if (i <= NumerosQuinielas.Count - 1)
-                        {
-                            ReportesListaNumerosObservable objectoQuiniela = new ReportesListaNumerosObservable()
-                            {
-                                NumeroColumn1 = NumerosQuinielas[i].Numero,
-                                CantidadColumn1 = (int) NumerosQuinielas[i].Cantidad
-                            };
-                            ReporteListNumeros.Quiniela.Add(objectoQuiniela);
-                            ViewModel.ReportesListaNumeros.Quiniela = ReporteListNumeros.Quiniela;
-                            continue;
                         }
                     }
-                    foreach (var quiniela in NumerosQuinielas){totalCantidadQuiniela = totalCantidadQuiniela + Convert.ToInt32(quiniela.Cantidad); totalPagoQuiniela = totalPagoQuiniela + Convert.ToInt32(quiniela.Pago);}
-                    ViewModel.ReportesListaNumeros.TotalCantidaQuiniela = string.Format(nfi,"{0:C}",totalCantidadQuiniela);
-                    ViewModel.ReportesListaNumeros.TotalPagoQuiniela = string.Format(nfi,"{0:C}",totalPagoQuiniela);
-
-                } else  if (NumerosQuinielas.Count == 1)
-                {
-                    ViewModel.ReportesListaNumeros.QuinielaVisibilty = Visibility.Visible;
-                    ReportesListaNumerosObservable objectoQuiniela = new ReportesListaNumerosObservable()
+                    else if (Reporte.Err != null)
                     {
-                        NumeroColumn1 = NumerosQuinielas[0].Numero,
-                        CantidadColumn1 = (int) NumerosQuinielas[0].Cantidad
+                        MessageBox.Show("No existen numeros correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                        //MostrarMensajes(Reporte.Err,"MAR-Cliente","INFO");
 
-                    };
-                    ReporteListNumeros.Quiniela.Add(objectoQuiniela);
-                    ViewModel.ReportesListaNumeros.Quiniela = ReporteListNumeros.Quiniela;
-                    ViewModel.ReportesListaNumeros.TotalCantidaQuiniela = string.Format(nfi, "{0:C}", NumerosQuinielas[0].Cantidad); ;
-                    ViewModel.ReportesListaNumeros.TotalPagoQuiniela = string.Format(nfi, "{0:C}", NumerosQuinielas[0].Pago);
-                   
-                }
-                else if (NumerosQuinielas.Count == 0)
-                {
-                    ViewModel.ReportesListaNumeros.QuinielaVisibilty = Visibility.Hidden;
-                }
-
-                if (NumerosPales.Count > 1)
-                {
-                    var totalCantidadPale = 0;
-                    var totalPagoPale = 0;
-                    ViewModel.ReportesListaNumeros.PaleVisibility = Visibility.Visible;
-                    for (int i = 0; i < NumerosPales.Count; i = i + 3)
-                        {
-                      
-                        if (i + 2 <= NumerosPales.Count - 1)
-                            {
-                                ReportesListaNumerosObservable objectoPale = new ReportesListaNumerosObservable()
-                                {
-                                    NumeroColumn1 = NumerosPales[i].Numero,
-                                    CantidadColumn1 = (int) NumerosPales[i].Cantidad,
-                                    NumeroColumn2 = NumerosPales[i + 1].Numero,
-                                    CantidadColumn2 = (int) NumerosPales[i + 1].Cantidad,
-                                    NumeroColumn3 = NumerosPales[i + 2].Numero,
-                                    CantidadColumn3 = (int) NumerosPales[i + 2].Cantidad
-                                };
-                                ReporteListNumeros.Pale.Add(objectoPale);
-                                ViewModel.ReportesListaNumeros.Pale = ReporteListNumeros.Pale;
-                                continue;
-                            }
-                            if (i + 1 <= NumerosPales.Count - 1)
-                            {
-                                ReportesListaNumerosObservable objectoPale = new ReportesListaNumerosObservable()
-                                {
-                                    NumeroColumn1 = NumerosPales[i].Numero,
-                                    CantidadColumn1 = (int) NumerosPales[i].Cantidad,
-
-                                    NumeroColumn2 = NumerosPales[i + 1].Numero,
-                                    CantidadColumn2 = (int) NumerosPales[i + 1].Cantidad,
-
-                                };
-                                ReporteListNumeros.Pale.Add(objectoPale);
-                                ViewModel.ReportesListaNumeros.Pale = ReporteListNumeros.Pale;
-                                continue;
-                            }
-                            if (i <= NumerosPales.Count - 1)
-                            {
-                                ReportesListaNumerosObservable objectoPale = new ReportesListaNumerosObservable()
-                                {
-                                    NumeroColumn1 = NumerosPales[i].Numero,
-                                    CantidadColumn1 =(int) NumerosPales[i].Cantidad
-                                };
-                                ReporteListNumeros.Pale.Add(objectoPale);
-                                ViewModel.ReportesListaNumeros.Pale = ReporteListNumeros.Pale;
-                                continue;
-                            }
-                        }
-                    foreach (var pale in NumerosPales) { totalCantidadPale = totalCantidadPale + Convert.ToInt32(pale.Cantidad); totalPagoPale = totalPagoPale + Convert.ToInt32(pale.Pago); }
-
-                    ViewModel.ReportesListaNumeros.TotalCantidadPale = string.Format(nfi, "{0:C}", totalCantidadPale); ;
-                    ViewModel.ReportesListaNumeros.TotalPagoPale = string.Format(nfi, "{0:C}", totalPagoPale);
-                }
-                else if (NumerosPales.Count == 1)
-                {
-                    ViewModel.ReportesListaNumeros.PaleVisibility = Visibility.Visible;
-                    ReportesListaNumerosObservable objectoPale = new ReportesListaNumerosObservable()
-                        {
-                            NumeroColumn1 = NumerosPales[0].Numero,
-                            CantidadColumn1 =(int) NumerosPales[0].Cantidad
-
-                        };
-                        ReporteListNumeros.Pale.Add(objectoPale);
-                        ViewModel.ReportesListaNumeros.Pale = ReporteListNumeros.Pale;
-                    ViewModel.ReportesListaNumeros.TotalCantidadPale = string.Format(nfi, "{0:C}", NumerosPales[0].Cantidad); ;
-                    ViewModel.ReportesListaNumeros.TotalPagoPale = string.Format(nfi, "{0:C}", NumerosPales[0].Pago);
-                }
-                else if (NumerosPales.Count == 0)
-                {
-                    ViewModel.ReportesListaNumeros.PaleVisibility = Visibility.Hidden;
-                }
-                if (NumerosTripleta.Count == 1)
-                {
-                    ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Visible;
-                    ReportesListaNumerosObservable ObjectoTripleta = new ReportesListaNumerosObservable()
-                    {
-                        NumeroColumn1 = NumerosTripleta[0].Numero,
-                        CantidadColumn1 = (int) NumerosTripleta[0].Cantidad
-                    };
-                    ReporteListNumeros.Tripleta.Add(ObjectoTripleta);
-                    ViewModel.ReportesListaNumeros.Tripleta = ReporteListNumeros.Tripleta;
-                    ViewModel.ReportesListaNumeros.TotalCantidadTripleta = string.Format(nfi, "{0:C}", NumerosTripleta[0].Cantidad); ;
-                    ViewModel.ReportesListaNumeros.TotalPagoTripleta = string.Format(nfi, "{0:C}", NumerosTripleta[0].Pago);
-                }
-                else if(NumerosTripleta.Count > 1)
-                {
-                    var totalCantidadTripleta = 0;
-                    var totalPagoTripleta = 0;
-                    ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Visible;
-                    for (int i = 0; i < NumerosTripleta.Count; i = i + 3)
-                    {
-                        if (i + 2 <= NumerosTripleta.Count - 1)
-                        {
-                            ReportesListaNumerosObservable objectoTripleta = new ReportesListaNumerosObservable()
-                            {
-                                NumeroColumn1 = NumerosTripleta[i].Numero,
-                                CantidadColumn1 = (int) NumerosTripleta[i].Cantidad,
-                                NumeroColumn2 = NumerosTripleta[i + 1].Numero,
-                                CantidadColumn2 = (int) NumerosTripleta[i + 1].Cantidad,
-                                NumeroColumn3 = NumerosTripleta[i + 2].Numero,
-                                CantidadColumn3 =(int) NumerosTripleta[i + 2].Cantidad
-                            };
-                            ReporteListNumeros.Tripleta.Add(objectoTripleta);
-                            ViewModel.ReportesListaNumeros.Tripleta = ReporteListNumeros.Tripleta;
-                            continue;
-                        }
-                        if (i + 1 <= NumerosTripleta.Count - 1)
-                        {
-                            ReportesListaNumerosObservable objectoTripleta = new ReportesListaNumerosObservable()
-                            {
-                                NumeroColumn1 = NumerosTripleta[i].Numero,
-                                CantidadColumn1 = (int) NumerosTripleta[i].Cantidad,
-                                NumeroColumn2 = NumerosTripleta[i + 1].Numero,
-                                CantidadColumn2 = (int) NumerosTripleta[i + 1].Cantidad
-                            };
-                            ReporteListNumeros.Tripleta.Add(objectoTripleta);
-                            ViewModel.ReportesListaNumeros.Tripleta = ReporteListNumeros.Tripleta;
-                            continue;
-                        }
-                        if (i <= NumerosTripleta.Count - 1)
-                        {
-                            ReportesListaNumerosObservable objectoTripleta = new ReportesListaNumerosObservable()
-                            {
-                                NumeroColumn1 = NumerosTripleta[i].Numero,
-                                CantidadColumn1 = (int) NumerosTripleta[i].Cantidad
-                            };
-                            ReporteListNumeros.Tripleta.Add(objectoTripleta);
-                            ViewModel.ReportesListaNumeros.Tripleta = ReporteListNumeros.Tripleta;
-                            continue;
-                        }
                     }
-                    foreach (var tripleta in NumerosTripleta) { totalCantidadTripleta = totalCantidadTripleta + Convert.ToInt32(tripleta.Cantidad); totalPagoTripleta = totalPagoTripleta + Convert.ToInt32(tripleta.Pago); }
-
-                    ViewModel.ReportesListaNumeros.TotalCantidadTripleta = string.Format(nfi, "{0:C}", totalCantidadTripleta); ;
-                    ViewModel.ReportesListaNumeros.TotalPagoTripleta = string.Format(nfi, "{0:C}", totalPagoTripleta);
-                    
-                }
-                else if (NumerosTripleta.Count == 0)
-                {
-                    ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
-                }
-
                 }
                 catch (Exception e)
                 {
@@ -1175,8 +1212,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                 }
             }else if (Reporte.Err != null)
             {
+                MessageBox.Show(Reporte.Err, "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
                 //MostrarMensajes(Reporte.Err,"MAR-Cliente","INFO");
-            
+
             }
            }
 
@@ -1193,57 +1231,64 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
             if (ReporteTicket.Err == null)
             {
+                if (ReporteTicket.Tickets == null)
+                {
+                    MessageBox.Show("No existen tickets correpondientes a la fecha y loteria seleccionada.","Cliente MAR",MessageBoxButton.OK,MessageBoxImage.Information);
+                    return;
+                }
+                else if (ReporteTicket.Tickets.Count() > 0)
+                { 
                 ViewModel.RPTLitTicketVisibility = Visibility.Visible;
                 HeaderReporte(ReporteTicket.Fecha, "LISTADO DE TICKETS", NombreLoteria, null, null);
                 if (ReporteTicket.Tickets != null && ReporteTicket.Tickets.Length > 0)
                 {
                     ViewModel.CanChangeOptionListTicket = true;
-                   var opcionSeleccionada = new ReporteView().ObtenerSeleccionTicket();
-                   if (opcionSeleccionada=="Válidos") { 
-                       foreach (var ticket in ReporteTicket.Tickets.Where(ticket => ticket.Nulo==false))
-                       {
+                    var opcionSeleccionada = new ReporteView().ObtenerSeleccionTicket();
+                    if (opcionSeleccionada == "Válidos") {
+                        foreach (var ticket in ReporteTicket.Tickets.Where(ticket => ticket.Nulo == false))
+                        {
 
                             ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
                             { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = (int)ticket.Costo, Saco = string.Format(CultureInfo.InvariantCulture, "{0:0,0.0}", ticket.Pago) };
-                          objectoTicket.MostrarNulos = Visibility.Visible;
-                          ListadoTicket.Add(objectoTicket);
-                       }
-                   }
-                   if (opcionSeleccionada == "Nulos")
-                   {
-                        foreach (var ticket in ReporteTicket.Tickets.Where(ticket => ticket.Nulo == true))
-                        {
-                            ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
-                            { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = (int) ticket.Costo, Saco = "Nulo" };
                             objectoTicket.MostrarNulos = Visibility.Visible;
                             ListadoTicket.Add(objectoTicket);
                         }
-                   }
-                   if (opcionSeleccionada == "Todos" || opcionSeleccionada == null)
-                   {
+                    }
+                    if (opcionSeleccionada == "Nulos")
+                    {
+                        foreach (var ticket in ReporteTicket.Tickets.Where(ticket => ticket.Nulo == true))
+                        {
+                            ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
+                            { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = (int)ticket.Costo, Saco = "Nulo" };
+                            objectoTicket.MostrarNulos = Visibility.Visible;
+                            ListadoTicket.Add(objectoTicket);
+                        }
+                    }
+                    if (opcionSeleccionada == "Todos" || opcionSeleccionada == null)
+                    {
                         foreach (var ticket in ReporteTicket.Tickets)
                         {
                             var saco = "";
-                            if (ticket.Nulo==false) { saco = string.Format(CultureInfo.InvariantCulture, "{0:0,0.00}", ticket.Pago); };
-                            if (ticket.Nulo==true) { saco = "Nulo"; }
+                            if (ticket.Nulo == false) { saco = string.Format(CultureInfo.InvariantCulture, "{0:0,0.00}", ticket.Pago); };
+                            if (ticket.Nulo == true) { saco = "Nulo"; }
                             ReporteListaTicketsObservable objectoTicket = new ReporteListaTicketsObservable()
                             { Ticket = ticket.TicketNo, Hora = ticket.StrHora, Vendio = (int)ticket.Costo, Saco = saco };
                             objectoTicket.MostrarNulos = Visibility.Visible;
                             ListadoTicket.Add(objectoTicket);
                         }
-                   }
+                    }
 
-                   foreach (var ticket in ReporteTicket.Tickets)
-                   {
+                    foreach (var ticket in ReporteTicket.Tickets)
+                    {
                         if (ticket.Nulo == false)
                         {
                             totalVenta = totalVenta + Convert.ToInt32(ticket.Costo);
                             totalSaco = totalSaco + Convert.ToInt32(ticket.Pago);
                         }
-                   }
-                   
-                   foreach (var ticket in ReporteTicket.Tickets)
-                   {
+                    }
+
+                    foreach (var ticket in ReporteTicket.Tickets)
+                    {
                         var saco = "";
                         if (ticket.Nulo == false) { saco = string.Format(CultureInfo.InvariantCulture, "{0:0,0.0}", ticket.Pago); }
                         if (ticket.Nulo == true) { saco = "Nulo"; }
@@ -1263,7 +1308,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     var ListadoString = new List<string>() { "Titulo", "Parrado" };
 
                     //Muestra De Ticket
-                    var NombreBanca = Autenticador.BancaConfiguracion.BancaDto.BanContacto +"ID: "+Autenticador.BancaConfiguracion.BancaDto.BancaID;
+                    var NombreBanca = Autenticador.BancaConfiguracion.BancaDto.BanContacto + "ID: " + Autenticador.BancaConfiguracion.BancaDto.BancaID;
                     var Titulo = ViewModel.NombreReporte;
                     var FechaActual = ViewModel.FechaActualReport;
                     var FechaReporte = ViewModel.FechaReporte;
@@ -1291,7 +1336,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     ViewModel.TotalesListTicket.TotalVenta = "0";
                     ViewModel.TotalesListTicket.TotalSaco = "0";
                 }
-
+            }
             }
             else
             {
