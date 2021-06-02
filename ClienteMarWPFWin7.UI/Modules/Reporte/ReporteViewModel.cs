@@ -470,9 +470,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
 
         public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices,IJuegaMasService servicioJuegaMas)
         {
-            Fecha = DateTime.Now.ToString("yyyy/MM/dd");
-            FechaInicio = Convert.ToDateTime(DateTime.Now).AddDays(-7).ToString();
-            FechaFin = Convert.ToDateTime(DateTime.Now).AddDays(-1).ToString();
+            Fecha = DateTime.Now.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
+            FechaInicio = Convert.ToDateTime(DateTime.Now,CultureInfo.InvariantCulture).AddDays(-7).ToString();
+            FechaFin = Convert.ToDateTime(DateTime.Now, CultureInfo.InvariantCulture).AddDays(-1).ToString();
             SoloTotales = true;
             ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices,servicioJuegaMas);
             PrintReportes = new PrintReports(this, autenticador, reportesServices,servicioJuegaMas);
