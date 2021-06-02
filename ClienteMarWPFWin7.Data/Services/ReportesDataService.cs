@@ -22,46 +22,47 @@ namespace ClienteMarWPFWin7.Data.Services
 
         public MAR_RptSumaVta ReporteSumVentas(MAR_Session session, string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
+           
+             var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd",CultureInfo.InvariantCulture);
             return clientePuntoDeVenta.RptSumaVta(session,fecha.ToString());
         }
         public MAR_Ganadores ReportesGanadores(MAR_Session session,int Loteria ,string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             return clientePuntoDeVenta.Ganadores2(session,Loteria,fecha);
         }
 
         public MAR_RptSumaVta2 ReporteVentasPorFecha(MAR_Session session, string Desde, string Hasta)
         {
-            var f1 = Convert.ToDateTime(Desde).ToString("yyyy-MM-dd");
-            var f2 = Convert.ToDateTime(Hasta).ToString("yyyy-MM-dd");
+            var f1 = Convert.ToDateTime(Desde).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var f2 = Convert.ToDateTime(Hasta).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             return clientePuntoDeVenta.RptSumaVtaFec2(session,f1,f2);
         }
 
         public MAR_Pines ReporteListaTarjetas(MAR_Session session, string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             return clientePuntoDeVenta.ListaPines(session,fecha);
         }
 
         public MAR_VentaNumero ReporteListadoNumero(MAR_Session session, int loteria, string Fecha) {
-            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             return clientePuntoDeVenta.VentaNumero(session, loteria, fecha);
         }
         public MAR_RptVenta ReporteDeVentas(MAR_Session session, int loteria, string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             return clientePuntoDeVenta.RptVenta(session, loteria, fecha);
         }
         public MAR_Ganadores ReporteListaDeTicket(MAR_Session session, int loteria, string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             return clientePuntoDeVenta.ListaTickets(session, loteria, fecha);
         }
         public MAR_Ganadores ReporteListaPagosRemotos(MAR_Session session, string Fecha)
         {
-            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd");
+            var fecha = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
             return clientePuntoDeVenta.ListaTicketPagoRemoto(session, fecha);
         }
 

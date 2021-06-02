@@ -458,6 +458,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
         {
             get { return posiciontituloquiniela; }
             set { posiciontituloquiniela = value; NotifyPropertyChanged(nameof(PosicionTituloQuiniela)); }
+          
         }
         public int PosicionTituloPale
         {
@@ -506,23 +507,23 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
         private string _numerosColumn1;
         private string _numerosColumn2;
         private string _numerosColumn3;
-        private int _cantidadColumn1;
-        private int _cantidadColumn2;
-        private int _cantidadColumn3;
+        private string _cantidadColumn1;
+        private string _cantidadColumn2;
+        private string _cantidadColumn3;
         
 
-        public int CantidadColumn1
+        public string CantidadColumn1
         {
             get { return _cantidadColumn1; }
             set { _cantidadColumn1 = value; NotifyPropertyChanged(nameof(CantidadColumn1)); }
         }
 
-        public int CantidadColumn2
+        public string CantidadColumn2
         {
             get { return _cantidadColumn2; }
             set { _cantidadColumn2 = value; NotifyPropertyChanged(nameof(CantidadColumn2)); }
         }
-        public int CantidadColumn3
+        public string CantidadColumn3
         {
             get { return _cantidadColumn3; }
             set { _cantidadColumn3 = value; NotifyPropertyChanged(nameof(CantidadColumn3)); }
