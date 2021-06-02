@@ -30,7 +30,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             InitializeComponent();
             botonCancelar.Focus();
-            botonCancelar.BorderBrush = Brushes.Black;
+            botonCancelar.BorderBrush = Brushes.DodgerBlue;
             botonCancelar.BorderThickness = new Thickness(2, 2, 2, 2);
         }
 
@@ -60,14 +60,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             if (botonCancelar.IsFocused)
             {
-                botonConfirmar.BorderBrush = Brushes.Black;
-                botonConfirmar.BorderThickness = new Thickness(2, 2, 2, 2);
+                botonConfirmar.BorderBrush = Brushes.DodgerBlue;
+                botonConfirmar.BorderThickness = new Thickness(3, 3, 3, 3);
                 botonCancelar.BorderThickness = new Thickness(0, 0, 0, 0);
             }
             else if (botonConfirmar.IsFocused)
             {
-                botonCancelar.BorderBrush = Brushes.Black;
-                botonCancelar.BorderThickness = new Thickness(2, 2, 2, 2);
+                botonCancelar.BorderBrush = Brushes.DodgerBlue;
+                botonCancelar.BorderThickness = new Thickness(3, 3, 3, 3);
                 botonConfirmar.BorderThickness = new Thickness(0, 0, 0, 0);
 
             }
