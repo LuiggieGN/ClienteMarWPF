@@ -1,13 +1,13 @@
-﻿ 
+﻿
 using System.Windows;
-using System.Windows.Controls; 
+using System.Windows.Threading;
 using System.Windows.Input;
- 
+
 using ClienteMarWPFWin7.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.State.CuadreBuilders;
 
-using System; 
+using System;
 
 
 namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
@@ -26,8 +26,27 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             InitializeComponent();
 
             ParentWindow = parentWindow;
-            
+
             DataContext = cuadreContext;
+
+            var vm = (DataContext as CuadreViewModel);
+
+            if (vm != null)
+            {
+                vm.SetFocusOnMontoContado = () =>
+                {
+                    var timer = new DispatcherTimer();
+
+                    timer.Interval = TimeSpan.FromMilliseconds(7);
+
+                    timer.Tick += (object sender, EventArgs e) => {
+                        timer.Stop();
+                        inpMontoContado.Focus();
+                        inpMontoContado.Select(inpMontoContado?.Text?.Length ?? 0, 0);
+                    };
+                    timer.Start();
+                };
+            }
 
             inpMontoContado.Focus();
         }
@@ -73,9 +92,9 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             }
             else if (e.Key == Key.Tab)
             {
-                e.Handled = true;               
+                e.Handled = true;
                 LogicaSigueAlSiguienteInputDescendiendo();
-            } 
+            }
         }
 
         private void CuandoTeclaSube_VentanaPrincipal(object sender, KeyEventArgs e)
@@ -89,6 +108,33 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             {
                 e.Handled = true;
                 LogicaSigueAlSiguienteInputAscendiendo();
+            }
+            else if (e.Key == Key.F6)
+            {
+                e.Handled = true;
+                var vm = DataContext as CuadreViewModel;
+                if (vm != null)
+                {
+                    e.Handled = true;
+                    vm.AbrirDesgloseCommand?.Execute(new object[] { CuadreVista });
+                }
+            }
+            else if (e.Key == Key.F9)
+            {
+                e.Handled = true;
+                OnCerrarVentanaClick(sender, e);
+            }
+            else if (
+                e.Key == Key.F12 ||
+                e.Key == Key.Add
+            )
+            {
+                var vm = DataContext as CuadreViewModel;
+                if (vm != null)
+                {
+                    e.Handled = true;
+                    vm.RegistrarCuadreCommand?.Execute(CuadreVista);
+                }
             }
         }
 
@@ -175,7 +221,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
                 txtNombreCajera.Focus();
                 txtNombreCajera.Select(txtNombreCajera?.Text?.Length ?? 0, 0);
             }
-        } 
+        }
 
 
         #endregion

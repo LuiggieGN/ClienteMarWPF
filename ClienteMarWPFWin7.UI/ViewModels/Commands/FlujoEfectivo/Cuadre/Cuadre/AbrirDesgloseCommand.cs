@@ -45,8 +45,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
 
                 if (desglose.Resultado.HasValue && desglose.Resultado != 0)
                 {
-                    _viewmodel.MontoContado = desglose.Resultado.ToString(); 
+                    _viewmodel.MontoContado = desglose.Resultado.ToString();
                 }
+                _viewmodel?.SetFocusOnMontoContado?.Invoke();
+
             }
         }
 
