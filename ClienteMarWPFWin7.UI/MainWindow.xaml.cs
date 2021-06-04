@@ -140,6 +140,13 @@ namespace ClienteMarWPFWin7.UI
                     SolidColorBrush mySolidColorBrush = new SolidColorBrush();
                     mySolidColorBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(color));
                     bxMensaje.Background = mySolidColorBrush;
+                }else if (title == "Info")
+                {
+                    color = "#00cccc";
+                    time = 5000;
+                    SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+                    mySolidColorBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(color));
+                    bxMensaje.Background = mySolidColorBrush;
                 }
                 else
                 {

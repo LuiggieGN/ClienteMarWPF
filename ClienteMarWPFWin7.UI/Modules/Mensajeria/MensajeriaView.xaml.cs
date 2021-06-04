@@ -29,6 +29,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
             set { SetValue(GetMensajesCommandProperty, value); }
         }
 
+
         public MensajeriaView()
         {
             InitializeComponent();
@@ -41,6 +42,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
             if (GetMensajesCommand != null)
             {
                 GetMensajesCommand.Execute(null);
+                
             }
         }
 
