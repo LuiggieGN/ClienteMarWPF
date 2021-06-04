@@ -108,6 +108,7 @@
                         FontSize="15"
                         VerticalContentAlignment="Center" 
                         HorizontalContentAlignment="Center"
+                        TabIndex="0"        
                         />
                             <TextBox
                                 x:Name="TxtPin"
@@ -121,6 +122,7 @@
                         VerticalContentAlignment="Center" 
                         HorizontalContentAlignment="Center"
                         PreviewTextInput="NumberValidationTextBox"
+                         TabIndex="1"
                         />
                         </StackPanel>
                     </StackPanel>
@@ -139,7 +141,7 @@
                                 </StackPanel>
                             </StackPanel>
 
-                            <Button Style="{DynamicResource btn-success}" Command="{Binding PagarTicketCommand}" Foreground="White" Width="160"  Margin="5 20" >
+                            <Button IsTabStop="True" Focusable="False" Style="{DynamicResource btn-success}" Command="{Binding PagarTicketCommand}" Foreground="White" Width="160"  Margin="5 20" >
                                 <StackPanel Orientation="Horizontal" >
                                     <materialDesign:PackIcon Kind="Payment" VerticalAlignment="Center" Margin="5 0" Width="20" Height="20" />
                                     <TextBlock Text="Pagar Ticket"  VerticalAlignment="Center"/>
@@ -208,7 +210,9 @@
                         <Button x:Name="botonConsultarGanador" 
                                 Style="{DynamicResource btn-success}" 
                                 Click="ConsultarGanador"                                
-                                Foreground="White" Width="145">
+                                Foreground="White" Width="145"
+                                IsTabStop="True"
+                                Focusable="False">
 
                             <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
@@ -235,7 +239,9 @@
                                 Click="CopiarTicketInput" 
                                 Foreground="White" 
                                 Width="145"
-                                Margin="5 0">
+                                Margin="5 0"
+                                IsTabStop="True"
+                                Focusable="False">
                             <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -244,7 +250,7 @@
                                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ContentCopy" Margin="1 1 5 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
 
-                                    <TextBlock Text="Copiar F6" Foreground="White" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Copiar F6" Foreground="White" VerticalAlignment="Bottom"/>
 
                                     <controls1:SpinnerPiston x:Name="SpinnerCopiar" Background="Transparent"
                                                 HorizontalAlignment="Center"
@@ -261,7 +267,9 @@
                                  Click="ReImprimirTicket" 
                                  Foreground="White"
                                  Width="160"
-                                 Margin="5 0">
+                                 Margin="5 0"
+                                 IsTabStop="True"
+                                 Focusable="False">
                                  <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
                                      <Grid.ColumnDefinitions>
                                          <ColumnDefinition Width="*"/>
@@ -288,7 +296,9 @@
                                 Click="AnularTicket"                              
                                 Foreground="White" 
                                 Width="150"
-                                Margin="5 0">
+                                Margin="5 0"
+                                IsTabStop="True"
+                                Focusable="False">
                             <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
