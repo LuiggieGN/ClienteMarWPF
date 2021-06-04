@@ -242,15 +242,29 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                     if (TxtTicket.IsFocused)
                     {
                         TxtPin.Focus();
+                        TxtPin.Select(TxtPin?.Text?.Length??0,0);
                     }
                     break;
 
                 case Key.Left:
                     if (TxtPin.IsFocused)
                     {
+                        e.Handled = true;
                         TxtTicket.Focus();
+                        TxtTicket.Select(TxtTicket?.Text?.Length ?? 0, 0);
                     }
                     break;
+
+                case Key.Tab:
+
+                    if (TxtPin.IsFocused)
+                    {
+                        e.Handled = true;
+                        TxtTicket.Focus();
+                        TxtTicket.Select(TxtTicket?.Text?.Length ?? 0, 0);
+                    }
+                    break;
+
 
             }
 
@@ -323,7 +337,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                     Task.Factory.StartNew(() =>
                     {
                         consultarGanadorThreadIsBusy = true;
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(777);
                         System.Windows.Application.Current.Dispatcher.BeginInvoke(
                         DispatcherPriority.Background,
                         new Action(() =>
@@ -436,7 +450,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                     Task.Factory.StartNew(() =>
                     {
                         reImprimirTicketThreadIsBusy = true;
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(777);
                         System.Windows.Application.Current.Dispatcher.BeginInvoke(
                         DispatcherPriority.Background,
                         new Action(() =>
@@ -510,7 +524,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                     Task.Factory.StartNew(() =>
                     {
                         anularThreadIsBusy = true;
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(777);
                         System.Windows.Application.Current.Dispatcher.BeginInvoke(
                         DispatcherPriority.Background,
                         new Action(() =>
