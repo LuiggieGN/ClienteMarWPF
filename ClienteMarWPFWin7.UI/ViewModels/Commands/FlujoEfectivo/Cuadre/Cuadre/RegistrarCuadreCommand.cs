@@ -62,8 +62,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
                      //_cajaOrigenBalanceActual = _viewmodel.CuadreBuilder.LeerCajaBalance(_viewmodel.AutService.BancaConfiguracion.CajaEfectivoDto.CajaID); // Este codigo fue removido porque el balance de la banca equivale al monto contado
 
 
-                        _cajaOrigenBalanceActual = _montoContado;                  
-                    
+                        _cajaOrigenBalanceActual = _montoContado;
+
                     }
                     else
                     {// Caja Origen es la del --GESTOR
@@ -110,9 +110,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
 
             string secretToken = _viewmodel.GestorStored.GestorSesion.Gestor.TercerDTO.InlineTokens[indiceToken];
 
+            string pinGeneral = _viewmodel.AutService?.BancaConfiguracion?.ControlEfectivoConfigDto?.PinGeneral?.Trim() ?? string.Empty;
+
             _viewmodel.Dialog = new DialogoTokenViewModel(
                 $"{tokenPosicion}",
                 secretToken,
+                pinGeneral,
                 new ActionCommand((object p) => _viewmodel.Dialog.Ocultar()), // cuando se presiona ( Cancelar )
                 new ActionCommand((object p) =>
                 {
@@ -127,21 +130,46 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
                     {
                         _viewmodel.Dialog.ErrMensaje = string.Empty;
 
-                        if (secretToken != token)
-                        {
-                            _viewmodel.Dialog.ErrMensaje = "* Token Inválido.";
-                            pass.Clear();
-                            pass.Focus();
-                            return;
+
+                        if (pinGeneral == null || pinGeneral == string.Empty || pinGeneral.Equals("NONE", StringComparison.OrdinalIgnoreCase))
+                        {//Logica Cuando No Hay Un Token General
+
+                            if (secretToken != token)
+                            {
+                                _viewmodel.Dialog.ErrMensaje = "* Token Inválido.";
+                                pass.Clear();
+                                pass.Focus();
+                                return;
+                            }
+                            else
+                            {
+                                _viewmodel.Dialog.ErrMensaje = string.Empty;
+                                pass.Clear();
+                                _viewmodel.Dialog.Ocultar();
+                                CuadrarTerminal();
+                            }
+
                         }
                         else
-                        {
-                            _viewmodel.Dialog.ErrMensaje = string.Empty;
-                            pass.Clear();
-                            _viewmodel.Dialog.Ocultar();
-                            CuadrarTerminal();
+                        {//Logica Cuando Se Especifica Un Token General
+
+                            if (secretToken == token || pinGeneral == token )
+                            {
+                                _viewmodel.Dialog.ErrMensaje = string.Empty;
+                                pass.Clear();
+                                _viewmodel.Dialog.Ocultar();
+                                CuadrarTerminal();
+                            }
+                            else
+                            {
+                                _viewmodel.Dialog.ErrMensaje = "* Token Inválido.";
+                                pass.Clear();
+                                pass.Focus();
+                                return;
+                            }
                         }
-                    }
+
+                    }//fin if token != string.Empty
 
                 }) // cuando se presiona ( Aceptar )
             );
@@ -198,7 +226,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
         }
         private void ValidarSubmit()
         {
-            ResetErrors();            
+            ResetErrors();
 
             if (InputHelper.InputIsBlank(_viewmodel.MontoDepositoORetiro))
             {
@@ -237,7 +265,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
 
 
 
-        private void SetMontoContado() 
+        private void SetMontoContado()
         {
             if (InputHelper.InputIsBlank(_viewmodel.MontoContado))
             {

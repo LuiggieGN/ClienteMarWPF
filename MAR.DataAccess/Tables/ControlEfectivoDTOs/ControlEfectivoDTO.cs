@@ -12,5 +12,8 @@ namespace MAR.DataAccess.Tables.ControlEfectivoDTOs
                                                            ///   True  => Si puede |Control Efectivo|
         public bool BancaYaInicioControlEfectivo { get; set; } /// = False => No ha iniciado flujo efectivo  
                                                                ///   True  =>  Ha iniciado flujo efectivo
+        public string PinGeneral { get; set; }                 /// Pin General
+
+
     }
 }

@@ -9,8 +9,6 @@ namespace ClienteMarWPFWin7.Domain.Models.Dtos
         public BancaDTO BancaDto {  get; set; }
         public CajaDTO CajaEfectivoDto { get; set; }
         public ControlEfectivoDTO ControlEfectivoConfigDto { get; set; }
-
-
     }
 
 
@@ -20,7 +18,7 @@ namespace ClienteMarWPFWin7.Domain.Models.Dtos
                                                            ///   True  => Si puede |Control Efectivo|
         public bool BancaYaInicioControlEfectivo { get; set; } /// = False => No ha iniciado flujo efectivo  
                                                                ///   True  =>  Ha iniciado flujo efectivo
-
+        public string PinGeneral { get; set; }                 /// Pin General
     }
 
     public class PermisosDTO

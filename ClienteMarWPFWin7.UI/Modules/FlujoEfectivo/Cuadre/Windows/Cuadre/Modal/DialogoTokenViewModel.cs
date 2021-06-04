@@ -14,6 +14,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
         private bool _muestro;
         private string _posicion;
         private string _token;
+        private string _pinGeneral;
         #endregion
 
         #region Properties
@@ -30,6 +31,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
         }
         public string Posicion => _posicion;
         public string Token => _token;
+        public string PinGeneral => _pinGeneral;
         #endregion
 
         #region ErrMensaje
@@ -45,7 +47,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
         public ICommand CancelarCommand { get; }
         #endregion
 
-        public DialogoTokenViewModel(string posicion, string token, ActionCommand cancelar, ActionCommand aceptar)
+        public DialogoTokenViewModel(string posicion, string token, string pinGeneral, ActionCommand cancelar, ActionCommand aceptar)
         {
             Error = new MessageViewModel();
            
@@ -53,9 +55,9 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
             
             AceptarCommand = aceptar;
 
-            _posicion = posicion;
-            
+            _posicion = posicion;            
             _token = token;
+            _pinGeneral = pinGeneral;
         }
 
 
