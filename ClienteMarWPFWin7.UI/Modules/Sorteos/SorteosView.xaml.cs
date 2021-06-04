@@ -813,75 +813,40 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }
                     break;
 
-                //case Key.Left:
-                //    Console.WriteLine(listSorteo.SelectedItems.ToString());
-                //    Console.WriteLine(listSorteo.ItemContainerGenerator.IndexFromContainer(listSorteoItem));
-
-                //    var indiceAlmacenado = listSorteo.SelectedIndex;
-
-                //    Console.WriteLine(listSorteo.SelectedIndex);
-
-
-                //    if (listSorteo.SelectedIndex)
-                //    {
-
-                //    }
-                //    break;
-
                 case Key.Left:
 
                     if (SorteoItemFocused == true)
                     {
                         indice1 = listSorteo.SelectedIndex;
 
-                        //Timer que corre cada x segundos
-                        Timer2 = new DispatcherTimer();
-                        Timer2.Tick += new EventHandler(EjecutandoTimer);
-                        Timer2.Interval = TimeSpan.FromSeconds(1);
-                        Timer2.Start();
-                        Timer2.Stop();
-
-                        //Timer que corre cada x segundos
-                        if(Timer2.IsEnabled == false)
+                        if (contador == 0 && indice1 != indice2)
                         {
-                            Timer2 = new DispatcherTimer();
-                            Timer2.Tick += new EventHandler(EjecutandoTimer2);
-                            Timer2.Interval = TimeSpan.FromSeconds(3);
-                            Timer2.Start();
+                            contador = 1;
+                            return;
                         }
 
-                        if (contador > 1)
+                        if (contador > 0)
                         {
-                            if (indice1 == indice2)
-                            {
-                                e.Handled = true;
-                                txtJugada.Focus();
-                                listSorteo.SelectedIndex = -1;
-                                e.Handled = false;
-                                listSorteo.Items.Refresh();
-                                //SeleccionarJugada(sender, e);
-                                TriggerButtonClickEvent(btnSeleccionaJugada);
-                                return;
-                            }
+                            contador = 2;
+                            indice2 = listSorteo.SelectedIndex;
+                        }
+
+                        if (contador > 1 && indice1 == indice2)
+                        {
+                            e.Handled = true;
+                            txtJugada.Focus();
+                            listSorteo.SelectedIndex = -1;
+                            e.Handled = false;
+                            listSorteo.Items.Refresh();
+                            TriggerButtonClickEvent(btnSeleccionaJugada);
+                            contador = 0;
                         }
                     }
                     break;
-
             }
         }
 
-        private void EjecutandoTimer(object sender, EventArgs e)
-        {
-            contador = 1;
-            indice1 = listSorteo.SelectedIndex;
-        }
-
-        private void EjecutandoTimer2(object sender, EventArgs e)
-        {
-            contador = 2;
-            indice2 = listSorteo.SelectedIndex;
-        }
-
+ 
         private void PressTecla(object sender, KeyEventArgs e)
         {
             var strToday = DateTime.Now.ToString("yyyyMMddHHmmss", CultureInfo.InvariantCulture);
@@ -1549,11 +1514,47 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     {
                         foreach (var sorteo in ListSorteosVender)
                         {
-                            if (item.TipoJugada != "  Pale")
+                            var quiniela = ListJugadas.Find(x => x.TipoJugada.Contains("  Quiniela"));
+                            var tripleta = ListJugadas.Find(x => x.TipoJugada.Contains("  Tripleta"));
+                            var sorteosSeleccionados = sorteo.Sorteo.Tipo.Contains("S");
+
+                            if ((quiniela != null || tripleta != null) && sorteosSeleccionados)
                             {
-                                if (sorteo.SorteoNombre.Contains("SP"))
+                                ventaThreadIsBusy = false;
+                                Spinner.Visibility = Visibility.Collapsed;
+
+                                if (MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                                 {
-                                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
+
+                                    ventaThreadIsBusy = true;
+                                    Spinner.Visibility = Visibility.Visible;
+
+                                    if (tripleta != null)
+                                    {
+                                        ListJugadas.Remove(tripleta);
+                                    }
+
+                                    if (quiniela != null)
+                                    {
+                                        ListJugadas.Remove(quiniela);
+                                    }
+
+                                    if (tripleta != null && quiniela != null)
+                                    {
+                                        ListJugadas.Remove(tripleta);
+                                        ListJugadas.Remove(quiniela);
+
+                                    }
+
+                                    ltJugada.Items.Refresh();
+                                    RefreshListJugadas();
+                                    RealizarVenta();
+                                    ResetearFormularioVenta();
+                                }
+                                else
+                                {
+                                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale.", "Aviso");
+                                    return;
                                 }
 
                             }
@@ -1570,85 +1571,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     RealizarVenta();
                     ResetearFormularioVenta();
                 }
-
-                //if (CrearSuper.IsChecked == true)
-                //{
-
-                //    foreach (var item in ListJugadas)
-                //    {
-                //        foreach (var sorteo in ListSorteosVender)
-                //        {
-
-                //            if (item.TipoJugada == "  Pale" || item.TipoJugada == "Pale")
-                //            {
-                //                RealizarVenta();
-                //                ResetearFormularioVenta();
-                //            }
-                //            else
-                //            {
-                //                if (sorteo.SorteoNombre.Contains("SP"))
-                //                {
-                //                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
-
-                //                }
-
-                //            }
-
-                //            //if (item.TipoJugada == "  Pale" || item.TipoJugada == "Pale")
-                //            //{
-                //            for (var i = 0; i < ListJugadas.Count; i++)
-                //            {
-                //                if (ListJugadas[i].TipoJugada == "  Quiniela" || ListJugadas[i].TipoJugada == "  Tripleta")
-                //                {
-                //                    ventaThreadIsBusy = false;
-                //                    Spinner.Visibility = Visibility.Collapsed;
-
-                //                    if (MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                //                    {
-
-                //                        ventaThreadIsBusy = true;
-                //                        Spinner.Visibility = Visibility.Visible;
-
-                //                        ListJugadas.RemoveAt(i);
-                //                        ltJugada.Items.Refresh();
-                //                        RefreshListJugadas();
-                //                        RealizarVenta();
-                //                        ResetearFormularioVenta();
-                //                    }
-                //                    else
-                //                    {
-                //                        return;
-                //                    }
-
-                //                }
-                //                else
-                //                {
-                //                    RealizarVenta();
-                //                    ResetearFormularioVenta();
-                //                }
-                //            }
-
-                //            //}
-                //            //else
-                //            //{
-                //            //    if (sorteo.SorteoNombre.Contains("SP"))
-                //            //    {
-                //            //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No fue posible realizar la jugada, deben ser de tipo pale.", "Aviso");
-                //            //        //MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-                //            //    }
-
-                //            //}
-                //        }
-                //    }
-
-
-
-                //}
-                //else
-                //{
-                //    RealizarVenta();
-                //    ResetearFormularioVenta();
-                //}
 
             }
         }

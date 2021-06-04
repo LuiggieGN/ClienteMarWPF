@@ -267,6 +267,10 @@ namespace ClienteMarWPFWin7.UI.Views.WindowsModals
                 this.Close();
                 
             }
+            else if(e.Key == Key.Escape)
+            {
+                this.Close();
+            }
 
             
         }
