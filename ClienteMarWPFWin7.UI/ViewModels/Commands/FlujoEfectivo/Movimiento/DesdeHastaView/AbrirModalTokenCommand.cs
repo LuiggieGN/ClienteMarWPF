@@ -46,7 +46,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
                     {
                         _cajaOrigenBalanceActual = _cajaService.LeerCajaBalance(_viewmodel.Aut.BancaConfiguracion.CajaEfectivoDto.CajaID);  // @@@ Caja Origen >>Banca
                     }
-                    
+
                     ValidarSubmit();
 
                     if (_viewmodel.CanCreate)
@@ -66,7 +66,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
             }
         }
 
-        private void DesplegarVentanaDeToken() 
+        private void DesplegarVentanaDeToken()
         {
             Random random = new Random();
 
@@ -78,11 +78,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
 
             string secretToken = _viewmodel.Gestor.TercerDTO.InlineTokens[indiceToken];
 
+            string pinGeneral = _viewmodel.Aut?.BancaConfiguracion?.ControlEfectivoConfigDto?.PinGeneral?.Trim() ?? string.Empty;
+
             _viewmodel.MovimientoVm.Dialog = new DialogoTokenViewModel(
                 $"{tokenPosicion}",
                 secretToken,
-                new ActionCommand((object p) => {
-                    
+                pinGeneral,
+                new ActionCommand((object p) =>
+                {
                     _viewmodel.MovimientoVm.Dialog.Ocultar();
                     _viewmodel.FocusAlFallar?.Invoke();
                 }),

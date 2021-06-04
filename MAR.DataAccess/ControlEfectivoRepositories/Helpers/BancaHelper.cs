@@ -60,7 +60,9 @@
                (
                  select top 1 CajaID from flujo.Caja where BancaID = @bancaid and TipoCajaID = 1
                )
-             ),0)) As BancaYaInicioControlEfectivo;
+             ),0)) As BancaYaInicioControlEfectivo,
+
+            (select top 1 isnull(( select top 1 ConfigValue from flujo.ConfiguracionGeneral where ConfigKey= 'PIN_GENERAL'), 'NONE')) as PinGeneral;
         ";
 
 

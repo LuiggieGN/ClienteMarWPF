@@ -174,16 +174,39 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Movimiento.Desd
         {
             bool validacion = false;
 
-            if (_viewmodel.MovimientoVm.Dialog.Token != token)
-            {
-                validacion = false;
-                _viewmodel.MovimientoVm.Dialog.ErrMensaje = "* Token Inválido.";
+            if ( 
+                 _viewmodel.MovimientoVm.Dialog.PinGeneral == null||
+                 _viewmodel.MovimientoVm.Dialog.PinGeneral == string.Empty||
+                 _viewmodel.MovimientoVm.Dialog.PinGeneral.Equals("NONE", StringComparison.OrdinalIgnoreCase)
+                )
+            {//Logica Cuando No Hay Un Token General
+
+                if (_viewmodel.MovimientoVm.Dialog.Token != token)
+                {
+                    validacion = false;
+                    _viewmodel.MovimientoVm.Dialog.ErrMensaje = "* Token Inválido.";
+                }
+                else
+                {
+                    validacion = true;
+                    _viewmodel.MovimientoVm.Dialog.ErrMensaje = string.Empty;
+                }
             }
             else
-            {
-                validacion = true;
-                _viewmodel.MovimientoVm.Dialog.ErrMensaje = string.Empty;
+            {//Logica Cuando Se Especifica Un Token General
+
+                if (_viewmodel.MovimientoVm.Dialog.Token == token || _viewmodel.MovimientoVm.Dialog.PinGeneral == token)
+                {
+                    validacion = true;
+                    _viewmodel.MovimientoVm.Dialog.ErrMensaje = string.Empty;
+                }
+                else
+                {
+                    validacion = false;
+                    _viewmodel.MovimientoVm.Dialog.ErrMensaje = "* Token Inválido.";
+                }
             }
+
             return validacion;
         }
 
