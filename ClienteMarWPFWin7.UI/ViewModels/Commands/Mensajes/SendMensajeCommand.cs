@@ -4,6 +4,7 @@ using ClienteMarWPFWin7.UI.State.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 {
@@ -27,7 +28,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
         {
             try
             {
-                MensajesService.SendMessage(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Mensaje);
+                if (ViewModel.Mensaje != null)
+                {
+                    MensajesService.SendMessage(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Mensaje);
+                    ViewModel.Mensaje = null;
+                    (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Mensaje enviado correctamente.", "Excelente");
+                }
+                else
+                {
+                    (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Lo sentimos, no se puede enviar un mensaje vacio.", "Info");
+                }
+                
             }
             catch (Exception)
             {
