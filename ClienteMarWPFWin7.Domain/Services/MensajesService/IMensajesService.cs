@@ -7,8 +7,9 @@ namespace ClienteMarWPFWin7.Domain.Services.MensajesService
 {
     public interface IMensajesService
     {
-       int SendMessage(MAR_Session session, string mensajes);
-       MAR_Mensajes GetMessages(MAR_Session session);
+        int SendMessage(MAR_Session session, string mensajes);
+        MAR_Mensajes2 GetMessages(MAR_Session session);
 
+        MAR_Mensajes GetMessagesNotificacion(MAR_Session session);
     }
 }

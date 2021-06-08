@@ -24,15 +24,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
             Action<object> comando = new Action<object>(GetMensajes);
             base.SetAction(comando);
 
-            if (Timer != null)
-            {
-                Timer.Stop();
-            }
-            //Timer que corre cada x segundos
-            Timer = new DispatcherTimer();
-            Timer.Tick += new EventHandler(ObtenerMensajes);
-            Timer.Interval = TimeSpan.FromSeconds(5);
-            Timer.Start();
+            //if (Timer != null)
+            //{
+            //    Timer.Stop();
+            //}
+            ////Timer que corre cada x segundos
+            //Timer = new DispatcherTimer();
+            //Timer.Tick += new EventHandler(ObtenerMensajes);
+            //Timer.Interval = TimeSpan.FromSeconds(5);
+            //Timer.Start();
         }
 
         private void GetMensajes(object parametro)
@@ -46,16 +46,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
                 {
                     foreach (var item in mensajes)
                     {
+                        
                         ViewModel.Mensajes.Add(item);
 
+
                     }
 
-                    for (var i = 0; i < mensajes.Length; i++)
-                    {
-                        cantidad = $"Tienes {i + 1} nuevos mensajes.";
-                    }
+                    //for (var i = 0; i < mensajes.Length; i++)
+                    //{
+                    //    cantidad = $"Tienes {i + 1} nuevos mensajes.";
+                    //}
 
-                    (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(cantidad, "Info");
+                    //(Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(cantidad, "Info");
                 }
                 else
                 {
@@ -70,11 +72,46 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 
         }
 
-        public void ObtenerMensajes(object sender, EventArgs e)
-        {
-            GetMensajes(sender);
+        //public void ObtenerMensajes(object sender, EventArgs e)
+        //{
+        //    GetMensajes(sender);
             
-        }
+        //}
+
+
+        //public void Notificacion(object parametro)
+        //{
+        //    var cantidad = "";
+
+        //    try
+        //    {
+        //        var mensajes = MensajesService.GetMessagesNotificacion(Autenticador.CurrentAccount.MAR_Setting2.Sesion).msj;
+        //        if (mensajes != null)
+        //        {
+        //            foreach (var item in mensajes)
+        //            {
+        //                ViewModel.Mensajes2.Add(item);
+
+        //            }
+
+        //            for (var i = 0; i < mensajes.Length; i++)
+        //            {
+        //                cantidad = $"Tienes {i + 1} nuevos mensajes.";
+        //            }
+
+        //            (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(cantidad, "Info");
+        //        }
+        //        else
+        //        {
+        //            return;
+        //        }
+
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //    }
+        //}
 
     }
 }
