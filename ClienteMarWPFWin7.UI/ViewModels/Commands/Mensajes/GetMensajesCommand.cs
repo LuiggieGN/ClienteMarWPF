@@ -57,6 +57,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 
                     (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(cantidad, "Info");
                 }
+                else
+                {
+                    return;
+                }
 
             }
             catch (Exception)
