@@ -12,8 +12,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
     {
         public ICommand SendMensajeCommand { get; }
         public ICommand GetMensajesCommand { get; }
-        public ObservableCollection<MAR_Mensaje> Mensajes = new ObservableCollection<MAR_Mensaje>();
-
+        public ObservableCollection<MAR_Mensaje2> Mensajes = new ObservableCollection<MAR_Mensaje2>();
+        //public ObservableCollection<MAR_Mensaje> Mensajes2 = new ObservableCollection<MAR_Mensaje>();
         public MensajeriaViewModel(IAuthenticator autenticador, IMensajesService mensajesService)
         {
             SendMensajeCommand = new SendMensajeCommand(this, autenticador, mensajesService);
@@ -23,7 +23,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
 
         }
 
-        public ObservableCollection<MAR_Mensaje> MensajeriaBinding { 
+        public ObservableCollection<MAR_Mensaje2> MensajeriaBinding { 
         get { return Mensajes; }
         }
 

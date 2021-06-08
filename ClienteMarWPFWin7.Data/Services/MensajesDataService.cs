@@ -21,10 +21,16 @@ namespace ClienteMarWPFWin7.Data.Services
             return clientePuntoDeVenta.PlaceMensaje(session, mensajes);
         }
 
-        public MAR_Mensajes GetMessages(MAR_Session session)
+        public MAR_Mensajes2 GetMessages(MAR_Session session)
         {
-            var msj =  clientePuntoDeVenta.GetMensaje(session);
+            var msj = clientePuntoDeVenta.GetMensaje2(session, false, 0, true);
            // var msj2 =  clientePuntoDeVenta.GetMensaje2(session, true, session.Banca, true);
+            return msj;
+        }
+
+        public MAR_Mensajes GetMessagesNotificacion(MAR_Session sesion)
+        {
+            var msj = clientePuntoDeVenta.GetMensaje(sesion);
             return msj;
         }
 
