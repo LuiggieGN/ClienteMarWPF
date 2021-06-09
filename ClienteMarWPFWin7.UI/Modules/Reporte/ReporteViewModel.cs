@@ -34,18 +34,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
         #region "Campos"
         public List<MAR_Loteria2> _sorteos;
         //###########################################################
-        private string _fecha;
+        private DateTime _fecha;
         private string _reporte;
         private int _loteriaID;
         private string _nombrereporte;
         private string _nombrebanca;
-        private string _fechareporte;
+        private DateTime _fechareporte;
         private string _fechaActualReport;
         private string _totalVendidoListaTarjeta;
         private int _reporteID;
+        private string fechaReporteLabel;
         // Reportes Ventas Por Fecha
-        private string _fechainicio;
-        private string _fechaFin;
+        private DateTime _fechainicio;
+        private DateTime _fechaFin;
         private string _labeldesde;
         private string _labelhasta;
         private bool _soloTotales;
@@ -97,7 +98,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
         #region "Propiedades"
         //###########################################################
 
-        public string Fecha
+        public DateTime Fecha
         {
             get
             {
@@ -116,18 +117,22 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             set { _repoteSumFech = value; NotifyPropertyChanged(nameof(FechaInicio)); }
         }
 
-        public string FechaInicio
+        public DateTime FechaInicio
         {
             get { return _fechainicio; }
             set { _fechainicio = value; NotifyPropertyChanged(nameof(FechaInicio)); }
         }
 
-        public string FechaFin
+        public DateTime FechaFin
         {
             get { return _fechaFin; }
             set { _fechaFin = value; NotifyPropertyChanged(nameof(FechaFin)); }
         }
-
+        public string FechaReporteLabel
+        {
+            get { return fechaReporteLabel; }
+            set { fechaReporteLabel = value; NotifyPropertyChanged(nameof(FechaReporteLabel)); }
+        }
        
 
         public string TotalVentaListTarjeta
@@ -391,7 +396,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             set { _nombrebanca = value; NotifyPropertyChanged(nameof(NombreBanca)); }
         }
 
-        public string FechaReporte
+        public DateTime FechaReporte
         {
             get { return _fechareporte; }
             set { _fechareporte = value; NotifyPropertyChanged(nameof(FechaReporte)); }
@@ -470,9 +475,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
 
         public ReporteViewModel(IAuthenticator autenticador, IReportesServices reportesServices,IJuegaMasService servicioJuegaMas)
         {
-            Fecha = DateTime.Now.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
-            FechaInicio = Convert.ToDateTime(DateTime.Now,CultureInfo.InvariantCulture).AddDays(-7).ToString();
-            FechaFin = Convert.ToDateTime(DateTime.Now, CultureInfo.InvariantCulture).AddDays(-1).ToString();
+            Fecha = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"), CultureInfo.InvariantCulture);
+            FechaInicio = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"), CultureInfo.InvariantCulture).AddDays(-7);
+            FechaFin = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"), CultureInfo.InvariantCulture).AddDays(-1);
             SoloTotales = true;
             ObtenerReportes = new GetReportesCommand(this, autenticador, reportesServices,servicioJuegaMas);
             PrintReportes = new PrintReports(this, autenticador, reportesServices,servicioJuegaMas);

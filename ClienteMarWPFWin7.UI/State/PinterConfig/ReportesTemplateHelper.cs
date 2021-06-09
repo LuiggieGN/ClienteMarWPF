@@ -535,15 +535,15 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                             {
                                 if (ticket.Nulo == false)
                                 {
-                                    WriteTextColumn(g, new List<string> { ticket.TicketNo, ticket.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", ticket.Costo), string.Format(CultureInfo.InvariantCulture, "{0:0,0}", ticket.Pago) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                    WriteTextColumn(g, new List<string> { ticket.TicketNo, ticket.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", ticket.Costo.ToString("C2")), string.Format(CultureInfo.InvariantCulture, "{0:0,0}", ticket.Pago.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                                 }
                                 else
                                 {
-                                    WriteTextColumn(g, new List<string> { ticket.TicketNo, ticket.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", ticket.Costo), "NULO" }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                    WriteTextColumn(g, new List<string> { ticket.TicketNo, ticket.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", ticket.Costo.ToString("C2")), "NULO" }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                                 }
                             }
                             WriteLineFinas(g);
-                            WriteTextColumn(g, new List<string> { "Venta: " + string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalCosto), "Saco: " + string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalPago), "Validos: " + totalValidor, "Nulos: " + totalNulos }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
+                            WriteTextColumn(g, new List<string> { "Venta: " + string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalCosto.ToString("C2")), "Saco: " + string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalPago.ToString("C2")), "Validos: " + totalValidor, "Nulos: " + totalNulos }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
                             WriteTextColumn(g, new List<string> { ".", "", "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         }
@@ -711,10 +711,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             foreach (var pagados in TicketPagados)
                             {
-                                WriteTextColumn(g, new List<string> { pagados.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pagados.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pagados.StrHora.ToString(), string.Format(CultureInfo.InvariantCulture, "{0:0,0}", pagados.Items.Sum(x => x.Pago)) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter); ;
+                                WriteTextColumn(g, new List<string> { pagados.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pagados.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pagados.StrHora.ToString(), string.Format(CultureInfo.InvariantCulture, "{0:0,0}", pagados.Items.Sum(x => x.Pago).ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter); ;
                             }
                             WriteLineFinas(g);
-                            WriteTextColumn(g, new List<string> { "Total:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalDeTicketPagados) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                            WriteTextColumn(g, new List<string> { "Total:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalDeTicketPagados.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         }
                         if (TicketPendientePagos.Count() > 0)
@@ -723,10 +723,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             foreach (var pendientesPagos in TicketPendientePagos)
                             {
-                                WriteTextColumn(g, new List<string> { pendientesPagos.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pendientesPagos.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pendientesPagos.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", pendientesPagos.Items.Sum(x => x.Pago)) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { pendientesPagos.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pendientesPagos.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pendientesPagos.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", pendientesPagos.Items.Sum(x => x.Pago).ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             }
                             WriteLineFinas(g);
-                            WriteTextColumn(g, new List<string> { "Total:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalDeTicketPendientePagos) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                            WriteTextColumn(g, new List<string> { "Total:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalDeTicketPendientePagos.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         }
                         if (TicketSinReclamar.Count() > 0)
@@ -735,14 +735,14 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             foreach (var sinReclamar in TicketSinReclamar)
                             {
-                                WriteTextColumn(g, new List<string> { sinReclamar.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(sinReclamar.StrFecha), FechaHelper.FormatoEnum.FechaCorta), sinReclamar.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", sinReclamar.Pago) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { sinReclamar.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(sinReclamar.StrFecha), FechaHelper.FormatoEnum.FechaCorta), sinReclamar.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", sinReclamar.Pago.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             }
                             WriteLineFinas(g);
-                            WriteTextColumn(g, new List<string> { "Total:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalDeTicketSinReclamar) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                            WriteTextColumn(g, new List<string> { "Total:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalDeTicketSinReclamar.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         }
                         WriteLine(g);
-                        WriteTextColumn(g, new List<string> { "T.General:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", Valor.Tickets.Sum(x => x.Pago)) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteTextColumn(g, new List<string> { "T.General:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", Valor.Tickets.Sum(x => x.Pago).ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "." }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         break;

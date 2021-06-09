@@ -14,8 +14,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte.Modal
         #region Fields
         private bool _muestro;
         private bool _soloTotales;
-        private string _fechainicio;
-        private string _fechaFin;
+        private DateTime _fechainicio;
+        private DateTime _fechaFin;
 
         #endregion
 
@@ -47,20 +47,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte.Modal
             
             AceptarCommand = aceptar;
 
-            FechaInicio = Convert.ToDateTime(DateTime.Now).AddDays(-7).ToString();
-            FechaFin = Convert.ToDateTime(DateTime.Now).ToString();
+            FechaInicio = Convert.ToDateTime(DateTime.Now).AddDays(-7);
+            FechaFin = Convert.ToDateTime(DateTime.Now);
             SoloTotales = true;
 
 
         }
 
-        public string FechaInicio
+        public DateTime FechaInicio
         {
             get { return _fechainicio; }
             set { _fechainicio = value; NotifyPropertyChanged(nameof(FechaInicio)); }
         }
 
-        public string FechaFin
+        public DateTime FechaFin
         {
             get { return _fechaFin; }
             set { _fechaFin = value; NotifyPropertyChanged(nameof(FechaFin)); }

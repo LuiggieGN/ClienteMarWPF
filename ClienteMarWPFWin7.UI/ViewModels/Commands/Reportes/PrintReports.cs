@@ -126,7 +126,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
         private void PrintVentasFecha(object parametro)
         {
             MAR_RptSumaVta2 ventasfechaprint = new MAR_RptSumaVta2() { };
-            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, FechaInicio.ToString(), FechaFin.ToString());
+            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, FechaInicio, FechaFin);
             List<string[]> ImprimirSumVentaFecha = new List<string[]>() { };
             if (ViewModel.SoloTotales==true)
             {
