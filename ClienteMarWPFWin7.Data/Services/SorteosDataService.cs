@@ -42,7 +42,8 @@ namespace ClienteMarWPFWin7.Data.Services
             try
             {
 
-                return clientePuntoDeVenta.PlaceMultiBet(session, Apuestas);
+                var response = clientePuntoDeVenta.PlaceMultiBet(session, Apuestas);
+                return response;
 
             }
             catch (Exception)
