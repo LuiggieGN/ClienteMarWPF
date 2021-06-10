@@ -8,7 +8,7 @@ using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.State.CuadreBuilders;
 
 using System;
-
+using System.Text.RegularExpressions;
 
 namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
 {
@@ -17,6 +17,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
         public Window ParentWindow;
         private IAuthenticator _aut;
         private ICuadreBuilder _builder;
+        private Regex _patronSoloTextoEsValido = new Regex("^[a-zA-Z]+$");
 
         public CuadreView(Window parentWindow, object cuadreContext, IAuthenticator aut, ICuadreBuilder cuadreBuilder)
         {
@@ -77,6 +78,14 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             catch { }
         }
 
+
+        private void txtNombreCajera_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            bool elTextoEsPermitido = _patronSoloTextoEsValido.IsMatch(e.Text);
+
+            e.Handled = !elTextoEsPermitido;
+        }
+
         private void CuandoTeclaBaja_VentanaPrincipal(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -96,7 +105,6 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
                 LogicaSigueAlSiguienteInputDescendiendo();
             }
         }
-
         private void CuandoTeclaSube_VentanaPrincipal(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Down)
@@ -224,19 +232,21 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

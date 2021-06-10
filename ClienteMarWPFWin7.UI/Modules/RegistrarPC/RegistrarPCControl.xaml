@@ -51,12 +51,12 @@
                     <Button  
                  Style="{DynamicResource btn-danger}" 
                  Foreground="White" 
-                 Width="170"
+                 Width="180"
                  Height="40" 
                  Margin="0 10" 
                  Click="Cancelar">
                         <StackPanel Orientation="Horizontal" >
-                            <TextBlock Text="Cancelar - F5" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Configurar - F5" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
                             <materialDesign:PackIcon Kind="Close" Margin="7 2 0 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                         </StackPanel>
                     </Button>
