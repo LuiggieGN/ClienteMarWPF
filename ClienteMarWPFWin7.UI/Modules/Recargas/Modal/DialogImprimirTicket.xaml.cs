@@ -58,6 +58,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas.Modal
             if (verdialogo)
             {
                 dialogo.Mostrar();
+                dialogo.botonSalir.Focus();
             }
             else
             {
