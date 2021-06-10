@@ -122,7 +122,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 case Key.Left:
 
                     IsArrow = true;
-                    if (monto.IsFocused)
+                    if (monto.IsFocused && monto.SelectionStart == 0)
                     {
                         telefono.Focus();
                         TriggerButtonClickEvent(btnSeleccionaTelefono);
@@ -142,7 +142,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
                 case Key.Right:
                     IsArrow = true;
-                    if (telefono.IsFocused)
+                    if (telefono.IsFocused && telefono.SelectionStart == telefono.Text.Length)
                     {
 
                         //FocusInputs();
