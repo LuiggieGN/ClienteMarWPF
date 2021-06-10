@@ -52,6 +52,7 @@ namespace ClienteMarWPFWin7.Data.Services
         }
         public void ConfirmarMultiApuesta(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, ArrayOfInt tickets)
         {
+
             try
             {
                 clientePuntoDeVenta.ConfirmMultiTck(session, tickets);
@@ -60,7 +61,7 @@ namespace ClienteMarWPFWin7.Data.Services
             {
                 throw;
             }
-           
+
         }
         public MAR_Bet RealizarApuesta(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, MAR_Bet Apuesta, double Solicitud, bool ParaPasar = false)
         {

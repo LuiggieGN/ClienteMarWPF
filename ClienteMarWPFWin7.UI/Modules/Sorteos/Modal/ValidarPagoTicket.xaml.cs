@@ -175,6 +175,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
                 VM.CopiarTicketCommand.Execute(new TicketCopiadoResponse { TicketNo = ticketSeleccionado });
                 VM.SorteoVM.SorteoViewClass.GetJugadasTicket();
             }
+            else
+            {
+                return;
+            }
 
         }
 

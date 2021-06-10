@@ -1703,6 +1703,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 //MostrarSorteos();
             }
+            else
+            {
+                return;
+            }
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
@@ -2165,7 +2169,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 if (combinacionesNoDisponibles.Count > 0)
                 {
-                    var Texto = $"{ Environment.NewLine} { Environment.NewLine} Estos y otros sorteos no estan disponibles { Environment.NewLine} Favor solicitar combinaciones a la central { Environment.NewLine} ";
+                    var Texto = $"{ Environment.NewLine} { Environment.NewLine} Estos y otros sorteos no estan disponibles { Environment.NewLine} Favor solicitar combinaciones a la central { Environment.NewLine} Las disponibles han sido seleccionadas, validar jugada { Environment.NewLine} { Environment.NewLine} ";
                     MessageBox.Show(sorteoNoDisponible.PadRight(800).Substring(0, 800).TrimEnd() + Texto, "Combinaciones no disponibles", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 

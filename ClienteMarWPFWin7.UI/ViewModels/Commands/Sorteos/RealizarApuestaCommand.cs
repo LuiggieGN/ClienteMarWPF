@@ -430,8 +430,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 try { 
                     SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
 
-                    (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
-                    ImprimirTickets(null, multi);
+                    if(ticket.ToArray()[0] != 0)
+                    {
+                        (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
+                        ImprimirTickets(null, multi);
+                    }
+                    else
+                    {
+                        (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Lo sentimos, no fue posible realizar esta jugada.", "Aviso");
+                        return;
+                    }
+                   
 
                 } catch (Exception e) {
                     Console.WriteLine(e.Message);

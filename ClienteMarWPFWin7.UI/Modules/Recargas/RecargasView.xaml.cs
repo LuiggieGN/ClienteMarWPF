@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -115,6 +117,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     if (monto.IsFocused)
                     {
                         telefono.Focus();
+                        TriggerButtonClickEvent(btnSeleccionaTelefono);
                     }
 
                     if (proveedores.IsFocused)
@@ -135,7 +138,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     {
 
                         //FocusInputs();
-                        monto.Focus();
+                        TriggerButtonClickEvent(btnSeleccionaMonto);
                     }
 
                     if (proveedores.IsFocused)
@@ -235,6 +238,32 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             }
         }
 
-     
+        private void btnSeleccionaTelefono_Click(object sender, RoutedEventArgs e)
+        {
+            telefono.Focus();
+            telefono.SelectAll();
+        }
+
+        private void btnSeleccionaJugada_Click(object sender, RoutedEventArgs e)
+        {
+            monto.Focus();
+            monto.SelectAll();
+        }
+
+
+        public void TriggerButtonClickEvent(Button boton)
+        {
+            try
+            {
+
+                if (boton != null)
+                {
+                    var peer = new ButtonAutomationPeer(boton);
+                    var invokeProvider = peer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                    invokeProvider?.Invoke();
+                }
+            }
+            catch { }
+        }
     }
 }
