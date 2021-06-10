@@ -31,14 +31,14 @@ namespace ClienteMarWPFWin7.Data.Services
         }
 
 
-        public MAR_JuegaMasResponse LeerReporteEstadoDePremiosJuegaMas(MAR_Session sesion, string Fecha)
+        public MAR_JuegaMasResponse LeerReporteEstadoDePremiosJuegaMas(MAR_Session sesion, DateTime Fecha)
         {
             try
             {
 
                 var toSend = new ArrayOfAnyType();
                 string[] arrayString = new string[1];
-                arrayString[0] = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                arrayString[0] = Convert.ToDateTime(Fecha).ToString("yyyy-MM-dd HH:mm:ss.fff",CultureInfo.InvariantCulture);
 
 
                 toSend.Add(JSONHelper.SerializeToJSON(arrayString));// Parametro a enviar al servicio

@@ -167,21 +167,21 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             return DiaDeHoy;
         }
 
-        private void HeaderReporte(string FechaRepote, string NombreReporte, string Loteria, string Desde, string Hasta)
+        private void HeaderReporte(DateTime FechaRepote, string NombreReporte, string Loteria, DateTime Desde=new DateTime(), DateTime Hasta= new DateTime())
         {
             //////////////////////////////////////////// Aqui los datos del header//////////////////////////////////////////////////
             var DiaSemanaActual = TraducirDiaSemana(DateTime.Now.DayOfWeek.ToString());
-            var DiaSemanaReporte = TraducirDiaSemana(Convert.ToDateTime(FechaRepote).DayOfWeek.ToString());
+            var DiaSemanaReporte = TraducirDiaSemana(FechaRepote.DayOfWeek.ToString());
             var mesAnnoActual = ObtenerMesEspanol(Convert.ToInt32(DateTime.Now.Month));
-            var mesAnnoReporte = ObtenerMesEspanol(Convert.ToInt32(Convert.ToDateTime(FechaRepote).Month.ToString()));
+            var mesAnnoReporte = ObtenerMesEspanol(Convert.ToInt32(FechaRepote.Month.ToString()));
             ViewModel.NombreBanca = (Autenticador.BancaConfiguracion.BancaDto.BanContacto + "  ID:" + Autenticador.BancaConfiguracion.BancaDto.BancaID).ToUpper();
 
             ViewModel.NombreReporte = NombreReporte.ToUpper();
 
-            ViewModel.FechaActualReport = (DiaSemanaReporte + " " + Convert.ToDateTime(FechaRepote).Day + "-" + mesAnnoReporte + "-" + Convert.ToDateTime(FechaRepote).Year + " " + DateTime.Now.ToShortTimeString()).ToUpper();
-            ViewModel.FechaReporte = (DiaSemanaActual + ", " + DateTime.Now.Day + "-" + mesAnnoActual + "-" + DateTime.Now.Year).ToUpper();
-            ViewModel.LabelDesde = ("Desde " + TraducirDiaSemana(Convert.ToDateTime(Desde).DayOfWeek.ToString()) + ", " + Convert.ToDateTime(Desde).ToString("dd-MMM-yyyy")).ToUpper();
-            ViewModel.LabelHasta = ("Hasta " + TraducirDiaSemana(Convert.ToDateTime(Hasta).DayOfWeek.ToString()) + ", " + Convert.ToDateTime(Hasta).ToString("dd-MMM-yyyy")).ToUpper();
+            ViewModel.FechaActualReport = (DiaSemanaReporte + " " + FechaRepote.Day + "-" + mesAnnoReporte + "-" + FechaRepote.Year + " " + DateTime.Now.ToShortTimeString()).ToUpper();
+            ViewModel.FechaReporteLabel = (DiaSemanaActual + ", " + DateTime.Now.Day + "-" + mesAnnoActual + "-" + DateTime.Now.Year).ToUpper();
+            ViewModel.LabelDesde = ("Desde " + TraducirDiaSemana(Desde.DayOfWeek.ToString()) + ", " + Desde.ToString("dd-MMM-yyyy")).ToUpper();
+            ViewModel.LabelHasta = ("Hasta " + TraducirDiaSemana(Hasta.DayOfWeek.ToString()) + ", " + Hasta.ToString("dd-MMM-yyyy")).ToUpper();
             ViewModel.NombreLoteria = ("Loteria: " + Loteria).ToUpper();
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -197,7 +197,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                 if (Reporte.Reglones != null)
                 {
-                    HeaderReporte(Convert.ToDateTime(Reporte.Fecha).ToString("yyyy-MM-dd"), "SUMA DE VENTAS", null, null, null);
+                    HeaderReporte(Convert.ToDateTime(Reporte.Fecha), "SUMA DE VENTAS", null);
 
                     ViewModel.RPTSumaVentasVisibility = System.Windows.Visibility.Visible;
                     var totalresultados = 0;
@@ -267,7 +267,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         {
 
             var nombreLoteria = new ReporteView().GetNombreLoteria();
-            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha.ToString());
+            var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
             if (Reporte.Tickets != null) { 
            
             ViewModel.ReportesGanadores = new EstadoDeTicketGanadores();
@@ -281,7 +281,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     EstadoDeTicketGanadores Ganadores = new EstadoDeTicketGanadores() { };
                     NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
 
-                    HeaderReporte(Reporte.Fecha, "TICKETS GANADORES", new ReporteView().GetNombreLoteria(), null, null);
+                    HeaderReporte(Convert.ToDateTime(Reporte.Fecha), "TICKETS GANADORES", new ReporteView().GetNombreLoteria());
                     ViewModel.RPTTicketGanadoresVisibility = System.Windows.Visibility.Visible;
 
                     
@@ -458,7 +458,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     ObservableCollection<ReportesListaTajetasObservable> ListadoTarjetas = new ObservableCollection<ReportesListaTajetasObservable>() { };
                     var ReporteOdenado = reportes.Pines.OrderBy(tarjetas => Convert.ToDateTime(tarjetas.StrHora).Hour.ToString("tt", new System.Globalization.CultureInfo("en-US"))).ToArray();
                     int totalVendido = 0;
-                    HeaderReporte(reportes.Fecha, "LISTADO DE PINES", null, null, null);
+                    HeaderReporte(Convert.ToDateTime(reportes.Fecha), "LISTADO DE PINES", null);
                     NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
 
                     var Tarjetas = reportes.Pines;
@@ -647,7 +647,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             if (ReporteVenta.Err == null)
             {
                 ViewModel.RPTVentasVisibily = Visibility.Visible;
-                HeaderReporte(ReporteVenta.Fecha, "REPORTE DE VENTA",nombreLoteria ,null,null);
+                HeaderReporte(Convert.ToDateTime(ReporteVenta.Fecha), "REPORTE DE VENTA",nombreLoteria);
                 NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
                 ViewModel.ReportesDeVentas.Numeros = Convert.ToInt32(ReporteVenta.Numeros);
                 ViewModel.ReportesDeVentas.NumerosRD = string.Format(nfi, "{0:C}", ReporteVenta.Numeros);
@@ -757,10 +757,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
 
             //Parte de reportes compleja creador Edison Eugenio Pena Ruiz para cualquier consulta //
-            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToDateTime(fInicio).ToString(), Convert.ToDateTime(fFin).ToString());
+            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToDateTime(fInicio), Convert.ToDateTime(fFin));
             ObservableCollection<ReportesSumVentasFechaObservable> List = new ObservableCollection<ReportesSumVentasFechaObservable>() { };
             //Agregar el encabezado de reporte
-            HeaderReporte(Reporte.Fecha, "VENTAS POR FECHA", null,ViewModel.FechaInicio.ToString(),ViewModel.FechaFin.ToString());
+            HeaderReporte(Convert.ToDateTime(Reporte.Fecha), "VENTAS POR FECHA", null,ViewModel.FechaInicio,ViewModel.FechaFin);
             //////////////////////////////////////
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
             int venta=0, saco=0, comision=0, totalGeneralVenta=0, totalGeneralComision=0, totalGeneralSaco=0, totalGeneralBalance = 0;
@@ -907,7 +907,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                         if (Reporte.Numeros.Count() > 0)
                         {
                             ReporteListNumeroColumns ReporteListNumeros = new ReporteListNumeroColumns();
-                            HeaderReporte(Reporte.Fecha, "LISTADO DE NUMEROS", nombreLoteria, null, null);
+                            HeaderReporte(Convert.ToDateTime(Reporte.Fecha), "LISTADO DE NUMEROS", nombreLoteria);
                             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
                             var Numeros = Reporte.Numeros;
                             var NumerosQuinielas = Reporte.Numeros.Where(ticket => ticket.QP == "Q").ToList();
@@ -1221,13 +1221,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         private void RPTListTickets(object parametros)
         {
             var NombreLoteria = new ReporteView().GetNombreLoteria();
-            var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha.ToString());
+            var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
             
             ObservableCollection<ReporteListaTicketsObservable> ListadoTicket = new ObservableCollection<ReporteListaTicketsObservable>() { };
             ObservableCollection<ReporteListaTicketsObservable> ListadoAllDataTicket = new ObservableCollection<ReporteListaTicketsObservable>() { };
 
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
             int totalVenta = 0; int totalSaco=0;
+            DateTime Fecha = Convert.ToDateTime(ReporteTicket.Fecha);
 
             if (ReporteTicket.Err == null)
             {
@@ -1237,9 +1238,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     return;
                 }
                 else if (ReporteTicket.Tickets.Count() > 0)
-                { 
+                {
+                  
                 ViewModel.RPTLitTicketVisibility = Visibility.Visible;
-                HeaderReporte(ReporteTicket.Fecha, "LISTADO DE TICKETS", NombreLoteria, null, null);
+                HeaderReporte(Fecha, "LISTADO DE TICKETS", NombreLoteria);
                 if (ReporteTicket.Tickets != null && ReporteTicket.Tickets.Length > 0)
                 {
                     ViewModel.CanChangeOptionListTicket = true;
@@ -1311,7 +1313,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     var NombreBanca = Autenticador.BancaConfiguracion.BancaDto.BanContacto + "ID: " + Autenticador.BancaConfiguracion.BancaDto.BancaID;
                     var Titulo = ViewModel.NombreReporte;
                     var FechaActual = ViewModel.FechaActualReport;
-                    var FechaReporte = ViewModel.FechaReporte;
+                    var FechaReporte = ViewModel.FechaReporteLabel;
                     var Loteria = ViewModel.NombreLoteria;
                     List<string> listadoImpreso = new List<string> { };
 
@@ -1358,7 +1360,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             {
                 if (PagosRemotoData.Length > 0 && PagosRemotos.Err == null)
                 {
-                    HeaderReporte(PagosRemotos.Fecha, "TICKET PAGADOS REMOTAMENTE", null, null, null);
+                    HeaderReporte(Convert.ToDateTime(PagosRemotos.Fecha), "TICKET PAGADOS REMOTAMENTE", null);
                     for (int i = 0; i < PagosRemotoData.Length; i++)
                     {
                         ViewModel.RPTPagosRemotosVisibility = System.Windows.Visibility.Visible;

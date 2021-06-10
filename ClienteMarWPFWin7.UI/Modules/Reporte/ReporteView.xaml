@@ -201,7 +201,7 @@
                         <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
 
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
-                        <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
+                        <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporteLabel,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
 
                     </StackPanel>
@@ -312,7 +312,7 @@
                         <StackPanel Height="110px" VerticalAlignment="Top" Margin="0 "  Orientation="Vertical" Grid.Column="0" Grid.Row="0"  Background="GhostWhite">
                             <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
-                            <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
+                            <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporteLabel,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                         </StackPanel>
@@ -674,7 +674,7 @@
                     <StackPanel Height="85px" Margin="0,0"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                         <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
-                        <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
+                        <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporteLabel,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     </StackPanel>
                     <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
@@ -784,7 +784,7 @@
 
                             <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="14px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
-                            <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
+                            <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaReporteLabel,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
 
@@ -914,7 +914,7 @@
                     <StackPanel Height="100px" Margin="0,0" Name="EncabezadoListTiccket"   Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="GhostWhite">
                         <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
-                        <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
+                        <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporteLabel,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                     </StackPanel>
@@ -1051,7 +1051,7 @@
                         <StackPanel Height="100px" Margin="0,0" Width="300"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="GhostWhite">
                             <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="14px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
-                            <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
+                            <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaReporteLabel,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                             <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="13px" Content="{Binding NombreLoteria,Mode=OneWay}"></Label>
                         </StackPanel>
@@ -1250,7 +1250,7 @@
                     <StackPanel Height="80px" Margin="0,0"  Orientation="Vertical" Grid.Column="0" Grid.Row="0" Background="WhiteSmoke">
                         <Label HorizontalAlignment="Center" Padding="0,0" Margin="0,0" FontSize="16px" Content="{Binding NombreBanca,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding NombreReporte,Mode=OneWay}"></Label>
-                        <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporte,Mode=OneWay}"></Label>
+                        <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaReporteLabel,Mode=OneWay}"></Label>
                         <Label HorizontalAlignment="Center" Margin="0,0"  Padding="0,0" FontSize="14px" Content="{Binding FechaActualReport,Mode=OneWay}"></Label>
                     </StackPanel>
                     <Button  Style="{DynamicResource btn-primary}"  Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" Command="{Binding PrintReportes}" Foreground="White" Width="80" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Margin="0 5 3 4">
