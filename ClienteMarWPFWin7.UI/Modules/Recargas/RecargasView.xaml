@@ -142,6 +142,17 @@
                 
                 </StackPanel>
 
+                <StackPanel Orientation="Horizontal" Visibility="Hidden">
+                    <Button x:Name="btnSeleccionaTelefono" Click="btnSeleccionaTelefono_Click" Content="Selecciona monto">
+
+                    </Button>
+
+                    <Button x:Name="btnSeleccionaMonto" Click="btnSeleccionaJugada_Click" Content="Selecciona jugada">
+
+                    </Button>
+
+                </StackPanel>
+
                 <!-- TERMINA SORTEOS SLIDER-->
 
             </Grid>
