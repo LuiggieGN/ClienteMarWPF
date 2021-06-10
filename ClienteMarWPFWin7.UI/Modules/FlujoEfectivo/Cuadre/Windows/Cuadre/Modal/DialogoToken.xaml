@@ -75,7 +75,9 @@
                                  materialDesign:HintAssist.Hint="Ingrese el Token"    
                                  behaviours:SeleccionaTodoBehaviour.Habilitado="True" Width="187"       
                                  SnapsToDevicePixels="True"
-                                 BorderBrush="Transparent" />
+                                 BorderBrush="Transparent"
+                                 KeyUp="PasswordPin_KeyUp"
+                                />
                         </Border>
                     </Grid>
 

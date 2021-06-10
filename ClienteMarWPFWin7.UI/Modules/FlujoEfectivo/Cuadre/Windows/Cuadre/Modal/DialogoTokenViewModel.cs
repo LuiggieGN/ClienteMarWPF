@@ -3,6 +3,7 @@ using System.Windows.Input;
 using ClienteMarWPFWin7.UI.ViewModels;
 using ClienteMarWPFWin7.UI.ViewModels.Base;
 using ClienteMarWPFWin7.UI.ViewModels.Commands;
+using System;
 #endregion
 
 
@@ -47,6 +48,10 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
         public ICommand CancelarCommand { get; }
         #endregion
 
+        #region Acciones
+        //public Action EjecutaFocusEnInput { get; set; }
+        #endregion
+
         public DialogoTokenViewModel(string posicion, string token, string pinGeneral, ActionCommand cancelar, ActionCommand aceptar)
         {
             Error = new MessageViewModel();
@@ -64,6 +69,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
         public void Mostrar()
         {
             MuestroDialogo = true;
+            //EjecutaFocusEnInput?.Invoke();
         }
 
         public void Ocultar()

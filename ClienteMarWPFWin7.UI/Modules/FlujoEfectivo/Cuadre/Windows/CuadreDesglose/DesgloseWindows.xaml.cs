@@ -38,7 +38,6 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
 
         private void EscribirNumeros(object sender, KeyEventArgs e)
         {
-
             if (e.Key == Key.F7)
             {
                 LimpiarCampos(sender, e); return;
@@ -49,6 +48,11 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
             }
             else if (e.Key == Key.F11)
             {
+                CerrarVentana(sender, e); return;
+            }
+            else if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
                 CerrarVentana(sender, e); return;
             }
 
@@ -192,6 +196,11 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreDesglo
                 ProcesarClick(sender, e);
             }
             else if (e.Key == Key.F9)
+            {
+                e.Handled = true;
+                CerrarVentana(sender, e);
+            }
+            else if (e.Key == Key.Escape)
             {
                 e.Handled = true;
                 CerrarVentana(sender, e);

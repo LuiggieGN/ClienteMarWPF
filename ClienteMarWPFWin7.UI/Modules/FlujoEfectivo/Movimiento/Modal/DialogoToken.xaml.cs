@@ -141,5 +141,14 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Modal
 
             timer.Start();
         }
+
+        private void PasswordPin_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Aceptar(sender, e);
+            }
+        }
+
     }//fin de clase
 }
