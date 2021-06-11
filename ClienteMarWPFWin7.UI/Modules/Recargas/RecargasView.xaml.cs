@@ -125,7 +125,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     if (monto.IsFocused && monto.SelectionStart == 0)
                     {
                         telefono.Focus();
-                        TriggerButtonClickEvent(btnSeleccionaTelefono);
+                        telefono.SelectionStart = telefono.Text.Length;
+                        telefono.SelectionLength = 0;
+                        //TriggerButtonClickEvent(btnSeleccionaTelefono);
                     }
 
                     if (proveedores.IsFocused)
@@ -144,9 +146,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     IsArrow = true;
                     if (telefono.IsFocused && telefono.SelectionStart == telefono.Text.Length)
                     {
-
+                        monto.Focus();
+                        monto.SelectionStart = 0;
+                        monto.SelectionLength = 0;
                         //FocusInputs();
-                        TriggerButtonClickEvent(btnSeleccionaMonto);
+                        //TriggerButtonClickEvent(btnSeleccionaMonto);
                     }
 
                     if (proveedores.IsFocused)
