@@ -6,7 +6,7 @@
              xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Recargas.Modal"
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Recargas"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:controls1="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"
-             mc:Ignorable="d" PreviewKeyDown="UserControl_PreviewKeyDown"
+             mc:Ignorable="d" KeyUp="UserControl_PreviewKeyDown"
              >
 
     <Grid>
