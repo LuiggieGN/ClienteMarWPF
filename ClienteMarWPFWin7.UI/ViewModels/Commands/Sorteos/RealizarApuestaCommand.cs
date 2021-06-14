@@ -24,13 +24,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         private readonly IAuthenticator Autenticador;
         List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
         private int contadorTIcket=0;
+        public List<SorteosObservable> SorteosBinding;
+        public SorteosView sorteo;
+
+
         public RealizarApuestaCommand(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
             ViewModel = viewModel;
             Autenticador = autenticador;
             SorteosService = sorteosService;
-            
-
+            sorteo = new SorteosView();
             Action<object> comando = new Action<object>(RealizarApuestas);
             base.SetAction(comando);
         }
@@ -38,6 +41,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         private void RealizarApuestas(object parametro)
         {
             var data = parametro as ApuestaResponse;
+
+            var sorteos = sorteo.SorteosBinding.Where(x => x.IsSelected == true).Count();
+            Console.WriteLine(sorteos);
+
             if (data.Jugadas.Count == 1)
             {
                 OnlyBet(data);
@@ -416,6 +423,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                         ticket.Add(item.Ticket);
                     }
                 }
+
+
                 /////////////////// Asignado cmapos faltantes en multi /////////////
                 multi.Headers[0].TicketNo = MultiBetResponse.Headers[0].TicketNo;
                 multi.Headers[0].Ticket = MultiBetResponse.Headers[0].Ticket;
@@ -428,17 +437,20 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 multi.Headers[0].Cliente = MultiBetResponse.Headers[0].Cliente;
                 ///////////////////////////////////////////////////////////////////
                 try { 
-                    SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
 
                     if(ticket.ToArray()[0] != 0)
                     {
+                        SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
                         (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
                         ImprimirTickets(null, multi);
                     }
                     else
                     {
-                        (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Lo sentimos, no fue posible realizar esta jugada.", "Aviso");
-                        return;
+                        if(MessageBox.Show("La(s) loteria(s) seleccionadas NO se pudieron incluir. \nProbablemente algunas jugadas no estaban disponibles", "Loteria(s) NO disponibles") == MessageBoxResult.OK)
+                        {
+                            return;
+                        }
+                        
                     }
                    
 
