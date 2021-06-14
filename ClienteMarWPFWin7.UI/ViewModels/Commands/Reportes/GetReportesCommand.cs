@@ -400,35 +400,40 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                         new ReporteView().EliminandoTemplateGanadores(EliminarTicketPagos, EliminarTicketPendientePagos, EliminarTicketSinReclamar);
 
-                        foreach (var pendientepago in TicketPendientePagos)
+                        foreach (var pendientepago in TicketPendientePagos.GroupBy(x => x.TicketNo).ToList())
                         {
-                            TotalPendientePagos = TotalPendientePagos + Convert.ToInt32(pendientepago.Items.Sum(x => x.Pago));
-                            foreach (var pendientepagado in pendientepago.Items)
+                            TotalPendientePagos = TotalPendientePagos + Convert.ToInt32(pendientepago.Sum(x => x.Items.Sum(y => y.Pago)));
+                            foreach (var pendientepagado in pendientepago)
                             {
-                                ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepago.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepago.StrHora, Monto = (int)pendientepagado.Pago, Tickets = pendientepago.TicketNo };
+                                ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepagado.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepagado.StrHora, Monto = (int)pendientepagado.Items.Sum(x => x.Pago), Tickets = pendientepagado.TicketNo };
                                 ViewModel.ReportesGanadores.PendientesPagar.Add(Modelo);
                             }
                         }
                         ReportesGanadoresObservable ModeloTotalesPendientePagos = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPendientePagos };
                         ViewModel.ReportesGanadores.PendientesPagar.Add(ModeloTotalesPendientePagos);
 
-                        foreach (var pagados in TicketPagados)
+                        foreach (var pagados in TicketPagados.GroupBy(x => x.TicketNo))
                         {
-                            TotalPagados = TotalPagados + Convert.ToInt32(pagados.Items.Sum(x => x.Pago));
-
-                            ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagados.StrFecha).ToString("dd-MMM-yyyy") + " " + pagados.StrHora, Monto = (int)pagados.Items.Sum(x => x.Pago), Tickets = pagados.TicketNo };
-                            ViewModel.ReportesGanadores.Pagados.Add(Modelo);
+                            
+                            foreach (var pagadoGroup in pagados)
+                            {
+                                TotalPagados = TotalPagados + Convert.ToInt32(pagadoGroup.Items.Sum(x => x.Pago));
+                                ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagadoGroup.StrFecha).ToString("dd-MMM-yyyy") + " " + pagadoGroup.StrHora, Monto = (int)pagadoGroup.Items.Sum(x => x.Pago), Tickets = pagadoGroup.TicketNo };
+                                ViewModel.ReportesGanadores.Pagados.Add(Modelo);
+                            }
                         }
 
                         ReportesGanadoresObservable ModeloTotalesPagados = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPagados };
                         ViewModel.ReportesGanadores.Pagados.Add(ModeloTotalesPagados);
 
-                        foreach (var sinreclamar in TicketSinReclamar)
+                        foreach (var sinreclamar in TicketSinReclamar.GroupBy(x => x.TicketNo))
                         {
-                            TotalSinReclamar = TotalSinReclamar + Convert.ToInt32(sinreclamar.Pago);
-                            ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(sinreclamar.StrFecha).ToString("dd-MMM-yyyy") + " " + sinreclamar.StrHora, Monto = (int)sinreclamar.Pago, Tickets = sinreclamar.TicketNo };
-                            ViewModel.ReportesGanadores.SinReclamar.Add(Modelo);
-
+                            foreach (var sinReclamarGroup in sinreclamar)
+                            {
+                                TotalSinReclamar = TotalSinReclamar + Convert.ToInt32(sinReclamarGroup.Items.Sum(x => x.Pago));
+                                ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(sinReclamarGroup.StrFecha).ToString("dd-MMM-yyyy") + " " + sinReclamarGroup.StrHora, Monto = (int)sinReclamarGroup.Items.Sum(x => x.Pago), Tickets = sinReclamarGroup.TicketNo };
+                                ViewModel.ReportesGanadores.SinReclamar.Add(Modelo);
+                            }
                         }
                         ReportesGanadoresObservable ModeloTotalesSinReclamar = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalSinReclamar };
                         ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);
