@@ -17,16 +17,17 @@ using ClienteMarWPFWin7.UI.ViewModels.Commands.MainWindow;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 {
-    public class RealizarApuestaCommand: ActionCommand
+    public class RealizarApuestaCommand : ActionCommand
     {
         private readonly SorteosViewModel ViewModel;
         private readonly ISorteosService SorteosService;
         private readonly IAuthenticator Autenticador;
         List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
-        private int contadorTIcket=0;
+        private int contadorTIcket = 0;
         public List<SorteosObservable> SorteosBinding;
         public SorteosView sorteo;
-
+        public List<string> loteriasValidasParaApuesta = new List<string>();
+        public string loteriasValidasParaMostrar { get; set; }
 
         public RealizarApuestaCommand(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
@@ -42,14 +43,23 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         {
             var data = parametro as ApuestaResponse;
 
-            var sorteos = sorteo.SorteosBinding.Where(x => x.IsSelected == true).Count();
-            Console.WriteLine(sorteos);
+            //if (!data.IsMulti)
+            //{
+            //    OnlyBet(data);
+            //}
+            //else
+            //{
+            //    MultiBet(data);
+            //}
 
-            if (data.Jugadas.Count == 1)
+            //var sorteos = sorteo.SorteosBinding.Where(x => x.IsSelected == true).Count();
+            //Console.WriteLine(sorteos);
+
+            if (ViewModel.loteriasMultiples.Count == 1)
             {
                 OnlyBet(data);
             }
-            else if(data.Jugadas.Count > 1)
+            else if (ViewModel.loteriasMultiples.Count > 1)
             {
                 MultiBet(data);
             }
@@ -67,7 +77,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 itemBet.Add(new MAR_BetItem
                 {
                     Loteria = apuesta.LoteriaID,
-                    Numero = item.Jugadas.Replace("-",""),
+                    Numero = item.Jugadas.Replace("-", ""),
                     Costo = item.Monto,
                     Cantidad = item.Monto,
                     QP = item.TipoJugada.TrimStart().Substring(0, 1)
@@ -79,7 +89,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
             bet.Items = itemBet.ToArray();
             bet.Solicitud = SessionGlobals.SolicitudID;
-           
+
             bet.Loteria = apuesta.LoteriaID;
 
             var MarBetResponse = SorteosService.RealizarApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, bet, SessionGlobals.SolicitudID, false);
@@ -93,18 +103,20 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     //Window d = Application.Current.Windows.OfType<Window>().Where(w => w.Name.Equals("vistaSorteo")).FirstOrDefault();
                     ////////////////////////////////////////////////////////////////////////////////////////////////////
                     SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
-                    ( Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
+                    (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
                     //MessageBox.Show("Jugada realizada satisfactoriamente", "Confirmacion");
                     /////////////////////////////////////////////////////////////////////////////////////////////////////
                     try
                     {
                         ImprimirTickets(MarBetResponse, null);
-                    }catch( Exception e)
+                    }
+                    catch (Exception e)
                     {
                         (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(e.Message, "Aviso");
                     }
-                    
-                }catch(Exception e)
+
+                }
+                catch (Exception e)
                 {
                     (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(e.Message, "Aviso");
 
@@ -114,17 +126,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             }
             else
             {
-                MessageBox.Show(MarBetResponse.Err,"Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
-            }   
+                MessageBox.Show(MarBetResponse.Err, "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
 
         }
 
         public void ImprimirTickets(MAR_Bet MarBetResponse, MAR_MultiBet multi)
         {
-            if (MarBetResponse != null) { 
+            if (MarBetResponse != null)
+            {
                 List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
                 List<TicketJugadas> jugadasTicket = new List<TicketJugadas>() { };
-                
+
                 List<MAR_BetItem> JugadasForTicketPrecargado = new List<MAR_BetItem>() { };
 
 
@@ -143,7 +156,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     jugadasNuevoSinPrinter.Add(jugad);
 
                     //// Ticket para los ticket pre cargados
-                    MAR_BetItem jugadasTicketForPrecargados = new MAR_BetItem() { Numero=jugada.Numero,Costo=jugada.Costo,Cantidad=jugada.Cantidad,Loteria=jugada.Loteria,Pago=jugada.Pago,QP=jugada.QP };
+                    MAR_BetItem jugadasTicketForPrecargados = new MAR_BetItem() { Numero = jugada.Numero, Costo = jugada.Costo, Cantidad = jugada.Cantidad, Loteria = jugada.Loteria, Pago = jugada.Pago, QP = jugada.QP };
                     JugadasForTicketPrecargado.Add(jugadasTicketForPrecargados);
                 }
 
@@ -156,19 +169,20 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 var MoreOptions = Autenticador.CurrentAccount.MAR_Setting2.MoreOptions.ToList();
                 bool ExistPrinterCOnfig = false;
                 int CantidadLoterias = ViewModel.LoteriasMultiples.Count;
-                
+
                 var firma = VentasIndexTicket.GeneraFirma(MarBetResponse.StrFecha, MarBetResponse.StrHora, MarBetResponse.TicketNo, MarBetResponse.Items);
                 var datosTicket = SessionGlobals.LoteriasTodas.Where(x => x.Numero == MarBetResponse.Loteria).ToList();
                 var NombreLoteria = datosTicket[0].Nombre;
                 var Pin = VentasIndexTicket.GeneraPinGanador(Convert.ToInt32(MarBetResponse.Solicitud));
                 var NumeroTicket = MarBetResponse.TicketNo;
-                
+
                 LoteriaTicketPin ticketPin = new LoteriaTicketPin() { Loteria = NombreLoteria, Pin = Pin, Ticket = NumeroTicket };
-                if (contadorTIcket <= CantidadLoterias) { 
+                if (contadorTIcket <= CantidadLoterias)
+                {
                     loteriatickpin.Add(ticketPin);
                     contadorTIcket = contadorTIcket + 1;
                 }
-                
+
                 SorteosTicketModels TICKET = new SorteosTicketModels
                 {
                     Costo = Convert.ToInt32(MarBetResponse.Costo),
@@ -177,22 +191,22 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     Nulo = MarBetResponse.Nulo,
                     Hora = MarBetResponse.StrHora,
                     Ticket = MarBetResponse.Ticket,
-                    Loteria =NombreLoteria,
+                    Loteria = NombreLoteria,
                     LoteriaID = MarBetResponse.Loteria,
                     Jugadas = jugadaTransform,
                     Pago = Convert.ToInt32(MarBetResponse.Pago),
                     Firma = firma,
-                    Pin =loteriatickpin,
-                    BanNombre=Autenticador.BancaConfiguracion.BancaDto.BanNombre,
+                    Pin = loteriatickpin,
+                    BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre,
                     BanDireccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion,
-                    Telefono=Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
-                    TextReviseJugada="Revise su jugada. Buena Suerte!"
+                    Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
+                    TextReviseJugada = "Revise su jugada. Buena Suerte!"
                 };
 
                 TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = MarBetResponse.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = "Revise su jugada. Buena Suerte!", Total = "Total", AutorizacionHacienda = null, Logo = null };
 
                 //Agregando ticket a listado ticket precargado
-                MAR_Bet ticketForTicketRecargados = new MAR_Bet() { Items=MarBetResponse.Items,Pago=MarBetResponse.Pago,Loteria=MarBetResponse.Loteria,Costo=MarBetResponse.Costo,Cedula=MarBetResponse.Cedula,Cliente=MarBetResponse.Cliente,Grupo=MarBetResponse.Grupo,Nulo=MarBetResponse.Nulo,Err=MarBetResponse.Err,Solicitud=MarBetResponse.Solicitud,StrFecha=MarBetResponse.StrFecha, StrHora=MarBetResponse.StrHora,Ticket=MarBetResponse.Ticket,TicketNo=MarBetResponse.TicketNo };
+                MAR_Bet ticketForTicketRecargados = new MAR_Bet() { Items = MarBetResponse.Items, Pago = MarBetResponse.Pago, Loteria = MarBetResponse.Loteria, Costo = MarBetResponse.Costo, Cedula = MarBetResponse.Cedula, Cliente = MarBetResponse.Cliente, Grupo = MarBetResponse.Grupo, Nulo = MarBetResponse.Nulo, Err = MarBetResponse.Err, Solicitud = MarBetResponse.Solicitud, StrFecha = MarBetResponse.StrFecha, StrHora = MarBetResponse.StrHora, Ticket = MarBetResponse.Ticket, TicketNo = MarBetResponse.TicketNo };
                 ViewModel.ListadoTicketsPrecargados.Add(ticketForTicketRecargados);
 
                 ///////////////////////////////////////////
@@ -218,8 +232,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 }
                 if (ExistPrinterCOnfig == true)
                 {
-                    if (contadorTIcket==CantidadLoterias) { 
-                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones,false,CantidadLoterias);
+                    if (contadorTIcket == CantidadLoterias)
+                    {
+                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones, false, CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
@@ -232,16 +247,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     //TicketTemplateHelper.PrintTicket(TICKET, listaConfiguraciones);
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        TicketTemplateHelper.PrintTicket(TICKET,null,false, CantidadLoterias);
+                        TicketTemplateHelper.PrintTicket(TICKET, null, false, CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
-                } 
-            
+                }
+
             }
             if (multi != null)
             {
-              
+
                 List<VentasIndexTicket.Jugada> jugadas = new List<VentasIndexTicket.Jugada>() { };
                 List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
                 List<VentasIndexTicket> listMulti = new List<VentasIndexTicket>() { };
@@ -286,9 +301,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 var NombreLoteria = datosTicket[0].Nombre;
                 var Pin = VentasIndexTicket.GeneraPinGanador(Convert.ToInt32(Headers.Solicitud));
                 var NumeroTicket = Headers.TicketNo;
-                
+
                 LoteriaTicketPin ticketPin = new LoteriaTicketPin() { Loteria = NombreLoteria, Pin = Pin, Ticket = NumeroTicket };
-              
+
                 if (contadorTIcket <= CantidadLoterias)
                 {
                     loteriatickpin.Add(ticketPin);
@@ -330,7 +345,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
                     TextReviseJugada = "Revise su jugada. Buena Suerte!"
                 };
-                
+
 
                 TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = Headers.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = "Revise su jugada. Buena Suerte!", Total = "Total", AutorizacionHacienda = null, Logo = null };
 
@@ -361,7 +376,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 {
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones,false,CantidadLoterias);
+                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones, false, CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
@@ -374,7 +389,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     //TicketTemplateHelper.PrintTicket(TICKET, listaConfiguraciones);
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        TicketTemplateHelper.PrintTicket(TICKET,null,false,CantidadLoterias);
+                        TicketTemplateHelper.PrintTicket(TICKET, null, false, CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
                         contadorTIcket = 0;
                     }
@@ -385,21 +400,26 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         private void MultiBet(ApuestaResponse apuestas)
         {
 
+            
+            var loteriasApostando = SessionGlobals.LoteriasTodas.Where(x => x.Numero == apuestas.LoteriaID );
+            var nombreLoteria = loteriasApostando.ToArray()[0].Nombre;
+
             var multi = new MAR_MultiBet();
             var itemBet = new List<MAR_BetItem>();
-            
+
             foreach (var item in apuestas.Jugadas)
             {
                 itemBet.Add(new MAR_BetItem
                 {
                     Loteria = apuestas.LoteriaID,
-                    Numero = item.Jugadas.Replace("-",""),
+                    Numero = item.Jugadas.Replace("-", ""),
                     Costo = item.Monto,
                     QP = item.TipoJugada.TrimStart().Substring(0, 1),
                     Cantidad = item.Monto
 
                 });
             }
+
             multi.Items = itemBet.ToArray();
             multi.Headers = new MAR_BetHeader[] {
                 new MAR_BetHeader {
@@ -408,9 +428,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     Costo = apuestas.Jugadas.Sum(x => x.Monto),
                     StrFecha = DateTime.Now.ToString("dd/MM/yyyy"),
                     StrHora=DateTime.Now.ToString("hh:mm:ss")
+                }
+            };
 
-        } };
-            
             var MultiBetResponse = SorteosService.RealizarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, multi);
             if (MultiBetResponse.Err == null)
             {
@@ -436,25 +456,36 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 multi.Headers[0].Costo = MultiBetResponse.Headers[0].Costo;
                 multi.Headers[0].Cliente = MultiBetResponse.Headers[0].Cliente;
                 ///////////////////////////////////////////////////////////////////
-                try { 
+                try
+                {
 
-                    if(ticket.ToArray()[0] != 0)
+                    if (ticket.ToArray()[0] != 0)
                     {
+                        
                         SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
                         (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
                         ImprimirTickets(null, multi);
                     }
                     else
                     {
-                        if(MessageBox.Show("La(s) loteria(s) seleccionadas NO se pudieron incluir. \nProbablemente algunas jugadas no estaban disponibles", "Loteria(s) NO disponibles") == MessageBoxResult.OK)
-                        {
-                            return;
-                        }
-                        
-                    }
-                   
+                        loteriasValidasParaApuesta.Add(nombreLoteria);
+                        loteriasValidasParaMostrar = loteriasValidasParaMostrar + "\t* " + nombreLoteria.ToUpper() + "\n";
 
-                } catch (Exception e) {
+                        if ( ViewModel.loteriasMultiples.ToArray()[ViewModel.loteriasMultiples.Count - 1] == apuestas.LoteriaID && loteriasValidasParaApuesta.Count() > 0)
+                        {
+                            if (MessageBox.Show($"La(s) siguiente(s) loteria(s) no se pudieron incluir en la apuesta: \n { loteriasValidasParaMostrar } \n --------------------------------------------------------------- \nProbablemente algunas jugadas no estaban disponibles", "Loteria(s) NO disponibles") == MessageBoxResult.OK)
+                            {
+                                return;
+                            }
+                        }
+                       
+
+                    }
+
+
+                }
+                catch (Exception e)
+                {
                     Console.WriteLine(e.Message);
                 }
             }
