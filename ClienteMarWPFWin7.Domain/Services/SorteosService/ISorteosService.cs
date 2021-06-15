@@ -10,6 +10,7 @@ namespace ClienteMarWPFWin7.Domain.Services.SorteosService
     {
         MAR_HaciendaResponse GetSorteosDisponibles(HaciendaService.MAR_Session session);
         MAR_MultiBet RealizarMultiApuesta(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, MAR_MultiBet Apuestas);
+
         void ConfirmarMultiApuesta(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, ArrayOfInt tickets);
         MAR_Bet RealizarApuesta(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session, MAR_Bet Apuesta, double Solicitud, bool ParaPasar);
         void ConfirmarApuesta(ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference.MAR_Session session);
