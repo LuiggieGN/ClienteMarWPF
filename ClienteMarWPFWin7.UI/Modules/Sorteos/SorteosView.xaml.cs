@@ -32,7 +32,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
     /// </summary>
     public partial class SorteosView : UserControl
     {
-        private List<SorteosObservable> SorteosBinding;
+        public List<SorteosObservable> SorteosBinding;
         public List<SorteosObservable> represorteoseleccionados;
         private List<SorteosObservable> SuperPales;
         private List<SuperPaleDisponible> combinations;
@@ -846,7 +846,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
         }
 
- 
+
         private void PressTecla(object sender, KeyEventArgs e)
         {
             var strToday = DateTime.Now.ToString("yyyyMMddHHmmss", CultureInfo.InvariantCulture);
@@ -1589,8 +1589,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = ListSorteosVender[i].Sorteo.LoteriaID });
                     }
 
-
                     var vm = DataContext as SorteosViewModel;
+
                     if (vm != null && vm.TotalesCargados.HasValue)
                     {
                         decimal nuevoMonto = 0;
