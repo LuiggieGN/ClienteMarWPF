@@ -27,7 +27,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         public ObservableCollection<ProveedorRecargasObservable> Proveedors;
         int contador = 0;
         public static readonly DependencyProperty RecargaCommandProperty = DependencyProperty.Register("SendRecargaCommand", typeof(ICommand), typeof(RecargasView), new PropertyMetadata(null));
-
+        public bool EstaEnElUltimoCaracterDeTelefono { get; set; }
+        public bool EstaEnElPrimerCaracterDeMonto { get; set; }
         public ICommand SendRecargaCommand
         {
             get
@@ -48,7 +49,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         {
             InitializeComponent();
             IsArrow = true;
-
+            EstaEnElPrimerCaracterDeMonto = false;
+            EstaEnElUltimoCaracterDeTelefono = false;
+            proveedores.SelectedIndex = 0;
 
         }
 
@@ -88,7 +91,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
                     }
 
-
                     break;
 
 
@@ -101,10 +103,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                         seleccionado.IsSelected = true;
                         var vm = DataContext as RecargasViewModel;
                         vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
-
+                        
                     }
 
                     FocusInputs();
+                    proveedores.SelectedIndex = -1;
                     break;
 
                 case Key.Up:
@@ -112,11 +115,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     if (telefono.IsFocused || monto.IsFocused)
                     {
                         proveedores.Focus();
+
+                        Console.WriteLine(proveedores.SelectedItem);
                         proveedores.SelectedIndex = 0;
+                       
                         //var prueba = (List<ProveedorRecargasObservable>) proveedores.ItemsSource;
                         //proveedores.SelectedItem = prueba.First();
 
                     }
+
+                    
+
                     break;
 
                 case Key.Left:
@@ -124,11 +133,23 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     IsArrow = true;
                     if (monto.IsFocused && monto.SelectionStart == 0)
                     {
-                        telefono.Focus();
-                        telefono.SelectionStart = telefono.Text.Length;
-                        telefono.SelectionLength = 0;
+                        if (EstaEnElPrimerCaracterDeMonto)
+                        {
+                            telefono.Focus();
+                            telefono.SelectionStart = telefono.Text.Length;
+                            telefono.SelectionLength = 0;
+                            EstaEnElPrimerCaracterDeMonto = false;
+                        }
+                        EstaEnElPrimerCaracterDeMonto = true;
+                        EstaEnElUltimoCaracterDeTelefono = false;
+
+                        //telefono.Focus();
+                        //telefono.SelectionStart = telefono.Text.Length;
+                        //telefono.SelectionLength = 0;
+                        //EstaEnElUltimo = false;
                         //TriggerButtonClickEvent(btnSeleccionaTelefono);
                     }
+                    
 
                     if (proveedores.IsFocused)
                     {
@@ -142,16 +163,25 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     break;
 
 
+
                 case Key.Right:
                     IsArrow = true;
                     if (telefono.IsFocused && telefono.SelectionStart == telefono.Text.Length)
                     {
-                        monto.Focus();
-                        monto.SelectionStart = 0;
-                        monto.SelectionLength = 0;
+                        if (EstaEnElUltimoCaracterDeTelefono)
+                        {
+                            monto.Focus();
+                            monto.SelectionStart = 0;
+                            monto.SelectionLength = 0;
+                            EstaEnElUltimoCaracterDeTelefono = false;
+                        }
+                        EstaEnElUltimoCaracterDeTelefono = true;
+                        EstaEnElPrimerCaracterDeMonto = false;
+
                         //FocusInputs();
                         //TriggerButtonClickEvent(btnSeleccionaMonto);
                     }
+                    
 
                     if (proveedores.IsFocused)
                     {
@@ -165,6 +195,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
                     IsArrow = true;
                     telefono.Focus();
+                    proveedores.SelectedIndex = -1;
 
                     break;
 
@@ -284,6 +315,16 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 }
             }
             catch { }
+        }
+
+        private void telefono_GotFocus(object sender, RoutedEventArgs e)
+        {
+            proveedores.SelectedIndex = -1;
+        }
+
+        private void monto_GotFocus(object sender, RoutedEventArgs e)
+        {
+            proveedores.SelectedIndex = -1;
         }
     }
 }
