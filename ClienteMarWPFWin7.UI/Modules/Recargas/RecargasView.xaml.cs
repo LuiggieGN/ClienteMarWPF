@@ -88,9 +88,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                         seleccionado.IsSelected = true;
                         var vm = DataContext as RecargasViewModel;
                         vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
-
                     }
 
+                    FocusInputs();
                     break;
 
 
@@ -107,7 +107,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     }
 
                     FocusInputs();
-                    proveedores.SelectedIndex = -1;
                     break;
 
                 case Key.Up:
@@ -116,8 +115,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     {
                         proveedores.Focus();
 
-                        Console.WriteLine(proveedores.SelectedItem);
-                        proveedores.SelectedIndex = 0;
+                        proveedores.SelectedIndex = proveedores.SelectedIndex;
                        
                         //var prueba = (List<ProveedorRecargasObservable>) proveedores.ItemsSource;
                         //proveedores.SelectedItem = prueba.First();
@@ -149,7 +147,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                         //EstaEnElUltimo = false;
                         //TriggerButtonClickEvent(btnSeleccionaTelefono);
                     }
-                    
+
 
                     if (proveedores.IsFocused)
                     {
@@ -181,7 +179,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                         //FocusInputs();
                         //TriggerButtonClickEvent(btnSeleccionaMonto);
                     }
-                    
+
+                  
 
                     if (proveedores.IsFocused)
                     {
@@ -194,9 +193,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 case Key.Down:
 
                     IsArrow = true;
-                    telefono.Focus();
-                    proveedores.SelectedIndex = -1;
 
+                    if (proveedores.SelectedItem != null)
+                    {
+                        var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
+                        seleccionado.IsSelected = true;
+                        var vm = DataContext as RecargasViewModel;
+                        vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
+                        telefono.Focus();
+                    }
+
+                    //telefono.Focus();
+                    ////proveedores.SelectedItem = null;
+                    //Console.WriteLine(proveedores.SelectedIndex);
                     break;
 
                 case Key.F12:
@@ -317,14 +326,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             catch { }
         }
 
-        private void telefono_GotFocus(object sender, RoutedEventArgs e)
-        {
-            proveedores.SelectedIndex = -1;
-        }
+        //private void telefono_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    proveedores.Items.Refresh();
+        //}
 
-        private void monto_GotFocus(object sender, RoutedEventArgs e)
-        {
-            proveedores.SelectedIndex = -1;
-        }
+        //private void monto_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    proveedores.Items.Refresh();
+        //}
     }
 }
