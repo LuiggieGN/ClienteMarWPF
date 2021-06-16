@@ -30,7 +30,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private string _totalVentas;
         private string _totalVendidoHoy;
         public List<int> loteriasMultiples = new List<int>() { };
-        private bool? _totalesCargados  = false;
+        private bool? _totalesCargados = false;
         private decimal _totalVendidoLoteria;
         private decimal _totalVentidoProducto;
         #endregion
@@ -82,11 +82,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             TransaccionesPendientes = new List<decimal>();
             TotalVendidoHoy = $"Ventas de Sorteos | ..Cargando!!";
 
-            Task.Factory.StartNew(() => {
-                //Thread.Sleep(700);
+            Task.Factory.StartNew(() =>
+            {
                 SubProceso001();
             });
-
         }
 
 
@@ -94,12 +93,32 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         {
             System.Windows.Application.Current.Dispatcher.BeginInvoke(
             DispatcherPriority.Background,
-            new Action(() => {
+            new Action(() =>
+            {
+                IsBusy_LeerVendidoHoy = true;
                 LeerBancaTotalVendidoHoyCommand?.Execute(null);
+                IsBusy_LeerVendidoHoy = false;
             }));
         }
 
-        public void AgregarTransaccionPendiente(decimal monto) 
+
+        private bool IsBusy_LeerVendidoHoy = false;
+        public void LeerVendidoHoyAsync()
+        {
+            if (!IsBusy_LeerVendidoHoy)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    IsBusy_LeerVendidoHoy = true;
+                    LeerBancaTotalVendidoHoyCommand?.Execute(null);
+                    IsBusy_LeerVendidoHoy = false;
+
+                });
+            }
+        }
+
+        #region Logica Total Vendido Hoy
+        public void AgregarTransaccionPendiente(decimal monto)
         {
             if (TransaccionesPendientes == null)
             {
@@ -108,8 +127,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             TransaccionesPendientes.Add(monto);
         }
 
-
-        public void AgregarAlTotalVendidoHoy(decimal monto) 
+        public void AgregarAlTotalVendidoHoy(decimal monto)
         {
             if (TotalesCargados.HasValue && TotalesCargados.Value == Si)
             {
@@ -117,9 +135,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 TotalVendidoHoy = $"Vendido Hoy | Sorteo :  {TotalVendidoLoteria.ToString("C", new CultureInfo("en-US"))} | Productos : {TotalVendidoProductos.ToString("C", new CultureInfo("en-US"))}";
             }
         }
-
-
-
+        #endregion
 
         #region PropertyOfView 
 
@@ -282,6 +298,5 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             set { loteriasMultiples = value; NotifyPropertyChanged(nameof(LoteriasMultiples)); }
         }
         #endregion
-
     }
 }

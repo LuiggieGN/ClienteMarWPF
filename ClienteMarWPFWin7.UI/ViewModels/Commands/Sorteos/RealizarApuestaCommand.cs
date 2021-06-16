@@ -84,7 +84,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 });
 
-                bet.Costo = item.Monto;
+                bet.Costo += item.Monto;
             }
 
             bet.Items = itemBet.ToArray();
@@ -475,6 +475,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                         {
                             if (MessageBox.Show($"La(s) siguiente(s) loteria(s) no se pudieron incluir en la apuesta: \n { loteriasValidasParaMostrar } \n --------------------------------------------------------------- \nProbablemente algunas jugadas no estaban disponibles", "Loteria(s) NO disponibles") == MessageBoxResult.OK)
                             {
+                                loteriasValidasParaApuesta.Clear();
+                                loteriasValidasParaMostrar = string.Empty;
                                 return;
                             }
                         }

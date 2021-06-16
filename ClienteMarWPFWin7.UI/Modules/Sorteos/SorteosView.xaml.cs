@@ -132,7 +132,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //Timer que corre cada x segundos
             Timer = new DispatcherTimer();
             Timer.Tick += new EventHandler(RunEachTime);
-            Timer.Interval = TimeSpan.FromHours(1);
+            Timer.Interval = TimeSpan.FromSeconds(3);
             Timer.Start();
             //MostrarSorteos();
 
@@ -1433,7 +1433,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             txtMonto.Focus();
         }
 
-        private bool ventaThreadIsBusy = false;
+        private bool ventaThreadIsBusy = false; 
+
         private void Vender(object sender, RoutedEventArgs e)
         {
             int cuentaSorteos = ListSorteosVender.Count,
@@ -1475,7 +1476,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     Task.Factory.StartNew(() =>
                     {
-                        Thread.Sleep(3000);
+                        Thread.Sleep(1000);
                         ventaThreadIsBusy = true;
                         System.Windows.Application.Current.Dispatcher.BeginInvoke(
                         DispatcherPriority.Background,
@@ -1485,7 +1486,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             {
 
                                 RegistrarVenta();
-
+ 
+                                CargarVendidoHoyAsync();
                             }
                             catch
                             {
@@ -1588,33 +1590,24 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     {
                         RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = ListSorteosVender[i].Sorteo.LoteriaID });
                     }
-
-                    var vm = DataContext as SorteosViewModel;
-
-                    if (vm != null && vm.TotalesCargados.HasValue)
-                    {
-                        decimal nuevoMonto = 0;
-                        int numeroLoterias = ListSorteosVender?.Count() ?? 0;
-
-                        if (ListJugadas != null && ListJugadas.Any())
-                        {
-                            nuevoMonto = ListJugadas.Sum(x => x.Monto);
-                            nuevoMonto *= numeroLoterias;
-                        }
-
-                        if (vm.TotalesCargados.Value == true)
-                        {
-                            vm.AgregarAlTotalVendidoHoy(nuevoMonto);
-                        }
-                        else
-                        {
-                            vm.AgregarTransaccionPendiente(nuevoMonto);
-                        }
-                    }
                 }
-
                 LimpiarApuesta();
                 RefreshListJugadas();
+            }
+        }
+
+        private void CargarVendidoHoyAsync()
+        {
+            var vm = DataContext as SorteosViewModel;
+            if (vm != null)
+            {
+                try
+                {
+                      vm.LeerVendidoHoyAsync();
+                }
+                catch
+                {
+                }
             }
         }
 
