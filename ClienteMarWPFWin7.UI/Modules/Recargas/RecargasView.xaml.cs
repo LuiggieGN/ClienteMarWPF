@@ -191,12 +191,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                                 EstaEnElUltimoCaracterDeTelefono = false;
                             }
                             EstaEnElUltimoCaracterDeTelefono = true;
-                            EstaEnElPrimerCaracterDeMonto = true;
+                            EstaEnElPrimerCaracterDeMonto = false;
                         }
                         else {
 
                             monto.Focus();
-
+                            EstaEnElPrimerCaracterDeMonto = true;
                         }
                        
 
