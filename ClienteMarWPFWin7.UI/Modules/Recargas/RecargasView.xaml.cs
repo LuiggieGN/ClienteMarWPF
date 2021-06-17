@@ -29,6 +29,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         public static readonly DependencyProperty RecargaCommandProperty = DependencyProperty.Register("SendRecargaCommand", typeof(ICommand), typeof(RecargasView), new PropertyMetadata(null));
         public bool EstaEnElUltimoCaracterDeTelefono { get; set; }
         public bool EstaEnElPrimerCaracterDeMonto { get; set; }
+        public bool IsFirstTime { get; set; } = true;
         public ICommand SendRecargaCommand
         {
             get
@@ -51,7 +52,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             IsArrow = true;
             EstaEnElPrimerCaracterDeMonto = false;
             EstaEnElUltimoCaracterDeTelefono = false;
-            proveedores.SelectedIndex = 0;
 
         }
 
@@ -91,6 +91,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     }
 
                     FocusInputs();
+                    EstaEnElUltimoCaracterDeTelefono = true;
                     break;
 
 
@@ -107,6 +108,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     }
 
                     FocusInputs();
+                    EstaEnElUltimoCaracterDeTelefono = true;
                     break;
 
                 case Key.Up:
@@ -129,17 +131,28 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 case Key.Left:
 
                     IsArrow = true;
+                    EstaEnElUltimoCaracterDeTelefono = false;
+
                     if (monto.IsFocused && monto.SelectionStart == 0)
                     {
-                        if (EstaEnElPrimerCaracterDeMonto)
+                        if(monto.Text.Length > 0)
+                        {
+                            if (EstaEnElPrimerCaracterDeMonto)
+                            {
+                                telefono.Focus();
+                                telefono.SelectionStart = telefono.Text.Length;
+                                telefono.SelectionLength = 0;
+                                EstaEnElPrimerCaracterDeMonto = false;
+                            }
+                            EstaEnElPrimerCaracterDeMonto = true;
+                            EstaEnElUltimoCaracterDeTelefono = true;
+                        }
+                        else
                         {
                             telefono.Focus();
-                            telefono.SelectionStart = telefono.Text.Length;
-                            telefono.SelectionLength = 0;
-                            EstaEnElPrimerCaracterDeMonto = false;
+                            EstaEnElUltimoCaracterDeTelefono = true;
                         }
-                        EstaEnElPrimerCaracterDeMonto = true;
-                        EstaEnElUltimoCaracterDeTelefono = false;
+                        
 
                         //telefono.Focus();
                         //telefono.SelectionStart = telefono.Text.Length;
@@ -164,17 +177,28 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
                 case Key.Right:
                     IsArrow = true;
+                    EstaEnElPrimerCaracterDeMonto = false;
+
                     if (telefono.IsFocused && telefono.SelectionStart == telefono.Text.Length)
                     {
-                        if (EstaEnElUltimoCaracterDeTelefono)
+                        if(telefono.Text.Length > 0)
                         {
-                            monto.Focus();
-                            monto.SelectionStart = 0;
-                            monto.SelectionLength = 0;
-                            EstaEnElUltimoCaracterDeTelefono = false;
+                            if (EstaEnElUltimoCaracterDeTelefono)
+                            {
+                                monto.Focus();
+                                monto.SelectionStart = 0;
+                                monto.SelectionLength = 0;
+                                EstaEnElUltimoCaracterDeTelefono = false;
+                            }
+                            EstaEnElUltimoCaracterDeTelefono = true;
+                            EstaEnElPrimerCaracterDeMonto = true;
                         }
-                        EstaEnElUltimoCaracterDeTelefono = true;
-                        EstaEnElPrimerCaracterDeMonto = false;
+                        else {
+
+                            monto.Focus();
+
+                        }
+                       
 
                         //FocusInputs();
                         //TriggerButtonClickEvent(btnSeleccionaMonto);
@@ -182,9 +206,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
                   
 
-                    if (proveedores.IsFocused)
+                    if (proveedores.IsFocused || IsFirstTime)
                     {
                         proveedores.SelectedIndex += 1;
+                        IsFirstTime = false;
                     }
 
                     break;
@@ -203,6 +228,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                         telefono.Focus();
                     }
 
+                    EstaEnElUltimoCaracterDeTelefono = true;
+                    telefono.SelectionStart = telefono.Text.Length;
                     //telefono.Focus();
                     ////proveedores.SelectedItem = null;
                     //Console.WriteLine(proveedores.SelectedIndex);
@@ -236,12 +263,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 {
 
                     monto.Focus();
-                    TriggerButtonClickEvent(btnSeleccionaMonto);
                 }
                 else
                 {
                     telefono.Focus();
-                    TriggerButtonClickEvent(btnSeleccionaTelefono);
                 }
             }
 
@@ -324,6 +349,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                 }
             }
             catch { }
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            proveedores.SelectedIndex = 0;
+            proveedores.Items.Refresh();
         }
 
         //private void telefono_GotFocus(object sender, RoutedEventArgs e)

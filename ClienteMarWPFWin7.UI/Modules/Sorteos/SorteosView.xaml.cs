@@ -132,7 +132,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //Timer que corre cada x segundos
             Timer = new DispatcherTimer();
             Timer.Tick += new EventHandler(RunEachTime);
-            Timer.Interval = TimeSpan.FromSeconds(3);
+            Timer.Interval = TimeSpan.FromMinutes(5);
             Timer.Start();
             //MostrarSorteos();
 
@@ -1586,10 +1586,23 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     sorteoviewmodel.LoteriasMultiples = ListSorteosVender.Select(x => x.Sorteo.LoteriaID).ToList();
 
-                    for (int i = 0; i < ListSorteosVender.Count; i++)
+                    try
                     {
-                        RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = ListSorteosVender[i].Sorteo.LoteriaID });
+                        for (int i = 0; i < ListSorteosVender.Count; i++)
+                        {
+
+                            RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = ListSorteosVender[i].Sorteo.LoteriaID });
+                        }
                     }
+                    catch
+                    {
+
+                    }
+
+                    ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos.RealizarApuestaCommand.loteriasNoDisponiblesParaApuesta = new List<string>();
+                    ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos.RealizarApuestaCommand.loteriasNoDisponiblesParaMostrar = String.Empty;
+
+
                 }
                 LimpiarApuesta();
                 RefreshListJugadas();

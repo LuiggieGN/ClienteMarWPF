@@ -26,8 +26,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         private int contadorTIcket = 0;
         public List<SorteosObservable> SorteosBinding;
         public SorteosView sorteo;
-        public List<string> loteriasValidasParaApuesta = new List<string>();
-        public string loteriasValidasParaMostrar { get; set; }
+        public static List<string> loteriasNoDisponiblesParaApuesta = new List<string>();
+        //public List<int> ticketsJugados = new List<int>();
+        public static string loteriasNoDisponiblesParaMostrar { get; set; }
 
         public RealizarApuestaCommand(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
@@ -400,8 +401,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         private void MultiBet(ApuestaResponse apuestas)
         {
 
-            
-            var loteriasApostando = SessionGlobals.LoteriasTodas.Where(x => x.Numero == apuestas.LoteriaID );
+
+            var loteriasApostando = SessionGlobals.LoteriasTodas.Where(x => x.Numero == apuestas.LoteriaID);
             var nombreLoteria = loteriasApostando.ToArray()[0].Nombre;
 
             var multi = new MAR_MultiBet();
@@ -456,40 +457,49 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 multi.Headers[0].Costo = MultiBetResponse.Headers[0].Costo;
                 multi.Headers[0].Cliente = MultiBetResponse.Headers[0].Cliente;
                 ///////////////////////////////////////////////////////////////////
-                try
+                //try
+                //{
+
+                if (ticket.ToArray()[0] != 0)
                 {
 
-                    if (ticket.ToArray()[0] != 0)
-                    {
-                        
-                        SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
-                        (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
-                        ImprimirTickets(null, multi);
-                    }
-                    else
-                    {
-                        loteriasValidasParaApuesta.Add(nombreLoteria);
-                        loteriasValidasParaMostrar = loteriasValidasParaMostrar + "\t* " + nombreLoteria.ToUpper() + "\n";
+                    SorteosService.ConfirmarMultiApuesta(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ticket);
+                    (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Jugada realizada satisfactoriamente.", "Excelente");
+                    ImprimirTickets(null, multi);
 
-                        if ( ViewModel.loteriasMultiples.ToArray()[ViewModel.loteriasMultiples.Count - 1] == apuestas.LoteriaID && loteriasValidasParaApuesta.Count() > 0)
-                        {
-                            if (MessageBox.Show($"La(s) siguiente(s) loteria(s) no se pudieron incluir en la apuesta: \n { loteriasValidasParaMostrar } \n --------------------------------------------------------------- \nProbablemente algunas jugadas no estaban disponibles", "Loteria(s) NO disponibles") == MessageBoxResult.OK)
-                            {
-                                loteriasValidasParaApuesta.Clear();
-                                loteriasValidasParaMostrar = string.Empty;
-                                return;
-                            }
-                        }
-                       
+                    if (ViewModel.loteriasMultiples.ToArray()[ViewModel.loteriasMultiples.Count - 1] == apuestas.LoteriaID && loteriasNoDisponiblesParaApuesta.Count() > 0)
+                    {
+                        MessageBox.Show($"La(s) siguiente(s) loteria(s) no se pudieron incluir en la apuesta: \n { loteriasNoDisponiblesParaMostrar } \n --------------------------------------------------------------- \nProbablemente algunas jugadas no estaban disponibles", "Loteria(s) NO disponibles");
+                        loteriasNoDisponiblesParaApuesta.Clear();
+                        loteriasNoDisponiblesParaMostrar = string.Empty;
+                    }
+                }
+                else
+                {
+                    loteriasNoDisponiblesParaApuesta.Add(nombreLoteria);
+                    loteriasNoDisponiblesParaMostrar +=  "\t* " + nombreLoteria.ToUpper() + "\n";
+
+                    if (ViewModel.loteriasMultiples.ToArray()[ViewModel.loteriasMultiples.Count - 1] == apuestas.LoteriaID && loteriasNoDisponiblesParaApuesta.Count() > 0)
+                    {
+                        MessageBox.Show($"La(s) siguiente(s) loteria(s) no se pudieron incluir en la apuesta: \n { loteriasNoDisponiblesParaMostrar } \n --------------------------------------------------------------- \nProbablemente algunas jugadas no estaban disponibles", "Loteria(s) NO disponibles");
+                        loteriasNoDisponiblesParaApuesta.Clear();
+                        loteriasNoDisponiblesParaMostrar = string.Empty;
 
                     }
 
 
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+
+
+
+
+
+
+                //}
+                //catch (Exception e)
+                //{
+                //    Console.WriteLine(e.Message);
+                //}
             }
             else
             {
