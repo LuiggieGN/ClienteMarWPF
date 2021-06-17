@@ -132,7 +132,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //Timer que corre cada x segundos
             Timer = new DispatcherTimer();
             Timer.Tick += new EventHandler(RunEachTime);
-            Timer.Interval = TimeSpan.FromSeconds(3);
+            Timer.Interval = TimeSpan.FromMinutes(2);
             Timer.Start();
             //MostrarSorteos();
 
