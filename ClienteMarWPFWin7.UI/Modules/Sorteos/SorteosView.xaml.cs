@@ -133,6 +133,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             Timer = new DispatcherTimer();
             Timer.Tick += new EventHandler(RunEachTime);
             Timer.Interval = TimeSpan.FromMinutes(5);
+
             Timer.Start();
             //MostrarSorteos();
 
