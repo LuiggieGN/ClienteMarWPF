@@ -41,7 +41,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
             if (GetMensajesCommand != null)
             {
                 GetMensajesCommand.Execute(null);
-                
+
             }
 
             txtChatMensaje.Focus();

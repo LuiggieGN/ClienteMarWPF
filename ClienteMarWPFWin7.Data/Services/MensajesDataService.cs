@@ -10,7 +10,8 @@ namespace ClienteMarWPFWin7.Data.Services
     {
         private static SoapClientRepository SoapClientesRepository;
         private static PtoVtaSoapClient clientePuntoDeVenta;
-        static MensajesDataService()
+        public int sesion;
+       static MensajesDataService()
         {
             SoapClientesRepository = new SoapClientRepository();
             clientePuntoDeVenta = SoapClientesRepository.GetMarServiceClient(false);
@@ -24,6 +25,7 @@ namespace ClienteMarWPFWin7.Data.Services
         public MAR_Mensajes2 GetMessages(MAR_Session session)
         {
             var msj = clientePuntoDeVenta.GetMensaje2(session, false, 0, true);
+            sesion = session.Banca;
            // var msj2 =  clientePuntoDeVenta.GetMensaje2(session, true, session.Banca, true);
             return msj;
         }

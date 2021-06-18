@@ -31,8 +31,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
             //Timer que corre cada x segundos
             Timer = new DispatcherTimer();
             Timer.Tick += new EventHandler(ObtenerMensajes);
-            Timer.Interval = TimeSpan.FromSeconds(5);
+            Timer.Interval = TimeSpan.FromSeconds(1);
             Timer.Start();
+
         }
 
         private void GetMensajes(object parametro)
@@ -40,10 +41,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
             var cantidad = "";
 
             try
-            {
+            {              
                 var mensajes = MensajesService.GetMessages(Autenticador.CurrentAccount.MAR_Setting2.Sesion).msj;
                 if (mensajes != null)
-                {
+                {                   
                     foreach (var item in mensajes)
                     {
 
@@ -73,7 +74,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 
         public void ObtenerMensajes(object sender, EventArgs e)
         {
-
             ViewModel.Mensajes.Clear();
             GetMensajes(sender);
             
