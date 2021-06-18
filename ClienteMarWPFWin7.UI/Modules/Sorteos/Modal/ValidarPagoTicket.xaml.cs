@@ -562,4 +562,24 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 
 
     }//fin de Clase
+    public class redColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value != null)
+            {
+
+                if (bool.Parse(value.ToString()) == true)
+                {
+                    return Brushes.Red;
+                }
+            }
+
+            return Brushes.Black;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

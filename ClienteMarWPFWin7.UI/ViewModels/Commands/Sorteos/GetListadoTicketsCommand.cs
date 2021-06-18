@@ -63,7 +63,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                     ViewModelPago.listaTicketsJugados = ViewModelPago.listaTicketsJugados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
                     ViewModel.ListadoTicketsPrecargados = ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
-                    string total = ViewModelPago.listaTicketsJugados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
+                    string total = ViewModelPago.listaTicketsJugados.Where(x => x.Nulo==false).Sum(x => x.Costo) .ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
                     ViewModel.BuscarTicketsInService = true;
                 }else if (ViewModel.ListadoTicketsPrecargados.Count == 0  && ViewModel.BuscarTicketsInService == true) {
@@ -96,14 +96,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                     ViewModelPago.listaTicketsJugados = ViewModelPago.listaTicketsJugados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
                     ViewModel.ListadoTicketsPrecargados =  ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
-                    string total = ViewModelPago.listaTicketsJugados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
+                    string total = ViewModelPago.listaTicketsJugados.Where(x => x.Nulo==false).Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
                 }
                 else if (ViewModel.ListadoTicketsPrecargados.Count > 0 && ViewModel.BuscarTicketsInService == true)
                 {
                     
                     ViewModelPago.listaTicketsJugados = ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableMarBet();
-                    string total = ViewModel.ListadoTicketsPrecargados.Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
+                    string total = ViewModel.ListadoTicketsPrecargados.Where(x => x.Nulo==false).Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
                 }
             }
