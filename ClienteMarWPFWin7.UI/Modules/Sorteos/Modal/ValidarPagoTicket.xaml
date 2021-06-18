@@ -10,6 +10,7 @@
             >
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:redColorConverter x:Key="redColor"></local:redColorConverter>
     </UserControl.Resources>
     <Grid >
         <Border Background="#90000000" Visibility="{Binding Visibility}">
@@ -82,11 +83,29 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>-->
-                                    <DataGridTextColumn   Header="Ticket No." Width="*"  Binding="{Binding TicketNo}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"   FontWeight="Regular"/>
+                                    <DataGridTemplateColumn Header="Ticket No." Width="*" IsReadOnly="True" >
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding TicketNo}" Foreground="{Binding Nulo, Converter={StaticResource redColor}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Hora" Width="*" IsReadOnly="True" >
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding StrHora}" Foreground="{Binding Nulo, Converter={StaticResource redColor}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Monto" Width="*" IsReadOnly="True" >
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding  Costo, StringFormat=C}" Foreground="{Binding Nulo, Converter={StaticResource redColor}}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                   
                                     <!--<DataGridTextColumn   Header="Ticket" Width="*"      Binding="{Binding Ticket}"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>-->
-                                    <DataGridTextColumn   Header="Hora"   Width="*"      Binding="{Binding StrHora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular"/>
-                                    <DataGridTextColumn   Header="Monto $"  Width="*"    Binding="{Binding Costo, StringFormat=C}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"  FontWeight="Regular" />
-
                                 </DataGrid.Columns>
                             </DataGrid>
                         </ScrollViewer>
