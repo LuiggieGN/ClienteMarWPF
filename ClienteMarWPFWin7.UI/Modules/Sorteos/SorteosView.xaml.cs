@@ -132,7 +132,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //Timer que corre cada x segundos
             Timer = new DispatcherTimer();
             Timer.Tick += new EventHandler(RunEachTime);
-            Timer.Interval = TimeSpan.FromMinutes(5);
+            Timer.Interval = TimeSpan.FromSeconds(5);
 
             Timer.Start();
             //MostrarSorteos();
@@ -1485,10 +1485,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         {
                             try
                             {
-
                                 RegistrarVenta();
- 
-                                CargarVendidoHoyAsync();
+                                CargarVendidoHoy();
+                                CargarBalance();
                             }
                             catch
                             {
@@ -1610,7 +1609,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
         }
 
-        private void CargarVendidoHoyAsync()
+        private void CargarVendidoHoy()
         {
             var vm = DataContext as SorteosViewModel;
             if (vm != null)
@@ -1625,54 +1624,69 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
         }
 
-        private void RealizaApuesta()
+        private void CargarBalance() 
         {
-            var VM = DataContext as SorteosViewModel;
-
-            if (ltJugada.Items.Count > 0)
+            var vm = DataContext as SorteosViewModel;
+            if (vm != null)
             {
-                var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
-                var Loteria = 0;
-                if (sorteos.Count > 1 && CrearSuper.IsChecked == true)
+                try
                 {
-                    int sorteoComb = FindCombinations(sorteos.Select(x => x.LoteriaID).ToList());
-                    if (sorteoComb < 0)
-                    {
-                        FindCombinationsNotExist();
-                    }
-                    else
-                    {
-                        Loteria = sorteoComb;
-                    }
+                    vm.LeerBalanceAsync();
                 }
-                else if (VM.LoteriasMultiples.Count > 0 && CrearSuper.IsChecked == false)
+                catch  
                 {
-
-                    Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
-                    if (RealizarApuestaCommand != null)
-                    {
-                        foreach (var sorteosSeleccionados in SorteosBinding.Where(x => x.IsSelected == true))
-                        {
-                            RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = sorteosSeleccionados.LoteriaID });
-                        }
-                        VM.LoteriasMultiples = new List<int>();
-
-                    }
                 }
-
-
-
-
-                LimpiarApuesta();
-                RefreshListJugadas();
             }
-            else
-            {
-                ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista o debe seleccionar una loteria.", "Aviso");
-
-            }
-
         }
+
+        //private void RealizaApuesta()
+        //{
+        //    var VM = DataContext as SorteosViewModel;
+
+        //    if (ltJugada.Items.Count > 0)
+        //    {
+        //        var sorteos = SorteosBinding.Where(x => x.IsSelected == true).ToList();
+        //        var Loteria = 0;
+        //        if (sorteos.Count > 1 && CrearSuper.IsChecked == true)
+        //        {
+        //            int sorteoComb = FindCombinations(sorteos.Select(x => x.LoteriaID).ToList());
+        //            if (sorteoComb < 0)
+        //            {
+        //                FindCombinationsNotExist();
+        //            }
+        //            else
+        //            {
+        //                Loteria = sorteoComb;
+        //            }
+        //        }
+        //        else if (VM.LoteriasMultiples.Count > 0 && CrearSuper.IsChecked == false)
+        //        {
+
+        //            Loteria = sorteos.Select(x => x.LoteriaID).FirstOrDefault();
+        //            if (RealizarApuestaCommand != null)
+        //            {
+        //                foreach (var sorteosSeleccionados in SorteosBinding.Where(x => x.IsSelected == true))
+        //                {
+        //                    RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = sorteosSeleccionados.LoteriaID });
+        //                }
+        //                VM.LoteriasMultiples = new List<int>();
+
+        //            }
+        //        }
+
+
+
+
+        //        LimpiarApuesta();
+        //        RefreshListJugadas();
+        //    }
+        //    else
+        //    {
+        //        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("No hay jugadas en la lista o debe seleccionar una loteria.", "Aviso");
+
+        //    }
+
+        //}
 
 
 
