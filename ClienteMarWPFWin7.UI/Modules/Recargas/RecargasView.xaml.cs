@@ -191,12 +191,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                                 EstaEnElUltimoCaracterDeTelefono = false;
                             }
                             EstaEnElUltimoCaracterDeTelefono = true;
-                            EstaEnElPrimerCaracterDeMonto = false;
+                            if( monto.SelectionStart == monto.Text.Length)
+                            {
+                                EstaEnElPrimerCaracterDeMonto = false;
+                            }
+                            else
+                            {
+                                EstaEnElPrimerCaracterDeMonto = true;
+                            }
+                            
                         }
                         else {
 
                             monto.Focus();
-                            EstaEnElPrimerCaracterDeMonto = true;
+                            EstaEnElPrimerCaracterDeMonto = false;
                         }
                        
 
@@ -355,6 +363,30 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
         {
             proveedores.SelectedIndex = 0;
             proveedores.Items.Refresh();
+        }
+
+        private void telefono_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (proveedores.SelectedItem != null)
+            {
+                var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
+                seleccionado.IsSelected = true;
+                var vm = DataContext as RecargasViewModel;
+                vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
+
+            }
+        }
+
+        private void monto_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (proveedores.SelectedItem != null)
+            {
+                var seleccionado = proveedores.SelectedItem as ProveedorRecargasObservable;
+                seleccionado.IsSelected = true;
+                var vm = DataContext as RecargasViewModel;
+                vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
+
+            }
         }
 
         //private void telefono_GotFocus(object sender, RoutedEventArgs e)
