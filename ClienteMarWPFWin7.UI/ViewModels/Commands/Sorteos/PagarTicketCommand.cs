@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
@@ -65,6 +66,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                                         puedeMostrarse: true);
                     ViewModel.TicketNumero = null;
                     ViewModel.TicketPin = null;
+
+                    LeerBalanceAsync();
                 }
            
             }
@@ -80,5 +83,39 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
 
         }
+
+
+
+
+        #region Refrescar Balance
+        private bool IsBusy_LeerBalanceThread = false;
+        public void LeerBalanceAsync()
+        {
+            if (Autenticador != null &&
+                Autenticador.BancaConfiguracion != null &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto != null &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto.PuedeUsarControlEfectivo == true &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto.BancaYaInicioControlEfectivo == true
+                )
+            {
+                if (!IsBusy_LeerBalanceThread)
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        IsBusy_LeerBalanceThread = true;
+                        try
+                        {
+                            Autenticador.RefrescarBancaBalance();
+                        }
+                        catch
+                        {
+
+                        }
+                        IsBusy_LeerBalanceThread = false;
+                    });
+                }
+            }
+        }
+        #endregion
     }
 }

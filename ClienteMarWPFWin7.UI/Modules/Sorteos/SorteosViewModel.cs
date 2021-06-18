@@ -117,25 +117,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
         }
 
-        #region Logica Total Vendido Hoy
-        public void AgregarTransaccionPendiente(decimal monto)
-        {
-            if (TransaccionesPendientes == null)
-            {
-                TransaccionesPendientes = new List<decimal>();
-            }
-            TransaccionesPendientes.Add(monto);
-        }
-
-        public void AgregarAlTotalVendidoHoy(decimal monto)
-        {
-            if (TotalesCargados.HasValue && TotalesCargados.Value == Si)
-            {
-                TotalVendidoLoteria += monto;
-                TotalVendidoHoy = $"Vendido Hoy | Sorteo :  {TotalVendidoLoteria.ToString("C", new CultureInfo("en-US"))} | Productos : {TotalVendidoProductos.ToString("C", new CultureInfo("en-US"))}";
-            }
-        }
-        #endregion
 
         #region PropertyOfView 
 
@@ -298,5 +279,57 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             set { loteriasMultiples = value; NotifyPropertyChanged(nameof(LoteriasMultiples)); }
         }
         #endregion
+
+        #region Logica Total Vendido Hoy
+        public void AgregarTransaccionPendiente(decimal monto)
+        {
+            if (TransaccionesPendientes == null)
+            {
+                TransaccionesPendientes = new List<decimal>();
+            }
+            TransaccionesPendientes.Add(monto);
+        }
+
+        public void AgregarAlTotalVendidoHoy(decimal monto)
+        {
+            if (TotalesCargados.HasValue && TotalesCargados.Value == Si)
+            {
+                TotalVendidoLoteria += monto;
+                TotalVendidoHoy = $"Vendido Hoy | Sorteo :  {TotalVendidoLoteria.ToString("C", new CultureInfo("en-US"))} | Productos : {TotalVendidoProductos.ToString("C", new CultureInfo("en-US"))}";
+            }
+        }
+        #endregion
+
+        #region Refrescar Balance
+        private bool IsBusy_LeerBalanceThread = false;
+        public void LeerBalanceAsync()
+        {
+            if (Autenticador != null &&
+                Autenticador.BancaConfiguracion != null &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto != null &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto.PuedeUsarControlEfectivo == true &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto.BancaYaInicioControlEfectivo == true
+                )
+            {
+                if (!IsBusy_LeerBalanceThread)
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        IsBusy_LeerBalanceThread = true;
+                        try
+                        {
+                            Autenticador.RefrescarBancaBalance();
+                        }
+                        catch
+                        {
+
+                        }
+                        IsBusy_LeerBalanceThread = false;
+                    });
+                }
+            }
+        }
+        #endregion
+
     }
 }
