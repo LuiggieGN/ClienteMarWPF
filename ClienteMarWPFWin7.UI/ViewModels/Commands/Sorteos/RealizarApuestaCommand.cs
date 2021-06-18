@@ -469,7 +469,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                     if (ViewModel.loteriasMultiples.ToArray()[ViewModel.loteriasMultiples.Count - 1] == apuestas.LoteriaID && loteriasNoDisponiblesParaApuesta.Count() > 0)
                     {
-                        MessageBox.Show($"La(s) siguiente(s) loteria(s) no se pudieron incluir en la apuesta: \n { loteriasNoDisponiblesParaMostrar } \n --------------------------------------------------------------- \nProbablemente algunas jugadas no estaban disponibles", "Loteria(s) NO disponibles");
+                        MessageBox.Show($"La(s) siguiente(s) loteria(s) no se pudieron incluir en la apuesta: \n { loteriasNoDisponiblesParaMostrar } \n --------------------------------------------------------------- \nProbablemente algunas jugadas o sorteos no estaban disponibles", "Loteria(s) NO disponibles");
                         loteriasNoDisponiblesParaApuesta.Clear();
                         loteriasNoDisponiblesParaMostrar = string.Empty;
                     }

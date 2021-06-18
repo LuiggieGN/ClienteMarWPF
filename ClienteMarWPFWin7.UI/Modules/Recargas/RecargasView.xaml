@@ -100,8 +100,8 @@
                     </ListBox>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10">
-                        <TextBox  x:Name="telefono" Text="{Binding Telefono , UpdateSourceTrigger=PropertyChanged}"    materialDesign:HintAssist.Hint="Telefono" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  />
-                        <TextBox  x:Name="monto"  Text="{Binding Monto , UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Monto" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidationTextBox"/>
+                        <TextBox GotFocus="telefono_GotFocus"  x:Name="telefono" Text="{Binding Telefono , UpdateSourceTrigger=PropertyChanged}"    materialDesign:HintAssist.Hint="Telefono" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  />
+                        <TextBox GotFocus="monto_GotFocus" x:Name="monto"  Text="{Binding Monto , UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Monto" Width="150"  Margin="5" FontSize="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  materialDesign:HintAssist.FloatingScale="0.50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" PreviewTextInput="NumberValidationTextBox"/>
                     </StackPanel>
 
 
