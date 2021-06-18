@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
@@ -49,19 +50,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
 
         public bool PuedeRecargar(object parametro)
         {
-            return Si;      
-                
-                
+            return Si;                      
         }
 
 
 
         public void Recargar(object password)
         {
-            if (!worker.IsBusy) { worker.RunWorkerAsync(argument: password); }
-            
+            if (!worker.IsBusy) { worker.RunWorkerAsync(argument: password); }            
         }
-
 
 
 
@@ -135,17 +132,41 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
                 ViewModel.Dialog.Mostrar();
                 ViewModel.Telefono = null;
                 ViewModel.Monto = null;
+                LeerBalanceAsync();
 
             }
         }
 
 
-        private void SendRecarga(object parametro)
+        #region Refrescar Balance
+        private bool IsBusy_LeerBalanceThread = false;
+        public void LeerBalanceAsync()
         {
+            if (Autenticador != null &&
+                Autenticador.BancaConfiguracion != null &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto != null &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto.PuedeUsarControlEfectivo == true &&
+                Autenticador.BancaConfiguracion.ControlEfectivoConfigDto.BancaYaInicioControlEfectivo == true
+                )
+            {
+                if (!IsBusy_LeerBalanceThread)
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        IsBusy_LeerBalanceThread = true;
+                        try
+                        {
+                            Autenticador.RefrescarBancaBalance();
+                        }
+                        catch
+                        {
 
-
-
-
+                        }
+                        IsBusy_LeerBalanceThread = false;
+                    });
+                }
+            }
         }
+        #endregion
     }
 }
