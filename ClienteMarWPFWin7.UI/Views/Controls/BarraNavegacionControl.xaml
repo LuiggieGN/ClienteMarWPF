@@ -116,17 +116,17 @@
                     </BulletDecorator>
                 </Expander.Header>
 
-                <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="33 0 0 0">
                     <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.CincoMinutos}" Visibility="{Binding Permisos.CincoMinutos, Converter={ StaticResource BooleanToVisibilityConverter }}">
                         <StackPanel Orientation="Horizontal" >
-                            <materialDesign:PackIcon Kind="Truck" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                            <TextBlock Text="Camión Millonario" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Kind="Truck" Width="22"   Height="22" Foreground="#007EA7"/>
+                            <TextBlock Text="Camión Millonario" Margin="2 0 0 0" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                     <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.JuegaMas}">
                         <StackPanel Orientation="Horizontal" >
-                            <materialDesign:PackIcon Kind="PlusBox" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                            <TextBlock Text="Juega Mas" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Kind="PlusBox" Width="22" Height="22" Foreground="#007EA7"/>
+                            <TextBlock Text="Juega Mas" Margin="2 0 0 0" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -169,11 +169,11 @@
                     <ContentPresenter.Resources>
 
                         <DataTemplate x:Key="TemplateNoPoseeFlujoEfectivo">
-                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="33 0 0 0">
                                 <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.InicioControlEfectivo}">
                                     <StackPanel Orientation="Horizontal" >
-                                        <materialDesign:PackIcon Kind="Star" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                                        <TextBlock Text="Iniciar" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                        <materialDesign:PackIcon Kind="Star" Width="22" Height="22" Foreground="#007EA7"/>
+                                        <TextBlock Text="Iniciar" Margin="2 0 0 0" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
@@ -181,20 +181,20 @@
 
                         <DataTemplate x:Key="TemplatePoseeFlujoEfectivo">
 
-                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"  Margin="33 0 0 0">
 
 
                                 <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding IniciarCuadreCommand}">
                                     <StackPanel Orientation="Horizontal" >
-                                        <materialDesign:PackIcon Kind="Money" Width="30"   Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                                        <TextBlock Text="Cuadre Dia" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                        <materialDesign:PackIcon Kind="Money" Width="22"   Height="22" Foreground="#007EA7"/>
+                                        <TextBlock Text="Cuadre Día" Margin="2 0 0 0" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>
                                 
                                 <Button HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.RegistrosDeMovimiento}">
                                     <StackPanel Orientation="Horizontal" >
-                                        <materialDesign:PackIcon Kind="Arrow" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
-                                        <TextBlock Text="Movimientos" Margin="15 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                                        <materialDesign:PackIcon Kind="Arrow" Width="22"   Height="22" Foreground="#007EA7"/>
+                                        <TextBlock Text="Movimientos"  Margin="2 0 0 0" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Button>                                
                                 
