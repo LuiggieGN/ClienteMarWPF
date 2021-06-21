@@ -29,7 +29,7 @@ namespace ClienteMarWPFWin7.Data.Services
         public MAR_Ganadores ReportesGanadores(MAR_Session session,int Loteria ,DateTime Fecha)
         {
             var fecha = Fecha.GetDateTimeFormats(CultureInfo.InvariantCulture)[24];
-            return clientePuntoDeVenta.Ganadores2(session,Loteria,fecha);
+            return clientePuntoDeVenta.Ganadores3(session,Loteria,fecha);
         }
 
         public MAR_RptSumaVta2 ReporteVentasPorFecha(MAR_Session session, DateTime Desde, DateTime Hasta)

@@ -438,7 +438,7 @@
                         <!--_________________________________________________________________________________________________________________-->
                         <!-- ____________________________________________________ Tickets Sin Reclamar ____________________________________________________ -->
 
-                        <Label  Visibility="{Binding ReportesGanadores.SinReclamarVisibility}" Margin="0,10,0,0" Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="{Binding ReportesGanadores.PosicionTituloSinReclamar}" FontSize="14" FontWeight="Bold" Width="700" HorizontalContentAlignment="Center" Foreground="White" Background="MediumSeaGreen" Content="Tickets Sin Reclamar" HorizontalAlignment="Stretch"></Label>
+                        <Label  Visibility="{Binding ReportesGanadores.SinReclamarVisibility}"  Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="{Binding ReportesGanadores.PosicionTituloSinReclamar}" FontSize="14" FontWeight="Bold" Width="Auto" HorizontalContentAlignment="Center" Foreground="White" Background="MediumSeaGreen" Content="Tickets Sin Reclamar" HorizontalAlignment="Stretch"></Label>
 
                         <DataGrid Visibility="{Binding ReportesGanadores.SinReclamarVisibility}"  ScrollViewer.VerticalScrollBarVisibility="Auto" Height="Auto" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Column="0" Grid.Row="{Binding ReportesGanadores.PosicionTablaSinReclamar}" ItemsSource="{Binding ReportesGanadores.SinReclamar}" CanUserSortColumns="False"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Resources>
