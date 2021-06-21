@@ -1485,11 +1485,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         {
                             try
                             {
-                                RegistrarVenta();
+                                try
+                                {
+                                    RegistrarVenta();
+                                }
+                                catch 
+                                {                                 
+                                }           
                                 CargarVendidoHoy();
                                 CargarBalance();
                             }
-                            catch
+                            catch 
                             {
 
                             }
@@ -1510,69 +1516,72 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (cuentaSorteos > 0 && cuentaJugadas > 0)
             {
-                if (CrearSuper.IsChecked == true)
-                {
-                    foreach (var item in ListJugadas)
-                    {
-                        foreach (var sorteo in ListSorteosVender)
-                        {
-                            var quiniela = ListJugadas.Find(x => x.TipoJugada.Contains("  Quiniela"));
-                            var tripleta = ListJugadas.Find(x => x.TipoJugada.Contains("  Tripleta"));
-                            var sorteosSeleccionados = sorteo.Sorteo.Tipo.Contains("S");
+                RealizarVenta();
+                ResetearFormularioVenta();
 
-                            if ((quiniela != null || tripleta != null) && sorteosSeleccionados)
-                            {
-                                ventaThreadIsBusy = false;
-                                Spinner.Visibility = Visibility.Collapsed;
+                //if (CrearSuper.IsChecked == true)
+                //{
+                //    foreach (var item in ListJugadas)
+                //    {
+                //        foreach (var sorteo in ListSorteosVender)
+                //        {
+                //            var quiniela = ListJugadas.Find(x => x.TipoJugada.Contains("  Quiniela"));
+                //            var tripleta = ListJugadas.Find(x => x.TipoJugada.Contains("  Tripleta"));
+                //            var sorteosSeleccionados = sorteo.Sorteo.Tipo.Contains("S");
 
-                                if (MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                                {
+                //            if ((quiniela != null || tripleta != null) && sorteosSeleccionados)
+                //            {
+                //                //ventaThreadIsBusy = false;
+                //                Spinner.Visibility = Visibility.Collapsed;
 
-                                    ventaThreadIsBusy = true;
-                                    Spinner.Visibility = Visibility.Visible;
+                //                if (MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                //                {
 
-                                    if (tripleta != null)
-                                    {
-                                        ListJugadas.Remove(tripleta);
-                                    }
+                //                    //ventaThreadIsBusy = true;
+                //                    Spinner.Visibility = Visibility.Visible;
 
-                                    if (quiniela != null)
-                                    {
-                                        ListJugadas.Remove(quiniela);
-                                    }
+                //                    if (tripleta != null)
+                //                    {
+                //                        ListJugadas.Remove(tripleta);
+                //                    }
 
-                                    if (tripleta != null && quiniela != null)
-                                    {
-                                        ListJugadas.Remove(tripleta);
-                                        ListJugadas.Remove(quiniela);
+                //                    if (quiniela != null)
+                //                    {
+                //                        ListJugadas.Remove(quiniela);
+                //                    }
 
-                                    }
+                //                    if (tripleta != null && quiniela != null)
+                //                    {
+                //                        ListJugadas.Remove(tripleta);
+                //                        ListJugadas.Remove(quiniela);
 
-                                    ltJugada.Items.Refresh();
-                                    RefreshListJugadas();
-                                    RealizarVenta();
-                                    ResetearFormularioVenta();
-                                }
-                                else
-                                {
-                                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale.", "Aviso");
-                                    return;
-                                }
+                //                    }
 
-                            }
-                            else
-                            {
-                                RealizarVenta();
-                                ResetearFormularioVenta();
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    RealizarVenta();
-                    ResetearFormularioVenta();
-                }
+                //                    ltJugada.Items.Refresh();
+                //                    RefreshListJugadas();
+                //                    RealizarVenta();
+                //                    ResetearFormularioVenta();
+                //                }
+                //                else
+                //                {
+                //                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale.", "Aviso");
+                //                    return;
+                //                }
+
+                //            }
+                //            else
+                //            {
+                //                RealizarVenta();
+                //                ResetearFormularioVenta();
+                //            }
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    RealizarVenta();
+                //    ResetearFormularioVenta();
+                //}
 
             }
         }
