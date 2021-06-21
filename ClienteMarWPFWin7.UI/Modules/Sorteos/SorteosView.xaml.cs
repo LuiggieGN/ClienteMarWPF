@@ -1434,7 +1434,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             txtMonto.Focus();
         }
 
-        private bool ventaThreadIsBusy = false; 
+        private bool ventaThreadIsBusy = false;
 
         private void Vender(object sender, RoutedEventArgs e)
         {
@@ -1489,13 +1489,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 {
                                     RegistrarVenta();
                                 }
-                                catch 
-                                {                                 
-                                }           
+                                catch
+                                {
+                                }
                                 CargarVendidoHoy();
                                 CargarBalance();
                             }
-                            catch 
+                            catch
                             {
 
                             }
@@ -1516,73 +1516,89 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (cuentaSorteos > 0 && cuentaJugadas > 0)
             {
-                RealizarVenta();
-                ResetearFormularioVenta();
 
-                //if (CrearSuper.IsChecked == true)
-                //{
-                //    foreach (var item in ListJugadas)
-                //    {
-                //        foreach (var sorteo in ListSorteosVender)
-                //        {
-                //            var quiniela = ListJugadas.Find(x => x.TipoJugada.Contains("  Quiniela"));
-                //            var tripleta = ListJugadas.Find(x => x.TipoJugada.Contains("  Tripleta"));
-                //            var sorteosSeleccionados = sorteo.Sorteo.Tipo.Contains("S");
+                foreach (var sorteo in ListSorteosVender)
+                {
+                    var quiniela = ListJugadas.Find(x => x.TipoJugada.Contains("  Quiniela"));
+                    var tripleta = ListJugadas.Find(x => x.TipoJugada.Contains("  Tripleta"));
+                    var sorteosSeleccionados = sorteo.Sorteo.Tipo.Contains("S");
 
-                //            if ((quiniela != null || tripleta != null) && sorteosSeleccionados)
-                //            {
-                //                //ventaThreadIsBusy = false;
-                //                Spinner.Visibility = Visibility.Collapsed;
+                    if ((quiniela != null || tripleta != null) && sorteosSeleccionados)
+                    {
+                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale, esta loteria no acepta quiniela ni tripletas.", "Aviso");
+                    }
+                    else
+                    {
+                        RealizarVenta();
+                        ResetearFormularioVenta();
+                    }
 
-                //                if (MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                //                {
 
-                //                    //ventaThreadIsBusy = true;
-                //                    Spinner.Visibility = Visibility.Visible;
+                    //if (CrearSuper.IsChecked == true)
+                    //{
+                    //    foreach (var item in ListJugadas)
+                    //    {
+                    //        foreach (var sorteo in ListSorteosVender)
+                    //        {
+                    //            var quiniela = ListJugadas.Find(x => x.TipoJugada.Contains("  Quiniela"));
+                    //            var tripleta = ListJugadas.Find(x => x.TipoJugada.Contains("  Tripleta"));
+                    //            var sorteosSeleccionados = sorteo.Sorteo.Tipo.Contains("S");
 
-                //                    if (tripleta != null)
-                //                    {
-                //                        ListJugadas.Remove(tripleta);
-                //                    }
+                    //            if ((quiniela != null || tripleta != null) && sorteosSeleccionados)
+                    //            {
+                    //                //ventaThreadIsBusy = false;
+                    //                Spinner.Visibility = Visibility.Collapsed;
 
-                //                    if (quiniela != null)
-                //                    {
-                //                        ListJugadas.Remove(quiniela);
-                //                    }
+                    //                if (MessageBox.Show("La loteria que usted eligio NO acepta Quinielas ni Tripletas. \nDesea hacer el ticket quitando esas jugadas?", "Super Pale", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    //                {
 
-                //                    if (tripleta != null && quiniela != null)
-                //                    {
-                //                        ListJugadas.Remove(tripleta);
-                //                        ListJugadas.Remove(quiniela);
+                    //                    //ventaThreadIsBusy = true;
+                    //                    Spinner.Visibility = Visibility.Visible;
 
-                //                    }
+                    //                    if (tripleta != null)
+                    //                    {
+                    //                        ListJugadas.Remove(tripleta);
+                    //                    }
 
-                //                    ltJugada.Items.Refresh();
-                //                    RefreshListJugadas();
-                //                    RealizarVenta();
-                //                    ResetearFormularioVenta();
-                //                }
-                //                else
-                //                {
-                //                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale.", "Aviso");
-                //                    return;
-                //                }
+                    //                    if (quiniela != null)
+                    //                    {
+                    //                        ListJugadas.Remove(quiniela);
+                    //                    }
 
-                //            }
-                //            else
-                //            {
-                //                RealizarVenta();
-                //                ResetearFormularioVenta();
-                //            }
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    RealizarVenta();
-                //    ResetearFormularioVenta();
-                //}
+                    //                    if (tripleta != null && quiniela != null)
+                    //                    {
+                    //                        ListJugadas.Remove(tripleta);
+                    //                        ListJugadas.Remove(quiniela);
 
+                    //                    }
+
+                    //                    ltJugada.Items.Refresh();
+                    //                    RefreshListJugadas();
+                    //                    RealizarVenta();
+                    //                    ResetearFormularioVenta();
+                    //                }
+                    //                else
+                    //                {
+                    //                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale.", "Aviso");
+                    //                    return;
+                    //                }
+
+                    //            }
+                    //            else
+                    //            {
+                    //                RealizarVenta();
+                    //                ResetearFormularioVenta();
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    RealizarVenta();
+                    //    ResetearFormularioVenta();
+                    //}
+
+                }
             }
         }
 
@@ -1625,7 +1641,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 try
                 {
-                      vm.LeerVendidoHoyAsync();
+                    vm.LeerVendidoHoyAsync();
                 }
                 catch
                 {
@@ -1633,7 +1649,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
         }
 
-        private void CargarBalance() 
+        private void CargarBalance()
         {
             var vm = DataContext as SorteosViewModel;
             if (vm != null)
@@ -1642,7 +1658,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     vm.LeerBalanceAsync();
                 }
-                catch  
+                catch
                 {
                 }
             }
@@ -2194,12 +2210,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 for (int i = 0; i < combinacionesNoDisponibles.Count; i++)
                 {
-                    sorteoNoDisponible += $" ** {combinacionesNoDisponibles[i].Item3} **{ Environment.NewLine}";
+                    sorteoNoDisponible += $" * {combinacionesNoDisponibles[i].Item3} * { Environment.NewLine}";
                 }
 
                 if (combinacionesNoDisponibles.Count > 0)
                 {
-                    var Texto = $"{ Environment.NewLine} { Environment.NewLine} Estos y otros sorteos no estan disponibles { Environment.NewLine} Favor solicitar combinaciones a la central { Environment.NewLine} Las disponibles han sido seleccionadas, validar jugada { Environment.NewLine} { Environment.NewLine} ";
+                    var Texto = $"{ Environment.NewLine} { Environment.NewLine} Estos y otros sorteos no estan disponibles { Environment.NewLine} Favor solicitar combinaciones a la central { Environment.NewLine} { Environment.NewLine} **LAS DISPONIBLES HAN SIDO SELECCIONADAS, VALIDAR JUGADA**  { Environment.NewLine} { Environment.NewLine} ";
                     MessageBox.Show(sorteoNoDisponible.PadRight(800).Substring(0, 800).TrimEnd() + Texto, "Combinaciones no disponibles", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
