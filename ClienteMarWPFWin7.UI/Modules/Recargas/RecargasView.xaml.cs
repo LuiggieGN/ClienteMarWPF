@@ -52,7 +52,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             IsArrow = true;
             EstaEnElPrimerCaracterDeMonto = false;
             EstaEnElUltimoCaracterDeTelefono = false;
-
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -104,7 +103,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                         seleccionado.IsSelected = true;
                         var vm = DataContext as RecargasViewModel;
                         vm.SetProveedorFromkeyDown(seleccionado.OperadorID);
-                        
+
                     }
 
                     FocusInputs();
@@ -118,13 +117,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                         proveedores.Focus();
 
                         proveedores.SelectedIndex = proveedores.SelectedIndex;
-                       
+
                         //var prueba = (List<ProveedorRecargasObservable>) proveedores.ItemsSource;
                         //proveedores.SelectedItem = prueba.First();
 
                     }
 
-                    
+
 
                     break;
 
@@ -135,7 +134,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
                     if (monto.IsFocused && monto.SelectionStart == 0)
                     {
-                        if(monto.Text.Length > 0)
+                        if (monto.Text.Length > 0)
                         {
                             if (EstaEnElPrimerCaracterDeMonto)
                             {
@@ -152,7 +151,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                             telefono.Focus();
                             EstaEnElUltimoCaracterDeTelefono = true;
                         }
-                        
+
 
                         //telefono.Focus();
                         //telefono.SelectionStart = telefono.Text.Length;
@@ -181,7 +180,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
                     if (telefono.IsFocused && telefono.SelectionStart == telefono.Text.Length)
                     {
-                        if(telefono.Text.Length > 0)
+                        if (telefono.Text.Length > 0)
                         {
                             if (EstaEnElUltimoCaracterDeTelefono)
                             {
@@ -191,7 +190,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                                 EstaEnElUltimoCaracterDeTelefono = false;
                             }
                             EstaEnElUltimoCaracterDeTelefono = true;
-                            if( monto.SelectionStart == monto.Text.Length)
+                            if (monto.SelectionStart == monto.Text.Length)
                             {
                                 EstaEnElPrimerCaracterDeMonto = false;
                             }
@@ -199,20 +198,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                             {
                                 EstaEnElPrimerCaracterDeMonto = true;
                             }
-                            
+
                         }
                         else {
 
                             monto.Focus();
                             EstaEnElPrimerCaracterDeMonto = false;
                         }
-                       
+
 
                         //FocusInputs();
                         //TriggerButtonClickEvent(btnSeleccionaMonto);
                     }
 
-                  
+
 
                     if (proveedores.IsFocused || IsFirstTime)
                     {
@@ -244,7 +243,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
                     break;
 
                 case Key.F12:
-                    if ((telefono.Text.Trim().Length > 0 && monto.Text.Length > 0) && (telefono.IsFocused || monto.IsFocused))
+                    if ((telefono.Text.Trim().Length > 0 && monto.Text.Length > 0) && (telefono.IsFocused || monto.IsFocused || proveedores.IsFocused))
                     {
                         SendRecargaCommand.Execute("");
 
@@ -324,8 +323,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
             if (SendRecargaCommand != null)
             {
                 SendRecargaCommand.Execute(null);
-                proveedores.Focus();
-                proveedores.SelectedIndex = 0;
+                telefono.Focus();
             }
 
 
@@ -388,6 +386,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
             }
         }
+
+        private void UserControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if( (proveedores.SelectedItem != null && !proveedores.IsFocused) && (!telefono.IsFocused || !monto.IsFocused))
+            {
+                telefono.Focus();
+            }
+        }
+
 
         //private void telefono_GotFocus(object sender, RoutedEventArgs e)
         //{
