@@ -41,7 +41,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
         {
             this.VentanaCuadre = parametro as Window;
 
+            if (_viewmodel.HabilitarRecomendacion == No)
+            {
+                MessageBox.Show("Favor ingrese el monto contado", "Monto Contado Requerido", MessageBoxButton.OK, MessageBoxImage.Information); return;
+            }
+
             if (_viewmodel != null &&
+                _viewmodel.HabilitarRecomendacion == Si &&
                 _viewmodel.CuadreBuilder != null &&
                 _viewmodel.ConsultaInicial != null &&
                 _viewmodel.AutService != null &&
