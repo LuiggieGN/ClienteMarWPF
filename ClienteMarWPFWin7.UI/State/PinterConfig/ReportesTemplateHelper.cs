@@ -650,6 +650,15 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             positionWrite = 0;
 
             var TicketPendientePagos = Valor.Tickets.Where(ticket => ticket.Solicitud == 3);
+            if (Valor.Tickets.Where(ticket => ticket.Solicitud == 3).ToList().Count() > 0)
+            {
+                TicketPendientePagos = Valor.Tickets.Where(ticket => ticket.Solicitud == 3);
+            }
+            else if (Valor.Tickets.Where(ticket => ticket.Solicitud == 4).ToList().Count() > 0)
+            {
+                TicketPendientePagos = Valor.Tickets.Where(ticket => ticket.Solicitud == 4);
+            }
+
             var TicketSinReclamar = Valor.Tickets.Where(ticket => ticket.Solicitud == 6);
             var TicketPagados = Valor.Tickets.Where(ticket => ticket.Solicitud == 5);
 

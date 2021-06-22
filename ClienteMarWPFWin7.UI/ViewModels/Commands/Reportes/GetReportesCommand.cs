@@ -277,15 +277,22 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                 if (Reporte.Tickets != null)
                 {
-
+                    if (Reporte.Tickets.Length > 0) { 
                     EstadoDeTicketGanadores Ganadores = new EstadoDeTicketGanadores() { };
                     NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
 
                     HeaderReporte(Convert.ToDateTime(Reporte.Fecha), "TICKETS GANADORES", new ReporteView().GetNombreLoteria());
                     ViewModel.RPTTicketGanadoresVisibility = System.Windows.Visibility.Visible;
 
-                    
-                        var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 3);
+                    var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 3);
+                    if (Reporte.Tickets.Where(ticket => ticket.Solicitud == 3).ToList().Count() > 0)
+                    {
+                        TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 3);
+                    }else if (Reporte.Tickets.Where(ticket => ticket.Solicitud == 4).ToList().Count() > 0)
+                    {
+                        TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 4);
+                    }
+                        
                         var TicketSinReclamar = Reporte.Tickets.Where(ticket => ticket.Solicitud == 6);
                         var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 5);
 
@@ -475,12 +482,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                      ReportesGanadoresObservable ModeloTotalesSinReclamar = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalSinReclamar };
                      ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);*/
 
-                    ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos - TotalSinReclamar);
-                }else if (Reporte.Tickets == null)
-            {
-                MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+                        ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos - TotalSinReclamar);
+                    }
+                    else if (Reporte.Tickets.Length == 0)
+                    {
+                        MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                }else if (Reporte.Tickets==null)
+                {
+                    MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
                 
             }
             else if (Reporte.Err != null)
