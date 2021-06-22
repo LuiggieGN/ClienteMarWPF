@@ -88,8 +88,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas.Modal
 
         public void Ocultar()
         {
+            var recargas = new RecargasView();
             Visibility = Visibility.Hidden;
             OverlayOn.IsEnabled = _padreFueHabilitado;
+            recargas.telefono.Focus();
         }
 
 
