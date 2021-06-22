@@ -33,7 +33,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         private readonly IAuthenticator Autenticador;
         private readonly IReportesServices ReportesService;
         private readonly IJuegaMasService servicioJuegamas;
-
+        DateTime fInicio;
+        DateTime fFin;
         public GetReportesCommand(ReporteViewModel viewModel, IAuthenticator autenticador, IReportesServices reportesServices, IJuegaMasService juegaMasService)
         {
             ViewModel = viewModel;
@@ -178,8 +179,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
             ViewModel.NombreReporte = NombreReporte.ToUpper();
 
-            ViewModel.FechaActualReport = (DiaSemanaReporte + " " + FechaRepote.Day + "-" + mesAnnoReporte + "-" + FechaRepote.Year + " " + DateTime.Now.ToShortTimeString()).ToUpper();
-            ViewModel.FechaReporteLabel = (DiaSemanaActual + ", " + DateTime.Now.Day + "-" + mesAnnoActual + "-" + DateTime.Now.Year).ToUpper();
+            ViewModel.FechaActualReport = ("Del Dia " + DiaSemanaReporte + " " + FechaRepote.Day + "-" + mesAnnoReporte + "-" + FechaRepote.Year ).ToUpper();
+            ViewModel.FechaReporteLabel = ( DiaSemanaActual + ", " + DateTime.Now.Day + "-" + mesAnnoActual + "-" + DateTime.Now.Year + " " + DateTime.Now.ToShortTimeString()).ToUpper();
             ViewModel.LabelDesde = ("Desde " + TraducirDiaSemana(Desde.DayOfWeek.ToString()) + ", " + Desde.ToString("dd-MMM-yyyy")).ToUpper();
             ViewModel.LabelHasta = ("Hasta " + TraducirDiaSemana(Hasta.DayOfWeek.ToString()) + ", " + Hasta.ToString("dd-MMM-yyyy")).ToUpper();
             ViewModel.NombreLoteria = ("Loteria: " + Loteria).ToUpper();
@@ -267,14 +268,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         {
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
-            if (Reporte.Tickets != null) { 
+            if (Reporte.Err == null) { 
            
             ViewModel.ReportesGanadores = new EstadoDeTicketGanadores();
             ViewModel.ReportesGanadores.PendientesPagar = new ObservableCollection<ReportesGanadoresObservable>() { };
             ViewModel.ReportesGanadores.Pagados = new ObservableCollection<ReportesGanadoresObservable>() { };
             ViewModel.ReportesGanadores.SinReclamar = new ObservableCollection<ReportesGanadoresObservable>() { };
 
-                if (Reporte.Err == null)
+                if (Reporte.Tickets != null)
                 {
 
                     EstadoDeTicketGanadores Ganadores = new EstadoDeTicketGanadores() { };
@@ -474,13 +475,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                      ReportesGanadoresObservable ModeloTotalesSinReclamar = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalSinReclamar };
                      ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);*/
 
-                    ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos + TotalSinReclamar);
-                }
-            }
-            else if (Reporte.Tickets == null)
+                    ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos - TotalSinReclamar);
+                }else if (Reporte.Tickets == null)
             {
                 MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
+            }
+                
             }
             else if (Reporte.Err != null)
             {
@@ -550,35 +551,52 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             juegaMasSesion.Usuario = marSesion.Usuario;
             juegaMasSesion.Err = marSesion.Err;
 
-            var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion,ViewModel.Fecha);
+            var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion, ViewModel.Fecha);
 
             //           var Deserealizado2 = DeserializarString(SinCorchetes.ToString());
             //var Deserializado = DeserializarJuegaMas(SinComillas.ToString());
-            List<string []> printData = new List<string[]>() { };
-            var resultado = JsonConvert.DeserializeObject<ClienteMarWPFWin7.Domain.JuegaMasService.MAR_JuegaMasResponse>(reportes.Respuesta);
-            ViewModel.ObservableListadoPremios = "";
-            if (resultado.OK==true)
+
+            List<string[]> printData = new List<string[]>() { };
+            if (reportes.Respuesta != null)
             {
-                ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Visible;
-                var arrayJeison = JsonConvert.DeserializeObject(reportes.Respuesta);
-                ModelSerializePremios ModeloPremios = JsonConvert.DeserializeObject<ModelSerializePremios>(arrayJeison.ToString());
-                printData = ModeloPremios.PrintData;
-                for (int o = 0; o < printData.Count(); o++)
+                var resultado = JsonConvert.DeserializeObject<ClienteMarWPFWin7.Domain.JuegaMasService.MAR_JuegaMasResponse>(reportes.Respuesta);
+
+                ViewModel.ObservableListadoPremios = "";
+                if (reportes.Err == null)
                 {
-                    var premio = printData[o];
-                    var valor = premio[0].ToString();
-                   
-                    ViewModel.ObservableListadoPremios = ViewModel.ObservableListadoPremios + "\n";
-                    ViewModel.ObservableListadoPremios = ViewModel.ObservableListadoPremios + valor;
+                    if (resultado.OK == true)
+                    {
+                        ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Visible;
+                        var arrayJeison = JsonConvert.DeserializeObject(reportes.Respuesta);
+                        ModelSerializePremios ModeloPremios = JsonConvert.DeserializeObject<ModelSerializePremios>(arrayJeison.ToString());
+                        printData = ModeloPremios.PrintData;
+                        for (int o = 0; o < printData.Count(); o++)
+                        {
+                            var premio = printData[o];
+                            var valor = premio[0].ToString();
+
+                            ViewModel.ObservableListadoPremios = ViewModel.ObservableListadoPremios + "\n";
+                            ViewModel.ObservableListadoPremios = ViewModel.ObservableListadoPremios + valor;
+                        }
+                    }
+                    else
+                    {
+                        ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Hidden;
+
+                    }
+                }
+                else if (reportes.Err != null)
+                {
+                    MessageBox.Show(reportes.Err.ToString(), "MAR-Cliente", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Hidden;
+                MessageBox.Show("Ha ocurrido un fallo al crear reporte de lista de premios!", "MAR-Cliente", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            Console.WriteLine(printData);
-            //var data = DeserializarJuegaMas(respuesta);
         }
+            //var data = DeserializarJuegaMas(respuesta);
+        
     
         public static Object DeserializarString(string json)
         {
@@ -775,8 +793,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         private void RPTVentasFecha(object parametro)
         {
 
-            DateTime fInicio;
-            DateTime fFin;
+           
 
             bool fInicioEsValido = DateTime.TryParse(ViewModel.FechaInicio.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fInicio);
             bool fFinEsValido = DateTime.TryParse(ViewModel.FechaFin.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fFin);
@@ -798,14 +815,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
 
             //Parte de reportes compleja creador Edison Eugenio Pena Ruiz para cualquier consulta //
-            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToDateTime(fInicio), Convert.ToDateTime(fFin));
+            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.FechaInicio, ViewModel.FechaFin);
             ObservableCollection<ReportesSumVentasFechaObservable> List = new ObservableCollection<ReportesSumVentasFechaObservable>() { };
             //Agregar el encabezado de reporte
             HeaderReporte(Convert.ToDateTime(Reporte.Fecha), "VENTAS POR FECHA", null,ViewModel.FechaInicio,ViewModel.FechaFin);
             //////////////////////////////////////
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
             int venta=0, saco=0, comision=0, totalGeneralVenta=0, totalGeneralComision=0, totalGeneralSaco=0, totalGeneralBalance = 0;
-       
+            if (Reporte.Err == null)
+            {
+
+            
             if (ViewModel.SoloTotales == true)
             {
                 var LoteriasExistentes = Reporte.Reglones.Select(reporte => reporte.Reglon).Distinct();
@@ -916,7 +936,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                         venta = 0; comision = 0; saco = 0;
                     }
                 }
-           }
+                }
+           }else if (Reporte.Err != null)
+            {
+                MessageBox.Show(Reporte.Err.ToString(), "MAR-Cliente", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void TotalesGeneralesFormat(int totalVentaGeneral,int totalComisionGeneral,int totalSacoGeneral,int totalBalanceGeneral)

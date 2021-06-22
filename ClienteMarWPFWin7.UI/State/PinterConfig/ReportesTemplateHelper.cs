@@ -232,7 +232,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteText(g, "REPORTE DE VENTAS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, "Del Dia "+FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
                                      FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
@@ -354,7 +354,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteText(g, "LISTA DE NUMEROS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, "Del Dia "+FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
                                      FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", "", "", "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
@@ -500,7 +500,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             positionWrite = 0;
 
-            var totalCosto = Valor.Tickets.Sum(x => x.Costo);
+            var totalCosto = Valor.Tickets.Where(x => x.Nulo==false).Sum(x => x.Costo);
             var totalPago = Valor.Tickets.Sum(x => x.Pago);
             var totalValidor = Valor.Tickets.Where(x => x.Nulo == false).Count();
             var totalNulos = Valor.Tickets.Where(x => x.Nulo == true).Count();
@@ -519,8 +519,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteText(g, "LISTADO DE TICKETS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
-                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g,  "Del Dia " + FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha), FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { ".", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
@@ -600,7 +599,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteText(g, "SUMA DE VENTAS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
+                        WriteText(g, "Del Dia " +FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
                                      FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
@@ -650,7 +649,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             positionWrite = 0;
 
-            var TicketPendientePagos = Valor.Tickets.Where(ticket => ticket.Solicitud == 4);
+            var TicketPendientePagos = Valor.Tickets.Where(ticket => ticket.Solicitud == 3);
             var TicketSinReclamar = Valor.Tickets.Where(ticket => ticket.Solicitud == 6);
             var TicketPagados = Valor.Tickets.Where(ticket => ticket.Solicitud == 5);
 
@@ -660,24 +659,18 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             foreach (var TicketPendiente in TicketPendientePagos)
             {
-                foreach(var ticketpendiente in TicketPendiente.Items)
-                {
-                    totalDeTicketPendientePagos += Convert.ToInt32(ticketpendiente.Pago);
-                }
+                
+                    totalDeTicketPendientePagos += Convert.ToInt32(TicketPendiente.Pago);
+                
             };
             foreach (var TicketSinRecla in TicketSinReclamar)
             {
-                foreach (var ticketsinreclamar in TicketSinRecla.Items)
-                {
-                    totalDeTicketSinReclamar += Convert.ToInt32(ticketsinreclamar.Pago);
-                }
+                
+                    totalDeTicketSinReclamar += Convert.ToInt32(TicketSinRecla.Pago);
             };
             foreach (var TicketPagado in TicketPagados)
             {
-                foreach (var ticketpagado in TicketPagado.Items)
-                {
-                    totalDeTicketPagados += Convert.ToInt32(ticketpagado.Pago);
-                }
+                    totalDeTicketPagados += Convert.ToInt32(TicketPagado.Pago);
             };
 
 
@@ -695,8 +688,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteText(g, "TICKET GANADORES", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
-                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, "Del Dia " + FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha), FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
@@ -711,7 +703,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             foreach (var pagados in TicketPagados)
                             {
-                                WriteTextColumn(g, new List<string> { pagados.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pagados.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pagados.StrHora.ToString(), string.Format(CultureInfo.InvariantCulture, "{0:0,0}", pagados.Items.Sum(x => x.Pago).ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter); ;
+                                WriteTextColumn(g, new List<string> { pagados.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pagados.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pagados.StrHora.ToString(), string.Format(CultureInfo.InvariantCulture, "{0:0,0}", pagados.Pago.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter); ;
                             }
                             WriteLineFinas(g);
                             WriteTextColumn(g, new List<string> { "Total:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalDeTicketPagados.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
@@ -723,7 +715,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                             foreach (var pendientesPagos in TicketPendientePagos)
                             {
-                                WriteTextColumn(g, new List<string> { pendientesPagos.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pendientesPagos.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pendientesPagos.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", pendientesPagos.Items.Sum(x => x.Pago).ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { pendientesPagos.TicketNo, FechaHelper.FormatFecha(Convert.ToDateTime(pendientesPagos.StrFecha), FechaHelper.FormatoEnum.FechaCorta), pendientesPagos.StrHora, string.Format(CultureInfo.InvariantCulture, "{0:0,0}", pendientesPagos.Pago.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             }
                             WriteLineFinas(g);
                             WriteTextColumn(g, new List<string> { "Total:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", totalDeTicketPendientePagos.ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
@@ -742,7 +734,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                         }
                         WriteLine(g);
-                        WriteTextColumn(g, new List<string> { "T.General:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", Valor.Tickets.Sum(x => x.Pago).ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteTextColumn(g, new List<string> { "T.General:", "", "", string.Format(CultureInfo.InvariantCulture, "{0:0,0}", (totalDeTicketPagados + totalDeTicketPendientePagos - totalDeTicketSinReclamar).ToString("C2")) }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "." }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         break;
@@ -788,21 +780,23 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteText(g, "LISTADO DE TARJETAS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, "Del Dia " + FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha), FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
 
                         break;
 
                     case "ListTarjeta":
-                        WriteTextColumn(g, new List<string> { "Suplidor", "Hora", "Precio", "Serie" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteTextColumn(g, new List<string> { "Suplidor", "Hora",  "Numero","Monto" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
                         if (Valor.Pines != null)
                         {
                             foreach (var tarjeta in Valor.Pines)
                             {
-                                WriteTextColumn(g, new List<string> { tarjeta.Producto.Suplidor, tarjeta.StrHora, tarjeta.Costo.ToString("C2"), tarjeta.Serie.ToString() }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                                WriteTextColumn(g, new List<string> { tarjeta.Producto.Suplidor, tarjeta.StrHora, tarjeta.Serie.ToString(), tarjeta.Costo.ToString("C2") }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                             }
-                            WriteTextColumn(g, new List<string> { "Total:", "", totalPrecio.ToString("C2"), "" }, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                            WriteLineFinas(g);
+                            WriteTextColumn(g, new List<string> { "Total:", "",""  , totalPrecio.ToString("C2")}, FontSize - 1, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         }
                         WriteTextColumn(g, new List<string> { ".", "", "", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
 
@@ -853,8 +847,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         WriteText(g, "PAGOS REMOTOS", FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now.ToString("dd-MMM-yyyy")),
                                      FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
-                        WriteText(g, FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha),
-                                     FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
+                        WriteText(g, "Del Dia " + FechaHelper.FormatFecha(Convert.ToDateTime(Valor.Fecha), FechaHelper.FormatoEnum.FechaCortaDOW), FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteText(g, "Loteria: " + nombreLoteria, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamenCenter);
                         WriteTextColumn(g, new List<string> { "", "", " ", "" }, FontSize, FontStyle.Regular.ToString().ToLower(), AlignamentLft);
                         break;
@@ -902,7 +895,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             positionWrite = 0;
 
             var totalofTotals = Valor.Reglones.Sum(x => x.VentaBruta);
-            var allLoterias = Valor.Reglones.Distinct().Select(x => x.Reglon);
+            var allLoterias = Valor.Reglones.Select(x => x.Reglon).Distinct();
 
             foreach (var item in valores)
             {
@@ -981,7 +974,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             positionWrite = 0;
 
             var totalofTotals = Valor.Reglones.Sum(x => x.VentaBruta);
-            var allLoterias = Valor.Reglones.Distinct().Select(x => x.Reglon);
+            var allLoterias = Valor.Reglones.Select(x => x.Reglon).Distinct();
 
             foreach (var item in valores)
             {
