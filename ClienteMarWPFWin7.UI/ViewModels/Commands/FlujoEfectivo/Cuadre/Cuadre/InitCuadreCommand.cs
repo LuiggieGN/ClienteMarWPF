@@ -41,7 +41,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
                 if (_viewmodel != null)
                 {
                     _viewmodel.HabilitarBotones = Booleano.No;
-                    _viewmodel.MontoContado = string.Empty;
+                    //_viewmodel.MontoContado = string.Empty;
                     _viewmodel.MontoDepositoORetiro = string.Empty;
                     _viewmodel.ConsultaInicial = _viewmodel.CuadreBuilder.LeerCuadreConsultaInicial(_viewmodel.AutService);
                     _viewmodel.SetRecomendacionCommand?.Execute((decimal)0);

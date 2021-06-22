@@ -345,7 +345,10 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento
             }
             else if (TabKey == "Tab_1")
             {
-                if (e.Key == Key.F5 || (e.Key == Key.System && e.SystemKey == Key.F5))
+                if (
+                    (e.Key == Key.F5 || (e.Key == Key.System && e.SystemKey == Key.F5)) ||
+                    (e.Key == Key.Down || (e.Key == Key.System && e.SystemKey == Key.Down))
+                )
                 {
                     e.Handled = true;
                     var vm = DataContext as MovimientoViewModel;

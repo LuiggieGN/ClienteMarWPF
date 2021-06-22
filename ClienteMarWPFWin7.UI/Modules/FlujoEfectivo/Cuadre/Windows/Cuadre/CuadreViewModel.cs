@@ -23,6 +23,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
     {
         #region Fields
         private bool _habilitarBotones;
+        private bool _habilitarRecomendacion;
         private ConsultaInicialViewModel _consultaInicial;
         private string _montoContado;
         private ArqueoResultanteViewModel _arqueoResultante;
@@ -43,6 +44,17 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             get => _habilitarBotones;
             set { _habilitarBotones = value; NotifyPropertyChanged(nameof(HabilitarBotones)); }
         }
+        public bool HabilitarRecomendacion
+        {
+            get => _habilitarRecomendacion;
+            set { _habilitarRecomendacion = value; NotifyPropertyChanged(nameof(HabilitarRecomendacion), nameof(MostrarAlertaRecomendacion)); }
+        }
+        public bool MostrarAlertaRecomendacion {
+            get 
+            {
+                return !HabilitarRecomendacion;
+            }
+        }
         public string GestorNombre { get; }
         public string BancaNombre { get; set; }
         public ConsultaInicialViewModel ConsultaInicial
@@ -55,9 +67,10 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
             get => _montoContado;
             set
             {
-                _montoContado = value;
+                _montoContado = value;                
                 NotifyPropertyChanged(nameof(MontoContado));
                 OnMontoContatoChanged();
+                HabilitarRecomendacion = Booleano.Si;
             }
         }
         public ArqueoResultanteViewModel ArqueoResultante
@@ -131,6 +144,8 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
 
             HabilitarBotones = Booleano.No;
 
+            HabilitarRecomendacion = Booleano.No;
+
             GestorNombre = (gestorStore?.GestorSesion?.Gestor?.PrimerDTO?.UsuNombre ?? string.Empty) + " " + (gestorStore?.GestorSesion?.Gestor?.PrimerDTO?.UsuApellido ?? string.Empty);
 
             Titulo = $" Bienvenido, Gestor : {GestorNombre}";
@@ -139,7 +154,7 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre
 
             ConsultaInicial = new ConsultaInicialViewModel();
 
-            MontoContado = string.Empty;
+            //MontoContado = string.Empty;
 
             ArqueoResultante = new ArqueoResultanteViewModel();
 

@@ -184,22 +184,22 @@
                                         BorderThickness="1" 
                                         Margin="0 3 3 3" >
                                     <PasswordBox
-                                                x:Name="PasswordControl"     
-                                                FontSize="20"
-                                                FontWeight="Medium"                                           
-                                                Height="45" 
-                                                PasswordChar="*" 
-                                                Padding="10 0 0 0"  
-                                                Foreground="#28A745"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"
-                                                materialDesign:HintAssist.Hint="Id de Gestor"          
-                                                behaviours:SeleccionaTodoBehaviour.Habilitado="True"
-                                                Width="271"       
-                                                SnapsToDevicePixels="True"
-                                                BorderBrush="Transparent"
-                                                KeyDown="OnKeyDown"
-                                                GotFocus="OnFocus" />
+                                       x:Name="PasswordControl"     
+                                       FontSize="20"
+                                       FontWeight="Medium"                                           
+                                       Height="45" 
+                                       PasswordChar="*" 
+                                       Padding="10 0 0 0"  
+                                       Foreground="#28A745"
+                                       HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center"
+                                       materialDesign:HintAssist.Hint="Id de Gestor"          
+                                       behaviours:SeleccionaTodoBehaviour.Habilitado="True"
+                                       Width="271"       
+                                       SnapsToDevicePixels="True"
+                                       BorderBrush="Transparent"
+                                       KeyDown="OnKeyDown"
+                                       GotFocus="OnFocus" />
                                 </Border>
 
                                 <Button Width="80"
