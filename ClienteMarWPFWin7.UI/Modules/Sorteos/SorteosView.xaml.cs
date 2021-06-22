@@ -1516,6 +1516,21 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (cuentaSorteos > 0 && cuentaJugadas > 0)
             {
+
+                //foreach (var sorteo in ListSorteosVender)
+                //{
+                var quiniela = ListJugadas.Find(x => x.TipoJugada.Contains("  Quiniela"));
+                var tripleta = ListJugadas.Find(x => x.TipoJugada.Contains("  Tripleta"));
+                var sorteosSeleccionadosS = ListSorteosVender.Any(b => b.Sorteo.Tipo == "S");
+                var sorteosSeleccionadosT = ListSorteosVender.Any(b => b.Sorteo.Tipo == "T");
+
+                if ((quiniela != null || tripleta != null) && sorteosSeleccionadosS && !sorteosSeleccionadosT)
+                {
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale, esta loteria no acepta quiniela ni tripletas.", "Aviso");
+                    return;
+                }
+
+
                 RealizarVenta();
                 ResetearFormularioVenta();
 
@@ -1583,8 +1598,10 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 //    ResetearFormularioVenta();
                 //}
 
+                //}
             }
         }
+
 
         private void RealizarVenta()
         {
