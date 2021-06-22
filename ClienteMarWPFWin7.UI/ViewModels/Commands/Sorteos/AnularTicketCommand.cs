@@ -7,6 +7,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ClienteMarWPFWin7.UI.Modules.Sorteos;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 {
@@ -15,11 +16,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         private readonly ValidarPagoTicketViewModel ViewModel;
         private readonly ISorteosService SorteosService;
         private readonly IAuthenticator Autenticador;
-        public AnularTicketCommand(ValidarPagoTicketViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
+        private readonly SorteosViewModel ViewModelSorteo;
+        public AnularTicketCommand(ValidarPagoTicketViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService,SorteosViewModel sorteoModel)
         {
             ViewModel = viewModel;
             Autenticador = autenticador;
             SorteosService = sorteosService;
+            ViewModelSorteo = sorteoModel;
 
             Action<object> comando = new Action<object>(AnularTicket);
             base.SetAction(comando);
@@ -78,6 +81,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                                              background: "#28A745",
                                              puedeMostrarse: true);
                         LeerBalanceAsync();
+                        ViewModelSorteo.BuscarTicketsInService = false;
+                        
                     }
                     else
                     {

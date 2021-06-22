@@ -33,7 +33,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         private readonly IAuthenticator Autenticador;
         private readonly IReportesServices ReportesService;
         private readonly IJuegaMasService servicioJuegamas;
-
+        DateTime fInicio;
+        DateTime fFin;
         public GetReportesCommand(ReporteViewModel viewModel, IAuthenticator autenticador, IReportesServices reportesServices, IJuegaMasService juegaMasService)
         {
             ViewModel = viewModel;
@@ -178,8 +179,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
             ViewModel.NombreReporte = NombreReporte.ToUpper();
 
-            ViewModel.FechaActualReport = (DiaSemanaReporte + " " + FechaRepote.Day + "-" + mesAnnoReporte + "-" + FechaRepote.Year + " " + DateTime.Now.ToShortTimeString()).ToUpper();
-            ViewModel.FechaReporteLabel = (DiaSemanaActual + ", " + DateTime.Now.Day + "-" + mesAnnoActual + "-" + DateTime.Now.Year).ToUpper();
+            ViewModel.FechaActualReport = ("Del Dia " + DiaSemanaReporte + " " + FechaRepote.Day + "-" + mesAnnoReporte + "-" + FechaRepote.Year ).ToUpper();
+            ViewModel.FechaReporteLabel = ( DiaSemanaActual + ", " + DateTime.Now.Day + "-" + mesAnnoActual + "-" + DateTime.Now.Year + " " + DateTime.Now.ToShortTimeString()).ToUpper();
             ViewModel.LabelDesde = ("Desde " + TraducirDiaSemana(Desde.DayOfWeek.ToString()) + ", " + Desde.ToString("dd-MMM-yyyy")).ToUpper();
             ViewModel.LabelHasta = ("Hasta " + TraducirDiaSemana(Hasta.DayOfWeek.ToString()) + ", " + Hasta.ToString("dd-MMM-yyyy")).ToUpper();
             ViewModel.NombreLoteria = ("Loteria: " + Loteria).ToUpper();
@@ -265,27 +266,33 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
         private void RPTGanadores(object parametro)
         {
-
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
-            if (Reporte.Tickets != null) { 
+            if (Reporte.Err == null) { 
            
             ViewModel.ReportesGanadores = new EstadoDeTicketGanadores();
             ViewModel.ReportesGanadores.PendientesPagar = new ObservableCollection<ReportesGanadoresObservable>() { };
             ViewModel.ReportesGanadores.Pagados = new ObservableCollection<ReportesGanadoresObservable>() { };
             ViewModel.ReportesGanadores.SinReclamar = new ObservableCollection<ReportesGanadoresObservable>() { };
 
-                if (Reporte.Err == null)
+                if (Reporte.Tickets != null)
                 {
-
+                    if (Reporte.Tickets.Length > 0) { 
                     EstadoDeTicketGanadores Ganadores = new EstadoDeTicketGanadores() { };
                     NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
 
                     HeaderReporte(Convert.ToDateTime(Reporte.Fecha), "TICKETS GANADORES", new ReporteView().GetNombreLoteria());
                     ViewModel.RPTTicketGanadoresVisibility = System.Windows.Visibility.Visible;
 
-                    
-                        var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 4);
+                    var TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 3);
+                    if (Reporte.Tickets.Where(ticket => ticket.Solicitud == 3).ToList().Count() > 0)
+                    {
+                        TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 3);
+                    }else if (Reporte.Tickets.Where(ticket => ticket.Solicitud == 4).ToList().Count() > 0)
+                    {
+                        TicketPendientePagos = Reporte.Tickets.Where(ticket => ticket.Solicitud == 4);
+                    }
+                        
                         var TicketSinReclamar = Reporte.Tickets.Where(ticket => ticket.Solicitud == 6);
                         var TicketPagados = Reporte.Tickets.Where(ticket => ticket.Solicitud == 5);
 
@@ -399,52 +406,95 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                         else if (TicketSinReclamar.Count() == 0) { ViewModel.ReportesGanadores.SinReclamarVisibility = Visibility.Hidden; }
 
                         new ReporteView().EliminandoTemplateGanadores(EliminarTicketPagos, EliminarTicketPendientePagos, EliminarTicketSinReclamar);
+                    
+                    
+                    foreach (var pendientepago in TicketPendientePagos)
+                    {
+                        TotalPendientePagos = TotalPendientePagos + Convert.ToInt32(pendientepago.Pago);
+                        
+                            ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepago.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepago.StrHora, Monto = (int)pendientepago.Pago, Tickets = pendientepago.TicketNo };
+                            ViewModel.ReportesGanadores.PendientesPagar.Add(Modelo);
+                        
+                    }
 
-                        foreach (var pendientepago in TicketPendientePagos.GroupBy(x => x.TicketNo).ToList())
-                        {
-                            TotalPendientePagos = TotalPendientePagos + Convert.ToInt32(pendientepago.Sum(x => x.Items.Sum(y => y.Pago)));
-                            foreach (var pendientepagado in pendientepago)
-                            {
-                                ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepagado.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepagado.StrHora, Monto = (int)pendientepagado.Items.Sum(x => x.Pago), Tickets = pendientepagado.TicketNo };
-                                ViewModel.ReportesGanadores.PendientesPagar.Add(Modelo);
-                            }
-                        }
-                        ReportesGanadoresObservable ModeloTotalesPendientePagos = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPendientePagos };
-                        ViewModel.ReportesGanadores.PendientesPagar.Add(ModeloTotalesPendientePagos);
+                    ReportesGanadoresObservable ModeloTotalesPendientePagos = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPendientePagos };
+                    ViewModel.ReportesGanadores.PendientesPagar.Add(ModeloTotalesPendientePagos);
 
-                        foreach (var pagados in TicketPagados.GroupBy(x => x.TicketNo))
-                        {
-                            
-                            foreach (var pagadoGroup in pagados)
-                            {
-                                TotalPagados = TotalPagados + Convert.ToInt32(pagadoGroup.Items.Sum(x => x.Pago));
-                                ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagadoGroup.StrFecha).ToString("dd-MMM-yyyy") + " " + pagadoGroup.StrHora, Monto = (int)pagadoGroup.Items.Sum(x => x.Pago), Tickets = pagadoGroup.TicketNo };
-                                ViewModel.ReportesGanadores.Pagados.Add(Modelo);
-                            }
-                        }
+                    foreach (var pagadoGroup in TicketPagados)
+                         {
+                             TotalPagados = TotalPagados + Convert.ToInt32(pagadoGroup.Pago);
+                             ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagadoGroup.StrFecha).ToString("dd-MMM-yyyy") + " " + pagadoGroup.StrHora, Monto = (int)pagadoGroup.Pago, Tickets = pagadoGroup.TicketNo };
+                             ViewModel.ReportesGanadores.Pagados.Add(Modelo);
+                         }
+                            ReportesGanadoresObservable ModeloTotalesPagados = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPagados };
+                            ViewModel.ReportesGanadores.Pagados.Add(ModeloTotalesPagados);
 
-                        ReportesGanadoresObservable ModeloTotalesPagados = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPagados };
-                        ViewModel.ReportesGanadores.Pagados.Add(ModeloTotalesPagados);
+                    foreach (var sinreclamar in TicketSinReclamar)
+                    {
+                        
+                            TotalSinReclamar = TotalSinReclamar + Convert.ToInt32(sinreclamar.Pago);
+                            ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(sinreclamar.StrFecha).ToString("dd-MMM-yyyy") + " " + sinreclamar.StrHora, Monto = (int)sinreclamar.Pago, Tickets = sinreclamar.TicketNo };
+                            ViewModel.ReportesGanadores.SinReclamar.Add(Modelo);
+                        
+                    }
+                    ReportesGanadoresObservable ModeloTotalesSinReclamar = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalSinReclamar };
+                    ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);
 
-                        foreach (var sinreclamar in TicketSinReclamar.GroupBy(x => x.TicketNo))
-                        {
-                            foreach (var sinReclamarGroup in sinreclamar)
-                            {
-                                TotalSinReclamar = TotalSinReclamar + Convert.ToInt32(sinReclamarGroup.Items.Sum(x => x.Pago));
-                                ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(sinReclamarGroup.StrFecha).ToString("dd-MMM-yyyy") + " " + sinReclamarGroup.StrHora, Monto = (int)sinReclamarGroup.Items.Sum(x => x.Pago), Tickets = sinReclamarGroup.TicketNo };
-                                ViewModel.ReportesGanadores.SinReclamar.Add(Modelo);
-                            }
-                        }
-                        ReportesGanadoresObservable ModeloTotalesSinReclamar = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalSinReclamar };
-                        ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);
 
-                        ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos + TotalSinReclamar);
+
+                    /* foreach (var pendientepago in TicketPendientePagos.GroupBy(x => x.TicketNo).ToList())
+                         {
+                             TotalPendientePagos = TotalPendientePagos + Convert.ToInt32(pendientepago.Sum(x => x.Items.Sum(y => y.Pago)));
+                             foreach (var pendientepagado in pendientepago)
+                             {
+                                 ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pendientepagado.StrFecha).ToString("dd-MMM-yyyy") + " " + pendientepagado.StrHora, Monto = (int)pendientepagado.Items.Sum(x => x.Pago), Tickets = pendientepagado.TicketNo };
+                                 ViewModel.ReportesGanadores.PendientesPagar.Add(Modelo);
+                             }
+                         }
+                         ReportesGanadoresObservable ModeloTotalesPendientePagos = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPendientePagos };
+                         ViewModel.ReportesGanadores.PendientesPagar.Add(ModeloTotalesPendientePagos);
+
+
+
+                     foreach (var pagados in TicketPagados.GroupBy(x => x.TicketNo))
+                     {
+
+                         foreach (var pagadoGroup in pagados)
+                         {
+                             TotalPagados = TotalPagados + Convert.ToInt32(pagadoGroup.Items.Sum(x => x.Pago));
+                             ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(pagadoGroup.StrFecha).ToString("dd-MMM-yyyy") + " " + pagadoGroup.StrHora, Monto = (int)pagadoGroup.Items.Sum(x => x.Pago), Tickets = pagadoGroup.TicketNo };
+                             ViewModel.ReportesGanadores.Pagados.Add(Modelo);
+                         }
+                     }
+
+                     ReportesGanadoresObservable ModeloTotalesPagados = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalPagados };
+                     ViewModel.ReportesGanadores.Pagados.Add(ModeloTotalesPagados);
+
+                     foreach (var sinreclamar in TicketSinReclamar.GroupBy(x => x.TicketNo))
+                     {
+                         foreach (var sinReclamarGroup in sinreclamar)
+                         {
+                             TotalSinReclamar = TotalSinReclamar + Convert.ToInt32(sinReclamarGroup.Items.Sum(x => x.Pago));
+                             ReportesGanadoresObservable Modelo = new ReportesGanadoresObservable() { Fecha = Convert.ToDateTime(sinReclamarGroup.StrFecha).ToString("dd-MMM-yyyy") + " " + sinReclamarGroup.StrHora, Monto = (int)sinReclamarGroup.Items.Sum(x => x.Pago), Tickets = sinReclamarGroup.TicketNo };
+                             ViewModel.ReportesGanadores.SinReclamar.Add(Modelo);
+                         }
+                     }
+                     ReportesGanadoresObservable ModeloTotalesSinReclamar = new ReportesGanadoresObservable() { Fecha = null, Tickets = "Total", Monto = TotalSinReclamar };
+                     ViewModel.ReportesGanadores.SinReclamar.Add(ModeloTotalesSinReclamar);*/
+
+                        ViewModel.ReportesGanadores.TotalGanadores = string.Format(nfi, "{0:C}", TotalPagados + TotalPendientePagos - TotalSinReclamar);
+                    }
+                    else if (Reporte.Tickets.Length == 0)
+                    {
+                        MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                }else if (Reporte.Tickets==null)
+                {
+                    MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
                 }
-            }
-            else if (Reporte.Tickets == null)
-            {
-                MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                
             }
             else if (Reporte.Err != null)
             {
@@ -514,35 +564,52 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             juegaMasSesion.Usuario = marSesion.Usuario;
             juegaMasSesion.Err = marSesion.Err;
 
-            var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion,ViewModel.Fecha);
+            var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion, ViewModel.Fecha);
 
             //           var Deserealizado2 = DeserializarString(SinCorchetes.ToString());
             //var Deserializado = DeserializarJuegaMas(SinComillas.ToString());
-            List<string []> printData = new List<string[]>() { };
-            var resultado = JsonConvert.DeserializeObject<ClienteMarWPFWin7.Domain.JuegaMasService.MAR_JuegaMasResponse>(reportes.Respuesta);
-            ViewModel.ObservableListadoPremios = "";
-            if (resultado.OK==true)
+
+            List<string[]> printData = new List<string[]>() { };
+            if (reportes.Respuesta != null)
             {
-                ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Visible;
-                var arrayJeison = JsonConvert.DeserializeObject(reportes.Respuesta);
-                ModelSerializePremios ModeloPremios = JsonConvert.DeserializeObject<ModelSerializePremios>(arrayJeison.ToString());
-                printData = ModeloPremios.PrintData;
-                for (int o = 0; o < printData.Count(); o++)
+                var resultado = JsonConvert.DeserializeObject<ClienteMarWPFWin7.Domain.JuegaMasService.MAR_JuegaMasResponse>(reportes.Respuesta);
+
+                ViewModel.ObservableListadoPremios = "";
+                if (reportes.Err == null)
                 {
-                    var premio = printData[o];
-                    var valor = premio[0].ToString();
-                   
-                    ViewModel.ObservableListadoPremios = ViewModel.ObservableListadoPremios + "\n";
-                    ViewModel.ObservableListadoPremios = ViewModel.ObservableListadoPremios + valor;
+                    if (resultado.OK == true)
+                    {
+                        ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Visible;
+                        var arrayJeison = JsonConvert.DeserializeObject(reportes.Respuesta);
+                        ModelSerializePremios ModeloPremios = JsonConvert.DeserializeObject<ModelSerializePremios>(arrayJeison.ToString());
+                        printData = ModeloPremios.PrintData;
+                        for (int o = 0; o < printData.Count(); o++)
+                        {
+                            var premio = printData[o];
+                            var valor = premio[0].ToString();
+
+                            ViewModel.ObservableListadoPremios = ViewModel.ObservableListadoPremios + "\n";
+                            ViewModel.ObservableListadoPremios = ViewModel.ObservableListadoPremios + valor;
+                        }
+                    }
+                    else
+                    {
+                        ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Hidden;
+
+                    }
+                }
+                else if (reportes.Err != null)
+                {
+                    MessageBox.Show(reportes.Err.ToString(), "MAR-Cliente", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                ViewModel.RPTListPremioVisibility = System.Windows.Visibility.Hidden;
+                MessageBox.Show("Ha ocurrido un fallo al crear reporte de lista de premios!", "MAR-Cliente", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            Console.WriteLine(printData);
-            //var data = DeserializarJuegaMas(respuesta);
         }
+            //var data = DeserializarJuegaMas(respuesta);
+        
     
         public static Object DeserializarString(string json)
         {
@@ -739,8 +806,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         private void RPTVentasFecha(object parametro)
         {
 
-            DateTime fInicio;
-            DateTime fFin;
+           
 
             bool fInicioEsValido = DateTime.TryParse(ViewModel.FechaInicio.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fInicio);
             bool fFinEsValido = DateTime.TryParse(ViewModel.FechaFin.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fFin);
@@ -762,14 +828,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
 
             //Parte de reportes compleja creador Edison Eugenio Pena Ruiz para cualquier consulta //
-            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, Convert.ToDateTime(fInicio), Convert.ToDateTime(fFin));
+            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.FechaInicio, ViewModel.FechaFin);
             ObservableCollection<ReportesSumVentasFechaObservable> List = new ObservableCollection<ReportesSumVentasFechaObservable>() { };
             //Agregar el encabezado de reporte
             HeaderReporte(Convert.ToDateTime(Reporte.Fecha), "VENTAS POR FECHA", null,ViewModel.FechaInicio,ViewModel.FechaFin);
             //////////////////////////////////////
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
             int venta=0, saco=0, comision=0, totalGeneralVenta=0, totalGeneralComision=0, totalGeneralSaco=0, totalGeneralBalance = 0;
-       
+            if (Reporte.Err == null)
+            {
+
+            
             if (ViewModel.SoloTotales == true)
             {
                 var LoteriasExistentes = Reporte.Reglones.Select(reporte => reporte.Reglon).Distinct();
@@ -880,7 +949,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                         venta = 0; comision = 0; saco = 0;
                     }
                 }
-           }
+                }
+           }else if (Reporte.Err != null)
+            {
+                MessageBox.Show(Reporte.Err.ToString(), "MAR-Cliente", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void TotalesGeneralesFormat(int totalVentaGeneral,int totalComisionGeneral,int totalSacoGeneral,int totalBalanceGeneral)
