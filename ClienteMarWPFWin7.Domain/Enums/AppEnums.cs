@@ -40,6 +40,7 @@
         Caja_LeerCajaExiste = 1009,
 
 
+        Banca_Rel = 1999,
         Banca_LeerBancaLastCuadreId = 2000,                                 
         Banca_LeerBancaLastTransaccionesApartirDelUltimoCuadre = 2001,      
         Banca_LeerBancaCuadrePorCuadreId = 2002,                           
