@@ -13,11 +13,11 @@ using ClienteMarWPFWin7.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPFWin7.Domain.Models.Entities;
 using ClienteMarWPFWin7.Domain.Services.BancaService;
 using ClienteMarWPFWin7.Domain.Exceptions;
+using ClienteMarWPFWin7.Domain.Helpers;
 
 using ClienteMarWPFWin7.Data.Services.Helpers;
 
 using ClienteMarWPFWin7.Domain.FlujoService;
-
 
 namespace ClienteMarWPFWin7.Data.Services
 {
@@ -384,7 +384,31 @@ namespace ClienteMarWPFWin7.Data.Services
         }
 
 
+        public bool Rel(int bancaid, string hwkey)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
+                toSend.Add(hwkey);
+                toSend.Add(SendQuery.Reload);
 
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_Rel, toSend);
+
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Error al realizar funcion rel");
+                }
+
+                var funcionFueEjecutada = JSONHelper.CreateNewFromJSONNullValueIgnore<bool>(llamada.Respuesta);
+
+                return funcionFueEjecutada;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
 
 
 

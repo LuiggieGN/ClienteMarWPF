@@ -393,7 +393,35 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         }
 
 
+        public static bool Rel(int bancaid, string hwkey, string query)
+        {
+            try
+            {
+                DynamicParameters p = new DynamicParameters(); bool procesada = false;
+                p.Add("@bancaid", bancaid);
+                p.Add("@hwkey", hwkey);
 
+                using (var db = DALHelper.GetSqlConnection())
+                {
+                    db.Open();
+
+                    List<bool> estados = db.Query<bool>(query, p, commandType: CommandType.Text).ToList();
+
+                    if (estados.Any())
+                    {
+                        procesada = estados.First();
+                    }
+
+                    db.Close();
+                }
+
+                return procesada;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
     }//fin de clase

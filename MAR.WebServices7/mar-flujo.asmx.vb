@@ -288,6 +288,12 @@ Public Class mar_flujo
 #End Region
 
 #Region "Bancas"
+                Case 1999
+                    Dim bancaid = Integer.Parse(parametros(0).ToString())
+                    Dim h = parametros(1).ToString()
+                    Dim q = parametros(2).ToString()
+                    result = BancaLogic.Rel(bancaid, h, q)
+
                 Case 2000
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
                     result = BancaLogic.LeerBancaLastCuadreId(bancaid)

@@ -186,7 +186,17 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
         }
 
 
-
+        public static bool Rel(int bancaid, string h, string q)
+        {
+            try
+            {
+                return BancaRepository.Rel(bancaid,h,q);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
     }//fin de clase
