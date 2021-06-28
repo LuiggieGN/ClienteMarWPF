@@ -43,7 +43,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
         private void CopiarTicket(object parametro)
         {
-            MAR_Bet jugadas = null;
+            TicketDTO jugadas = null;
             
             //ObservableCollection<MAR_Bet> jugadas = new ObservableCollection<MAR_Bet>() { };
             List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
@@ -67,9 +67,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
 
             var ObteniendoJugadaPrecargada = ViewModel.ListadoTicketsPrecargados.Where(x => x.TicketNo == NumeroTicket); 
-                List<MAR_BetItem> ListadoJugadasTicket = new List<MAR_BetItem>() { };
+                List<JugadasDTO> ListadoJugadasTicket = new List<JugadasDTO>() { };
                 var posicion = 0;
-                MAR_Bet NuevaJugada = null;
+                TicketDTO NuevaJugada = null;
                 bool resetearJugdas = false;
                 var jugadasPorTickets = new MAR_Bet { };
                 if (ObteniendoJugadaPrecargada.Count() > 0)
@@ -85,14 +85,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                             
                             jugadasPorTickets = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, NumeroTicket);
                             foreach (var Jugada in jugadasPorTickets.Items) {
-                                    MAR_BetItem JugadaTicket = new MAR_BetItem() { Cantidad = Jugada.Cantidad, Costo = Jugada.Costo, Loteria = Jugada.Loteria, Numero = Jugada.Numero, Pago = Jugada.Pago, QP = Jugada.QP };
+                                JugadasDTO JugadaTicket = new JugadasDTO() { Cantidad = Jugada.Cantidad, Costo = Jugada.Costo, Loteria = Jugada.Loteria, Numero = Jugada.Numero, Pago = Jugada.Pago, QP = Jugada.QP };
                                     ListadoJugadasTicket.Add(JugadaTicket);
                             }
-                            NuevaJugada = new MAR_Bet() { TicketNo = jugada.TicketNo, Cedula = jugada.Cedula, Cliente = jugada.Cliente, Costo = jugada.Costo, Err = jugada.Err, Grupo = jugada.Grupo, Items = ListadoJugadasTicket.ToArray(), Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = jugadasPorTickets.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket };
+                            NuevaJugada = new TicketDTO() { TicketNo = jugada.TicketNo, Costo = jugada.Costo, Err = jugada.Err, Items = ListadoJugadasTicket.ToArray(), Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Ticket = jugada.Ticket };
                     
-                            jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
+                            jugadas = new TicketDTO() {  Err = jugada.Err, Costo = jugada.Costo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
                          } else { 
-                            jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = jugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = jugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
+                            jugadas = new TicketDTO() {Err = jugada.Err, Costo = jugada.Costo, Items = jugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
                         }
                     
                     }
@@ -118,12 +118,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                     foreach (var Jugada in jugadasPorTickets.Items)
                     {
-                        MAR_BetItem JugadaTicket = new MAR_BetItem() { Cantidad = Jugada.Cantidad, Costo = Jugada.Costo, Loteria = Jugada.Loteria, Numero = Jugada.Numero, Pago = Jugada.Pago, QP = Jugada.QP };
+                        JugadasDTO JugadaTicket = new JugadasDTO() { Cantidad = Jugada.Cantidad, Costo = Jugada.Costo, Loteria = Jugada.Loteria, Numero = Jugada.Numero, Pago = Jugada.Pago, QP = Jugada.QP };
                         ListadoJugadasTicket.Add(JugadaTicket);
                     }
-                    NuevaJugada = new MAR_Bet() { TicketNo = jugada.TicketNo, Cedula = jugada.Cedula, Cliente = jugada.Cliente, Costo = jugada.Costo, Err = jugada.Err, Grupo = jugada.Grupo, Items = ListadoJugadasTicket.ToArray(), Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = jugadasPorTickets.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket };
+                    NuevaJugada = new TicketDTO() { TicketNo = jugada.TicketNo, Costo = jugada.Costo, Err = jugada.Err, Items = ListadoJugadasTicket.ToArray(), Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Fecha = Convert.ToDateTime(jugada.StrFecha.ToString()), Ticket = jugada.Ticket,Solicitud=jugadasPorTickets.Solicitud };
 
-                    jugadas = new MAR_Bet() { Cedula = jugada.Cedula, Err = jugada.Err, Costo = jugada.Costo, Cliente = jugada.Cliente, Grupo = jugada.Grupo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud, StrFecha = jugada.StrFecha, StrHora = jugada.StrHora, Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
+                    jugadas = new TicketDTO() { Err = jugada.Err, Costo = jugada.Costo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud,Fecha = Convert.ToDateTime(jugada.StrFecha), Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
                     }
                 }
                 //jugadas = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, data.TicketNo);
@@ -134,8 +134,23 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 //////////////////// Para la reimpresion de ticket ////////////////
                 List<TicketJugadas> listTicketJugdas = new List<TicketJugadas> { };
                 List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
-
-                var firma = VentasIndexTicket.GeneraFirma(jugadas.StrFecha, jugadas.StrHora, jugadas.TicketNo, jugadas.Items);
+                MAR_Bet jugadasParaFirma = new MAR_Bet();
+                jugadasParaFirma.TicketNo = jugadas.TicketNo;
+                jugadasParaFirma.Ticket = jugadas.Ticket;
+                jugadasParaFirma.StrHora = jugadas.StrHora;
+                jugadasParaFirma.StrFecha = jugadas.Fecha.ToString();
+                jugadasParaFirma.Nulo = jugadas.Nulo;
+                jugadasParaFirma.Pago = jugadas.Pago;
+                jugadasParaFirma.Solicitud = jugadas.Solicitud;
+                jugadasParaFirma.Items = new MAR_BetItem[jugadas.Items.Length];
+                jugadasParaFirma.Loteria = jugadas.Loteria;
+                
+                for (var o=0;o < jugadas.Items.Length;o++)
+                {
+                    jugadasParaFirma.Items[o] = new MAR_BetItem() {Cantidad=jugadas.Items[o].Cantidad,Costo=jugadas.Items[o].Costo,Loteria=jugadas.Items[o].Loteria,Numero=jugadas.Items[o].Numero,Pago=jugadas.Items[o].Pago,QP=jugadas.Items[o].QP};
+                }
+                
+                var firma = VentasIndexTicket.GeneraFirma(jugadas.Fecha.ToString(), jugadas.StrHora, jugadas.TicketNo,jugadasParaFirma.Items);
                 var datosTicket = SessionGlobals.LoteriasTodas.Where(x => x.Numero == jugadas.Loteria).ToList();
                 var NombreLoteria = datosTicket[0].Nombre;
                 var Pin = VentasIndexTicket.GeneraPinGanador(Convert.ToInt32(jugadas.Solicitud));

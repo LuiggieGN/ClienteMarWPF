@@ -12,13 +12,15 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 using System.Linq;
+using ClienteMarWPFWin7.Domain.Services.BancaService;
+using ClienteMarWPFWin7.Domain.Models.Dtos;
 
 namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
 {
     public class ValidarPagoTicketViewModel: BaseViewModel
     {
 
-        private ObservableCollection<MAR_Bet> listadotipojugadas;
+        private ObservableCollection<TicketDTO> listadotipojugadas;
         public ICommand CerrarValidarPagoTicketCommand { get; }
         public ICommand ConsultarTicketCommand { get; }
         public ICommand PagarTicketCommand { get; }
@@ -26,7 +28,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         public ICommand ReimprimirTicketCommand { get; }
         public ICommand GetListadoTicketsCommand { get; }
         public ICommand CopiarTicketCommand { get; }
-        public ObservableCollection<MAR_Bet> listaTicketsJugados { get => listadotipojugadas; 
+        public ObservableCollection<TicketDTO> listaTicketsJugados { get => listadotipojugadas; 
             set {
                 listadotipojugadas = value;
                 NotifyPropertyChanged(nameof(listadotipojugadas));
@@ -38,15 +40,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         public Action SeleccionarInputVacios;
         public Action SeleccionarTxtTicket;
 
-        public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService,Action seleccionarInputsVacios,Action seleccionarTxtTicket)
+        public ValidarPagoTicketViewModel(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService,IBancaService bancaService,Action seleccionarInputsVacios,Action seleccionarTxtTicket)
         {
 
             SetMensajeToDefaultSate();
 
-            listaTicketsJugados = new ObservableCollection<MAR_Bet>();
+            listaTicketsJugados = new ObservableCollection<TicketDTO>();
 
             CerrarValidarPagoTicketCommand = new CerrarValidarPagoTicketCommand(this);
-            GetListadoTicketsCommand = new GetListadoTicketsCommand(viewModel, autenticador, sorteosService,this);
+            GetListadoTicketsCommand = new GetListadoTicketsCommand(viewModel, autenticador, sorteosService,bancaService,this);
             ConsultarTicketCommand = new ConsultarTicketCommand(this, autenticador, sorteosService);
             PagarTicketCommand = new PagarTicketCommand(this, autenticador, sorteosService);
             AnularTicketCommand = new AnularTicketCommand(this, autenticador, sorteosService,viewModel);
@@ -212,7 +214,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             MostrarMensajes = puedeMostrarse;        
         }
 
-        public ObservableCollection<MAR_Bet> ListaTickets
+        public ObservableCollection<TicketDTO> ListaTickets
         {
             get
             {

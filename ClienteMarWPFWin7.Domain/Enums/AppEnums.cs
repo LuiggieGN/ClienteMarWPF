@@ -54,6 +54,7 @@
         Banca_LeerVentaDeHoyDeLoterias = 2010,
         Banca_LeerVentaDeHoyDeProductos = 2011,
         Banca_LeerTicketFueAnulado = 2012,
+        Banca_LeerTicketsHoy = 2013,
 
 
         Cuadre_Registrar = 3000,  

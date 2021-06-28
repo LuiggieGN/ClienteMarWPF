@@ -56,6 +56,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     var TicketID = Convert.ToInt32(contenedorTicketID.ToArray()[0]);
                     var ReimprimirResponse = SorteosService.ReimprimirTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, TicketID);
                     var jugadas = ReimprimirResponse;
+                    TicketDTO jugadasCopy = new TicketDTO() {Costo = ReimprimirResponse.Costo,Err=ReimprimirResponse.Err,Fecha = Convert.ToDateTime(ReimprimirResponse.StrFecha),Loteria=ReimprimirResponse.Loteria,TicketNo = ReimprimirResponse.TicketNo,Nulo = ReimprimirResponse.Nulo,Pago= ReimprimirResponse.Pago,Solicitud=ReimprimirResponse.Solicitud,Ticket=ReimprimirResponse.Ticket };
+                    jugadasCopy.Items = new JugadasDTO[ReimprimirResponse.Items.Length];
+                    for (var i =0;i < ReimprimirResponse.Items.Length;i++)
+                    {
+                        jugadasCopy.Items[i] = new JugadasDTO { QP = ReimprimirResponse.Items[i].QP, Cantidad = ReimprimirResponse.Items[i].Cantidad, Costo = ReimprimirResponse.Items[i].Costo, Loteria = ReimprimirResponse.Items[i].Loteria, Numero = ReimprimirResponse.Items[i].Numero, Pago = ReimprimirResponse.Items[i].Pago };
+                        
+                    }
+
                     if (jugadas.Err == null)
                     {
                         List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
@@ -92,7 +100,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                         List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
                         List<TicketJugadas> listTicketJugdas = new List<TicketJugadas> { };
-                        var firma = VentasIndexTicket.GeneraFirma(jugadas.StrFecha, jugadas.StrHora, jugadas.TicketNo, jugadas.Items);
+                        var firma = VentasIndexTicket.GeneraFirma(jugadas.StrFecha, jugadas.StrHora, jugadas.TicketNo, ReimprimirResponse.Items);
 
                         foreach (var jugada in jugadas.Items)
                         {

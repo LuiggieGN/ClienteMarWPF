@@ -24,9 +24,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private string _ticketSeleccionado;
         private List<Jugada> _listJugadas;
         public bool buscarTicketsInService;//Variable para buscar en listado de ticket
-        public ObservableCollection<MAR_Bet> listaTicketsJugados;
+        public ObservableCollection<TicketDTO> listaTicketsJugados;
         public ObservableCollection<UltimosSorteos> ganadores;
-        public ObservableCollection<MAR_Bet> listadoTicketPrecargada;
+        public ObservableCollection<TicketDTO> listadoTicketPrecargada;
         private string _totalVentas;
         private string _totalVendidoHoy;
         public List<int> loteriasMultiples = new List<int>() { };
@@ -62,14 +62,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             RealizarApuestaCommand = new RealizarApuestaCommand(this, autenticador, sorteosService);
             //GetListadoTicketsCommand = new GetListadoTicketsCommand(this, autenticador, sorteosService,null);
             GetGanadoresCommand = new GetGanadoresCommand(this, autenticador, sorteosService);
-            ValidarPagoTicketCommand = new ValidarPagoTicketCommand(this, autenticador, sorteosService);
+            ValidarPagoTicketCommand = new ValidarPagoTicketCommand(this, autenticador, sorteosService,bancaService);
             LeerBancaTotalVendidoHoyCommand = new LeerBancaTotalVendidoHoyCommand(this);
 
 
 
-            listaTicketsJugados = new ObservableCollection<MAR_Bet>();
+            listaTicketsJugados = new ObservableCollection<TicketDTO>();
             ganadores = new ObservableCollection<UltimosSorteos>();
-            listadoTicketPrecargada = new ObservableCollection<MAR_Bet>();
+            listadoTicketPrecargada = new ObservableCollection<TicketDTO>();
             //CopiarTicketCommand = new CopiarTicketCommand(this, autenticador, sorteosService);
             //GetListadoTicketsCommand.Execute(null);
 
@@ -164,7 +164,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
 
 
-        public ObservableCollection<MAR_Bet> ListaTickets
+        public ObservableCollection<TicketDTO> ListaTickets
         {
             get
             {
@@ -174,7 +174,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         }
 
 
-        public ObservableCollection<MAR_Bet> ListadoTicketsPrecargados
+        public ObservableCollection<TicketDTO> ListadoTicketsPrecargados
         {
             get
             {

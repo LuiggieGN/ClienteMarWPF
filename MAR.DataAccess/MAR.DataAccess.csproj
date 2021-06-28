@@ -388,6 +388,7 @@
     <Compile Include="Tables\ControlEfectivoDTOs\SupraMovimientoEnBancaDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\SupraMovimientoEnBancaResultDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\TarjetaDTO.cs" />
+    <Compile Include="Tables\ControlEfectivoDTOs\TicketDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\TieDTO.cs" />
     <Compile Include="Tables\ControlEfectivoDTOs\TipoAnonimoDTO.cs" />
     <Compile Include="Tables\DTOs\CL_Cliente.cs" />
