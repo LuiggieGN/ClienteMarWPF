@@ -58,7 +58,7 @@
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <Color x:Key="EsMiMensaje">#c3e5f3</Color>
+    <Color x:Key="EsMiMensaje">#DCF8C6</Color>
     <SolidColorBrush x:Key="EsMiMensajeBrush" Color="{StaticResource EsMiMensaje}" />
 
     <Color x:Key="NoEsMiMensaje">#ffffff</Color>
