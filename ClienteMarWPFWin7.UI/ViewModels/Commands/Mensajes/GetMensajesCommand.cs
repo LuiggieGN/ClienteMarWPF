@@ -1,11 +1,13 @@
-﻿using ClienteMarWPFWin7.Domain.Services.MensajesService;
+﻿
+#region Namespaces
+using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
+using ClienteMarWPFWin7.Domain.Services.MensajesService;
 using ClienteMarWPFWin7.UI.Modules.Mensajeria;
 using ClienteMarWPFWin7.UI.State.Authenticators;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows;
 using System.Windows.Threading;
+#endregion
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 {
@@ -41,23 +43,49 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
             var cantidad = "";
 
             try
-            {              
+            {
+                if (ViewModel.ScrollDownPendiente == Si)
+                {
+                    ViewModel.EscrolearHaciaAbajo?.Invoke();
+                    ViewModel.ScrollDownPendiente = No;
+                }
+
                 var mensajes = MensajesService.GetMessages(Autenticador.CurrentAccount.MAR_Setting2.Sesion).msj;
+
                 if (mensajes != null)
-                {                   
-                    foreach (var item in mensajes)
+                {
+                    #region Logica Revertiendo Mensajes
+
+                    var mensajesStack = new Stack<MAR_Mensaje2>();
+
+                    for (int indiceMensaje = 0; indiceMensaje < mensajes.Length; indiceMensaje++)
                     {
-
-                        ViewModel.Mensajes.Add(item);
-
+                        mensajesStack.Push(mensajes[indiceMensaje]);
                     }
 
-                    //for (var i = 0; i < mensajes.Length; i++)
-                    //{
-                    //    cantidad = $"Tienes {i + 1} nuevos mensajes.";
-                    //}
+                    ViewModel.Mensajes.Clear();
 
-                    //(Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(cantidad, "Info");
+                    foreach (var item in mensajesStack)
+                    {
+                        ViewModel.Mensajes.Add(new MAR_Mensaje2
+                        {
+                             BancaID = item.BancaID,
+                             MensajeID = item.MensajeID,
+                             Tipo = item.Tipo,
+                             Asunto = item.Asunto,
+                             Contenido = item.Contenido,
+                             Fecha = item.Fecha,
+                             Hora = item.Hora,
+                             Origen = item.Origen,
+                             Destino = item.Destino,
+                             Leido = item.Leido,
+                             SinLeerTotal = item.SinLeerTotal,
+                        });
+                    } 
+
+                    ViewModel.MensajeFueronActualizado();
+
+                    #endregion
                 }
                 else
                 {
@@ -65,18 +93,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
                 }
 
             }
-            catch (Exception)
+            catch  
             {
 
             }
-
         }
 
         public void ObtenerMensajes(object sender, EventArgs e)
         {
-            ViewModel.Mensajes.Clear();
-            GetMensajes(sender);
-            
+            GetMensajes(sender);            
         }
 
 

@@ -46,6 +46,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.MainWindow
                 SorteosView.Timer = null;
             }
 
+            if (Mensajes.GetMensajesCommand.Timer != null)
+            {
+                Mensajes.GetMensajesCommand.Timer.Stop();
+                Mensajes.GetMensajesCommand.Timer = null;
+            }
+
             if (parameter is Modulos)
             {
                 Modulos viewType = (Modulos)parameter;
