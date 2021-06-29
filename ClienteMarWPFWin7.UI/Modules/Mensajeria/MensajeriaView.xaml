@@ -17,8 +17,16 @@
         <Border Background="{DynamicResource MenuLeftBackground}" Height="40">
             <Label Content="Mensajeria instantanea" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
         </Border>
+        
+        
 
-        <ListBox x:Name="listMensajeChat" Grid.Row="1"   Background="#EEEEEE" ItemsSource="{Binding MensajeriaBinding, UpdateSourceTrigger=PropertyChanged}"  ScrollViewer.CanContentScroll="True" Padding="10" >
+        <ListBox x:Name="listMensajeChat"
+                 Grid.Row="1" 
+                 Background="#EEEEEE" 
+                 ItemsSource="{Binding MensajeriaBinding, UpdateSourceTrigger=PropertyChanged}"  
+                 ScrollViewer.CanContentScroll="True"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 Padding="10" >
             <ListBox.Resources>
 
                 <Style TargetType="{x:Type ListBoxItem}"  >

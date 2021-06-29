@@ -1,36 +1,45 @@
-﻿using ClienteMarWPFWin7.Domain.Services.MensajesService;
+﻿
+#region Namespaces
+using ClienteMarWPFWin7.Domain.Services.MensajesService;
 using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.ViewModels.Base;
 using ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System;
+#endregion
 
 namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
 {
     public class MensajeriaViewModel : BaseViewModel
     {
+        #region Campos
+        private string _mensaje;
+        public ObservableCollection<MAR_Mensaje2> Mensajes = new ObservableCollection<MAR_Mensaje2>();
+        #endregion
+
+        #region Comandos
         public ICommand SendMensajeCommand { get; }
         public ICommand GetMensajesCommand { get; }
-        public ObservableCollection<MAR_Mensaje2> Mensajes = new ObservableCollection<MAR_Mensaje2>();
-        //public ObservableCollection<MAR_Mensaje> Mensajes2 = new ObservableCollection<MAR_Mensaje>();
-        public MensajeriaViewModel(IAuthenticator autenticador, IMensajesService mensajesService)
+        #endregion
+
+        #region Acciones
+        public Action EscrolearHaciaAbajo { get; set; }
+        #endregion
+
+        public MensajeriaViewModel(IAuthenticator autenticador,
+                                   IMensajesService mensajesService)
         {
             SendMensajeCommand = new SendMensajeCommand(this, autenticador, mensajesService);
             GetMensajesCommand = new GetMensajesCommand(this, autenticador, mensajesService);
-            //MensajeriaBinding = new ObservableCollection<MAR_Mensaje>();
-            //GetMensajesCommand.Execute(null);
-
+            ScrollDownPendiente = Si;
         }
 
-        public ObservableCollection<MAR_Mensaje2> MensajeriaBinding { 
-        get { return Mensajes; }
-        }
 
-        #region PropertyOfView
-        //###########################################################
-        private string _mensaje;
-        //###########################################################
+
+        #region Propiedades
+
         public string Mensaje
         {
             get
@@ -43,9 +52,22 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
                 NotifyPropertyChanged(nameof(Mensaje));
             }
         }
-        //###########################################################
+
+        public ObservableCollection<MAR_Mensaje2> MensajeriaBinding
+        {
+            get { return Mensajes; }
+        }
+
+        public bool  ScrollDownPendiente { get; set; }
+
         #endregion
 
+        #region Actualiza Propiedades
+        public void MensajeFueronActualizado()
+        {
+            NotifyPropertyChanged(nameof(MensajeriaBinding));
+        }
+        #endregion
 
     }
 }

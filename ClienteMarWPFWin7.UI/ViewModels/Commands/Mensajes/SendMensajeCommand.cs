@@ -30,9 +30,14 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
             {
                 if (ViewModel.Mensaje != null)
                 {
-                    MensajesService.SendMessage(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Mensaje);
-                    ViewModel.Mensaje = null;
+
+                    int resultado = MensajesService.SendMessage(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Mensaje);
+                   
                     (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Mensaje enviado correctamente.", "Excelente");
+
+                    ViewModel.Mensaje = null;
+
+                    ViewModel.ScrollDownPendiente = true;
                 }
                 else
                 {
