@@ -1,9 +1,10 @@
 ﻿
 #region Namespaces
-using ClienteMarWPFWin7.Domain.Services.MensajesService;
 using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.ViewModels.Base;
 using ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes;
+using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
+using ClienteMarWPFWin7.Domain.Services.MensajesService;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -16,7 +17,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
     {
         #region Campos
         private string _mensaje;
-        public ObservableCollection<MAR_Mensaje2> Mensajes = new ObservableCollection<MAR_Mensaje2>();
+        public ObservableCollection<ChatMensajeObservable> Mensajes = new ObservableCollection<ChatMensajeObservable>();
         #endregion
 
         #region Comandos
@@ -53,7 +54,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
             }
         }
 
-        public ObservableCollection<MAR_Mensaje2> MensajeriaBinding
+        public ObservableCollection<ChatMensajeObservable> MensajeriaBinding
         {
             get { return Mensajes; }
         }
@@ -62,12 +63,17 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
 
         #endregion
 
-        #region Actualiza Propiedades
-        public void MensajeFueronActualizado()
+ 
+
+
+        public void RegistrarCambiosEnColeccionDeMensajes()
         {
             NotifyPropertyChanged(nameof(MensajeriaBinding));
         }
-        #endregion
+ 
+
+
+
 
     }
 }

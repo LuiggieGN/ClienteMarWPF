@@ -1,10 +1,12 @@
 ﻿
+#region Namespace
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
 using ClienteMarWPFWin7.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using System;
+#endregion
 
 namespace ClienteMarWPFWin7.UI.Extensions
 {
