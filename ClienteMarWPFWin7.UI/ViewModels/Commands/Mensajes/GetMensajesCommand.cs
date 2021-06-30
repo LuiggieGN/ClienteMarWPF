@@ -61,16 +61,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
                 {
                     #region Logica Revertiendo Mensajes
 
-                    var pilaDeMensajes = new Stack<MAR_Mensaje2>();
+                    var pilaMensajes = new Stack<MAR_Mensaje2>();
 
                     for (int indiceMensaje = 0; indiceMensaje < mensajes.Length; indiceMensaje++)
                     {
-                        pilaDeMensajes.Push(mensajes[indiceMensaje]);
+                        pilaMensajes.Push(mensajes[indiceMensaje]);
                     }
 
                     ViewModel.Mensajes.Clear();
 
-                    foreach (var item in pilaDeMensajes)
+                    foreach (var item in pilaMensajes)
                     {
                         ViewModel.Mensajes.Add(new ChatMensajeObservable
                         {

@@ -37,8 +37,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
             ScrollDownPendiente = Si;
         }
 
-
-
         #region Propiedades
 
         public string Mensaje

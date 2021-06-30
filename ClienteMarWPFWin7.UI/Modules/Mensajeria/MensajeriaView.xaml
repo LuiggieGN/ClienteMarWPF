@@ -58,6 +58,7 @@
 
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
 
                                         </Grid.RowDefinitions>
 
@@ -71,6 +72,14 @@
                                                 <DropShadowEffect BlurRadius="10" Opacity="0.2"/>
                                             </Border.Effect>
                                             <StackPanel>
+                                                <StackPanel 
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="{Binding EsMiMensaje, Converter={StaticResource ChatMensajeAlineacionConvertidor},ConverterParameter=True}"
+                                                  >
+                                                    <TextBlock Text="{Binding Fecha}" FontSize="10" FontWeight="Normal" Foreground="#7d7d7d" Margin="0 0 2 0"/>
+                                                    <TextBlock Text="|" FontSize="10" FontWeight="Normal" Foreground="#7d7d7d" Margin="0 0 2 0"/>
+                                                    <TextBlock Text="{Binding Hora}" FontSize="10" FontWeight="Normal" Foreground="#7d7d7d" />
+                                                </StackPanel>
                                                 <TextBlock x:Name="txt1" Text="{Binding Origen}" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
                                                 <TextBlock x:Name="txt2"  TextWrapping="Wrap" FontSize="14" Text="{Binding Contenido}"/>
                                             </StackPanel>
@@ -85,6 +94,8 @@
                                               StrokeThickness="0"
                                               HorizontalAlignment="{Binding EsMiMensaje, Converter={StaticResource ChatMensajeAlineacionConvertidor}}"
                                               Fill="{Binding EsMiMensaje, Converter={StaticResource ChatMensajeBackgroundConvertidor}}" />
+
+
                                     </Grid>
 
 

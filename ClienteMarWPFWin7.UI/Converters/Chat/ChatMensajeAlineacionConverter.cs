@@ -15,7 +15,7 @@ namespace ClienteMarWPFWin7.UI.Converters.Chat
             if (parameter == null)
                 return (bool)value ? HorizontalAlignment.Right : HorizontalAlignment.Left;
             else
-                return (bool)value ? HorizontalAlignment.Left : HorizontalAlignment.Right;
+                return (bool)value ? HorizontalAlignment.Left : HorizontalAlignment.Left;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
