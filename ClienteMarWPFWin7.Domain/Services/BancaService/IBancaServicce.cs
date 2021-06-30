@@ -36,6 +36,6 @@ namespace ClienteMarWPFWin7.Domain.Services.BancaService
 
         bool Rel(int bancaid, string hwkey);
 
-        ObservableCollection<TicketDTO> LeerTicketsHoy(int bancaid);
+        List<TicketDTO> LeerTicketsHoy(int bancaid);
     }
 }

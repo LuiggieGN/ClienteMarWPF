@@ -350,7 +350,7 @@ Public Class mar_flujo
 
                 Case 2013
                     Dim bancaid = Integer.Parse(parametros(0).ToString())
-                    result = BancaLogic.LeerVentaDeHoyDeProductos(bancaid)
+                    result = BancaLogic.LeerTicketsHoy(bancaid)
 
 
 #End Region

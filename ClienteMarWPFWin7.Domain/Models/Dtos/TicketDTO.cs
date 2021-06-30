@@ -16,7 +16,6 @@ namespace ClienteMarWPFWin7.Domain.Models.Dtos
                 return Fecha.ToString("hh:mm tt", CultureInfo.InvariantCulture);
             }
         }
-
         public bool Nulo { get; set; }
 
         public double Costo { get; set; }

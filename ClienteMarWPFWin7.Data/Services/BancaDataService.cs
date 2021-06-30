@@ -412,7 +412,7 @@ namespace ClienteMarWPFWin7.Data.Services
             }
         }
 
-        public ObservableCollection <TicketDTO> LeerTicketsHoy(int bancaid)
+        public List<TicketDTO> LeerTicketsHoy(int bancaid)
         {
             try
             {
@@ -426,7 +426,7 @@ namespace ClienteMarWPFWin7.Data.Services
                     throw new Exception("Ha ocurrido un error al leer tickets de ventas de hoy para esta banca");
                 }
 
-                ObservableCollection<TicketDTO> ticketsDeHoy = JSONHelper.CreateNewFromJSONNullValueIgnore<ObservableCollection<TicketDTO>>(llamada.Respuesta);
+                List<TicketDTO> ticketsDeHoy = JSONHelper.CreateNewFromJSONNullValueIgnore<List<TicketDTO>>(llamada.Respuesta);
 
                 return ticketsDeHoy;
             }
