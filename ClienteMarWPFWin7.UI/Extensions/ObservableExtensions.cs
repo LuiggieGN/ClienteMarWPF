@@ -3,10 +3,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
+using ClienteMarWPFWin7.Domain.Models.Dtos;
 using ClienteMarWPFWin7.Domain.Models.Dtos.EfectivoDtos;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using System;
 #endregion
+ 
 
 namespace ClienteMarWPFWin7.UI.Extensions
 {
@@ -70,7 +72,31 @@ namespace ClienteMarWPFWin7.UI.Extensions
             return mapped;
         }// fin de metodo
 
+        public static ObservableCollection<TicketDTO> ToObservableTicketDTO(this List<TicketDTO> source)
+        {
+            var mapped = new ObservableCollection<TicketDTO>();
 
+            if (source != null && source.Count > 0)
+            {
+                foreach (var item in source)
+                {
+                    mapped.Add(new TicketDTO()
+                    {
+                        Costo = item.Costo,
+                        Err = item.Err,
+                        Items = item.Items,
+                        Loteria = item.Loteria,
+                        Nulo = item.Nulo,
+                        Pago = item.Pago,
+                        Solicitud = item.Solicitud,
+                        Fecha = item.Fecha,
+                        Ticket = item.Ticket,
+                        TicketNo = item.TicketNo
+                    });
+                }
+            }
+            return mapped;
+        }// fin de metodo
 
 
     }

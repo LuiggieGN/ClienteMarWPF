@@ -18,6 +18,8 @@ using ClienteMarWPFWin7.Domain.Helpers;
 using ClienteMarWPFWin7.Data.Services.Helpers;
 
 using ClienteMarWPFWin7.Domain.FlujoService;
+using System.Collections.ObjectModel;
+using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 
 namespace ClienteMarWPFWin7.Data.Services
 {
@@ -410,10 +412,30 @@ namespace ClienteMarWPFWin7.Data.Services
             }
         }
 
+        public List<TicketDTO> LeerTicketsHoy(int bancaid)
+        {
+            try
+            {
+                var toSend = new ArrayOfAnyType();
+                toSend.Add(JSONHelper.SerializeToJSON(bancaid));
 
+                var llamada = efectivoSoapCliente.CallControlEfectivoFunciones((int)EfectivoFunciones.Banca_LeerTicketsHoy, toSend);
 
+                if (llamada == null || llamada.OK == false)
+                {
+                    throw new Exception("Ha ocurrido un error al leer tickets de ventas de hoy para esta banca");
+                }
 
+                List<TicketDTO> ticketsDeHoy = JSONHelper.CreateNewFromJSONNullValueIgnore<List<TicketDTO>>(llamada.Respuesta);
 
+                return ticketsDeHoy;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+           
+        }
     }//fin de clase
 }
 

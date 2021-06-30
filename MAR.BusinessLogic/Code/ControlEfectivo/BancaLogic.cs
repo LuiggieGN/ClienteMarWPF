@@ -198,6 +198,18 @@ namespace MAR.BusinessLogic.Code.ControlEfectivo
             }
         }
 
+        public static List<TicketDTO> LeerTicketsHoy(int bancaid)
+        {
+            try
+            {
+                return BancaRepository.LeerTicketsHoy(bancaid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }//fin de clase
 }

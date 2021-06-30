@@ -141,7 +141,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 List<MAR_BetItem> JugadasForTicketPrecargado = new List<MAR_BetItem>() { };
 
-
+                TicketDTO MarBetResponseCopy = new TicketDTO();
+                MarBetResponseCopy.TicketNo = MarBetResponse.TicketNo;
+                MarBetResponseCopy.Ticket = MarBetResponse.Ticket;
+                MarBetResponseCopy.Nulo = MarBetResponse.Nulo;
+                MarBetResponseCopy.Costo = MarBetResponse.Costo;
+                MarBetResponseCopy.Pago = MarBetResponse.Pago;
+                MarBetResponseCopy.Loteria = MarBetResponse.Loteria;
+                MarBetResponseCopy.Err = MarBetResponse.Err;
+                
                 //ConfigPrinterValue
                 List<ConfigPrinterModel> configmodel = new List<ConfigPrinterModel>() { };
 
@@ -207,7 +215,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = MarBetResponse.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = "Revise su jugada. Buena Suerte!", Total = "Total", AutorizacionHacienda = null, Logo = null };
 
                 //Agregando ticket a listado ticket precargado
-                MAR_Bet ticketForTicketRecargados = new MAR_Bet() { Items = MarBetResponse.Items, Pago = MarBetResponse.Pago, Loteria = MarBetResponse.Loteria, Costo = MarBetResponse.Costo, Cedula = MarBetResponse.Cedula, Cliente = MarBetResponse.Cliente, Grupo = MarBetResponse.Grupo, Nulo = MarBetResponse.Nulo, Err = MarBetResponse.Err, Solicitud = MarBetResponse.Solicitud, StrFecha = MarBetResponse.StrFecha, StrHora = MarBetResponse.StrHora, Ticket = MarBetResponse.Ticket, TicketNo = MarBetResponse.TicketNo };
+               TicketDTO ticketForTicketRecargados = new TicketDTO() { Items = MarBetResponseCopy.Items, Pago = MarBetResponseCopy.Pago, Loteria = MarBetResponseCopy.Loteria, Costo = MarBetResponse.Costo, Nulo = MarBetResponseCopy.Nulo, Err = MarBetResponse.Err, Ticket = MarBetResponse.Ticket, TicketNo = MarBetResponse.TicketNo,Solicitud=MarBetResponse.Solicitud,Fecha=Convert.ToDateTime(MarBetResponse.StrFecha) };
                 ViewModel.ListadoTicketsPrecargados.Add(ticketForTicketRecargados);
 
                 ///////////////////////////////////////////
@@ -346,11 +354,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
                     TextReviseJugada = "Revise su jugada. Buena Suerte!"
                 };
-
+                TicketDTO multiCopy = new TicketDTO();
+                multiCopy.Items = new JugadasDTO[multi.Items.Length];
+                for (var i = 0; i < multi.Items.Length; i++)
+                {
+                    multiCopy.Items[i]= new JugadasDTO {Loteria=multi.Items[i].Loteria,Cantidad=multi.Items[i].Cantidad,Costo=multi.Items[i].Costo,Numero=multi.Items[i].Numero,Pago=multi.Items[i].Pago,QP=multi.Items[i].QP };
+                    
+                }
 
                 TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = Headers.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = "Revise su jugada. Buena Suerte!", Total = "Total", AutorizacionHacienda = null, Logo = null };
 
-                MAR_Bet ticketForTicketRecargados = new MAR_Bet() { Items = multi.Items, Pago = Headers.Pago, Loteria = Headers.Loteria, Costo = Headers.Costo, Cedula = Headers.Cedula, Cliente = Headers.Cliente, Grupo = Headers.Grupo, Nulo = Headers.Nulo, Err = null, Solicitud = Headers.Solicitud, StrFecha = Headers.StrFecha, StrHora = Headers.StrHora, Ticket = Headers.Ticket, TicketNo = Headers.TicketNo };
+                TicketDTO ticketForTicketRecargados = new TicketDTO() { Items = multiCopy.Items, Pago = Headers.Pago, Loteria = Headers.Loteria, Costo = Headers.Costo, Nulo = Headers.Nulo, Err = null, Ticket = Headers.Ticket, TicketNo = Headers.TicketNo };
                 ViewModel.ListadoTicketsPrecargados.Add(ticketForTicketRecargados);
 
                 for (var i = 0; i < MoreOptions.Count; i++)

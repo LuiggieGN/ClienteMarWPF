@@ -514,6 +514,13 @@ select @fueAnulado FueAnulado;
 
         ";
 
+        internal static string LeerTicketsHoy = @"select distinct DTickets.TicNumero as TicketNo, DTickets.TicketID as Ticket ,DTickets.TicFecha as Fecha,Convert(int,DTickets.TicNulo) as Nulo,DTickets.TicCosto as Costo
+                                                 from DTickets 
+                                                 where  DTickets.BancaID=@BancaID and Convert(date,DTickets.TicFecha)=CONVERT(date,GETDATE())
+                                                 UNION 
+                                                 select distinct HTickets.TicNumero as TicketNo, HTickets.TicketID as Ticket ,HTickets.TicFecha as Fecha,Convert(int,HTickets.TicNulo) as Nulo,HTickets.TicCosto as Costo
+                                                 from HTickets 
+                                                 where  HTickets.BancaID=@BancaID and Convert(date,HTickets.TicFecha)=CONVERT(date,GETDATE())";
 
 
 

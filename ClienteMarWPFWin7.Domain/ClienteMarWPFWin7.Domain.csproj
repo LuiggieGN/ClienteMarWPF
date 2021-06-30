@@ -113,6 +113,7 @@
     <Compile Include="Models\Dtos\Reportes.cs" />
     <Compile Include="Models\Dtos\SorteosDTO.cs" />
     <Compile Include="Models\Dtos\TicketDetalles.cs" />
+    <Compile Include="Models\Dtos\TicketDTO.cs" />
     <Compile Include="Models\Dtos\UsuarioDTO.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
