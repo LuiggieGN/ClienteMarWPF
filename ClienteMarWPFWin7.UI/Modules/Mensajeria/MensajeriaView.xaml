@@ -4,9 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Mensajeria"
+             xmlns:chatconverters="clr-namespace:ClienteMarWPFWin7.UI.Converters.Chat"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" Loaded="UserControl_Loaded"
-             x:Name="MensajeriaControlUsuario" >
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             x:Name="MensajeriaControlUsuario" 
+             Background="#EEEEEE"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <chatconverters:ChatMensajeAlineacionConverter x:Key="ChatMensajeAlineacionConvertidor"/>
+            <chatconverters:ChatMensajeBackgroundConverter x:Key="ChatMensajeBackgroundConvertidor"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,58 +26,103 @@
         </Grid.RowDefinitions>
 
         <Border Background="{DynamicResource MenuLeftBackground}" Height="40">
-            <Label Content="Mensajeria instantanea" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Bold"/>
+            <Label Content="Mensajería" FontSize="18" Foreground="White" VerticalContentAlignment="Center" Margin="20 0" FontWeight="Medium"/>
         </Border>
 
-        <ListBox x:Name="listMensajeChat" Grid.Row="1"   Background="#EEEEEE" ItemsSource="{Binding MensajeriaBinding, UpdateSourceTrigger=PropertyChanged}"  ScrollViewer.CanContentScroll="True" Padding="10" >
-            <ListBox.Resources>
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ListBox 
+                 x:Name="listMensajeChat"
+                 Background="Transparent" 
+                 ItemsSource="{Binding MensajeriaBinding, UpdateSourceTrigger=PropertyChanged}"  
+                 ScrollViewer.CanContentScroll="True"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"                 
+                 Padding="10" >
+                <ListBox.Resources>
 
-                <Style TargetType="{x:Type ListBoxItem}"  >
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border x:Name="fondoC"  Background="White" Margin="5 5 5 5" Padding="10"  CornerRadius="5" MaxWidth="500" >
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="10" Opacity="0.2"/>
-                                    </Border.Effect>
-                                    <StackPanel>
-                                        <TextBlock x:Name="txt1" Text="{Binding Origen}" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
-                                        <!--<TextBlock x:Name="txt3" Text="Tu" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>-->
-                                        <TextBlock x:Name="txt2"  TextWrapping="Wrap" FontSize="14" Text="{Binding Contenido}"/>
-                                    </StackPanel>
-                                </Border>
-                                <!--<ControlTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding IsMe}" Value="true">
-                                        <Setter TargetName="fondoC" Property="HorizontalAlignment" Value="Right" />
-                                        <Setter TargetName="fondoC" Property="Background" Value="#00A8E8" />
-                                        <Setter TargetName="txt1" Property="Foreground" Value="White" />
-                                        <Setter TargetName="txt2" Property="Foreground" Value="White" />
-                                        <Setter TargetName="txt1" Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding IsMe}" Value="false">
-                                        <Setter TargetName="fondoC" Property="HorizontalAlignment" Value="Left" />
-                                        <Setter TargetName="txt3" Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </ControlTemplate.Triggers>-->
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-
-            </ListBox.Resources>
-            
-            
-
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" Height="350"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
+                    <Style TargetType="{x:Type ListBoxItem}"  >
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
 
 
-        </ListBox>
+
+
+                                    <Grid Margin="25 0 25 0"
+                                       HorizontalAlignment="{Binding EsMiMensaje, Converter={StaticResource ChatMensajeAlineacionConvertidor}}">
+
+                                        <Grid.RowDefinitions>
+
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+
+                                        </Grid.RowDefinitions>
+
+                                        <Border Grid.Row="0"  
+                                                Background="{Binding EsMiMensaje, Converter={StaticResource ChatMensajeBackgroundConvertidor}}" 
+                                                Margin="5 5 5 0"
+                                                Padding="10"
+                                                CornerRadius="5" 
+                                                MaxWidth="500" MinWidth="300">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Opacity="0.2"/>
+                                            </Border.Effect>
+                                            <StackPanel>
+                                                <StackPanel 
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="{Binding EsMiMensaje, Converter={StaticResource ChatMensajeAlineacionConvertidor},ConverterParameter=True}"
+                                                  >
+                                                    <TextBlock Text="{Binding Fecha}" FontSize="10" FontWeight="Normal" Foreground="#7d7d7d" Margin="0 0 2 0"/>
+                                                    <TextBlock Text="|" FontSize="10" FontWeight="Normal" Foreground="#7d7d7d" Margin="0 0 2 0"/>
+                                                    <TextBlock Text="{Binding Hora}" FontSize="10" FontWeight="Normal" Foreground="#7d7d7d" />
+                                                </StackPanel>
+                                                <TextBlock x:Name="txt1" Text="{Binding Origen}" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>
+                                                <TextBlock x:Name="txt2"  TextWrapping="Wrap" FontSize="14" Text="{Binding Contenido}"/>
+                                            </StackPanel>
+                                        </Border>
+
+
+                                        <Path Grid.Row="1" 
+                                              Stroke="Black"
+                                              Panel.ZIndex="1"
+                                              Margin="15 0 20 0"
+                                              Data="M 0,0 L 10,10 L 20,0 L 0,0" 
+                                              StrokeThickness="0"
+                                              HorizontalAlignment="{Binding EsMiMensaje, Converter={StaticResource ChatMensajeAlineacionConvertidor}}"
+                                              Fill="{Binding EsMiMensaje, Converter={StaticResource ChatMensajeBackgroundConvertidor}}" />
+
+
+                                    </Grid>
+
+
+
+
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </ListBox.Resources>
+
+
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Height="350" HorizontalAlignment="Center" Width="600" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+
+            </ListBox>
+        </Grid>
+        
+
+
 
 
         <StackPanel  Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="10" Height="60">
@@ -82,3 +138,44 @@
 
     </Grid>
 </UserControl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+<!--<TextBlock x:Name="txt3" Text="Tu" Margin="0 0 0 5" FontSize="16" FontWeight="DemiBold"/>-->
+
+
+<!--<ControlTemplate.Triggers>
+
+                                    <DataTrigger Binding="{Binding IsMe}" Value="true">
+                                        <Setter TargetName="fondoC" Property="HorizontalAlignment" Value="Right" />
+                                        <Setter TargetName="fondoC" Property="Background" Value="#00A8E8" />
+                                        <Setter TargetName="txt1" Property="Foreground" Value="White" />
+                                        <Setter TargetName="txt2" Property="Foreground" Value="White" />
+                                        <Setter TargetName="txt1" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsMe}" Value="false">
+                                        <Setter TargetName="fondoC" Property="HorizontalAlignment" Value="Left" />
+                                        <Setter TargetName="txt3" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>-->    
