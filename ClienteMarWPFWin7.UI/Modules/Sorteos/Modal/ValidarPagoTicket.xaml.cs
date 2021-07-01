@@ -167,7 +167,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
             var VM = DataContext as ValidarPagoTicketViewModel;
             var VMC = DataContext as SorteosView;
             var elemento = (sender as Control);
-            MAR_Bet ticket = (MAR_Bet)elemento.DataContext;
+            TicketDTO ticket = (TicketDTO)elemento.DataContext;
             ticketSeleccionado = ticket.TicketNo;
 
             if (VM.CopiarTicketCommand != null)
@@ -192,7 +192,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
         {
             var elemento = (sender as Control);
-            MAR_Bet ticket = (MAR_Bet)elemento.DataContext;
+            TicketDTO ticket = (TicketDTO)elemento.DataContext;
             ticketSeleccionado = ticket.TicketNo;
         }
 
@@ -279,7 +279,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos.Modal
         {
             var elemento = (sender as Control);
             elemento.Focus();
-            MAR_Bet ticket = (MAR_Bet)elemento.DataContext;
+            TicketDTO ticket = (TicketDTO)elemento.DataContext;
             ticketSeleccionado = ticket.TicketNo;
         }
 

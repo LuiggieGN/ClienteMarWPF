@@ -33,10 +33,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             Autenticador = autenticador;
             SorteosService = sorteosService;
             ViewModelPago = viewModelValidar;
-            BancaService = bancaService;
-           
-            Action<object> comando = new Action<object>(GetListadoTickets);
-            base.SetAction(comando);
+            BancaService = bancaService;           
+
+            base.SetAction(new Action<object>(GetListadoTickets));
         }
 
 
@@ -45,71 +44,19 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             ViewModel.listaTicketsJugados.Clear();
             try
             {
-                var sorteos = SessionGlobals.LoteriasTodas;
+                var result = BancaService.LeerTicketsHoy(Autenticador.BancaConfiguracion.BancaDto.BancaID);
 
-                if (ViewModel.BuscarTicketsInService == false)
+                if (result != null && result.Count > 0)
                 {
-                    ViewModel.ListadoTicketsPrecargados.Clear();
-                    /*foreach (var item in sorteos)
-                    {
-                        var result = SorteosService.ListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, item.Numero, FechaHelper.FormatFecha(DateTime.Today, FechaHelper.FormatoEnum.FechaBasico));
-                        if (result.Tickets != null)
-                        {
-                            var data = result.Tickets.OfType<MAR_Bet>();
-
-                            foreach (var ticket in data)
-                            {
-                                ViewModelPago.listaTicketsJugados.Add(ticket);
-                                ViewModel.ListadoTicketsPrecargados.Add(ticket);
-                            }
-                        }
-                    }*/
-                    var result = BancaService.LeerTicketsHoy(Autenticador.BancaConfiguracion.BancaDto.BancaID);
-
                     ViewModelPago.listaTicketsJugados = result.OrderBy(x => x.Ticket).ToList().ToObservableTicketDTO();
+
                     ViewModel.ListadoTicketsPrecargados = result.OrderBy(x => x.Ticket).ToList().ToObservableTicketDTO();
-                    string total = ViewModelPago.listaTicketsJugados.Where(x => x.Nulo==false).Sum(x => x.Costo) .ToString("C", CultureInfo.CurrentCulture);
-                    ViewModelPago.TotalVentas = total;
-                    ViewModel.BuscarTicketsInService = true;
-                }else if (ViewModel.ListadoTicketsPrecargados.Count == 0  && ViewModel.BuscarTicketsInService == true) {
-                    
-                    ViewModel.ListadoTicketsPrecargados.Clear();
-                    foreach (var item in sorteos)
-                    {
-                        var result = BancaService.LeerTicketsHoy( Autenticador.BancaConfiguracion.BancaDto.BancaID);
-                        if (result != null)
-                        {
 
-                            var data = result.ToObservableTicketDTO();
-                            
-                            foreach (var ticket in data)
-                            {
-                                ViewModelPago.listaTicketsJugados.Add(ticket);
-                                ViewModel.ListadoTicketsPrecargados.Add(ticket);
-                            }
-                        
-                        }
+                    string total = ViewModelPago.listaTicketsJugados.Where(x => x.Nulo == false).Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
 
-                        //var data = result.Tickets.OfType<MAR_Bet>().ToList();
-
-                        //foreach (var ticket in data)
-                        //{
-                        //    ViewModel.listaTicketsJugados.Add(ticket);
-                        //}
-
-                    }
-                    ViewModelPago.listaTicketsJugados = (ObservableCollection<TicketDTO>)ViewModelPago.listaTicketsJugados.OrderBy(x => x.Ticket);
-                    ViewModel.ListadoTicketsPrecargados = (ObservableCollection<TicketDTO>)ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket);
-                    string total = ViewModelPago.listaTicketsJugados.Where(x => x.Nulo==false).Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
                     ViewModelPago.TotalVentas = total;
                 }
-                else if (ViewModel.ListadoTicketsPrecargados.Count > 0 && ViewModel.BuscarTicketsInService == true)
-                {
-                    
-                    ViewModelPago.listaTicketsJugados = (ObservableCollection<TicketDTO>) ViewModel.ListadoTicketsPrecargados.OrderBy(x => x.Ticket);
-                    string total = ViewModel.ListadoTicketsPrecargados.Where(x => x.Nulo==false).Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
-                    ViewModelPago.TotalVentas = total;
-                }
+ 
             }
             catch (Exception e)
             {

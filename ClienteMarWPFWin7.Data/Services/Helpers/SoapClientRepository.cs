@@ -40,7 +40,6 @@ namespace ClienteMarWPFWin7.Data.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
                     splitaddress = serverbackup.Replace("localhost", ServiceHostIP).Split('/');
@@ -82,7 +81,6 @@ namespace ClienteMarWPFWin7.Data.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
                     splitaddress = serverbackup.Replace("localhost", ServiceHostIP).Split('/');
@@ -123,7 +121,6 @@ namespace ClienteMarWPFWin7.Data.Services.Helpers
                 EndpointAddress endpoint;
                 string[] splitaddress;
 
-
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
                     splitaddress = serverbackup.Replace("localhost", ServiceHostIP).Split('/');
@@ -163,7 +160,6 @@ namespace ClienteMarWPFWin7.Data.Services.Helpers
                 BasicHttpBinding binding;
                 EndpointAddress endpoint;
                 string[] splitaddress;
-
 
                 if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
                 {
