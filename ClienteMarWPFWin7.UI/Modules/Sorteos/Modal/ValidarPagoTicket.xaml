@@ -100,7 +100,7 @@
                                     <DataGridTemplateColumn Header="Monto" Width="*" IsReadOnly="True" >
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding  Costo, StringFormat=C}" Foreground="{Binding Nulo, Converter={StaticResource redColor}}" />
+                                                <TextBlock Text="{Binding  Costo, StringFormat=C}" Foreground="{Binding Nulo, Converter={StaticResource redColor}}" HorizontalAlignment="Right" Margin="0 0 15 0" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
