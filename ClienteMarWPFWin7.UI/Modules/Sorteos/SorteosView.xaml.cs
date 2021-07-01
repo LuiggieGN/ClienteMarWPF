@@ -62,6 +62,13 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public int contador { get; set; }
         public int indice1 { get; set; }
         public int indice2 { get; set; }
+        public double cantidadTotal2 { get; set; }
+        public double cantidadTotal { get; set; }
+
+        public double almacenandoMontos = 00.00;
+        public List<Tuple<double, int>> precioYdia = new List<Tuple<double, int>>();
+        public int numeroLoteria = 0;
+        public int totalMontos = 0;
 
         public static readonly DependencyProperty RealizarApuestaCommandProperty = DependencyProperty.Register("RealizarApuestaCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
         //public static readonly DependencyProperty GetListadoTicketsCommandProperty = DependencyProperty.Register("GetListadoTicketsCommand", typeof(ICommand), typeof(SorteosView), new PropertyMetadata(null));
@@ -301,6 +308,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
 
                 var cuentaSuper = SuperPales.Where(x => x.IsSelected == true).Count();
+                var combinacion = SuperPales.Where(x => x.IsSelected == true).Select(y => y.LoteriaID);
 
                 if (cuentaSuper > 2)
                 {
@@ -313,6 +321,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         else
                         {
                             i.IsSelected = true;
+
                         }
 
                     }
@@ -342,7 +351,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     int? va = null, vb = null;
 
+
                     loteriaCombinada = combinations.Where(x => (x.LoteriaID1 == loteria1 && x.LoteriaID2 == loteria2) || (x.LoteriaID1 == loteria2 && x.LoteriaID2 == loteria1)).Select(y => y.LoteriaIDDestino);
+
 
                     if (loteriaCombinada.Any())
                     {
@@ -359,10 +370,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             nombreSuperPales = $"SP {NombreLoteria2}-{NombreLoteria1}";
                         }
 
+                        RefrescarMonto(true, loteriaCombinada.ToArray()[0]);
                     }
                     else
                     {
                         nombreSuperPales = string.Empty;
+                        RefrescarMonto(false, loteriaCombinada.ToArray()[0]);
                     }
 
                 }
@@ -537,18 +550,154 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             }
         }
+
+
+        public double GetPrecioPorDia(string tipoJugada, int loteria)
+        {
+            var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == loteria);
+            var diaActual = DateTime.Now.DayOfWeek.ToString();
+
+            switch (diaActual)
+            {
+                case "Monday":
+                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieLun)).ToList(); }
+                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieLun)).ToList(); }
+                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieLun)).ToList(); }
+                    break;
+
+                case "Tuesday":
+                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMar)).ToList(); }
+                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMar)).ToList(); }
+                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMar)).ToList(); }
+                    break;
+
+                case "Wednesday":
+                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMie)).ToList(); }
+                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMie)).ToList(); }
+                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMie)).ToList(); }
+                    break;
+
+                case "Thursday":
+                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieJue)).ToList(); }
+                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieJue)).ToList(); }
+                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieJue)).ToList(); }
+                    break;
+
+                case "Friday":
+                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieVie)).ToList(); }
+                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieVie)).ToList(); }
+                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieVie)).ToList(); }
+                    break;
+
+                case "Saturday":
+                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieSab)).ToList(); }
+                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieSab)).ToList(); }
+                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieSab)).ToList(); }
+                    break;
+
+                case "Sunday":
+                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieDom)).ToList(); }
+                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieDom)).ToList(); }
+                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieDom)).ToList(); }
+                    break;
+
+            }
+
+            return precioYdia.ToArray()[0].Item1;
+        }
+
+
+
+        public void RefrescarMonto(bool sumar, int loteria)
+        {
+            //foreach (var item in ListJugadas)
+            //{
+
+            var loteriasSeleccionadas = SorteosBinding.Where(x => x.IsSelected == true);
+            var seleccion = SorteosBinding.Where(x => x.IsSelected == true).Select(y => y.LoteriaID);
+            totalMontos = ListJugadas?.Sum(x => x.Monto) ?? 0;
+
+            //foreach (var id in SorteosBinding.Where(x => x.IsSelected == true))
+            //{
+            //    numeroLoteria = id.LoteriaID;
+            //}
+
+            try
+            {
+                if (loteria != 0)
+                {
+                    if (sumar)
+                    {
+
+                        foreach (var item in ListJugadas)
+                        {
+                            almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, loteria);
+                        }
+                        txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                    }
+                    else
+                    {
+                        foreach (var item in ListJugadas)
+                        {
+                            almacenandoMontos -= item.Monto * GetPrecioPorDia(item.TipoJugada, loteria);
+                        }
+                        txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                    }
+                }
+                else if (loteria == 0)
+                {
+                    almacenandoMontos = 0;
+
+                    foreach (var i in loteriasSeleccionadas)
+                    {
+                        foreach (var item in ListJugadas)
+                        {
+                            almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.LoteriaID);
+                            txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                        }
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            //}
+
+        }
+
         public void RefreshListJugadas()
         {
             ltJugada.ItemsSource = new List<Jugada>();
             ltJugada.ItemsSource = ListJugadas;
             ltJugada.Items.Refresh();
-            var total = ListJugadas?.Sum(x => x.Monto) ?? 0;
-            var cantidadLoterias = ListSorteosVender?.Count() ?? 0;
-            var cantidadTotal = (total * cantidadLoterias).ToString();
-            txtMontoTotal.Content = (Decimal.Parse(cantidadTotal)).ToString("C");
+
+            if (ListSorteosVender.Count == 0 || ltJugada.Items.Count == 0)
+            {
+                txtMontoTotal.Content = "$00.00";
+            }
+
         }
+
+
+        //public void RefreshListJugadas()
+        //{
+        //    ltJugada.ItemsSource = new List<Jugada>();
+        //    ltJugada.ItemsSource = ListJugadas;
+        //    ltJugada.Items.Refresh();
+        //    var total = ListJugadas?.Sum(x => x.Monto) ?? 0;
+        //    var cantidadLoterias = ListSorteosVender?.Count() ?? 0;
+        //    cantidadTotal = (total * cantidadLoterias);
+        //    txtMontoTotal.Content = (Decimal.Parse(cantidadTotal.ToString())).ToString("C");
+
+        //}
+
         public void AddItem(Jugada NuevaJugada = null)
         {
+            var loteriasSeleccionadas = SorteosBinding.Where(x => x.IsSelected == true);
+
             if (!txtJugada.Text.Trim().Equals(string.Empty) && !txtMonto.Text.Trim().Equals(string.Empty))
             {
                 string jugada = SepararNumeros(txtJugada.Text);
@@ -604,6 +753,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
 
             RefreshListJugadas();
+            RefrescarMonto(true, 0);
 
         }
         private void RemoveItem()
@@ -622,8 +772,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 }
             }
 
-
+            ltJugada.Items.Refresh();
             RefreshListJugadas();
+            RefrescarMonto(false, 0);
         }
         private void SelectItem()
         {
@@ -1044,6 +1195,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 }
 
                                 AgregarSorteoAVender(item);
+                                RefrescarMonto(true, item.LoteriaID);
                             }
                             else if (item.IsSelected == true)
                             {
@@ -1055,6 +1207,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                     VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
                                 }
                                 RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+                                RefrescarMonto(false, loteriaid);
                             }
                         }
                     }
@@ -1062,6 +1215,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     if (txtJugada.Text != "" && txtMonto.Text != "")
                     {
                         SelectItem();
+                        //AgregaJugada(sender, e);
                     }
                     else if (txtMonto.Text != "" && txtJugada.Text == "" && txtMonto.IsFocused)
                     {
@@ -1074,7 +1228,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         AgregaJugada(sender, e);
                     }
 
-                    RefreshListJugadas();
+                    //RefreshListJugadas();
 
                     break;
 
@@ -1184,6 +1338,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                     VM.LoteriasMultiples.Add(item.LoteriaID);
                                 }
                                 AgregarSorteoAVender(item);
+                                RefrescarMonto(true, item.LoteriaID);
                             }
                             else if (item.IsSelected == true)
                             {
@@ -1195,6 +1350,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                     VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
                                 }
                                 RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+                                RefrescarMonto(false, loteriaid);
                             }
                         }
                     }
@@ -1222,6 +1378,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 }
 
                                 AgregarSorteoAVender(item);
+                                RefrescarMonto(true, item.LoteriaID);
                             }
                             else if (item.IsSelected == true)
                             {
@@ -1233,6 +1390,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                     VM.LoteriasMultiples.RemoveAt(posicionLoteriaEliminar);
                                 }
                                 RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
+                                RefrescarMonto(false, loteriaid);
                             }
                         }
                     }
@@ -1421,6 +1579,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
 
             RefreshListJugadas();
+            RefrescarMonto(false, 0);
             //MostrarSorteos();
         }
 
@@ -1434,7 +1593,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             txtMonto.Focus();
         }
 
-        private bool ventaThreadIsBusy = false; 
+        private bool ventaThreadIsBusy = false;
 
         private void Vender(object sender, RoutedEventArgs e)
         {
@@ -1488,14 +1647,16 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 try
                                 {
                                     RegistrarVenta();
+                                    txtMontoTotal.Content = "$00.00";
+                                    almacenandoMontos = 0;
                                 }
-                                catch 
-                                {                                 
-                                }           
+                                catch
+                                {
+                                }
                                 CargarVendidoHoy();
                                 CargarBalance();
                             }
-                            catch 
+                            catch
                             {
 
                             }
@@ -1529,10 +1690,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale, esta loteria no acepta quiniela ni tripletas.", "Aviso");
                     return;
                 }
+                else
+                {
+                    RealizarVenta();
+                    ResetearFormularioVenta();
+                }
 
 
-                RealizarVenta();
-                ResetearFormularioVenta();
+
 
                 //if (CrearSuper.IsChecked == true)
                 //{
@@ -1642,7 +1807,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 try
                 {
-                      vm.LeerVendidoHoyAsync();
+                    vm.LeerVendidoHoyAsync();
                 }
                 catch
                 {
@@ -1650,7 +1815,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
         }
 
-        private void CargarBalance() 
+        private void CargarBalance()
         {
             var vm = DataContext as SorteosViewModel;
             if (vm != null)
@@ -1659,7 +1824,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     vm.LeerBalanceAsync();
                 }
-                catch  
+                catch
                 {
                 }
             }
@@ -1809,7 +1974,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 SorteoNombre = sorteo.Loteria,
                                 Sorteo = sorteo
                             });
+
                         }
+                        RefrescarMonto(true, sorteo.LoteriaID);
                     }
                     else
                     {
@@ -1824,6 +1991,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             }
                         }
                         ListSorteosVender.RemoveAt(SorteoQuitar);
+                        RefrescarMonto(false, sorteo.LoteriaID);
                     }
                 }
 
@@ -1840,7 +2008,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 SeleccionadasLista = ListSorteosVender.Count();
                 CantidadSorteos.Content = $"{SeleccionadasLista} Sorteos seleccionados";
 
-                RefreshListJugadas();
+                //RefreshListJugadas();
                 //if (sorteo.IsSelected==true) {
                 //    var posicionLoteriaEliminar = VM.LoteriasMultiples.IndexOf(sorteo.LoteriaID);
                 //    if (posicionLoteriaEliminar == -1)
@@ -1984,6 +2152,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             CantidadSorteos.Content = "0 Sorteos seleccionados";
             foreach (var item in SorteosBinding)
             {
+                RefrescarMonto(false, 0);
                 item.IsSelected = false;
             }
             txtMonto.Focus();
@@ -2030,6 +2199,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 listSorteo.Items.Refresh();
                 txtMonto.Focus();
             }
+
 
             RefreshListJugadas();
         }
@@ -2131,6 +2301,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             int loteriaid = int.Parse((sender as Button)?.Tag?.ToString() ?? "0");
             var listado = (IEnumerable<SorteosAvender>)ListSorteosVender;
             var lista = new List<SorteosAvender>(listado);
+            RefrescarMonto(false, loteriaid);
             RemoverSorteoAVender(loteriaId: loteriaid, indice: lista.FindIndex(x => x.Sorteo.LoteriaID == loteriaid));
 
             if (sorteosSeleccionados.Items.Count == 0)
@@ -2310,6 +2481,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 txtMonto.Focus();
 
             }
+
 
         }
 
