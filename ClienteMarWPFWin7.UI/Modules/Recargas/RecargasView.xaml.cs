@@ -389,7 +389,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Recargas
 
         private void UserControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if( (proveedores.SelectedItem != null && !proveedores.IsFocused) && (!telefono.IsFocused || !monto.IsFocused))
+            if( (proveedores.SelectedItem != null && !proveedores.IsFocused) && (!telefono.IsFocused && !monto.IsFocused))
             {
                 telefono.Focus();
             }
