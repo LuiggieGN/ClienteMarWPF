@@ -375,7 +375,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     else
                     {
                         nombreSuperPales = string.Empty;
-                        RefrescarMonto(false, loteriaCombinada.ToArray()[0]);
+
+                        //if (loteriaCombinada.ToArray()[0] != 0)
+                        //{
+                        //    RefrescarMonto(false, loteriaCombinada.ToArray()[0]);
+                        //}
+
                     }
 
                 }
@@ -614,6 +619,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             //{
 
             var loteriasSeleccionadas = SorteosBinding.Where(x => x.IsSelected == true);
+            var loteriasSeleccionadasS = combinations.Select(x => x.LoteriaIDDestino);
+
             var seleccion = SorteosBinding.Where(x => x.IsSelected == true).Select(y => y.LoteriaID);
             totalMontos = ListJugadas?.Sum(x => x.Monto) ?? 0;
 
@@ -628,7 +635,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     if (sumar)
                     {
-
                         foreach (var item in ListJugadas)
                         {
                             almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, loteria);
@@ -648,15 +654,31 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     almacenandoMontos = 0;
 
-                    foreach (var i in loteriasSeleccionadas)
+                    if (CrearSuper.IsChecked == false)
                     {
-                        foreach (var item in ListJugadas)
+                        foreach (var i in loteriasSeleccionadas)
                         {
-                            almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.LoteriaID);
-                            txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
-                        }
+                            foreach (var item in ListJugadas)
+                            {
+                                almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.LoteriaID);
+                                txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                            }
 
+                        }
+                    }else if( CrearSuper.IsChecked == true)
+                    {
+                        foreach (var i in combinations)
+                        {
+                            
+                            foreach (var item in ListJugadas)
+                            {
+                                almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.LoteriaIDDestino);
+                                txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                            }
+                        }
+                       
                     }
+
                 }
 
             }
@@ -1688,6 +1710,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 if ((quiniela != null || tripleta != null) && sorteosSeleccionadosS && !sorteosSeleccionadosT)
                 {
                     ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Todas las jugadas deben ser de tipo pale, esta loteria no acepta quiniela ni tripletas.", "Aviso");
+                    RefrescarMonto(true, 0);
                     return;
                 }
                 else
@@ -2083,6 +2106,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 if (loteriaCombinada.Count() == 1)
                 {
                     var YaEstaSeleccionada = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == Convert.ToInt32(loteriaCombinada.ToArray()[0]));
+                    var YaEstaSeleccionadaLoteria = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == Convert.ToInt32(loteriaCombinada.ToArray()[0])).Select(y => y.Sorteo.LoteriaID);
+
                     if (YaEstaSeleccionada.Count() > 0)
                     {
                         foreach (var i in SuperPales)
@@ -2090,6 +2115,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             i.IsSelected = false;
                         }
                          ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion ya esta en la lista.", "Aviso");
+
+                        if(YaEstaSeleccionada != null)
+                        {
+                            RefrescarMonto(false, YaEstaSeleccionadaLoteria.First());
+                        }
+                        
                     }
                     else
                     {
@@ -2421,6 +2452,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         ListSorteosVender.Add(agrega);
 
                         superPaleDisponibles.Add(combinacionesDisponibles[i].Item4);
+                        RefrescarMonto(true, agrega.Sorteo.LoteriaID);
                     }
 
                 }
@@ -2443,6 +2475,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 #endregion
             }
             RefreshListJugadas();
+
         }
 
         private void SeleccionarMonto(object sender, RoutedEventArgs e)
