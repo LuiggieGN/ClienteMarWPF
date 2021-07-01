@@ -621,6 +621,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             var loteriasSeleccionadas = SorteosBinding.Where(x => x.IsSelected == true);
             var loteriasSeleccionadasS = combinations.Select(x => x.LoteriaIDDestino);
 
+            var listadoLoteria = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == loteria);
+
             var seleccion = SorteosBinding.Where(x => x.IsSelected == true).Select(y => y.LoteriaID);
             totalMontos = ListJugadas?.Sum(x => x.Monto) ?? 0;
 
@@ -654,30 +656,30 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     almacenandoMontos = 0;
 
-                    if (CrearSuper.IsChecked == false)
-                    {
-                        foreach (var i in loteriasSeleccionadas)
+                    //if (CrearSuper.IsChecked == false)
+                    //{
+                        foreach (var i in ListSorteosVender)
                         {
                             foreach (var item in ListJugadas)
                             {
-                                almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.LoteriaID);
+                                almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.Sorteo.LoteriaID);
                                 txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
                             }
 
                         }
-                    }else if( CrearSuper.IsChecked == true)
-                    {
-                        foreach (var i in combinations)
-                        {
+                    //}else if( CrearSuper.IsChecked == true)
+                    //{
+                    //    foreach (var i in combinations)
+                    //    {
                             
-                            foreach (var item in ListJugadas)
-                            {
-                                almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.LoteriaIDDestino);
-                                txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
-                            }
-                        }
+                    //        foreach (var item in ListJugadas)
+                    //        {
+                    //            almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.LoteriaIDDestino);
+                    //            txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                    //        }
+                    //    }
                        
-                    }
+                    //}
 
                 }
 
