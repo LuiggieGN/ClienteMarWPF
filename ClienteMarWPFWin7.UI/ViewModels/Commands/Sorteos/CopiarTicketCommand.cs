@@ -177,7 +177,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     //Para Reimprimir ticket sin configuraciones de printer
                     JugadasTicketModels jugadaSinPrinter = new JugadasTicketModels() { Costo = Convert.ToInt32(jugada.Costo), Numero = jugada.Numero, TipoJugada = jugada.QP };
                     jugadasNuevoSinPrinter.Add(jugadaSinPrinter);
-
                 }
                 ViewModel.ListadoJugada = listJugadas;
                 Thread.Sleep(700);
