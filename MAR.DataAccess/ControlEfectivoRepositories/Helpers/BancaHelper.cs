@@ -148,287 +148,258 @@
         internal static string SelectMarOperaciones = @"
 
 declare @fecha date = convert(date, @fcompleta);
-
- select Tipo, TipoMovimiento, KeyMovimiento, BancaID, SUM(Monto) Monto,FechaMovimiento
-  from (    
  
-  SELECT 
-     Tipo = 'Ingreso',
-     TipoMovimiento = 'ApuestaActiva',
-	 KeyMovimiento = 1,
-	 BancaID AS BancaID,
-	 Monto =  TicCosto, 
-	 CONVERT(date,TicFecha) as FechaMovimiento
-  FROM  DTickets WHERE BancaID = @bancaid and convert(date,ticfecha) = @fecha
- 
-    --HTickets activos
-  UNION ALL   SELECT 
-      Tipo = 'Ingreso',
-      TipoMovimiento = 'ApuestaActiva',
-	  KeyMovimiento = 1,
-	  BancaID,
-      Monto =  TicCosto, 
-	  CONVERT(date,TicFecha) as FechaMovimiento
- FROM  HTickets WHERE  BancaID = @bancaid and convert(date,ticfecha) = @fecha
-
+ SELECT Tipo, TipoMovimiento, KeyMovimiento, BancaID, SUM(Monto) Monto,FechaMovimiento
+  FROM (
+  --DTickets activos
+  --DTickets activos
+SELECT  Tipo, TipoMovimiento, KeyMovimiento, BancaID,MONTO, FechaMovimiento FROM (
+Select Distinct TicketID, Tipo, TipoMovimiento, KeyMovimiento, BancaID,MONTO, FechaMovimiento
+ From (
+        Select 
+		     TicketID,
+             Tipo = 'Ingreso',
+             TipoMovimiento = 'ApuestaActiva',
+	         KeyMovimiento = 1,
+	         BancaID AS BancaID,
+	         Monto =  TicCosto,
+	         CONVERT(date,TicFecha) as FechaMovimiento
+        FROM  DTickets WHERE   convert(date,ticfecha) = @fecha AND BancaID = @bancaid
+       Union ALL
+--HTickets activos
+        SELECT 
+		     TICKETID,
+             Tipo = 'Ingreso',
+             TipoMovimiento = 'ApuestaActiva',
+	         KeyMovimiento = 1,
+	         BancaID,
+             Monto =  TicCosto,
+	         CONVERT(date,TicFecha) as FechaMovimiento
+             FROM  HTickets WHERE  BancaID = @bancaid and convert(date,ticfecha) = @fecha
+      ) A) AS B
   --DTickets Nulos
-  UNION ALL    SELECT 
-    Tipo = 'Egreso',
-      TipoMovimiento = 'ApuestaNULA',
-	  KeyMovimiento = 2,
-	  BancaID,
-	Monto = TicCosto,  
-	   CONVERT(date,TicFecha) as FechaMovimiento
-  FROM  DTickets WHERE TicNulo = 1 and BancaID = @bancaid and convert(date,ticfecha) = @fecha
-
-    --HTickets Nulos
-  UNION ALL   SELECT 
-      Tipo = 'Egreso',
-      TipoMovimiento = 'ApuestaNULA',
-	  KeyMovimiento = 2,
-	  BancaID,
-      Monto =  TicCosto, 
-	  CONVERT(date,TicFecha) as FechaMovimiento
- 
- FROM  HTickets WHERE TicNulo = 1  AND BancaID = @bancaid and convert(date,ticfecha) = @fecha
-
+  --*********
+    UNION ALL
+SELECT  Tipo, TipoMovimiento, KeyMovimiento, BancaID,MONTO, FechaMovimiento FROM (
+Select Distinct TicketID, Tipo, TipoMovimiento, KeyMovimiento, BancaID,MONTO, FechaMovimiento
+ From (
+        SELECT 
+		     TicketID,
+             Tipo = 'Egreso',
+             TipoMovimiento = 'ApuestaNULA',
+	         KeyMovimiento = 2,
+	         BancaID AS BancaID,
+	         Monto =  TicCosto,
+	         CONVERT(date,TicFecha) as FechaMovimiento
+       FROM  DTickets WHERE TicNulo = 1  AND  convert(date,ticfecha) = @fecha AND BancaID = @bancaid
+       Union ALL
+--HTickets activos
+       SELECT 
+	        TICKETID,
+            Tipo = 'Egreso',
+            TipoMovimiento = 'ApuestaNULA',
+	        KeyMovimiento = 2,
+	        BancaID,
+            Monto =  TicCosto,
+	        CONVERT(date,TicFecha) as FechaMovimiento
+       FROM  HTickets WHERE TicNulo = 1  AND  BancaID = @bancaid and convert(date,ticfecha) = @fecha
+      ) A) AS B
     --RF Transacciones activos
- UNION ALL  SELECT 
+ UNION ALL  SELECT
       Tipo = 'Ingreso',
       TipoMovimiento = 'ApuestaRFActiva',
 	  KeyMovimiento = 3,
 	  BancaID,
-	  Monto = Ingresos, 
-	  CONVERT(date,Fecha) as FechaMovimiento
- 
+	 Monto = Ingresos,
+	  	   CONVERT(date,Fecha) as FechaMovimiento
   FROM  CL_Recibo WHERE BancaID = @bancaid and convert(date,Fecha) = @fecha
-
      --RF Transacciones Nulas
- UNION ALL  SELECT 
+ UNION ALL  SELECT
          Tipo = 'Egreso',
       TipoMovimiento = 'ApuestaRFNULA',
 	  KeyMovimiento = 4,
 	  BancaID,
-	 Monto = Ingresos, 
+	 Monto = Ingresos,
 	 	   CONVERT(date,Fecha) as FechaMovimiento
-  
   FROM  CL_Recibo WHERE Activo = 0  AND BancaID = @bancaid and convert(date,Fecha) = @fecha
-
  --PDPines Recargas activas
- UNION ALL  SELECT  
+ UNION ALL  SELECT
       Tipo = 'Ingreso',
       TipoMovimiento = 'RecargaActiva',
 	  KeyMovimiento = 5,
 	  BancaID,
-	  Monto =  PinCosto, 
-	  CONVERT(date,PinFecha) as FechaMovimiento
-     
-  FROM  PDPines  where  BancaID = @bancaid and convert(date,PinFecha) = @fecha
-     
+	Monto =  PinCosto,
+		   CONVERT(date,PinFecha) as FechaMovimiento
+  FROM  PDPines  where  BancaID = @bancaid  and convert(date,PinFecha) = @fecha
 	 --PhPines Recargas activas
- UNION ALL  SELECT  
+ UNION ALL  SELECT
       Tipo = 'Ingreso',
       TipoMovimiento = 'RecargaActiva',
 	  KeyMovimiento = 5,
 	  BancaID,
-	  Monto = PinCosto, 
-	  CONVERT(date,PinFecha) as FechaMovimiento
-     
+	Monto = PinCosto,
+	 	   CONVERT(date,PinFecha) as FechaMovimiento
   FROM  PHPines where BancaID = @bancaid and convert(date,PinFecha) = @fecha
-    
   --PDPines Recargas NULAS
- UNION ALL  SELECT  
+ UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'RecargaNula',
 	  KeyMovimiento = 6,
 	  BancaID,
-	  Monto = PinCosto, 
-	  CONVERT(date,PinFecha) as FechaMovimiento
-   
-  FROM  PDPines  where PinNulo = convert(int,1) AND BancaID = @bancaid and convert(date,PinFecha) = @fecha
-  
+	    Monto = PinCosto,
+	 	   CONVERT(date,PinFecha) as FechaMovimiento
+  FROM  PDPines  where PinNulo = convert(int,1)   AND BancaID = @bancaid  and convert(date,PinFecha) = @fecha
      --PhPines Recargas NULAS
- UNION ALL  SELECT  
+ UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'RecargaNula',
 	  KeyMovimiento = 6,
 	  BancaID,
-	   Monto = PinCosto, 
+	   Monto = PinCosto,
 	   CONVERT(date,PinFecha) as FechaMovimiento
-    
-  FROM  PHPines  where PinNulo = convert(int,1) AND BancaID = @bancaid and convert(date,PinFecha) = @fecha
-   
-
+  FROM  PHPines  where PinNulo = convert(int,1)   AND BancaID = @bancaid and convert(date,PinFecha) = @fecha
      --COMISION PAGO BANCA HTICKET
  UNION ALL
-  SELECT 
-	 Tipo = 'Egreso',
+SELECT  Tipo, TipoMovimiento, KeyMovimiento, BancaID,MONTO, FechaMovimiento FROM (
+Select Distinct TicketID, Tipo, TipoMovimiento, KeyMovimiento, BancaID,MONTO, FechaMovimiento
+ From (
+        SELECT TicketID,
+     Tipo = 'Egreso',
 	 TipoMovimiento = 'ComisionApuestaBanca',
 	 KeyMovimiento = 15,
 	 BancaID = h.BancaID,
-	 Monto =  Sum(Round(TicCosto*((BanComisionQ + BanComisionP + BanComisionT)/3)/100,2)), 
+	 Monto =  Sum(Round(TicCosto*((BanComisionQ + BanComisionP + BanComisionT)/3)/100,2)),
 	 -- cuidado si no ponen las comisiones iguales por cada jugada --Sum(Round(TDeCosto*(case when TDeQp='Q' then BanComisionQ when TDeQp='P' then BanComisionP When TDeQP='T' then BanComisionT end)/100,2)) as TDeComision
-	 CONVERT(date,TicFecha) as FechaMovimiento 
+	 CONVERT(date,TicFecha) as FechaMovimiento
 	 FROM  HTickets h join MBancas b on b.BancaID = h.BancaID
-	 WHERE TicNulo = 0 AND H.BancaID = @bancaid and convert(date,TicFecha) = @fecha
-	 GROUP BY CONVERT(date,TicFecha), H.BancaID
-
-
-  --COMISION PAGO BANCA DTICKET
- UNION ALL
-  SELECT 
-	 Tipo = 'Egreso',
+	 WHERE TicNulo = 0 AND H.BancaID = @bancaid  and convert(date,TicFecha) = @fecha
+	 GROUP BY CONVERT(date,TicFecha), H.BancaID, TicketID
+  Union ALL
+    --HTickets activos
+      SELECT TICKETID,
+     Tipo = 'Egreso',
 	 TipoMovimiento = 'ComisionApuestaBanca',
 	 KeyMovimiento = 15,
 	 BancaID = h.BancaID,
-	 Monto =  Sum(Round(TicCosto*((BanComisionQ + BanComisionP + BanComisionT)/3)/100,2)), 
+	 Monto =  Sum(Round(TicCosto*((BanComisionQ + BanComisionP + BanComisionT)/3)/100,2)),
 	 -- cuidado si no ponen las comisiones iguales por cada jugada --Sum(Round(TDeCosto*(case when TDeQp='Q' then BanComisionQ when TDeQp='P' then BanComisionP When TDeQP='T' then BanComisionT end)/100,2)) as TDeComision
-	 CONVERT(date,TicFecha) as FechaMovimiento 
+	 CONVERT(date,TicFecha) as FechaMovimiento
 	 FROM  DTickets h join MBancas b on b.BancaID = h.BancaID
-	 WHERE TicNulo = 0 AND H.BancaID = @bancaid and convert(date,TicFecha) = @fecha
-	 GROUP BY CONVERT(date,TicFecha), H.BancaID
-
-
-
+	 WHERE TicNulo = 0 AND H.BancaID = @bancaid  and convert(date,TicFecha) = @fecha
+	 GROUP BY CONVERT(date,TicFecha), H.BancaID, TicketID
+      ) A) AS B
        --VP Transacciones activos
- UNION ALL  SELECT 
+ UNION ALL  SELECT
       Tipo = 'Ingreso',
       TipoMovimiento = 'VP_TransaccionActiva',
 	  KeyMovimiento = 7,
 	  BancaID,
-	  Monto = Ingresos, 
+	  Monto = Ingresos,
 	  CONVERT(date,FechaIngreso) as FechaMovimiento
-     
   FROM  VP_Transaccion where  Ingresos > 0  AND BancaID = @bancaid and convert(date,FechaIngreso) = @fecha
-
  --VP Transacciones activos
- UNION ALL  SELECT 
+ UNION ALL  SELECT
       Tipo = 'Ingreso',
       TipoMovimiento = 'VP_TransaccionActiva',
 	  KeyMovimiento = 7,
 	  BancaID,
-	  Monto = Ingresos, 
+	  Monto = Ingresos,
 	 CONVERT(date,FechaIngreso) as FechaMovimiento
-   
-  FROM  VP_HTransaccion where  Ingresos > 0  and BancaID = @bancaid and convert(date,FechaIngreso) = @fecha
-    
+  FROM  VP_HTransaccion where  Ingresos > 0  AND BancaID = @bancaid and convert(date,FechaIngreso) = @fecha
          --VP Transacciones NULAS
- UNION ALL  SELECT 
+ UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'VP_TransaccionNula',
 	  KeyMovimiento = 8,
 	  BancaID,
-	  Monto = Ingresos, 
+	  Monto = Ingresos,
 	  CONVERT(date,FechaIngreso) as FechaMovimiento
-  
-  FROM  VP_Transaccion where Activo = 0 and convert(date,FechaIngreso) = @fecha and BancaID = @bancaid
-  
+  FROM  VP_Transaccion where Activo = 0 and convert(date,FechaIngreso) = @fecha AND BancaID = @bancaid
  --VP Transacciones NULAS
- UNION ALL  SELECT 
+ UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'VP_TransaccionNula',
 	  KeyMovimiento = 8,
 	  BancaID,
-	  Monto = Ingresos, 
-	  CONVERT(date,FechaIngreso) as FechaMovimiento
- 
-  FROM  VP_HTransaccion where Activo = 0  and BancaID = @bancaid and convert(date,FechaIngreso) = @fecha
- 
+	 Monto = Ingresos,
+	   CONVERT(date,FechaIngreso) as FechaMovimiento
+  FROM  VP_HTransaccion where Activo = 0  AND BancaID = @bancaid and convert(date,FechaIngreso) = @fecha
          --VP Transacciones activos
- UNION ALL  SELECT 
+ UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'VP_TransaccionDescuento',
 	  KeyMovimiento = 9,
 	  BancaID,
-	  Monto = Descuentos,  
+	  Monto = Descuentos,
 	  CONVERT(date,FechaIngreso) as FechaMovimiento
-     
   FROM  VP_Transaccion where Activo = 1  and Descuentos > 0  AND BancaID = @bancaid and convert(date,FechaIngreso) = @fecha
-
  --VP Transacciones activos
- UNION ALL  SELECT 
+ UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'VP_TransaccionDescuento',
 	  KeyMovimiento = 9,
 	  BancaID,
-	  Monto = Descuentos, 
-	  CONVERT(date,FechaIngreso) as FechaMovimiento
-    
-  FROM  VP_HTransaccion where Activo = 1 and Descuentos > 0  AND BancaID = @bancaid  and convert(date,FechaIngreso)  = @fecha
-
+	    Monto = Descuentos,
+	   CONVERT(date,FechaIngreso) as FechaMovimiento
+  FROM  VP_HTransaccion where Activo = 1 and Descuentos > 0  AND BancaID = @bancaid  and convert(date,FechaIngreso) = @fecha
    --HPagos Pagos
-    UNION ALL  SELECT 
-      Tipo = 'Egreso',
+    UNION ALL  SELECT
+    Tipo = 'Egreso',
       TipoMovimiento = 'PagoGanador',
 	  KeyMovimiento = 10,
 	  p.BancaID,
-	  Monto = PagMonto, 
-	  CONVERT(date,PagFecha) as FechaMovimiento
-      
+	   Monto = PagMonto,
+	   CONVERT(date,PagFecha) as FechaMovimiento
   FROM  HPagos p inner join DTickets d on p.PagoID = d.PagoID AND p.BancaId = d.Bancaid
   WHERE  D.BancaID = @bancaid AND P.BancaID = @bancaid AND convert(date,PagFecha) = @fecha
-       
  --HPagos Pagos
- UNION ALL  SELECT 
+ UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'PagoGanador',
 	  KeyMovimiento = 10,
 	  p.BancaID,
-	   	   Monto = PagMonto, 
+	   	   Monto = PagMonto,
 	   CONVERT(date,PagFecha) as FechaMovimiento
-     
   FROM  HPagos p inner join HTickets d on p.PagoID = d.PagoID AND p.BancaId = d.Bancaid
   WHERE  D.BancaID = @bancaid AND P.BancaID = @bancaid AND convert(date,PagFecha) = @fecha
-
-  
-UNION ALL   SELECT 
+UNION ALL   SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'PagoGanadorRemoto',
 	  KeyMovimiento = 11,
 	  p.BancaID,
-	  Monto = PagMonto, 
-	  CONVERT(date,PagFecha) as FechaMovimiento
-    
+	  	   Monto = PagMonto,
+	   CONVERT(date,PagFecha) as FechaMovimiento
   FROM  HPagos p inner join HTickets h on p.PagoID = h.PagoID and P.BancaID != h.BancaID
-  WHERE P.BancaID != h.BancaID  and P.BancaID = @bancaid and h.BancaID != @bancaid  and convert(date,PagFecha) = @fecha
-
-  UNION ALL  SELECT 
-      Tipo = 'Egreso',
+  WHERE P.BancaID != h.BancaID  AND P.BancaID = @bancaid and h.BancaID != @bancaid  and convert(date,PagFecha) = @fecha
+  UNION ALL  SELECT
+    Tipo = 'Egreso',
       TipoMovimiento = 'PagoGanadorRemoto',
 	  KeyMovimiento = 11,
 	  p.BancaID,
-      Monto = PagMonto, 
-	  CONVERT(date,PagFecha) as FechaMovimiento
-     
+		   Monto = PagMonto,
+	   CONVERT(date,PagFecha) as FechaMovimiento
   FROM  HPagos p inner join DTickets d on p.PagoID = d.PagoID and P.BancaID != d.BancaID
-  WHERE P.BancaID != D.BancaID  and P.BancaID = @bancaid and d.BancaID != @bancaid and convert(date,PagFecha) = @fecha
- 
-
+  WHERE P.BancaID != D.BancaID  AND P.BancaID = @bancaid and d.BancaID != @bancaid   and convert(date,PagFecha) = @fecha
  UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'CL_PagoGanador',
 	  KeyMovimiento = 13,
 	  p.BancaID,
-	  Monto = Monto, 
-	  CONVERT(date,p.Fecha) as FechaMovimiento
+	   Monto = Monto,
+	 CONVERT(date,p.Fecha) as FechaMovimiento
   FROM  CL_Pagos p inner join CL_Recibo r on r.ReciboID = p.ReciboID
   where p.BancaID = r.BancaID  AND P.BancaID = @bancaid  and convert(date,P.Fecha) = @fecha
-  
       --CL Pagos Remoto
  UNION ALL  SELECT
       Tipo = 'Egreso',
       TipoMovimiento = 'CL_PagoGanadorRemoto',
 	  KeyMovimiento = 14,
 	  p.BancaID,
-	  Monto = Monto, 
+		   Monto = Monto,
 	  CONVERT(date,p.Fecha) as FechaMovimiento
   FROM  CL_Pagos p inner join CL_Recibo r on r.ReciboID = p.ReciboID
   where p.BancaID != r.BancaID  AND P.BancaID = @bancaid  and convert(date,P.Fecha) = @fecha
-
-
-
 	  ) AS flujo
-
 group by Tipo, TipoMovimiento, KeyMovimiento, BancaID, FechaMovimiento
 
 
@@ -450,15 +421,21 @@ declare @ventadehoy money = 0;
 set @ventadehoy = isnull(
 
     (
-        select sum(tablatickets.TicCosto)
-        from (        
-              select  TicCosto  from DTickets WITH (NOLOCK) where TicNulo=0 and BancaID = @bancaid and convert(date,TicFecha) = @hoysolofecha 
-              union all
-              select  TicCosto  from HTickets where TicNulo=0 and BancaID = @bancaid and convert(date,TicFecha) = @hoysolofecha 
-			  
-        ) as tablatickets
-    ),
-	
+	    Select sum(Monto) FROM (
+                Select Distinct TicketID, Monto 
+                  From (
+                        select TicketID,
+                	           Monto =  TicCosto
+                        From  DTickets WITH (NOLOCK) where TicNulo=0 and BancaID = @bancaid and convert(date,TicFecha) = @hoysolofecha 
+                        Union ALL
+                         --HTickets activos
+                        Select 
+					          TicketID,
+                              Monto =  TicCosto 
+                        From  HTickets where TicNulo=0 and BancaID = @bancaid and convert(date,TicFecha) = @hoysolofecha 
+              ) A
+	   ) AS B
+    ),	
 	0
 );
 
