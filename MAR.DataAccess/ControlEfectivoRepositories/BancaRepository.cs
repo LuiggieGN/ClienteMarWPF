@@ -427,20 +427,21 @@ namespace MAR.DataAccess.ControlEfectivoRepositories
         {
             try
             {
-                var p = new DynamicParameters(); 
-                List<TicketDTO> ticketsvendidoshoy = new List<TicketDTO>() { };
+                var p = new DynamicParameters();
                 p.Add("@BancaID", bancaid);
+
+                List<TicketDTO> tickets = null;
 
                 using (var db = DALHelper.GetSqlConnection())
                 {
                     db.Open();
 
-                    ticketsvendidoshoy = db.Query<List<TicketDTO>>(BancaHelper.LeerTicketsHoy, p, commandType: CommandType.Text).First();
+                    tickets = db.Query<TicketDTO>(BancaHelper.LeerTicketsHoy, p, commandType: CommandType.Text).ToList();
 
                     db.Close();
                 }
 
-                return ticketsvendidoshoy??new List<TicketDTO>() { };
+                return tickets ?? new List<TicketDTO>() { };
             }
             catch (Exception ex)
             {

@@ -2606,7 +2606,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 Task.Factory.StartNew(() =>
                 {
-                    Thread.Sleep(5000);
                     consultaThreadIsBusy = true;
                     System.Windows.Application.Current.Dispatcher.BeginInvoke(
                     DispatcherPriority.Background,
