@@ -123,7 +123,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     }
                     NuevaJugada = new TicketDTO() { TicketNo = jugada.TicketNo, Costo = jugada.Costo, Err = jugada.Err, Items = ListadoJugadasTicket.ToArray(), Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Fecha = Convert.ToDateTime(jugada.StrFecha.ToString()), Ticket = jugada.Ticket,Solicitud=jugadasPorTickets.Solicitud };
 
-                    jugadas = new TicketDTO() { Err = jugada.Err, Costo = jugada.Costo, Items = NuevaJugada.Items, Loteria = jugada.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud,Fecha = Convert.ToDateTime(jugada.StrFecha), Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
+                    jugadas = new TicketDTO() { Err = jugada.Err, Costo = jugada.Costo, Items = NuevaJugada.Items, Loteria =jugadasPorTickets.Loteria, Nulo = jugada.Nulo, Pago = jugada.Pago, Solicitud = NuevaJugada.Solicitud,Fecha = Convert.ToDateTime(jugada.StrFecha), Ticket = jugada.Ticket, TicketNo = jugada.TicketNo };
                     }
                 }
                 //jugadas = SorteosService.ConsultarTicketSinPin(Autenticador.CurrentAccount.MAR_Setting2.Sesion, data.TicketNo);
@@ -151,9 +151,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 }
                 
                 var firma = VentasIndexTicket.GeneraFirma(jugadas.Fecha.ToString(), jugadas.StrHora, jugadas.TicketNo,jugadasParaFirma.Items);
-                var datosTicket = SessionGlobals.LoteriasTodas.Where(x => x.Numero == jugadas.Loteria).ToList();
+                var datosTicket = SessionGlobals.LoteriasTodas.Where(x => x.Numero == jugadasPorTickets.Loteria).ToList();
                 var NombreLoteria = datosTicket[0].Nombre;
-                var Pin = VentasIndexTicket.GeneraPinGanador(Convert.ToInt32(jugadas.Solicitud));
+                var Pin = VentasIndexTicket.GeneraPinGanador(Convert.ToInt32(jugadasPorTickets.Solicitud));
 
                 LoteriaTicketPin ticketPin = new LoteriaTicketPin() { Loteria = NombreLoteria, Pin = Pin, Ticket = jugadas.TicketNo };
                 loteriatickpin.Add(ticketPin);

@@ -55,110 +55,116 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 {
                     var TicketID = Convert.ToInt32(contenedorTicketID.ToArray()[0]);
                     var ReimprimirResponse = SorteosService.ReimprimirTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, TicketID);
-                    var jugadas = ReimprimirResponse;
-                    TicketDTO jugadasCopy = new TicketDTO() {Costo = ReimprimirResponse.Costo,Err=ReimprimirResponse.Err,Fecha = Convert.ToDateTime(ReimprimirResponse.StrFecha),Loteria=ReimprimirResponse.Loteria,TicketNo = ReimprimirResponse.TicketNo,Nulo = ReimprimirResponse.Nulo,Pago= ReimprimirResponse.Pago,Solicitud=ReimprimirResponse.Solicitud,Ticket=ReimprimirResponse.Ticket };
-                    jugadasCopy.Items = new JugadasDTO[ReimprimirResponse.Items.Length];
-                    for (var i =0;i < ReimprimirResponse.Items.Length;i++)
-                    {
-                        jugadasCopy.Items[i] = new JugadasDTO { QP = ReimprimirResponse.Items[i].QP, Cantidad = ReimprimirResponse.Items[i].Cantidad, Costo = ReimprimirResponse.Items[i].Costo, Loteria = ReimprimirResponse.Items[i].Loteria, Numero = ReimprimirResponse.Items[i].Numero, Pago = ReimprimirResponse.Items[i].Pago };
-                        
+                    if (ReimprimirResponse.Err == null) {
+                        var jugadas = ReimprimirResponse;
+                        TicketDTO jugadasCopy = new TicketDTO() { Costo = ReimprimirResponse.Costo, Err = ReimprimirResponse.Err, Fecha = Convert.ToDateTime(ReimprimirResponse.StrFecha), Loteria = ReimprimirResponse.Loteria, TicketNo = ReimprimirResponse.TicketNo, Nulo = ReimprimirResponse.Nulo, Pago = ReimprimirResponse.Pago, Solicitud = ReimprimirResponse.Solicitud, Ticket = ReimprimirResponse.Ticket };
+                        jugadasCopy.Items = new JugadasDTO[ReimprimirResponse.Items.Length];
+                        for (var i = 0; i < ReimprimirResponse.Items.Length; i++)
+                        {
+                            jugadasCopy.Items[i] = new JugadasDTO { QP = ReimprimirResponse.Items[i].QP, Cantidad = ReimprimirResponse.Items[i].Cantidad, Costo = ReimprimirResponse.Items[i].Costo, Loteria = ReimprimirResponse.Items[i].Loteria, Numero = ReimprimirResponse.Items[i].Numero, Pago = ReimprimirResponse.Items[i].Pago };
+
+                        }
+
+                        if (jugadas.Err == null)
+                        {
+                            List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
+                            var datosTicket = SessionGlobals.LoteriasTodas.Where(x => x.Numero == jugadas.Loteria).ToList();
+                            var NombreLoteria = datosTicket[0].Nombre;
+
+                            List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
+
+                            var Pin = VentasIndexTicket.GeneraPinGanador(Convert.ToInt32(jugadas.Solicitud));
+
+                            LoteriaTicketPin ticketPin = new LoteriaTicketPin() { Loteria = NombreLoteria, Pin = Pin, Ticket = jugadas.TicketNo };
+                            loteriatickpin.Add(ticketPin);
+
+                            for (var i = 0; i < MoreOptions.Count; i++)
+                            {
+                                var ConfigValue = MoreOptions[i];
+                                var ArrayValue = ConfigValue.Split('|');
+                                if (ArrayValue[0] == "BANCA_PRINTER_CONFIG_LINE")
+                                {
+                                    ConfigPrinterModel configuracionConfigLine = new ConfigPrinterModel { ConfigKey = ArrayValue[0].ToString(), ConfigValue = ArrayValue[1].Replace('"', Convert.ToChar("'")).ToString() };
+                                    configuracionConfigLine.ConfigValue.Replace(Convert.ToChar("'"), '"').ToString();
+                                    ExistPrinterCOnfig = true;
+                                    listaConfiguraciones.Add(configuracionConfigLine);
+                                }
+                                if (ArrayValue[0] == "BANCA_PRINTER_IMAGES_CONFIG")
+                                {
+                                    ConfigPrinterModel configuracionConfigImage = new ConfigPrinterModel { ConfigKey = ArrayValue[0].ToString(), ConfigValue = ArrayValue[1].Replace('"', Convert.ToChar("'")).ToString() };
+                                    configuracionConfigImage.ConfigValue.Replace(Convert.ToChar("'"), '"').ToString();
+                                    ExistPrinterCOnfig = true;
+                                    listaConfiguraciones.Add(configuracionConfigImage);
+                                }
+
+                            }
+
+                            List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
+                            List<TicketJugadas> listTicketJugdas = new List<TicketJugadas> { };
+                            var firma = VentasIndexTicket.GeneraFirma(jugadas.StrFecha, jugadas.StrHora, jugadas.TicketNo, ReimprimirResponse.Items);
+
+                            foreach (var jugada in jugadas.Items)
+                            {
+                                //Para Reimprimir ticket con configuraciones de printer
+
+                                JugadaPrinter jugadaPrinter = new JugadaPrinter() { Numeros = jugada.Numero, Monto = (int)(jugada.Costo) };
+                                TicketJugadas ticketJugadas = new TicketJugadas() { Jugada = jugadaPrinter, TipoJudaga = jugada.QP };
+                                listTicketJugdas.Add(ticketJugadas);
+                                ///////////////////////////////////////
+
+                                JugadasTicketModels jugadaSinPrinter = new JugadasTicketModels() { Costo = Convert.ToInt32(jugada.Costo), Numero = jugada.Numero, TipoJugada = jugada.QP };
+                                jugadasNuevoSinPrinter.Add(jugadaSinPrinter);
+                            }
+
+                            if (ExistPrinterCOnfig == true)
+                            {
+                                TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = jugadas.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = listTicketJugdas, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = "Revise su jugada. Buena Suerte!", Total = "Total", AutorizacionHacienda = null, Logo = null };
+                                TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones, true);
+                            }
+                            else if (ExistPrinterCOnfig == false)
+                            {
+                                List<JugadasTicketModels> jugadaTransform = jugadasNuevoSinPrinter.ToList();
+
+                                SorteosTicketModels TICKET = new SorteosTicketModels
+                                {
+                                    Costo = Convert.ToInt32(jugadas.Costo),
+                                    Fecha = jugadas.StrFecha,
+                                    TicketNo = jugadas.TicketNo,
+                                    Nulo = jugadas.Nulo,
+                                    Hora = jugadas.StrHora,
+                                    Ticket = jugadas.Ticket,
+                                    Loteria = NombreLoteria,
+                                    LoteriaID = jugadas.Loteria,
+                                    Jugadas = jugadaTransform,
+                                    Pago = Convert.ToInt32(jugadas.Pago),
+                                    Firma = firma,
+                                    Pin = loteriatickpin,
+                                    BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre,
+                                    BanDireccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion,
+                                    Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
+                                    TextReviseJugada = "Revise su jugada. Buena Suerte!"
+                                };
+                                TicketTemplateHelper.PrintTicket(TICKET, null, true);
+                            }
+
+
+                            ViewModel.SetMensaje(mensaje: "La reimpresion del ticket fue completada exitosamente.", icono: "Check", background: "#28A745", puedeMostrarse: true);
+
+                        } else
+                        {
+                            //ViewModel.ListadoJugada = listJugadas;
+                            Thread.Sleep(700);
+                            //ViewModel.CerrarValidarPagoTicketCommand.Execute(null);
+                            ViewModel.SetMensaje(mensaje: ReimprimirResponse.Err,
+                                                   icono: "Check",
+                                                   background: "#DC3545",
+                                                   puedeMostrarse: true);
+
+                        }
                     }
-
-                    if (jugadas.Err == null)
+                    else
                     {
-                        List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
-                        var datosTicket = SessionGlobals.LoteriasTodas.Where(x => x.Numero == jugadas.Loteria).ToList();
-                        var NombreLoteria = datosTicket[0].Nombre;
-
-                        List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
-                       
-                        var Pin = VentasIndexTicket.GeneraPinGanador(Convert.ToInt32(jugadas.Solicitud));
-
-                        LoteriaTicketPin ticketPin = new LoteriaTicketPin() { Loteria = NombreLoteria, Pin = Pin, Ticket = jugadas.TicketNo };
-                        loteriatickpin.Add(ticketPin);
-
-                        for (var i = 0; i < MoreOptions.Count; i++)
-                        {
-                            var ConfigValue = MoreOptions[i];
-                            var ArrayValue = ConfigValue.Split('|');
-                            if (ArrayValue[0] == "BANCA_PRINTER_CONFIG_LINE")
-                            {
-                                ConfigPrinterModel configuracionConfigLine = new ConfigPrinterModel { ConfigKey = ArrayValue[0].ToString(), ConfigValue = ArrayValue[1].Replace('"', Convert.ToChar("'")).ToString() };
-                                configuracionConfigLine.ConfigValue.Replace(Convert.ToChar("'"), '"').ToString();
-                                ExistPrinterCOnfig = true;
-                                listaConfiguraciones.Add(configuracionConfigLine);
-                            }
-                            if (ArrayValue[0] == "BANCA_PRINTER_IMAGES_CONFIG")
-                            {
-                                ConfigPrinterModel configuracionConfigImage = new ConfigPrinterModel { ConfigKey = ArrayValue[0].ToString(), ConfigValue = ArrayValue[1].Replace('"', Convert.ToChar("'")).ToString() };
-                                configuracionConfigImage.ConfigValue.Replace(Convert.ToChar("'"), '"').ToString();
-                                ExistPrinterCOnfig = true;
-                                listaConfiguraciones.Add(configuracionConfigImage);
-                            }
-
-                        }
-
-                        List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
-                        List<TicketJugadas> listTicketJugdas = new List<TicketJugadas> { };
-                        var firma = VentasIndexTicket.GeneraFirma(jugadas.StrFecha, jugadas.StrHora, jugadas.TicketNo, ReimprimirResponse.Items);
-
-                        foreach (var jugada in jugadas.Items)
-                        {
-                            //Para Reimprimir ticket con configuraciones de printer
-
-                            JugadaPrinter jugadaPrinter = new JugadaPrinter() { Numeros = jugada.Numero, Monto = (int)(jugada.Costo) };
-                            TicketJugadas ticketJugadas = new TicketJugadas() { Jugada = jugadaPrinter, TipoJudaga = jugada.QP };
-                            listTicketJugdas.Add(ticketJugadas);
-                            ///////////////////////////////////////
-
-                            JugadasTicketModels jugadaSinPrinter = new JugadasTicketModels() { Costo = Convert.ToInt32(jugada.Costo), Numero = jugada.Numero, TipoJugada = jugada.QP };
-                            jugadasNuevoSinPrinter.Add(jugadaSinPrinter);
-                        }
-
-                        if (ExistPrinterCOnfig == true)
-                        {
-                            TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = jugadas.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = listTicketJugdas, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = "Revise su jugada. Buena Suerte!", Total = "Total", AutorizacionHacienda = null, Logo = null };
-                            TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones, true);
-                        }
-                        else if (ExistPrinterCOnfig == false)
-                        {
-                            List<JugadasTicketModels> jugadaTransform = jugadasNuevoSinPrinter.ToList();
-
-                            SorteosTicketModels TICKET = new SorteosTicketModels
-                            {
-                                Costo = Convert.ToInt32(jugadas.Costo),
-                                Fecha = jugadas.StrFecha,
-                                TicketNo = jugadas.TicketNo,
-                                Nulo = jugadas.Nulo,
-                                Hora = jugadas.StrHora,
-                                Ticket = jugadas.Ticket,
-                                Loteria = NombreLoteria,
-                                LoteriaID = jugadas.Loteria,
-                                Jugadas = jugadaTransform,
-                                Pago = Convert.ToInt32(jugadas.Pago),
-                                Firma = firma,
-                                Pin = loteriatickpin,
-                                BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre,
-                                BanDireccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion,
-                                Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
-                                TextReviseJugada = "Revise su jugada. Buena Suerte!"
-                            };
-                            TicketTemplateHelper.PrintTicket(TICKET, null, true);
-                        }
-
-
-                        ViewModel.SetMensaje(mensaje: "La reimpresion del ticket fue completada exitosamente.", icono: "Check", background: "#28A745", puedeMostrarse: true);
-
-                    } else
-                    {
-                        //ViewModel.ListadoJugada = listJugadas;
-                        Thread.Sleep(700);
-                        //ViewModel.CerrarValidarPagoTicketCommand.Execute(null);
-                        ViewModel.SetMensaje(mensaje: ReimprimirResponse.Err,
-                                               icono: "Check",
-                                               background: "#DC3545",
-                                               puedeMostrarse: true);
-
+                        ViewModel.SetMensaje(mensaje:ReimprimirResponse.Err, icono: "Error", background: "#DC3545", puedeMostrarse: true);
                     }
                 } else {
                     ViewModel.SetMensaje(mensaje: "El ticket introducido no existe o ya pasó el tiempo permitido para reimpresion", icono: "Error", background: "#DC3545", puedeMostrarse: true);
