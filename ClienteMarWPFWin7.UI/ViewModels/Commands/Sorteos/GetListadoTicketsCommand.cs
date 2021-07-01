@@ -48,9 +48,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 if (result != null && result.Count > 0)
                 {
-                    ViewModelPago.listaTicketsJugados = result.OrderBy(x => x.Ticket).ToList().ToObservableTicketDTO();
+                    ViewModelPago.listaTicketsJugados = result.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableTicketDTO();
 
-                    ViewModel.ListadoTicketsPrecargados = result.OrderBy(x => x.Ticket).ToList().ToObservableTicketDTO();
+                    ViewModel.ListadoTicketsPrecargados = result.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableTicketDTO();
 
                     string total = ViewModelPago.listaTicketsJugados.Where(x => x.Nulo == false).Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
 
