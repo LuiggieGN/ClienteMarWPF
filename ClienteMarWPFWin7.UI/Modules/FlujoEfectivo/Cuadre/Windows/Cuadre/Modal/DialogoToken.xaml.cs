@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
 {
@@ -115,16 +118,48 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
         {
             InitializeComponent();
             Visibility = Visibility.Hidden;
+            Spinner.Visibility = Visibility.Collapsed;
         }
 
 
+
+        private bool aceptarThreadIsBusy = false;
         private void Aceptar(object sender, RoutedEventArgs e)
         {
             if (AceptarCommand != null)
             {
-                AceptarCommand.Execute(PasswordPin);
-            }
-        }
+                if (aceptarThreadIsBusy == false)
+                {
+
+                    Spinner.Visibility = Visibility.Visible;
+                    aceptarThreadIsBusy = true;
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        Thread.Sleep(500);
+                        System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                        {
+                            try
+                            {
+                              AceptarCommand.Execute(PasswordPin);
+                            }
+                            catch
+                            {
+
+                            }
+                            aceptarThreadIsBusy = false;
+                            Spinner.Visibility = Visibility.Collapsed;
+                        }));
+                    });
+
+                }//fin de If if (aceptarThreadIsBusy == false)
+
+            }//fin de if (AceptarCommand != null)
+
+        }//fin de metodo Aceptar( )
+
 
         private void Cancelar(object sender, RoutedEventArgs e)
         {
@@ -135,11 +170,16 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal
             }
         }
 
+
         private void PasswordPin_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                Aceptar(sender, e);
+                if (aceptarThreadIsBusy == false)
+                {
+                    Thread.Sleep(500);
+                    Aceptar(sender, e);
+                }
             }
         }
 

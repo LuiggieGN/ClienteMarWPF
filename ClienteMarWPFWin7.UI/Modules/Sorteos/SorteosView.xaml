@@ -7,11 +7,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-               xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
-              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"     
+             xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos.Modal"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"     
              mc:Ignorable="d" PreviewKeyDown="PressTecla" KeyUp="OnKeyUp" Name="vistaSorteo" Loaded="SelectCampo"
-              Focusable="True"
-              MouseLeave="vistaSorteo_MouseLeave"
+             Focusable="True"
+             MouseLeave="vistaSorteo_MouseLeave"
             >
 
     <UserControl.Resources>

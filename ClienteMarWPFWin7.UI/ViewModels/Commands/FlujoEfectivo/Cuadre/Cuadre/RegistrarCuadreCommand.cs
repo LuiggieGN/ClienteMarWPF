@@ -217,11 +217,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.FlujoEfectivo.Cuadre.Cuadre
 
                 _viewmodel.AutService.RefrescarBancaBalance(); //@@Actualizo el Balance de Banca 
 
-                _viewmodel.InitCuadreCommand?.Execute(null);   //@@ Re-Inicia vista para un nuevo cuadre
+                // _viewmodel.InitCuadreCommand?.Execute(null);   //@@ Re-Inicia vista para un nuevo cuadre | OJO esto se comento debido a que la ventana cuadre se cierra
+                //                                                                                          | Ver linea 227
 
                 PrinterHelper.SendToPrinter(toPrint);          //@@Imprime Cuadre
                 PrinterHelper.SendToPrinter(toPrint);          //@@Imprime Cuadre
                 MessageBox.Show("El cuadre fue procesado", "Operación Completada", MessageBoxButton.OK, MessageBoxImage.Information);
+                
                 this.VentanaCuadre?.Close();
 
             }

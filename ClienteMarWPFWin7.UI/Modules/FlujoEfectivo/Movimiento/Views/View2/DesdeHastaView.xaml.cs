@@ -159,7 +159,15 @@ namespace ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento.Views.View2
             if (e.Key == Key.Enter)
             {
                 e.Handled = true;
-                FallowNext();
+
+                if (PasswordControl.IsFocused)
+                {
+                    TriggerSeleccionarGestor();
+                }
+                else
+                {
+                    FallowNext();
+                }
             }
             else if (e.Key == Key.Tab)
             {
