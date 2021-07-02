@@ -106,7 +106,7 @@
                 </StackPanel>
             </Button>
 
-            <Expander Background="Transparent" Margin="0 2" Width="204" BorderBrush="Transparent" IsExpanded="False" Foreground="White">
+            <!--<Expander Background="Transparent" Margin="0 2" Width="204" BorderBrush="Transparent" IsExpanded="False" Foreground="White">
                 <Expander.Header>
                     <BulletDecorator Margin="-7 0 0 0">
                         <BulletDecorator.Bullet>
@@ -130,7 +130,7 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-            </Expander>
+            </Expander>-->
 
 
             <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Recargas}" Visibility="{Binding Permisos.PuedeVenderRecargas, Converter={ StaticResource BooleanToVisibilityConverter }}">
@@ -147,12 +147,12 @@
                 </StackPanel>
             </Button>-->
 
-            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}"  Visibility="{Binding Permisos.Servicios, Converter={ StaticResource BooleanToVisibilityConverter }}">
+            <!--<Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.PagoServicios}"  Visibility="{Binding Permisos.Servicios, Converter={ StaticResource BooleanToVisibilityConverter }}">
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="BulbOn" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Paga Facil" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
-            </Button>
+            </Button>-->
 
             <Expander Background="Transparent" Margin="0 2" Width="204" BorderBrush="Transparent" IsExpanded="False" Foreground="White" Visibility="{Binding BancaConfiguracion.ControlEfectivoConfigDto.PuedeUsarControlEfectivo, Converter={ StaticResource BooleanToVisibilityConverter }}" >
                 <Expander.Header>
@@ -236,20 +236,20 @@
             </Button>
 
 
-            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}"  CommandParameter="{x:Static nav:Modulos.Reporte}" >
+            <!--<Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}"  CommandParameter="{x:Static nav:Modulos.Reporte}" >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="WifiOff" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Ventas locales" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
-            </Button>
+            </Button>-->
 
-            <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" 
+            <!--<Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" 
                     Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.EnLinea}" >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="Public" Width="30" Height="30" Foreground="{DynamicResource MenuTopBackground}"/>
                     <TextBlock Text="Version web" Margin="13 0" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
                 </StackPanel>
-            </Button>
+            </Button>-->
 
             <Button IsTabStop="False" Focusable="False" HorizontalContentAlignment="Left" Height="45" Style="{StaticResource MaterialDesignFlatButton}" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:Modulos.Reporte}">
                 <StackPanel Orientation="Horizontal" >

@@ -30,9 +30,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         //public List<int> ticketsJugados = new List<int>();
         public static string loteriasNoDisponiblesParaMostrar { get; set; }
         public List<double> almacenandoMontos = new List<double>();
-        public List<Tuple<double, int>> precioYdiaQ = new List<Tuple<double, int>>();
-        public List<Tuple<double, int>> precioYdiaP = new List<Tuple<double, int>>();
-        public List<Tuple<double, int>> precioYdiaT = new List<Tuple<double, int>>();
+        //public List<Tuple<double, int>> precioYdiaQ = new List<Tuple<double, int>>();
+        public List<Tuple<double, int>> precioYdia = new List<Tuple<double, int>>();
+        //public List<Tuple<double, int>> precioYdiaP = new List<Tuple<double, int>>();
+        //public List<Tuple<double, int>> precioYdiaT = new List<Tuple<double, int>>();
 
         public RealizarApuestaCommand(SorteosViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService)
         {
@@ -44,179 +45,233 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             base.SetAction(comando);
         }
 
-        // Metodo que obtiene precios de pale
-        #region Pale
-        public void ObtenerPrecioPales(int loteria)
+        public double GetPrecioPorDia(string tipoJugada, int loteria)
         {
-            var numeroLoteria = 0;
+            var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == loteria);
+            var diaActual = DateTime.Now.DayOfWeek.ToString();
 
-            
-            if (ViewModel.loteriasMultiples.Count > 0)
+            switch (diaActual)
             {
-                //foreach (var loteria in ViewModel.loteriasMultiples)
-                //{
-                //    numeroLoteria = loteria;
-                //}
+                case "Monday":
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieLun)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieLun)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieLun)).ToList(); }
+                    break;
 
-                var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == loteria);
+                case "Tuesday":
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMar)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMar)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMar)).ToList(); }
+                    break;
 
-                if (collecion.ToArray()[0].Numero == loteria)
-                {
-                    var diaActual = DateTime.Now.DayOfWeek.ToString();
+                case "Wednesday":
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMie)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMie)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMie)).ToList(); }
+                    break;
 
-                    switch (diaActual)
-                    {
-                        case "Monday":
-                            precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieLun)).ToList();
-                            break;
+                case "Thursday":
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieJue)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieJue)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieJue)).ToList(); }
+                    break;
 
-                        case "Tuesday":
-                            precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMar)).ToList();
-                            break;
+                case "Friday":
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieVie)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieVie)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieVie)).ToList(); }
+                    break;
 
-                        case "Wednesday":
-                            precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMie)).ToList();
-                            break;
+                case "Saturday":
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieSab)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieSab)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieSab)).ToList(); }
+                    break;
 
-                        case "Thursday":
-                            precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieJue)).ToList();
-                            break;
-
-                        case "Friday":
-                            precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieVie)).ToList();
-                            break;
-
-                        case "Saturday":
-                            precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieSab)).ToList();
-                            break;
-
-                        case "Sunday":
-                            precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieDom)).ToList();
-                            break;
-
-                    }
-
-                }
+                case "Sunday":
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieDom)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieDom)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieDom)).ToList(); }
+                    break;
 
             }
-            
+
+            return precioYdia.ToArray()[0].Item1;
         }
-        #endregion
 
-        // Metodo que obtiene precios de quiniela
-        #region Quiniela
-        public void ObtenerPrecioQuinielas(int loteria)
-        {
-            var numeroLoteria = 0;
+        //// Metodo que obtiene precios de pale
+        //#region Pale
+        //public void ObtenerPrecioPales(int loteria)
+        //{
+        //    var numeroLoteria = 0;
 
-            if (ViewModel.loteriasMultiples.Count > 0)
-            {
-                //foreach (var loteria in ViewModel.loteriasMultiples)
-                //{
-                //    numeroLoteria = loteria;
-                //}
-
-                var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == loteria);
-
-                if (collecion.ToArray()[0].Numero == loteria)
-                {
-                    var diaActual = DateTime.Now.DayOfWeek.ToString();
-
-                    switch (diaActual)
-                    {
-                        case "Monday":
-                            precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieLun)).ToList();
-                            break;
-
-                        case "Tuesday":
-                            precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMar)).ToList();
-                            break;
-
-                        case "Wednesday":
-                            precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMie)).ToList();
-                            break;
-
-                        case "Thursday":
-                            precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieJue)).ToList();
-                            break;
-
-                        case "Friday":
-                            precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieVie)).ToList();
-                            break;
-
-                        case "Saturday":
-                            precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieSab)).ToList();
-                            break;
-
-                        case "Sunday":
-                            precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieDom)).ToList();
-                            break;
-
-                    }
-
-                }
-
-            }
             
-        }
-        #endregion
+        //    if (ViewModel.loteriasMultiples.Count > 0)
+        //    {
+        //        //foreach (var loteria in ViewModel.loteriasMultiples)
+        //        //{
+        //        //    numeroLoteria = loteria;
+        //        //}
 
-        // Metodo que obtiene precios de tripletas
-        #region Tripleta
-        public void ObtenerPrecioTripleta(int loteria)
-        {
-            var numeroLoteria = 0;
-            if (ViewModel.loteriasMultiples.Count > 0)
-            {
-                //foreach (var loteria in ViewModel.loteriasMultiples)
-                //{
-                //    numeroLoteria = loteria;
-                //}
+        //        var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == loteria);
 
-                var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == loteria);
+        //        if (collecion.ToArray()[0].Numero == loteria)
+        //        {
+        //            var diaActual = DateTime.Now.DayOfWeek.ToString();
 
-                if (collecion.ToArray()[0].Numero == loteria)
-                {
-                    var diaActual = DateTime.Now.DayOfWeek.ToString();
+        //            switch (diaActual)
+        //            {
+        //                case "Monday":
+        //                    precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieLun)).ToList();
+        //                    break;
 
-                    switch (diaActual)
-                    {
-                        case "Monday":
-                            precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieLun)).ToList();
-                            break;
+        //                case "Tuesday":
+        //                    precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMar)).ToList();
+        //                    break;
 
-                        case "Tuesday":
-                            precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMar)).ToList();
-                            break;
+        //                case "Wednesday":
+        //                    precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMie)).ToList();
+        //                    break;
 
-                        case "Wednesday":
-                            precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMie)).ToList();
-                            break;
+        //                case "Thursday":
+        //                    precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieJue)).ToList();
+        //                    break;
 
-                        case "Thursday":
-                            precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieJue)).ToList();
-                            break;
+        //                case "Friday":
+        //                    precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieVie)).ToList();
+        //                    break;
 
-                        case "Friday":
-                            precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieVie)).ToList();
-                            break;
+        //                case "Saturday":
+        //                    precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieSab)).ToList();
+        //                    break;
 
-                        case "Saturday":
-                            precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieSab)).ToList();
-                            break;
+        //                case "Sunday":
+        //                    precioYdiaP = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieDom)).ToList();
+        //                    break;
 
-                        case "Sunday":
-                            precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieDom)).ToList();
-                            break;
+        //            }
 
-                    }
+        //        }
 
-                }
-
-            }
+        //    }
             
-        }
-        #endregion
+        //}
+        //#endregion
+
+        //// Metodo que obtiene precios de quiniela
+        //#region Quiniela
+        //public void ObtenerPrecioQuinielas(int loteria)
+        //{
+        //    var numeroLoteria = 0;
+
+        //    if (ViewModel.loteriasMultiples.Count > 0)
+        //    {
+        //        //foreach (var loteria in ViewModel.loteriasMultiples)
+        //        //{
+        //        //    numeroLoteria = loteria;
+        //        //}
+
+        //        var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == loteria);
+
+        //        if (collecion.ToArray()[0].Numero == loteria)
+        //        {
+        //            var diaActual = DateTime.Now.DayOfWeek.ToString();
+
+        //            switch (diaActual)
+        //            {
+        //                case "Monday":
+        //                    precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieLun)).ToList();
+        //                    break;
+
+        //                case "Tuesday":
+        //                    precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMar)).ToList();
+        //                    break;
+
+        //                case "Wednesday":
+        //                    precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMie)).ToList();
+        //                    break;
+
+        //                case "Thursday":
+        //                    precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieJue)).ToList();
+        //                    break;
+
+        //                case "Friday":
+        //                    precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieVie)).ToList();
+        //                    break;
+
+        //                case "Saturday":
+        //                    precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieSab)).ToList();
+        //                    break;
+
+        //                case "Sunday":
+        //                    precioYdiaQ = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieDom)).ToList();
+        //                    break;
+
+        //            }
+
+        //        }
+
+        //    }
+            
+        //}
+        //#endregion
+
+        //// Metodo que obtiene precios de tripletas
+        //#region Tripleta
+        //public void ObtenerPrecioTripleta(int loteria)
+        //{
+        //    var numeroLoteria = 0;
+        //    if (ViewModel.loteriasMultiples.Count > 0)
+        //    {
+        //        //foreach (var loteria in ViewModel.loteriasMultiples)
+        //        //{
+        //        //    numeroLoteria = loteria;
+        //        //}
+
+        //        var collecion = SessionGlobals.LoteriasYSupersDisponibles.Where(x => x.Numero == loteria);
+
+        //        if (collecion.ToArray()[0].Numero == loteria)
+        //        {
+        //            var diaActual = DateTime.Now.DayOfWeek.ToString();
+
+        //            switch (diaActual)
+        //            {
+        //                case "Monday":
+        //                    precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieLun)).ToList();
+        //                    break;
+
+        //                case "Tuesday":
+        //                    precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMar)).ToList();
+        //                    break;
+
+        //                case "Wednesday":
+        //                    precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMie)).ToList();
+        //                    break;
+
+        //                case "Thursday":
+        //                    precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieJue)).ToList();
+        //                    break;
+
+        //                case "Friday":
+        //                    precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieVie)).ToList();
+        //                    break;
+
+        //                case "Saturday":
+        //                    precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieSab)).ToList();
+        //                    break;
+
+        //                case "Sunday":
+        //                    precioYdiaT = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieDom)).ToList();
+        //                    break;
+
+        //            }
+
+        //        }
+
+        //    }
+            
+        //}
+        //#endregion
 
         private void RealizarApuestas(object parametro)
         {
@@ -242,65 +297,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             foreach (var item in apuesta.Jugadas)
             {
 
-                // Si la jugada es pale
-                #region pale
-                if (item.TipoJugada == "  Pale")
+                itemBet.Add(new MAR_BetItem
                 {
-                    ObtenerPrecioPales(apuesta.LoteriaID);
+                    Loteria = apuesta.LoteriaID,
+                    Numero = item.Jugadas.Replace("-", ""),
+                    Costo = item.Monto * GetPrecioPorDia(item.TipoJugada,apuesta.LoteriaID),
+                    Cantidad = item.Monto * GetPrecioPorDia(item.TipoJugada, apuesta.LoteriaID),
+                    QP = item.TipoJugada.TrimStart().Substring(0, 1)
 
-                    itemBet.Add(new MAR_BetItem
-                    {
-                        Loteria = apuesta.LoteriaID,
-                        Numero = item.Jugadas.Replace("-", ""),
-                        Costo = item.Monto * precioYdiaP.ToArray()[0].Item1,
-                        Cantidad = item.Monto * precioYdiaP.ToArray()[0].Item1,
-                        QP = item.TipoJugada.TrimStart().Substring(0, 1)
+                });
 
-                    });
-
-                    bet.Costo += item.Monto * precioYdiaP.ToArray()[0].Item1;
-                }
-                #endregion
-
-                // Si la jugada es quiniela
-                #region quiniela
-                if (item.TipoJugada == "  Quiniela")
-                {
-                    ObtenerPrecioQuinielas(apuesta.LoteriaID);
-
-                    itemBet.Add(new MAR_BetItem
-                    {
-                        Loteria = apuesta.LoteriaID,
-                        Numero = item.Jugadas.Replace("-", ""),
-                        Costo = item.Monto * precioYdiaQ.ToArray()[0].Item1,
-                        Cantidad = item.Monto * precioYdiaQ.ToArray()[0].Item1,
-                        QP = item.TipoJugada.TrimStart().Substring(0, 1)
-
-                    });
-
-                    bet.Costo += item.Monto * precioYdiaQ.ToArray()[0].Item1;
-                }
-                #endregion
-
-                // Si la jugada es tripleta
-                #region tripleta
-                if (item.TipoJugada == "  Tripleta")
-                {
-                    ObtenerPrecioTripleta(apuesta.LoteriaID);
-
-                    itemBet.Add(new MAR_BetItem
-                    {
-                        Loteria = apuesta.LoteriaID,
-                        Numero = item.Jugadas.Replace("-", ""),
-                        Costo = item.Monto * precioYdiaT.ToArray()[0].Item1,
-                        Cantidad = item.Monto * precioYdiaT.ToArray()[0].Item1,
-                        QP = item.TipoJugada.TrimStart().Substring(0, 1)
-
-                    });
-
-                    bet.Costo += item.Monto * precioYdiaT.ToArray()[0].Item1;
-                }
-                #endregion
+                bet.Costo += item.Monto * GetPrecioPorDia(item.TipoJugada, apuesta.LoteriaID);
 
             }
 
@@ -641,95 +648,27 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
             foreach (var item in apuestas.Jugadas)
             {
 
-                // Si la jugada es pale
-                #region pale
-                if (item.TipoJugada == "  Pale")
+                itemBet.Add(new MAR_BetItem
                 {
-                    ObtenerPrecioPales(apuestas.LoteriaID);
+                    Loteria = apuestas.LoteriaID,
+                    Numero = item.Jugadas.Replace("-", ""),
+                    Costo = item.Monto * GetPrecioPorDia(item.TipoJugada,apuestas.LoteriaID),
+                    QP = item.TipoJugada.TrimStart().Substring(0, 1),
+                    Cantidad = item.Monto * GetPrecioPorDia(item.TipoJugada, apuestas.LoteriaID)
 
-                    itemBet.Add(new MAR_BetItem
-                    {
-                        Loteria = apuestas.LoteriaID,
-                        Numero = item.Jugadas.Replace("-", ""),
-                        Costo = item.Monto * precioYdiaP.ToArray()[0].Item1,
-                        QP = item.TipoJugada.TrimStart().Substring(0, 1),
-                        Cantidad = item.Monto
+                });
 
-                    });
-
-                    multi.Items = itemBet.ToArray();
-                    multi.Headers = new MAR_BetHeader[] {
+                multi.Items = itemBet.ToArray();
+                multi.Headers = new MAR_BetHeader[] {
                     new MAR_BetHeader {
                     Solicitud = SessionGlobals.SolicitudID,
                     Loteria = apuestas.LoteriaID,
-                    Costo = apuestas.Jugadas.Sum(x => x.Monto * precioYdiaP.ToArray()[0].Item1),
+                    Costo = apuestas.Jugadas.Sum(x => x.Monto * GetPrecioPorDia(item.TipoJugada,apuestas.LoteriaID)),
                     StrFecha = DateTime.Now.ToString("dd/MM/yyyy"),
                     StrHora=DateTime.Now.ToString("hh:mm:ss")
                 }
 
                     };
-                }
-                #endregion
-
-                // Si la jugada es quiniela
-                #region quiniela
-                if (item.TipoJugada == "  Quiniela")
-                {
-                    ObtenerPrecioQuinielas(apuestas.LoteriaID);
-
-                    itemBet.Add(new MAR_BetItem
-                    {
-                        Loteria = apuestas.LoteriaID,
-                        Numero = item.Jugadas.Replace("-", ""),
-                        Costo = item.Monto * precioYdiaQ.ToArray()[0].Item1,
-                        QP = item.TipoJugada.TrimStart().Substring(0, 1),
-                        Cantidad = item.Monto
-
-                    });
-
-                    multi.Items = itemBet.ToArray();
-                    multi.Headers = new MAR_BetHeader[] {
-                    new MAR_BetHeader {
-                    Solicitud = SessionGlobals.SolicitudID,
-                    Loteria = apuestas.LoteriaID,
-                    Costo = apuestas.Jugadas.Sum(x => x.Monto * precioYdiaQ.ToArray()[0].Item1),
-                    StrFecha = DateTime.Now.ToString("dd/MM/yyyy"),
-                    StrHora=DateTime.Now.ToString("hh:mm:ss")
-                }
-
-                    };
-                }
-                #endregion
-
-                // Si la jugada es tripleta
-                #region Tripleta
-                if (item.TipoJugada == "  Tripleta")
-                {
-                    ObtenerPrecioTripleta(apuestas.LoteriaID);
-
-                    itemBet.Add(new MAR_BetItem
-                    {
-                        Loteria = apuestas.LoteriaID,
-                        Numero = item.Jugadas.Replace("-", ""),
-                        Costo = item.Monto * precioYdiaT.ToArray()[0].Item1,
-                        QP = item.TipoJugada.TrimStart().Substring(0, 1),
-                        Cantidad = item.Monto
-
-                    });
-
-                    multi.Items = itemBet.ToArray();
-                    multi.Headers = new MAR_BetHeader[] {
-                    new MAR_BetHeader {
-                    Solicitud = SessionGlobals.SolicitudID,
-                    Loteria = apuestas.LoteriaID,
-                    Costo = apuestas.Jugadas.Sum(x => x.Monto * precioYdiaT.ToArray()[0].Item1),
-                    StrFecha = DateTime.Now.ToString("dd/MM/yyyy"),
-                    StrHora=DateTime.Now.ToString("hh:mm:ss")
-                }
-
-                    };
-                }
-                #endregion
 
 
             }

@@ -65,7 +65,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         public double cantidadTotal2 { get; set; }
         public double cantidadTotal { get; set; }
 
-        public double almacenandoMontos = 00.00;
+        public double almacenandoMontos = 0;
         public List<Tuple<double, int>> precioYdia = new List<Tuple<double, int>>();
         public int numeroLoteria = 0;
         public int totalMontos = 0;
@@ -565,45 +565,45 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             switch (diaActual)
             {
                 case "Monday":
-                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieLun)).ToList(); }
-                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieLun)).ToList(); }
-                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieLun)).ToList(); }
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieLun)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieLun)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieLun)).ToList(); }
                     break;
 
                 case "Tuesday":
-                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMar)).ToList(); }
-                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMar)).ToList(); }
-                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMar)).ToList(); }
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMar)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMar)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMar)).ToList(); }
                     break;
 
                 case "Wednesday":
-                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMie)).ToList(); }
-                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMie)).ToList(); }
-                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMie)).ToList(); }
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieMie)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieMie)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieMie)).ToList(); }
                     break;
 
                 case "Thursday":
-                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieJue)).ToList(); }
-                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieJue)).ToList(); }
-                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieJue)).ToList(); }
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieJue)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieJue)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieJue)).ToList(); }
                     break;
 
                 case "Friday":
-                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieVie)).ToList(); }
-                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieVie)).ToList(); }
-                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieVie)).ToList(); }
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieVie)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieVie)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieVie)).ToList(); }
                     break;
 
                 case "Saturday":
-                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieSab)).ToList(); }
-                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieSab)).ToList(); }
-                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieSab)).ToList(); }
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieSab)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieSab)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieSab)).ToList(); }
                     break;
 
                 case "Sunday":
-                    if (tipoJugada == "  Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieDom)).ToList(); }
-                    else if (tipoJugada == "  Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieDom)).ToList(); }
-                    else if (tipoJugada == "  Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieDom)).ToList(); }
+                    if (tipoJugada == "  Quiniela" || tipoJugada == "Quiniela") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioQ, x.CieDom)).ToList(); }
+                    else if (tipoJugada == "  Pale" || tipoJugada == "Pale") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioP, x.CieDom)).ToList(); }
+                    else if (tipoJugada == "  Tripleta" || tipoJugada == "Tripleta") { precioYdia = collecion.Select(x => new Tuple<double, int>(x.PrecioT, x.CieDom)).ToList(); }
                     break;
 
             }
@@ -656,31 +656,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 {
                     almacenandoMontos = 0;
 
-                    //if (CrearSuper.IsChecked == false)
-                    //{
-                        foreach (var i in ListSorteosVender)
+                    foreach (var i in ListSorteosVender)
+                    {
+                        foreach (var item in ListJugadas)
                         {
-                            foreach (var item in ListJugadas)
-                            {
-                                almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.Sorteo.LoteriaID);
-                                txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
-                            }
-
+                            almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.Sorteo.LoteriaID);
+                            txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
                         }
-                    //}else if( CrearSuper.IsChecked == true)
-                    //{
-                    //    foreach (var i in combinations)
-                    //    {
-                            
-                    //        foreach (var item in ListJugadas)
-                    //        {
-                    //            almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.LoteriaIDDestino);
-                    //            txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
-                    //        }
-                    //    }
-                       
-                    //}
 
+                    }
                 }
 
             }
@@ -700,7 +684,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             if (ListSorteosVender.Count == 0 || ltJugada.Items.Count == 0)
             {
-                txtMontoTotal.Content = "$00.00";
+                txtMontoTotal.Content = "$0.00";
             }
 
         }
@@ -1671,7 +1655,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 try
                                 {
                                     RegistrarVenta();
-                                    txtMontoTotal.Content = "$00.00";
+                                    txtMontoTotal.Content = "$0.00";
                                     almacenandoMontos = 0;
                                 }
                                 catch
@@ -2118,11 +2102,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         }
                          ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Esta combinacion ya esta en la lista.", "Aviso");
 
-                        if(YaEstaSeleccionada != null)
+                        if (YaEstaSeleccionada != null)
                         {
                             RefrescarMonto(false, YaEstaSeleccionadaLoteria.First());
                         }
-                        
+
                     }
                     else
                     {
