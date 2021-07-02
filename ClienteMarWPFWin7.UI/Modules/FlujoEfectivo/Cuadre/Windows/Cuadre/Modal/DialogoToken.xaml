@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre.Modal"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
              xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"             
+             xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"             
              mc:Ignorable="d" 
-             x:Name="root">
+             x:Name="root"
+             
+             >
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -88,9 +91,29 @@
                             <Button Style="{DynamicResource  BotonCancelarStyle}" 
                                     Content="Cancelar" 
                                     Click="Cancelar"/>
-                            <Button Style="{DynamicResource BotonAceptarStyle}" 
-                                    Content="Aceptar" 
-                                    Click="Aceptar"/>
+                            <Button Style="{DynamicResource BotonAceptarStyle}"                                    
+                                    Click="Aceptar">
+                                <Grid Margin="0 2 0 2 "
+                                      HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <TextBlock Text="Aceptar" 
+                                                   Foreground="White" 
+                                                   VerticalAlignment="Center"/>
+                                        <controls:SpinnerPiston 
+                                                x:Name="Spinner" 
+                                                Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="30"
+                                                Height="40"
+                                                Visibility="Visible"
+                                                Margin="0 0 0 0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
                         </StackPanel>
                     </StackPanel>
 
