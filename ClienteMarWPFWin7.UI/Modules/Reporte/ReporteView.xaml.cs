@@ -57,7 +57,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
         {
             InitializeComponent();
             var VM = DataContext as ReporteViewModel;
-            
+            //SpinnerRPTVentas.Visibility = Visibility.Visible;
             listSorteo.SelectedIndex = 0;
             EnableScrollBars();
             NoAutogenerarColumnas();
@@ -194,13 +194,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             object elementos = fase1.Content;
             StackPanel elemto = elementos as StackPanel;
             UIElementCollection CollecionElementos = elemto.Children;
-            TextBlock elementosTextBlock = CollecionElementos[1] as TextBlock;
+            TextBlock elementosTextBlock = CollecionElementos[2] as TextBlock;
             Nombre = elementosTextBlock.Text.ToString();
 
-            
             if (Nombre == null)
             {
-                Nombre = "Reportes de Ventas";
+                Nombre = "Reportes De Ventas";
                 //VentaFecha.IsOpen = false;
             }
             //else if (Nombre == "Ventas por Fecha")

@@ -24,6 +24,9 @@ using ClienteMarWPFWin7.Domain.Services.JuegaMasService;
 using ClienteMarWPFWin7.Domain.JuegaMasService;
 using MAR.AppLogic.MARHelpers;
 using Newtonsoft.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 {
@@ -67,62 +70,121 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             ViewModel.ReportesListaNumeros.TripletaVisibility = Visibility.Hidden;
             ViewModel.ReportesGanadores.MostrarNoHayGanadoresVisibity = Visibility.Hidden;
 
+            //Loading de reportes 
+            ViewModel.LoadingRPTVentas = Visibility.Collapsed;
+            ViewModel.LoadingRPTGanadores = Visibility.Collapsed;
+            ViewModel.LoadingRPTListNumero = Visibility.Collapsed;
+            ViewModel.LoadingRPTListTarjeta = Visibility.Collapsed;
+            ViewModel.LoadingRPTSumaVentas = Visibility.Collapsed;
+            ViewModel.LoadingRPTVentasPorFecha = Visibility.Collapsed;
+            ViewModel.LoadingRPTPagosRemotos = Visibility.Collapsed;
+            ViewModel.LoadingRPTListPremiosGanadores = Visibility.Collapsed;
+            ViewModel.LoadingRPTListTicket = Visibility.Collapsed;
+
             try
             {
+                
                 var nombre = new ReporteView().GetReporteNombre();
                 if (nombre == null || nombre == "") { nombre = "Reportes De Ventas"; }
                 if (nombre == "Suma De Ventas")
                 {
                     ViewModel.NombreBanca = "Lexus";
-
-                    //ViewModel.Fecha = DateTime.Now.ToString();
-                    RPTSumaDeVentas(parametro);
+                    //Loading Reporte Suma De Ventas
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { RPTSumaDeVentas(parametro); ViewModel.LoadingRPTSumaVentas = Visibility.Visible; ViewModel.IconRPTSumaVentas = Visibility.Collapsed; } catch {
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    })); });
                 }
                 else if (nombre == "Reportes Ganadores")
                 {
                     ViewModel.NombreBanca = "Lexus";
-                    RPTGanadores(parametro);
+                    //Loading Reporte Ventas por Fecha
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try {RPTGanadores(parametro); ViewModel.LoadingRPTGanadores = Visibility.Visible; ViewModel.IconRPTGanadores = Visibility.Collapsed; } catch {
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    })); });
                 }
                 else if (nombre == "Ventas por Fecha")
                 {
                     ViewModel.NombreBanca = "Lexus";
-                    RPTVentasFecha(parametro);
+                    //Loading Reporte Ventas por Fecha
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { RPTVentasFecha(parametro); ViewModel.LoadingRPTVentasPorFecha = Visibility.Visible; } catch {
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    })); });
+
                 }
                 else if (nombre == "Lista De Tarjetas")
-                {
+                { 
                     ViewModel.NombreBanca = "Lexus";
-                    RPTListasTarjetas(parametro);
+                    //Loading Reporte Lista De Tarjetas
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try {  RPTListasTarjetas(parametro); ViewModel.LoadingRPTListTarjeta = Visibility.Visible; ViewModel.IconRPTListTarjeta = Visibility.Collapsed; } catch {
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    })); });
                 } else if (nombre == "Lista De Premios")
                 {
                     ViewModel.NombreBanca = "Lexus";
-                    RPTListaPremios(parametro);
+                    //Loading Reporte Lista De Premios
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { RPTListaPremios(parametro); ViewModel.LoadingRPTListPremiosGanadores = Visibility.Visible; ViewModel.IconRPTListPremiosGanadores = Visibility.Collapsed; } catch {
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    })); });
                 }
                 else if (nombre == "Lista De Numeros")
                 {
                     ViewModel.NombreBanca = "Lexus";
-                    RPTListaNumero(parametro);
+                    //Loading Reporte List Numero
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => {try{RPTListaNumero(parametro); ViewModel.LoadingRPTListNumero = Visibility.Visible;ViewModel.IconRPTListNumero = Visibility.Collapsed; } catch {
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    }));});
                 }
                 else if (nombre == "Reportes De Ventas")
                 {
                     ViewModel.NombreBanca = "Lexus";
-                    RPTVentas(parametro);
+                    //Loading Reporte Ventas
+                    Task.Factory.StartNew(() =>{ Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background,new Action(() =>{try { RPTVentas(parametro); ViewModel.IconRPTVentas = Visibility.Collapsed; ViewModel.LoadingRPTVentas = Visibility.Visible;}catch{
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    }));});
+                   
                 }
                 else if (nombre == "Lista De Tickets")
                 {
                     ViewModel.NombreBanca = "Lexus";
-                    RPTListTickets(parametro);
+                    //Lista De Tickets
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { RPTListTickets(parametro); ViewModel.LoadingRPTListTicket = Visibility.Visible; ViewModel.IconRPTListTicket = Visibility.Collapsed; } catch {
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    })); });
+
                 }
                 else if (nombre == "Pagos Remotos")
                 {
                     ViewModel.NombreBanca = "Lexus";
-                    RPTPagosRemotos(parametro);
+                    //Pagos Remotos
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { RPTPagosRemotos(parametro); ViewModel.LoadingRPTPagosRemotos = Visibility.Visible; ViewModel.IconRPTPagosRemotos = Visibility.Collapsed; } catch {
+                            MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                        }
+                    })); });
+
                 }
 
             }
             catch (Exception e)
             {
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTSumaVentas = Visibility.Collapsed; ViewModel.IconRPTSumaVentas = Visibility.Visible; } catch { } })); });
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTGanadores = Visibility.Collapsed; ViewModel.IconRPTGanadores = Visibility.Visible; } catch { } })); });
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListTarjeta = Visibility.Collapsed; ViewModel.IconRPTListTarjeta = Visibility.Visible; } catch { } })); });
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListNumero = Visibility.Collapsed; ViewModel.IconRPTListNumero = Visibility.Visible; } catch { } })); });
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTPagosRemotos = Visibility.Collapsed; ViewModel.IconRPTPagosRemotos = Visibility.Visible; } catch { } })); });
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.IconRPTVentas = Visibility.Visible; ViewModel.LoadingRPTVentas = Visibility.Collapsed; } catch { } })); });
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.IconRPTListTicket = Visibility.Visible; ViewModel.LoadingRPTListTicket = Visibility.Collapsed; } catch { } })); });
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListPremiosGanadores = Visibility.Collapsed; ViewModel.IconRPTListPremiosGanadores = Visibility.Visible; } catch { } })); });
+
                 Console.WriteLine(e.Message);
-                MessageBox.Show("HA OCURRIDO UN ERROR,POR FAVOR COMUNICARSE CON EL DEPARTAMENTO DE SOPORTE!\n\n Error ocurrido: "+e.Message, "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+                MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
             }
 
         }
@@ -256,10 +318,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                 {
                     MostrarMensajes(Reporte.Err.ToString(), "MAR-Cliente", "INFO");
                 }
+                
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTSumaVentas = Visibility.Collapsed; ViewModel.IconRPTSumaVentas = Visibility.Visible; } catch { } })); });
+
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message,"Cliente Mar",MessageBoxButton.OK,MessageBoxImage.Error);
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTSumaVentas = Visibility.Collapsed; ViewModel.IconRPTSumaVentas = Visibility.Visible; } catch { } })); });
+
             }
 
         }
@@ -487,18 +554,22 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     else if (Reporte.Tickets.Length == 0)
                     {
                         MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTGanadores = Visibility.Collapsed; ViewModel.IconRPTGanadores = Visibility.Visible; } catch { } })); });
                         return;
                     }
                 }else if (Reporte.Tickets==null)
                 {
                     MessageBox.Show("No existen tickets ganadores,pendientes de pago o sin reclamar correspondientes a la fecha y opcion de loteria seleccionada.", "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTGanadores = Visibility.Collapsed; ViewModel.IconRPTGanadores = Visibility.Visible; } catch { } })); });
                     return;
                 }
-                
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTGanadores = Visibility.Collapsed; ViewModel.IconRPTGanadores = Visibility.Visible; } catch { } })); });
             }
             else if (Reporte.Err != null)
             {
                 MostrarMensajes(Reporte.Err, "MAR-Cliente", "INFO");
+                ViewModel.LoadingRPTGanadores = Visibility.Collapsed;
+                ViewModel.IconRPTGanadores = Visibility.Visible;
             }
         }
 
@@ -538,15 +609,21 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
 
                     ViewModel.ReportesListaTarjetas = ListadoTarjetas;
                     ViewModel.RPTListTarjetasVisibility = System.Windows.Visibility.Visible;
+                    
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListTarjeta = Visibility.Collapsed; ViewModel.IconRPTListTarjeta = Visibility.Visible; } catch { } })); });
 
                 }
                 else if (reportes.Pines == null)
                 {
                     MostrarMensajes("No se encontraron tarjetas para la fecha seleccionada", "MAR-Cliente", "INFO");
+                   
+                    Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListTarjeta = Visibility.Collapsed; ViewModel.IconRPTListTarjeta = Visibility.Visible; } catch { } })); });
+
                 }
             } else if (reportes.Err != null)
             {
                 MostrarMensajes(reportes.Err, "MAR-Cliente", "INFO");
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListTarjeta = Visibility.Collapsed; ViewModel.IconRPTListTarjeta = Visibility.Visible; } catch { } })); });
             }
         }
 
@@ -606,11 +683,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             else
             {
                 MessageBox.Show("Ha ocurrido un fallo al crear reporte de lista de premios!", "MAR-Cliente", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListPremiosGanadores = Visibility.Collapsed; ViewModel.IconRPTListPremiosGanadores = Visibility.Visible; } catch { } })); });
+
             }
+            Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListPremiosGanadores = Visibility.Collapsed; ViewModel.IconRPTListPremiosGanadores = Visibility.Visible; } catch { } })); });
+
         }
-            //var data = DeserializarJuegaMas(respuesta);
-        
-    
+        //var data = DeserializarJuegaMas(respuesta);
+
+
         public static Object DeserializarString(string json)
         {
             return JsonConvert.DeserializeObject<Object>(json);
@@ -714,6 +796,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         private void RPTVentas(object parametro)
         {
             var nombreLoteria = new ReporteView().GetNombreLoteria();
+
             var ReporteVenta = ReportesService.ReporteDeVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
 
             if (ReporteVenta.Err == null)
@@ -795,19 +878,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     ReporteListaTicketsObservable Ticket = new ReporteListaTicketsObservable() { Ticket = TicketMarBet.TicketNo, Hora = TicketMarBet.StrHora, MostrarNulos = Visibility.Hidden, Vendio =(int) TicketMarBet.Costo, Saco = "0", Nulo = false };
                     ViewModel.TicketNulosReporteVentas.Add(Ticket);
                 }
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.IconRPTVentas = Visibility.Visible; ViewModel.LoadingRPTVentas = Visibility.Collapsed; } catch { } })); });
             }
             else
             {
                 MostrarMensajes(ReporteVenta.Err, "MAR-Cliente", "INFO");
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.IconRPTVentas = Visibility.Visible; ViewModel.LoadingRPTVentas = Visibility.Collapsed; } catch { } })); });
             }
 
         }
 
         private void RPTVentasFecha(object parametro)
         {
-
-           
-
             bool fInicioEsValido = DateTime.TryParse(ViewModel.FechaInicio.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fInicio);
             bool fFinEsValido = DateTime.TryParse(ViewModel.FechaFin.ToString(), CultureInfo.CreateSpecificCulture("es-DO"), DateTimeStyles.None, out fFin);
 
@@ -950,10 +1032,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
                     }
                 }
                 }
-           }else if (Reporte.Err != null)
+                
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTVentasPorFecha = Visibility.Collapsed; } catch { } })); });
+
+            }
+            else if (Reporte.Err != null)
             {
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTVentasPorFecha = Visibility.Collapsed; } catch { } })); });
+
                 MessageBox.Show(Reporte.Err.ToString(), "MAR-Cliente", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTVentasPorFecha = Visibility.Collapsed; } catch { } })); });
+
         }
 
         private void TotalesGeneralesFormat(int totalVentaGeneral,int totalComisionGeneral,int totalSacoGeneral,int totalBalanceGeneral)
@@ -974,7 +1064,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
         }
         private void RPTListaNumero(object parametro)
         {
-            
+           
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var Reporte = ReportesService.ReporteListadoNumero(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
 
@@ -1292,9 +1382,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             {
                 MessageBox.Show(Reporte.Err, "Cliente MAR", MessageBoxButton.OK, MessageBoxImage.Information);
                 //MostrarMensajes(Reporte.Err,"MAR-Cliente","INFO");
-
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListNumero = Visibility.Collapsed; ViewModel.IconRPTListNumero = Visibility.Visible; } catch { } })); });
             }
-           }
+            Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTListNumero = Visibility.Collapsed; ViewModel.IconRPTListNumero = Visibility.Visible; } catch { } })); });
+
+        }
 
         private void RPTListTickets(object parametros)
         {
@@ -1312,7 +1404,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             {
                 if (ReporteTicket.Tickets == null)
                 {
-                    MessageBox.Show("No existen tickets correpondientes a la fecha y loteria seleccionada.","Cliente MAR",MessageBoxButton.OK,MessageBoxImage.Information);
+                   MessageBox.Show("No existen tickets correpondientes a la fecha y loteria seleccionada.","Cliente MAR",MessageBoxButton.OK,MessageBoxImage.Information);
+                   Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.IconRPTListTicket = Visibility.Visible; ViewModel.LoadingRPTListTicket = Visibility.Collapsed; } catch { } })); });
+
                     return;
                 }
                 else if (ReporteTicket.Tickets.Count() > 0)
@@ -1421,11 +1515,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             else
             {
                 MostrarMensajes(ReporteTicket.Err.ToString(), "MAR-Cliente", "INFO");
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.IconRPTListTicket = Visibility.Visible; ViewModel.LoadingRPTListTicket = Visibility.Collapsed; } catch { } })); });
+
             }
+
+            Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.IconRPTListTicket = Visibility.Visible; ViewModel.LoadingRPTListTicket = Visibility.Collapsed; } catch { } })); });
+
         }
 
         private void RPTPagosRemotos(object parametros)
         {
+            
             var PagosRemotos = ReportesService.ReporteListaPagosRemotos(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Fecha);
             ObservableCollection<ReporteListaTicketsObservable> ListadoPagosRemotos = new ObservableCollection<ReporteListaTicketsObservable>() { };
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat; //Formato numero
@@ -1465,7 +1565,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reporte
             else if (PagosRemotos.Err != null)
             {
                 MostrarMensajes(PagosRemotos.Err, "MAR-Cliente", "INFO");
+                Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTPagosRemotos = Visibility.Collapsed; ViewModel.IconRPTPagosRemotos = Visibility.Visible; } catch { } })); });
+
             }
+
+            Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { ViewModel.LoadingRPTPagosRemotos = Visibility.Collapsed; ViewModel.IconRPTPagosRemotos = Visibility.Visible; } catch { } })); });
+
         }
 
         private void MostrarMensajes(string mensaje,string Titulo,string TipoMensaje)
