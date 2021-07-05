@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Windows;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
 {
@@ -70,6 +72,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 if (nombre == null || nombre == "") { nombre = "Reportes De Ventas"; }
                 if (nombre == "Suma De Ventas")
                 {
+                    //Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try { PrintSumaDeVentas(parametro); ViewModel.LoadingImprimir = Visibility.Visible; ViewModel.IconImprimir = Visibility.Collapsed; } catch { MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification); } })); });
                     PrintSumaDeVentas(parametro);
                 }
                 else if (nombre == "Reportes Ganadores")
@@ -87,6 +90,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 }
                 else if (nombre == "Lista De Premios")
                 {
+                    //Task.Factory.StartNew(() => { Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { try {PrintListdoPremio(parametro); ViewModel.LoadingImprimir = Visibility.Visible; ViewModel.IconImprimir = Visibility.Collapsed; } catch { MessageBox.Show("No se pudo consultar al servidor,Revise su conexion(F1) e intente nuevamente!", "Cliente-MAR", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification); } })); });
                     PrintListdoPremio(parametro);
                 }
                 else if (nombre == "Lista De Numeros")
@@ -106,7 +110,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 { 
                     PrintPagosRemotos(parametro);
                 }
-
+                
             }
             catch (Exception e)
             {
@@ -126,7 +130,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
         private void PrintVentasFecha(object parametro)
         {
             MAR_RptSumaVta2 ventasfechaprint = new MAR_RptSumaVta2() { };
-            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, FechaInicio, ViewModel.FechaFin);
+            var Reporte = ReportesService.ReporteVentasPorFecha(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.FechaInicio, ViewModel.FechaFin);
             List<string[]> ImprimirSumVentaFecha = new List<string[]>() { };
             if (ViewModel.SoloTotales==true)
             {
@@ -246,6 +250,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             juegaMasSesion.Usuario = marSesion.Usuario;
             juegaMasSesion.Err = marSesion.Err;
             var reportes = servicioJuegamas.LeerReporteEstadoDePremiosJuegaMas(juegaMasSesion, ViewModel.Fecha);
+
+           // ViewModel.LoadingImprimir = Visibility.Collapsed;
+           // ViewModel.IconImprimir = Visibility.Visible;
 
             //           var Deserealizado2 = DeserializarString(SinCorchetes.ToString());
             //var Deserializado = DeserializarJuegaMas(SinComillas.ToString());
