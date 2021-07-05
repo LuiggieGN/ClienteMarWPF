@@ -9,6 +9,7 @@ using ClienteMarWPFWin7.UI.Views.WindowsModals;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -973,36 +975,36 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }
                     break;
 
-                case Key.Left:
+                //case Key.Left:
 
-                    if (SorteoItemFocused == true)
-                    {
-                        indice1 = listSorteo.SelectedIndex;
+                //    if (SorteoItemFocused == true)
+                //    {
+                //        indice1 = listSorteo.SelectedIndex;
 
-                        if (contador == 0 && indice1 != indice2)
-                        {
-                            contador = 1;
-                            return;
-                        }
+                //        if (contador == 0 && indice1 != indice2)
+                //        {
+                //            contador = 1;
+                //            return;
+                //        }
 
-                        if (contador > 0)
-                        {
-                            contador = 2;
-                            indice2 = listSorteo.SelectedIndex;
-                        }
+                //        if (contador > 0)
+                //        {
+                //            contador = 2;
+                //            indice2 = listSorteo.SelectedIndex;
+                //        }
 
-                        if (contador > 1 && indice1 == indice2)
-                        {
-                            e.Handled = true;
-                            txtJugada.Focus();
-                            listSorteo.SelectedIndex = -1;
-                            e.Handled = false;
-                            listSorteo.Items.Refresh();
-                            TriggerButtonClickEvent(btnSeleccionaJugada);
-                            contador = 0;
-                        }
-                    }
-                    break;
+                //        if (contador > 1 && indice1 == indice2)
+                //        {
+                //            e.Handled = true;
+                //            txtJugada.Focus();
+                //            listSorteo.SelectedIndex = -1;
+                //            e.Handled = false;
+                //            listSorteo.Items.Refresh();
+                //            TriggerButtonClickEvent(btnSeleccionaJugada);
+                //            contador = 0;
+                //        }
+                //    }
+                //    break;
             }
         }
 
@@ -1149,36 +1151,14 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     if (txtMonto.IsFocused || txtJugada.IsFocused)
                     {
-                        //TriggerButtonClickEvent(btnSeleccionarTablaJugadaPrimerRow);
-                        ltJugada.Focus();
-
-                        DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
-
-                        if (row != null)
-                        {
-                            row.IsSelected = true;
-                            row.Focus();
-                            TxtMontoFocus = false;
-                        }
-                        //SeleccionarPrimerRowTablaJugada(sender, e);
-
+                        TriggerButtonClickEvent(BajadaGrid);
                     }
 
                     break;
 
                 case Key.Up:
-                    if (ltJugada.IsFocused)
-                    {
-                        txtMonto.Focus();
-                        TxtMontoFocus = true;
-                        DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
-                        if (row != null)
-                        {
-                            row.IsSelected = false;
 
-                        }
-
-                    }
+                    TriggerButtonClickEvent(SubidaGrid);
 
                     break;
 
@@ -2504,27 +2484,28 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         }
 
-        private void SeleccionarPrimerRowTablaJugada(object sender, RoutedEventArgs e)
-        {
+        //private void SeleccionarPrimerRowTablaJugada(object sender, RoutedEventArgs e)
+        //{
 
-            if (ltJugada.Items.Count > 0)
-            {
-                //ltJugada.Focus();
+        //    if (ltJugada.Items.Count > 0)
+        //    {
+        //        //ltJugada.Focus();
 
-                for (var i = 0; i < ltJugada.Items.Count; i++)
-                {
-                    DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
+        //        for (var i = 0; i < ltJugada.Items.Count; i++)
+        //        {
+        //            DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(i) as DataGridRow;
 
-                    if (row != null)
-                    {
-                        row.IsSelected = true;
-                        row.Focus();
-                        TxtMontoFocus = false;
-                    }
-                }
+        //            if (row != null)
+        //            {
+        //                ltJugada.Focus();
+        //                row.IsSelected = true;
+        //                row.Focus();
+        //                TxtMontoFocus = false;
+        //            }
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
         private void CrearSuper_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -2650,6 +2631,57 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             if (txtMonto.IsFocused == false && txtJugada.IsFocused == false && listSorteo.SelectedIndex < 0 && ltJugada.IsFocused == false)
             {
                 txtMonto.Focus();
+            }
+
+        }
+
+        private void BajadaGrid_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (ltJugada.Items.Count > 0)
+            {
+                DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(ltJugada.SelectedIndex += 1) as DataGridRow;
+
+                if (row != null)
+                {
+                    row.IsSelected = true;
+                    row.Focus();
+                    TxtMontoFocus = false;
+                }
+            }
+
+
+        }
+
+        private void SubidaGrid_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (ltJugada.Items.Count > 0 && !listSorteo.IsFocused)
+                {
+                    if (ltJugada.SelectedIndex != 0)
+                    {
+                        DataGridRow row = ltJugada.ItemContainerGenerator.ContainerFromIndex(ltJugada.SelectedIndex -= 1) as DataGridRow;
+
+                        if (row != null)
+                        {
+                            row.IsSelected = true;
+                            row.Focus();
+                            TxtMontoFocus = false;
+                        }
+                    }
+                    else
+                    {
+                        DataGridRow rowdos = ltJugada.ItemContainerGenerator.ContainerFromIndex(0) as DataGridRow;
+                        rowdos.IsSelected = false;
+                        txtMonto.Focus();
+                    }
+
+                }
+            }
+            catch
+            {
+
             }
 
         }

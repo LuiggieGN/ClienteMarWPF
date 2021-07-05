@@ -160,8 +160,9 @@
                         />
                     </StackPanel>
 
+                   
                     <ScrollViewer   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 8 0 16"  Height="250"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                        <DataGrid GotFocus="ltJugada_GotFocus" x:Name="ltJugada"  ItemsSource="{Binding}" FontSize="18"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True" Background="AliceBlue">
+                        <DataGrid SelectionUnit="FullRow" GotFocus="ltJugada_GotFocus" x:Name="ltJugada"  ItemsSource="{Binding}" FontSize="18"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True" Background="AliceBlue">
                             <DataGrid.Columns>
                                 <DataGridTextColumn  Binding="{Binding TipoJugada}" Width="*"  Header="Tipo Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn  Binding="{Binding Jugadas}"    Width="*" Header="Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
@@ -180,6 +181,17 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>
+
+                    <StackPanel Orientation="Horizontal" Visibility="Hidden">
+                        <Button x:Name="BajadaGrid" Click="BajadaGrid_Click" Content="Bajar" >
+
+                        </Button>
+
+                        <Button x:Name="SubidaGrid" Click="SubidaGrid_Click" Content="Subida">
+
+                        </Button>
+
+                    </StackPanel>
 
 
                     <StackPanel Width="280" Grid.Row="1"  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 -20" >
@@ -264,9 +276,9 @@
 
                         </Button>
 
-                        <Button x:Name="btnSeleccionarTablaJugadaPrimerRow" Click="SeleccionarPrimerRowTablaJugada" Content="Selecciona jugada">
+                        <!--<Button x:Name="btnSeleccionarTablaJugadaPrimerRow" Click="SeleccionarPrimerRowTablaJugada" Content="Selecciona jugada">
 
-                        </Button>
+                        </Button>-->
                     </StackPanel>
 
 
