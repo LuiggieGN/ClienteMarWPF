@@ -20,9 +20,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
         private readonly MensajeriaViewModel ViewModel;
         private readonly IAuthenticator Autenticador;
         private readonly IMensajesService MensajesService;
-        
-        public GetMensajesCommand(MensajeriaViewModel viewModel, 
-                                  IAuthenticator autenticador, 
+
+        public GetMensajesCommand(MensajeriaViewModel viewModel,
+                                  IAuthenticator autenticador,
                                   IMensajesService mensajesService) : base()
         {
             _idbanca = autenticador?.BancaConfiguracion?.BancaDto?.BancaID ?? -1;
@@ -37,9 +37,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
             {
                 Timer.Stop();
             }
-             
+
             Timer = new DispatcherTimer();
-            Timer.Tick += (sender,args) => BuscaMensajes(sender);
+            Timer.Tick += (sender, args) => BuscaMensajes(sender);
             Timer.Interval = TimeSpan.FromSeconds(1);
             Timer.Start();
         }
@@ -72,22 +72,23 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 
                     foreach (var item in pilaMensajes)
                     {
-                        ViewModel.Mensajes.Add(new ChatMensajeObservable
-                        {
-                            BancaID = item.BancaID,
-                            MensajeID = item.MensajeID,
-                            Tipo = item.Tipo,
-                            Asunto = item.Asunto,
-                            Contenido = item.Contenido,
-                            Fecha = item.Fecha,
-                            Hora = item.Hora,
-                            Origen = item.Origen,
-                            Destino = item.Destino,
-                            Leido = item.Leido,
-                            SinLeerTotal = item.SinLeerTotal,
-                            EsMiMensaje = item.BancaID == _idbanca ? Si : No
-                        });  
-                    } 
+                        ViewModel.Mensajes.Add(
+                            new ChatMensajeObservable
+                            {
+                                BancaID = item.BancaID,
+                                MensajeID = item.MensajeID,
+                                Tipo = item.Tipo,
+                                Asunto = item.Asunto,
+                                Contenido = item.Contenido,
+                                Fecha = item.Fecha,
+                                Hora = item.Hora,
+                                Origen = item.Origen,
+                                Destino = item.Destino,
+                                Leido = item.Leido,
+                                SinLeerTotal = item.SinLeerTotal,
+                                EsMiMensaje = item.BancaID == _idbanca ? Si : No
+                            });
+                    }
 
 
                     ViewModel.RegistrarCambiosEnColeccionDeMensajes();
@@ -100,7 +101,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
                 }
 
             }
-            catch  
+            catch
             {
 
             }
