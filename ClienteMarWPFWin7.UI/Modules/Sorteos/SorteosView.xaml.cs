@@ -643,7 +643,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         {
                             almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, loteria);
                         }
-                        txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                        txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString(CultureInfo.InvariantCulture))).ToString("C");
                     }
                     else
                     {
@@ -651,7 +651,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         {
                             almacenandoMontos -= item.Monto * GetPrecioPorDia(item.TipoJugada, loteria);
                         }
-                        txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                        txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString(CultureInfo.InvariantCulture))).ToString("C");
                     }
                 }
                 else if (loteria == 0)
@@ -663,7 +663,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                         foreach (var item in ListJugadas)
                         {
                             almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.Sorteo.LoteriaID);
-                            txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString())).ToString("C");
+                            txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString(CultureInfo.InvariantCulture))).ToString("C");
                         }
 
                     }
