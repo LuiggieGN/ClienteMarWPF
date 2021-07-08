@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Linq;
 using System.Net;
 using System.Numerics;
@@ -8,11 +9,74 @@ using ClienteMarWPFWin7.Domain.Models.Dtos;
 using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 using Microsoft.Win32;
 
+
 namespace ClienteMarWPFWin7.UI.Extensions
 {
     public static class LocalClientSettingExtension
     {
+        /// <summary>
+        /// Implementacion de Domingo de Hardware Key
+        /// </summary>
+        /// <param name="setting">Configuracion local de terminal</param>
+        /// <returns>String unico por hardware</returns>
+        public static string GetHwKeyOldSchoold(this LocalClientSettingDTO setting) 
+        {
+            if (setting != null
+                && setting.BancaId != 0
+                && setting.Direccion != string.Empty
+                && (!InputHelper.InputIsBlank(setting.Direccion)))
+            {
+                var hwkey = GetHwKeyInt().ToString();
+                return hwkey;
+            }
+            return "0";
+        }
 
+        public static int GetHwKeyInt()
+        {
+            int valor = 0;
+
+            try
+            {
+                var rg = Registry.LocalMachine;
+                var rg2 = rg.OpenSubKey("SYSTEM\\CurrentControlSet\\Control\\DeviceClasses\\{53f56307-b6bf-11d0-94f2-00a0c91efb8b}");
+                var miembros = rg2.GetSubKeyNames();
+
+                string stUpperCase; int x = 1;
+
+                foreach (var st in miembros)
+                {
+                    stUpperCase = Strings.UCase(st);
+
+                    if (
+                         Strings.InStr(stUpperCase, "DISK") > 0 && 
+                         Strings.InStr(stUpperCase, "USB") == 0                        
+                       )
+                    {
+                        x = 1;
+
+                        for (; x <= st.Length; x++)
+                        {
+                            valor += Strings.Asc(Strings.Mid(st,x,1));
+                        }
+                        valor += st.Length;
+
+                    }//fin de If
+
+                }//fin de foreach
+            }
+            catch  
+            {
+                valor += 45158;
+            }
+            return valor;
+        }
+
+        /// <summary>
+        /// Implementacion de Luiggie de Hardware Key
+        /// </summary>
+        /// <param name="setting">Configuracion local de terminal</param>
+        /// <returns>String unico por hardware</returns>
         public static string GetHwKey(this LocalClientSettingDTO setting)
         {
             if (setting != null

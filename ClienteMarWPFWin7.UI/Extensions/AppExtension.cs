@@ -120,7 +120,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                 if (Sys.BancaId != 0)
                 {
 
-                    inicio = Ptova.IniciarPC(bancaid: Sys.BancaId, bancaip_And_Hwkey: Sys.Direccion + ";" + Sys.GetHwKey()); // ONLINE                   
+                    inicio = Ptova.IniciarPC(bancaid: Sys.BancaId, bancaip_And_Hwkey: Sys.Direccion + ";" + Sys.GetHwKeyOldSchoold()); // ONLINE                   
 
                     ventanaCargando.Close();
 
@@ -147,7 +147,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                         }
                         else
                         {
-                            Sys.Identidad = Sys.GetHwKey();
+                            Sys.Identidad = Sys.GetHwKeyOldSchoold();
 
                             RegistroPCResultDTO registroPC = Ptova.RegistraCambioPC(bancaid: Sys.BancaId, hwkey: Sys.Identidad);
 
