@@ -50,6 +50,7 @@
     <Compile Include="Services\AccountDataService.cs" />
     <Compile Include="Services\BancaDataService.cs" />
     <Compile Include="Services\CajaDataService.cs" />
+    <Compile Include="Services\CincoMinutosDataService.cs" />
     <Compile Include="Services\CuadreDataService.cs" />
     <Compile Include="Services\Helpers\SoapClientRepository.cs" />
     <Compile Include="Services\JuegaMasDataService.cs" />
