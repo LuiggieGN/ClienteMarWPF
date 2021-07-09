@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://pruebasmar.ddns.net/Mar-Svr5/mar-bingo.asmx?wsdl" docRef="http://pruebasmar.ddns.net/Mar-Svr5/mar-bingo.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://pruebasmar.ddns.net/Mar-Svr5/mar-bingo.asmx" xmlns:q1="mar.do" binding="q1:mar_bingoSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://pruebasmar.ddns.net/Mar-Svr5/mar-bingo.asmx" xmlns:q2="mar.do" binding="q2:mar_bingoSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

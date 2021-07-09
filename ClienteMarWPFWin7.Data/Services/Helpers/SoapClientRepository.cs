@@ -5,7 +5,7 @@ using ClienteMarWPFWin7.Domain.HaciendaService;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using ClienteMarWPFWin7.Domain.FlujoService;
 using ClienteMarWPFWin7.Domain.JuegaMasService;
-
+using ClienteMarWPFWin7.Domain.BingoService;
 using MAR.AppLogic.Encryption;
 
 
@@ -25,6 +25,7 @@ namespace ClienteMarWPFWin7.Data.Services.Helpers
         mar_flujoSoapClient controlefectivocliente;
         mar_haciendaSoapClient haciendacliente;
         JuegaMasSoapClient juegamascliente;
+        mar_bingoSoapClient bingocliente;
 
 
         public PtoVtaSoapClient GetMarServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
@@ -189,6 +190,50 @@ namespace ClienteMarWPFWin7.Data.Services.Helpers
             }
 
             return juegamascliente;
+        }
+
+
+        public mar_bingoSoapClient GetBingoServiceClient(bool useBackupConnection, int timeoutInSeconds = 30)
+        {
+            try
+            {
+                if (bingocliente != null && bingocliente.State != CommunicationState.Closed)
+                {
+                    try { bingocliente.Close(); } catch { }
+                }
+
+                BasicHttpBinding binding;
+                EndpointAddress endpoint;
+                string[] splitaddress;
+
+                if ((useBackupConnection && ServiceHostIP != null && ServiceHostIP.Length > 0))
+                {
+                    splitaddress = serverbackup.Replace("localhost", ServiceHostIP).Split('/');
+                }
+                else
+                {
+                    splitaddress = serveraddress.Split('/');
+                }
+
+                splitaddress[splitaddress.Length - 1] = "mar-bingo.asmx";
+
+                endpoint = new EndpointAddress(string.Join("/", splitaddress));
+
+                binding = new BasicHttpBinding(endpoint.Uri.Scheme.ToLower() == "http" ? BasicHttpSecurityMode.None : BasicHttpSecurityMode.Transport);
+                binding.ReceiveTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.OpenTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.CloseTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+                binding.SendTimeout = new TimeSpan(0, 0, timeoutInSeconds);
+
+                bingocliente = new mar_bingoSoapClient(binding, endpoint);
+
+            }
+            catch
+            {
+                bingocliente = null;
+            }
+
+            return bingocliente;
         }
 
 

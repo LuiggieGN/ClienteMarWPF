@@ -43,6 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\BingoService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\FlujoService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -79,6 +84,7 @@
     <Compile Include="Models\Base\DataKeyBase.cs" />
     <Compile Include="Models\Base\IDataKeyBase.cs" />
     <Compile Include="Models\Dtos\BancaConfiguracionDTO.cs" />
+    <Compile Include="Models\Dtos\BaseCincoMinutosDTO.cs" />
     <Compile Include="Models\Dtos\MarOperacionDTO.cs" />
     <Compile Include="Models\Dtos\BancaDTO.cs" />
     <Compile Include="Models\Dtos\ConfigPrinterModel.cs" />
@@ -108,6 +114,7 @@
     <Compile Include="Models\Dtos\MUsuarioDTO.cs" />
     <Compile Include="Models\Dtos\PageDTO.cs" />
     <Compile Include="Models\Dtos\PagerResumenDTO.cs" />
+    <Compile Include="Models\Dtos\ProdutosDTO.cs" />
     <Compile Include="Models\Dtos\PtoVaDtos.cs" />
     <Compile Include="Models\Dtos\RecargaDTO.cs" />
     <Compile Include="Models\Dtos\Reportes.cs" />
@@ -122,6 +129,7 @@
     <Compile Include="Services\AuthenticationService\IAuthenticationService.cs" />
     <Compile Include="Services\BancaService\IBancaServicce.cs" />
     <Compile Include="Services\CajaService\ICajaService.cs" />
+    <Compile Include="Services\CincoMinutosService\ICincoMinutosServices.cs" />
     <Compile Include="Services\CuadreService\ICuadreService.cs" />
     <Compile Include="Services\IServiceBase.cs" />
     <Compile Include="Services\JuegaMasService\IJuegaMasService.cs" />
@@ -140,6 +148,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Connected Services\BingoService\ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\BingoService\ClienteMarWPFWin7.Domain.BingoService.MAR_BingoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\BingoService\mar-bingo.wsdl" />
     <None Include="Connected Services\FlujoService\ClienteMarWPFWin7.Domain.FlujoService.CallControlEfectivoFuncionesResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -374,6 +389,7 @@
     <None Include="Connected Services\MarPuntoVentaServiceReference\mar-ptovta.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\BingoService\" />
     <WCFMetadataStorage Include="Connected Services\FlujoService\" />
     <WCFMetadataStorage Include="Connected Services\HaciendaService\" />
     <WCFMetadataStorage Include="Connected Services\JuegaMasService\" />
@@ -435,6 +451,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\JuegaMasService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BingoService\mar-bingo.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BingoService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BingoService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\BingoService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
