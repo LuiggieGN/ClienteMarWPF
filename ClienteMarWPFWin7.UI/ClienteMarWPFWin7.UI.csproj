@@ -278,6 +278,7 @@
     <Compile Include="ViewModels\ModelObservable\ComboboxModels\ComboboxConcepto.cs" />
     <Compile Include="ViewModels\ModelObservable\ComboboxModels\ComboboxQueHaras.cs" />
     <Compile Include="ViewModels\ModelObservable\ComboboxModels\ComboboxTransferir.cs" />
+    <Compile Include="ViewModels\ModelObservable\PegaMasApuestaObservable.cs" />
     <Compile Include="ViewModels\ModelObservable\FacturaObservable.cs" />
     <Compile Include="ViewModels\ModelObservable\MensajesObservable.cs" />
     <Compile Include="ViewModels\ModelObservable\MovimientoObservable.cs" />
