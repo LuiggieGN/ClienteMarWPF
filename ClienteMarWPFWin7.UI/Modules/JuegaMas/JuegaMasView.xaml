@@ -7,7 +7,7 @@
               mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"             
-             d:Width="1000">
+             Width="1000">
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <Border Background="{DynamicResource MenuLeftBackground}" Grid.Row="0">
-            <TextBlock Text="Juega Mas" Foreground="White" HorizontalAlignment="Left" Margin="20 0" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="Pega Mas (+)" Foreground="White" HorizontalAlignment="Left" Margin="20 0" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
         </Border>
 
         <md:Card
@@ -209,15 +209,20 @@
                             Margin="17 30 0 0">
 
 
-                    <Label Content="  Vendidos :" HorizontalContentAlignment="Left" BorderThickness="0 0 0 0" Foreground="Green" FontSize="17" Margin="0 0 0 0" />
-                    <ScrollViewer   Height="180"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                        <DataGrid x:Name ="tbSorteos"  ItemsSource="{Binding UltimosSorteos, UpdateSourceTrigger=PropertyChanged}"  CanUserSortColumns="True"  CanUserAddRows="False"  AutoGenerateColumns="False" IsReadOnly="True">
+                    <Label Content="  Jugadas :" HorizontalContentAlignment="Left" BorderThickness="0 0 0 0" Foreground="Green" FontSize="17" Margin="0 0 0 0" />
+                    <ScrollViewer   Height="250"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <DataGrid x:Name ="GridJugadas" 
+                                  ItemsSource="{Binding UltimosSorteos, UpdateSourceTrigger=PropertyChanged}"
+                                  CanUserSortColumns="False"
+                                  CanUserAddRows="False" 
+                                  AutoGenerateColumns="False" 
+                                  IsReadOnly="True">
                             <DataGrid.Columns>
-                                <DataGridTextColumn   Width="*" Header="Juego"   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                <DataGridTextColumn   Width="*" Header="Tombo 1"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                <DataGridTextColumn   Width="*" Header="Tombo 2"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                <DataGridTextColumn   Width="*" Header="Tombo 3"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                <!--<DataGridTextColumn   Header="Hora"    Binding="{Binding Hora}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />-->
+                                <DataGridTextColumn   Width="*" Header="Jugada"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Tombo 1" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Tombo 2" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Tombo 3" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Monto"   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>
