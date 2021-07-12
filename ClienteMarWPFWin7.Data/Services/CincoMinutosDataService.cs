@@ -27,6 +27,8 @@ namespace ClienteMarWPFWin7.Data.Services
     {
         public static SoapClientRepository soapClientesRepository;
         public static mar_bingoSoapClient bingoSrv;
+        public ProductoViewModel ProductoSelected;
+        public ProductoViewModelResponse productosDisponibles;
 
         static CincoMinutosDataService()
         {
@@ -57,7 +59,7 @@ namespace ClienteMarWPFWin7.Data.Services
 
 
                 var pResponse = bingoSrv.CallJuegaMaxIndexFunction(17, sessionBingo, null, 0);
-                var productosDisponibles = JsonConvert.DeserializeObject<ProductoViewModelResponse>(pResponse.Respuesta, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+                productosDisponibles = JsonConvert.DeserializeObject<ProductoViewModelResponse>(pResponse.Respuesta, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
                 return productosDisponibles;
             }
             catch (Exception e)
@@ -89,6 +91,41 @@ namespace ClienteMarWPFWin7.Data.Services
                             ProductoID = p.ProductoID,
                             ProductoCampos = p.ProductoCampos
                         }).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+
+        public ApuestaCincoMinutosResponseModel Apuesta(CincoMinutosRequestModel.TicketModel pTicketModel, CuentaDTO cuenta)
+        {
+            try
+            {
+
+                var sessionBingo = new ClienteMarWPFWin7.Domain.BingoService.MAR_Session();
+
+                MAR_Session sessionPuntoVenta = cuenta.MAR_Setting2.Sesion;
+                sessionBingo.Banca = sessionPuntoVenta.Banca;
+                sessionBingo.Usuario = sessionPuntoVenta.Usuario;
+                sessionBingo.Sesion = sessionPuntoVenta.Sesion;
+                sessionBingo.Err = sessionPuntoVenta.Err;
+                sessionBingo.LastTck = sessionPuntoVenta.LastTck;
+                sessionBingo.LastPin = sessionPuntoVenta.LastPin;
+                sessionBingo.PrinterSize = sessionPuntoVenta.PrinterSize;
+                sessionBingo.PrinterHeader = sessionPuntoVenta.PrinterHeader;
+                sessionBingo.PrinterFooter = sessionPuntoVenta.PrinterFooter;
+
+                pTicketModel.MontoOperacion = pTicketModel.TicketDetalles.Sum(x => x.Monto);
+                Domain.BingoService.ArrayOfAnyType paramsApuesta = new Domain.BingoService.ArrayOfAnyType();
+                var ticket = JsonConvert.SerializeObject(pTicketModel);
+                var productoSelected = JsonConvert.SerializeObject(ProductoSelected);
+                paramsApuesta.Add(ticket);
+                paramsApuesta.Add(productoSelected);
+                var pResponse = bingoSrv.CallJuegaMaxIndexFunction(16, sessionBingo, paramsApuesta, 0);
+                var apuesta = JsonConvert.DeserializeObject<ApuestaCincoMinutosResponseModel>(pResponse.Respuesta, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+                return apuesta;
             }
             catch (Exception e)
             {

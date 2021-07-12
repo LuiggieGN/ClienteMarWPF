@@ -28,6 +28,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Threading;
+using static ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel;
 using static ClienteMarWPFWin7.Domain.Models.Dtos.ProdutosDTO;
 using static ClienteMarWPFWin7.Domain.Models.Dtos.SorteosDisponibles;
 
@@ -158,7 +159,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             contador = 0;
 
-             //SetProducto("CincoMinutos");
+            //SetProducto("CincoMinutos");
         }
 
 
@@ -524,7 +525,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             }
 
             if (permisoCamion.CincoMinutos)
-            {              
+            {
                 var camion = SorteosBinding.Where(x => x.Loteria.Contains("Camion millonario"));
                 if (!camion.Any())
                 {
@@ -1648,8 +1649,54 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         private void Vender(object sender, RoutedEventArgs e)
         {
+            var VM = DataContext as SorteosViewModel;
+            var fecha = DateTime.Now;
+
+            #region Camion Millonario
+            if (VM != null)
+            {
+                var terminal = VM.Autenticador.CurrentAccount.MAR_Setting2.Sesion.Banca;
+
+                TicketModel ticketmodel = new TicketModel();
+                List<TicketDetalle> detalles = new List<TicketDetalle>();
+                TicketDetalle td;
+
+                var camionSeleccionado = ListSorteosVender.Where(x => x.SorteoNombre.Equals("Camion millonario"));
+
+                foreach (var item in ListJugadas)
+                {
+                    if (item.TipoJugada.Contains("Quiniela"))
+                    {
+                        td = new TicketDetalle { Codigo = "CM5", SorteoID = 0, Monto = item.Monto, Jugada = item.Jugadas, TipoJugadaID = 1 };
+                        detalles.Add(td);
+                    }
+                    else if (item.TipoJugada.Contains("Pale"))
+                    {
+                        td = new TicketDetalle { Codigo = "CM5", SorteoID = 0, Monto = item.Monto, Jugada = item.Jugadas, TipoJugadaID = 2 };
+                        detalles.Add(td);
+                    }
+                    else if (item.TipoJugada.Contains("Tripleta"))
+                    {
+                        td = new TicketDetalle { Codigo = "CM5", SorteoID = 0, Monto = item.Monto, Jugada = item.Jugadas, TipoJugadaID = 3 };
+                        detalles.Add(td);
+                    }
+
+                }
+
+                if (camionSeleccionado.Any())
+                {
+                    ticketmodel.MontoOperacion = ListJugadas.Sum(x => x.Monto);
+                    ticketmodel.TicketDetalles = detalles;
+                    ticketmodel.TerminalID = terminal;
+                    ticketmodel.Fecha = Convert.ToDateTime(fecha);
+                    Console.WriteLine(ticketmodel);
+                }
+            }
+            #endregion
+
+
             int cuentaSorteos = ListSorteosVender.Count,
-                cuentaJugadas = ltJugada.Items.Count;
+            cuentaJugadas = ltJugada.Items.Count;
 
             if (cuentaSorteos == 0)
             {
@@ -2032,9 +2079,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             if (camionSeleccionado.Any())
                             {
                                 var cincoMinutoService = new CincoMinutosDataService();
-                                var productosDisponibles = cincoMinutoService.GetProductosDisponibles(VM.Autenticador.CurrentAccount);
                                 var setProducto = cincoMinutoService.SetProducto("CincoMinutos", VM.Autenticador.CurrentAccount);
-                                var setPegaMas = cincoMinutoService.SetProducto("PegaMas", VM.Autenticador.CurrentAccount);
                             }
 
                         }

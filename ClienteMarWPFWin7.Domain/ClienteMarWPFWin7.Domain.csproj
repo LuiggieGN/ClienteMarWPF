@@ -83,9 +83,11 @@
     <Compile Include="Models\Base\Data.cs" />
     <Compile Include="Models\Base\DataKeyBase.cs" />
     <Compile Include="Models\Base\IDataKeyBase.cs" />
+    <Compile Include="Models\Dtos\ApuestaCincoMinutosResponseModel.cs" />
     <Compile Include="Models\Dtos\BancaConfiguracionDTO.cs" />
     <Compile Include="Models\Dtos\BaseCincoMinutosDTO.cs" />
     <Compile Include="Models\Dtos\CincoMinutosRequestModel.cs" />
+    <Compile Include="Models\Dtos\ConsultaPagoResponseModel.cs" />
     <Compile Include="Models\Dtos\MarOperacionDTO.cs" />
     <Compile Include="Models\Dtos\BancaDTO.cs" />
     <Compile Include="Models\Dtos\ConfigPrinterModel.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Models\Dtos\SorteosDTO.cs" />
     <Compile Include="Models\Dtos\TicketDetalles.cs" />
     <Compile Include="Models\Dtos\TicketDTO.cs" />
+    <Compile Include="Models\Dtos\TicketResponseModel.cs" />
     <Compile Include="Models\Dtos\UsuarioDTO.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

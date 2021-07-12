@@ -12,5 +12,6 @@ namespace ClienteMarWPFWin7.Domain.Services.CincoMinutosService
     {
         ProductoViewModel SetProducto(string producto, CuentaDTO cuenta);
         ProductoViewModelResponse GetProductosDisponibles(CuentaDTO cuenta);
+        ApuestaCincoMinutosResponseModel Apuesta(CincoMinutosRequestModel.TicketModel pTicketModel, CuentaDTO cuenta);
     }
 }
