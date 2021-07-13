@@ -34,7 +34,7 @@ using ClienteMarWPFWin7.UI.Modules.Configuracion;
 using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Inicio;
 using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento;
 using ClienteMarWPFWin7.UI.Modules.RegistrarPC;
-using ClienteMarWPFWin7.UI.Modules.JuegaMas;
+using ClienteMarWPFWin7.UI.Modules.PegaMas;
 
 using ClienteMarWPFWin7.Domain.Services.AccountService;
 using ClienteMarWPFWin7.Domain.Services.AuthenticationService;
@@ -281,9 +281,11 @@ namespace ClienteMarWPFWin7.UI.Extensions
                 );
             });
 
-            coleccionDeServicios.AddSingleton<CreateViewModel<JuegaMasViewModel>>(services =>
+            coleccionDeServicios.AddSingleton<CreateViewModel<PegaMasViewModel>>(services =>
             {
-                return () => new JuegaMasViewModel( );
+                return () => new PegaMasViewModel(
+                  services.GetRequiredService<IAuthenticator>()
+                );
             });
 
             coleccionDeServicios.AddSingleton<CreateViewModel<CincoMinutosViewModel>>(services =>

@@ -6,7 +6,7 @@
              xmlns:moduloLogin="clr-namespace:ClienteMarWPFWin7.UI.Modules.Login"   
              xmlns:moduloReporte="clr-namespace:ClienteMarWPFWin7.UI.Modules.Reporte"   
              xmlns:moduloSorteos="clr-namespace:ClienteMarWPFWin7.UI.Modules.Sorteos"   
-             xmlns:moduloJuegaMas="clr-namespace:ClienteMarWPFWin7.UI.Modules.JuegaMas"    
+             xmlns:moduloPegaMas="clr-namespace:ClienteMarWPFWin7.UI.Modules.PegaMas"    
              xmlns:moduloCincoMinutos="clr-namespace:ClienteMarWPFWin7.UI.Modules.CincoMinutos"   
              xmlns:moduloRecargas="clr-namespace:ClienteMarWPFWin7.UI.Modules.Recargas"   
              xmlns:moduloMensajeria="clr-namespace:ClienteMarWPFWin7.UI.Modules.Mensajeria"   
@@ -76,8 +76,8 @@
             </DataTemplate>
 
 
-            <DataTemplate DataType="{x:Type  moduloJuegaMas:JuegaMasViewModel}">
-                <moduloJuegaMas:JuegaMasView  />
+            <DataTemplate DataType="{x:Type moduloPegaMas:PegaMasViewModel }">
+                <moduloPegaMas:PegaMasView/>
             </DataTemplate>
 
 

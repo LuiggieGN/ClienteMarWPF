@@ -1,0 +1,374 @@
+﻿<UserControl x:Class="ClienteMarWPFWin7.UI.Modules.PegaMas.PegaMasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.PegaMas"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"       
+             xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"
+             Loaded="CuandoCargaElModulo"
+              >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ClienteMarWPFWin7.UI;component/Modules/FlujoEfectivo/Movimiento/Views/View1/EnCajaResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="{DynamicResource MenuLeftBackground}" Grid.Row="0" >
+            <TextBlock Text="Pega Mas (+)" Foreground="White" HorizontalAlignment="Left" Margin="20 0" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+        </Border>
+
+        <md:Card
+                 Grid.Row="1"
+                 MaxWidth="840"
+                 MinHeight="680"
+                 Margin="5 70 5 5"
+                 Background="{DynamicResource PrimaryHueMidBrush}"
+                 md:ShadowAssist.ShadowDepth="Depth2">
+
+
+            <StackPanel Background="#f9f9f9"
+                        Orientation="Vertical">
+
+                <Label Content="Tombos"
+                           HorizontalContentAlignment="Left"
+                           BorderThickness="0 0 0 0" 
+                           Foreground="#fff"
+                           FontSize="17"
+                           Margin="0 0 0 0"
+                           Background="#0e0e0e" 
+                           Padding="14 7 0 7"/>
+                
+
+                <StackPanel x:Name="SeccionInputs" 
+                            Orientation="Horizontal"
+                            Margin="0 0 0 0"                            
+                            Background="#f9f9f9"
+                            HorizontalAlignment="Left">
+                    
+                    <Grid Width="200" Margin="0 15 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" FontSize="18" FontWeight="Normal" Margin="15 0 0 10" Foreground="#28A745">Tombo 1</Label>
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal"
+                                    Margin="0 0 0 35">
+
+                            <Border BorderThickness="3" Background="#517fff" CornerRadius="40" Padding="2" Margin="15 0 0 0">
+                                <TextBox  
+                                          x:Name="EntradaD1"
+                                          Height="60" 
+                                          Width="60" 
+                                          TextWrapping="Wrap"
+                                          FontSize="18" 
+                                          Margin="1 0 1 0"
+                                          Padding="0 0 0 0"
+                                          Style="{StaticResource MaterialDesignTextBox}"
+                                          md:TextFieldAssist.TextFieldCornerRadius="40"
+                                          Background="White"
+                                          BorderThickness="0 0 0 0" 
+                                          TextAlignment="Center" 
+                                          VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center"
+                                          behaviours:SoloNumerosBehaviour.Habilitado="True"
+                                          MaxLength="2"
+                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          Text="{Binding D1, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                </TextBox>
+                            </Border>
+                            <Border BorderThickness="3" Background="#517fff" CornerRadius="40" Padding="2" Margin="5 0 0 0">
+                                <TextBox  Height="60" 
+                                          Width="60" 
+                                          TextWrapping="Wrap"
+                                          FontSize="18" 
+                                          Margin="1 0 1 0"
+                                          Padding="0 0 0 0"
+                                          Style="{StaticResource MaterialDesignTextBox}"
+                                          md:TextFieldAssist.TextFieldCornerRadius="40"
+                                          Background="White"
+                                          BorderThickness="0 0 0 0" 
+                                          TextAlignment="Center" VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center"
+                                          behaviours:SoloNumerosBehaviour.Habilitado="True"
+                                          MaxLength="2"
+                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          Text="{Binding D2, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                               </TextBox>
+                            </Border>
+                        </StackPanel>                        
+                    </Grid>
+
+                    <Grid Width="200" Margin="0 15 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" FontSize="18" FontWeight="Normal" Margin="15 0 0 10" Foreground="#28A745">Tombo 2</Label>
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal"
+                                    Margin="0 0 0 35">
+
+                            <Border BorderThickness="3" Background="#ff6767" CornerRadius="40" Padding="2" Margin="20 0 0 0">
+                                <TextBox  Height="60" 
+                                          Width="60" 
+                                          TextWrapping="Wrap"
+                                          FontSize="18" 
+                                          Margin="1 0 1 0"
+                                          Padding="0 0 0 0"
+                                          Style="{StaticResource MaterialDesignTextBox}"
+                                          md:TextFieldAssist.TextFieldCornerRadius="40"
+                                          Background="White"
+                                          BorderThickness="0 0 0 0" 
+                                          TextAlignment="Center" VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center"
+                                          behaviours:SoloNumerosBehaviour.Habilitado="True"
+                                          MaxLength="2"
+                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          Text="{Binding D3, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                </TextBox>
+                            </Border>
+                            <Border BorderThickness="3" Background="#ff6767" CornerRadius="40" Padding="2" Margin="5 0 0 0">
+                                <TextBox  Height="60" 
+                                          Width="60" 
+                                          TextWrapping="Wrap"
+                                          FontSize="18" 
+                                          Margin="1 0 1 0"
+                                          Padding="0 0 0 0"
+                                          Style="{StaticResource MaterialDesignTextBox}"
+                                          md:TextFieldAssist.TextFieldCornerRadius="40"
+                                          Background="White"
+                                          BorderThickness="0 0 0 0" 
+                                          TextAlignment="Center" VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center"
+                                          behaviours:SoloNumerosBehaviour.Habilitado="True"
+                                          MaxLength="2"
+                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          Text="{Binding D4, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                </TextBox>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Width="200" Margin="0 15 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" FontSize="18" FontWeight="Normal" Margin="15 0 0 10" Foreground="#28A745">Tombo 3</Label>
+                        <StackPanel Grid.Row="1"
+                                    Orientation="Horizontal"
+                                    Margin="0 0 0 35">
+
+                            <Border BorderThickness="3" Background="LightGray" CornerRadius="40" Padding="2" Margin="20 0 0 0">
+                                <TextBox  Height="60" 
+                                          Width="60" 
+                                          TextWrapping="Wrap"
+                                          FontSize="18" 
+                                          Margin="1 1 1 0"
+                                          Padding="0 0 0 0"
+                                          Style="{StaticResource MaterialDesignTextBox}"
+                                          md:TextFieldAssist.TextFieldCornerRadius="40"
+                                          Background="White"
+                                          BorderThickness="0 0 0 0" 
+                                          TextAlignment="Center" VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center"
+                                          behaviours:SoloNumerosBehaviour.Habilitado="True"
+                                          MaxLength="2"
+                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          Text="{Binding D5, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                </TextBox>
+                            </Border>
+ 
+                        </StackPanel>
+                    </Grid>                   
+
+                </StackPanel>
+
+                <StackPanel x:Name="SeccionVendidosHoy"
+                            Orientation="Vertical"
+                            Margin="0 5 0 0">
+
+
+                    <Label Content="Jugadas"
+                           HorizontalContentAlignment="Left"
+                           BorderThickness="0 0 0 0" 
+                           Foreground="#fff"
+                           FontSize="17"
+                           Margin="0 0 0 0"
+                           Background="#0e0e0e"
+                           Padding="14 7 0 7"/>
+                    
+                    <ScrollViewer   Height="300"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <DataGrid x:Name ="GridJugadas" 
+                                  ItemsSource="{Binding Jugadas, UpdateSourceTrigger=PropertyChanged}"
+                                  CanUserSortColumns="False"
+                                  CanUserAddRows="False" 
+                                  AutoGenerateColumns="False" 
+                                  IsReadOnly="True"
+                                  Background="AliceBlue">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn   Width="*" Header="Jugada"  Binding="{Binding Jugada}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Tombo 1" Binding="{Binding Tombo1}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Tombo 2" Binding="{Binding Tombo2}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Tombo 3" Binding="{Binding Tombo3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTextColumn   Width="*" Header="Monto"   Binding="{Binding MontoStr}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                            </DataGrid.Columns>                                   
+                        </DataGrid>
+                    </ScrollViewer>
+
+                </StackPanel>
+
+                <Grid Margin="0 30 0 0" 
+                      HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" 
+                                Orientation="Horizontal" 
+                                Margin="0 0 0 10">
+                        
+                        <Button x:Name="BotonQuitar" 
+                            Style="{DynamicResource btn-danger}"
+                            Foreground="White" 
+                            Width="160"  
+                            Height="40"
+                            Margin="5 0">
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
+                                <TextBlock Text=" Quitar F9"  VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="BotonVender"  
+                            Style="{DynamicResource btn-success}" 
+                            Foreground="White"
+                            Width="160" 
+                            Height="40"
+                            Margin="5 0"
+                            Command="{Binding VenderCommand}">
+                            <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="AddCircle" Margin="5 0 3 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                                    <TextBlock Text="Vender F12 +" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+                        
+                    </StackPanel>
+
+
+                    <StackPanel Grid.Row="1" 
+                                Orientation="Horizontal">
+                        <Button  
+                            Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+                            Background="{DynamicResource MenuTopBackground}"
+                            Foreground="White"                        
+                            Width="160"  
+                            Height="40"
+                            Margin="5 0">
+                            <StackPanel Orientation="Horizontal" >
+                                <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="20" Height="20" />
+                                <TextBlock Text="Tickets"  VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button   
+                            Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+                            Background="{DynamicResource MenuTopBackground}"
+                            Foreground="White"
+                            Width="160" 
+                            Height="40"
+                            Margin="5 0">
+                            <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Award" Margin="5 0 3 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                                    <TextBlock Text="Premios" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+                        
+                    </StackPanel>
+
+                </Grid>
+                
+
+            </StackPanel>
+
+
+
+
+
+
+
+        </md:Card>
+
+    </Grid>
+</UserControl>
+
+    
+    
+   
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                <!--<StackPanel x:Name="SeccionBotones"
+                            Orientation="Horizontal">
+                    <Button  Style="{DynamicResource MaterialDesignRaisedAccentButton}" 
+                             Foreground="White"
+                             Width="130" 
+                             Margin="27 20 0 0"
+                             Height="45"
+                             Background="{DynamicResource MenuTopBackground}" >
+
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Search" Margin="0 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="Tickets" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button  Style="{DynamicResource MaterialDesignRaisedAccentButton}" 
+                             Foreground="White"
+                             Width="130" 
+                             Margin="7 20 0 0"
+                             Height="45"
+                             Background="{DynamicResource MenuTopBackground}" >
+
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Center">
+                            <materialDesign:PackIcon Kind="Award" Margin="0 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                            <TextBlock Text="Premios" Foreground="White" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>-->    
