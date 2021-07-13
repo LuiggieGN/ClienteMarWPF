@@ -64,6 +64,9 @@ namespace ClienteMarWPFWin7.Data.Services
                     SessionGlobals.GenerateNewSolicitudID(cuenta.MAR_Setting2.Sesion.Sesion);
                 }
 
+                var cincoMinutoService = new CincoMinutosDataService();
+                var productos = cincoMinutoService.GetProductosDisponibles(cuenta);
+                SessionGlobals.Productos = productos;
             }
             catch (Exception)
             {

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using static ClienteMarWPFWin7.Domain.Models.Dtos.SorteosDisponibles;
+using static ClienteMarWPFWin7.Domain.Models.Dtos.ProdutosDTO;
 
 namespace ClienteMarWPFWin7.Data
 {
@@ -17,6 +18,7 @@ namespace ClienteMarWPFWin7.Data
         public static List<MAR_Loteria2> LoteriasYSupersDisponibles { get; set; }
         public static List<SuperPaleDisponible> SuperPaleDisponibles { get; set; }
         public static double SolicitudID { get { return solicitudID; } }
+        public static ProductoViewModelResponse Productos { get; set; }
 
         //PRIVATE VARIABLE INTERNAL CLASS
         private static double solicitudID = 1;
