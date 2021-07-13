@@ -242,6 +242,8 @@
     <Compile Include="ViewModels\Commands\Mensajes\SendMensajeCommand.cs" />
     <Compile Include="ViewModels\Commands\Modulo\BancaBalanceConsultaCommand.cs" />
     <Compile Include="ViewModels\Commands\Modulo\GeneraOtroBancaIdCommand.cs" />
+    <Compile Include="ViewModels\Commands\PegaMas\VenderCommand.cs" />
+    <Compile Include="ViewModels\Commands\PegaMas\AgregaApuestaCommand.cs" />
     <Compile Include="ViewModels\Commands\Recargas\CerrarDialogoImprimirTicketCommand.cs" />
     <Compile Include="ViewModels\Commands\Recargas\DialogConfirmTicketCommand.cs" />
     <Compile Include="ViewModels\Commands\Recargas\GetSuplidoresCommand.cs" />
@@ -429,7 +431,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\JuegaMas\JuegaMasView.xaml">
+    <Page Include="Modules\PegaMas\PegaMasView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -591,10 +593,10 @@
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Home\HomeViewModel.cs" />
-    <Compile Include="Modules\JuegaMas\JuegaMasView.xaml.cs">
-      <DependentUpon>JuegaMasView.xaml</DependentUpon>
+    <Compile Include="Modules\PegaMas\PegaMasView.xaml.cs">
+      <DependentUpon>PegaMasView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\JuegaMas\JuegaMasViewModel.cs" />
+    <Compile Include="Modules\PegaMas\PegaMasViewModel.cs" />
     <Compile Include="Modules\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>

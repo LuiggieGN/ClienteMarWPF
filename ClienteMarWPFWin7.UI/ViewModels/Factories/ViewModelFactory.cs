@@ -14,7 +14,7 @@ using ClienteMarWPFWin7.UI.Modules.Reporte;
 using ClienteMarWPFWin7.UI.Modules.Sorteos;
 using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Inicio;
 using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento;
-using ClienteMarWPFWin7.UI.Modules.JuegaMas;
+using ClienteMarWPFWin7.UI.Modules.PegaMas;
 
 using ClienteMarWPFWin7.UI.State.Navigators;
 
@@ -37,7 +37,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Factories
         private readonly CreateViewModel<PagoServiciosViewModel> _createPagoServiciosViewModel; 
         private readonly CreateViewModel<InicioViewModel> _createInicioControlEfectivoViewModel;       
         private readonly CreateViewModel<MovimientoViewModel> _createMovimientoControlEfectivoViewModel;
-        private readonly CreateViewModel<JuegaMasViewModel> _createJuegaMasViewModel;
+        private readonly CreateViewModel<PegaMasViewModel> _createPegaMasViewModel;
         private readonly CreateViewModel<EnLineaViewModel> _createEnLineaViewModel;
 
 
@@ -52,7 +52,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Factories
            CreateViewModel<PagoServiciosViewModel> createPagoServiciosViewModel, 
            CreateViewModel<InicioViewModel> createInicioControlEfectivoViewModel,
            CreateViewModel<MovimientoViewModel> createMovimientoControlEfectivoViewModel,
-           CreateViewModel<JuegaMasViewModel> createJuegaMasViewModel,
+           CreateViewModel<PegaMasViewModel> createPegaMasViewModel,
            CreateViewModel<EnLineaViewModel> createEnLineaViewModel
 
 
@@ -68,7 +68,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Factories
             _createPagoServiciosViewModel = createPagoServiciosViewModel; 
             _createInicioControlEfectivoViewModel = createInicioControlEfectivoViewModel;
             _createMovimientoControlEfectivoViewModel = createMovimientoControlEfectivoViewModel;
-            _createJuegaMasViewModel = createJuegaMasViewModel;
+            _createPegaMasViewModel = createPegaMasViewModel;
             _createEnLineaViewModel = createEnLineaViewModel;
 
         }
@@ -88,8 +88,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Factories
                     return _createReporteViewModel();                
                 case Modulos.Sorteos:
                     return _createSorteosViewModel();
-                case Modulos.JuegaMas:
-                    return _createJuegaMasViewModel();
+                case Modulos.PegaMas:
+                    return _createPegaMasViewModel();
                 case Modulos.CincoMinutos:
                     return _createCincoMinutosViewModel();                
                 case Modulos.Recargas:
