@@ -72,14 +72,9 @@ namespace ClienteMarWPFWin7.Data.Services
         {
             try
             {
-                var productosDisponiblesList = GetProductosDisponibles(cuenta).Productos ?? (List<ProductoViewModel>)null;
+                var productos = SessionGlobals.Productos.Productos;
 
-                if (productosDisponiblesList == null || productosDisponiblesList.Count == 0)
-                {
-                    return null;
-                }
-
-                return (from p in productosDisponiblesList
+                return (from p in productos
                         where p.Nombre.ToUpper().Contains(producto.ToUpper())
                         select new ProductoViewModel()
                         {
