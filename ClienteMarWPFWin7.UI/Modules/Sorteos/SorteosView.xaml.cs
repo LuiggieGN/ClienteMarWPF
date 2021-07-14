@@ -681,8 +681,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         public void RefrescarMonto(bool sumar, int loteria)
         {
-            //foreach (var item in ListJugadas)
-            //{
+            var VM = DataContext as SorteosViewModel;
+            var cincoMinutoService = new CincoMinutosDataService();
+            var setProductoPrecio = cincoMinutoService.SetProducto("CincoMinutos", VM.Autenticador.CurrentAccount);
 
             var loteriasSeleccionadas = SorteosBinding.Where(x => x.IsSelected == true);
             var loteriasSeleccionadasS = combinations.Select(x => x.LoteriaIDDestino);
@@ -692,10 +693,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             var seleccion = SorteosBinding.Where(x => x.IsSelected == true).Select(y => y.LoteriaID);
             totalMontos = ListJugadas?.Sum(x => x.Monto) ?? 0;
 
-            //foreach (var id in SorteosBinding.Where(x => x.IsSelected == true))
-            //{
-            //    numeroLoteria = id.LoteriaID;
-            //}
 
             try
             {
@@ -724,10 +721,34 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     foreach (var i in ListSorteosVender)
                     {
-                        foreach (var item in ListJugadas)
+                        if(!i.SorteoNombre.Contains("Camion millonario"))
                         {
-                            almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.Sorteo.LoteriaID);
-                            txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString(CultureInfo.InvariantCulture))).ToString("C");
+                            foreach (var item in ListJugadas)
+                            {
+                                almacenandoMontos += item.Monto * GetPrecioPorDia(item.TipoJugada, i.Sorteo.LoteriaID);
+                                txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString(CultureInfo.InvariantCulture))).ToString("C");
+                            }
+                        }
+
+                        if (i.SorteoNombre.Contains("Camion millonario") && ListJugadas.Count > 0)
+                        {
+                            if (VM != null)
+                            {
+                                foreach (var camion in ListJugadas)
+                                {
+                                    if (sumar)
+                                    {
+                                        almacenandoMontos += camion.Monto * setProductoPrecio.Monto;
+                                    }
+                                    else
+                                    {
+                                        almacenandoMontos -= camion.Monto * setProductoPrecio.Monto;
+                                    }
+
+                                    txtMontoTotal.Content = (Decimal.Parse(almacenandoMontos.ToString(CultureInfo.InvariantCulture))).ToString("C");
+                                }
+
+                            }
                         }
 
                     }
@@ -738,8 +759,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
 
             }
-            //}
-
         }
 
         public void RefreshListJugadas()
@@ -1685,11 +1704,35 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 if (camionSeleccionado.Any())
                 {
+                    var cincoMinutoService = new CincoMinutosDataService();
+                    var setProducto = cincoMinutoService.SetProducto("CincoMinutos", VM.Autenticador.CurrentAccount);
                     ticketmodel.MontoOperacion = ListJugadas.Sum(x => x.Monto);
                     ticketmodel.TicketDetalles = detalles;
                     ticketmodel.TerminalID = terminal;
                     ticketmodel.Fecha = Convert.ToDateTime(fecha);
                     Console.WriteLine(ticketmodel);
+                    var apuesta = cincoMinutoService.Apuesta(ticketmodel, setProducto, VM.Autenticador.CurrentAccount);
+
+                    if (apuesta == null)
+                    {
+                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Error interno de aplicacion. Comunique el administrador", "Aviso");
+                        return;
+                    }
+                    else if (apuesta.RespuestaApi.CodigoRespuesta == "100")
+                    {
+                        //PrintOutHelper.SendToPrinter(apuesta.PrintData);
+                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Excelente");
+                        ticketmodel = null;
+                        //GetVendidosHoy();
+                        //RefrescaBalance();
+                    }
+                    else
+                    {
+                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Aviso");
+                        return;
+                    }
+
+                    Console.WriteLine(apuesta);
                 }
             }
             #endregion
@@ -2058,6 +2101,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 if (CrearSuper.IsChecked == false)
                 {
                     var YaEstaSeleccionada = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == sorteo.LoteriaID);
+                    var camion = ListSorteosVender.Where(x => x.SorteoNombre.Contains("Camion millonario"));
 
                     if (sorteo.IsSelected == true)
                     {
@@ -2074,16 +2118,21 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 Sorteo = sorteo
                             });
 
-                            var camionSeleccionado = ListSorteosVender.Where(x => x.SorteoNombre.Equals("Camion millonario"));
+                            //var camionSeleccionado = ListSorteosVender.Where(x => x.SorteoNombre.Equals("Camion millonario"));
 
-                            if (camionSeleccionado.Any())
-                            {
-                                var cincoMinutoService = new CincoMinutosDataService();
-                                var setProducto = cincoMinutoService.SetProducto("CincoMinutos", VM.Autenticador.CurrentAccount);
-                            }
+                            //if (camionSeleccionado.Any())
+                            //{
+                            //    var cincoMinutoService = new CincoMinutosDataService();
+                            //    var setProducto = cincoMinutoService.SetProducto("CincoMinutos", VM.Autenticador.CurrentAccount);
+                            //}
 
                         }
                         RefrescarMonto(true, sorteo.LoteriaID);
+
+                        if (camion != null && ListJugadas.Count > 0)
+                        {
+                            RefrescarMonto(true, 0);
+                        }
                     }
                     else
                     {
