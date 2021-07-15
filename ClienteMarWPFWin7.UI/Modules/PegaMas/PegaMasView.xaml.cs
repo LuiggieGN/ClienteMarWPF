@@ -14,41 +14,49 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ClienteMarWPFWin7.UI.Modules.PegaMas
-{ 
+{
     public partial class PegaMasView : UserControl
     {
+        private PegaMasViewModel vm;
         public PegaMasView()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
 
-        private void CuandoSeEjecutaKeyUp(object sender, KeyEventArgs e)
+        private void ModuloKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (vm != null && e.Key == Key.Enter)
             {
-                var vm = DataContext as PegaMasViewModel;
-                if (vm != null)
-                {
-                    vm.AgregaApuestaCommand?.Execute(null);
-                }
+                vm.AgregaApuestaCommand?.Execute(null);
+            }
+            else if (vm != null && e.Key == Key.F9)
+            {
+                vm.RemoverJugadasCommand?.Execute(null);
             }
         }
 
-        private void CuandoCargaElModulo(object sender, RoutedEventArgs e)
+        private void ModuloCargado(object sender, RoutedEventArgs e)
         {
-            IniciarFoco();
+            vm = DataContext as PegaMasViewModel;
+            vm.FocusEnPrimerInput = () => IniciarFoco();
+            vm.FocusEnPrimerInput?.Invoke();
+        }
 
-            var vm = DataContext as PegaMasViewModel;
-            if (vm != null)
+        private void RemoverSoloUnaJugada(object sender, RoutedEventArgs e)
+        {
+            var objEnFila = GridJugadas.SelectedItem as PegaMasApuestaObservable;
+
+            if (objEnFila != null && vm != null)
             {
-                vm.FocusEnPrimerInput = () => IniciarFoco();
+                vm.RemoverSoloUnaJugadaCommand?.Execute(objEnFila.Id);
             }
         }
 
-        private void IniciarFoco() 
-        {
-            EntradaD1.Focus();
-        }
+
+        private void IniciarFoco() => EntradaD1.Focus();
+
+
+
 
     }// Clase
 }

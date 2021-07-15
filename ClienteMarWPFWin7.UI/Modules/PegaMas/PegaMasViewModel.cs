@@ -143,8 +143,9 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
         #region Comandos
         public ICommand AgregaApuestaCommand { get; set; }
         public ICommand VenderCommand { get; set; }
+        public ICommand RemoverJugadasCommand { get; set; }
+        public ICommand RemoverSoloUnaJugadaCommand { get; set; }
         #endregion
-
 
         #region Acciones
         public Action FocusEnPrimerInput { get; set; }
@@ -156,7 +157,10 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
             jugadas = new ObservableCollection<PegaMasApuestaObservable>();
             AgregaApuestaCommand = new AgregaApuestaCommand(this);
             VenderCommand = new VenderCommand(this);
+            RemoverJugadasCommand = new RemoverJugadasCommand(this);
+            RemoverSoloUnaJugadaCommand = new RemoverSoloUnaJugadaCommand(this);
         }
 
+        public void TriggerJugadasUpd() => NotifyPropertyChanged(nameof(Jugadas));
     }//Clase
 }

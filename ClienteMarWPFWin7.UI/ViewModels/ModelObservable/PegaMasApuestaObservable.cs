@@ -14,6 +14,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
         private string d4;
         private string d5;
         private decimal monto;
+        private int id;
         #endregion
 
         #region Digitos
@@ -83,7 +84,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
             }
         }
         public string MontoStr { get => $"${Monto.ToString("N", CultureInfo.InvariantCulture)}"; }
-        public static PegaMasApuestaObservable NuevaApuesta(int d1, int d2, int d3, int d4, int d5, decimal monto = 25)
+        public int Id
+        {
+            get => id;
+            set
+            {
+                id = value; NotifyPropertyChanged(nameof(Id));
+            }
+        }
+
+        public static PegaMasApuestaObservable NuevaApuesta(int id, int d1, int d2, int d3, int d4, int d5, decimal monto = 25)
         {
             char cero = '0';
             return new PegaMasApuestaObservable
@@ -93,7 +103,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
                 D3 = d3.ToString().PadLeft(2, cero),
                 D4 = d4.ToString().PadLeft(2, cero),
                 D5 = d5.ToString().PadLeft(2, cero),
-                Monto = monto
+                Monto = monto,
+                Id = id
             };
         }
 
