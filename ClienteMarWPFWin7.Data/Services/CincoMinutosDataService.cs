@@ -94,7 +94,7 @@ namespace ClienteMarWPFWin7.Data.Services
         }
 
 
-        public ApuestaCincoMinutosResponseModel Apuesta(CincoMinutosRequestModel.TicketModel pTicketModel, CuentaDTO cuenta)
+        public ApuestaCincoMinutosResponseModel Apuesta(CincoMinutosRequestModel.TicketModel pTicketModel, ProductoViewModel producto, CuentaDTO cuenta)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace ClienteMarWPFWin7.Data.Services
                 pTicketModel.MontoOperacion = pTicketModel.TicketDetalles.Sum(x => x.Monto);
                 Domain.BingoService.ArrayOfAnyType paramsApuesta = new Domain.BingoService.ArrayOfAnyType();
                 var ticket = JsonConvert.SerializeObject(pTicketModel);
-                var productoSelected = JsonConvert.SerializeObject(ProductoSelected);
+                var productoSelected = JsonConvert.SerializeObject(producto);
                 paramsApuesta.Add(ticket);
                 paramsApuesta.Add(productoSelected);
                 var pResponse = bingoSrv.CallJuegaMaxIndexFunction(16, sessionBingo, paramsApuesta, 0);
