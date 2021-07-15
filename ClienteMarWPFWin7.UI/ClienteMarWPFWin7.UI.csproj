@@ -198,6 +198,7 @@
     <Compile Include="State\PinterConfig\BarAndQrCode.cs" />
     <Compile Include="State\PinterConfig\ModelsPrinJobs.cs" />
     <Compile Include="State\PinterConfig\PrintJobs.cs" />
+    <Compile Include="State\PinterConfig\PrintOutHelper.cs" />
     <Compile Include="State\PinterConfig\RecursosPrintJob.cs" />
     <Compile Include="State\PinterConfig\ReportesTemplateHelper.cs" />
     <Compile Include="State\PinterConfig\TicketTemplateHelper.cs" />

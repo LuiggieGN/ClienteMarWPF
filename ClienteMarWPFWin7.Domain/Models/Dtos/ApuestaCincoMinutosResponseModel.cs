@@ -7,7 +7,7 @@ using static ClienteMarWPFWin7.Domain.Models.Dtos.ConsultaPagoResponseModel._Res
 
 namespace ClienteMarWPFWin7.Domain.Models.Dtos
 {
-    public class ApuestaCincoMinutosResponseModel
+    public class ApuestaCincoMinutosResponseModel: BaseCincoMinutosDTO
     {
         public _RespuestaApi RespuestaApi { get; set; }
         public class _RespuestaApi

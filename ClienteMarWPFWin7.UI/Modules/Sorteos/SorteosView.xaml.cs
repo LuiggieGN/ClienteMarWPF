@@ -5,6 +5,7 @@ using ClienteMarWPFWin7.Domain.BingoService;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using ClienteMarWPFWin7.Domain.Models.Dtos;
 using ClienteMarWPFWin7.UI.Modules.Sorteos.Modal;
+using ClienteMarWPFWin7.UI.State.PinterConfig;
 using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
 using ClienteMarWPFWin7.UI.Views.WindowsModals;
@@ -1720,8 +1721,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     }
                     else if (apuesta.RespuestaApi.CodigoRespuesta == "100")
                     {
-                        //PrintOutHelper.SendToPrinter(apuesta.PrintData);
                         ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Excelente");
+                        PrintOutHelper.SendToPrinter(apuesta.PrintData);
                         ticketmodel = null;
                         //GetVendidosHoy();
                         //RefrescaBalance();
