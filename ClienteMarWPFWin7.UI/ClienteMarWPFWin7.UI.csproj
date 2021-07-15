@@ -242,6 +242,8 @@
     <Compile Include="ViewModels\Commands\Mensajes\SendMensajeCommand.cs" />
     <Compile Include="ViewModels\Commands\Modulo\BancaBalanceConsultaCommand.cs" />
     <Compile Include="ViewModels\Commands\Modulo\GeneraOtroBancaIdCommand.cs" />
+    <Compile Include="ViewModels\Commands\PegaMas\RemoverSoloUnaJugadaCommand.cs" />
+    <Compile Include="ViewModels\Commands\PegaMas\RemoverJugadasCommand.cs" />
     <Compile Include="ViewModels\Commands\PegaMas\VenderCommand.cs" />
     <Compile Include="ViewModels\Commands\PegaMas\AgregaApuestaCommand.cs" />
     <Compile Include="ViewModels\Commands\Recargas\CerrarDialogoImprimirTicketCommand.cs" />

@@ -8,8 +8,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"       
              xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"
-             Loaded="CuandoCargaElModulo"
-              >
+             Loaded="ModuloCargado"
+             KeyUp="ModuloKeyUp" 
+             Width="Auto">
     <UserControl.Resources>
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -34,7 +35,7 @@
                  MinHeight="680"
                  Margin="5 70 5 5"
                  Background="{DynamicResource PrimaryHueMidBrush}"
-                 md:ShadowAssist.ShadowDepth="Depth2">
+                 md:ShadowAssist.ShadowDepth="Depth5">
 
 
             <StackPanel Background="#f9f9f9"
@@ -83,8 +84,8 @@
                                           VerticalContentAlignment="Center"
                                           HorizontalContentAlignment="Center"
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
-                                          MaxLength="2"
-                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          behaviours:SeleccionaTodoBehaviour.Habilitado="True"
+                                          MaxLength="2"         
                                           Text="{Binding D1, Delay=300, UpdateSourceTrigger=PropertyChanged}">
                                 </TextBox>
                             </Border>
@@ -102,8 +103,8 @@
                                           TextAlignment="Center" VerticalContentAlignment="Center"
                                           HorizontalContentAlignment="Center"
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
-                                          MaxLength="2"
-                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          behaviours:SeleccionaTodoBehaviour.Habilitado="True"
+                                          MaxLength="2"                                      
                                           Text="{Binding D2, Delay=300, UpdateSourceTrigger=PropertyChanged}">
                                </TextBox>
                             </Border>
@@ -134,8 +135,8 @@
                                           TextAlignment="Center" VerticalContentAlignment="Center"
                                           HorizontalContentAlignment="Center"
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
-                                          MaxLength="2"
-                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          behaviours:SeleccionaTodoBehaviour.Habilitado="True"
+                                          MaxLength="2"                                    
                                           Text="{Binding D3, Delay=300, UpdateSourceTrigger=PropertyChanged}">
                                 </TextBox>
                             </Border>
@@ -153,8 +154,8 @@
                                           TextAlignment="Center" VerticalContentAlignment="Center"
                                           HorizontalContentAlignment="Center"
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
-                                          MaxLength="2"
-                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          behaviours:SeleccionaTodoBehaviour.Habilitado="True"
+                                          MaxLength="2"                                         
                                           Text="{Binding D4, Delay=300, UpdateSourceTrigger=PropertyChanged}">
                                 </TextBox>
                             </Border>
@@ -185,8 +186,8 @@
                                           TextAlignment="Center" VerticalContentAlignment="Center"
                                           HorizontalContentAlignment="Center"
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
-                                          MaxLength="2"
-                                          KeyUp="CuandoSeEjecutaKeyUp"
+                                          behaviours:SeleccionaTodoBehaviour.Habilitado="True"
+                                          MaxLength="2"                                       
                                           Text="{Binding D5, Delay=300, UpdateSourceTrigger=PropertyChanged}">
                                 </TextBox>
                             </Border>
@@ -215,6 +216,7 @@
                                   ItemsSource="{Binding Jugadas, UpdateSourceTrigger=PropertyChanged}"
                                   CanUserSortColumns="False"
                                   CanUserAddRows="False" 
+                                  CanUserDeleteRows="False"
                                   AutoGenerateColumns="False" 
                                   IsReadOnly="True"
                                   Background="AliceBlue">
@@ -224,6 +226,20 @@
                                 <DataGridTextColumn   Width="*" Header="Tombo 2" Binding="{Binding Tombo2}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn   Width="*" Header="Tombo 3" Binding="{Binding Tombo3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                 <DataGridTextColumn   Width="*" Header="Monto"   Binding="{Binding MontoStr}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                <DataGridTemplateColumn Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Click="RemoverSoloUnaJugada"
+                                                    Style="{DynamicResource btn-danger}"
+                                                    MaxWidth="50"
+                                                    HorizontalAlignment="Center" Padding="5">
+                                                <StackPanel Orientation="Horizontal" >
+                                                    <materialDesign:PackIcon Kind="Delete" VerticalAlignment="Center" Width="20" Height="20" />
+                                                </StackPanel>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>                                
                             </DataGrid.Columns>                                   
                         </DataGrid>
                     </ScrollViewer>
@@ -246,7 +262,8 @@
                             Foreground="White" 
                             Width="160"  
                             Height="40"
-                            Margin="5 0">
+                            Margin="5 0"
+                            Command="{Binding RemoverJugadasCommand}">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="RemoveCircle" VerticalAlignment="Center" Width="20" Height="20" />
                                 <TextBlock Text=" Quitar F9"  VerticalAlignment="Center"/>
