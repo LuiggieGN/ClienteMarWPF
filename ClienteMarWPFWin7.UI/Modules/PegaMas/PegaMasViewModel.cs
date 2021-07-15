@@ -1,5 +1,6 @@
 ﻿
 #region Namespaces
+using ClienteMarWPFWin7.Domain.Services.CincoMinutosService;
 using ClienteMarWPFWin7.UI.ViewModels.Base;
 using ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas;
 using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
@@ -138,6 +139,7 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
         }
         public ObservableCollection<PegaMasApuestaObservable> Jugadas { get => jugadas; set { jugadas = value; NotifyPropertyChanged(nameof(Jugadas)); } }
         public IAuthenticator AutServicio { get; set; }
+        public ICincoMinutosServices CincoMinServicio { get; set; }
         #endregion
 
         #region Comandos
@@ -151,9 +153,11 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
         public Action FocusEnPrimerInput { get; set; }
         #endregion
 
-        public PegaMasViewModel(IAuthenticator autService )
+        public PegaMasViewModel(IAuthenticator s1,
+                                ICincoMinutosServices s2)
         {
-            AutServicio = autService;
+            AutServicio = s1;
+            CincoMinServicio = s2;
             jugadas = new ObservableCollection<PegaMasApuestaObservable>();
             AgregaApuestaCommand = new AgregaApuestaCommand(this);
             VenderCommand = new VenderCommand(this);
