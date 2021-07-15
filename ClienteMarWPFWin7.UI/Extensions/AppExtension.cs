@@ -50,6 +50,8 @@ using ClienteMarWPFWin7.Domain.Services.MultipleService;
 using ClienteMarWPFWin7.Domain.Services.RutaService;
 using ClienteMarWPFWin7.Domain.Services.PuntoVentaService;
 using ClienteMarWPFWin7.Domain.Services.JuegaMasService;
+using ClienteMarWPFWin7.Domain.Services.CincoMinutosService;
+
 
 using System;
 using System.Windows;
@@ -246,6 +248,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
             coleccionDeServicios.AddSingleton<IMultipleService, MultipleDataService>();
             coleccionDeServicios.AddSingleton<IRutaService, RutaDataService>();
             coleccionDeServicios.AddSingleton<IJuegaMasService, JuegaMasDataService>();
+            coleccionDeServicios.AddSingleton<ICincoMinutosServices, CincoMinutosDataService>();
             #endregion
 
             #region Crea Modulos ...
@@ -284,7 +287,8 @@ namespace ClienteMarWPFWin7.UI.Extensions
             coleccionDeServicios.AddSingleton<CreateViewModel<PegaMasViewModel>>(services =>
             {
                 return () => new PegaMasViewModel(
-                  services.GetRequiredService<IAuthenticator>()
+                  services.GetRequiredService<IAuthenticator>(),
+                  services.GetRequiredService<ICincoMinutosServices>()
                 );
             });
 

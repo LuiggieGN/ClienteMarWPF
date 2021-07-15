@@ -28,41 +28,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
             {
                 if (vm.Jugadas.Count > 0)
                 {
-                    int terminalid = vm.AutServicio?.BancaConfiguracion?.BancaDto?.BancaID ?? 0;
-                    int montoOperacion = (int)vm.Jugadas.ToList().Sum(j => j.Monto);
-                    string codigoharcodeado = "PegaMas";
-                    int sorteoharcodeado = 0;
-                    int tipojugadaharcodeado = 0;
+                    var ticket = LeerTicketCreado();
+                    var producto = vm.CincoMinServicio.SetProducto("CincoMinutos", vm.AutServicio.CurrentAccount);
+                    var response = vm.CincoMinServicio.Apuesta(ticket, producto, vm.AutServicio.CurrentAccount);
 
-                    
-
-                    var request = new CincoMinutosRequestModel.TicketModel();
-                    request.NoTicket = string.Empty;
-                    request.TicketID = 0;
-                    request.NautCalculado = string.Empty;
-                    request.Fecha = DateTime.Now;                      // Requerido
-                    request.TerminalID = terminalid;                   // Requerido
-                    request.AutenticacionReferencia = string.Empty;
-                    request.CodigoOperacionReferencia = string.Empty;
-                    request.LocalID = 0;
-                    request.MontoOperacion = montoOperacion;           // Requerido
-
-                    request.TicketDetalles = new List<CincoMinutosRequestModel.TicketDetalle>(); // Requerido
-
-                    foreach (var item in vm.Jugadas)
-                    {
-                        request.TicketDetalles.Add(new CincoMinutosRequestModel.TicketDetalle()
-                        {
-                            TicketID = 0,
-                            DetalleID = 0,
-                            Codigo = codigoharcodeado,   // Requerido
-                            SorteoID = sorteoharcodeado, // Requerido
-                            Monto = (int)item.Monto,     // Requerido
-                            Saco = 0,
-                            Jugada = item.Jugada,        // Requerido
-                            TipoJugadaID = tipojugadaharcodeado // Requerido
-                        });
-                    }
                 }
                 else
                 {
@@ -76,6 +45,49 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
             catch
             {
             }
+        }
+
+
+
+
+        private CincoMinutosRequestModel.TicketModel LeerTicketCreado() 
+        {
+            int terminalid = vm.AutServicio?.BancaConfiguracion?.BancaDto?.BancaID ?? 0;
+            int montoOperacion = (int)vm.Jugadas.ToList().Sum(j => j.Monto);
+
+            string codigoharcodeado = "PegaMas";
+            int sorteoharcodeado = 0;
+            int tipojugadaharcodeado = 1;
+
+            var request = new CincoMinutosRequestModel.TicketModel();
+            request.NoTicket = string.Empty;
+            request.TicketID = 0;
+            request.NautCalculado = string.Empty;
+            request.Fecha = DateTime.Now;                      // Requerido
+            request.TerminalID = terminalid;                   // Requerido
+            request.AutenticacionReferencia = string.Empty;
+            request.CodigoOperacionReferencia = string.Empty;
+            request.LocalID = 0;
+            request.MontoOperacion = montoOperacion;           // Requerido
+
+            request.TicketDetalles = new List<CincoMinutosRequestModel.TicketDetalle>(); // Requerido
+
+            foreach (var item in vm.Jugadas)
+            {
+                request.TicketDetalles.Add(new CincoMinutosRequestModel.TicketDetalle()
+                {
+                    TicketID = 0,
+                    DetalleID = 0,
+                    Codigo = codigoharcodeado,   // Requerido
+                    SorteoID = sorteoharcodeado, // Requerido
+                    Monto = (int)item.Monto,     // Requerido
+                    Saco = 0,
+                    Jugada = item.Jugada,        // Requerido
+                    TipoJugadaID = tipojugadaharcodeado // Requerido
+                });
+            }
+
+            return request;
         }
 
 
