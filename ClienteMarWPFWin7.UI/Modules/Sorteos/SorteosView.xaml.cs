@@ -114,6 +114,29 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             InitializeComponent();
             ListJugadas = new List<Jugada>();
             NumerosJugados = new List<string>();
+
+            var camion = SessionGlobals.LoteriasDisponibles.Where(x => x.Nombre.Contains("Camion millonario"));
+            if (SessionGlobals.permisos && !camion.Any())
+            {
+                SessionGlobals.LoteriasDisponibles.Add(new MAR_Loteria2()
+                {
+                    CieDom = 0,
+                    CieSab = 0,
+                    CieVie = 0,
+                    CieJue = 0,
+                    CieMie = 0,
+                    CieMar = 0,
+                    CieLun = 0,
+                    Imagen = null,
+                    LoteriaKey = 0,
+                    Nombre = "Camion millonario",
+                    NombreResumido = "CM5",
+                    Numero = 0,
+                    Oculta = false
+                });
+            }
+
+
             SorteosBinding = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
             SuperPales = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
             combinations = SessionGlobals.SuperPaleDisponibles;
@@ -507,33 +530,33 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
         private List<SorteosObservable> ConvertToObservables(List<MAR_Loteria2> Sorteos)
         {
 
-            var VM = DataContext as SorteosViewModel;
+            //var VM = DataContext as SorteosViewModel;
 
             var SorteosObservables = new List<SorteosObservable>();
 
-            if (VM != null)
-            {
-                var MoreOptions = VM.Autenticador.CurrentAccount.MAR_Setting2.MoreOptions.ToList();
-                if (MoreOptions.Contains("BANCA_VENDE_CINCOMINUTOS|TRUE"))
-                {
-                    permisoCamion.CincoMinutos = true;
-                }
-            }
+            //if (VM != null)
+            //{
+            //    var MoreOptions = VM.Autenticador.CurrentAccount.MAR_Setting2.MoreOptions.ToList();
+            //    if (MoreOptions.Contains("BANCA_VENDE_CINCOMINUTOS|TRUE"))
+            //    {
+            //        permisoCamion.CincoMinutos = true;
+            //    }
+            //}
 
             foreach (var item in Sorteos)
             {
                 SorteosObservables.Add(new SorteosObservable { LoteriaID = item.Numero, Loteria = item.Nombre, IsSelected = false, Date = DateTime.Now });
             }
 
-            if (permisoCamion.CincoMinutos)
-            {
-                var camion = SorteosBinding.Where(x => x.Loteria.Contains("Camion millonario"));
-                if (!camion.Any())
-                {
-                    SorteosObservables.Add(new SorteosObservable { LoteriaID = 0, Loteria = "Camion millonario", IsSelected = false, Date = DateTime.Now });
-                    SorteosBinding = SorteosObservables;
-                }
-            }
+            //if (permisoCamion.CincoMinutos)
+            //{
+            //    var camion = SorteosBinding.Where(x => x.Loteria.Contains("Camion millonario"));
+            //    if (!camion.Any())
+            //    {
+            //        SorteosObservables.Add(new SorteosObservable { LoteriaID = 0, Loteria = "Camion millonario", IsSelected = false, Date = DateTime.Now });
+            //        SorteosBinding = SorteosObservables;
+            //    }
+            //}
 
             return SorteosObservables;
         }

@@ -1,4 +1,4 @@
-﻿ 
+﻿
 
 using System;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace ClienteMarWPFWin7.Data.Services
     public class AccountDataService : IAccountService
     {
 
-        public  static SoapClientRepository SoapClientesRepository; 
+        public static SoapClientRepository SoapClientesRepository;
         private static PtoVtaSoapClient MarCliente;
         static AccountDataService()
         {
@@ -35,11 +35,11 @@ namespace ClienteMarWPFWin7.Data.Services
 
             try
             {
-                
+
                 cuenta.MAR_Setting2 = MarCliente.Logon2(usuario, clave, bancaid, ipaddress);
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 cuenta.MAR_Setting2 = null;
             }
 
@@ -67,6 +67,17 @@ namespace ClienteMarWPFWin7.Data.Services
                 var cincoMinutoService = new CincoMinutosDataService();
                 var productos = cincoMinutoService.GetProductosDisponibles(cuenta);
                 SessionGlobals.Productos = productos;
+
+                var MoreOptions = cuenta.MAR_Setting2.MoreOptions.ToList();
+                if (MoreOptions.Contains("BANCA_VENDE_CINCOMINUTOS|TRUE"))
+                {
+                    SessionGlobals.permisos = true;
+                }
+                else
+                {
+                    SessionGlobals.permisos = false;
+                }
+
             }
             catch (Exception)
             {
@@ -77,7 +88,7 @@ namespace ClienteMarWPFWin7.Data.Services
             return cuenta;
         }
 
- 
+
 
 
     }

@@ -152,9 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\BingoService\ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Connected Services\BingoService\ClienteMarWPFWin7.Domain.BingoService.MAR_BingoResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

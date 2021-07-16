@@ -290,8 +290,10 @@ namespace ClienteMarWPFWin7.Domain.BingoService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ClienteMarWPFWin7.Domain.BingoService.MAR_BingoResponse))]
         ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse CallJuegaMaxIndexFunction(ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="mar.do/CallJuegaMaxIndexFunction", ReplyAction="*")]
-        System.Threading.Tasks.Task<ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse> CallJuegaMaxIndexFunctionAsync(ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequest request);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="mar.do/CallJuegaMaxIndexFunction", ReplyAction="*")]
+        System.IAsyncResult BeginCallJuegaMaxIndexFunction(ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequest request, System.AsyncCallback callback, object asyncState);
+        
+        ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse EndCallJuegaMaxIndexFunction(System.IAsyncResult result);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -380,7 +382,32 @@ namespace ClienteMarWPFWin7.Domain.BingoService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class CallJuegaMaxIndexFunctionCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public CallJuegaMaxIndexFunctionCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public ClienteMarWPFWin7.Domain.BingoService.MAR_BingoResponse Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((ClienteMarWPFWin7.Domain.BingoService.MAR_BingoResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class mar_bingoSoapClient : System.ServiceModel.ClientBase<ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap>, ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap {
+        
+        private BeginOperationDelegate onBeginCallJuegaMaxIndexFunctionDelegate;
+        
+        private EndOperationDelegate onEndCallJuegaMaxIndexFunctionDelegate;
+        
+        private System.Threading.SendOrPostCallback onCallJuegaMaxIndexFunctionCompletedDelegate;
         
         public mar_bingoSoapClient() {
         }
@@ -401,6 +428,8 @@ namespace ClienteMarWPFWin7.Domain.BingoService {
                 base(binding, remoteAddress) {
         }
         
+        public event System.EventHandler<CallJuegaMaxIndexFunctionCompletedEventArgs> CallJuegaMaxIndexFunctionCompleted;
+        
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap.CallJuegaMaxIndexFunction(ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequest request) {
             return base.Channel.CallJuegaMaxIndexFunction(request);
@@ -418,18 +447,72 @@ namespace ClienteMarWPFWin7.Domain.BingoService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse> ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap.CallJuegaMaxIndexFunctionAsync(ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequest request) {
-            return base.Channel.CallJuegaMaxIndexFunctionAsync(request);
+        System.IAsyncResult ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap.BeginCallJuegaMaxIndexFunction(ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginCallJuegaMaxIndexFunction(request, callback, asyncState);
         }
         
-        public System.Threading.Tasks.Task<ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse> CallJuegaMaxIndexFunctionAsync(int pMetodo, ClienteMarWPFWin7.Domain.BingoService.MAR_Session pSesion, ClienteMarWPFWin7.Domain.BingoService.ArrayOfAnyType pParams, int pSolicitud) {
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginCallJuegaMaxIndexFunction(int pMetodo, ClienteMarWPFWin7.Domain.BingoService.MAR_Session pSesion, ClienteMarWPFWin7.Domain.BingoService.ArrayOfAnyType pParams, int pSolicitud, System.AsyncCallback callback, object asyncState) {
             ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequest inValue = new ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequest();
             inValue.Body = new ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionRequestBody();
             inValue.Body.pMetodo = pMetodo;
             inValue.Body.pSesion = pSesion;
             inValue.Body.pParams = pParams;
             inValue.Body.pSolicitud = pSolicitud;
-            return ((ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap)(this)).CallJuegaMaxIndexFunctionAsync(inValue);
+            return ((ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap)(this)).BeginCallJuegaMaxIndexFunction(inValue, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap.EndCallJuegaMaxIndexFunction(System.IAsyncResult result) {
+            return base.Channel.EndCallJuegaMaxIndexFunction(result);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public ClienteMarWPFWin7.Domain.BingoService.MAR_BingoResponse EndCallJuegaMaxIndexFunction(System.IAsyncResult result) {
+            ClienteMarWPFWin7.Domain.BingoService.CallJuegaMaxIndexFunctionResponse retVal = ((ClienteMarWPFWin7.Domain.BingoService.mar_bingoSoap)(this)).EndCallJuegaMaxIndexFunction(result);
+            return retVal.Body.CallJuegaMaxIndexFunctionResult;
+        }
+        
+        private System.IAsyncResult OnBeginCallJuegaMaxIndexFunction(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int pMetodo = ((int)(inValues[0]));
+            ClienteMarWPFWin7.Domain.BingoService.MAR_Session pSesion = ((ClienteMarWPFWin7.Domain.BingoService.MAR_Session)(inValues[1]));
+            ClienteMarWPFWin7.Domain.BingoService.ArrayOfAnyType pParams = ((ClienteMarWPFWin7.Domain.BingoService.ArrayOfAnyType)(inValues[2]));
+            int pSolicitud = ((int)(inValues[3]));
+            return this.BeginCallJuegaMaxIndexFunction(pMetodo, pSesion, pParams, pSolicitud, callback, asyncState);
+        }
+        
+        private object[] OnEndCallJuegaMaxIndexFunction(System.IAsyncResult result) {
+            ClienteMarWPFWin7.Domain.BingoService.MAR_BingoResponse retVal = this.EndCallJuegaMaxIndexFunction(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnCallJuegaMaxIndexFunctionCompleted(object state) {
+            if ((this.CallJuegaMaxIndexFunctionCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.CallJuegaMaxIndexFunctionCompleted(this, new CallJuegaMaxIndexFunctionCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void CallJuegaMaxIndexFunctionAsync(int pMetodo, ClienteMarWPFWin7.Domain.BingoService.MAR_Session pSesion, ClienteMarWPFWin7.Domain.BingoService.ArrayOfAnyType pParams, int pSolicitud) {
+            this.CallJuegaMaxIndexFunctionAsync(pMetodo, pSesion, pParams, pSolicitud, null);
+        }
+        
+        public void CallJuegaMaxIndexFunctionAsync(int pMetodo, ClienteMarWPFWin7.Domain.BingoService.MAR_Session pSesion, ClienteMarWPFWin7.Domain.BingoService.ArrayOfAnyType pParams, int pSolicitud, object userState) {
+            if ((this.onBeginCallJuegaMaxIndexFunctionDelegate == null)) {
+                this.onBeginCallJuegaMaxIndexFunctionDelegate = new BeginOperationDelegate(this.OnBeginCallJuegaMaxIndexFunction);
+            }
+            if ((this.onEndCallJuegaMaxIndexFunctionDelegate == null)) {
+                this.onEndCallJuegaMaxIndexFunctionDelegate = new EndOperationDelegate(this.OnEndCallJuegaMaxIndexFunction);
+            }
+            if ((this.onCallJuegaMaxIndexFunctionCompletedDelegate == null)) {
+                this.onCallJuegaMaxIndexFunctionCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnCallJuegaMaxIndexFunctionCompleted);
+            }
+            base.InvokeAsync(this.onBeginCallJuegaMaxIndexFunctionDelegate, new object[] {
+                        pMetodo,
+                        pSesion,
+                        pParams,
+                        pSolicitud}, this.onEndCallJuegaMaxIndexFunctionDelegate, this.onCallJuegaMaxIndexFunctionCompletedDelegate, userState);
         }
     }
 }

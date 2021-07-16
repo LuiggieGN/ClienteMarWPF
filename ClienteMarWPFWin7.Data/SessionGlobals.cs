@@ -19,6 +19,7 @@ namespace ClienteMarWPFWin7.Data
         public static List<SuperPaleDisponible> SuperPaleDisponibles { get; set; }
         public static double SolicitudID { get { return solicitudID; } }
         public static ProductoViewModelResponse Productos { get; set; }
+        public static bool permisos { get; set; }
 
         //PRIVATE VARIABLE INTERNAL CLASS
         private static double solicitudID = 1;
