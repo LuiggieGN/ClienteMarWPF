@@ -108,7 +108,7 @@ namespace ClienteMarWPFWin7.Data.Services
                 sessionBingo.Err = sessionPuntoVenta.Err;
                 sessionBingo.LastTck = sessionPuntoVenta.LastTck;
                 sessionBingo.LastPin = sessionPuntoVenta.LastPin;
-                sessionBingo.PrinterSize = sessionPuntoVenta.PrinterSize;
+                sessionBingo.PrinterSize = 32;
                 sessionBingo.PrinterHeader = sessionPuntoVenta.PrinterHeader;
                 sessionBingo.PrinterFooter = sessionPuntoVenta.PrinterFooter;
 
