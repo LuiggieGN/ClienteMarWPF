@@ -1690,7 +1690,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         private bool ventaThreadIsBusy = false;
 
-        private void Vender(object sender, RoutedEventArgs e)
+
+        public void CamionMillonario()
         {
             var VM = DataContext as SorteosViewModel;
             var fecha = DateTime.Now;
@@ -1760,10 +1761,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 }
             }
             #endregion
+        }
 
+
+        private void Vender(object sender, RoutedEventArgs e)
+        {
 
             int cuentaSorteos = ListSorteosVender.Count,
             cuentaJugadas = ltJugada.Items.Count;
+            var camion = ListSorteosVender.Where(x => x.SorteoNombre.Contains("Camion millonario"));
 
             if (cuentaSorteos == 0)
             {
@@ -1811,9 +1817,19 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                             {
                                 try
                                 {
+
+                                    if (camion.Any())
+                                    {
+                                        CamionMillonario();
+                                        txtMontoTotal.Content = "$0.00";
+                                        almacenandoMontos = 0;
+                                    }
+
                                     RegistrarVenta();
                                     txtMontoTotal.Content = "$0.00";
                                     almacenandoMontos = 0;
+
+
                                 }
                                 catch
                                 {
