@@ -1,6 +1,5 @@
 ﻿
 #region Namespace
-using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
 using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 using ClienteMarWPFWin7.UI.Modules.PegaMas;
 using ClienteMarWPFWin7.Domain.Models.Dtos;
@@ -19,45 +18,77 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
 
         public VenderCommand(PegaMasViewModel viewmodel) : base()
         {
-            vm = viewmodel; base.SetAction(new Action<object>(Vender));
+            vm = viewmodel;
+            base.SetAction(new Action<object>(Vender));
         }
 
         private void Vender(object parametro)
         {
-            try
+            if (vm.Jugadas.Count > 0)
             {
-                if (vm.Jugadas.Count > 0)
+                try
                 {
                     var ticket = LeerTicketCreado();
-                    var producto = vm.CincoMinServicio.SetProducto("CincoMinutos", vm.AutServicio.CurrentAccount);
-                    var response = vm.CincoMinServicio.Apuesta(ticket, producto, vm.AutServicio.CurrentAccount);
+                    var producto = vm.CincoMinServicio.SetProducto("CincoMinutos", vm.AutServicio.CurrentAccount); // Ojo Aqui va PegaMas ;; pendiente configurar DB
+
+                    if(producto == null)
+                    {
+                        vm.FocusEnPrimerInput?.Invoke();
+                        DesplegarMensaje(mensaje: "El producto Pega Mas no esta disponible", encabezado: "Aviso !!"); 
+                        return;
+                    }
+
+                    var respuesta = vm.CincoMinServicio.Apuesta(ticket, producto, vm.AutServicio.CurrentAccount);
+
+                    if (respuesta.OK == false || (respuesta.Error != null && respuesta.Error != string.Empty))
+                    {
+                        vm.FocusEnPrimerInput?.Invoke();
+                        DesplegarMensaje(mensaje: respuesta.Error??"Ha ocurrido un error al procesar la operación", encabezado: "Error");
+                        return;
+                    }
+
+                    if (respuesta.RespuestaApi.MensajeRespuesta != null && respuesta.RespuestaApi.MensajeRespuesta.ToLower().Contains("error"))
+                    {
+                        vm.FocusEnPrimerInput?.Invoke();
+                        DesplegarMensaje(mensaje: respuesta.RespuestaApi.MensajeRespuesta, encabezado: "Error"); 
+                        return;
+                    }
+
+
+
+                    ResetearTodo();
+
+                    DesplegarMensaje(mensaje: "Jugadas realizadas satisfactoriamente.", encabezado: "Excelente");
 
                 }
-                else
+                catch
                 {
-                    var ventana = Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow;
-                    if (ventana != null)
-                    {
-                        ventana.MensajesAlerta("No hay jugadas en la lista debe agregar al menos una jugada", "Aviso!!");
-                    }
+                    DesplegarMensaje(mensaje: "Ha ocurrido un error al procesar la operación. Verificar Conexion de Internet. ", encabezado: "Error");
                 }
             }
-            catch
+            else
             {
+                DesplegarMensaje(mensaje: "No hay jugadas en la lista debe agregar al menos una jugada", encabezado: "Aviso !!");
             }
         }
 
 
 
 
-        private CincoMinutosRequestModel.TicketModel LeerTicketCreado() 
+        private void DesplegarMensaje(string mensaje, string encabezado)
+        {
+            var ventana = Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow;
+            ventana.MensajesAlerta(mensaje, encabezado);
+        }
+
+        private CincoMinutosRequestModel.TicketModel LeerTicketCreado()
         {
             int terminalid = vm.AutServicio?.BancaConfiguracion?.BancaDto?.BancaID ?? 0;
             int montoOperacion = (int)vm.Jugadas.ToList().Sum(j => j.Monto);
 
-            string codigoharcodeado = "PegaMas";
-            int sorteoharcodeado = 0;
-            int tipojugadaharcodeado = 1;
+            string codigoharcodeado = "JMS";
+            int sorteoharcodeado = 0; //100027
+            int tipojugadaharcodeado = 4;
 
             var request = new CincoMinutosRequestModel.TicketModel();
             request.NoTicket = string.Empty;
@@ -88,10 +119,19 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
             }
 
             return request;
+
+        }//LeerTicketCreado( )
+
+        private void ResetearTodo()
+        {
+            vm.D1 = string.Empty;
+            vm.D2 = string.Empty;
+            vm.D3 = string.Empty;
+            vm.D4 = string.Empty;
+            vm.D5 = string.Empty;
+            vm.Jugadas?.Clear();
+            vm.FocusEnPrimerInput?.Invoke();
         }
 
-
-
-
-    }// Clase
+    }//Clase
 }
