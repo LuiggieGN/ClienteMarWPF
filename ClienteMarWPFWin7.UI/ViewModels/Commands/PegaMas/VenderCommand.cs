@@ -33,24 +33,24 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
 
                     if(producto == null)
                     {
+                        DesplegarMensaje(mensaje: "El producto Pega Mas no esta disponible", encabezado: "Aviso !!");
                         vm.FocusEnPrimerInput?.Invoke();
-                        DesplegarMensaje(mensaje: "El producto Pega Mas no esta disponible", encabezado: "Aviso !!"); 
                         return;
                     }
 
                     var respuesta = vm.CincoMinServicio.Apuesta(ticket, producto, vm.AutServicio.CurrentAccount);
 
                     if (respuesta.OK == false || (respuesta.Error != null && respuesta.Error != string.Empty))
-                    {
-                        vm.FocusEnPrimerInput?.Invoke();
+                    {            
                         DesplegarMensaje(mensaje: respuesta.Error??"Ha ocurrido un error al procesar la operación", encabezado: "Error");
+                        vm.FocusEnPrimerInput?.Invoke();
                         return;
                     }
 
                     if (respuesta.RespuestaApi.MensajeRespuesta != null && respuesta.RespuestaApi.MensajeRespuesta.ToLower().Contains("error"))
-                    {
+                    {                       
+                        DesplegarMensaje(mensaje: respuesta.RespuestaApi.MensajeRespuesta, encabezado: "Error");
                         vm.FocusEnPrimerInput?.Invoke();
-                        DesplegarMensaje(mensaje: respuesta.RespuestaApi.MensajeRespuesta, encabezado: "Error"); 
                         return;
                     }
 
@@ -64,11 +64,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
                 catch
                 {
                     DesplegarMensaje(mensaje: "Ha ocurrido un error al procesar la operación. Verificar Conexion de Internet. ", encabezado: "Error");
+                    vm.FocusEnPrimerInput?.Invoke();
                 }
             }
             else
             {
                 DesplegarMensaje(mensaje: "No hay jugadas en la lista debe agregar al menos una jugada", encabezado: "Aviso !!");
+                vm.FocusEnPrimerInput?.Invoke();
             }
         }
 
@@ -130,6 +132,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
             vm.D4 = string.Empty;
             vm.D5 = string.Empty;
             vm.Jugadas?.Clear();
+            vm.CalcularMontoTotalJugadoCommand?.Execute(null);
             vm.FocusEnPrimerInput?.Invoke();
         }
 
