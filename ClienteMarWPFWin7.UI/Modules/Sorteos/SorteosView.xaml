@@ -267,6 +267,16 @@
 
                     </StackPanel>
 
+                    <StackPanel Orientation="Horizontal">
+                        <Button Click="ConsultarCM5_Click"  Style="{DynamicResource btn-secondary}" Width="332" Margin="160 5 5 5" x:Name="ConsultarCM5" Content="Consultar Camion millonario - F11">
+
+                        </Button>
+
+                        <!--<Button x:Name="btnSeleccionarTablaJugadaPrimerRow" Click="SeleccionarPrimerRowTablaJugada" Content="Selecciona jugada">
+
+                        </Button>-->
+                    </StackPanel>
+
                     <StackPanel Orientation="Horizontal" Visibility="Hidden">
                         <Button x:Name="btnSeleccionaMonto" Click="SeleccionarMonto" Content="Selecciona monto">
 

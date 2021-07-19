@@ -19,12 +19,12 @@ namespace ClienteMarWPFWin7.Data.Services
 
         public static SoapClientRepository SoapClientesRepository;
         private static PtoVtaSoapClient MarCliente;
+
         static AccountDataService()
         {
             SoapClientesRepository = new SoapClientRepository();
             MarCliente = SoapClientesRepository.GetMarServiceClient(false);
         }
-
 
         public CuentaDTO Logon2(string usuario, string clave, int bancaid, string ipaddress)
         {
@@ -67,6 +67,7 @@ namespace ClienteMarWPFWin7.Data.Services
                 var cincoMinutoService = new CincoMinutosDataService();
                 var productos = cincoMinutoService.GetProductosDisponibles(cuenta);
                 SessionGlobals.Productos = productos;
+                SessionGlobals.cuentaGlobal = cuenta;
 
                 var MoreOptions = cuenta.MAR_Setting2.MoreOptions.ToList();
                 if (MoreOptions.Contains("BANCA_VENDE_CINCOMINUTOS|TRUE"))

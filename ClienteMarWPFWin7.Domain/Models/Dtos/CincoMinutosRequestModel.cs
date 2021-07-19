@@ -33,7 +33,7 @@ namespace ClienteMarWPFWin7.Domain.Models.Dtos
 
         public class DetalleJugadas
         {
-            public List<JuegoPago> Juego { get; set; }
+            public static List<JuegoPago> Juego { get; set; }
         }
 
         public class JuegoPago

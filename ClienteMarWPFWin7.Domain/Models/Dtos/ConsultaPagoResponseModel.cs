@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ClienteMarWPFWin7.Domain.Enums.CincoMinutosEnum;
 using static ClienteMarWPFWin7.Domain.Models.Dtos.TicketResponseModel;
 
 namespace ClienteMarWPFWin7.Domain.Models.Dtos
 {
-    public class ConsultaPagoResponseModel
+    public class ConsultaPagoResponseModel: BaseCincoMinutosDTO
     {
         public _RespuestaApi RespuestaApi { get; set; }
-        public Ticket Ticket { get; set; }
         public class _RespuestaApi
         {
 
@@ -19,7 +19,7 @@ namespace ClienteMarWPFWin7.Domain.Models.Dtos
             public string MensajeRespuesta { get; set; }
             public object Peticion { get; set; }
             public int Saco { get; set; }
-            //public TicketEstado TicketEstado { get; set; }
+            public TicketEstado TicketEstado { get; set; }
             public List<_TicketDetalle> TicketDetalle { get; set; }
             public class _TicketDetalle
             {

@@ -20,6 +20,7 @@ namespace ClienteMarWPFWin7.Data
         public static double SolicitudID { get { return solicitudID; } }
         public static ProductoViewModelResponse Productos { get; set; }
         public static bool permisos { get; set; }
+        public static CuentaDTO cuentaGlobal { get; set; }
 
         //PRIVATE VARIABLE INTERNAL CLASS
         private static double solicitudID = 1;
