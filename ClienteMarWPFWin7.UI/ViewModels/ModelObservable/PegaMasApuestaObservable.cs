@@ -82,7 +82,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
             set
             {
                 monto = value;
-                NotifyPropertyChanged(nameof(Monto));
+                NotifyPropertyChanged(nameof(Monto),
+                                      nameof(MontoStr));
             }
         }
         public string MontoStr { get => $"${Monto.ToString("N", CultureInfo.InvariantCulture)}"; }

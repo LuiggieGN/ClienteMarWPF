@@ -57,7 +57,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
 
 
                     ResetearTodo();
-
                     DesplegarMensaje(mensaje: "Jugadas realizadas satisfactoriamente.", encabezado: "Excelente");
 
                 }

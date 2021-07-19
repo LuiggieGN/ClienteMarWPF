@@ -6,9 +6,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System;
-using System.Linq;
+using System.Threading;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Threading;
+using System.Windows.Media;
 #endregion
 
 namespace ClienteMarWPFWin7.UI.Modules.PegaMas
@@ -16,16 +19,30 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
     public partial class PegaMasView : UserControl
     {
         private PegaMasViewModel vm;
-        public PegaMasView()
+        private bool ventaHiloOcupado = false;
+
+        public PegaMasView() => InitializeComponent();
+
+        private void ModuloCargado(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
+            vm = DataContext as PegaMasViewModel;
+
+            vm.FocusEnPrimerInput = () => Enfocar_Inicial();
+
+            vm.FocusEnUltimoInput = () => Enfocar_Ultimo();
+
+            vm.EscrolearHaciaAbajoGridApuesta = () => EscrolearHaciaAbajoGridJugdas();
+
+            vm.FocusEnPrimerInput?.Invoke();
         }
+
+
 
         private void ModuloKeyUp(object sender, KeyEventArgs e)
         {
             if (vm != null && e.Key == Key.Enter)
             {
-                vm.AgregaApuestaCommand?.Execute(null);
+                AgregarJugadaSiNoExisteEntradaVacia();
             }
             else if (vm != null && e.Key == Key.F9)
             {
@@ -33,20 +50,20 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
             }
             else if (vm != null && (e.Key == Key.F12 || e.Key == Key.Add))
             {
-                vm.VenderCommand?.Execute(null);
+                Vender(sender, e);
             }
             else if (e.Key == Key.Right ||
                      e.Key == Key.Left)
             {
                 e.Handled = true;
-                Seleccionar_Entrada_Segun_Direccion(direccionAsc: (e.Key == Key.Right) ? true : false);
+                SeleccionarEntradaSegunDireccion(direccionAsc: (e.Key == Key.Right) ? true : false);
             }
             else
             {
                 var entrada = sender as TextBox;
                 if (entrada != null)
-                {                    
-                    Navegar_Ala_Siguiente_Entrada_Al_Exceder_Limite_De_Caracteres(entrada);
+                {
+                    NavegarAProximaEntradaSiExcedeLimite(entrada);
                 }
             }
         }
@@ -56,17 +73,8 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
             if (e.Key == Key.Tab)
             {
                 e.Handled = true;
-                Seleccionar_Entrada_Segun_Direccion(direccionAsc: true);
+                SeleccionarEntradaSegunDireccion(direccionAsc: true);
             }
-        }
-
-        private void ModuloCargado(object sender, RoutedEventArgs e)
-        {
-            vm = DataContext as PegaMasViewModel;
-
-            vm.FocusEnPrimerInput = () => Enfocar_Inicial();
-            vm.FocusEnUltimoInput = () => Enfocar_Ultimo();
-            vm.FocusEnPrimerInput?.Invoke();
         }
 
         private void RemoverSoloUnaJugada(object sender, RoutedEventArgs e)
@@ -79,10 +87,31 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
             }
         }
 
-        private void Seleccionar_Entrada_Segun_Direccion(bool direccionAsc)
+        private void AgregarJugadaSiNoExisteEntradaVacia()
         {
-            //  direccionAsc => 0 = Anterior 1 = Siguiente 
+            var entradas = new List<TextBox>() { EntradaD1, EntradaD2, EntradaD3, EntradaD4, EntradaD5 };
 
+            bool sepuedeagregar = true;
+
+            foreach (var item in entradas)
+            {
+                if (InputHelper.InputIsBlank(item.Text))
+                {
+                    sepuedeagregar = false;
+                    Enfocar_Entrada(entrada: item);
+                    break;
+                }
+            }
+
+            if (sepuedeagregar && vm != null)
+            {
+                vm.AgregaApuestaCommand?.Execute(null);
+            }
+
+        }// AgregarJugadaSiNoExisteEntradaVacia( )
+
+        private void SeleccionarEntradaSegunDireccion(bool direccionAsc)
+        {
             var entradas = new List<TextBox>() { EntradaD1, EntradaD2, EntradaD3, EntradaD4, EntradaD5 };
 
             for (int i = 0; i < entradas.Count; i++)
@@ -116,9 +145,9 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
 
             }//For
 
-        }//Seleccionar_Entrada_Segun_Direccion( )
+        }// SeleccionarEntradaSegunDireccion( )
 
-        private void Navegar_Ala_Siguiente_Entrada_Al_Exceder_Limite_De_Caracteres(TextBox entrada)
+        private void NavegarAProximaEntradaSiExcedeLimite(TextBox entrada)
         {
             if ((!InputHelper.InputIsBlank(entrada.Text)) && entrada.Text.Length > 1)
             {
@@ -138,7 +167,7 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
 
                     if (nuevo.Length < limite) { entrada.Text = nuevo; entrada.Focus(); return; }
 
-                    if (indiceFinal == indiceDeEntrada){ entrada.Text = nuevo; entrada.Focus(); return; }
+                    if (indiceFinal == indiceDeEntrada) { entrada.Text = nuevo; entrada.Focus(); return; }
 
                     Enfocar_Entrada(entradas[indiceDeEntrada + 1]);
 
@@ -146,22 +175,68 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
 
             }//If        
 
-        }//Navegar_Ala_Siguiente_Entrada_Al_Exceder_Limite_De_Caracteres( )
+        }// NavegarHaciaElOtro( )
 
+        private void Vender(object sender, RoutedEventArgs e)
+        {
+            Thread.Sleep(500);
 
+            if (vm != null)
+            {
+                if (ventaHiloOcupado == false)
+                {
+                    BotonVender.IsEnabled = false;
+                    SpinnerVender.Visibility = Visibility.Visible;
 
+                    Task.Factory.StartNew(() =>
+                    {
+                        ventaHiloOcupado = true;
 
+                        Thread.Sleep(500);
 
+                        Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() =>
+                        {
+                            try
+                            {
+                                vm.VenderCommand?.Execute(null);
+                            }
+                            catch { }
 
+                            BotonVender.IsEnabled = true;
+                            SpinnerVender.Visibility = Visibility.Collapsed;
+                            ventaHiloOcupado = false;
+                        }));
 
+                    });//StarNew( )
+
+                }//If ventaHiloOcupado == false 
+
+            }//If vm != null
+
+        }// Vender( )
 
         private void Enfocar_Entrada(TextBox entrada)
         {
             entrada.Focus();
             entrada.SelectAll();
         }
+
         private void Enfocar_Inicial() => EntradaD1.Focus();
         private void Enfocar_Ultimo() => EntradaD5.Focus();
+        private void EscrolearHaciaAbajoGridJugdas()
+        {
+            if (GridJugadas.Items.Count > 3)
+            {
+                GridJugadas.UpdateLayout();
 
-    }// Clase
+                GridJugadas.ScrollIntoView(GridJugadas.Items.GetItemAt(GridJugadas.Items.Count - 1), null);
+
+            }// If
+
+        }// EscrolearHaciaAbajoGridJugdas ( )
+
+    }//Clase
+
 }

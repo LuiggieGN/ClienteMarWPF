@@ -163,6 +163,7 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
         #region Acciones
         public Action FocusEnPrimerInput { get; set; }
         public Action FocusEnUltimoInput { get; set; }
+        public Action EscrolearHaciaAbajoGridApuesta { get; set; }
         #endregion
 
         public PegaMasViewModel(IAuthenticator s1,
@@ -179,9 +180,9 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
             RemoverSoloUnaJugadaCommand = new RemoverSoloUnaJugadaCommand(this);
             CalcularMontoTotalJugadoCommand = new CalcularMontoTotalJugadoCommand(this);
             CalcularMontoTotalJugadoCommand?.Execute(null);
-
         }
 
         public void TriggerJugadasUpd() => NotifyPropertyChanged(nameof(Jugadas));
+
     }//Clase
 }

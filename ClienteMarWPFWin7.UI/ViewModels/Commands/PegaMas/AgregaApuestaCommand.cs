@@ -3,6 +3,7 @@
 using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
 using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 using ClienteMarWPFWin7.UI.Modules.PegaMas;
+using System.Collections.ObjectModel;
 using System;
 using System.Linq;
 #endregion
@@ -22,9 +23,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
         {
             try
             {
+                const decimal costo = 25;
+
                 int nuevoid = vm.Jugadas == null || vm.Jugadas.Count == 0 ? 1 : vm.Jugadas.Max(b => b.Id) + 1;
 
-                var entradas = LeerEntradas();
+                var entradas = LeerEntradas();               
 
                 var nuevaApuesta = PegaMasApuestaObservable
                                      .NuevaApuesta(
@@ -33,16 +36,33 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
                                         d3: entradas[2],
                                         d4: entradas[3],
                                         d5: entradas[4],
-                                        id: nuevoid
+                                        id: nuevoid,
+                                        monto: costo
                                      );
 
-                vm.Jugadas.Add(nuevaApuesta);
+                if (vm.Jugadas == null)
+                {
+                    vm.Jugadas = new ObservableCollection<PegaMasApuestaObservable>();
+                }
+
+                var yaFueAgregada = vm.Jugadas.Where(j => j.Jugada.Equals(nuevaApuesta.Jugada,StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+                if (yaFueAgregada != null)
+                {
+                    yaFueAgregada.Monto += costo;
+                }
+                else
+                {
+                    vm.Jugadas.Add(nuevaApuesta);
+                }
 
                 vm.CalcularMontoTotalJugadoCommand?.Execute(null);
 
                 ResetEntradas();
 
                 vm.FocusEnPrimerInput?.Invoke();
+
+                vm.EscrolearHaciaAbajoGridApuesta?.Invoke();
             }
             catch
             {
