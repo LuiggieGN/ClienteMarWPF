@@ -168,6 +168,9 @@
     <Compile Include="Extensions\ColeccionExtension.cs" />
     <Compile Include="Extensions\FileExtension.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Modules\CincoMinutos\ConsultaCincoMinutos.xaml.cs">
+      <DependentUpon>ConsultaCincoMinutos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\EnLinea\EnLinea.xaml.cs">
       <DependentUpon>EnLinea.xaml</DependentUpon>
     </Compile>
@@ -341,6 +344,10 @@
     <Page Include="Modules\CincoMinutos\CincoMinutosView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\CincoMinutos\ConsultaCincoMinutos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\Configuracion\ConfiguracionView.xaml">
       <Generator>MSBuild:Compile</Generator>

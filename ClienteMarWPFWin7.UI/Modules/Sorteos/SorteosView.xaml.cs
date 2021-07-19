@@ -4,6 +4,7 @@ using ClienteMarWPFWin7.Data.Services.Helpers;
 using ClienteMarWPFWin7.Domain.BingoService;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using ClienteMarWPFWin7.Domain.Models.Dtos;
+using ClienteMarWPFWin7.UI.Modules.CincoMinutos;
 using ClienteMarWPFWin7.UI.Modules.Sorteos.Modal;
 using ClienteMarWPFWin7.UI.State.PinterConfig;
 using ClienteMarWPFWin7.UI.ViewModels.Helpers;
@@ -134,6 +135,16 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     Numero = 0,
                     Oculta = false
                 });
+            }
+
+
+            if (SessionGlobals.permisos)
+            {
+                ConsultarCM5.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ConsultarCM5.Visibility = Visibility.Hidden;
             }
 
 
@@ -525,6 +536,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             RemoveAllSeletion();
             ltJugada.ItemsSource = new List<Jugada>();
             txtMontoTotal.Content = "$0.00";
+            ListSorteosVender.Clear();
             //MostrarSorteos();
         }
         private List<SorteosObservable> ConvertToObservables(List<MAR_Loteria2> Sorteos)
@@ -1200,23 +1212,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     break;
 
                 case Key.F11:
-                    if (!listSorteo.IsFocused)
-                    {
-                        listSorteo.Focus();
-                        listSorteo.SelectedIndex = 0;
-                    }
-                    else if (listSorteo.IsFocused)
-                    {
-                        listSorteo.SelectedIndex += 1;
-
-                    }
-
-                    if (listSorteo.SelectedIndex == listSorteo.Items.Count)
-                    {
-                        listSorteo.SelectedIndex = 0;
-
-                    }
-
+                    ConsultarCM5_Click(sender, e);
                     break;
 
                 case Key.Tab:
@@ -1696,7 +1692,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             var VM = DataContext as SorteosViewModel;
             var fecha = DateTime.Now;
 
-            #region Camion Millonario
             if (VM != null)
             {
                 var terminal = VM.Autenticador.CurrentAccount.MAR_Setting2.Sesion.Banca;
@@ -1727,40 +1722,41 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                 }
 
-                if (camionSeleccionado.Any())
+                //if (camionSeleccionado.Any())
+                //{
+                var cincoMinutoService = new CincoMinutosDataService();
+                var setProducto = cincoMinutoService.SetProducto("CincoMinutos", VM.Autenticador.CurrentAccount);
+                ticketmodel.MontoOperacion = ListJugadas.Sum(x => x.Monto);
+                ticketmodel.TicketDetalles = detalles;
+                ticketmodel.TerminalID = terminal;
+                ticketmodel.Fecha = Convert.ToDateTime(fecha);
+                Console.WriteLine(ticketmodel);
+                var apuesta = cincoMinutoService.Apuesta(ticketmodel, setProducto, VM.Autenticador.CurrentAccount);
+
+                if (apuesta == null)
                 {
-                    var cincoMinutoService = new CincoMinutosDataService();
-                    var setProducto = cincoMinutoService.SetProducto("CincoMinutos", VM.Autenticador.CurrentAccount);
-                    ticketmodel.MontoOperacion = ListJugadas.Sum(x => x.Monto);
-                    ticketmodel.TicketDetalles = detalles;
-                    ticketmodel.TerminalID = terminal;
-                    ticketmodel.Fecha = Convert.ToDateTime(fecha);
-                    Console.WriteLine(ticketmodel);
-                    var apuesta = cincoMinutoService.Apuesta(ticketmodel, setProducto, VM.Autenticador.CurrentAccount);
-
-                    if (apuesta == null)
-                    {
-                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Error interno de aplicacion. Comunique el administrador", "Aviso");
-                        return;
-                    }
-                    else if (apuesta.RespuestaApi.CodigoRespuesta == "100")
-                    {
-                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Excelente");
-                        PrintOutHelper.SendToPrinter(apuesta.PrintData);
-                        ticketmodel = null;
-                        //GetVendidosHoy();
-                        //RefrescaBalance();
-                    }
-                    else
-                    {
-                        ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Aviso");
-                        return;
-                    }
-
-                    Console.WriteLine(apuesta);
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta("Error interno de aplicacion. Comunique el administrador", "Aviso");
+                    return;
                 }
+                else if (apuesta.RespuestaApi.CodigoRespuesta == "100")
+                {
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Excelente");
+                    PrintOutHelper.SendToPrinter(apuesta.PrintData);
+                    ticketmodel = null;
+                    //LimpiarApuesta();
+                    //RefreshListJugadas();
+                    //GetVendidosHoy();
+                    //RefrescaBalance();
+                }
+                else
+                {
+                    ((MainWindow)Window.GetWindow(this)).MensajesAlerta(apuesta.RespuestaApi.MensajeRespuesta, "Aviso");
+                    return;
+                }
+
+                Console.WriteLine(apuesta);
+                //}
             }
-            #endregion
         }
 
 
@@ -1769,7 +1765,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
             int cuentaSorteos = ListSorteosVender.Count,
             cuentaJugadas = ltJugada.Items.Count;
-            var camion = ListSorteosVender.Where(x => x.SorteoNombre.Contains("Camion millonario"));
 
             if (cuentaSorteos == 0)
             {
@@ -1818,12 +1813,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                                 try
                                 {
 
-                                    if (camion.Any())
-                                    {
-                                        CamionMillonario();
-                                        txtMontoTotal.Content = "$0.00";
-                                        almacenandoMontos = 0;
-                                    }
+                                    //if (camion.Any())
+                                    //{
+                                    //    CamionMillonario();
+                                    //    txtMontoTotal.Content = "$0.00";
+                                    //    almacenandoMontos = 0;
+                                    //}
 
                                     RegistrarVenta();
                                     txtMontoTotal.Content = "$0.00";
@@ -1831,8 +1826,9 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
 
                                 }
-                                catch
+                                catch (Exception ex)
                                 {
+                                    Console.WriteLine(ex.Message);
                                 }
                                 CargarVendidoHoy();
                                 CargarBalance();
@@ -1874,6 +1870,12 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 }
                 else
                 {
+                    var camion = ListSorteosVender.Where(x => x.SorteoNombre.Contains("Camion millonario"));
+                    if (camion.Any())
+                    {
+                        CamionMillonario();
+                    }
+
                     RealizarVenta();
                     ResetearFormularioVenta();
                 }
@@ -1957,7 +1959,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 if (RealizarApuestaCommand != null)
                 {
-                    sorteoviewmodel.LoteriasMultiples = ListSorteosVender.Select(x => x.Sorteo.LoteriaID).ToList();
+                    // var camionId = ListSorteosVender.Where(x => x.Sorteo.LoteriaID == 0).Select(y => y.Sorteo.Loteria).ToArray()[0];
+                    //var loteriasID = ListSorteosVender.Where(y => y.Sorteo.LoteriaID != 0).Select(x => x.Sorteo.Loteria).ToArray()[0];
+
+                    //if(ListSorteosVender.Where(x => x.SorteoNombre.Contains("Camion millonario")).Any())
+                    //{
+                    //    if (loteriasID != ListSorteosVender.Where(x => x.Sorteo.LoteriaID == 0).Select(y => y.Sorteo.Loteria).ToArray()[0])
+                    //    {
+                    sorteoviewmodel.LoteriasMultiples = ListSorteosVender.Where(y => !y.Sorteo.Loteria.Contains("Camion millonario")).Select(x => x.Sorteo.LoteriaID).ToList();
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    sorteoviewmodel.LoteriasMultiples = ListSorteosVender.Select(x => x.Sorteo.LoteriaID).ToList();
+                    //}
 
                     try
                     {
@@ -2892,6 +2907,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
         }
 
+        private void ConsultarCM5_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ConsultaCincoMinutos modal = new ConsultaCincoMinutos();
+                modal.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
         //private void sorteosSeleccionados_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         //{
         //    //if (Keyboard.IsKeyDown(Key.Left))
@@ -3086,13 +3115,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
     }
 
-    public class SorteosAvender
-    {
-        public string SorteoNombre { get; set; }
-        public SorteosObservable Sorteo { get; set; }
-    }
-
 }
+
+public class SorteosAvender
+{
+    public string SorteoNombre { get; set; }
+    public SorteosObservable Sorteo { get; set; }
+}
+
+
 
 
 

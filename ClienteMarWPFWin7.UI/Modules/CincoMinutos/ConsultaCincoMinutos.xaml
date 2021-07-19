@@ -1,0 +1,134 @@
+﻿<Window x:Class="ClienteMarWPFWin7.UI.Modules.CincoMinutos.ConsultaCincoMinutos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.CincoMinutos"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        mc:Ignorable="d"
+        Title="Consulta de cinco minutos" Height="550" Width="800" 
+         PreviewKeyDown="PressTeclaOperation" Loaded="SelectCampo" WindowStartupLocation="CenterOwner">
+    <Grid Background="#E2E7EC" Margin="0,0,-0.4,-21">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TITULO Y ALERTAS-->
+        <Border Background="#17202A" Grid.ColumnSpan="2">
+            <Label Content="Validacion Pago"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="20"/>
+        </Border>
+        <Border x:Name="bxMensaje" Visibility="Hidden" Grid.Row="1" Grid.ColumnSpan="2" Background="#FFA00101" >
+            <TextBlock x:Name="lblMensaje" Text="" FontSize="18" Foreground="White" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+
+        <!-- TERMINA TITULO Y ALERTAS-->
+
+        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Height="75" Margin="-6,0,6.6,0"  >
+            <StackPanel Margin="110 0 0 0">
+                <TextBox        
+                        Background="White"
+                        Name="txtTicket"
+                        materialDesign:HintAssist.Hint="Auth"
+                        materialDesign:HintAssist.FloatingScale="0.90"
+                        Width="130"                            
+                        Margin="5 1 5 1"
+                        FontSize="15"
+                        VerticalContentAlignment="Center" 
+                        HorizontalContentAlignment="Center"
+                        KeyUp="PressTecla"
+                        Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                        />
+            </StackPanel>
+            <StackPanel Margin="35 0 0 5">
+                <TextBox
+                        Background="White"
+                        Name="txtPin"
+                        materialDesign:HintAssist.Hint="Pin"
+                        materialDesign:HintAssist.FloatingScale="0.90"
+                        Width="130"                            
+                        Margin="5 1 5 1"
+                        FontSize="15"
+                        VerticalContentAlignment="Center" 
+                        HorizontalContentAlignment="Center"
+                        KeyUp="PressTecla"
+                        Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                        />
+            </StackPanel>
+        </WrapPanel>
+        <Button Click="btnCloseWindows" Style="{DynamicResource btn-warning}" Grid.Row="3" Grid.Column="1" Margin="0,17.8,110.6,11" Width="100" Content="Cerrar ESC" Foreground="Black" HorizontalAlignment="Right"/>
+        <StackPanel x:Name="stkBotones" Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center"  Width="500" Margin="105,10.8,188.6,8.8"  >
+            <Button Click="btnImprimir" Style="{DynamicResource btn-dark}" Margin="5,5,5,4.6"  Width="120" Content="Imprimir F12" Foreground="White" />
+            <Button Click="btnAnular" Style="{DynamicResource btn-danger}" Margin="5 5 5 5"  Width="120" Content="Anular F6" Foreground="White"/>
+            <Button Click="ConsultaTicket" Style="{DynamicResource btn-primary}" Margin="5 5 5 5"  x:Name="btnConsultar" Visibility="Visible" Width="120" Content="Consultar F5" Foreground="White" />
+            <Button Style="{DynamicResource btn-success}" Margin="5 5 5 5"  x:Name="btnPagar" Visibility="Collapsed" Width="120" Content="Pagar F5" Foreground="White" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Visibility="Hidden">
+            <Button x:Name="btnSeleccionaAuth" Click="SeleccionarAuth" Content="Selecciona monto">
+
+            </Button>
+
+            <Button x:Name="btnSeleccionaPin" Click="SeleccionarPin" Content="Selecciona jugada">
+
+            </Button>
+
+            <!--<Button x:Name="btnSeleccionarTablaJugadaPrimerRow" Click="SeleccionarPrimerRowTablaJugada" Content="Selecciona jugada">
+
+                        </Button>-->
+        </StackPanel>
+
+        <StackPanel x:Name="stkDetalle"  Grid.Row="4" Grid.ColumnSpan="2">
+            <TextBlock Text="Detalle de Apuesta" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+            <DataGrid x:Name="tbApuesta" ColumnWidth="*"  Width="570"  Height="190" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" />
+
+            <Border  BorderBrush="Gray" CornerRadius="3" BorderThickness="1" VerticalAlignment="Top" Height="40" Width="300" HorizontalAlignment="Center" Margin="0 10">
+                <StackPanel Orientation="Horizontal" >
+                    <Border Background="#FF28A745" CornerRadius="3 0 0 3">
+                        <TextBlock Text="Total: " FontSize="28" Padding="5,5,5,10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                    </Border>
+                    <Border Width="214" Background="White" >
+                        <TextBlock x:Name="txtTotalApuesta" Text="$0.00" FontSize="30" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <Grid x:Name="PagosWindows" Grid.Row="3" Grid.ColumnSpan="2" Height="250" Width="305"  Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <!--TITULO Y ALERTAS-->
+
+            <Border    Grid.ColumnSpan="2" Background="#FF007BFF"  Height="50">
+                <TextBlock  x:Name="txtNota" TextWrapping="Wrap" TextAlignment="Center" Text="" FontSize="14" Foreground="White" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+
+
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                <Label   Content="Total a Pagar:" FontSize="20" HorizontalContentAlignment="Center"/>
+                <Label Name="lblTotal" Content="0.00" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Style="{DynamicResource btn-danger}" Width="100" Content="Cancelar F6" Foreground="White" Margin="5"  />
+                <Button Style="{DynamicResource btn-success}" Width="100" Content="Pagar F5" Foreground="White" Margin="5" />
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>
