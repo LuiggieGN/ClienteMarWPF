@@ -1462,13 +1462,11 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             else
             {
                 arrayString = new string[1,1];
-                arrayString.SetValue("L:  " + Jugadas.onlyLoteria, 0,0);
+                arrayString.SetValue("L: " + Jugadas.onlyLoteria, 0,0);
                 j.Add(arrayString);
-                arrayString = new string[1, 1];
-                arrayString.SetValue("T:  "+Jugadas.onlyTicket, 0,0);
-                j.Add(arrayString);
-                arrayString = new string[1, 1];
-                arrayString.SetValue("P:  " + Jugadas.onlyPin, 0,0);
+                arrayString = new string[1, 2];
+                arrayString.SetValue("T: "+Jugadas.onlyTicket, 0,0);
+                arrayString.SetValue("P: " + Jugadas.onlyPin, 0, 1);
                 j.Add(arrayString);
                 arrayString = new string[1,1];  
             }
