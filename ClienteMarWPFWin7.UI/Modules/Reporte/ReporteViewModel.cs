@@ -93,6 +93,30 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
         private PremiosVentas _premiosventas = new PremiosVentas();
         private bool canChangeOptionListTicket;
         private DialogoReporteViewModel _dialog;
+
+        /// para loadings y iconos de reportes
+        Visibility loadingRPTVentas = Visibility.Collapsed;
+        Visibility loadingRPTListNumero = Visibility.Collapsed;
+        Visibility loadingRPTGanadores = Visibility.Collapsed;
+        Visibility loadingRPTListTarjeta = Visibility.Collapsed;
+        Visibility loadingRPTSumaVentas = Visibility.Collapsed;
+        Visibility loadingRPTVentasPorFechaResumen = Visibility.Collapsed;
+        Visibility loadingImpresion = Visibility.Collapsed;
+        Visibility loadingRPTVentasPagosRemotos = Visibility.Collapsed;
+        Visibility loadingRPTVentasNumerosGanadores = Visibility.Collapsed;
+        Visibility loadingRPTListTicket = Visibility.Collapsed;
+
+        Visibility iconRPTVentas = Visibility.Visible;
+        Visibility iconRPTListNumero = Visibility.Visible;
+        Visibility iconRPTGanadores = Visibility.Visible;
+        Visibility iconRPTListTarjeta = Visibility.Visible;
+        Visibility iconRPTSumaVentas = Visibility.Visible;
+        Visibility iconRPTVentasPorFechaResumen = Visibility.Visible;
+        Visibility iconRPTVentasPorFechaNoResumen = Visibility.Visible;
+        Visibility iconRPTVentasPagosRemotos = Visibility.Visible;
+        Visibility iconRPTVentasNumerosGanadores = Visibility.Visible;
+        Visibility iconRPTListTicket = Visibility.Visible;
+        Visibility iconImpresion = Visibility.Collapsed;
         #endregion
 
         #region "Propiedades"
@@ -537,7 +561,119 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             PremiosVentas.NoMostrarPremios = Visibility.Hidden;
         }
 
- 
+        #region
+        public Visibility LoadingRPTVentas
+        {
+            get { return loadingRPTVentas; }
+            set { loadingRPTVentas = value; NotifyPropertyChanged(nameof(loadingRPTVentas)); }
+        }
+        public Visibility LoadingRPTListNumero
+        {
+            get { return loadingRPTListNumero; }
+            set { loadingRPTListNumero = value; NotifyPropertyChanged(nameof(loadingRPTListNumero)); }
+        }
+        public Visibility LoadingRPTGanadores
+        {
+            get { return loadingRPTGanadores; }
+            set { loadingRPTGanadores = value; NotifyPropertyChanged(nameof(loadingRPTGanadores)); }
+        }
+        public Visibility LoadingRPTListTarjeta
+        {
+            get { return loadingRPTListTarjeta; }
+            set { loadingRPTListTarjeta = value; NotifyPropertyChanged(nameof(loadingRPTListTarjeta)); }
+        }
+        public Visibility LoadingRPTSumaVentas
+        {
+            get { return loadingRPTSumaVentas; }
+            set { loadingRPTSumaVentas = value; NotifyPropertyChanged(nameof(loadingRPTSumaVentas)); }
+        }
+        public Visibility LoadingRPTVentasPorFecha
+        {
+            get { return loadingRPTVentasPorFechaResumen; }
+            set { loadingRPTVentasPorFechaResumen = value; NotifyPropertyChanged(nameof(loadingRPTVentasPorFechaResumen)); }
+        }
+
+        public Visibility LoadingRPTPagosRemotos
+        {
+            get { return loadingRPTVentasPagosRemotos; }
+            set { loadingRPTVentasPagosRemotos = value; NotifyPropertyChanged(nameof(loadingRPTVentasPagosRemotos)); }
+        }
+        public Visibility LoadingRPTListPremiosGanadores
+        {
+            get { return loadingRPTVentasNumerosGanadores; }
+            set { loadingRPTVentasNumerosGanadores = value; NotifyPropertyChanged(nameof(loadingRPTVentasNumerosGanadores)); }
+        }
+        public Visibility LoadingRPTListTicket
+        {
+            get { return loadingRPTListTicket; }
+            set { loadingRPTListTicket = value; NotifyPropertyChanged(nameof(loadingRPTListTicket)); }
+        }
+
+        public Visibility LoadingImprimir
+        {
+            get { return loadingImpresion; }
+            set { loadingImpresion = value; NotifyPropertyChanged(nameof(loadingImpresion)); }
+        }
+
+        public Visibility IconRPTVentas
+        {
+            get { return iconRPTVentas; }
+            set { iconRPTVentas = value; NotifyPropertyChanged(nameof(iconRPTVentas)); }
+        }
+        public Visibility IconRPTListNumero
+        {
+            get { return iconRPTListNumero; }
+            set { iconRPTListNumero = value; NotifyPropertyChanged(nameof(iconRPTListNumero)); }
+        }
+        public Visibility IconRPTGanadores
+        {
+            get { return iconRPTGanadores; }
+            set { iconRPTGanadores = value; NotifyPropertyChanged(nameof(iconRPTGanadores)); }
+        }
+        public Visibility IconRPTListTarjeta
+        {
+            get { return iconRPTListTarjeta; }
+            set { iconRPTListTarjeta = value; NotifyPropertyChanged(nameof(iconRPTListTarjeta)); }
+        }
+        public Visibility IconRPTSumaVentas
+        {
+            get { return iconRPTSumaVentas; }
+            set { iconRPTSumaVentas = value; NotifyPropertyChanged(nameof(iconRPTSumaVentas)); }
+        }
+        public Visibility IconRPTVentasPorFecha
+        {
+            get { return iconRPTVentasPorFechaResumen; }
+            set { iconRPTVentasPorFechaResumen = value; NotifyPropertyChanged(nameof(iconRPTVentasPorFechaResumen)); }
+        }
+        public Visibility IconRPTVentasPorFechaNoResumen
+        {
+            get { return iconRPTVentasPorFechaNoResumen; }
+            set { iconRPTVentasPorFechaNoResumen = value; NotifyPropertyChanged(nameof(iconRPTVentasPorFechaNoResumen)); }
+        }
+        public Visibility IconRPTPagosRemotos
+        {
+            get { return iconRPTVentasPagosRemotos; }
+            set { iconRPTVentasPagosRemotos = value; NotifyPropertyChanged(nameof(iconRPTVentasPagosRemotos)); }
+        }
+        public Visibility IconRPTListPremiosGanadores
+        {
+            get { return iconRPTVentasNumerosGanadores; }
+            set { iconRPTVentasNumerosGanadores = value; NotifyPropertyChanged(nameof(iconRPTVentasNumerosGanadores)); }
+        }
+
+        public Visibility IconRPTListTicket
+        {
+            get { return iconRPTListTicket; }
+            set { iconRPTListTicket = value; NotifyPropertyChanged(nameof(iconRPTListTicket)); }
+        }
+        public Visibility IconImprimir
+        {
+            get { return iconImpresion; }
+            set { iconImpresion = value; NotifyPropertyChanged(nameof(iconImpresion)); }
+        }
+        #endregion
+
+
 
 
     }

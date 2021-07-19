@@ -28,6 +28,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         private static int CantidadLoterias;
         private static IAuthenticator AUTENTICATION;
         private static ReporteViewModel ViewModel;
+        private static int WidthPaper;
 
 
         public static void PrintReporte(object value, IAuthenticator autenticador, ReporteViewModel viewModel, Boolean TicketGanadores = false, Boolean PagosRemotos = false, Boolean Totales = false)
@@ -38,9 +39,18 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             var papers = ps.PaperSizes.Cast<PaperSize>();
             PrintDocument pd = new PrintDocument();
             StringBuilder sb = new StringBuilder();
+            var width = pd.PrinterSettings.DefaultPageSettings.PaperSize.Width;
 
+            if (width <= 500)
+            {
+                WidthPaper = width;
+            }
+            else if (width > 500)
+            {
+                WidthPaper = (width / 2);
+            }
             //paperSize = papers.FirstOrDefault();
-            paperSize = new PaperSize("nose", 280, 0);
+            paperSize = new PaperSize("nose", ps.DefaultPageSettings.Bounds.Width, ps.DefaultPageSettings.Bounds.Height);
 
             if (value is string)
             {
@@ -85,6 +95,14 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             else if (value is MAR_Ganadores && PagosRemotos == true)
             {
                 pd.PrintPage += TemplateRPTPagosRemotosTickets;
+            }
+            else if (value is List<string[]>)
+            {
+                pd.PrintPage += TemplateListArrayString;
+            }
+            else if (value is List<string[,]>)
+            {
+                pd.PrintPage += TemplateListBiArrayString;
             }
             pd.PrintController = new StandardPrintController();
             pd.DefaultPageSettings.PaperSize = paperSize;
@@ -1063,6 +1081,16 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
 
         }
+        private static void TemplateListBiArrayString(object sender, PrintPageEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            positionWrite = 0;
+            
+            foreach (var item in Value as List<string[,]>)
+            {
+                WriteTextColumnBiArray(g, item);
+            }
+        }
         private static void TemplateString(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -1161,6 +1189,33 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 positionWrite += totalHeight.Max();
             }
 
+        }
+        private static void WriteTextColumnBiArray(Graphics graphics, string[,] data, int fontSize = 11, string fontStyle = "regular", string alignment = "center")
+        {
+            
+                int spaceWidth = 0;
+                var totalHeight = new List<int>();
+                Font font = GetFontStyle(fontSize, fontStyle);
+                // Measure string.
+                SizeF stringSize = new SizeF();
+
+                SolidBrush sb = new SolidBrush(Color.Black);
+                StringFormat sf = new StringFormat();
+                sf.Alignment = GetAlignmentText(alignment);
+
+                
+                    for (int x = 0; x < data.GetLength(0); x++) {
+                        
+                        for (int y = 0; y < data.GetLength(1); y++) { 
+                            stringSize = graphics.MeasureString(data[x,y].ToString(), font, (paperSize.Width / data.GetLength(1)));
+                            RectangleF rect = new RectangleF(spaceWidth, positionWrite, ( WidthPaper / data.GetLength(1)), Convert.ToInt32(stringSize.Height));
+                            graphics.DrawString(data[x, y].ToString(), font, sb, rect, sf);
+                            spaceWidth += (WidthPaper / data.GetLength(1));
+                            totalHeight.Add(Convert.ToInt32(rect.Height));
+                        } 
+                        positionWrite += totalHeight.Max();
+                        spaceWidth = 0;
+                    }
         }
         private static void WriteLine(Graphics graphics)
         {

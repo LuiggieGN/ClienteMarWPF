@@ -20,6 +20,35 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         public string Sorteo { get; set; }
 
     }
+    public class ReportesGeneralesReportes
+    {
+        public string NombreReporte { get; set; }
+        public string Loteria { get; set; }
+        public DateTime FechaReporte { get; set; }
+        public string[] Headers { get; set; }
+        public List<string[]> Data { get; set; }
+        public string[] Totals { get; set; }
+        public DateTime Desde { get; set; }
+        public DateTime Hasta { get; set; }
+
+    }
+    public class ReportesGeneralesJugadas
+    {
+        
+        public DateTime Fecha { get; set; }
+        public DateTime Hora { get; set; }
+        public List<string[]> TicketAndPin { get; set; }
+        public string onlyLoteria { get; set; }
+        public string onlyPin { get; set; }
+        public string onlyTicket { get; set; }
+        public List<string[]> Jugadas { get; set; }
+        public string Total { get; set; }
+        public string Firma { get; set; }
+        public string Mensaje { get; set; }
+        public bool Reimprimir { get; set; }
+        public bool Multiples { get; set; }
+
+    }
     public class Ganadores
     {
         public string Loteria { get; set; }
