@@ -35,7 +35,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>instalar.htm</WebPage>
     <TrustUrlParameters>true</TrustUrlParameters>
-    <ApplicationRevision>68</ApplicationRevision>
+    <ApplicationRevision>69</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -243,6 +243,7 @@
     <Compile Include="ViewModels\Commands\Mensajes\SendMensajeCommand.cs" />
     <Compile Include="ViewModels\Commands\Modulo\BancaBalanceConsultaCommand.cs" />
     <Compile Include="ViewModels\Commands\Modulo\GeneraOtroBancaIdCommand.cs" />
+    <Compile Include="ViewModels\Commands\PegaMas\CalcularMontoTotalJugadoCommand.cs" />
     <Compile Include="ViewModels\Commands\PegaMas\RemoverSoloUnaJugadaCommand.cs" />
     <Compile Include="ViewModels\Commands\PegaMas\RemoverJugadasCommand.cs" />
     <Compile Include="ViewModels\Commands\PegaMas\VenderCommand.cs" />

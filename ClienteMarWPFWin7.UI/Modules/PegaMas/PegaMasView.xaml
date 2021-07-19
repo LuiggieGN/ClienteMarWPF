@@ -8,8 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"       
              xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"
-             Loaded="ModuloCargado"
-             KeyUp="ModuloKeyUp" 
+             Loaded="ModuloCargado"             
              KeyDown="ModuloKeyDown"
              Width="Auto">
     <UserControl.Resources>
@@ -33,7 +32,7 @@
         <md:Card
                  Grid.Row="1"
                  MaxWidth="840"
-                 MinHeight="680"
+                 MinHeight="700"
                  Margin="5 50 5 5"
                  Background="{DynamicResource PrimaryHueMidBrush}"
                  md:ShadowAssist.ShadowDepth="Depth5">
@@ -87,7 +86,8 @@
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
                                           behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                           MaxLength="2"         
-                                          Text="{Binding D1, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                          Text="{Binding D1, Delay=300, UpdateSourceTrigger=PropertyChanged}"
+                                          KeyUp="ModuloKeyUp" >
                                 </TextBox>
                             </Border>
                             <Border BorderThickness="3" Background="#517fff" CornerRadius="40" Padding="2" Margin="5 0 0 0">
@@ -108,7 +108,8 @@
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
                                           behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                           MaxLength="2"                                      
-                                          Text="{Binding D2, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                          Text="{Binding D2, Delay=300, UpdateSourceTrigger=PropertyChanged}"
+                                          KeyUp="ModuloKeyUp" >
                                </TextBox>
                             </Border>
                         </StackPanel>                        
@@ -142,7 +143,8 @@
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
                                           behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                           MaxLength="2"                                    
-                                          Text="{Binding D3, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                          Text="{Binding D3, Delay=300, UpdateSourceTrigger=PropertyChanged}"
+                                          KeyUp="ModuloKeyUp" >
                                 </TextBox>
                             </Border>
                             <Border BorderThickness="3" Background="#ff6767" CornerRadius="40" Padding="2" Margin="5 0 0 0">
@@ -163,7 +165,8 @@
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
                                           behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                           MaxLength="2"                                         
-                                          Text="{Binding D4, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                          Text="{Binding D4, Delay=300, UpdateSourceTrigger=PropertyChanged}"
+                                          KeyUp="ModuloKeyUp" >
                                 </TextBox>
                             </Border>
                         </StackPanel>
@@ -197,7 +200,8 @@
                                           behaviours:SoloNumerosBehaviour.Habilitado="True"
                                           behaviours:SeleccionaTodoBehaviour.Habilitado="True"
                                           MaxLength="2"                                       
-                                          Text="{Binding D5, Delay=300, UpdateSourceTrigger=PropertyChanged}">
+                                          Text="{Binding D5, Delay=300, UpdateSourceTrigger=PropertyChanged}"
+                                          KeyUp="ModuloKeyUp" >
                                 </TextBox>
                             </Border>
  
@@ -220,7 +224,9 @@
                            Background="#0e0e0e"
                            Padding="14 7 0 7"/>
                     
-                    <ScrollViewer   Height="300"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <ScrollViewer   Height="250" 
+                                    VerticalScrollBarVisibility="Auto"
+                                    HorizontalScrollBarVisibility="Disabled">
                         <DataGrid x:Name ="GridJugadas" 
                                   ItemsSource="{Binding Jugadas, UpdateSourceTrigger=PropertyChanged}"
                                   CanUserSortColumns="False"
@@ -254,6 +260,12 @@
                     </ScrollViewer>
 
                 </StackPanel>
+
+                <StackPanel Width="280"  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0" >
+                    <Label x:Name="EtiquetaMontoTotalJugadas" Content="{Binding TotalJugado}" FontWeight="Bold" FontSize="40" Foreground="#28A745" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+                    <Label Content="Total Monto de Jugadas" Margin="0 -20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15"  />
+                </StackPanel>
+                
 
                 <Grid Margin="0 30 0 0" 
                       HorizontalAlignment="Center">

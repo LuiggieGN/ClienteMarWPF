@@ -21,6 +21,7 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
         private string d3;
         private string d4;
         private string d5;
+        private string total_jugado;
         private const int maximo_digito = 26;
         private ObservableCollection<PegaMasApuestaObservable> jugadas;
         #endregion
@@ -137,6 +138,15 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
                 NotifyPropertyChanged(nameof(D5));
             }
         }
+        public string TotalJugado
+        {
+            get => total_jugado;
+            set
+            {
+                total_jugado = value;
+                NotifyPropertyChanged(nameof(TotalJugado));
+            }
+        }
         public ObservableCollection<PegaMasApuestaObservable> Jugadas { get => jugadas; set { jugadas = value; NotifyPropertyChanged(nameof(Jugadas)); } }
         public IAuthenticator AutServicio { get; set; }
         public ICincoMinutosServices CincoMinServicio { get; set; }
@@ -147,10 +157,12 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
         public ICommand VenderCommand { get; set; }
         public ICommand RemoverJugadasCommand { get; set; }
         public ICommand RemoverSoloUnaJugadaCommand { get; set; }
+        public ICommand CalcularMontoTotalJugadoCommand { get; set; }
         #endregion
 
         #region Acciones
         public Action FocusEnPrimerInput { get; set; }
+        public Action FocusEnUltimoInput { get; set; }
         #endregion
 
         public PegaMasViewModel(IAuthenticator s1,
@@ -158,11 +170,16 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
         {
             AutServicio = s1;
             CincoMinServicio = s2;
+
             jugadas = new ObservableCollection<PegaMasApuestaObservable>();
+            
             AgregaApuestaCommand = new AgregaApuestaCommand(this);
             VenderCommand = new VenderCommand(this);
             RemoverJugadasCommand = new RemoverJugadasCommand(this);
             RemoverSoloUnaJugadaCommand = new RemoverSoloUnaJugadaCommand(this);
+            CalcularMontoTotalJugadoCommand = new CalcularMontoTotalJugadoCommand(this);
+            CalcularMontoTotalJugadoCommand?.Execute(null);
+
         }
 
         public void TriggerJugadasUpd() => NotifyPropertyChanged(nameof(Jugadas));

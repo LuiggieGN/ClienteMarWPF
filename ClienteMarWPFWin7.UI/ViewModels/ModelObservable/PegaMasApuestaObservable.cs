@@ -1,7 +1,9 @@
-﻿using ClienteMarWPFWin7.UI.ViewModels.Base;
-
+﻿
+#region Namespaces
+using ClienteMarWPFWin7.UI.ViewModels.Base;
 using System.Globalization;
 using System;
+#endregion
 
 namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
 {
@@ -92,7 +94,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.ModelObservable
                 id = value; NotifyPropertyChanged(nameof(Id));
             }
         }
-
         public static PegaMasApuestaObservable NuevaApuesta(int id, int d1, int d2, int d3, int d4, int d5, decimal monto = 25)
         {
             char cero = '0';

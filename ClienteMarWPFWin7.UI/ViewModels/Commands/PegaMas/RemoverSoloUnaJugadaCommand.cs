@@ -36,6 +36,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
                     if (item != null)
                     {
                         vm.Jugadas.Remove(item);
+                        vm.CalcularMontoTotalJugadoCommand?.Execute(null);
                         vm.TriggerJugadasUpd();
                         vm.FocusEnPrimerInput?.Invoke();
                     }

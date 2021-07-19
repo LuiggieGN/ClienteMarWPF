@@ -38,6 +38,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
 
                 vm.Jugadas.Add(nuevaApuesta);
 
+                vm.CalcularMontoTotalJugadoCommand?.Execute(null);
+
                 ResetEntradas();
 
                 vm.FocusEnPrimerInput?.Invoke();
