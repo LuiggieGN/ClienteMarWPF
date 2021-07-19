@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.CincoMinutos"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:controls1="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"
         mc:Ignorable="d"
         Title="Consulta de cinco minutos" Height="550" Width="800" 
          PreviewKeyDown="PressTeclaOperation" Loaded="SelectCampo" WindowStartupLocation="CenterOwner">
@@ -31,7 +31,7 @@
 
         <!-- TERMINA TITULO Y ALERTAS-->
 
-        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Height="75" Margin="-6,0,6.6,0"  >
+        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Height="75" Margin="-6,20,6.6,0"  >
             <StackPanel Margin="110 0 0 0">
                 <TextBox        
                         Background="White"
@@ -63,13 +63,70 @@
                         />
             </StackPanel>
         </WrapPanel>
-        <Button Click="btnCloseWindows" Style="{DynamicResource btn-warning}" Grid.Row="3" Grid.Column="1" Margin="0,17.8,110.6,11" Width="100" Content="Cerrar ESC" Foreground="Black" HorizontalAlignment="Right"/>
-        <StackPanel x:Name="stkBotones" Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center"  Width="500" Margin="105,10.8,188.6,8.8"  >
+                
+        <Button Click="btnCloseWindows" Style="{DynamicResource btn-warning}" Grid.Row="3" Grid.Column="1" Margin="0,16.8,49.6,12" Width="100" Content="Cerrar ESC" Foreground="Black" HorizontalAlignment="Right"/>
+        <!--<StackPanel x:Name="stkBotones" Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center"  Width="500" Margin="105,10.8,188.6,8.8"  >
             <Button Click="btnImprimir" Style="{DynamicResource btn-dark}" Margin="5,5,5,4.6"  Width="120" Content="Imprimir F12" Foreground="White" />
             <Button Click="btnAnular" Style="{DynamicResource btn-danger}" Margin="5 5 5 5"  Width="120" Content="Anular F6" Foreground="White"/>
             <Button Click="ConsultaTicket" Style="{DynamicResource btn-primary}" Margin="5 5 5 5"  x:Name="btnConsultar" Visibility="Visible" Width="120" Content="Consultar F5" Foreground="White" />
             <Button Style="{DynamicResource btn-success}" Margin="5 5 5 5"  x:Name="btnPagar" Visibility="Collapsed" Width="120" Content="Pagar F5" Foreground="White" />
+        </StackPanel>-->
+
+        <StackPanel x:Name="stkBotones" Width="500" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="105,10.8,188.6,8.8">
+
+            <Button Click="btnImprimir" Style="{DynamicResource btn-dark}" Margin="5,5,5,4.6"  Width="140" Foreground="White">
+                <StackPanel Orientation="Horizontal" >
+                    <materialDesign:PackIcon Kind="Printer" VerticalAlignment="Center" Width="20" Height="20" />
+                    <TextBlock Text=" Imprimir F12"  VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button Click="btnAnular" Style="{DynamicResource btn-danger}" Margin="5 5 5 5"  Width="140" Foreground="White" >
+                <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="RemoveCircle" Margin="5 0 3 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                        <TextBlock Text="Anular F6" Foreground="White" VerticalAlignment="Center"/>
+                        <controls1:SpinnerPiston x:Name="Spinner" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="60"
+                                                Height="40"
+                                                Visibility="Visible"
+                                                Margin="-15 0 0 0"/>
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+
+
+            <Button  Click="ConsultaTicket" Style="{DynamicResource btn-primary}" Margin="5 5 5 5"  x:Name="btnConsultar" Visibility="Visible" Width="155" Foreground="White" >
+                <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Search" Margin="5 0 3 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
+                        <TextBlock Text="Consultar F5" Foreground="White" VerticalAlignment="Center"/>
+                        <controls1:SpinnerPiston x:Name="Spinner2" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="60"
+                                                Height="40"
+                                                Visibility="Visible"
+                                                Margin="-15 0 0 0"/>
+                    </StackPanel>
+                </Grid>
+            </Button>
+
+            <Button Style="{DynamicResource btn-success}" Margin="5 5 5 5"  x:Name="btnPagar" Visibility="Collapsed" Width="120" Content="Pagar F5" Foreground="White" />
+            
         </StackPanel>
+
 
         <StackPanel Orientation="Horizontal" Visibility="Hidden">
             <Button x:Name="btnSeleccionaAuth" Click="SeleccionarAuth" Content="Selecciona monto">

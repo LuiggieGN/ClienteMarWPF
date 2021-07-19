@@ -268,7 +268,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Click="ConsultarCM5_Click"  Style="{DynamicResource btn-secondary}" Width="332" Margin="160 5 5 5" x:Name="ConsultarCM5" Content="Consultar Camion millonario - F11">
+                        <Button Click="ConsultarCM5_Click"  Style="{DynamicResource btn-secondary}" Width="332" Margin="165 5 5 5" x:Name="ConsultarCM5" Content="Consultar Camion millonario - F11">
 
                         </Button>
 

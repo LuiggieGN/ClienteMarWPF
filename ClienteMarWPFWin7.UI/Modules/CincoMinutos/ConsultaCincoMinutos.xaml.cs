@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -27,9 +28,14 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
     /// </summary>
     public partial class ConsultaCincoMinutos : Window
     {
+
+        private bool AnularThreadIsBusy = false;
+        private bool ConsultarThreadIsBusy = false;
         public ConsultaCincoMinutos()
         {
             InitializeComponent();
+            Spinner.Visibility = Visibility.Collapsed;
+            Spinner2.Visibility = Visibility.Collapsed;
         }
         public void MensajesAlerta(string mensajeIn, int time = 3000)
         {
@@ -54,12 +60,14 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
             }
             else if (e.Key == Key.F6)
             {
-                AnularApuesta();
+                btnAnular(sender, e);
 
-            }else if(e.Key == Key.F5)
+            }
+            else if (e.Key == Key.F5)
             {
-                ConsultarTicket();
-            }else if(e.Key == Key.Escape)
+                ConsultaTicket(sender, e);
+            }
+            else if (e.Key == Key.Escape)
             {
                 this.Close();
             }
@@ -88,13 +96,12 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
         //    try
         //    {
         //        var cincoMinutoService = new CincoMinutosDataService();
-        //        var jugada = new DetalleJugadas();
-        //        var pago = cincoMinutoService.RealizaPagoGanador(txtTicket.Text, txtPin.Text, decimal.Parse(lblTotal.Content.ToString().Replace("$", "")), SessionGlobals.cuentaGlobal, jugada);
+        //        var pago = cincoMinutoService.RealizaPagoGanador(txtTicket.Text, txtPin.Text, decimal.Parse(lblTotal.Content.ToString().Replace("$", "")), SessionGlobals.cuentaGlobal, ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel.DetalleJugadas.Juego);
         //        if (pago.RespuestaApi.CodigoRespuesta == "100")
         //        {
         //            PrintOutHelper.SendToPrinter(pago.PrintData);
         //            MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
-        //            MensajesAlerta("El Pago fue Aprobado Exitosamente");
+        //            MensajesAlerta("El pago fue aprobado exitosamente");
         //            MostrarConsultarPagar(false);
         //        }
         //        else
@@ -108,17 +115,25 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
         //        MensajesAlerta(e.Message);
         //    }
 
-
         //}
 
         private void AnularApuesta()
         {
             try
             {
-                var VM = DataContext as SorteosViewModel;
-                var cincoMinutoService = new CincoMinutosDataService();
-                var anula = ClienteMarWPFWin7.Data.Services.CincoMinutosDataService.AnulaApuesta(txtTicket.Text, txtPin.Text,SessionGlobals.cuentaGlobal);
-                MensajesAlerta(anula.RespuestaApi);
+                if (txtTicket.Text != "" && txtPin.Text != "")
+                {
+                    var VM = DataContext as SorteosViewModel;
+                    var cincoMinutoService = new CincoMinutosDataService();
+                    var anula = ClienteMarWPFWin7.Data.Services.CincoMinutosDataService.AnulaApuesta(txtTicket.Text, txtPin.Text, SessionGlobals.cuentaGlobal);
+                    MensajesAlerta(anula.RespuestaApi);
+                }
+                else
+                {
+                    MensajesAlerta("Ingrese el ticket y el pin", 3000);
+                    txtTicket.Focus();
+                }
+
 
             }
             catch (Exception e)
@@ -139,7 +154,7 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
             if (txtTicket.Text != "" && txtPin.Text != "")
             {
 
-                var consultaPago = ClienteMarWPFWin7.Data.Services.CincoMinutosDataService.ConsultaPagoGanador(txtTicket.Text, txtPin.Text,SessionGlobals.cuentaGlobal);
+                var consultaPago = ClienteMarWPFWin7.Data.Services.CincoMinutosDataService.ConsultaPagoGanador(txtTicket.Text, txtPin.Text, SessionGlobals.cuentaGlobal);
 
                 if (!consultaPago.OK)
                 {
@@ -226,7 +241,8 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
             }
             else
             {
-                MensajesAlerta("Ingrese el Ticket y el Pin", 3000);
+                MensajesAlerta("Ingrese el ticket y el pin", 3000);
+                txtTicket.Focus();
             }
 
         }
@@ -304,13 +320,13 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
                 e.Handled = true;
             }
 
-            if(e.Key == Key.Right)
+            if (e.Key == Key.Right)
             {
                 TextBox s = e.Source as TextBox;
 
                 if (s != null)
                 {
-                    if(s.Name == "txtTicket")
+                    if (s.Name == "txtTicket")
                     {
                         txtPin.Focus();
                         TriggerButtonClickEvent(btnSeleccionaPin);
@@ -353,12 +369,75 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
 
         private void btnAnular(object sender, RoutedEventArgs e)
         {
-            AnularApuesta();
+            if (AnularThreadIsBusy == false)
+            {
+                Spinner.Visibility = Visibility.Visible;
+
+                Task.Factory.StartNew(() =>
+                {
+                    Thread.Sleep(1000);
+                    AnularThreadIsBusy = true;
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Background,
+                    new Action(() =>
+                    {
+                        try
+                        {
+                            try
+                            {
+                                AnularApuesta();
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                        AnularThreadIsBusy = false;
+                        Spinner.Visibility = Visibility.Collapsed;
+                    }));
+                });
+            }
+
         }
 
         private void ConsultaTicket(object sender, RoutedEventArgs e)
         {
-            ConsultarTicket();
+            if (ConsultarThreadIsBusy == false)
+            {
+                Spinner2.Visibility = Visibility.Visible;
+
+                Task.Factory.StartNew(() =>
+                {
+                    Thread.Sleep(1000);
+                    ConsultarThreadIsBusy = true;
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Background,
+                    new Action(() =>
+                    {
+                        try
+                        {
+                            try
+                            {
+                                ConsultarTicket();
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                        ConsultarThreadIsBusy = false;
+                        Spinner2.Visibility = Visibility.Collapsed;
+                    }));
+                });
+            }
         }
 
         //private void btnPago(object sender, RoutedEventArgs e)
