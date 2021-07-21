@@ -1,5 +1,6 @@
 ﻿using ClienteMarWPFWin7.Data;
 using ClienteMarWPFWin7.Data.Services;
+using ClienteMarWPFWin7.Domain.Models.Dtos;
 using ClienteMarWPFWin7.UI.Modules.Sorteos;
 using ClienteMarWPFWin7.UI.State.PinterConfig;
 using System;
@@ -31,6 +32,7 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
 
         private bool AnularThreadIsBusy = false;
         private bool ConsultarThreadIsBusy = false;
+
         public ConsultaCincoMinutos()
         {
             InitializeComponent();
@@ -60,12 +62,25 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
             }
             else if (e.Key == Key.F6)
             {
-                btnAnular(sender, e);
 
+                btnAnular(sender, e);
+            }else if(e.Key == Key.F7)
+            {
+                BtnClosePago(sender, e);
             }
             else if (e.Key == Key.F5)
             {
-                ConsultaTicket(sender, e);
+                
+                if (btnConsultar.Visibility == Visibility.Visible)
+                {
+
+                    ConsultaTicket(sender, e);
+
+                }
+                else
+                {
+                    RealizarPago();
+                }
             }
             else if (e.Key == Key.Escape)
             {
@@ -91,31 +106,31 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
         }
 
 
-        //private void RealizarPago()
-        //{
-        //    try
-        //    {
-        //        var cincoMinutoService = new CincoMinutosDataService();
-        //        var pago = cincoMinutoService.RealizaPagoGanador(txtTicket.Text, txtPin.Text, decimal.Parse(lblTotal.Content.ToString().Replace("$", "")), SessionGlobals.cuentaGlobal, ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel.DetalleJugadas.Juego);
-        //        if (pago.RespuestaApi.CodigoRespuesta == "100")
-        //        {
-        //            PrintOutHelper.SendToPrinter(pago.PrintData);
-        //            MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
-        //            MensajesAlerta("El pago fue aprobado exitosamente");
-        //            MostrarConsultarPagar(false);
-        //        }
-        //        else
-        //        {
-        //            MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
+        private void RealizarPago()
+        {
+            try
+            {
 
-        //        MensajesAlerta(e.Message);
-        //    }
+                var pago = ClienteMarWPFWin7.Data.Services.CincoMinutosDataService.RealizaPagoGanador(txtTicket.Text, txtPin.Text, decimal.Parse(lblTotal.Content.ToString().Replace("$", "")), SessionGlobals.cuentaGlobal);
+                if (pago.RespuestaApi.CodigoRespuesta == "100")
+                {
+                    PrintOutHelper.SendToPrinter(pago.PrintData);
+                    MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
+                    MensajesAlerta("El pago fue aprobado exitosamente");
+                    MostrarConsultarPagar(false);
+                }
+                else
+                {
+                    MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
+                }
+            }
+            catch (Exception e)
+            {
 
-        //}
+                MensajesAlerta(e.Message);
+            }
+
+        }
 
         private void AnularApuesta()
         {
@@ -188,7 +203,7 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
                             break;
                         case ClienteMarWPFWin7.Domain.Enums.CincoMinutosEnum.TicketEstado.JugadoGanadorNoPago:
                             MostrarPagos(true);
-                            //decimal bancaBalance = CuadreLogic.GetBancaACuadrarMontoReal(MainFlujoWindows.MarSession.Banca);
+                            //decimal bancaBalance = CuadreLogic.GetBancaACuadrarMontoReal(SessionGlobals.cuentaGlobal.MAR_Setting2.Sesion.Banca); PENDIENTE VALIDAR SI TIENE CONTROL DE EFECTIVO
                             var saco = consultaPago.RespuestaApi.TicketDetalle.Sum(x => x.Saco);
 
 
@@ -351,11 +366,11 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
 
         }
 
-        //private void ProcesarPago(object sender, RoutedEventArgs e)
-        //{
-        //    RealizarPago();
-        //    MostrarPagos(false);
-        //}
+        private void ProcesarPago(object sender, RoutedEventArgs e)
+        {
+            RealizarPago();
+            MostrarPagos(false);
+        }
 
         private void SelectCampo(object sender, RoutedEventArgs e)
         {
