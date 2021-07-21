@@ -182,8 +182,8 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <Button Style="{DynamicResource btn-danger}" Width="100" Content="Cancelar F6" Foreground="White" Margin="5"  />
-                <Button Style="{DynamicResource btn-success}" Width="100" Content="Pagar F5" Foreground="White" Margin="5" />
+                <Button Style="{DynamicResource btn-danger}" Click="BtnClosePago" Width="120" Content="Cancelar F7" Foreground="White" Margin="5"  />
+                <Button Style="{DynamicResource btn-success}" Click="ProcesarPago" Width="120" Content="Pagar F5" Foreground="White" Margin="5" />
             </StackPanel>
         </Grid>
 
