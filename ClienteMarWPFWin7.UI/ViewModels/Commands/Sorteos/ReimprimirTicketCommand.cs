@@ -24,7 +24,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         private readonly SorteosViewModel ViewModelSorteo;
         private readonly ISorteosService SorteosService;
         private readonly IAuthenticator Autenticador;
-       
+        List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
+
         public ReimprimirTicketCommand(ValidarPagoTicketViewModel viewModel, IAuthenticator autenticador, ISorteosService sorteosService,SorteosViewModel viewModelSorteo) 
         {
             ViewModel = viewModel;
@@ -67,7 +68,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                         if (jugadas.Err == null)
                         {
-                            List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
                             var datosTicket = SessionGlobals.LoteriasTodas.Where(x => x.Numero == jugadas.Loteria).ToList();
                             var NombreLoteria = datosTicket[0].Nombre;
 
@@ -144,7 +144,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                                     Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
                                     TextReviseJugada = "Revise su jugada. Buena Suerte!"
                                 };
-                                TicketTemplateHelper.PrintTicket(TICKET, null, true);
+                                var multiples = TICKET.Pin.Count() > 1 ? true : false;
+                                var TicketTemplate = CreateTemplateTextOnlyTicket(TICKET, multiples,true);
+                                TicketTemplateHelper.PrintTicket(TicketTemplate, null, true);
                             }
 
 
@@ -170,6 +172,56 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     ViewModel.SetMensaje(mensaje: "El ticket introducido no existe o ya pasó el tiempo permitido para reimpresion", icono: "Error", background: "#DC3545", puedeMostrarse: true);
                 }
             }
+
+        }
+
+        private List<string[,]> CreateTemplateTextOnlyTicket(SorteosTicketModels TICKET, bool multiples,bool Reimprimir=false)
+        {
+            List<string[]> Jugadas = new List<string[]>(); string[] arrayString = new string[1];
+            List<string[]> QuinielaList = new List<string[]>(); List<string[]> PaleList = new List<string[]>(); List<string[]> TripletaList = new List<string[]>();
+            List<string[]> ListTicketPin = new List<string[]>();
+            string[] QuinielaArray = new string[1]; string[] PaleArray = new string[1]; string[] TripletaArray = new string[1];
+            string[] TicketPinArray = new string[3];
+            string[,] JugadasAndMontoArray = new string[1, 1];
+            List<string[,]> ImprimirTicket = new List<string[,]>();
+            try
+            {
+                double Total = 0;
+                var posicionquiniela = 0; var posicionpale = 0; var posiciontripleta = 0;
+                for (var i = 0; i < TICKET.Jugadas.Count(); i++)
+                {
+                    Total = Total + Convert.ToDouble(TICKET.Jugadas[i].Costo);
+                    if (TICKET.Jugadas[i].TipoJugada == "Q") { if (posicionquiniela == 0) { QuinielaArray.SetValue("------ Quiniela ------", 0); posicionquiniela++; QuinielaList.Add(QuinielaArray); QuinielaArray = new string[2]; }; QuinielaArray.SetValue(TICKET.Jugadas[i].Numero, 0); QuinielaArray.SetValue(TICKET.Jugadas[i].Costo.ToString("C2"), 1); QuinielaList.Add(QuinielaArray); QuinielaArray = new string[2]; }
+                    if (TICKET.Jugadas[i].TipoJugada == "P") { if (posicionpale == 0) { PaleArray.SetValue("-------- Pale --------", 0); posicionpale++; PaleList.Add(PaleArray); PaleArray = new string[2]; }; PaleArray.SetValue(TICKET.Jugadas[i].Numero, 0); PaleArray.SetValue(TICKET.Jugadas[i].Costo.ToString("C2"), 1); PaleList.Add(PaleArray); PaleArray = new string[2]; }
+                    if (TICKET.Jugadas[i].TipoJugada == "T") { if (posiciontripleta == 0) { TripletaArray.SetValue("-------- Tripleta --------", 0); posiciontripleta++; TripletaList.Add(TripletaArray); TripletaArray = new string[2]; }; TripletaArray.SetValue(TICKET.Jugadas[i].Numero, 0); TripletaArray.SetValue(TICKET.Jugadas[i].Costo.ToString("C2"), 1); TripletaList.Add(TripletaArray); TripletaArray = new string[2]; }
+
+                }
+                if (QuinielaList.Count() > 0) { foreach (var quinielaJugada in QuinielaList) { Jugadas.Add(quinielaJugada); } };
+                if (PaleList.Count() > 0) { foreach (var paleJugada in PaleList) { Jugadas.Add(paleJugada); } };
+                if (TripletaList.Count() > 0) { foreach (var tripletaJugada in TripletaList) { Jugadas.Add(tripletaJugada); } };
+                //Encabezados de seccion de ticket y pin
+                TicketPinArray = new string[3];
+                TicketPinArray.SetValue("   Loterias", 0);
+                TicketPinArray.SetValue("Tickets ", 1);
+                TicketPinArray.SetValue("Pin", 2);
+                ListTicketPin.Add(TicketPinArray);
+                /////////////////////////////////////////////
+                TicketPinArray = new string[3];
+                for (var i = 0; i < loteriatickpin.Count(); i++)
+                {
+                    TicketPinArray.SetValue(loteriatickpin[i].Loteria, 0);
+                    TicketPinArray.SetValue(loteriatickpin[i].Ticket, 1);
+                    TicketPinArray.SetValue(loteriatickpin[i].Pin, 2);
+                    ListTicketPin.Add(TicketPinArray);
+                    TicketPinArray = new string[3];
+                }
+                ReportesGeneralesJugadas JugadasTicketSinConfig = new ReportesGeneralesJugadas() { Fecha = Convert.ToDateTime(TICKET.Fecha), Mensaje = TICKET.TextReviseJugada, Firma = TICKET.Firma, onlyLoteria = TICKET.Loteria, onlyPin = TICKET.Pin[0].Pin.ToString(), onlyTicket = TICKET.TicketNo, Jugadas = Jugadas, Multiples = multiples, Reimprimir = false, TicketAndPin = ListTicketPin, Total = "Total:  " + Total.ToString("C2"), Hora = Convert.ToDateTime(TICKET.Hora) };
+                ImprimirTicket = PrintJobs.PrintGeneralJugadas(JugadasTicketSinConfig, Autenticador,true);
+                return ImprimirTicket;
+            }
+            catch (Exception e) { (Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta(e.Message, "ERROR", "FF0000"); }
+
+            return ImprimirTicket;
 
         }
 

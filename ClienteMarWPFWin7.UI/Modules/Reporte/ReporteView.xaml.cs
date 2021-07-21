@@ -194,7 +194,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Reporte
             object elementos = fase1.Content;
             StackPanel elemto = elementos as StackPanel;
             UIElementCollection CollecionElementos = elemto.Children;
-            TextBlock elementosTextBlock = CollecionElementos[1] as TextBlock;
+            TextBlock elementosTextBlock = CollecionElementos[2] as TextBlock;
             Nombre = elementosTextBlock.Text.ToString();
 
             

@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:dialogo="clr-namespace:ClienteMarWPFWin7.UI.Modules.Reporte.Modal"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:controls1="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"
              xmlns:controls="clr-namespace:ClienteMarWPFWin7.UI.Modules.Reporte.Modal"   
              xmlns:converters="clr-namespace:ClienteMarWPFWin7.UI.Converters"
              mc:Ignorable="d" 
@@ -122,43 +123,86 @@
 
                     <Button Name="btnRPTVentas" Style="{DynamicResource btn-primary}" FocusVisualStyle="{DynamicResource FocusReportes}" Grid.Column="0" MinWidth="175" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="175" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,2" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <materialDesign:PackIcon HorizontalContentAlignment="Left" Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <controls1:SpinnerPiston x:Name="SpinnerRPTVentas" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="45"
+                                                Height="40"
+                                                Visibility="{Binding LoadingRPTVentas}"
+                                                Margin="-15 0 0 0"/>
+                            <materialDesign:PackIcon HorizontalContentAlignment="Left" Kind="Receipt" Margin="0 0 1 0" Visibility="{Binding IconRPTVentas}" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock HorizontalAlignment="Left" Text="{Binding  Reportes[0].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="175" FocusVisualStyle="{DynamicResource FocusReportes}" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="175" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
-                            <TextBlock Text="{Binding  Reportes[1].Nombre}"  Foreground="White" VerticalAlignment="Top"/>
+                            <controls1:SpinnerPiston x:Name="SpinnerRPTListNumero" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="45"
+                                                Height="40"
+                                                Visibility="{Binding LoadingRPTListNumero}"
+                                                Margin="-15 0 0 0"/>
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White" Visibility="{Binding IconRPTListNumero}"/>
+                            <TextBlock Text="{Binding  Reportes[1].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="175" FocusVisualStyle="{DynamicResource FocusReportes}" HorizontalContentAlignment="Left" Click="reporteid_Click" Width="175" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <materialDesign:PackIcon HorizontalContentAlignment="Left" HorizontalAlignment="Left" Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <controls1:SpinnerPiston x:Name="SpinnerRPTListTicket" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="45"
+                                                Height="40"
+                                                Visibility="{Binding LoadingRPTListTicket}"
+                                                Margin="-15 0 0 0"/>
+                            <materialDesign:PackIcon HorizontalContentAlignment="Left" Visibility="{Binding IconRPTListTicket}" HorizontalAlignment="Left" Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock HorizontalAlignment="Left" Text="{Binding  Reportes[2].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="175" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="175" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <controls1:SpinnerPiston x:Name="SpinnerRPTGanadores" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="45"
+                                                Height="40"
+                                                Visibility="{Binding LoadingRPTGanadores}"
+                                                Margin="-15 0 0 0"/>
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" Visibility="{Binding IconRPTGanadores}" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[3].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="175" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Center" Width="175" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <controls1:SpinnerPiston x:Name="SpinnerRPTListTarjeta" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="45"
+                                                Height="40"
+                                                Visibility="{Binding LoadingRPTListTarjeta}"
+                                                Margin="-15 0 0 0"/>
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" Visibility="{Binding IconRPTListTarjeta}" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[4].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="175" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="175" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <controls1:SpinnerPiston x:Name="SpinnerRPTSumaVentas" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="45"
+                                                Height="40"
+                                                Visibility="{Binding LoadingRPTSumaVentas}"
+                                                Margin="-15 0 0 0"/>
+                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" Visibility="{Binding IconRPTSumaVentas}" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[5].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
 
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="0" MinWidth="175" FocusVisualStyle="{DynamicResource FocusReportes}" HorizontalContentAlignment="Left" Click="reporteid_Click" Command="{Binding Path=AbrirModalRangoFechaCommand}" Width="175" HorizontalAlignment="Stretch" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Label></Label>
                             <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[6].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
@@ -166,13 +210,27 @@
 
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="1" MinWidth="175" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="175" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <controls1:SpinnerPiston x:Name="SpinnerRPTPagosRemotos" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="45"
+                                                Height="40"
+                                                Visibility="{Binding LoadingRPTPagosRemotos}"
+                                                Margin="-15 0 0 0"/>
+                            <materialDesign:PackIcon Kind="Receipt" Visibility="{Binding IconRPTPagosRemotos}" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[7].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{DynamicResource btn-primary}" Grid.Column="2" MinWidth="175" FocusVisualStyle="{DynamicResource FocusReportes}" Click="reporteid_Click" HorizontalContentAlignment="Left" Width="175" HorizontalAlignment="Stretch" Command="{Binding ObtenerReportes}" Height="30" Margin="2,3,2,0" VerticalAlignment="Top" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <materialDesign:PackIcon Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
+                            <controls1:SpinnerPiston x:Name="SpinnerRPTListPremios" Background="Transparent"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center" 
+                                                Width="45"
+                                                Height="40"
+                                                Visibility="{Binding LoadingRPTListPremiosGanadores}"
+                                                Margin="-15 0 0 0"/>
+                            <materialDesign:PackIcon Visibility="{Binding IconRPTListPremiosGanadores}" Kind="Receipt" Margin="0 0 1 0" VerticalAlignment="Top" Width="20" Height="20" Foreground="White"/>
                             <TextBlock Text="{Binding  Reportes[8].Nombre}" Foreground="White" VerticalAlignment="Top"/>
                         </StackPanel>
                     </Button>

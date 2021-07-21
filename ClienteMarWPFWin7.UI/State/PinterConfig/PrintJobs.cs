@@ -1301,6 +1301,225 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             return j;
         }
 
+        internal static List<string[,]> PrintGeneralReportes(ReportesGeneralesReportes Reporte, IAuthenticator autenticador,bool RangoFecha=false)
+        {
+            var j = new List<string[,]>();
+            string[,] arrayString = new string[1,1];
+
+            string NombreBanca = autenticador.BancaConfiguracion.BancaDto.BanNombre + " ID:" + autenticador.BancaConfiguracion.BancaDto.BancaID;
+            arrayString.SetValue(NombreBanca.Trim(),0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+
+            arrayString.SetValue(Reporte.NombreReporte.Trim(), 0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+            
+            string FechaCreacion = (DateTime.Now.ToString("dd-MMM-yyyy hh:mm tt").ToString());
+            arrayString.SetValue(FechaCreacion.Trim(),0, 0);
+            j.Add(arrayString);
+            arrayString = new string[1, 1];
+
+            if (RangoFecha == false)
+            {
+                arrayString = new string[1, 1];
+                arrayString.SetValue("Del Dia " + Reporte.FechaReporte.ToString("dd-MMM-yyyy").Trim(), 0, 0);
+                j.Add(arrayString);
+                arrayString = new string[1, 1];
+            }
+
+            if (RangoFecha==true)
+            {
+                arrayString = new string[1, 1];
+
+                arrayString.SetValue("Desde " + Reporte.Desde.ToString("dd-MMM-yyyy").Trim(), 0, 0);
+                j.Add(arrayString);
+                arrayString = new string[1, 1];
+                arrayString.SetValue("Hasta " + Reporte.Hasta.ToString("dd-MMM-yyyy").Trim(), 0, 0);
+                j.Add(arrayString);
+                arrayString = new string[1, 1];
+            }
+            
+            if (Reporte.Loteria != null)
+            {
+                arrayString.SetValue("Loteria: " + Reporte.Loteria.Trim(), 0, 0);
+                j.Add(arrayString);
+                arrayString = new string[1, 1];
+            }
+            
+
+
+            string Espacion = ".";
+            arrayString.SetValue(Espacion, 0, 0);
+            j.Add(arrayString);
+            arrayString = new string[1,Reporte.Headers.Count()];
+            if (Reporte.Headers.Count() > 1)
+            {
+                for (var i=0;i< Reporte.Headers.Count();i++)
+                {
+                   arrayString.SetValue(Reporte.Headers[i],0, i);
+                }
+                j.Add(arrayString);
+                arrayString = new string[Reporte.Data.Count(),Reporte.Headers.Count()];
+            }
+
+            if (Reporte.Data.Count() > 1)
+            {
+                for (var i = 0; i < Reporte.Data.Count(); i++)
+                {
+                    var columnas = Reporte.Data[i].Length;
+                    arrayString = new string[1, columnas];
+                    for (var p = 0; p < columnas; p++)
+                    {
+                        arrayString.SetValue(Reporte.Data[i][p], 0, p);
+                    }
+                    j.Add(arrayString);
+                }
+                arrayString = new string[1, Reporte.Headers.Count()];
+            }
+            if (Reporte.Totals.Count() > 1)
+            {
+                for (var i = 0; i < Reporte.Totals.Count(); i++)
+                {
+                    arrayString.SetValue(Reporte.Totals[i], 0, i);
+                }
+                j.Add(arrayString);
+                arrayString = new string[1, Reporte.Headers.Count()];
+            }
+            arrayString = new string[1, 1];
+            arrayString.SetValue(".", 0, 0);
+            j.Add(arrayString);
+            arrayString = new string[1, 1];
+
+            arrayString = new string[1, 1];
+            arrayString.SetValue(".", 0, 0);
+            j.Add(arrayString);
+            arrayString = new string[1, 1];
+            return j;
+        }
+
+        internal static List<string[,]> PrintGeneralJugadas(ReportesGeneralesJugadas Jugadas, IAuthenticator autenticador,bool Reimprimir=false)
+        {
+            var j = new List<string[,]>();
+            string[,] arrayString = new string[1,1];
+            
+            string NombreBanca = autenticador.BancaConfiguracion.BancaDto.BanNombre;
+            arrayString.SetValue(NombreBanca.Trim(), 0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            string Telefono = autenticador.BancaConfiguracion.BancaDto.BanTelefono;
+            arrayString.SetValue(Telefono.Trim(), 0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            string Direccion = autenticador.BancaConfiguracion.BancaDto.BanDireccion;
+            arrayString.SetValue(Direccion.Trim(), 0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            string Fecha = Jugadas.Fecha.ToString("dd-MMM-yyyy")+" "+Jugadas.Hora.ToString("hh:mm tt") ;
+            arrayString.SetValue(Fecha.Trim(), 0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            if (Reimprimir == true)
+            {
+                arrayString = new string[1, 4];
+                arrayString.SetValue("----------", 0, 0);
+                arrayString.SetValue("----------", 0, 1);
+                arrayString.SetValue("----------", 0, 2);
+                arrayString.SetValue("----------", 0, 3);
+                j.Add(arrayString);
+                arrayString = new string[1, 1];
+                arrayString.SetValue("** COPIA REIMPRESA **", 0, 0);
+                j.Add(arrayString);
+                arrayString = new string[1, 1];
+            }
+
+            arrayString = new string[1, 4];
+            arrayString.SetValue("----------", 0, 0);
+            arrayString.SetValue("----------", 0, 1);
+            arrayString.SetValue("----------", 0, 2);
+            arrayString.SetValue("----------", 0, 3);
+            j.Add(arrayString);
+            arrayString = new string[1,2];
+
+            if (Jugadas.Multiples)
+            {
+                for (var i=0;i < Jugadas.TicketAndPin.Count(); i++)
+                {
+                    var ticketAndPin = Jugadas.TicketAndPin[i];
+                    arrayString = new string[1, ticketAndPin.Count()];
+                    for (var u = 0; u < ticketAndPin.Count(); u++)
+                    {
+                        arrayString.SetValue(ticketAndPin[u], 0, u);
+                    }
+                    j.Add(arrayString);
+                }
+            }
+            else
+            {
+                arrayString = new string[1,1];
+                arrayString.SetValue("L: " + Jugadas.onlyLoteria, 0,0);
+                j.Add(arrayString);
+                arrayString = new string[1, 2];
+                arrayString.SetValue("T: "+Jugadas.onlyTicket, 0,0);
+                arrayString.SetValue("P: " + Jugadas.onlyPin, 0, 1);
+                j.Add(arrayString);
+                arrayString = new string[1,1];  
+            }
+
+            arrayString = new string[1, 4];
+            arrayString.SetValue("----------", 0,0);
+            arrayString.SetValue("----------", 0, 1);
+            arrayString.SetValue("----------", 0, 2);
+            arrayString.SetValue("----------", 0, 3);
+            j.Add(arrayString);
+            arrayString = new string[1,2];
+
+            arrayString.SetValue("JUGADA", 0,0); arrayString.SetValue("MONTO", 0, 1);
+            j.Add(arrayString);
+            arrayString = new string[1,2];
+            
+            for (var i=0;i < Jugadas.Jugadas.Count();i++)
+            {
+                var jugadas = Jugadas.Jugadas[i];
+                arrayString = new string[1, jugadas.Count()];
+                for (var u=0; u < jugadas.Count();u++ )
+                {
+                  arrayString.SetValue(jugadas[u],0,u);
+                }
+                j.Add(arrayString);
+            }
+
+            arrayString = new string[1, 4];
+            arrayString.SetValue("----------", 0, 0);
+            arrayString.SetValue("----------", 0, 1);
+            arrayString.SetValue("----------", 0, 2);
+            arrayString.SetValue("----------", 0, 3);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            arrayString.SetValue(Jugadas.Total, 0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            arrayString.SetValue(Jugadas.Firma, 0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            arrayString.SetValue(Jugadas.Mensaje, 0, 0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            arrayString.SetValue(".", 0,0);
+            j.Add(arrayString);
+            arrayString = new string[1,1];
+
+            return j;
+        }
 
     }
 }
