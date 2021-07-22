@@ -30,7 +30,7 @@ namespace ClienteMarWPFWin7.Data.Services
         public static mar_bingoSoapClient bingoSrv;
         public ProductoViewModel ProductoSelected;
         public ProductoViewModelResponse productosDisponibles;
-        public static CincoMinutosRequestModel.DetalleJugadas DetalleJugadas = new CincoMinutosRequestModel.DetalleJugadas();
+        public CincoMinutosRequestModel.DetalleJugadas DetalleJugadas = new CincoMinutosRequestModel.DetalleJugadas();
 
         static CincoMinutosDataService()
         {
@@ -192,7 +192,7 @@ namespace ClienteMarWPFWin7.Data.Services
             }
         }
 
-        public static ConsultaPagoResponseModel RealizaPagoGanador(string pTicket, string pPin, decimal pSaco, CuentaDTO cuenta)
+        public static ConsultaPagoResponseModel RealizaPagoGanador(string pTicket, string pPin, decimal pSaco, CuentaDTO cuenta, DetalleJugadas detalle)
         {
             var sessionBingo = new ClienteMarWPFWin7.Domain.BingoService.MAR_Session();
 
@@ -213,10 +213,8 @@ namespace ClienteMarWPFWin7.Data.Services
                 paramsApuesta.Add(pTicket);
                 paramsApuesta.Add(pPin);
                 paramsApuesta.Add(pSaco);
-                var jugadasGanadoras = JsonConvert.SerializeObject(DetalleJugadas.Juego);
-                string[] jugadas = jugadasGanadoras.Split('[', ']');
-
-                paramsApuesta.Add(jugadas[1]);
+                var jugadasGanadoras = JsonConvert.SerializeObject(detalle);
+                paramsApuesta.Add(jugadasGanadoras);
 
                 var pResponse = bingoSrv.CallJuegaMaxIndexFunction(20, sessionBingo, paramsApuesta, 0);
                 var pagoGanador = JsonConvert.DeserializeObject<ConsultaPagoResponseModel>(pResponse.Respuesta, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });

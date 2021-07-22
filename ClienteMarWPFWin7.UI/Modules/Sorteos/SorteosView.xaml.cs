@@ -217,7 +217,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     var clonLoterias = ConvertToObservables(SessionGlobals.LoteriasDisponibles);
                     var clonSuperPales = ConvertToObservablesSuperPales(SessionGlobals.SuperPaleDisponibles);
 
-                    SoloLoteriasExistentes.Add(0);
                     foreach (var loteria in clonLoterias)
                     {
                         SoloLoteriasExistentes.Add(loteria.LoteriaID);

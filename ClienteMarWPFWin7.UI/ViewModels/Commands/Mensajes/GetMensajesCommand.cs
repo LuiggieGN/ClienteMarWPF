@@ -1,5 +1,6 @@
 ﻿
 #region Namespaces
+using ClienteMarWPFWin7.Data;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using ClienteMarWPFWin7.Domain.Services.MensajesService;
 using ClienteMarWPFWin7.UI.Modules.Mensajeria;
@@ -7,6 +8,7 @@ using ClienteMarWPFWin7.UI.State.Authenticators;
 using ClienteMarWPFWin7.UI.ViewModels.ModelObservable;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Threading;
 #endregion
 
@@ -40,7 +42,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 
             Timer = new DispatcherTimer();
             Timer.Tick += (sender, args) => BuscaMensajes(sender);
-            Timer.Interval = TimeSpan.FromSeconds(1);
+            Timer.Interval = TimeSpan.FromSeconds(10);
             Timer.Start();
         }
 
@@ -68,30 +70,52 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
                         pilaMensajes.Push(mensajes[indiceMensaje]);
                     }
 
-                    ViewModel.Mensajes.Clear();
 
-                    foreach (var item in pilaMensajes)
+                    if (ViewModel.Mensajes.Count < pilaMensajes.Count)
                     {
-                        ViewModel.Mensajes.Add(
-                            new ChatMensajeObservable
+                        ViewModel.Mensajes.Clear();
+
+                        foreach (var item in pilaMensajes)
+                        {
+                            ViewModel.Mensajes.Add(
+                                new ChatMensajeObservable
+                                {
+                                    BancaID = item.BancaID,
+                                    MensajeID = item.MensajeID,
+                                    Tipo = item.Tipo,
+                                    Asunto = item.Asunto,
+                                    Contenido = item.Contenido,
+                                    Fecha = item.Fecha,
+                                    Hora = item.Hora,
+                                    Origen = item.Origen,
+                                    Destino = item.Destino,
+                                    Leido = item.Leido,
+                                    SinLeerTotal = item.SinLeerTotal,
+                                    EsMiMensaje = item.BancaID == _idbanca ? Si : No
+                                });
+                        }
+
+                        
+                        ViewModel.RegistrarCambiosEnColeccionDeMensajes();
+
+                        foreach(var item in pilaMensajes)
+                        {
+                            if (!item.Leido && item.BancaID != SessionGlobals.cuentaGlobal.MAR_Setting2.Sesion.Banca)
                             {
-                                BancaID = item.BancaID,
-                                MensajeID = item.MensajeID,
-                                Tipo = item.Tipo,
-                                Asunto = item.Asunto,
-                                Contenido = item.Contenido,
-                                Fecha = item.Fecha,
-                                Hora = item.Hora,
-                                Origen = item.Origen,
-                                Destino = item.Destino,
-                                Leido = item.Leido,
-                                SinLeerTotal = item.SinLeerTotal,
-                                EsMiMensaje = item.BancaID == _idbanca ? Si : No
-                            });
+                                NotificacionMensajeWindow modal = new NotificacionMensajeWindow();
+                                modal.ShowDialog();
+                                //(Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Tienes mensajes nuevos", "Aviso");
+                            }
+
+                        }
+
+                    }
+                    else
+                    {
+                        return;
                     }
 
 
-                    ViewModel.RegistrarCambiosEnColeccionDeMensajes();
 
                     #endregion
                 }
