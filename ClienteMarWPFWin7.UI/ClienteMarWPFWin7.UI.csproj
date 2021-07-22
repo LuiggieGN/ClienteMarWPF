@@ -175,6 +175,9 @@
       <DependentUpon>EnLinea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\EnLinea\EnLineaViewModel.cs" />
+    <Compile Include="Modules\Mensajeria\NotificacionMensajeWindow.xaml.cs">
+      <DependentUpon>NotificacionMensajeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="State\Accounts\AccountStore.cs" />
     <Compile Include="State\Accounts\GestorStore.cs" />
     <Compile Include="State\Accounts\IAccountStore.cs" />
@@ -441,6 +444,10 @@
     <Page Include="Modules\Home\HomeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Mensajeria\NotificacionMensajeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\PegaMas\PegaMasView.xaml">
       <Generator>MSBuild:Compile</Generator>

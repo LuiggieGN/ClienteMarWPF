@@ -32,6 +32,7 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
 
         private bool AnularThreadIsBusy = false;
         private bool ConsultarThreadIsBusy = false;
+        private DetalleJugadas Detalle;
 
         public ConsultaCincoMinutos()
         {
@@ -110,19 +111,24 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
         {
             try
             {
+                
+                var pago = ClienteMarWPFWin7.Data.Services.CincoMinutosDataService.RealizaPagoGanador(txtTicket.Text, txtPin.Text, decimal.Parse(lblTotal.Content.ToString().Replace("$", "")), SessionGlobals.cuentaGlobal, Detalle);
+                
+                if(pago != null)
+                {
+                    if (pago.RespuestaApi.CodigoRespuesta == "100")
+                    {
+                        PrintOutHelper.SendToPrinter(pago.PrintData);
+                        MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
+                        MensajesAlerta("El pago fue aprobado exitosamente");
+                        MostrarConsultarPagar(false);
+                    }
+                    else
+                    {
+                        MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
+                    }
+                }
 
-                var pago = ClienteMarWPFWin7.Data.Services.CincoMinutosDataService.RealizaPagoGanador(txtTicket.Text, txtPin.Text, decimal.Parse(lblTotal.Content.ToString().Replace("$", "")), SessionGlobals.cuentaGlobal);
-                if (pago.RespuestaApi.CodigoRespuesta == "100")
-                {
-                    PrintOutHelper.SendToPrinter(pago.PrintData);
-                    MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
-                    MensajesAlerta("El pago fue aprobado exitosamente");
-                    MostrarConsultarPagar(false);
-                }
-                else
-                {
-                    MensajesAlerta(pago.RespuestaApi.MensajeRespuesta);
-                }
             }
             catch (Exception e)
             {
@@ -206,8 +212,8 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
                             //decimal bancaBalance = CuadreLogic.GetBancaACuadrarMontoReal(SessionGlobals.cuentaGlobal.MAR_Setting2.Sesion.Banca); PENDIENTE VALIDAR SI TIENE CONTROL DE EFECTIVO
                             var saco = consultaPago.RespuestaApi.TicketDetalle.Sum(x => x.Saco);
 
-
-                            ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel.DetalleJugadas.Juego = new List<ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel.JuegoPago>();
+                            var detalle = new DetalleJugadas();
+                            detalle.Juego = new List<ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel.JuegoPago>();
                             foreach (var item in consultaPago.RespuestaApi.TicketDetalle)
                             {
                                 if (item.Jugada.Length < 3)
@@ -222,7 +228,7 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
                                 {
                                     item.TipoJugadaID = 3;
                                 }
-                                ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel.DetalleJugadas.Juego.Add(new ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel.JuegoPago
+                                detalle.Juego.Add(new ClienteMarWPFWin7.Domain.Models.Dtos.CincoMinutosRequestModel.JuegoPago
                                 {
                                     Codigo = item.Codigo,
                                     Jugada = item.Jugada,
@@ -231,6 +237,8 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
                                     TipoJugadaID = item.TipoJugadaID
                                 });
                             }
+
+                            this.Detalle = detalle;
 
                             if ((decimal)saco < 1)// desactivado hasta nuevo aviso bancaBalance < (decimal)saco)
                             {
