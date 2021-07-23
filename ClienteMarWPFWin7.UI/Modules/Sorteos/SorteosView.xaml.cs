@@ -2917,7 +2917,6 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
 
         //private void sorteosSeleccionados_MouseDoubleClick(object sender, MouseButtonEventArgs e)
