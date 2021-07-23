@@ -26,6 +26,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
 
         private void botonConfirmar_Click(object sender, RoutedEventArgs e)
         {
+            MainWindowViewModel.TimerConsultaMensaje.Start();
             this.Close();
         }
     }

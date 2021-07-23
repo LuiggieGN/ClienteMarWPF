@@ -108,6 +108,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Login
                 autenticador.IsLoggedIn = true;
 
                 navegaAppVistaInicial.Renavigate();
+              
+                try
+                {
+                    MainWindowViewModel.TimerConsultaMensaje.Start();
+                }
+                catch
+                {
+
+                }
 
                 try
                 {

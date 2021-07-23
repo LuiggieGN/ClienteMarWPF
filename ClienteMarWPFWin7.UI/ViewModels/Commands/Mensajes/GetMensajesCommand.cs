@@ -42,7 +42,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 
             Timer = new DispatcherTimer();
             Timer.Tick += (sender, args) => BuscaMensajes(sender);
-            Timer.Interval = TimeSpan.FromSeconds(10);
+            Timer.Interval = TimeSpan.FromSeconds(1);
             Timer.Start();
         }
 
@@ -97,17 +97,6 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Mensajes
 
                         
                         ViewModel.RegistrarCambiosEnColeccionDeMensajes();
-
-                        foreach(var item in pilaMensajes)
-                        {
-                            if (!item.Leido && item.BancaID != SessionGlobals.cuentaGlobal.MAR_Setting2.Sesion.Banca)
-                            {
-                                NotificacionMensajeWindow modal = new NotificacionMensajeWindow();
-                                modal.ShowDialog();
-                                //(Application.Current.MainWindow as ClienteMarWPFWin7.UI.MainWindow).MensajesAlerta("Tienes mensajes nuevos", "Aviso");
-                            }
-
-                        }
 
                     }
                     else

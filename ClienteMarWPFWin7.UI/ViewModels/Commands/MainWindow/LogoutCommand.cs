@@ -73,6 +73,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.MainWindow
                 Mensajes.GetMensajesCommand.Timer.Stop();
                 Mensajes.GetMensajesCommand.Timer = null;
             }
+
+            if (MainWindowViewModel.TimerConsultaMensaje != null)
+            {
+                MainWindowViewModel.TimerConsultaMensaje.Stop();
+                MainWindowViewModel.TimerConsultaMensaje = null;
+            }
         }
 
 
