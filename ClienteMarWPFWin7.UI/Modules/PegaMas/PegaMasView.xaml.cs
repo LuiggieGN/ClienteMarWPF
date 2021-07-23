@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Windows.Media;
+using ClienteMarWPFWin7.UI.Modules.CincoMinutos;
 #endregion
 
 namespace ClienteMarWPFWin7.UI.Modules.PegaMas
@@ -237,6 +238,19 @@ namespace ClienteMarWPFWin7.UI.Modules.PegaMas
 
         }// EscrolearHaciaAbajoGridJugdas ( )
 
+        private void Consultar(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ConsultaCincoMinutos modal = new ConsultaCincoMinutos();
+                modal.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
     }//Clase
 
 }

@@ -27,14 +27,28 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
         {
             if (vm.Jugadas != null && vm.Jugadas.Count > 0)
             {
-                vm.Jugadas.Clear();
-                vm.CalcularMontoTotalJugadoCommand?.Execute(null);
+                LimpiarEntradas();
+                LimpiarJugadas();
                 vm.TriggerJugadasUpd();
                 vm.FocusEnPrimerInput?.Invoke();
             }
+
         }
 
+        private void LimpiarEntradas() 
+        {
+            vm.D1 = string.Empty;
+            vm.D2 = string.Empty;
+            vm.D3 = string.Empty;
+            vm.D4 = string.Empty;
+            vm.D5 = string.Empty;
+        }
 
+        private void LimpiarJugadas() 
+        {
+            vm.Jugadas.Clear();
+            vm.CalcularMontoTotalJugadoCommand?.Execute(null);
+        }
 
 
     }// Clase

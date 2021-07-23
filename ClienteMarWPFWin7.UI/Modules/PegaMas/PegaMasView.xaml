@@ -345,7 +345,8 @@
                             Foreground="White"
                             Width="177" 
                             Height="40"
-                            Margin="5 0">
+                            Margin="5 0"
+                            Click="Consultar">
                             <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
