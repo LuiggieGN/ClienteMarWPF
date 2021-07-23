@@ -386,6 +386,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                 s.GetRequiredService<IRutaService>(),
                 s.GetRequiredService<ICuadreBuilder>(),
                 s.GetRequiredService<ILocalClientSettingStore>(),
+                s.GetRequiredService<IMensajesService>(),
                 inicioDto,
                 reInicioApp,
                 aplicativo

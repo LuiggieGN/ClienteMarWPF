@@ -37,7 +37,7 @@
                                    FontWeight="Bold"
                                    TextWrapping="Wrap" 
                                    Margin="15 10 20 15"
-                                   Text="Ha recibido un mensaje nuevo, presione F10 o presione al modulo de mensajeria para revisar el mensaje." Foreground="Black" FontSize="18" VerticalAlignment="Center" Width="497" Height="51"/>
+                                   Text="Tiene mensaje(s) nuevo(s),vaya al modulo de mensajeria para revisar el/los mensaje(s)." Foreground="Black" FontSize="18" VerticalAlignment="Center" Width="497" Height="51"/>
 
 
                         </StackPanel>

@@ -22,6 +22,10 @@ using ClienteMarWPFWin7.Domain.Services.RutaService;
 using ClienteMarWPFWin7.Domain.Services.CuadreService;
 using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.CuadreLogin;
 using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Cuadre.Windows.Cuadre;
+using System.Windows.Threading;
+using ClienteMarWPFWin7.Domain.Services.MensajesService;
+using ClienteMarWPFWin7.UI.Modules.Mensajeria;
+using System.Linq;
 
 namespace ClienteMarWPFWin7.UI
 {
@@ -55,6 +59,8 @@ namespace ClienteMarWPFWin7.UI
         public IRutaService RutaService => _rutaService;
         public ICuadreBuilder CuadreBuilder => _cuadreBuilder;
         public ILocalClientSettingStore LocalClientSetting => _localClientSetting;
+
+        private readonly IMensajesService MensajesService;
         public InicioPCResultDTO InicioPC => _inicioPC;
         public Action ReIniciarApp { get; }
         public App Aplicacion { get; }
@@ -75,10 +81,11 @@ namespace ClienteMarWPFWin7.UI
                                    IRutaService rutaService,
                                    ICuadreBuilder cuadreBuilder,
                                    ILocalClientSettingStore localClientSetting,
+                                   IMensajesService mensajesService,
                                    InicioPCResultDTO inicioPC,
                                    Action reInicioApp,
                                    App aplicativo
-            
+
             )
         {
 
@@ -102,11 +109,12 @@ namespace ClienteMarWPFWin7.UI
             _rutaService = rutaService;
             _cuadreBuilder = cuadreBuilder;
             _localClientSetting = localClientSetting;
-            
+            MensajesService = mensajesService;
+
             _inicioPC = inicioPC;
-            
+
             ReIniciarApp = reInicioApp;
-            
+
             Aplicacion = aplicativo;
 
             LogoutCommand = new LogoutCommand(_autenticador, _navegadordeModulos, _factoriaViewModel);
@@ -118,12 +126,21 @@ namespace ClienteMarWPFWin7.UI
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(_navegadordeModulos, _factoriaViewModel);
             UpdateCurrentViewModelCommand.Execute(Modulos.Login);
 
+            if (TimerConsultaMensaje != null)
+            {
+                TimerConsultaMensaje.Stop();
+                TimerConsultaMensaje = null;
+            }
+
+            TimerConsultaMensaje = new DispatcherTimer();
+            TimerConsultaMensaje.Tick += (sender, args) => CuentaMensaje();
+            TimerConsultaMensaje.Interval = TimeSpan.FromSeconds(10);
 
 
         }
 
 
-
+        #region metodos
         private void AccountStateChanged()
         {
             NotifyPropertyChanged(nameof(EstaLogueado),
@@ -154,13 +171,90 @@ namespace ClienteMarWPFWin7.UI
         }
 
 
+        #endregion
 
 
 
 
+        private void CuentaMensaje()
+        {
+
+            if (!CantidadMensajesEnviadoPorOtro.HasValue)
+            {
+                try
+                {
+                    if (_autenticador != null && _autenticador.CurrentAccount != null && _autenticador.CurrentAccount.MAR_Setting2 != null)
+                    {
+                        var mensajes = MensajesService.GetMessages(_autenticador.CurrentAccount.MAR_Setting2.Sesion).msj;
+                        if (mensajes == null || mensajes.Length == 0)
+                        {
+                            CantidadMensajesEnviadoPorOtro = null;
+                        }
+                        else
+                        {
+                            int bancaid = _autenticador.BancaConfiguracion.BancaDto.BancaID;
+                            long cuentaSegunCondicion = mensajes.LongCount(x => x.BancaID != bancaid);
+                            CantidadMensajesEnviadoPorOtro = cuentaSegunCondicion == 0 ? null : (long?)cuentaSegunCondicion;
+                        }
+                    }
+
+                }
+                catch
+                {
+                    CantidadMensajesEnviadoPorOtro = null;
+                }
+
+            }
+            else
+            {
+
+                try
+                {
+                    if (!ConsultaMensajeIsBusy)
+                    {
+                        if (_autenticador != null && _autenticador.CurrentAccount != null && _autenticador.CurrentAccount.MAR_Setting2 != null)
+                        {
+
+                            long nuevosMensajes;
+                            ConsultaMensajeIsBusy = true;
 
 
+                            var mensajes = MensajesService.GetMessages(_autenticador.CurrentAccount.MAR_Setting2.Sesion).msj;
+                            if (mensajes == null || mensajes.Length == 0)
+                            {
+                                ConsultaMensajeIsBusy = false;
+                                return;
+                            }
+                            else
+                            {
+                                int bancaid = _autenticador.BancaConfiguracion.BancaDto.BancaID;
+                                nuevosMensajes = mensajes.LongCount(x => x.BancaID != bancaid);
+                                
+                            }
 
+                            if (nuevosMensajes > CantidadMensajesEnviadoPorOtro.Value)
+                            {
+                                TimerConsultaMensaje?.Stop();
+                                CantidadMensajesEnviadoPorOtro = nuevosMensajes;
+                                NotificacionMensajeWindow modal = new NotificacionMensajeWindow();
+                                modal.ShowDialog();
+                            }
+                            ConsultaMensajeIsBusy = false;
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        public static DispatcherTimer TimerConsultaMensaje { get; set; }
+        public static long? CantidadMensajesEnviadoPorOtro = null;
+        public static bool ConsultaMensajeIsBusy = false;
         public static CuadreLoginView CuadreV1 = null;
         public static CuadreView CuadreV2 = null;
 
