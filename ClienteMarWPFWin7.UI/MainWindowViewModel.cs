@@ -236,8 +236,12 @@ namespace ClienteMarWPFWin7.UI
                             {
                                 TimerConsultaMensaje?.Stop();
                                 CantidadMensajesEnviadoPorOtro = nuevosMensajes;
-                                NotificacionMensajeWindow modal = new NotificacionMensajeWindow();
+                                int bancaid = _autenticador.BancaConfiguracion.BancaDto.BancaID;
+                                var destino = mensajes.Where(x => x.BancaID != bancaid).Select(y => y.Origen);
+                                var contenido = mensajes.Where(x => x.BancaID != bancaid).Select(y => y.Contenido);
+                                NotificacionMensajeWindow modal = new NotificacionMensajeWindow(destino.ToArray()[0].ToString(),contenido.ToArray()[0].ToString());
                                 modal.ShowDialog();
+                                Console.WriteLine(modal);
                             }
                             ConsultaMensajeIsBusy = false;
 

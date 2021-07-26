@@ -11,36 +11,45 @@
         Background="Transparent"     
         WindowStartupLocation="CenterScreen"  
         WindowStyle="None"
-        Title="" Height="170" Width="600">
+        Title="" Height="250" Width="600">
 
-        <md:Card 
+    <md:Card 
               Padding="0"
               Background="{DynamicResource MaterialDesignCardBackground}"
               md:ShadowAssist.ShadowDepth="Depth1">
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="143*"/>
-                    <ColumnDefinition Width="7*"/>
-                </Grid.ColumnDefinitions>
-                <Border BorderThickness="0.5" BorderBrush="#000" Grid.ColumnSpan="2"   >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="143*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <Border BorderThickness="0.5" BorderBrush="#000" Grid.ColumnSpan="2"   >
 
 
-                    <StackPanel Orientation="Vertical" Margin="2,2,-2,-2">
+                <StackPanel Orientation="Vertical" Margin="2,2,-2,-2">
 
 
-                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0" RenderTransformOrigin="0.499,1.118">
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0" RenderTransformOrigin="0.499,1.118">
 
-                        <md:PackIcon Kind="Information" Margin="17 0 0 5" VerticalAlignment="Center" Width="30" Height="30" Foreground="#00e6e6"/>
+                        <md:PackIcon Kind="Information" Margin="17 0 0 5" VerticalAlignment="Center" Width="30" Height="30" Foreground="#ff0000"/>
 
-                            <TextBlock 
-                                   FontWeight="Bold"
+                        <TextBlock 
+                                   x:Name="Texto"
                                    TextWrapping="Wrap" 
                                    Margin="15 10 20 15"
-                                   Text="Tiene mensaje(s) nuevo(s),vaya al modulo de mensajeria para revisar el/los mensaje(s)." Foreground="Black" FontSize="18" VerticalAlignment="Center" Width="497" Height="51"/>
+                                   Foreground="Black" FontSize="18" VerticalAlignment="Center" Width="497" Height="84"/>
 
 
-                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="-5,-10,-10,-10">
+                        <TextBlock 
+                                   x:Name="Texto2"
+                                   TextWrapping="Wrap" 
+                                   FontWeight="Bold"
+                                   Margin="70,10,100,15"
+                                   Foreground="Black" FontSize="18" VerticalAlignment="Center" Height="49"/>
+                    </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <Button  
@@ -51,18 +60,18 @@
                                 Height="40" 
                                 Margin="200 10 10 10" Click="botonConfirmar_Click">
                             <StackPanel Orientation="Horizontal" >
-                                <TextBlock Text="Leido" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
+                                <TextBlock Text="Leido, ok" Foreground="White" FontSize="18" VerticalAlignment="Center"/>
                                 <md:PackIcon Kind="CheckAll" Margin="7 2 0 0" VerticalAlignment="Center" Width="20" Height="20" Foreground="White"/>
                             </StackPanel>
                         </Button>
 
                     </StackPanel>
 
-                    </StackPanel>
+                </StackPanel>
 
-                </Border>
-            </Grid>
+            </Border>
+        </Grid>
 
-        </md:Card>
+    </md:Card>
 
 </Window>

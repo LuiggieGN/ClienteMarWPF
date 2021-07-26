@@ -19,9 +19,11 @@ namespace ClienteMarWPFWin7.UI.Modules.Mensajeria
     /// </summary>
     public partial class NotificacionMensajeWindow : Window
     {
-        public NotificacionMensajeWindow()
+        public NotificacionMensajeWindow(string destino, string mensaje)
         {
             InitializeComponent();
+            Texto.Text = $"Mensaje nuevo \n \n Enviado por: {destino}";
+            Texto2.Text = $"Mensaje: {mensaje}";
         }
 
         private void botonConfirmar_Click(object sender, RoutedEventArgs e)
