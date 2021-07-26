@@ -134,7 +134,7 @@ namespace ClienteMarWPFWin7.UI
 
             TimerConsultaMensaje = new DispatcherTimer();
             TimerConsultaMensaje.Tick += (sender, args) => CuentaMensaje();
-            TimerConsultaMensaje.Interval = TimeSpan.FromSeconds(10);
+            TimerConsultaMensaje.Interval = TimeSpan.FromMinutes(2);
 
 
         }
