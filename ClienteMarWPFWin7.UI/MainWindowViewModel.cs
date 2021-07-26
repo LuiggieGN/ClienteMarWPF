@@ -132,13 +132,8 @@ namespace ClienteMarWPFWin7.UI
                 TimerConsultaMensaje = null;
             }
 
-            TimerConsultaMensaje = new DispatcherTimer();
-            TimerConsultaMensaje.Tick += (sender, args) => CuentaMensaje();
-            TimerConsultaMensaje.Interval = TimeSpan.FromMinutes(2);
-
-
+            Crear_Contador_Mensajes_Enviados_Timer();
         }
-
 
         #region metodos
         private void AccountStateChanged()
@@ -173,8 +168,12 @@ namespace ClienteMarWPFWin7.UI
 
         #endregion
 
-
-
+        public void Crear_Contador_Mensajes_Enviados_Timer()
+        {
+            TimerConsultaMensaje = new DispatcherTimer();
+            TimerConsultaMensaje.Tick += (sender, args) => CuentaMensaje();
+            TimerConsultaMensaje.Interval = TimeSpan.FromMinutes(2);
+        }
 
         private void CuentaMensaje()
         {
@@ -229,7 +228,7 @@ namespace ClienteMarWPFWin7.UI
                             {
                                 int bancaid = _autenticador.BancaConfiguracion.BancaDto.BancaID;
                                 nuevosMensajes = mensajes.LongCount(x => x.BancaID != bancaid);
-                                
+
                             }
 
                             if (nuevosMensajes > CantidadMensajesEnviadoPorOtro.Value)
@@ -239,9 +238,8 @@ namespace ClienteMarWPFWin7.UI
                                 int bancaid = _autenticador.BancaConfiguracion.BancaDto.BancaID;
                                 var destino = mensajes.Where(x => x.BancaID != bancaid).Select(y => y.Origen);
                                 var contenido = mensajes.Where(x => x.BancaID != bancaid).Select(y => y.Contenido);
-                                NotificacionMensajeWindow modal = new NotificacionMensajeWindow(destino.ToArray()[0].ToString(),contenido.ToArray()[0].ToString());
+                                NotificacionMensajeWindow modal = new NotificacionMensajeWindow(destino.ToArray()[0].ToString(), contenido.ToArray()[0].ToString());
                                 modal.ShowDialog();
-                                Console.WriteLine(modal);
                             }
                             ConsultaMensajeIsBusy = false;
 

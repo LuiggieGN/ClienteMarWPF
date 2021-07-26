@@ -111,13 +111,22 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Login
               
                 try
                 {
-                    if (MainWindowViewModel.TimerConsultaMensaje == null)
-                    {
+                    var vPrincipal = Application.Current.MainWindow;
 
+                    if (vPrincipal != null)
+                    {
+                        var vPrincipalContexto = vPrincipal.DataContext as MainWindowViewModel;
+
+                        if (vPrincipalContexto != null && MainWindowViewModel.TimerConsultaMensaje == null)
+                        {
+                            vPrincipalContexto.Crear_Contador_Mensajes_Enviados_Timer();
+                        }
                     }
 
-
-                    MainWindowViewModel.TimerConsultaMensaje.Start();
+                    if (MainWindowViewModel.TimerConsultaMensaje != null)
+                    {
+                        MainWindowViewModel.TimerConsultaMensaje.Start();
+                    }
                 }
                 catch
                 {
@@ -140,18 +149,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Login
                 {
                     
                 }
-            }
+
+            }//If loginSucces
+
+        }// worker_RunWorkerCompleted( )
 
 
 
 
 
-        }
 
+    }// LoginCommand
 
-
-
-
-    }// fin de Clase LoginCommand
-
-}// fin de namespace 
+}// Namespace
