@@ -1975,15 +1975,15 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
 
                     try
                     {
-                        for (int i = 0; i < ListSorteosVender.Count; i++)
+                        for (int i = 0; i < sorteoviewmodel.LoteriasMultiples.Count; i++)
                         {
 
-                            RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = ListSorteosVender[i].Sorteo.LoteriaID });
+                            RealizarApuestaCommand.Execute(new ApuestaResponse { Jugadas = ListJugadas, LoteriaID = sorteoviewmodel.LoteriasMultiples[i] });
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        Console.WriteLine(ex.Message);
                     }
 
                     ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos.RealizarApuestaCommand.loteriasNoDisponiblesParaApuesta = new List<string>();
