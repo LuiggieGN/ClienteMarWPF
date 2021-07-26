@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.CincoMinutos"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:controls1="clr-namespace:ClienteMarWPFWin7.UI.Views.Controls"
         mc:Ignorable="d"
-        Title="Consulta de cinco minutos" Height="550" Width="800" 
+        Title="Consulta de cinco minutos" Height="600" Width="800" 
          PreviewKeyDown="PressTeclaOperation" Loaded="SelectCampo" WindowStartupLocation="CenterOwner">
     <Grid Background="#E2E7EC" Margin="0,0,-0.4,-21">
         <Grid.ColumnDefinitions>
@@ -50,7 +50,7 @@
             <StackPanel Margin="35 0 0 5">
                 <TextBox
                         Background="White"
-                        Name="txtPin"
+                        x:Name="txtPin"
                         materialDesign:HintAssist.Hint="Pin"
                         materialDesign:HintAssist.FloatingScale="0.90"
                         Width="130"                            
@@ -63,8 +63,8 @@
                         />
             </StackPanel>
         </WrapPanel>
-                
-        <Button Click="btnCloseWindows" Style="{DynamicResource btn-warning}" Grid.Row="3" Grid.Column="1" Margin="0,16.8,49.6,12" Width="100" Content="Cerrar ESC" Foreground="Black" HorizontalAlignment="Right"/>
+
+        <Button Click="btnCloseWindows" Style="{DynamicResource btn-warning}" Grid.Row="3" Grid.Column="1" Margin="0,15.8,110.6,13" Width="100" Content="Cerrar ESC" Foreground="Black" HorizontalAlignment="Right"/>
         <!--<StackPanel x:Name="stkBotones" Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center"  Width="500" Margin="105,10.8,188.6,8.8"  >
             <Button Click="btnImprimir" Style="{DynamicResource btn-dark}" Margin="5,5,5,4.6"  Width="120" Content="Imprimir F12" Foreground="White" />
             <Button Click="btnAnular" Style="{DynamicResource btn-danger}" Margin="5 5 5 5"  Width="120" Content="Anular F6" Foreground="White"/>
@@ -73,13 +73,6 @@
         </StackPanel>-->
 
         <StackPanel x:Name="stkBotones" Width="500" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="105,10.8,188.6,8.8">
-
-            <Button Click="btnImprimir" Style="{DynamicResource btn-dark}" Margin="5,5,5,4.6"  Width="140" Foreground="White">
-                <StackPanel Orientation="Horizontal" >
-                    <materialDesign:PackIcon Kind="Printer" VerticalAlignment="Center" Width="20" Height="20" />
-                    <TextBlock Text=" Imprimir F12"  VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
 
             <Button Click="btnAnular" Style="{DynamicResource btn-danger}" Margin="5 5 5 5"  Width="140" Foreground="White" >
                 <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
@@ -124,7 +117,7 @@
             </Button>
 
             <Button Style="{DynamicResource btn-success}" Margin="5 5 5 5"  x:Name="btnPagar" Visibility="Collapsed" Width="120" Content="Pagar F5" Foreground="White" />
-            
+
         </StackPanel>
 
 
@@ -143,7 +136,7 @@
         </StackPanel>
 
         <StackPanel x:Name="stkDetalle"  Grid.Row="4" Grid.ColumnSpan="2">
-            <TextBlock Text="Detalle de Apuesta" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+            <TextBlock FontWeight="Bold" FontSize="20" Text="Detalles de apuesta" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="-50,0,346.6,10"  />
             <DataGrid x:Name="tbApuesta" ColumnWidth="*"  Width="570"  Height="190" HorizontalContentAlignment="Center" FontSize="16" IsReadOnly="True" />
 
             <Border  BorderBrush="Gray" CornerRadius="3" BorderThickness="1" VerticalAlignment="Top" Height="40" Width="300" HorizontalAlignment="Center" Margin="0 10">
