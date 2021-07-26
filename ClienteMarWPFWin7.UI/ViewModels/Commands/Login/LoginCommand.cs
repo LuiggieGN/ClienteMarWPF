@@ -111,6 +111,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Login
               
                 try
                 {
+                    if (MainWindowViewModel.TimerConsultaMensaje == null)
+                    {
+
+                    }
+
+
                     MainWindowViewModel.TimerConsultaMensaje.Start();
                 }
                 catch
