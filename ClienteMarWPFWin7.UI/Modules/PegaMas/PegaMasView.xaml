@@ -33,8 +33,8 @@
         <md:Card
                  Grid.Row="1"
                  MaxWidth="840"
-                 MinHeight="700"
-                 Margin="5 50 5 5"
+                 MinHeight="640"
+                 Margin="5 25 5 5"
                  Background="{DynamicResource PrimaryHueMidBrush}"
                  md:ShadowAssist.ShadowDepth="Depth5">
 
@@ -225,7 +225,7 @@
                            Background="#0e0e0e"
                            Padding="14 7 0 7"/>
                     
-                    <ScrollViewer   Height="250" 
+                    <ScrollViewer   Height="210" 
                                     VerticalScrollBarVisibility="Auto"
                                     HorizontalScrollBarVisibility="Disabled">
                         <DataGrid x:Name ="GridJugadas" 
@@ -332,7 +332,8 @@
                             Foreground="White"                        
                             Width="177"  
                             Height="40"
-                            Margin="5 0">
+                            Margin="5 0"
+                            Click="Consultar">
                             <StackPanel Orientation="Horizontal" >
                                 <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center" Width="20" Height="20" />
                                 <TextBlock Text="Consulta"  VerticalAlignment="Center"/>
@@ -346,7 +347,7 @@
                             Width="177" 
                             Height="40"
                             Margin="5 0"
-                            Click="Consultar">
+                            >
                             <Grid Margin="0 2 0 2 " HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
