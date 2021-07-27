@@ -32,6 +32,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
         public List<double> almacenandoMontos = new List<double>();
         //public List<Tuple<double, int>> precioYdiaQ = new List<Tuple<double, int>>();
         public List<Tuple<double, int>> precioYdia = new List<Tuple<double, int>>();
+        List<VentasIndexTicket> listMulti = new List<VentasIndexTicket>() { };
         //public List<Tuple<double, int>> precioYdiaP = new List<Tuple<double, int>>();
         //public List<Tuple<double, int>> precioYdiaT = new List<Tuple<double, int>>();
 
@@ -242,7 +243,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     loteriatickpin.Add(ticketPin);
                     contadorTIcket = contadorTIcket + 1;
                 }
-
+                List<VentasIndexTicket.Jugada> jugadas = new List<VentasIndexTicket.Jugada>() { };
+                foreach (var jugada in MarBetResponse.Items)
+                {
+                    VentasIndexTicket.Jugada jugad = new VentasIndexTicket.Jugada() { Total = jugada.Pago, Cantidad = jugada.Cantidad, Numero = jugada.Numero, Precio = jugada.Costo, Tipo = jugada.QP };
+                    jugadas.Add(jugad);
+                }
+                VentasIndexTicket.Jugada[] jugadaTransform2 = jugadas.ToArray();
                 SorteosTicketModels TICKET = new SorteosTicketModels
                 {
                     Costo = Convert.ToInt32(MarBetResponse.Costo),
@@ -261,6 +268,23 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     BanDireccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion,
                     Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
                     TextReviseJugada = "Revise su jugada. Buena Suerte!"
+                };
+
+
+                VentasIndexTicket TICKET2 = new VentasIndexTicket()
+                {
+                    Costo = MarBetResponse.Costo,
+                    Fecha = MarBetResponse.StrFecha,
+                    TicketNo = MarBetResponse.TicketNo,
+                    Nulo = MarBetResponse.Nulo,
+                    Hora = MarBetResponse.StrHora,
+                    Ticket = MarBetResponse.Ticket,
+                    SorteoNombre = NombreLoteria,
+                    Sorteo = MarBetResponse.Loteria,
+                    Jugadas = jugadaTransform2,
+                    Pago = MarBetResponse.Pago,
+                    Firma = firma,
+                    Pin = Pin
                 };
 
                 TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = MarBetResponse.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = "Revise su jugada. Buena Suerte!", Total = "Total", AutorizacionHacienda = null, Logo = null };
@@ -294,8 +318,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 {
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        TicketTemplateHelper.PrintTicket(TICKET, null, false, CantidadLoterias);
+                       /*TicketTemplateHelper.PrintTicket(TICKET, null, false, CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
+                        List<string[]> ImprimirTicket = PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false);
+                       TicketTemplateHelper.PrintTicket(ImprimirTicket, listaConfiguraciones);*/
+                        //var configuraciones = AgregarConfigDeSoloTextio();
+                        string ImprimirTicketSrializado = JsonConvert.SerializeObject(PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false));
+                        //TicketValue ticketEnviar = new TicketValue() { BanNombre = "", AutorizacionHacienda = "", Direccion = "", FechaActual = "", Firma = "", Jugadas = new List<TicketJugadas>(), Logo = "", LoteriaTicketPin = new List<LoteriaTicketPin>(), Telefono = "", Texto = ImprimirTicketSrializado, Total = "" };
+                        TicketValue ticketEnviar = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = MarBetResponse.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = null, Total = "Total", AutorizacionHacienda = null, Logo = null };
+                        TicketTemplateHelper.PrintTicket(ticketEnviar, listaConfiguraciones);
                         contadorTIcket = 0;
                     }
                 }
@@ -304,10 +335,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     
                      if (contadorTIcket == CantidadLoterias)
                     {
-                        var TemplateTicketTextOnly = CreateTemplateTextOnlyTicket(TICKET, false);//Metodo que crea el tamplate Text Only
+                        //var TemplateTicketTextOnly = CreateTemplateTextOnlyTicket(TICKET, false);//Metodo que crea el tamplate Text Only
 
-                        TicketTemplateHelper.PrintTicket(TemplateTicketTextOnly, null, false, CantidadLoterias);
+                        /*TicketTemplateHelper.PrintTicket(TemplateTicketTextOnly, null, false, CantidadLoterias);
                         loteriatickpin = new List<LoteriaTicketPin>();
+                        List<string[]> ImprimirTicket = PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false);
+                        TicketTemplateHelper.PrintTicket(ImprimirTicket, listaConfiguraciones);*/
+                        var configuraciones = AgregarConfigDeSoloTextio();
+                        string ImprimirTicketSrializado = JsonConvert.SerializeObject(PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false));
+                        TicketValue ticketEnviar = new TicketValue() { BanNombre = "", AutorizacionHacienda = "", Direccion = "", FechaActual = "", Firma = "", Jugadas = new List<TicketJugadas>(), Logo = "", LoteriaTicketPin = new List<LoteriaTicketPin>(), Telefono = "", Texto = ImprimirTicketSrializado, Total = "" };
+                        TicketTemplateHelper.PrintTicket(ticketEnviar, configuraciones);
                         contadorTIcket = 0;
                     }
                 }
@@ -318,7 +355,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                 List<VentasIndexTicket.Jugada> jugadas = new List<VentasIndexTicket.Jugada>() { };
                 List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
-                List<VentasIndexTicket> listMulti = new List<VentasIndexTicket>() { };
+                
                 List<TicketJugadas> jugadasTicket = new List<TicketJugadas>() { };
                 //List<LoteriaTicketPin> loteriatickpin = new List<LoteriaTicketPin>() { };
                 //ConfigPrinterValue
@@ -334,18 +371,18 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     TicketJugadas jugadass = new TicketJugadas() { Jugada = jugadaprinter, TipoJudaga = jugada.QP };
                     jugadasTicket.Add(jugadass);
 
-                    //VentasIndexTicket.Jugada jugad = new VentasIndexTicket.Jugada() { Total = jugada.Pago, Cantidad = jugada.Cantidad, Numero = jugada.Numero, Precio = jugada.Costo, Tipo = jugada.QP };
-                    //jugadas.Add(jugad);
+                    VentasIndexTicket.Jugada jugad = new VentasIndexTicket.Jugada() { Total = jugada.Pago, Cantidad = jugada.Cantidad, Numero = jugada.Numero, Precio = jugada.Costo, Tipo = jugada.QP };
+                    jugadas.Add(jugad);
 
-                    JugadasTicketModels jugad = new JugadasTicketModels() { Costo = Convert.ToInt32(jugada.Costo), Numero = jugada.Numero, TipoJugada = jugada.QP };
-                    jugadasNuevoSinPrinter.Add(jugad);
+                    //JugadasTicketModels jugad = new JugadasTicketModels() { Costo = Convert.ToInt32(jugada.Costo), Numero = jugada.Numero, TipoJugada = jugada.QP };
+                    //jugadasNuevoSinPrinter.Add(jugad);
 
                     //// Ticket para los ticket pre cargados
                     MAR_BetItem jugadasTicketForPrecargados = new MAR_BetItem() { Numero = jugada.Numero, Costo = jugada.Costo, Cantidad = jugada.Cantidad, Loteria = jugada.Loteria, Pago = jugada.Pago, QP = jugada.QP };
                     JugadasForTicketPrecargado.Add(jugadasTicketForPrecargados);
                 }
-                //VentasIndexTicket.Jugada[] jugadaTransform = jugadas.ToArray();
-                List<JugadasTicketModels> jugadaTransform = jugadasNuevoSinPrinter.ToList();
+                VentasIndexTicket.Jugada[] jugadaTransform = jugadas.ToArray();
+                //List<JugadasTicketModels> jugadaTransform = jugadasNuevoSinPrinter.ToList();
 
                 List<ConfigPrinterModel> listaConfiguraciones = new List<ConfigPrinterModel>() { };
                 int CantidadLoterias = ViewModel.LoteriasMultiples.Count;
@@ -369,23 +406,25 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     contadorTIcket = contadorTIcket + 1;
                 }
 
-                //VentasIndexTicket TICKET = new VentasIndexTicket()
-                //{
-                //    Costo = Headers.Costo,
-                //    Fecha = Headers.StrFecha,
-                //    TicketNo = Headers.TicketNo,
-                //    Nulo = Headers.Nulo,
-                //    Hora = Headers.StrHora,
-                //    Ticket = Headers.Ticket,
-                //    SorteoNombre = NombreLoteria,
-                //    Sorteo = Headers.Loteria,
-                //    Jugadas = jugadaTransform,
-                //    Pago = Headers.Pago,
-                //    Firma = "Firma",
-                //    Pin = Pin
-                //};
+                VentasIndexTicket TICKET = new VentasIndexTicket()
+                {
+                    Costo = Headers.Costo,
+                    Fecha = Headers.StrFecha,
+                    TicketNo = Headers.TicketNo,
+                    Nulo = Headers.Nulo,
+                    Hora = Headers.StrHora,
+                    Ticket = Headers.Ticket,
+                    SorteoNombre = NombreLoteria,
+                    Sorteo = Headers.Loteria,
+                    Jugadas = jugadaTransform,
+                    Pago = Headers.Pago,
+                    Firma = firma,
+                    Pin = Pin
+                };
 
-                SorteosTicketModels TICKET = new SorteosTicketModels
+                listMulti.Add(TICKET);
+
+                /*SorteosTicketModels TICKET = new SorteosTicketModels
                 {
                     Costo = Convert.ToInt32(Headers.Costo),
                     Fecha = Headers.StrFecha,
@@ -403,7 +442,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     BanDireccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion,
                     Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
                     TextReviseJugada = "Revise su jugada. Buena Suerte!"
-                };
+                };*/
                 TicketDTO multiCopy = new TicketDTO();
                 multiCopy.Items = new JugadasDTO[multi.Items.Length];
                 for (var i = 0; i < multi.Items.Length; i++)
@@ -441,8 +480,21 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                 {
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones, false, CantidadLoterias);
-                        loteriatickpin = new List<LoteriaTicketPin>();
+                        /*TicketTemplateHelper.PrintTicket(ticketr, listaConfiguraciones, false, CantidadLoterias);
+                        loteriatickpin = new List<LoteriaTicketPin>();*/
+
+                        /* If qrTextToPrint.Count > 0 Then
+                             Dim qrText = qrTextToPrint(0)(1).ToString()
+                             printconfigLine.ConfigKey = "BANCA_PRINTER_IMAGES_CONFIG"
+                             printconfigLine.ConfigValue = "[
+                                            { 'key':'BANCA_BarCode', 'Value':[{ 'codigo':2,'content':'LoteriaTicketPin'},{ 'codigo':4,'content':'BanNombre'}]},
+                                            { 'key':'BANCA_QR', 'Value':[{ 'codigo':6,'content':'" + qrText + "'}]},
+                                            { 'key':'BANCA_URL_LOGO','Value':[{ 'codigo':2,'content':'UrlImagen'},{ 'codigo':4,'content':'UrlImagen'}]}
+                        ]"
+                         End If*/
+                        //List<string[]> ImprimirTicket = PrintJobs.FromTicket(TICKET, Autenticador, false);
+                        TicketValue ticketEnviar = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = Headers.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = null, Total = "Total", AutorizacionHacienda = null, Logo = null };
+                        TicketTemplateHelper.PrintTicket(ticketEnviar, listaConfiguraciones);
                         contadorTIcket = 0;
                     }
                 }
@@ -454,13 +506,37 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                     //TicketTemplateHelper.PrintTicket(TICKET, listaConfiguraciones);
                     if (contadorTIcket == CantidadLoterias)
                     {
-                        var TemplateTicketTextOnly = CreateTemplateTextOnlyTicket(TICKET, true);
-                        TicketTemplateHelper.PrintTicket(TemplateTicketTextOnly, null, false, CantidadLoterias);
-                        loteriatickpin = new List<LoteriaTicketPin>();
+                        /*var TemplateTicketTextOnly = CreateTemplateTextOnlyTicket(TICKET, true);
+                        TicketTemplateHelper.PrintTicket(TemplateTicketTextOnly, null, false, CantidadLoterias);*/
+                        //TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = MarBetResponse.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = "firma", Texto = "ok", Total = "Total", AutorizacionHacienda = null, Logo = null };
+                        var configuraciones = AgregarConfigDeSoloTextio();
+                        string ImprimirTicketSrializado = JsonConvert.SerializeObject(PrintJobs.FromMultiTicketNuevo(listMulti, Autenticador, false));
+                        TicketValue ticketEnviar = new TicketValue() { BanNombre = "", AutorizacionHacienda = "", Direccion = "", FechaActual = "", Firma = "", Jugadas = new List<TicketJugadas>(), Logo = "", LoteriaTicketPin = new List<LoteriaTicketPin>(), Telefono = "", Texto = ImprimirTicketSrializado, Total = "" };
+                        TicketTemplateHelper.PrintTicket(ticketEnviar, configuraciones);
+                        listMulti = new List<VentasIndexTicket>();
+
+                        /*List<string[]> ImprimirTicket = PrintJobs.FromTicket(TICKET, Autenticador, false);
+                        TicketTemplateHelper.PrintTicket(ImprimirTicket, listaConfiguraciones);
+                        loteriatickpin = new List<LoteriaTicketPin>();*/
                         contadorTIcket = 0;
                     }
                 }
             }
+        }
+
+        private List<ConfigPrinterModel> AgregarConfigDeSoloTextio()
+        {
+            List<ConfigPrinterModel> printConfigList = new List<ConfigPrinterModel>();
+            var printconfigTextOnly = new ConfigPrinterModel();
+            var printconfigImage = new ConfigPrinterModel();
+            printconfigImage.ConfigKey = "BANCA_PRINTER_CONFIG_LINE";
+            printconfigImage.ConfigValue = "[{ 'content':'Logo','size':200,'alignment':'center', 'fontStyle':'regular'}, { 'content':'Texto','size':10, 'aligment':'left', 'fontStyle':'regular'},{ 'content':'Qrcode','size':100, 'aligment':'center', 'fontStyle':'bold'},]";
+            printConfigList.Add(printconfigImage);
+            printconfigTextOnly.ConfigKey = "BANCA_PRINTER_TEXT_ONLY";
+            printconfigTextOnly.ConfigValue = "TRUE";
+            printConfigList.Add(printconfigTextOnly);
+
+            return printConfigList;
         }
 
         private List<string[,]> CreateTemplateTextOnlyTicket(SorteosTicketModels TICKET,bool multiples)
