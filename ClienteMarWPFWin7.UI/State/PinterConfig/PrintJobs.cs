@@ -1362,7 +1362,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         internal static List<string[]> FromMultiTicket(List<VentasIndexTicket> pTickets, IAuthenticator autenticador, bool pEsCopia = false)
         {
             var j = new List<string[]>();
-            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            var w = SessionGlobals.BancaPrinterSize;
 
             j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w), "2" });
             j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), w), "1" });
