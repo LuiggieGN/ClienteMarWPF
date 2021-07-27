@@ -19,7 +19,6 @@ namespace ClienteMarWPFWin7.Data.Services
 
         public static SoapClientRepository SoapClientesRepository;
         private static PtoVtaSoapClient MarCliente;
-
         static AccountDataService()
         {
             SoapClientesRepository = new SoapClientRepository();
@@ -56,7 +55,7 @@ namespace ClienteMarWPFWin7.Data.Services
                     sessionHacienda.Err = sessionPuntoVenta.Err;
                     sessionHacienda.LastTck = sessionPuntoVenta.LastTck;
                     sessionHacienda.LastPin = sessionPuntoVenta.LastPin;
-                    sessionHacienda.PrinterSize = sessionPuntoVenta.PrinterSize;
+                    sessionHacienda.PrinterSize = SessionGlobals.BancaPrinterSize;
                     sessionHacienda.PrinterHeader = sessionPuntoVenta.PrinterHeader;
                     sessionHacienda.PrinterFooter = sessionPuntoVenta.PrinterFooter;
                     var sorteosdisponibles = sorteos.GetSorteosDisponibles(sessionHacienda);
