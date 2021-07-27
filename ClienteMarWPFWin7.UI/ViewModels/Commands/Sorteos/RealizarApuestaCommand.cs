@@ -341,10 +341,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                         loteriatickpin = new List<LoteriaTicketPin>();
                         List<string[]> ImprimirTicket = PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false);
                         TicketTemplateHelper.PrintTicket(ImprimirTicket, listaConfiguraciones);*/
-                        var configuraciones = AgregarConfigDeSoloTextio();
-                        string ImprimirTicketSrializado = JsonConvert.SerializeObject(PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false));
-                        TicketValue ticketEnviar = new TicketValue() { BanNombre = "", AutorizacionHacienda = "", Direccion = "", FechaActual = "", Firma = "", Jugadas = new List<TicketJugadas>(), Logo = "", LoteriaTicketPin = new List<LoteriaTicketPin>(), Telefono = "", Texto = ImprimirTicketSrializado, Total = "" };
-                        TicketTemplateHelper.PrintTicket(ticketEnviar, configuraciones);
+                        //var configuraciones = AgregarConfigDeSoloTextio();
+                        //string ImprimirTicketSrializado = JsonConvert.SerializeObject(PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false));
+                        //TicketValue ticketEnviar = new TicketValue() { BanNombre = "", AutorizacionHacienda = "", Direccion = "", FechaActual = "", Firma = "", Jugadas = new List<TicketJugadas>(), Logo = "", LoteriaTicketPin = new List<LoteriaTicketPin>(), Telefono = "", Texto = ImprimirTicketSrializado, Total = "" };
+                        //TicketTemplateHelper.PrintTicket(ticketEnviar, configuraciones);
+                        List<string[]> ImprimirListTicket = PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false);
+                        PrintOutHelper.SendToPrinter(ImprimirListTicket);
                         contadorTIcket = 0;
                     }
                 }
@@ -509,10 +511,12 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                         /*var TemplateTicketTextOnly = CreateTemplateTextOnlyTicket(TICKET, true);
                         TicketTemplateHelper.PrintTicket(TemplateTicketTextOnly, null, false, CantidadLoterias);*/
                         //TicketValue ticketr = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = MarBetResponse.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = "firma", Texto = "ok", Total = "Total", AutorizacionHacienda = null, Logo = null };
-                        var configuraciones = AgregarConfigDeSoloTextio();
-                        string ImprimirTicketSrializado = JsonConvert.SerializeObject(PrintJobs.FromMultiTicketNuevo(listMulti, Autenticador, false));
-                        TicketValue ticketEnviar = new TicketValue() { BanNombre = "", AutorizacionHacienda = "", Direccion = "", FechaActual = "", Firma = "", Jugadas = new List<TicketJugadas>(), Logo = "", LoteriaTicketPin = new List<LoteriaTicketPin>(), Telefono = "", Texto = ImprimirTicketSrializado, Total = "" };
-                        TicketTemplateHelper.PrintTicket(ticketEnviar, configuraciones);
+                        //var configuraciones = AgregarConfigDeSoloTextio();
+                        //string ImprimirTicketSrializado = JsonConvert.SerializeObject(PrintJobs.FromMultiTicketNuevo(listMulti, Autenticador, false));
+                        //TicketValue ticketEnviar = new TicketValue() { BanNombre = "", AutorizacionHacienda = "", Direccion = "", FechaActual = "", Firma = "", Jugadas = new List<TicketJugadas>(), Logo = "", LoteriaTicketPin = new List<LoteriaTicketPin>(), Telefono = "", Texto = ImprimirTicketSrializado, Total = "" };
+                        //TicketTemplateHelper.PrintTicket(ticketEnviar, configuraciones);
+                        List<string[]> ImprimirListTicket = PrintJobs.FromMultiTicketNuevo(listMulti, Autenticador, false);
+                        PrintOutHelper.SendToPrinter(ImprimirListTicket);
                         listMulti = new List<VentasIndexTicket>();
 
                         /*List<string[]> ImprimirTicket = PrintJobs.FromTicket(TICKET, Autenticador, false);

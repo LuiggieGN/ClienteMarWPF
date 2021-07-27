@@ -1211,11 +1211,13 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 pTck.Hora, w) });
                 j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanTelefono, w) });
                 j.Add(new string[] { "-".PadRight(w, '-') });
+                if (pEsCopia) { j.Add(new string[] { Center("** COPIA REIMPRESA **", w) }); j.Add(new string[] { "-".PadRight(w, '-') }); };
+                
                 j.Add(new string[] { Center("L: " + pTck.SorteoNombre, w) });
                 j.Add(new string[] { Justify(String.Format("T: " + pTck.TicketNo), String.Format("P: " + pTck.Pin), w), "2" });
             }
 
-
+            j.Add(new string[] { "-".PadRight(w, '-') });
             //if (!string.IsNullOrEmpty(pTck.Pin)) j.Add(new string[] { String.Format("Pin:    " + pTck.Pin), "3" });
             if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader))
             {
@@ -1225,8 +1227,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     j.Add(new string[] { Center(header[i], w) });
                 }
             }
-            if (pEsCopia) { j.Add(new string[] { Center("** COPIA REIMPRESA **", w) }); };
-            j.Add(new string[] { "-".PadRight(w, '-') });
+            
+            
             var theQ = pTck.Jugadas.Where(x => x.Tipo.Equals("Q")).ToArray();
             var theP = pTck.Jugadas.Where(x => x.Tipo.Equals("P")).ToArray();
             var theT = pTck.Jugadas.Where(x => x.Tipo.Equals("T")).ToArray();

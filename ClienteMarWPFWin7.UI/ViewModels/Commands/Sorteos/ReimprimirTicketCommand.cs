@@ -101,6 +101,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                             List<JugadasTicketModels> jugadasNuevoSinPrinter = new List<JugadasTicketModels>() { };
                             List<TicketJugadas> listTicketJugdas = new List<TicketJugadas> { };
+                            List < VentasIndexTicket.Jugada> listTicketJugdasTextOnly = new List<VentasIndexTicket.Jugada> { };
+
                             var firma = VentasIndexTicket.GeneraFirma(jugadas.StrFecha, jugadas.StrHora, jugadas.TicketNo, ReimprimirResponse.Items);
 
                             foreach (var jugada in jugadas.Items)
@@ -110,6 +112,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                                 JugadaPrinter jugadaPrinter = new JugadaPrinter() { Numeros = jugada.Numero, Monto = (int)(jugada.Costo) };
                                 TicketJugadas ticketJugadas = new TicketJugadas() { Jugada = jugadaPrinter, TipoJudaga = jugada.QP };
                                 listTicketJugdas.Add(ticketJugadas);
+
+                                VentasIndexTicket.Jugada jugad = new VentasIndexTicket.Jugada() { Total = jugada.Pago, Cantidad = jugada.Cantidad, Numero = jugada.Numero, Precio = jugada.Costo, Tipo = jugada.QP };
+                                listTicketJugdasTextOnly.Add(jugad);
                                 ///////////////////////////////////////
 
                                 JugadasTicketModels jugadaSinPrinter = new JugadasTicketModels() { Costo = Convert.ToInt32(jugada.Costo), Numero = jugada.Numero, TipoJugada = jugada.QP };
@@ -124,7 +129,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                             else if (ExistPrinterCOnfig == false)
                             {
                                 List<JugadasTicketModels> jugadaTransform = jugadasNuevoSinPrinter.ToList();
-
+                                var jugadaTransformTextOnly = listTicketJugdasTextOnly.ToArray();
                                 SorteosTicketModels TICKET = new SorteosTicketModels
                                 {
                                     Costo = Convert.ToInt32(jugadas.Costo),
@@ -144,9 +149,25 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                                     Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono,
                                     TextReviseJugada = "Revise su jugada. Buena Suerte!"
                                 };
+                                VentasIndexTicket TicketReimprimir = new VentasIndexTicket()
+                                {
+                                    Costo = Convert.ToInt32(jugadas.Costo),
+                                    Fecha = jugadas.StrFecha,
+                                    TicketNo = jugadas.TicketNo,
+                                    Nulo = jugadas.Nulo,
+                                    Hora = jugadas.StrHora,
+                                    Ticket = jugadas.Ticket,
+                                    Jugadas = jugadaTransformTextOnly,
+                                    Pago = Convert.ToInt32(jugadas.Pago),
+                                    Firma = firma,
+                                    Pin = Pin,
+                                    SorteoNombre= NombreLoteria
+                                };
                                 var multiples = TICKET.Pin.Count() > 1 ? true : false;
-                                var TicketTemplate = CreateTemplateTextOnlyTicket(TICKET, multiples,true);
-                                TicketTemplateHelper.PrintTicket(TicketTemplate, null, true);
+                                //var TicketTemplate = CreateTemplateTextOnlyTicket(TICKET, multiples,true);
+                                //TicketTemplateHelper.PrintTicket(TicketTemplate, null, true);
+                                List<string[]> ListTicketReimprimir = PrintJobs.FromTicketNuevo(TicketReimprimir, Autenticador, true);
+                                PrintOutHelper.SendToPrinter(ListTicketReimprimir);
                             }
 
 
