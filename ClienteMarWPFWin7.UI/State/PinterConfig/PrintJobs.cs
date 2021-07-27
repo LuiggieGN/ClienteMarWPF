@@ -1205,7 +1205,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanTelefono, w) });
                 j.Add(new string[] { "-".PadRight(w, '-') });
                 j.Add(new string[] { Center("L: " + pTck.SorteoNombre, w) });
-                j.Add(new string[] { Justify(String.Format("T: " + pTck.TicketNo), String.Format("P: " + pTck.Pin),w),"2" });
+                j.Add(new string[] { Justify(String.Format("T: " + pTck.TicketNo), String.Format("P: " + pTck.Pin),w),"1" });
             }
 
 
@@ -1295,7 +1295,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             j.Add(new string[] { Center("Tel: " + autenticador.BancaConfiguracion.BancaDto.BanTelefono.ToUpper(), w), "1" });
             if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader)) j.Add(new string[] { Center(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader, w), "1" });
             j.Add(new string[] { "-".PadRight(w, '-'), "1" });
-            j.Add(new string[] { Justify("Loteria", " Ticket     Pin  ", w), "1" });
+            j.Add(new string[] { Justify("Loteria", " Ticket     Pin  ", w), "2" });
 
             var theQ = new List<VentasIndexTicket.Jugada>();
             var theP = new List<VentasIndexTicket.Jugada>();
@@ -1303,7 +1303,11 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             Double theGrandTotal = 0;
             for (var i = 0; i < pTickets.Count; i++)
             {
-                j.Add(new string[] { Justify(pTickets[i].SorteoNombre.Substring(0, Math.Min(pTickets[i].SorteoNombre.Length, w - 20)), pTickets[i].TicketNo + " " + pTickets[i].Pin, w), "2" });
+                string tikPin = pTickets[i].TicketNo + " " + pTickets[i].Pin;
+                string sorteoNombre = pTickets[i].SorteoNombre.Substring(0, Math.Min(pTickets[i].SorteoNombre.Length, w - 20));
+                j.Add(new string[] { Justify(sorteoNombre, 
+                   tikPin, w), "1" });
+               
                 var theAddedNums = theQ.Select(x => x.Numero).Distinct().ToList();
                 theAddedNums.AddRange(theP.Select(x => x.Numero).Distinct());
                 theAddedNums.AddRange(theT.Select(x => x.Numero).Distinct());
