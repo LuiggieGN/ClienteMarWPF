@@ -40,7 +40,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             PrintDocument pd = new PrintDocument();
             StringBuilder sb = new StringBuilder();
             var width = pd.PrinterSettings.DefaultPageSettings.PaperSize.Width;
-
+            //WidthPaper = width / 2;
             if (width <= 500)
             {
                 WidthPaper = width;
@@ -50,7 +50,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 WidthPaper = (width / 2);
             }
             //paperSize = papers.FirstOrDefault();
-            paperSize = new PaperSize("nose", ps.DefaultPageSettings.Bounds.Width, ps.DefaultPageSettings.Bounds.Height);
+            paperSize = new PaperSize("nose", pd.PrinterSettings.DefaultPageSettings.PaperSize.Width, 20000);
 
             if (value is string)
             {
@@ -1213,9 +1213,9 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                             spaceWidth += (WidthPaper / data.GetLength(1));
                             totalHeight.Add(Convert.ToInt32(rect.Height));
                         } 
-                        positionWrite += totalHeight.Max();
-                        spaceWidth = 0;
+                        
                     }
+            positionWrite += totalHeight.Max();
         }
         private static void WriteLine(Graphics graphics)
         {

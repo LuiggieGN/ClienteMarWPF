@@ -400,31 +400,28 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
         internal static List<string[]> FromReporteSumaVenta(MAR_RptSumaVta theSumaVenta,IAuthenticator autenticador)
         {
-            MAR_Session session = new MAR_Session();
             var j = new List<string[]>();
             var jd = new List<string>();
-            var w =  20 ;
-            
-            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanContacto , autenticador.BancaConfiguracion.BancaDto.BanContacto.Length+7) + Environment.NewLine });
-            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine });
-            j.Add(new string[] { Center("SUMA DE VENTAS", 15) });
-            j.Add(new string[] { Center("FECHA DEL IMPRESION", 20) });
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 32; }
+
+            j.Add(new string[] { Center("SUMA DE VENTAS", w) });
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w) });
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), w) });
+            j.Add(new string[] { Center("FECHA DEL IMPRESION", w) });
             j.Add(new string[] { Center(
-              FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
-              FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w)});
+               FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
+                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w)});
             j.Add(new string[] { Center("FECHA DEL REPORTE", w) });
             j.Add(new string[] { Center(
                FechaHelper.FormatFecha(Convert.ToDateTime(theSumaVenta.Fecha),
-                FechaHelper.FormatoEnum.FechaCortaDOW).Trim(), 27)});
+                FechaHelper.FormatoEnum.FechaCortaDOW), w)});
 
-            j.Add(new string[] { Center("Concep.  ".PadRight(0) + "Venta    Comis.    Saco    Balan", 50) });
+            j.Add(new string[] { Center("Concepto ".PadRight(0) + "Venta Comis. Saco Balan.", w) });
 
             double comision = 0, venta = 0, resultado = 0, saco = 0;
 
-            DateTime fechaPagoDesde = Convert.ToDateTime(theSumaVenta.Fecha).Date;
-            DateTime fechaPagoHasta = Convert.ToDateTime(theSumaVenta.Fecha).Date.AddDays(1);
-
-
+            
             foreach (var rgn in theSumaVenta.Reglones)
             {
                 if (rgn.VentaBruta > 0 || rgn.Resultado > 0)
@@ -441,8 +438,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     {
                         j.Add(new string[]
                                 {
-                                   Justify((CortarString(rgn.Reglon, 7).TrimStart().PadRight(12,' ')).Trim(' ')+ " " + rgn.VentaBruta.ToString("N0").TrimStart().PadRight(12,' ') + rgn.Comision.ToString().TrimStart().PadRight(12,' ')
-                                                 + rgn.Saco.ToString().PadRight(7,' ') + rgn.Resultado.ToString().TrimEnd().PadRight(0,' ')," ",40)
+                                    CortarString(rgn.Reglon, 7).PadRight(7,' ') + " " + rgn.VentaBruta.ToString("N0").PadLeft(6) + rgn.Comision.ToString().PadLeft(6)
+                                                 + rgn.Saco.ToString().PadLeft(6) + rgn.Resultado.ToString().PadLeft(6)
                                 });
                     }
 
@@ -452,16 +449,16 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 saco += rgn.Saco;
             }
 
-            j.Add(new string[] { Center("-------------------------------", 50) });
+            j.Add(new string[] { Center("-------------------------------", w) });
             j.Add(new string[]
                     {
-                       "Total=> "+ " " +  Math.Round(venta, 0).ToString().PadLeft(10) + comision.ToString().PadLeft(10)
-                     + saco.ToString().PadLeft(10) + resultado.ToString().PadLeft(10)
+                       "Total=> "+ " " +  Math.Round(venta, 0).ToString().PadLeft(6) + comision.ToString().PadLeft(5)
+                     + saco.ToString().PadLeft(6) + resultado.ToString().PadLeft(6)
                     });
             j.Add(new string[] { " " });
             j.Add(new string[] { " " });
             j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", 50) });
+            j.Add(new string[] { Center("-------------------------------", w) });
             return j;
         }
 
@@ -562,67 +559,69 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             return j;
         }
 
-        internal static List<string[]> FromReporteVenta(MAR_RptVenta venta, string sorteo,IAuthenticator autenticador)
+        internal static List<string[]> FromReporteVentas(MAR_RptVenta venta, string sorteo,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
-            var w = 14;
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) {w=38; }
             string printString = "", loter = "";
-            
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length+7) + Environment.NewLine;
-            printString += Center("REPORTE DE VENTA", 17) + Environment.NewLine;
-            printString += Center(
-                FechaHelper.FormatFecha(Convert.ToDateTime(venta.Fecha),
-                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 27) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w) + Environment.NewLine;
 
-            printString += Center("Loteria: "+sorteo, 19) + Environment.NewLine;
+
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), w) + Environment.NewLine;
+            printString += Center("REPORTE DE VENTA", w) + Environment.NewLine;
+            printString += Center(
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(venta.Fecha),
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine;
+
+            printString += Center(sorteo, w) + Environment.NewLine;
 
 
 
 
             if (venta.Loteria < 3 || venta.Loteria > 4)
             {
-                printString += Justify("NUMEROS:" , venta.CntNumeros.ToString("N0"),47) + Environment.NewLine;
+                printString += Justify("NUMEROS:", venta.CntNumeros.ToString("N0"), w) + Environment.NewLine;
 
-                printString += Justify("NUMEROS (RD$):", Math.Round(venta.Numeros).ToString("C2"),40) + Environment.NewLine;
-                printString += Justify("PALES:", Math.Round(venta.Pales, 2).ToString("C2"),50).Trim() + Environment.NewLine;
-                printString += Justify("TRIPLETAS:", Math.Round(venta.Tripletas).ToString("C2").Trim(),47) + Environment.NewLine;
+                printString += Justify("NUMEROS (RD$):", Math.Round(venta.Numeros, 2).ToString("C2"), w) + Environment.NewLine;
+                printString += Justify("PALES:", Math.Round(venta.Pales, 2).ToString("C2"), w) + Environment.NewLine;
+                printString += Justify("TRIPLETAS:", Math.Round(venta.Tripletas, 2).ToString("C2"), w) + Environment.NewLine;
             }
             else
             {
-                printString += Justify("Pega3 COMBO:", venta.Numeros.ToString("C2"),47) + Environment.NewLine;
-                printString += Justify("Pega3 FIJO", Math.Round(venta.Pales, 2).ToString("C2"),47) + Environment.NewLine;
+                printString += Justify("Pega3 COMBO:", venta.Numeros.ToString("C2"), w) + Environment.NewLine;
+                printString += Justify("Pega3 FIJO", Math.Round(venta.Pales, 2).ToString("C2"), w) + Environment.NewLine;
             }
 
 
-            printString += Justify("TOTAL VENTA ===>", Math.Round(venta.Numeros + venta.Pales + venta.Tripletas).ToString("C2"),40) + Environment.NewLine;
+            printString += Justify("TOTAL VENTA ===>", Math.Round(venta.Numeros + venta.Pales + venta.Tripletas, 2).ToString("C2"), w) + Environment.NewLine;
 
-            printString += Justify("COMISION (" + Math.Round((venta.ComisionPorcQ + venta.ComisionPorcP + venta.ComisionPorcT) / 3, 2).ToString() + "%):", Math.Round(venta.Comision, 0).ToString("C0"),48) + Environment.NewLine;
+            printString += Justify("COMISION (" + Math.Round((venta.ComisionPorcQ + venta.ComisionPorcP + venta.ComisionPorcT) / 3, 2).ToString() + "%):", Math.Round(venta.Comision, 0).ToString("C0"), w) + Environment.NewLine;
 
 
-            printString += Justify("VENTA NETA ===>", (Math.Round(venta.Numeros + venta.Pales + venta.Tripletas, 0) - venta.Comision).ToString("C2"),40) + Environment.NewLine + Environment.NewLine; ;
+            printString += Justify("VENTA NETA ===>", (Math.Round(venta.Numeros + venta.Pales + venta.Tripletas, 0) - venta.Comision).ToString("C2"), w) + Environment.NewLine + Environment.NewLine; ;
 
 
             if (venta.Primero.Trim() != "")
             {
-                printString += Justify("PREMIOS      CANTIDAD", "GANA",37) + Environment.NewLine;
+                printString += Justify("PREMIOS      CANTIDAD", "GANA", w) + Environment.NewLine;
 
                 if (venta.Loteria < 3 || venta.Loteria > 4)
                 {
-                    printString += ("1ra. " + venta.Primero + venta.CPrimero.ToString("N2").PadLeft(20, ' ') + venta.MPrimero.ToString("C0").PadLeft(16, ' ')) + Environment.NewLine;
-                    printString += ("2da. " + venta.Segundo + venta.CSegundo.ToString("N2").PadLeft(19, ' ') + venta.MSegundo.ToString("C0").PadLeft(17, ' ')) + Environment.NewLine;
-                    printString += ("3ra. " + venta.Tercero + venta.CTercero.ToString("N2").PadLeft(20, ' ') + venta.MTercero.ToString("C0").PadLeft(16, ' ')) + Environment.NewLine + Environment.NewLine;
-                    printString += ("NUMEROS PREMIADOS:" + Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo, 0).ToString("C2").PadLeft(17, ' ')) + Environment.NewLine;
-                    printString += ("PALES PREMIADOS:  " + Math.Round(venta.MPales, 0).ToString("C2").PadLeft(20, ' ')) + Environment.NewLine;
-                    printString += ("TRIPLETA PREMIADA:" + Math.Round(venta.MTripletas, 0).ToString("C2").PadLeft(20, ' ')) + Environment.NewLine;
-                    printString += ("TOTAL PREMIADOS ==>" + Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo + venta.MPales + venta.MTripletas, 0).ToString("C2").PadLeft(17, ' ')) + Environment.NewLine;
+                    printString += ("1ra. " + venta.Primero + venta.CPrimero.ToString("N2").PadLeft(11, ' ') + venta.MPrimero.ToString("C0").PadLeft(13, ' ')) + Environment.NewLine;
+                    printString += ("2da. " + venta.Segundo + venta.CSegundo.ToString("N2").PadLeft(11, ' ') + venta.MSegundo.ToString("C0").PadLeft(13, ' ')) + Environment.NewLine;
+                    printString += ("3ra. " + venta.Tercero + venta.CTercero.ToString("N2").PadLeft(11, ' ') + venta.MTercero.ToString("C0").PadLeft(13, ' ')) + Environment.NewLine + Environment.NewLine;
+                    printString += ("NUMEROS PREMIADOS:" + Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo, 0).ToString("C2").PadLeft(14, ' ')) + Environment.NewLine;
+                    printString += ("PALES PREMIADOS:  " + Math.Round(venta.MPales, 0).ToString("C2").PadLeft(14, ' ')) + Environment.NewLine;
+                    printString += ("TRIPLETA PREMIADA:" + Math.Round(venta.MTripletas, 0).ToString("C2").PadLeft(14, ' ')) + Environment.NewLine;
+                    printString += ("TOTAL PREMIADOS ==>" + Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo + venta.MPales + venta.MTripletas, 0).ToString("C2").PadLeft(13, ' ')) + Environment.NewLine;
                 }
                 else
                 {
-                    printString += Justify("PREMIOS PEGA3:", (venta.Primero + "-" + venta.Segundo + "-" + venta.Tercero).ToString(),40) + Environment.NewLine;
-                    printString += Justify("COMBOS PREMIADOS:", Math.Round(venta.MPrimero, 0).ToString("C2"),47) + Environment.NewLine;
-                    printString += Justify("FIJOS PREMIADOS: ", Math.Round(venta.MPales, 0).ToString("C2"),47) + Environment.NewLine;
-                    printString += Justify("TOTAL PREMIADOS: ", Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo + venta.MPales + venta.MTripletas, 0).ToString("C2"),40) + Environment.NewLine;
+                    printString += Justify("PREMIOS PEGA3:", (venta.Primero + "-" + venta.Segundo + "-" + venta.Tercero).ToString(), w) + Environment.NewLine;
+                    printString += Justify("COMBOS PREMIADOS:", Math.Round(venta.MPrimero, 0).ToString("C2"), w) + Environment.NewLine;
+                    printString += Justify("FIJOS PREMIADOS: ", Math.Round(venta.MPales, 0).ToString("C2"), w) + Environment.NewLine;
+                    printString += Justify("TOTAL PREMIADOS: ", Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo + venta.MPales + venta.MTripletas, 0).ToString("C2"), w) + Environment.NewLine;
                 }
 
 
@@ -631,24 +630,23 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                 if (GP < 0)
                 {
-                    printString += Justify("PERDIDA  ===> ", Math.Round(GP, 0).ToString("C2"),40) + Environment.NewLine;
+                    printString += Justify("PERDIDA  ===> ", Math.Round(GP, 0).ToString("C2"), w) + Environment.NewLine;
                 }
                 else
                 {
-                    printString += Justify("GANANCIA ===> ", Math.Round(GP, 0).ToString("C2"),40) + Environment.NewLine;
+                    printString += Justify("GANANCIA ===> ", Math.Round(GP, 0).ToString("C2"), w) + Environment.NewLine;
                 }
 
             }
             else
             {
-                printString += Center("Los premios no estan disponibles", 32) + Environment.NewLine;
-                
+                printString += Center("Los premios no estan disponibles", w) + Environment.NewLine;
             }
 
             if (venta.TicketsNulos.Any())
             {
                 double TCostNulos = 0;
-                printString += Environment.NewLine + Center("--- LISTA DE TICKETS NULOS ---", 20) + Environment.NewLine;
+                printString += Environment.NewLine + Center("--- LISTA DE TICKETS NULOS ---", w) + Environment.NewLine;
                 printString += "  Ticket #      Hora      Precio" + Environment.NewLine;
 
                 for (int n = 0; n < venta.TicketsNulos.Count(); n++)
@@ -661,7 +659,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             }
             else
             {
-                printString += Environment.NewLine + Center("No hay tickets nulos", 22) + Environment.NewLine;
+                printString += Environment.NewLine + Center("No hay tickets nulos", w) + Environment.NewLine;
             }
 
             j.Add(new string[] { printString });
@@ -1176,6 +1174,181 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             j.Add(new string[] { " " });
             j.Add(new string[] { " " });
             j.Add(new string[] { Center("-------------------------------", "-------------------------------".Length) });
+            return j;
+        }
+
+        internal static List<string[]> FromTicketNuevo(VentasIndexTicket pTck, IAuthenticator autenticador, bool pEsCopia = false)
+        {
+            var j = new List<string[]>();
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 40; };
+
+            var theSorteoOculto = !pTck.TicketNo.Contains("-");
+            j.Add(new string[] { "-".PadRight(w, '-') });
+
+            if (theSorteoOculto)
+            {
+                j.Add(new string[] { Justify(
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(pTck.Fecha),
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW),
+                pTck.Hora, w)});
+            }
+            else
+            {
+                j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w) });
+                
+                j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, w) });
+                j.Add(new string[] { Justify(
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(pTck.Fecha),
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW),
+                pTck.Hora, w) });
+                j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanTelefono, w) });
+                j.Add(new string[] { "-".PadRight(w, '-') });
+                j.Add(new string[] { Center("L: " + pTck.SorteoNombre, w) });
+                j.Add(new string[] { Justify(String.Format("T: " + pTck.TicketNo), String.Format("P: " + pTck.Pin),w),"2" });
+            }
+
+
+            //if (!string.IsNullOrEmpty(pTck.Pin)) j.Add(new string[] { String.Format("Pin:    " + pTck.Pin), "3" });
+            if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader))
+            {
+                var header = SplitText(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader, w);
+                for (int i = 0; i < header.Count(); i++)
+                {
+                    j.Add(new string[] { Center(header[i], w) });
+                }
+            }
+            if (pEsCopia) { j.Add(new string[] { Center("** COPIA REIMPRESA **", w) }); };
+             j.Add(new string[] { "-".PadRight(w, '-') });
+            var theQ = pTck.Jugadas.Where(x => x.Tipo.Equals("Q")).ToArray();
+            var theP = pTck.Jugadas.Where(x => x.Tipo.Equals("P")).ToArray();
+            var theT = pTck.Jugadas.Where(x => x.Tipo.Equals("T")).ToArray();
+            var theG = pTck.Jugadas.Where(x => x.Tipo.Equals("G")).ToArray();
+            var theB = pTck.Jugadas.Where(x => x.Tipo.Equals("B")).ToArray();
+
+            for (var i = 0; i < theG.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- JuegaMas PegaMas --", w) });
+
+                j.Add(new string[] { Justify(theG[i].Numero.Trim().PadRight(2, ' '), "$" +
+                                             String.Format("{0:0.00}", theG[i].Total),w)});
+            }
+            for (var i = 0; i < theB.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- Billetes --", w)});
+
+                j.Add(new string[] { Justify(theB[i].Numero.Trim().PadRight(2, ' '), "$" +
+                                             String.Format("{0:0.00}", theB[i].Total),w)});
+            }
+            for (var i = 0; i < theQ.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- QUINIELAS --",w)});
+
+                j.Add(new string[] { Justify(theQ[i].Numero.Trim().PadRight(2, ' '), "$" +
+                                             String.Format("{0:0.00}", theQ[i].Precio),w) });
+            }
+
+            for (var i = 0; i < theP.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- PALES --",w)});
+                j.Add(new string[] { Justify(theP[i].Numero.Trim().Substring(0,2) + "-" +
+                                             theP[i].Numero.Trim().Substring(2,2), "$" +
+                                             String.Format("{0:0.00}", theP[i].Precio), w)});
+            }
+
+            for (var i = 0; i < theT.Length; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- TRIPLETAS --",w)});
+                j.Add(new string[] { Justify(theT[i].Numero.Trim().Substring(0,2) + "-" +
+                                             theT[i].Numero.Trim().Substring(2,2) + "-" +
+                                             theT[i].Numero.Trim().Substring(4,2)   , "$" +
+                                             String.Format("{0:0.00}", theT[i].Precio), w)});
+            }
+            j.Add(new string[] { "-".PadRight(w, '-')});
+            var theGrandTotal = pTck.Jugadas.Sum(x => x.Precio);
+            j.Add(new string[] { Center(String.Format("TOTAL ${0:0.00}", theGrandTotal), w)});
+            if (!string.IsNullOrEmpty(pTck.Firma)) j.Add(new string[] { Center(String.Format("Firma: {0}", pTck.Firma), w) });
+            if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter))
+            {
+                var footer = SplitText(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter, w);
+                for (int i = 0; i < footer.Count(); i++)
+                {
+                    j.Add(new string[] { Center(footer[i], w) });
+                }
+            }
+            j.Add(new string[] { "." });
+            return j;
+        }
+
+        internal static List<string[]> FromMultiTicketNuevo(List<VentasIndexTicket> pTickets, IAuthenticator autenticador, bool pEsCopia = false)
+        {
+            var j = new List<string[]>();
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w ==0) { w = 40; }
+
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w), "2" });
+            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), w), "1" });
+            j.Add(new string[] { Justify(
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(pTickets[0].Fecha),
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW),
+                pTickets[0].Hora, w), "1" });
+            j.Add(new string[] { Center("Tel: " + autenticador.BancaConfiguracion.BancaDto.BanTelefono.ToUpper(), w), "1" });
+            if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader)) j.Add(new string[] { Center(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader, w), "1" });
+            j.Add(new string[] { "-".PadRight(w, '-'), "1" });
+            j.Add(new string[] { Justify("Loteria", " Ticket     Pin  ", w), "1" });
+
+            var theQ = new List<VentasIndexTicket.Jugada>();
+            var theP = new List<VentasIndexTicket.Jugada>();
+            var theT = new List<VentasIndexTicket.Jugada>();
+            Double theGrandTotal = 0;
+            for (var i = 0; i < pTickets.Count; i++)
+            {
+                j.Add(new string[] { Justify(pTickets[i].SorteoNombre.Substring(0, Math.Min(pTickets[i].SorteoNombre.Length, w - 20)), pTickets[i].TicketNo + " " + pTickets[i].Pin, w), "2" });
+                var theAddedNums = theQ.Select(x => x.Numero).Distinct().ToList();
+                theAddedNums.AddRange(theP.Select(x => x.Numero).Distinct());
+                theAddedNums.AddRange(theT.Select(x => x.Numero).Distinct());
+                theQ.AddRange(pTickets[i].Jugadas.Where(x => x.Tipo.Equals("Q"))
+                                    .Where(x => !theAddedNums.Contains(x.Numero)));
+                theP.AddRange(pTickets[i].Jugadas.Where(x => x.Tipo.Equals("P"))
+                                    .Where(x => !theAddedNums.Contains(x.Numero)));
+                theT.AddRange(pTickets[i].Jugadas.Where(x => x.Tipo.Equals("T"))
+                                    .Where(x => !theAddedNums.Contains(x.Numero)));
+                theGrandTotal += pTickets[i].Costo;
+            }
+            
+            if (pEsCopia) {j.Add(new string[] { "-".PadRight(w, '-'), "1" }); j.Add(new string[] { Center("** COPIA REIMPRESA **", w), "1" }); }
+            j.Add(new string[] { "-".PadRight(w, '-'), "1" });
+
+            for (var i = 0; i < theQ.Count; i++)
+            {
+
+                if (i == 0) j.Add(new string[] { Center("-- QUINIELAS --",w), "1" });
+                j.Add(new string[] { Justify(theQ[i].Numero.Trim().PadRight(2, ' '), "$" +
+                                             String.Format("{0:0.00}", theQ[i].Precio),w), "1" });
+            }
+
+            for (var i = 0; i < theP.Count; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- PALES --",w), "1" });
+                j.Add(new string[] { Justify(theP[i].Numero.Trim().Substring(0,2) + "-" +
+                                             theP[i].Numero.Trim().Substring(2,2), "$" +
+                                             String.Format("{0:0.00}", theP[i].Precio), w), "1" });
+            }
+
+            for (var i = 0; i < theT.Count; i++)
+            {
+                if (i == 0) j.Add(new string[] { Center("-- TRIPLETAS --",w), "1" });
+                j.Add(new string[] { Justify(theT[i].Numero.Trim().Substring(0,2) + "-" +
+                                             theT[i].Numero.Trim().Substring(2,2) + "-" +
+                                             theT[i].Numero.Trim().Substring(4,2)   , "$" +
+                                             String.Format("{0:0.00}", theT[i].Precio), w), "1" });
+            }
+            j.Add(new string[] { "-".PadRight(w, '-'), "1" });
+            j.Add(new string[] { Center(String.Format("TOTAL ${0:0.00}", theGrandTotal), w), "1" });
+            if (!string.IsNullOrEmpty(pTickets[0].Firma)) j.Add(new string[] { Center(String.Format("Firma: {0}", pTickets[0].Firma), w), "1" });
+            if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter)) j.Add(new string[] { Center(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterFooter, w), "1" });
+            j.Add(new string[] { "." });
+            j.Add(new string[] { "." });
             return j;
         }
 

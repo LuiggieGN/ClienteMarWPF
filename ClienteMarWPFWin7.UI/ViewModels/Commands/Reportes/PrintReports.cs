@@ -122,12 +122,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             {
                 var Reporte = ReportesService.ReporteSumVentas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Fecha);
                 
-                /*var MoreOptions = Autenticador.CurrentAccount.MAR_Setting2.MoreOptions;
-                if (MoreOptions.Count() > 1)
+                var MoreOptions = Autenticador.CurrentAccount.MAR_Setting2.MoreOptions;
+                /*if (MoreOptions.Count() > 1)
                 {
                     MAR_RptSumaVta ventasprint = new MAR_RptSumaVta() { Dia = Reporte.Dia, Err = Reporte.Err, Hora = Reporte.Hora, Fecha = Reporte.Fecha, Reglones = Reporte.Reglones };
+                    List<string[]> SumaDeVentas = PrintJobs.FromReporteSumaVenta(ventasprint, Autenticador);
                     ReporteTemplateHelper.PrintReporte(ventasprint, Autenticador, ViewModel);
-                }else { */
+                }else {*/
                 //List<string[]> ImprimirSumVenta = PrintJobs.FromReporteSumaVenta(ventasprint, Autenticador);
                     string[] array = new string[5];
                     string[] arrayHeader = new string[5];
@@ -711,8 +712,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "REPORTE DE VENTAS", Data = ListArray, FechaReporte = Convert.ToDateTime(ReporteVenta.Fecha), Headers = arrayHeader, Totals = arrayTotals,Loteria=nombreLoteria };
             List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
 
-            //List<string[]> PrintRPTVentas = PrintJobs.FromReporteVenta(TemplatePrintVenta, nombreLoteria,Autenticador);
-            ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
+            //List<string[]> PrintRPTVentas = PrintJobs.FromReporteVentas(TemplatePrintVenta, nombreLoteria,Autenticador);
+            ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral , Autenticador, ViewModel);
         }
 
         private void PrintListaTicket(object Parametro)
