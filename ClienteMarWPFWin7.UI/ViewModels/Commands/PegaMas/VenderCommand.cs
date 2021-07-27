@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System;
 using System.Linq;
+using ClienteMarWPFWin7.UI.State.PinterConfig;
 #endregion
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
@@ -29,36 +30,47 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.PegaMas
                 try
                 {
                     var ticket = LeerTicketCreado();
-                    var producto = vm.CincoMinServicio.SetProducto("CincoMinutos", vm.AutServicio.CurrentAccount); // Ojo Aqui va PegaMas ;; pendiente configurar DB
+
+                    var producto = vm.CincoMinServicio.SetProducto("PegaMas", vm.AutServicio.CurrentAccount); 
 
                     if(producto == null)
                     {
-                        DesplegarMensaje(mensaje: "El producto Pega Mas no esta disponible", encabezado: "Aviso !!");
+                        DesplegarMensaje(mensaje: "El producto \"Pega Mas\" no esta disponible.", encabezado: "Aviso");
                         vm.FocusEnPrimerInput?.Invoke();
                         return;
                     }
 
                     var respuesta = vm.CincoMinServicio.Apuesta(ticket, producto, vm.AutServicio.CurrentAccount);
 
-                    if (respuesta.OK == false || (respuesta.Error != null && respuesta.Error != string.Empty))
+                    if ( 
+                         respuesta == null || 
+                         respuesta.RespuestaApi == null ||
+                         respuesta.OK == false ||
+                        (respuesta.Error != null && respuesta.Error != string.Empty)
+                     )
                     {            
-                        DesplegarMensaje(mensaje: respuesta.Error??"Ha ocurrido un error al procesar la operación", encabezado: "Error");
+                        DesplegarMensaje(mensaje: respuesta?.Error??"Operación Inválida.C-001", encabezado: "Error");
                         vm.FocusEnPrimerInput?.Invoke();
                         return;
                     }
 
-                    if (respuesta.RespuestaApi.MensajeRespuesta != null && respuesta.RespuestaApi.MensajeRespuesta.ToLower().Contains("error"))
+
+                    if (
+                        respuesta.RespuestaApi.CodigoRespuesta != null &&
+                        respuesta.RespuestaApi.CodigoRespuesta.Equals("100")
+                    )
+                    {
+                        ResetearTodo();
+                        DesplegarMensaje(mensaje: "Jugadas realizadas satisfactoriamente.", encabezado: "Excelente");
+                        PrintOutHelper.SendToPrinter(respuesta.PrintData);
+                        return;
+                    }
+                    else  
                     {                       
-                        DesplegarMensaje(mensaje: respuesta.RespuestaApi.MensajeRespuesta, encabezado: "Error");
+                        DesplegarMensaje(mensaje: respuesta?.RespuestaApi?.MensajeRespuesta?? "Operación Inválida. C-002", encabezado: "Aviso");
                         vm.FocusEnPrimerInput?.Invoke();
                         return;
                     }
-
-
-
-                    ResetearTodo();
-                    DesplegarMensaje(mensaje: "Jugadas realizadas satisfactoriamente.", encabezado: "Excelente");
-
                 }
                 catch
                 {

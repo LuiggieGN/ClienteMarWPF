@@ -1729,7 +1729,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                 ticketmodel.TicketDetalles = detalles;
                 ticketmodel.TerminalID = terminal;
                 ticketmodel.Fecha = Convert.ToDateTime(fecha);
-                Console.WriteLine(ticketmodel);
+              
                 var apuesta = cincoMinutoService.Apuesta(ticketmodel, setProducto, VM.Autenticador.CurrentAccount);
 
                 if (apuesta == null)
@@ -1753,7 +1753,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Sorteos
                     return;
                 }
 
-                Console.WriteLine(apuesta);
+              
                 //}
             }
         }
