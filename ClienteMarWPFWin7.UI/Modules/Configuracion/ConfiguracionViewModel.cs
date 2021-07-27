@@ -89,7 +89,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
  
             BancaID = _localsetting.BancaId;
             Direccion = _localsetting.Direccion;
-            Tickets = new ObservableCollection<int> { 1, 2, 3 };
+            Tickets = new ObservableCollection<int> { 1, 2, 3, 4, 5, 6 };
             Ticket = Tickets == null || Tickets.Count() == 0 ? 0 : Tickets.FirstOrDefault();
             TicketValorArchivo = _localsetting.Tickets;
 

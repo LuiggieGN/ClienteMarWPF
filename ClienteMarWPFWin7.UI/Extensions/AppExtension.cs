@@ -58,6 +58,7 @@ using System.Windows;
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
 using ClienteMarWPFWin7.UI.Views.Controls;
 using ClienteMarWPFWin7.UI.Modules.EnLinea;
+using ClienteMarWPFWin7.Data;
 
 #endregion
 
@@ -81,10 +82,10 @@ namespace ClienteMarWPFWin7.UI.Extensions
             catch (Exception ex)
             {
                 throw ex;
-            }           
+            }
         }
 
-        private static bool PideDialogoRegistrar(ILocalClientSettingStore localClientSettingStoreService, IPtoVaService ptova, LocalClientSettingDTO settings) 
+        private static bool PideDialogoRegistrar(ILocalClientSettingStore localClientSettingStoreService, IPtoVaService ptova, LocalClientSettingDTO settings)
         {
             var controlContexto = new RegistrarPCControlViewModel(localClientSettingStoreService, ptova, settings);
 
@@ -95,6 +96,18 @@ namespace ClienteMarWPFWin7.UI.Extensions
 
             return controlContexto.RegistroDePCFueExitoso;
 
+        }
+
+        private static void SetearPrinterSize(LocalClientSettingDTO Sys)
+        {
+            if (Sys.Tickets == 5)
+            {
+                SessionGlobals.BancaPrinterSize = 32;
+            }
+            else
+            {
+                SessionGlobals.BancaPrinterSize = 40;
+            }
         }
 
         public static IServiceProvider CreateAppServicesProvider(this IServiceCollection services, App aplicativo, WindowAppLoding ventanaCargando)
@@ -113,7 +126,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                 var Ptova = sp.GetService<IPtoVaService>();
 
 
-                ReaderAndWriterIniFile.ReadDektopLocalSetting(CanWriteServerFile:true);
+                ReaderAndWriterIniFile.ReadDektopLocalSetting(CanWriteServerFile: true);
 
 
                 var Sys = ReaderAndWriterIniFile.LocalClientSettings;
@@ -121,6 +134,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
 
                 if (Sys.BancaId != 0)
                 {
+                    SetearPrinterSize(Sys);
 
                     inicio = Ptova.IniciarPC(bancaid: Sys.BancaId, bancaip_And_Hwkey: Sys.Direccion + ";" + Sys.GetHwKeyOldSchoold()); // ONLINE                   
 
@@ -164,7 +178,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                             }
                             else
                             {
-                                
+
                                 MessageBox.Show("Su computador ha sido cambiado o no esta registrado para esta banca en la central. Solicite autorizacion para registrarla.", "Su PC no esta registrada!!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
 
@@ -175,7 +189,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                                 {
                                     bool TERMINAL_CONFIGURACION_LOCAL_FUE_CAMBIADA = PideConfiguracion(ReaderAndWriterIniFile);
 
-                                    if (!TERMINAL_CONFIGURACION_LOCAL_FUE_CAMBIADA) 
+                                    if (!TERMINAL_CONFIGURACION_LOCAL_FUE_CAMBIADA)
                                     {
                                         MessageBox.Show("Su computador NO puede ser utilizado hasta tanto sea registrado exitosamente en el sistema", "Su PC no esta registrada!!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                                     }
@@ -235,7 +249,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
             Action reInicioApp = null;
 
             #region DB Servicios ... 
-            coleccionDeServicios.AddSingleton<IAccountService, AccountDataService>(); 
+            coleccionDeServicios.AddSingleton<IAccountService, AccountDataService>();
             coleccionDeServicios.AddSingleton<IAuthenticationService, AuthenticationService>();
             coleccionDeServicios.AddSingleton<IBancaService, BancaDataService>();
             coleccionDeServicios.AddSingleton<ICuadreService, CuadreDataService>();
@@ -262,7 +276,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
                     services.GetRequiredService<IAuthenticator>(),
                     services.GetRequiredService<IDashboardCard>(),
                     services.GetRequiredService<IBancaService>(),
-                    services.GetRequiredService<ICajaService>() 
+                    services.GetRequiredService<ICajaService>()
                );
             });
 
