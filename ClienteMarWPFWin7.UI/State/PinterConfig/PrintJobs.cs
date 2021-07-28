@@ -592,7 +592,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             j.Add(new string[] { printString });
             return j;
         }
-
+        
         internal static List<string[]> FromReporteVentas(MAR_RptVenta venta, string sorteo, IAuthenticator autenticador)
         {
             var j = new List<string[]>();
@@ -821,10 +821,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 printString += Justify("Ningun ticket suyo resulto ganador!", " ", 32).PadRight(0) + Environment.NewLine;
             }
             j.Add(new string[] { printString });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", 30) });
+            
             return j;
         }
 
