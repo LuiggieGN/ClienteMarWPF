@@ -1,10 +1,10 @@
 ﻿
-using ClienteMarWPFWin7.Domain.Models.Dtos;
-
+#region Namespace
+using ClienteMarWPFWin7.Domain.Helpers;
 using ClienteMarWPFWin7.UI.Modules.RegistrarPC;
-
 using System;
 using System.Windows;
+#endregion
 
 namespace ClienteMarWPFWin7.UI.ViewModels.Commands.RegistrarPC
 {
@@ -24,15 +24,16 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.RegistrarPC
         {
             try
             {
-                RegistroPCResultDTO regPC = ViewModel.Ptova.RegistraCambioPC(bancaid: ViewModel.Settings.BancaId, hwkey: ViewModel.Settings.Identidad);
+                var regPC = ViewModel.Ptova.RegistraCambioPC(bancaid: ViewModel.Settings.BancaId, hwkey: ViewModel.Settings.Identidad);
 
-                if (regPC.FueExitoso && Convert.ToDecimal(regPC.CertificadoNumero) > 0) 
+                if (regPC.FueExitoso && Convert.ToInt32(regPC.CertificadoNumero) > 0)
                 {
-
-                    ViewModel.Settings.Identidad = regPC.CertificadoNumero;
+                    ViewModel.Settings.Identidad = LHelper.GetIdenidadCalculada(regPC.CertificadoNumero);
                     ViewModel.LocalSettingReaderAndWriter.WriteDesktopLocalSetting(ViewModel.Settings);
                     ViewModel.RegistroDePCFueExitoso = true;
+                 
                     MessageBox.Show("Su computador ha sido registrado exitosamente.", "Registrada!!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
                     ViewModel.CloseAction?.Invoke();
                 }
                 else

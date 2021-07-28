@@ -36,6 +36,7 @@ using ClienteMarWPFWin7.UI.Modules.FlujoEfectivo.Movimiento;
 using ClienteMarWPFWin7.UI.Modules.RegistrarPC;
 using ClienteMarWPFWin7.UI.Modules.PegaMas;
 
+using ClienteMarWPFWin7.Domain.Helpers;
 using ClienteMarWPFWin7.Domain.Services.AccountService;
 using ClienteMarWPFWin7.Domain.Services.AuthenticationService;
 using ClienteMarWPFWin7.Domain.Services.BancaService;
@@ -51,7 +52,6 @@ using ClienteMarWPFWin7.Domain.Services.RutaService;
 using ClienteMarWPFWin7.Domain.Services.PuntoVentaService;
 using ClienteMarWPFWin7.Domain.Services.JuegaMasService;
 using ClienteMarWPFWin7.Domain.Services.CincoMinutosService;
-
 
 using System;
 using System.Windows;
@@ -122,21 +122,21 @@ namespace ClienteMarWPFWin7.UI.Extensions
                 var sp = sc.BuildServiceProvider();
 
 
-                var ReaderAndWriterIniFile = sp.GetService<ILocalClientSettingStore>();
+                var IniFile = sp.GetService<ILocalClientSettingStore>();
                 var Ptova = sp.GetService<IPtoVaService>();
+                IniFile.ReadDektopLocalSetting(CanWriteServerFile: true);
 
 
-                ReaderAndWriterIniFile.ReadDektopLocalSetting(CanWriteServerFile: true);
-
-
-                var Sys = ReaderAndWriterIniFile.LocalClientSettings;
+                var Sys = IniFile.LocalClientSettings;
 
 
                 if (Sys.BancaId != 0)
                 {
                     SetearPrinterSize(Sys);
 
-                    inicio = Ptova.IniciarPC(bancaid: Sys.BancaId, bancaip_And_Hwkey: Sys.Direccion + ";" + Sys.GetHwKeyOldSchoold()); // ONLINE                   
+                    string OS = Sys.GetHwKeyOldSchoold();
+
+                    inicio = Ptova.IniciarPC(bancaid: Sys.BancaId, bancaip_And_Hwkey: Sys.Direccion + ";" + OS); // ONLINE                   
 
                     ventanaCargando.Close();
 
@@ -147,7 +147,7 @@ namespace ClienteMarWPFWin7.UI.Extensions
 
                         MessageBox.Show(inicio.InicioPCResponse.Err, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                        if (inicio.InicioPCResponse.Err.ToUpper().Contains("TERMINAL MAL INSTALADA") & PideConfiguracion(ReaderAndWriterIniFile))
+                        if (inicio.InicioPCResponse.Err.ToUpper().Contains("TERMINAL MAL INSTALADA") & PideConfiguracion(IniFile))
                         {
                             return null; // @@ Re-Start es requerido para aplicar nueva configuracion -- 
                         }
@@ -156,24 +156,27 @@ namespace ClienteMarWPFWin7.UI.Extensions
                     {
                         //Inicio |Exitoso|
 
-                        if (Sys.Identidad == inicio.InicioPCResponse.Llave[0] && inicio.InicioPCResponse.Llave[0] != string.Empty)
+                        var SysIdentidadCalc = LHelper.GetIdenidadCalculada(inicio?.InicioPCResponse?.Llave[0] ?? string.Empty);
+
+                        if (Sys.Identidad == SysIdentidadCalc && SysIdentidadCalc != string.Empty)
                         {
-                            ReaderAndWriterIniFile.WriteDesktopLocalSetting(Sys);
+                            IniFile.WriteDesktopLocalSetting(Sys);
+
                             inicio.EstaPCTienePermisoDeConexionAServicioDeMAR = true;
                         }
                         else
                         {
-                            Sys.Identidad = Sys.GetHwKeyOldSchoold();
 
-                            RegistroPCResultDTO registroPC = Ptova.RegistraCambioPC(bancaid: Sys.BancaId, hwkey: Sys.Identidad);
+                            Sys.Identidad = OS;
 
+                            var registroPC = Ptova.RegistraCambioPC(bancaid: Sys.BancaId, hwkey: OS);
 
-                            if (registroPC.FueExitoso && Convert.ToDecimal(registroPC.CertificadoNumero) > 0)
+                            if (registroPC.FueExitoso && Convert.ToInt32(registroPC.CertificadoNumero) > 0)
                             {
-                                Sys.Identidad = registroPC.CertificadoNumero;
+                                Sys.Identidad = LHelper.GetIdenidadCalculada(registroPC.CertificadoNumero);
 
+                                IniFile.WriteDesktopLocalSetting(Sys);
 
-                                ReaderAndWriterIniFile.WriteDesktopLocalSetting(Sys);
                                 inicio.EstaPCTienePermisoDeConexionAServicioDeMAR = true;
                             }
                             else
@@ -181,13 +184,11 @@ namespace ClienteMarWPFWin7.UI.Extensions
 
                                 MessageBox.Show("Su computador ha sido cambiado o no esta registrado para esta banca en la central. Solicite autorizacion para registrarla.", "Su PC no esta registrada!!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
-
-                                inicio.EstaPCTienePermisoDeConexionAServicioDeMAR = PideDialogoRegistrar(ReaderAndWriterIniFile, Ptova, Sys);
-
+                                inicio.EstaPCTienePermisoDeConexionAServicioDeMAR = PideDialogoRegistrar(IniFile, Ptova, Sys);
 
                                 if (!inicio.EstaPCTienePermisoDeConexionAServicioDeMAR)
                                 {
-                                    bool TERMINAL_CONFIGURACION_LOCAL_FUE_CAMBIADA = PideConfiguracion(ReaderAndWriterIniFile);
+                                    bool TERMINAL_CONFIGURACION_LOCAL_FUE_CAMBIADA = PideConfiguracion(IniFile);
 
                                     if (!TERMINAL_CONFIGURACION_LOCAL_FUE_CAMBIADA)
                                     {
@@ -196,13 +197,10 @@ namespace ClienteMarWPFWin7.UI.Extensions
 
                                     return null;
                                 }
-
-
-
-
-
-
                             }
+
+
+
 
                         }//fin else |Registrar PC|
 
