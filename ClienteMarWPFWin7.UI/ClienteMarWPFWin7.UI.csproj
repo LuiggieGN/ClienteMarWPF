@@ -745,9 +745,6 @@
     <Resource Include="StartUp\Images\Logo\LogoMAR.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Mar.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Mar2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -79,6 +79,7 @@
     <Compile Include="Helpers\CuadreHelper.cs" />
     <Compile Include="Helpers\CuadreToPrintHelper.cs" />
     <Compile Include="Helpers\DocumentToPrintGeneratorHelper.cs" />
+    <Compile Include="Helpers\LHelper.cs" />
     <Compile Include="Helpers\MovimientoToPrintHelper.cs" />
     <Compile Include="Helpers\SendQuery.cs" />
     <Compile Include="Models\Base\Data.cs" />
