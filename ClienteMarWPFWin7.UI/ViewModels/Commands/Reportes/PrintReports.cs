@@ -129,49 +129,51 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                     List<string[]> SumaDeVentas = PrintJobs.FromReporteSumaVenta(ventasprint, Autenticador);
                     ReporteTemplateHelper.PrintReporte(ventasprint, Autenticador, ViewModel);
                 }else {*/
-                //List<string[]> ImprimirSumVenta = PrintJobs.FromReporteSumaVenta(ventasprint, Autenticador);
-                    string[] array = new string[5];
-                    string[] arrayHeader = new string[5];
-                    string[] arrayTotals = new string[0];
+                MAR_RptSumaVta ventasprint = new MAR_RptSumaVta() { Dia = Reporte.Dia, Err = Reporte.Err, Hora = Reporte.Hora, Fecha = Reporte.Fecha, Reglones = Reporte.Reglones };
+                List<string[]> ImprimirSumVenta = PrintJobs.FromReporteSumaVenta(ventasprint, Autenticador);
+                /* string[] array = new string[5];
+                 string[] arrayHeader = new string[5];
+                 string[] arrayTotals = new string[0];
 
-                    int totalVenta = 0; int totalComision = 0; int totalSaco = 0; int totalBalance = 0;
+                 int totalVenta = 0; int totalComision = 0; int totalSaco = 0; int totalBalance = 0;
 
-                    List<string[]> ListArray = new List<string[]>();
+                 List<string[]> ListArray = new List<string[]>();
 
-                    arrayHeader.SetValue("Concp.", 0); arrayHeader.SetValue("Venta", 1); arrayHeader.SetValue("Comis.", 2); arrayHeader.SetValue("Saco", 3); arrayHeader.SetValue("Balan.", 4);
+                 arrayHeader.SetValue("Concp.", 0); arrayHeader.SetValue("Venta", 1); arrayHeader.SetValue("Comis.", 2); arrayHeader.SetValue("Saco", 3); arrayHeader.SetValue("Balan.", 4);
 
-                    for (var i=0;i < Reporte.Reglones.Length;i++)
-                    {
-                    array = new string[5];
-                    if (Reporte.Reglones[i].Reglon.Length > 8 && Reporte.Reglones[i].Reglon.Contains(" ")) {
-                        var Division = Reporte.Reglones[i].Reglon.Split(' ');
-                        var nomPart1 = Division[0].Substring(0, 3);
-                        var nomPart2 = Division[1].Substring(0, 3);
-                        array.SetValue(nomPart1+nomPart2.ToString(), 0);
-                    }
-                    else
-                    {
-                        array.SetValue(Reporte.Reglones[i].Reglon.Trim(), 0);
-                    }
-                     array.SetValue(Reporte.Reglones[i].VentaBruta.ToString("N"), 1); array.SetValue(Reporte.Reglones[i].Comision.ToString("N"), 2); array.SetValue(Reporte.Reglones[i].Saco.ToString("N"), 3); array.SetValue(Reporte.Reglones[i].Resultado.ToString("N"), 4); ListArray.Add(array);
-                        array = new string[5];
-                        totalVenta += Convert.ToInt32(Reporte.Reglones[i].VentaBruta); totalComision += Convert.ToInt32(Reporte.Reglones[i].Comision); totalSaco += Convert.ToInt32(Reporte.Reglones[i].Saco); totalBalance += Convert.ToInt32(Reporte.Reglones[i].Resultado);
-                    }
-                array = new string[5];
-                array.SetValue("---------", 0);
-                array.SetValue("---------", 1);
-                array.SetValue("---------", 2);
-                array.SetValue("---------", 3);
-                array.SetValue("---------", 4);
-                ListArray.Add(array);
-                array = new string[5];
-                array.SetValue("Total", 0); array.SetValue(totalVenta.ToString("N"), 1); array.SetValue(totalComision.ToString("N"), 2); array.SetValue(totalSaco.ToString("N"), 3); array.SetValue(totalBalance.ToString("N"), 4); ListArray.Add(array);
-              
-                //arrayTotals.SetValue("Total", 0); arrayTotals.SetValue(totalVenta.ToString(), 1); arrayTotals.SetValue(totalComision.ToString(), 2); arrayTotals.SetValue(totalSaco.ToString(), 3); arrayTotals.SetValue(totalBalance.ToString(), 4);
-                    ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "SUMA DE VENTAS", Data = ListArray, FechaReporte = Convert.ToDateTime(Reporte.Fecha), Headers = arrayHeader, Totals = arrayTotals };
-                    List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
-                    ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
-                /*}*/
+                 for (var i=0;i < Reporte.Reglones.Length;i++)
+                 {
+                 array = new string[5];
+                 if (Reporte.Reglones[i].Reglon.Length > 8 && Reporte.Reglones[i].Reglon.Contains(" ")) {
+                     var Division = Reporte.Reglones[i].Reglon.Split(' ');
+                     var nomPart1 = Division[0].Substring(0, 3);
+                     var nomPart2 = Division[1].Substring(0, 3);
+                     array.SetValue(nomPart1+nomPart2.ToString(), 0);
+                 }
+                 else
+                 {
+                     array.SetValue(Reporte.Reglones[i].Reglon.Trim(), 0);
+                 }
+                  array.SetValue(Reporte.Reglones[i].VentaBruta.ToString("N"), 1); array.SetValue(Reporte.Reglones[i].Comision.ToString("N"), 2); array.SetValue(Reporte.Reglones[i].Saco.ToString("N"), 3); array.SetValue(Reporte.Reglones[i].Resultado.ToString("N"), 4); ListArray.Add(array);
+                     array = new string[5];
+                     totalVenta += Convert.ToInt32(Reporte.Reglones[i].VentaBruta); totalComision += Convert.ToInt32(Reporte.Reglones[i].Comision); totalSaco += Convert.ToInt32(Reporte.Reglones[i].Saco); totalBalance += Convert.ToInt32(Reporte.Reglones[i].Resultado);
+                 }
+             array = new string[5];
+             array.SetValue("---------", 0);
+             array.SetValue("---------", 1);
+             array.SetValue("---------", 2);
+             array.SetValue("---------", 3);
+             array.SetValue("---------", 4);
+             ListArray.Add(array);
+             array = new string[5];
+             array.SetValue("Total", 0); array.SetValue(totalVenta.ToString("N"), 1); array.SetValue(totalComision.ToString("N"), 2); array.SetValue(totalSaco.ToString("N"), 3); array.SetValue(totalBalance.ToString("N"), 4); ListArray.Add(array);
+
+             //arrayTotals.SetValue("Total", 0); arrayTotals.SetValue(totalVenta.ToString(), 1); arrayTotals.SetValue(totalComision.ToString(), 2); arrayTotals.SetValue(totalSaco.ToString(), 3); arrayTotals.SetValue(totalBalance.ToString(), 4);
+                 ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "SUMA DE VENTAS", Data = ListArray, FechaReporte = Convert.ToDateTime(Reporte.Fecha), Headers = arrayHeader, Totals = arrayTotals };
+                 List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
+                 ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
+             /*}*/
+                PrintOutHelper.SendToPrinter(ImprimirSumVenta);
             }catch(Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -185,7 +187,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             List<string[]> ImprimirSumVentaFecha = new List<string[]>() { };
             if (ViewModel.SoloTotales == true)
             {
-                string[] array = new string[5];
+                /*string[] array = new string[5];
                 string[] arrayHeader = new string[5];
                 string[] arrayTotals = new string[0];
                 List<string[]> ListArray = new List<string[]>();
@@ -229,16 +231,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 array.SetValue(Reporte.Reglones.Sum(x => x.Comision).ToString("N"), 2);
                 array.SetValue(Reporte.Reglones.Sum(x => x.Saco).ToString("N"), 3);
                 array.SetValue(Reporte.Reglones.Sum(x => x.Resultado).ToString("N"), 4);
-                ListArray.Add(array);
+                ListArray.Add(array);*/
                 ventasfechaprint = new MAR_RptSumaVta2() { Dia = Reporte.Dia, Err = Reporte.Err, Hora = Reporte.Hora, Fecha = Reporte.Fecha, Reglones = Reporte.Reglones, ISRRetenido = Reporte.ISRRetenido, RifDescuento = Reporte.RifDescuento };
-                //ImprimirSumVentaFecha = PrintJobs.FromReporteVentaPorFecha(ventasfechaprint, ViewModel.FechaInicio.ToString(), ViewModel.FechaFin.ToString(), ViewModel.SoloTotales, Autenticador);
-                ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "VENTAS POR FECHA", Data = ListArray, FechaReporte = Convert.ToDateTime(Reporte.Fecha), Headers = arrayHeader, Totals = arrayTotals,Desde=FechaInicio,Hasta=ViewModel.FechaFin };
-                List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador,true);
-                ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
+                ImprimirSumVentaFecha = PrintJobs.FromReporteVentaPorFecha(ventasfechaprint, ViewModel.FechaInicio.ToString(), ViewModel.FechaFin.ToString(), ViewModel.SoloTotales, Autenticador);
+                //ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "VENTAS POR FECHA", Data = ListArray, FechaReporte = Convert.ToDateTime(Reporte.Fecha), Headers = arrayHeader, Totals = arrayTotals,Desde=FechaInicio,Hasta=ViewModel.FechaFin };
+                //List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador,true);
+                //ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
+                PrintOutHelper.SendToPrinter(ImprimirSumVentaFecha);
             }
             else if (ViewModel.SoloTotales == false)
             {
-                string[] array = new string[5];
+                /*string[] array = new string[5];
                 string[] arrayHeader = new string[5];
                 string[] arrayTotals = new string[0];
                 List<string[]> ListArray = new List<string[]>();
@@ -304,16 +307,17 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 ListArray.Add(array);
                 array = new string[1];
                 array.SetValue(".", 0);
-                ListArray.Add(array);
+                ListArray.Add(array);*/
 
                 ventasfechaprint = new MAR_RptSumaVta2() { Dia = Reporte.Dia, Err = Reporte.Err, Hora = Reporte.Hora, Fecha = Reporte.Fecha, Reglones = Reporte.Reglones, ISRRetenido = Reporte.ISRRetenido, RifDescuento = Reporte.RifDescuento };
 
-                arrayHeader.SetValue("Fecha", 0); arrayHeader.SetValue("Venta", 1); arrayHeader.SetValue("Comision", 2); arrayHeader.SetValue("Saco", 3); arrayHeader.SetValue("Balance", 4);
+                //arrayHeader.SetValue("Fecha", 0); arrayHeader.SetValue("Venta", 1); arrayHeader.SetValue("Comision", 2); arrayHeader.SetValue("Saco", 3); arrayHeader.SetValue("Balance", 4);
                 ventasfechaprint = new MAR_RptSumaVta2() { Dia = Reporte.Dia, Err = Reporte.Err, Hora = Reporte.Hora, Fecha = Reporte.Fecha, Reglones = Reporte.Reglones, ISRRetenido = Reporte.ISRRetenido, RifDescuento = Reporte.RifDescuento };
                 ImprimirSumVentaFecha = PrintJobs.FromReporteVentaPorFecha(ventasfechaprint, ViewModel.FechaInicio.ToString(), ViewModel.FechaFin.ToString(), ViewModel.SoloTotales, Autenticador);
-                ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "VENTAS POR FECHA", Data = ListArray, FechaReporte = Convert.ToDateTime(Reporte.Fecha), Headers = arrayHeader, Totals = arrayTotals,Desde=FechaInicio,Hasta=ViewModel.FechaFin };
-                List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador,true);
-                ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
+                //ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "VENTAS POR FECHA", Data = ListArray, FechaReporte = Convert.ToDateTime(Reporte.Fecha), Headers = arrayHeader, Totals = arrayTotals,Desde=FechaInicio,Hasta=ViewModel.FechaFin };
+                //List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador,true);
+                //ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
+                PrintOutHelper.SendToPrinter(ImprimirSumVentaFecha);
             }
                 
             //ReporteTemplateHelper.PrintReporte(ImprimirSumVentaFecha, Autenticador, ViewModel, false, false, ViewModel.SoloTotales);
@@ -324,6 +328,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             var nombreLoteria = new ReporteView().GetNombreLoteria();
             var Reporte = ReportesService.ReportesGanadores(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
             var MoreOptions = Autenticador.CurrentAccount.MAR_Setting2.MoreOptions.ToList();
+            MAR_Ganadores ModelMarGanadores = new MAR_Ganadores() { Dia = Reporte.Dia, Err = Reporte.Err, Fecha = Reporte.Fecha, Hora = Reporte.Hora, Primero = Reporte.Primero, Segundo = Reporte.Segundo, Tercero = Reporte.Tercero, Tickets = Reporte.Tickets };
+            ReportesIndexGanadores indexGanadores = new ReportesIndexGanadores() { Loteria = ViewModel.LoteriaID, Fecha = Convert.ToDateTime(Reporte.Fecha), Primero = Reporte.Primero, Segundo = Reporte.Segundo, Tercero = Reporte.Tercero, Sorteo = nombreLoteria };
+
             /*if (MoreOptions.Any())
             {
                 MAR_Ganadores ModelMarGanadores = new MAR_Ganadores() { Dia = Reporte.Dia, Err = Reporte.Err, Fecha = Reporte.Fecha, Hora = Reporte.Hora, Primero = Reporte.Primero, Segundo = Reporte.Segundo, Tercero = Reporte.Tercero, Tickets = Reporte.Tickets };
@@ -331,7 +338,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 ReporteTemplateHelper.PrintReporte(ModelMarGanadores, Autenticador, ViewModel);
             }
             else
-            {*/
+            {
                 MAR_Ganadores ModelMarGanadores = new MAR_Ganadores() { Dia = Reporte.Dia, Err = Reporte.Err, Fecha = Reporte.Fecha, Hora = Reporte.Hora, Primero = Reporte.Primero, Segundo = Reporte.Segundo, Tercero = Reporte.Tercero, Tickets = Reporte.Tickets };
                 ReportesIndexGanadores indexGanadores = new ReportesIndexGanadores() { Loteria = ViewModel.LoteriaID, Fecha = Convert.ToDateTime(Reporte.Fecha), Primero = Reporte.Primero, Segundo = Reporte.Segundo, Tercero = Reporte.Tercero, Sorteo = nombreLoteria };
                 string[] array = new string[3];
@@ -424,11 +431,13 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 ListArray.Add(array);
 
             ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "TICKETS GANADORES", Data = ListArray, FechaReporte = Convert.ToDateTime(Reporte.Fecha), Headers = arrayHeader, Totals = arrayTotals, Loteria = nombreLoteria };
-                List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
+                
+            List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);*/
 
-            
-                //List<string[]> reporteGanadoresPrint = PrintJobs.FromReporteDeGanadores(ModelMarGanadores, indexGanadores,Autenticador);
-                ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel, true);
+
+            List<string[]> reporteGanadoresPrint = PrintJobs.FromReporteDeGanadores(ModelMarGanadores, indexGanadores,Autenticador);
+            PrintOutHelper.SendToPrinter(reporteGanadoresPrint);
+                //ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel, true);
             //}
 
                 
@@ -438,7 +447,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
         {
             var reportes = ReportesService.ReporteListaTarjetas(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Fecha);
             MAR_Pines Pines = new MAR_Pines() { Dia = reportes.Dia, Err = reportes.Err, Fecha = reportes.Fecha, Hora = reportes.Hora, Pines = reportes.Pines };
-            string[] array = new string[4];
+            /*string[] array = new string[4];
             string[] arrayHeader = new string[4];
             string[] arrayTotals = new string[0];
             List<string[]> ListArray = new List<string[]>();
@@ -474,10 +483,11 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             ListArray.Add(array);
 
             ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "LISTADO DE PINES", Data = ListArray, FechaReporte = Convert.ToDateTime(reportes.Fecha), Headers = arrayHeader, Totals = arrayTotals, Loteria = nombreLoteria };
-            List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
+            List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);*/
 
-            //List<string[]> PrintPines = PrintJobs.FromReporteListadoDePines(Pines,Autenticador);
-            ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
+            List<string[]> PrintPines = PrintJobs.FromReporteListadoDePines(Pines,Autenticador);
+            //ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral, Autenticador, ViewModel);
+            PrintOutHelper.SendToPrinter(PrintPines);
         }
 
         private void PrintListaNumeros(object Parametro)
@@ -531,7 +541,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 Tripletas = ReporteVenta.Tripletas
             };
 
-            string[] array = new string[2];
+            /*string[] array = new string[2];
             string[] arrayHeader = new string[0];
             string[] arrayTotals = new string[0];
 
@@ -706,14 +716,15 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 array.SetValue(".", 0);
                 ListArray.Add(array);
 
-            }
+            }*/
             var loteriaNombre = SessionGlobals.LoteriasTodas.Where(y => y.Numero == ReporteVenta.Loteria).Select(x => x.Nombre);
             //arrayTotals.SetValue("Total", 0); arrayTotals.SetValue(totalVenta.ToString("C3"), 1); arrayTotals.SetValue(totalComision.ToString("C3"), 2); arrayTotals.SetValue(totalSaco.ToString("C3"), 3); arrayTotals.SetValue(totalBalance.ToString("C3"), 4);
-            ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "REPORTE DE VENTAS", Data = ListArray, FechaReporte = Convert.ToDateTime(ReporteVenta.Fecha), Headers = arrayHeader, Totals = arrayTotals,Loteria=nombreLoteria };
-            List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
+            //ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "REPORTE DE VENTAS", Data = ListArray, FechaReporte = Convert.ToDateTime(ReporteVenta.Fecha), Headers = arrayHeader, Totals = arrayTotals,Loteria=nombreLoteria };
+            //List<string[,]> ImprimirSumVentaGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
 
-            //List<string[]> PrintRPTVentas = PrintJobs.FromReporteVentas(TemplatePrintVenta, nombreLoteria,Autenticador);
-            ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral , Autenticador, ViewModel);
+            List<string[]> PrintRPTVentas = PrintJobs.FromReporteVentas(TemplatePrintVenta, nombreLoteria,Autenticador);
+            //ReporteTemplateHelper.PrintReporte(ImprimirSumVentaGeneral , Autenticador, ViewModel);
+            PrintOutHelper.SendToPrinter(PrintRPTVentas);
         }
 
         private void PrintListaTicket(object Parametro)
@@ -723,7 +734,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             var ReporteTicket = ReportesService.ReporteListaDeTicket(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
             MAR_Ganadores ModelMarGanadores = new MAR_Ganadores() { Dia = ReporteTicket.Dia, Err = ReporteTicket.Err, Fecha = ReporteTicket.Fecha, Hora = ReporteTicket.Hora, Primero = ReporteTicket.Primero, Segundo = ReporteTicket.Segundo, Tercero = ReporteTicket.Tercero, Tickets = ReporteTicket.Tickets };
 
-            string[] array = new string[4];
+            /*string[] array = new string[4];
             string[] arrayHeader = new string[4];
             string[] arrayTotals = new string[0];
             List<string[]> ListArray = new List<string[]>();
@@ -763,18 +774,19 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             ListArray.Add(array);
             array = new string[1];
             array.SetValue(".", 0);
-            ListArray.Add(array);
+            ListArray.Add(array);*/
 
-            ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "LISTADO DE TICKETS", Data = ListArray, FechaReporte = Convert.ToDateTime(ModelMarGanadores.Fecha), Headers = arrayHeader, Totals = arrayTotals, Loteria = NombreLoteria };
-            List<string[,]> ImprimirListTicketGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
-            //List<string[]> reporteTicketPrint = PrintJobs.FromReporteListadoDeTickets(ModelMarGanadores, NombreLoteria,Autenticador);
-            ReporteTemplateHelper.PrintReporte(ImprimirListTicketGeneral, Autenticador, ViewModel);
+            //ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "LISTADO DE TICKETS", Data = ListArray, FechaReporte = Convert.ToDateTime(ModelMarGanadores.Fecha), Headers = arrayHeader, Totals = arrayTotals, Loteria = NombreLoteria };
+            //List<string[,]> ImprimirListTicketGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
+            List<string[]> reporteTicketPrint = PrintJobs.FromReporteListadoDeTickets(ModelMarGanadores, NombreLoteria,Autenticador);
+            //ReporteTemplateHelper.PrintReporte(ImprimirListTicketGeneral, Autenticador, ViewModel);
+            PrintOutHelper.SendToPrinter(reporteTicketPrint);
         }
         private void PrintPagosRemotos(object Parametro)
         {
             var PagosRemotos = ReportesService.ReporteListaPagosRemotos(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.Fecha);
             List<string[]> reportePagosRemostos = PrintJobs.FromPagosRemoto(PagosRemotos, ViewModel.Fecha.ToString(), Autenticador);
-            string[] array = new string[4];
+            /*string[] array = new string[4];
             string[] arrayHeader = new string[4];
             string[] arrayTotals = new string[0];
             List<string[]> ListArray = new List<string[]>();
@@ -808,7 +820,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
 
             ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "TICKETS PAGADOS REMOTAMENTE", Data = ListArray, FechaReporte = Convert.ToDateTime(PagosRemotos.Fecha), Headers = arrayHeader, Totals = arrayTotals, Loteria = null };
             List<string[,]> ImprimirListTicketGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
-            ReporteTemplateHelper.PrintReporte(ImprimirListTicketGeneral, Autenticador, ViewModel);
+            ReporteTemplateHelper.PrintReporte(ImprimirListTicketGeneral, Autenticador, ViewModel);*/
+            PrintOutHelper.SendToPrinter(reportePagosRemostos);
         }
 
         private void PrintListdoPremio(object Parametro)
