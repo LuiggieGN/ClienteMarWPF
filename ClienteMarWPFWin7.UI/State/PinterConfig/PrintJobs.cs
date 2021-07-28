@@ -26,75 +26,107 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         {
             var j = new List<string[]>();
             string printString = "";
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 40; }
 
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
-            printString += Center("TICKETS GANADORES", 18) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre, w) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, w) + Environment.NewLine;
+            printString += Center("TICKETS GANADORES", w) + Environment.NewLine;
 
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(reporte.Fecha),
-                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 24) + Environment.NewLine;
+                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine;
 
-            printString += Center("LOTERIA " + reporte.Sorteo, 20) + Environment.NewLine + Environment.NewLine;
+            printString += Center("Loteria: " + reporte.Sorteo, w) + Environment.NewLine + Environment.NewLine;
 
-            if (reporte.Primero != null && reporte.Primero.Trim().Length > 0) printString += Center("Premios " + "1ra:" + reporte.Primero + ", 2da:" + reporte.Segundo + ", 3ra:" + reporte.Tercero, 30) + Environment.NewLine;
+            if (reporte.Primero != null && reporte.Primero.Trim().Length > 0) printString += Center("Premios " + "1ra:" + reporte.Primero + ", 2da:" + reporte.Segundo + ", 3ra:" + reporte.Tercero, w) + Environment.NewLine;
 
             if (ganadores.Tickets != null)
             {
                 var rt = Environment.NewLine;
-                printString += Justify("Tickets             Fecha               Monto", "  ", 40).PadLeft(30, ' ') + rt;
+                printString += Justify("Tickets             Fecha           ", "    Monto  ", w).PadLeft(30, ' ') + rt;
                 Double total_s = 0, total_n = 0, total_o = 0, total_r = 0;
                 Double lastGroup = 0;
 
                 int ganadoresTicketsCount = ganadores.Tickets.Count();
+                var pendientesPorPagar = ganadores.Tickets.Where(x => x.Solicitud == 3 || x.Solicitud == 4);
+                var pagados = ganadores.Tickets.Where(x => x.Solicitud == 5);
+                var SinReclamar = ganadores.Tickets.Where(x => x.Solicitud == 6);
 
-                for (int n = 0; n < ganadoresTicketsCount; n++)
+                if (pendientesPorPagar.Count() > 0)
+                {
+                    printString += Center("Tickets Pendientes por Pagar", w) + rt;
+                    foreach (var pendientes in pendientesPorPagar)
+                    {
+                        var fechaCorta = FechaHelper.FormatFecha(DateTime.Parse(pendientes.StrFecha), FechaHelper.FormatoEnum.FechaCorta);
+                        printString += Justify(pendientes.TicketNo.PadRight(15, ' ') + fechaCorta + "      ", "$" + pendientes.Pago.ToString("N0"), w).PadLeft(20, ' ') + rt;
+                    }
+                    printString += Justify("Total", "$" + pendientesPorPagar.Sum(x => x.Pago), w) + rt;
+                }
+                if (pagados.Count() > 0)
+                {
+                    printString += Center("Tickets Pagados", w) + rt;
+                    foreach (var pagado in pagados)
+                    {
+                        var fechaCorta = FechaHelper.FormatFecha(DateTime.Parse(pagado.StrFecha), FechaHelper.FormatoEnum.FechaCorta);
+                        printString += Justify(pagado.TicketNo.PadRight(15, ' ') + fechaCorta + "      ", "$" +pagado.Pago.ToString("N0"), w).PadLeft(20, ' ') + rt;
+                    }
+                    printString += Justify("Total", "$" + pagados.Sum(x => x.Pago), w) + rt;
+                }
+                if (SinReclamar.Count() > 0)
+                {
+                    printString += Center("Tickets Sin Reclamar", w) + rt;
+                    foreach (var sinReclamar in SinReclamar)
+                    {
+                        var fechaCorta = FechaHelper.FormatFecha(DateTime.Parse(sinReclamar.StrFecha), FechaHelper.FormatoEnum.FechaCorta);
+                        printString += Justify(sinReclamar.TicketNo.PadRight(15, ' ') + fechaCorta + "      ", "$" + sinReclamar.Pago.ToString("N0"), w).PadLeft(20, ' ') + rt;
+                    }
+                    printString += Justify("Total", "$" + SinReclamar.Sum(x => x.Pago), w) + rt;
+                }
+
+                /*for (int n = 0; n < ganadoresTicketsCount; n++)
                 {
                     var ticket = ganadores.Tickets[n];
                     if (lastGroup != ticket.Solicitud)
                     {
-                        if (n > 0)
-                        {
-                            if (lastGroup == 3) printString += Justify("", "$" + total_n.ToString("N2"), 30) + rt;
-                            if (lastGroup == 4) printString += Justify("Pendientes por pagar", "$" + total_o.ToString("N2"), 30) + rt;
-                            if (lastGroup == 5) printString += Justify("", "$" + total_s.ToString("N2"), 30) + rt;
-                            if (lastGroup == 6) printString += Justify("", "$" + total_r.ToString("N2"), 30) + rt;
+                        
+                            if (lastGroup == 3) printString += Justify("Total", "$" + total_n.ToString("N2"), w) + rt;
+                            if (lastGroup == 4) printString += Justify("Total", "$" + total_o.ToString("N2"), w) + rt;
+                            if (lastGroup == 5) printString += Justify("Total", "$" + total_s.ToString("N2"), w) + rt;
+                            if (lastGroup == 6) printString += Justify("Total", "$" + total_r.ToString("N2"), w) + rt;
                             printString += rt;
-                        }
-                        if (ticket.Solicitud == 3) printString += Center("Pendientes por Pagar", 20) + rt;
-                        if (ticket.Solicitud == 5) printString += Center("Tickets Pagados", 15) + rt;
-                        if (ticket.Solicitud == 6) printString += Center("Premios Sin Reclamar", 20) + rt;
+
+                        if (ticket.Solicitud == 3 || ticket.Solicitud == 4) printString += Center("Pendientes por Pagar", w) + rt;
+                        if (ticket.Solicitud == 5) printString += Center("Tickets Pagados", w) + rt;
+                        if (ticket.Solicitud == 6) printString += Center("Premios Sin Reclamar", w) + rt;
                         lastGroup = ticket.Solicitud;
                     }
                     var fechaCorta = FechaHelper.FormatFecha(DateTime.Parse(ticket.StrFecha), FechaHelper.FormatoEnum.FechaCorta);
                     if (lastGroup == 3)
                     {
+                        printString += Justify(ticket.TicketNo.PadRight(15, ' ') + fechaCorta + "      ", "$" + ticket.Pago.ToString("N0"), w).PadLeft(20, ' ') + rt;
                         total_n += ticket.Pago;
-                        printString += Justify(ticket.TicketNo.PadRight(15, ' ') + fechaCorta + "      ", "$" + ticket.Pago.ToString("N0"), 40).PadLeft(20, ' ') + rt;
                     }
                     else if (lastGroup == 4)
                     {
+                        printString += Justify(ticket.TicketNo.PadRight(15, ' ') + fechaCorta + "      ", "$" + ticket.Pago.ToString("N0"), w).PadLeft(20, ' ') + rt;
                         total_o += ticket.Pago;
                     }
                     else if (lastGroup == 5)
                     {
-                        printString += Justify(ticket.TicketNo.PadRight(15, ' ') + fechaCorta + " ", "$" + ticket.Pago.ToString("N0"), 40).PadLeft(30, ' ') + rt;
+                        printString += Justify(ticket.TicketNo.PadRight(15, ' ') + fechaCorta + " ", "$" + ticket.Pago.ToString("N0"), w).PadLeft(30, ' ') + rt;
                         total_s += ticket.Pago;
                     }
                     else if (lastGroup == 6)
                     {
-                        printString += Justify(ticket.TicketNo.PadRight(15, ' ') + fechaCorta + " ", "$" + ticket.Pago.ToString("N0"), 40).PadLeft(30, ' ') + rt;
+                        printString += Justify(ticket.TicketNo.PadRight(15, ' ') + fechaCorta + " ", "$" + ticket.Pago.ToString("N0"), w).PadLeft(30, ' ') + rt;
                         total_r += ticket.Pago;
                     }
-                }
-                if (lastGroup == 3) printString += Justify("", "$" + total_n.ToString("N2"), 55) + rt;
-                if (lastGroup == 4) printString += Justify("Pendientes por pagar", "$" + total_o.ToString("N2"), 40) + rt;
-                if (lastGroup == 5) printString += Justify("", "$" + total_s.ToString("N2"), 55) + rt;
-                if (lastGroup == 6) printString += Justify("", "$" + total_r.ToString("N2"), 55) + rt;
-                printString += rt;
+                }*/
 
-                printString += Justify("Balance Ganadores", (total_n + total_s + total_o - total_r).ToString("N2"), 20) + rt;
+                printString += ( "-".PadRight(w, '-')) + rt;
+                printString += Justify("Balance Ganadores", ganadores.Tickets.Sum(x => x.Pago).ToString("N2"),w) + rt;
                 j.Add(new string[] { printString });
             }
             else
@@ -310,7 +342,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 FechaHelper.FormatFecha(Convert.ToDateTime(reporte.Fecha),
                 FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine;
 
-            printString += Center("LOTERIA " + reporte.Sorteo, w) + Environment.NewLine;
+            printString += Center("Loteria: " + reporte.Sorteo, w) + Environment.NewLine;
 
             if (reporte.Primero != null && reporte.Primero.Trim().Length > 0) printString += Center("Premios " + "1ra:" + reporte.Primero + ", 2da:" + reporte.Segundo + ", 3ra:" + reporte.Tercero, w) + Environment.NewLine;
 
@@ -404,12 +436,14 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             return j;
         }
 
+
+
         internal static List<string[]> FromReporteSumaVenta(MAR_RptSumaVta theSumaVenta, IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             var jd = new List<string>();
             var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
-            if (w == 0) { w = 32; }
+            if (w == 0) { w = 40; }
 
             j.Add(new string[] { Center("SUMA DE VENTAS", w) });
             j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w) });
@@ -423,7 +457,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                FechaHelper.FormatFecha(Convert.ToDateTime(theSumaVenta.Fecha),
                 FechaHelper.FormatoEnum.FechaCortaDOW), w)});
 
-            j.Add(new string[] { Center("Concepto ".PadRight(0) + "Venta Comis. Saco Balan.", w) });
+            j.Add(new string[] { Justify("Concepto".PadRight(4)+"Venta".PadLeft(8),"Comis.".PadRight(8)+"Saco".PadRight(6)+"Balan.".PadLeft(6), w) });
 
             double comision = 0, venta = 0, resultado = 0, saco = 0;
 
@@ -444,8 +478,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     {
                         j.Add(new string[]
                                 {
-                                    CortarString(rgn.Reglon, 7).PadRight(7,' ') + " " + rgn.VentaBruta.ToString("N0").PadLeft(6) + rgn.Comision.ToString().PadLeft(6)
-                                                 + rgn.Saco.ToString().PadLeft(6) + rgn.Resultado.ToString().PadLeft(6)
+                                    Justify(CortarString(rgn.Reglon, 7).PadRight(4) + " " + rgn.VentaBruta.ToString().PadLeft(8), rgn.Comision.ToString().PadRight(8)
+                                                 + rgn.Saco.ToString().PadRight(6) + rgn.Resultado.ToString().PadLeft(6),w)
                                 });
                     }
 
@@ -455,49 +489,45 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 saco += rgn.Saco;
             }
 
-            j.Add(new string[] { Center("-------------------------------", w) });
+            j.Add(new string[] { "-".PadRight(w, '-') });
             j.Add(new string[]
                     {
-                       "Total=> "+ " " +  Math.Round(venta, 0).ToString().PadLeft(6) + comision.ToString().PadLeft(5)
-                     + saco.ToString().PadLeft(6) + resultado.ToString().PadLeft(6)
+                       Justify("Total=> ".PadRight(4)+ " " +  Math.Round(venta, 0).ToString().PadLeft(8), comision.ToString().PadRight(8)
+                     + saco.ToString().PadRight(6) + resultado.ToString().PadLeft(6),w)
                     });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", w) });
+            j.Add(new string[] { "-".PadRight(w, '-') });
             return j;
         }
 
         internal static List<string[]> FromReporteVentaPorFecha(MAR_RptSumaVta2 venta, string fDes, string fHas, bool resumido, IAuthenticator autenticador)
         {
             var j = new List<string[]>();
-            MAR_Session session = new MAR_Session();
-            var w = 35;
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 40; }
             string printString = "";
 
-
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
-            printString += Center("VENTAS POR FECHA", 18) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, w) + Environment.NewLine;
+            printString += Center("VENTAS POR FECHA", w) + Environment.NewLine;
 
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
-                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t") + Environment.NewLine, 24) + Environment.NewLine;
+                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t") + Environment.NewLine, w) + Environment.NewLine;
 
 
 
-            printString += Justify("Desde:", FechaHelper.FormatFecha(Convert.ToDateTime(fDes),
-                FechaHelper.FormatoEnum.FechaCortaDOW), 15);
+            printString += Center("Desde: "+ FechaHelper.FormatFecha(Convert.ToDateTime(fDes),
+                FechaHelper.FormatoEnum.FechaCortaDOW), w); printString += Environment.NewLine;
 
-            printString += Justify("Hasta:", FechaHelper.FormatFecha(Convert.ToDateTime(fHas),
-             FechaHelper.FormatoEnum.FechaCortaDOW), 15) + Environment.NewLine + Environment.NewLine;
+            printString += Center("Hasta: "+FechaHelper.FormatFecha(Convert.ToDateTime(fHas),
+             FechaHelper.FormatoEnum.FechaCortaDOW), w) + Environment.NewLine + Environment.NewLine;
 
             // Mar_ReglonVta rg = new Mar_ReglonVta();
             double tCom = 0, tVen = 0, tRes = 0, tSac = 0, stCom = 0, stVen = 0, stRes = 0, stSac = 0;
             string oldCon = "OLDSTRING";
             string Fec = "";
 
-            printString += Justify("FECHA VENTA COMIS. SACO BAL.".TrimStart(), " ", 20) + Environment.NewLine;
+            printString += Justify("FECHA"+"VENTA".PadLeft(10), "COMIS.".PadRight(8)+"SACO".PadRight(7, ' ') + "BAL.".PadLeft(7, ' '), w) + Environment.NewLine;
 
             foreach (var rg in venta.Reglones)
             {
@@ -509,22 +539,22 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     {
                         if (oldCon != "OLDSTRING")
                         {
-                            printString += ("SUMA==>" + stVen.ToString("N0").PadLeft(0, ' ').PadRight(8, ' ') + stCom.ToString("N0").PadLeft(0, ' ').PadRight(8, ' ') + stSac.ToString("N0").PadLeft(0, ' ').PadRight(8, ' ') + stRes.ToString("N0").PadLeft(0, ' ').PadRight(8, ' ')) + Environment.NewLine + Environment.NewLine;
+                            printString += (Justify("SUMA==>" + stVen.ToString("N0").PadLeft(8) , stCom.ToString("N0").PadRight(8) + stSac.ToString("N0").PadRight(7, ' ') + stRes.ToString("N0").PadLeft(7, ' '),w)) + Environment.NewLine + Environment.NewLine;
                             stCom = 0;
                             stVen = 0;
                             stRes = 0;
                             stSac = 0;
                         }
-                        printString += Justify("CONCEPTO: ", rg.Reglon, 30) + Environment.NewLine;
+                        printString += ("CONCEPTO: " + rg.Reglon) + Environment.NewLine;
                         oldCon = rg.Reglon;
                     }
-                    Fec = Justify(FechaHelper.FormatFecha(Convert.ToDateTime(rg.Fecha), FechaHelper.FormatoEnum.FechaCortaRegional), "", w);
+                    Fec = FechaHelper.FormatFecha(Convert.ToDateTime(rg.Fecha), FechaHelper.FormatoEnum.FechaCortaRegional);
 
                     //   Fec = Strings.Left(FormatFecha(rg.Fecha, 3), 2) & " " & Strings.Mid(FormatFecha(rg.Fecha, 3), InStr(FormatFecha(rg.Fecha, 3), ",") + 2, 6).Replace("-", "")
 
                     if (!resumido)
                     {
-                        printString += Justify(Fec.PadLeft(0, ' '), rg.VentaBruta.ToString("N0").PadLeft(14, ' ') + rg.Comision.ToString("N0").PadLeft(14, ' ') + rg.Saco.ToString("N0").PadLeft(14, ' ') + rg.Resultado.ToString("N0").PadRight(14, ' '), 40) + Environment.NewLine;
+                        printString += Justify(Fec + rg.VentaBruta.ToString("N0").PadLeft(8) , rg.Comision.ToString("N0").PadRight(8) + rg.Saco.ToString("N0").PadRight(7) + rg.Resultado.ToString("N0").PadLeft(7, ' '), w) + Environment.NewLine;
                     }
 
                     tCom += rg.Comision;
@@ -538,9 +568,11 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 }
             }
 
-            printString += ("SUMA==>" + stVen.ToString("N0").PadLeft(0, ' ') + stCom.ToString("N0").PadLeft(3, ' ') + stSac.ToString("N0").PadLeft(3, ' ') + stRes.ToString("N0").PadLeft(3, ' ')) + Environment.NewLine;
-            printString += Justify("-------------------------------", "", 40) + Environment.NewLine;
-            printString += ("TOTAL=>" + tVen.ToString("N0").PadLeft(8, ' ') + tCom.ToString("N0").PadLeft(8, ' ') + tSac.ToString("N0").PadLeft(8, ' ') + tRes.ToString("N0").PadLeft(8, ' ')) + Environment.NewLine;
+            printString += Justify("SUMA==>" + stVen.ToString("N0").PadLeft(8) , stCom.ToString("N0").PadRight(8) + stSac.ToString("N0").PadRight(7, ' ') + stRes.ToString("N0").PadLeft(7, ' '),w) + Environment.NewLine;
+            printString += "-".PadRight(w, '-');
+            printString += Environment.NewLine;
+            printString += Justify("TOTAL=>" + tVen.ToString("N0").PadLeft(8) , tCom.ToString("N0").PadRight(8) + tSac.ToString("N0").PadRight(7, ' ') + tRes.ToString("N0").PadLeft(7, ' '),w) + Environment.NewLine;
+            printString += "-".PadRight(w, '-');
 
             if (venta.ISRRetenido + venta.RifDescuento > 0)
             {
@@ -558,18 +590,14 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             }
 
             j.Add(new string[] { printString });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", w) });
             return j;
         }
-
+        
         internal static List<string[]> FromReporteVentas(MAR_RptVenta venta, string sorteo, IAuthenticator autenticador)
         {
             var j = new List<string[]>();
             var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
-            if (w == 0) { w = 38; }
+            if (w == 0) { w = 40; }
             string printString = "", loter = "";
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w) + Environment.NewLine;
 
@@ -580,7 +608,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(venta.Fecha),
                 MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine;
 
-            printString += Center(sorteo, w) + Environment.NewLine;
+            printString += Center("Loteria: "+sorteo, w) + Environment.NewLine;
 
 
 
@@ -608,19 +636,19 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             printString += Justify("VENTA NETA ===>", (Math.Round(venta.Numeros + venta.Pales + venta.Tripletas, 0) - venta.Comision).ToString("C2"), w) + Environment.NewLine + Environment.NewLine; ;
 
 
-            if (venta.Primero.Trim() != "")
+            if (sorteo != "Todas")
             {
-                printString += Justify("PREMIOS      CANTIDAD", "GANA", w) + Environment.NewLine;
+                printString += Justify("."+" PREMIOS".PadLeft(12),"CANTIDAD     GANA", w) + Environment.NewLine;
 
                 if (venta.Loteria < 3 || venta.Loteria > 4)
                 {
-                    printString += ("1ra. " + venta.Primero + venta.CPrimero.ToString("N2").PadLeft(11, ' ') + venta.MPrimero.ToString("C0").PadLeft(13, ' ')) + Environment.NewLine;
-                    printString += ("2da. " + venta.Segundo + venta.CSegundo.ToString("N2").PadLeft(11, ' ') + venta.MSegundo.ToString("C0").PadLeft(13, ' ')) + Environment.NewLine;
-                    printString += ("3ra. " + venta.Tercero + venta.CTercero.ToString("N2").PadLeft(11, ' ') + venta.MTercero.ToString("C0").PadLeft(13, ' ')) + Environment.NewLine + Environment.NewLine;
-                    printString += ("NUMEROS PREMIADOS:" + Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo, 0).ToString("C2").PadLeft(14, ' ')) + Environment.NewLine;
-                    printString += ("PALES PREMIADOS:  " + Math.Round(venta.MPales, 0).ToString("C2").PadLeft(14, ' ')) + Environment.NewLine;
-                    printString += ("TRIPLETA PREMIADA:" + Math.Round(venta.MTripletas, 0).ToString("C2").PadLeft(14, ' ')) + Environment.NewLine;
-                    printString += ("TOTAL PREMIADOS ==>" + Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo + venta.MPales + venta.MTripletas, 0).ToString("C2").PadLeft(13, ' ')) + Environment.NewLine;
+                    printString += Justify("1ra. " + venta.Primero.PadLeft(6), venta.CPrimero.ToString("N2").PadLeft(20, ' ') + venta.MPrimero.ToString("C0").PadLeft(13, ' '),w) + Environment.NewLine;
+                    printString += Justify("2da. " + venta.Segundo.PadLeft(6) , venta.CSegundo.ToString("N2").PadLeft(20, ' ') + venta.MSegundo.ToString("C0").PadLeft(13, ' '),w) + Environment.NewLine;
+                    printString += Justify("3ra. " + venta.Tercero.PadLeft(6), venta.CTercero.ToString("N2").PadLeft(20, ' ') + venta.MTercero.ToString("C0").PadLeft(13, ' '),w) + Environment.NewLine + Environment.NewLine;
+                    printString += Justify("NUMEROS PREMIADOS:" , Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo, 0).ToString("C2"),w) + Environment.NewLine;
+                    printString += Justify("PALES PREMIADOS:  " , Math.Round(venta.MPales, 0).ToString("C2"),w) + Environment.NewLine;
+                    printString += Justify("TRIPLETA PREMIADA:" , Math.Round(venta.MTripletas, 0).ToString("C2"),w) + Environment.NewLine;
+                    printString += Justify("TOTAL PREMIADOS ==>" , Math.Round(venta.MTercero + venta.MPrimero + venta.MSegundo + venta.MPales + venta.MTripletas, 0).ToString("N"),w) + Environment.NewLine;
                 }
                 else
                 {
@@ -636,11 +664,11 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                 if (GP < 0)
                 {
-                    printString += Justify("PERDIDA  ===> ", Math.Round(GP, 0).ToString("C2"), w) + Environment.NewLine;
+                    printString += Justify("PERDIDA  ===> ", Math.Round(GP, 0).ToString("N"), w) + Environment.NewLine;
                 }
                 else
                 {
-                    printString += Justify("GANANCIA ===> ", Math.Round(GP, 0).ToString("C2"), w) + Environment.NewLine;
+                    printString += Justify("GANANCIA ===> ", Math.Round(GP, 0).ToString("N"), w) + Environment.NewLine;
                 }
 
             }
@@ -661,7 +689,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     TCostNulos += venta.TicketsNulos[n].Costo;
                 }
 
-                printString += Justify("Tickets nulos: " + venta.TicketsNulos.Count(), Math.Round(TCostNulos, 2).ToString("C2"), w) + Environment.NewLine;
+                printString += Justify("Tickets nulos: " + venta.TicketsNulos.Count(),"", w) + Environment.NewLine;
             }
             else
             {
@@ -670,9 +698,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             j.Add(new string[] { printString });
             j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", w) });
+            
             return j;
         }
 
@@ -696,19 +722,20 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         internal static List<string[]> FromReporteListadoDePines(MAR_Pines thePines, IAuthenticator autenticador)
         {
             var j = new List<string[]>();
-            var w = 35;
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 40; }
             string printString = "";
 
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
-            printString += Center("LISTADO DE PINES", 16) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre,w) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion,w) + Environment.NewLine;
+            printString += Center("LISTADO DE PINES", w) + Environment.NewLine;
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(thePines.Fecha),
                 FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 40) + Environment.NewLine + Environment.NewLine;
 
 
-            printString += Justify("Suplidor        ".PadRight(0) + "Hora      Precio              Serie", "", 40) + Environment.NewLine;
+            printString += Justify("Suplidor   Hora ","Precio".PadRight(14)+      "Serie".PadRight(4), 40) + Environment.NewLine;
 
 
 
@@ -719,23 +746,21 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             {
                 foreach (var pine in thePines.Pines)
                 {
-                    printString += Justify((pine.Producto.Suplidor.PadLeft(1, ' ').PadRight(14, ' ').TrimStart() + String.Format("{0,8}", pine.StrHora.Replace(" ", "").PadRight(10, ' ')) + String.Format("{0,6}", pine.Costo).TrimStart().PadLeft(5, ' ').PadRight(8, ' ') + String.Format("{0,11}", pine.Serie)), "   ", 40) + Environment.NewLine;
+                    printString += Justify(pine.Producto.Suplidor.ToString() + String.Format("{0,8}", pine.StrHora.PadLeft(13, ' ')) , String.Format("{0,6}", pine.Costo).TrimStart().PadLeft(5, ' ').PadRight(8, ' ') + String.Format("{0,11}", pine.Serie),w) + Environment.NewLine;
 
                     total += pine.Costo;
                 }
-                printString += Center("", w) + Environment.NewLine;
-                printString += Justify("Venta: ".PadRight(5, ' ') + total.ToString("C2") + " en " + thePines.Pines.Count() + " Targetas", "", 20) + Environment.NewLine;
+                printString += "-".PadRight(w, '-') + Environment.NewLine;
+                printString += Justify("Venta: ".PadRight(5, ' ') + total.ToString("C2") + " en " + thePines.Pines.Count() + " Tarjetas", "", 20) + Environment.NewLine;
 
             }
             else
             {
                 printString += Center("NO HAY DATA DISPONIBLE", 22) + Environment.NewLine;
             }
+            
             j.Add(new string[] { printString });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", 20) });
+           
             return j;
 
         }
@@ -744,16 +769,18 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         {
             var j = new List<string[]>();
             string printString = "";
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 40; }
 
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
-            printString += Center("LISTADO DE TICKETS", 19) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre, w) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, w) + Environment.NewLine;
+            printString += Center("LISTADO DE TICKETS", w) + Environment.NewLine;
             printString += Center(
                    FechaHelper.FormatFecha(Convert.ToDateTime(theTickets.Fecha),
-                   FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 27) + Environment.NewLine;
+                   FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine;
 
-            printString += Center("LOTERIA " + loter, 17) + Environment.NewLine + Environment.NewLine;
+            printString += Center("Loteria: " + loter, w) + Environment.NewLine + Environment.NewLine;
 
 
             int i = 0, validos = 0, nulos = 0;
@@ -761,43 +788,40 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             if (theTickets.Tickets != null)
             {
-                printString += Justify("Tickets       ".PadRight(2, ' ') + "  Hora        Vendio         Saco", "", 45) + Environment.NewLine;
+                printString += Justify("Tickets"+"Hora".PadLeft(12),"Vendio".PadRight(12)+"Saco", w) + Environment.NewLine;
 
                 for (int n = 0; n < theTickets.Tickets.Count(); n++)
                 {
                     string ThisLinea = String.Empty;
-                    ThisLinea = theTickets.Tickets[n].TicketNo.Trim().PadRight(12, ' ').PadLeft(0).TrimStart() +
-                                 theTickets.Tickets[n].StrHora.Replace(" ", "").PadRight(12, ' ') +
-                                 theTickets.Tickets[n].Costo.ToString("N2").PadRight(14, ' ');
+                    
 
                     if (theTickets.Tickets[n].Nulo)
                     {
-                        ThisLinea += " Nulo".PadLeft(10, ' ');
+                        ThisLinea = Justify(theTickets.Tickets[n].TicketNo +
+                                 theTickets.Tickets[n].StrHora.PadLeft(12),
+                                 theTickets.Tickets[n].Costo.ToString("N2").PadRight(14) + " Nulo", w);
                         nulos += 1;
                     }
                     else
                     {
-                        ThisLinea += theTickets.Tickets[n].Pago.ToString().PadLeft(00);
-                        vendido += theTickets.Tickets[n].Costo;
-                        total += theTickets.Tickets[n].Pago;
+                        ThisLinea = Justify(theTickets.Tickets[n].TicketNo +
+                                 theTickets.Tickets[n].StrHora.PadLeft(12),
+                                 theTickets.Tickets[n].Costo.ToString("N2").PadRight(14) + theTickets.Tickets[n].Pago, w);
+                        
                         validos += 1;
                     }
                     printString += Justify(ThisLinea, " ", 80).PadRight(0) + Environment.NewLine;
                 }
-
-                printString += Environment.NewLine;
-                printString += Justify("Venta: " + vendido.ToString("C2").PadLeft(2, ' ') + validos.ToString().PadLeft(10, ' ') + " tkts validos", "", 20) + Environment.NewLine;
-                printString += Justify("Saco: " + total.ToString("C2").PadLeft(0, ' ') + nulos.ToString().PadLeft(5, ' ') + " tkts nulos", "", 30) + Environment.NewLine;
+                printString += "-".PadRight(w, '-') + Environment.NewLine;
+                printString += Justify("Venta: " + theTickets.Tickets.Where(y => y.Nulo==false).Sum(x => x.Costo).ToString("N2") , validos.ToString() + " tkts validos", w) + Environment.NewLine;
+                printString += Justify("Saco: " + theTickets.Tickets.Where(y => y.Nulo == false).Sum(x => x.Pago).ToString("N2"), nulos.ToString() + " tkts nulos", w) + Environment.NewLine;
             }
             else
             {
                 printString += Justify("Ningun ticket suyo resulto ganador!", " ", 32).PadRight(0) + Environment.NewLine;
             }
             j.Add(new string[] { printString });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", 30) });
+            
             return j;
         }
 
@@ -869,26 +893,28 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             string printString = "";
             double total = 0;
             MAR_Session Session;
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 40; }
 
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
-            printString += Center("TICKETS PAGADOS REMOTAMENTE", 30) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre,w) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion,w) + Environment.NewLine;
+            printString += Center("TICKETS PAGADOS REMOTAMENTE",w) + Environment.NewLine;
             printString += Center(
                  FechaHelper.FormatFecha(Convert.ToDateTime(fecha),
-                 FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 20) + Environment.NewLine + Environment.NewLine;
+                 FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine + Environment.NewLine;
 
 
             if (ganadores.Tickets.Any())
             {
-                printString += Justify("Ticket", "  Hora       Balance       Banca", 50) + Environment.NewLine;
+                printString += Justify("Ticket"+   "Hora".PadLeft(8),"Balance".PadRight(16)+"Banca".PadRight(5), w) + Environment.NewLine;
 
                 for (int n = 0; n < ganadores.Tickets.Count(); n++)
                 {
-                    printString += Justify(ganadores.Tickets[n].TicketNo.PadRight(11, ' ') + ganadores.Tickets[n].StrHora.PadRight(8, ' ').Replace(" P", "P").Replace(" A", "A") + ganadores.Tickets[n].Pago.ToString("N0").PadLeft(10, ' ') + Center(ganadores.Tickets[n].Cedula.Replace("Por", "").Replace(" ", "").Replace("De", "").PadLeft(14, ' ').TrimEnd(), 14), " ", 50) + Environment.NewLine;
+                    printString += Justify(ganadores.Tickets[n].TicketNo + ganadores.Tickets[n].StrHora.PadLeft(8, ' ').Replace(" P", "P").Replace(" A", "A") , ganadores.Tickets[n].Pago.ToString("N").PadRight(8, ' ') +ganadores.Tickets[n].Cedula.Split(' ')[0], w) + Environment.NewLine;
                     total += ganadores.Tickets[n].Pago;
                 }
-                printString += Environment.NewLine + "Balance: " + Math.Round(total).ToString("###,##0").PadLeft(5, ' ') + " en " + ganadores.Tickets.Count() + " tickets" + Environment.NewLine;
+                printString += Environment.NewLine + "Balance: " + Math.Round(total).ToString("N").PadLeft(5, ' ') + " en " + ganadores.Tickets.Count() + " tickets" + Environment.NewLine;
 
             }
 
@@ -910,7 +936,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             int m = 0;
 
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanContacto, autenticador.BancaConfiguracion.BancaDto.BanContacto.Length + 7) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre, w) + Environment.NewLine;
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
             printString += Center("LISTA DE NUMEROS", w) + Environment.NewLine; ;
             printString += Center(
@@ -1211,11 +1237,13 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 pTck.Hora, w) });
                 j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanTelefono, w) });
                 j.Add(new string[] { "-".PadRight(w, '-') });
+                if (pEsCopia) { j.Add(new string[] { Center("** COPIA REIMPRESA **", w) }); j.Add(new string[] { "-".PadRight(w, '-') }); };
+                
                 j.Add(new string[] { Center("L: " + pTck.SorteoNombre, w) });
                 j.Add(new string[] { Justify(String.Format("T: " + pTck.TicketNo), String.Format("P: " + pTck.Pin), w), "2" });
             }
 
-
+            j.Add(new string[] { "-".PadRight(w, '-') });
             //if (!string.IsNullOrEmpty(pTck.Pin)) j.Add(new string[] { String.Format("Pin:    " + pTck.Pin), "3" });
             if (!string.IsNullOrEmpty(autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterHeader))
             {
@@ -1225,8 +1253,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                     j.Add(new string[] { Center(header[i], w) });
                 }
             }
-            if (pEsCopia) { j.Add(new string[] { Center("** COPIA REIMPRESA **", w) }); };
-            j.Add(new string[] { "-".PadRight(w, '-') });
+            
+            
             var theQ = pTck.Jugadas.Where(x => x.Tipo.Equals("Q")).ToArray();
             var theP = pTck.Jugadas.Where(x => x.Tipo.Equals("P")).ToArray();
             var theT = pTck.Jugadas.Where(x => x.Tipo.Equals("T")).ToArray();
