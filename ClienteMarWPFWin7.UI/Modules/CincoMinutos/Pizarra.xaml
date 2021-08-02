@@ -1,0 +1,18 @@
+﻿<Window x:Class="ClienteMarWPFWin7.UI.Modules.CincoMinutos.Pizarra"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:behaviours="clr-namespace:ClienteMarWPFWin7.UI.Views.AttachedProperties"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteMarWPFWin7.UI.Modules.CincoMinutos"
+        mc:Ignorable="d"
+        Background="Transparent"     
+        WindowStartupLocation="CenterScreen"  
+         Height="450" Width="800" WindowState="Maximized" Loaded="Window_Loaded">
+    <Grid>
+
+        <WebBrowser x:Name="browser"
+                    HorizontalAlignment="Center"></WebBrowser>
+    </Grid>
+</Window>
+

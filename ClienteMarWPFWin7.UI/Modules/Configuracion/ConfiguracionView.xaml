@@ -104,7 +104,7 @@
 
                 <StackPanel Orientation="Horizontal" >
 
-                    <Button    Style="{StaticResource MaterialDesignFlatButton}" Width="150" Height="150" Margin="20 0" ToolTip="Cambiar Monitor">
+                    <Button Click="CambiarMonitor" Style="{StaticResource MaterialDesignFlatButton}" Width="150" Height="150" Margin="20 0" ToolTip="Cambiar Monitor">
                         <StackPanel HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <materialDesign:PackIcon Kind="Monitor" Width="100" Height="100" Foreground="{DynamicResource MenuLeftBackground}" HorizontalAlignment="Center"/>
@@ -114,7 +114,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button    Style="{StaticResource MaterialDesignFlatButton}" Width="210" Name="botonConfirmar" Height="150" Margin="20 0" ToolTip="Instalar Camion Millonario">
+                    <Button  Click="botonCamion_Click"  Style="{StaticResource MaterialDesignFlatButton}" Width="210" Name="botonCamion" Height="150" Margin="20 0" ToolTip="Instalar Camion Millonario">
                         <StackPanel HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <materialDesign:PackIcon Kind="Truck" Width="100" Height="100" Foreground="{DynamicResource MenuLeftBackground}" HorizontalAlignment="Center"/>

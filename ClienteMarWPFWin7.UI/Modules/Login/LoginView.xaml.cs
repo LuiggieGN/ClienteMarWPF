@@ -13,6 +13,10 @@ using System.Windows.Shapes;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using ClienteMarWPFWin7.UI.ViewModels.Helpers;
+using ClienteMarWPFWin7.UI.Modules.CincoMinutos;
+using ClienteMarWPFWin7.Data;
+using System.IO.Compression;
+
 
 namespace ClienteMarWPFWin7.UI.Modules.Login
 {
@@ -41,14 +45,20 @@ namespace ClienteMarWPFWin7.UI.Modules.Login
             TxtUsername.Focus();
         }
 
-
-
         private void Login(object sender, RoutedEventArgs e) 
         {
             if (LoginCommand != null)
             {                  
                 LoginCommand.Execute(PasswordControl.Password);
-            }        
+
+                if (SessionGlobals.permisos)
+                {
+                    Pizarra pizarra = new Pizarra();
+                    pizarra.Show();
+                }
+
+            }
+
         }
 
         private void PressTecla(object sender, KeyEventArgs e)
