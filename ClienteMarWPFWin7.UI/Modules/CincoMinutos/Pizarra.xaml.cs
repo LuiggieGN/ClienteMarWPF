@@ -55,35 +55,35 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
 
         }
 
-        public void CambiarMonitor(object sender, RoutedEventArgs e)
-        {
-            Screen DisplayPrimary = Screen.AllScreens.First(p => Operators.ConditionalCompareObjectEqual(p.Primary, true, false));
-            Screen DisplaySecondary = Screen.AllScreens.First(s => Operators.ConditionalCompareObjectEqual(s.Primary, false, false));
-            var currentAreaPrimary = DisplayPrimary.WorkingArea;
-            var currentAreaSecondary = DisplaySecondary.WorkingArea;
-            if (TooglePantalla)
-            {
-                this.WindowStartupLocation = WindowStartupLocation.Manual;
-                this.Top = currentAreaSecondary.Top + (currentAreaSecondary.Height / 2 - this.Height / 2);
-                this.Left = currentAreaSecondary.Left + (currentAreaSecondary.Width / 2 - this.Width / 2);
-                this.WindowStartupLocation = WindowStartupLocation.Manual;
-                this.WindowState = WindowState.Normal;
-                this.Top = currentAreaPrimary.Top + (currentAreaPrimary.Height / 2 - this.Height / 2);
-                this.Left = currentAreaPrimary.Left + (currentAreaPrimary.Width / 2 - this.Width / 2);
-                //this.Location = DisplayPrimary.Bounds.Location;
-                this.WindowState = WindowState.Maximized;
-            }
-            else
-            {
-                this.WindowStartupLocation = WindowStartupLocation.Manual;
-                this.Top = currentAreaPrimary.Top + (currentAreaPrimary.Height / 2 - this.Height / 2);
-                this.Left = currentAreaPrimary.Left + (currentAreaPrimary.Width / 2 - this.Width / 2);
-                this.WindowStartupLocation = WindowStartupLocation.Manual;
-                this.WindowState = WindowState.Normal;
-                this.Top = currentAreaSecondary.Top + (currentAreaSecondary.Height / 2 - this.Height / 2);
-                this.Left = currentAreaSecondary.Left + (currentAreaSecondary.Width / 2 - this.Width / 2);
-                this.WindowState = WindowState.Maximized;
-            }
-        }
+        //public void CambiarMonitor(object sender, RoutedEventArgs e)
+        //{
+        //    Screen DisplayPrimary = Screen.AllScreens.First(p => Operators.ConditionalCompareObjectEqual(p.Primary, true, false));
+        //    Screen DisplaySecondary = Screen.AllScreens.First(s => Operators.ConditionalCompareObjectEqual(s.Primary, false, false));
+        //    var currentAreaPrimary = DisplayPrimary.WorkingArea;
+        //    var currentAreaSecondary = DisplaySecondary.WorkingArea;
+        //    if (TooglePantalla)
+        //    {
+        //        this.WindowStartupLocation = WindowStartupLocation.Manual;
+        //        this.Top = currentAreaSecondary.Top + (currentAreaSecondary.Height / 2 - this.Height / 2);
+        //        this.Left = currentAreaSecondary.Left + (currentAreaSecondary.Width / 2 - this.Width / 2);
+        //        this.WindowStartupLocation = WindowStartupLocation.Manual;
+        //        this.WindowState = WindowState.Normal;
+        //        this.Top = currentAreaPrimary.Top + (currentAreaPrimary.Height / 2 - this.Height / 2);
+        //        this.Left = currentAreaPrimary.Left + (currentAreaPrimary.Width / 2 - this.Width / 2);
+        //        //this.Location = DisplayPrimary.Bounds.Location;
+        //        this.WindowState = WindowState.Maximized;
+        //    }
+        //    else
+        //    {
+        //        this.WindowStartupLocation = WindowStartupLocation.Manual;
+        //        this.Top = currentAreaPrimary.Top + (currentAreaPrimary.Height / 2 - this.Height / 2);
+        //        this.Left = currentAreaPrimary.Left + (currentAreaPrimary.Width / 2 - this.Width / 2);
+        //        this.WindowStartupLocation = WindowStartupLocation.Manual;
+        //        this.WindowState = WindowState.Normal;
+        //        this.Top = currentAreaSecondary.Top + (currentAreaSecondary.Height / 2 - this.Height / 2);
+        //        this.Left = currentAreaSecondary.Left + (currentAreaSecondary.Width / 2 - this.Width / 2);
+        //        this.WindowState = WindowState.Maximized;
+        //    }
+        //}
     }
 }
