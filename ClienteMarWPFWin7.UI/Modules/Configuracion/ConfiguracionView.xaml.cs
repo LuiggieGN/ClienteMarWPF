@@ -294,8 +294,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Configuracion
 
         private void CambiarMonitor(object sender, RoutedEventArgs e)
         {
-            Pizarra pizarra = new Pizarra();
-            pizarra.CambiarMonitor(sender, e);
+            //Pizarra pizarra = new Pizarra();
+            //pizarra.CambiarMonitor(sender, e);
         }
 
         public void TriggerButtonClickEvent(Button boton)

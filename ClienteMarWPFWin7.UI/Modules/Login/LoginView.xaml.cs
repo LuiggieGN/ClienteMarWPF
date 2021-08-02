@@ -16,7 +16,7 @@ using ClienteMarWPFWin7.UI.ViewModels.Helpers;
 using ClienteMarWPFWin7.UI.Modules.CincoMinutos;
 using ClienteMarWPFWin7.Data;
 using System.IO.Compression;
-
+using System.Threading;
 
 namespace ClienteMarWPFWin7.UI.Modules.Login
 {
@@ -51,6 +51,7 @@ namespace ClienteMarWPFWin7.UI.Modules.Login
             {                  
                 LoginCommand.Execute(PasswordControl.Password);
 
+                Thread.Sleep(1000);
                 if (SessionGlobals.permisos)
                 {
                     Pizarra pizarra = new Pizarra();
