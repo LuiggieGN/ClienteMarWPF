@@ -86,7 +86,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             //CONFIG PRINT BAR AND QRCODE
             var GetConfigIMG = ConfigData.Where(x => x.ConfigKey == "BANCA_PRINTER_IMAGES_CONFIG").FirstOrDefault();
             var soloText = ConfigData.Where(x => x.ConfigKey == "BANCA_PRINTER_TEXT_ONLY").FirstOrDefault();
-            var ValueTicket = Value as List<ConfigPrinterValue>;
+            var ValueTicket = JsonConvert.DeserializeObject<List<ConfigPrinterValue>>(GetConfigTicket.ConfigValue);
+            ValueTicket.RemoveAt(3);
+            ValueTicket.Insert(4,new ConfigPrinterValue { Key = "FechaActual", Size = 11, Aligment = "Center", FontStyle = "regular",Content="FechaActual" });
+            
             //var ValueIMG = JsonConvert.DeserializeObject<List<ConfigPrinterValue>>(GetConfigIMG.ConfigValue);
             //var code = JsonConvert.DeserializeObject<ConfigPrinterValueCode>(ValueIMG.FirstOrDefault().Value);
             positionWrite = 5;
@@ -168,10 +171,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         case "FechaActual":
                             if (data.ToString().Length > 0)
                             {
-                                string FechaActual = string.Empty;
+                                string FechaActual = Convert.ToDateTime(data).ToString("dd/MMM/yyyy  hh:mm tt");
                                 if (data != null && data.ToString() != string.Empty)
                                 {
-                                    FechaActual = data.ToString();
+                                    FechaActual = Convert.ToDateTime(data).ToString("dd-MM-yyyy hh:mm tt");
                                 }
                                 WriteText(g, FechaActual, item.Size, item.FontStyle, item.Aligment);
                             }
