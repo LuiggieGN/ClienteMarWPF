@@ -853,7 +853,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         }
 
 
-        internal static List<string[]> FromListaDeNumeros(VentasIndexTicket pTck, IAuthenticator atenticador)
+        /*internal static List<string[]> FromListaDeNumeros(VentasIndexTicket pTck, IAuthenticator atenticador)
         {
             var j = new List<string[]>();
             var w = 35;
@@ -885,7 +885,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             j.Add(new string[] { " " });
             j.Add(new string[] { Center("-------------------------------", w) });
             return j;
-        }
+        }*/
 
         internal static List<string[]> FromPagosRemoto(MAR_Ganadores ganadores, string fecha, IAuthenticator autenticador)
         {
@@ -927,24 +927,61 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             return j;
         }
 
-        internal static List<string[]> FromListaDeNumeros(MAR_VentaNumero ventanum, string fecha, string loter, IAuthenticator autenticador)
+        internal static List<string[]> FromListaDeNumeros(MAR_VentaNumero ventanum, string fecha, string loter,IAuthenticator autenticador)
         {
             var j = new List<string[]>();
-            var w = 35;
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 40; }
             string printString = "", oldQP = "";
             double TVQ = 0, TCQ = 0, TPQ = 0, TPP = 0, TVP = 0, TVT = 0, TCT = 0, TPT = 0, TCP = 0;
             int m = 0;
 
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre, w) + Environment.NewLine;
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length + 7) + Environment.NewLine;
+            printString += (Center( autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w)) + Environment.NewLine + Environment.NewLine;
             printString += Center("LISTA DE NUMEROS", w) + Environment.NewLine; ;
             printString += Center(
                 FechaHelper.FormatFecha(Convert.ToDateTime(fecha),
                 FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine + Environment.NewLine;
 
-            printString += Center(loter, w) + Environment.NewLine + Environment.NewLine;
-            string Lineas = "";
+            printString += Center("Loteria: "+loter, w) + Environment.NewLine + Environment.NewLine;
+            var Quinielas = ventanum.Numeros.Where(x => x.QP == "Q");
+            var Pales = ventanum.Numeros.Where(x => x.QP == "P");
+            var Tripleta = ventanum.Numeros.Where(x => x.QP == "T");
+
+            if (Quinielas.Count() > 0)
+            {
+                printString += Center("DETALLE DE NUMEROS VENDIDOS", w) + Environment.NewLine;
+                printString += Justify("Num->Cant Num->Cant", "Num->Cant Num->Cant", w) + Environment.NewLine;
+
+                for (var i=0; i < Quinielas.Count(); i+=4)
+                {
+                    if (i + 4 <= Quinielas.Count() - 1)
+                    {
+                        printString += Justify(ventanum.Numeros[i].Numero + " " + ventanum.Numeros[i].Cantidad.ToString()+" "+ ventanum.Numeros[i+1].Numero + " " + ventanum.Numeros[i+1].Cantidad.ToString(), ventanum.Numeros[i+2].Numero + " " + ventanum.Numeros[i+2].Cantidad.ToString() + " " + ventanum.Numeros[i + 3].Numero + " " + ventanum.Numeros[i + 3].Cantidad.ToString(),w) + Environment.NewLine;
+                        continue;
+                    }
+                    if (i + 3 <= Quinielas.Count() - 1)
+                    {
+                        printString += Justify(ventanum.Numeros[i].Numero + " " + ventanum.Numeros[i].Cantidad.ToString() + " " + ventanum.Numeros[i + 1].Numero + " " + ventanum.Numeros[i + 1].Cantidad.ToString(), ventanum.Numeros[i + 2].Numero + " " + ventanum.Numeros[i + 2].Cantidad.ToString() + " " + " " + " " + " ", w) + Environment.NewLine;
+
+                        continue;
+                    }
+
+                    if (i + 2 <= Quinielas.Count() - 1)
+                    {
+                        printString += Justify(ventanum.Numeros[i].Numero + " " + ventanum.Numeros[i].Cantidad.ToString() + " " + ventanum.Numeros[i + 1].Numero + " " + ventanum.Numeros[i + 1].Cantidad.ToString()," " + " " + " " + " " + " " + " " + " ", w) + Environment.NewLine;
+
+                        continue;
+                    }
+                    if (i + 1 <= Quinielas.Count() - 1)
+                    {
+                        printString += Justify(ventanum.Numeros[i].Numero + " " + ventanum.Numeros[i].Cantidad.ToString() + " " + " " + " " + " ", " " + " " + " " + " " + " " + " " + " ", w) + Environment.NewLine;
+
+                        continue;
+                    }
+
+                }
+            }
 
 
             if (ventanum.Numeros.Any())
@@ -959,8 +996,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         {
                             if (ventanum.Numeros[n].QP == "Q")
                             {
-                                printString += Center("DETALLE DE NUMEROS VENDIDOS", 27) + Environment.NewLine;
-                                printString += Center("Num->Cant Num->Cant Num->Cant", 30) + Environment.NewLine;
+                                printString += Center("DETALLE DE NUMEROS VENDIDOS", w) + Environment.NewLine;
+                                printString += Justify("Num->Cant Num->Cant","Num->Cant Num->Cant", w) + Environment.NewLine;
                             }
                             if (ventanum.Numeros[n].QP == "P")
                             {
@@ -971,8 +1008,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                                     TVQ = 0;
                                 }
 
-                                printString += Center("DETALLE DE PALES VENDIDOS", 25) + Environment.NewLine;
-                                printString += Center("Pale-Cant Pale-Cant Pale-Cant Pale-Cant", 30) + Environment.NewLine;
+                                printString += Center("DETALLE DE PALES VENDIDOS", w) + Environment.NewLine;
+                                printString += Justify("Pale-Cant Pale-Cant","Pale-Cant Pale-Cant", w) + Environment.NewLine;
                             }
                             if (ventanum.Numeros[n].QP == "T")
                             {
@@ -988,8 +1025,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                                     TVQ = 0;
                                 }
 
-                                printString += Center("DETALLE DE TRIPLETAS VENDIDOS", 29) + Environment.NewLine;
-                                printString += Center(" Trip-->Cant  Trip-->Cant  Trip-->Cant", 27) + Environment.NewLine;
+                                printString += Center("DETALLE DE TRIPLETAS VENDIDOS", w) + Environment.NewLine;
+                                printString += Justify("Trip-->Cant  Trip-->","Cant Trip-->Cant", w) + Environment.NewLine;
                             }
                             m = 0;
                         }
@@ -1002,17 +1039,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                     if (ventanum.Numeros[n].QP == "Q")
                     {
-                        int espaciosDeCantidad = 0;
-                        //if(ventanum.Numeros[n].Cantidad.ToString().Length())
-                        //{
-                        //    espac
-                        //}
-                        Lineas += ventanum.Numeros[n].Numero.ToString().TrimStart() + ventanum.Numeros[n].Cantidad.ToString();
-                        if (n % 3 == 0 && n > 0)
-                        {
-                            printString += Lineas; Lineas = "";
-                        }
-
+                        printString += Justify(ventanum.Numeros[n].Numero +" "+ ventanum.Numeros[n].Cantidad.ToString(),"",(w/4));
                         TCQ += ventanum.Numeros[n].Cantidad;
                         TVQ += ventanum.Numeros[n].Costo;
                         TPQ += ventanum.Numeros[n].Pago;
@@ -1039,10 +1066,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                     if ((((m + 1) / ((ventanum.Numeros[n].QP == "T") ? 3 : 4)) == (((m + 1) / ((ventanum.Numeros[n].QP == "T") ? 3 : 4)))))
                     {
-                        if (n % 3 == 0 && n > 0)
-                        {
-                            printString += Environment.NewLine;
-                        }
+                        //printString += Environment.NewLine;
                     }
                     else
                     {
@@ -1076,10 +1100,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
 
             j.Add(new string[] { printString });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", w) });
+            
             return j;
         }
 

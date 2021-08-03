@@ -497,7 +497,9 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                 var nombreLoteria = new ReporteView().GetNombreLoteria();
                 var Reporte = ReportesService.ReporteListadoNumero(Autenticador.CurrentAccount.MAR_Setting2.Sesion, ViewModel.LoteriaID, ViewModel.Fecha);
                 MAR_VentaNumero ListaNumero = new MAR_VentaNumero() { Dia = Reporte.Dia, Err = Reporte.Err, Fecha = Reporte.Fecha, Hora = Reporte.Hora, Loteria = Reporte.Loteria, Numeros = Reporte.Numeros };
-                var ListadoNumero = TemplateListaNumero(Reporte);
+                var ReporteListNumero = PrintJobs.FromListaDeNumeros(ListaNumero, Reporte.Fecha, nombreLoteria, Autenticador);
+                PrintOutHelper.SendToPrinter(ReporteListNumero);
+                //var ListadoNumero = TemplateListaNumero(Reporte);
             }
             catch (Exception e)
             {
