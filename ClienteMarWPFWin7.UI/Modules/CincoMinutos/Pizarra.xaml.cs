@@ -28,7 +28,7 @@ namespace ClienteMarWPFWin7.UI.Modules.CincoMinutos
         {
             InitializeComponent();
         }
-
+      
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (SessionGlobals.Productos != null)

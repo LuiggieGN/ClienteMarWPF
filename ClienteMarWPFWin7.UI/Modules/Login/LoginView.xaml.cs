@@ -51,8 +51,8 @@ namespace ClienteMarWPFWin7.UI.Modules.Login
             {                  
                 LoginCommand.Execute(PasswordControl.Password);
 
-                Thread.Sleep(1000);
-                if (SessionGlobals.permisos)
+                Thread.Sleep(1500);
+                if (SessionGlobals.permisos && SessionGlobals.cantidadPantallas > 1)
                 {
                     Pizarra pizarra = new Pizarra();
                     pizarra.Show();
