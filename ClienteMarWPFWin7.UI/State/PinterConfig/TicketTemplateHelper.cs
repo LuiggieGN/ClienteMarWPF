@@ -35,15 +35,8 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             CantidadLoterias = cantidadLoterias;
             
             var width = pd.PrinterSettings.DefaultPageSettings.PaperSize.Width;
+            WidthPaper = width;
             
-            if (width <= 500)
-            {
-                WidthPaper = width;
-            }else if (width > 500)
-            {
-                WidthPaper = (width / 2);
-            }
-
             //paperSize = papers.FirstOrDefault();
              paperSize = new PaperSize("nose",width, 0);
             //WidthPaper = width;
@@ -94,6 +87,9 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             var GetConfigIMG = ConfigData.Where(x => x.ConfigKey == "BANCA_PRINTER_IMAGES_CONFIG").FirstOrDefault();
             var soloText = ConfigData.Where(x => x.ConfigKey == "BANCA_PRINTER_TEXT_ONLY").FirstOrDefault();
             var ValueTicket = JsonConvert.DeserializeObject<List<ConfigPrinterValue>>(GetConfigTicket.ConfigValue);
+            ValueTicket.RemoveAt(3);
+            ValueTicket.Insert(4,new ConfigPrinterValue { Key = "FechaActual", Size = 11, Aligment = "Center", FontStyle = "regular",Content="FechaActual" });
+            
             //var ValueIMG = JsonConvert.DeserializeObject<List<ConfigPrinterValue>>(GetConfigIMG.ConfigValue);
             //var code = JsonConvert.DeserializeObject<ConfigPrinterValueCode>(ValueIMG.FirstOrDefault().Value);
             positionWrite = 5;
@@ -107,6 +103,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             {
                 if (soloText.ConfigValue == "TRUE")
                 {
+                    ValueTicket = JsonConvert.DeserializeObject<List<ConfigPrinterValue>>(GetConfigTicket.ConfigValue);
                     foreach (var item in ValueTicket)
                     {
                         var data = GetValueForProperty(Value, item.Content) == null ? "" : GetValueForProperty(Value, item.Content);
@@ -174,10 +171,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                         case "FechaActual":
                             if (data.ToString().Length > 0)
                             {
-                                string FechaActual = string.Empty;
+                                string FechaActual = Convert.ToDateTime(data).ToString("dd/MMM/yyyy  hh:mm tt");
                                 if (data != null && data.ToString() != string.Empty)
                                 {
-                                    FechaActual = "" + data.ToString();
+                                    FechaActual = Convert.ToDateTime(data).ToString("dd-MM-yyyy hh:mm tt");
                                 }
                                 WriteText(g, FechaActual, item.Size, item.FontStyle, item.Aligment);
                             }
@@ -242,9 +239,9 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                             {
                                 WriteTextColumn(g, new List<string> { "JUGADAS", "MONTO" }, item.Size, item.FontStyle, item.Aligment);
 
-                                var Quiniela = TicketJugadas.Where(y => y.TipoJudaga == "Quiniela").ToList();
-                                var Pales = TicketJugadas.Where(y => y.TipoJudaga == "Pale").ToList();
-                                var Tripleta = TicketJugadas.Where(y => y.TipoJudaga == "Tripleta").ToList();
+                                var Quiniela = TicketJugadas.Where(y => y.TipoJudaga == "Q").ToList();
+                                var Pales = TicketJugadas.Where(y => y.TipoJudaga == "P").ToList();
+                                var Tripleta = TicketJugadas.Where(y => y.TipoJudaga == "T").ToList();
                                 if (Quiniela.Any())
                                 {
                                     WriteText(g, "----Quiniela----", item.Size, item.FontStyle, item.Aligment);
@@ -284,10 +281,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                                     {
 
                                         case 1:
+                                            WriteTextColumn(g, new List<string> { "Loteria", "Ticket", "Pin" }, item.Size, item.FontStyle, item.Aligment);
                                             foreach (var dataMore in loteriaTicketPin)
                                             {
-                                                WriteText(g, dataMore.Loteria, item.Size, item.FontStyle, item.Aligment);
-                                                WriteTextColumn(g, new List<string> { "T:" + dataMore.Ticket, "P:" + dataMore.Pin }, item.Size, item.FontStyle, item.Aligment);
+                                                WriteTextColumn(g, new List<string> { dataMore.Loteria, dataMore.Ticket, dataMore.Pin }, item.Size, item.FontStyle, item.Aligment);
                                             }
                                             break;
 
@@ -300,10 +297,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                                             break;
 
                                         default:
+                                            WriteTextColumn(g, new List<string> { "Loteria", "Ticket", "Pin" }, item.Size, item.FontStyle, item.Aligment);
                                             foreach (var dataMore in loteriaTicketPin)
                                             {
-                                                WriteText(g, dataMore.Loteria, item.Size, item.FontStyle, item.Aligment);
-                                                WriteTextColumn(g, new List<string> { "T:" + dataMore.Ticket, "P:" + dataMore.Pin }, item.Size, item.FontStyle, item.Aligment);
+                                                WriteTextColumn(g, new List<string> { dataMore.Loteria, dataMore.Ticket, dataMore.Pin }, item.Size, item.FontStyle, item.Aligment);
                                             }
                                             break;
                                     }
@@ -323,21 +320,21 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
                                             var FormatOne = loteriaTicketPin.FirstOrDefault();
                                             WriteText(g, "L:" + FormatOne.Loteria, item.Size, item.FontStyle, item.Aligment);
-                                            WriteText(g, "T:" + FormatOne.Ticket, item.Size, item.FontStyle, item.Aligment);
-                                            WriteText(g, "P:" + FormatOne.Pin, item.Size, item.FontStyle, item.Aligment);
+                                            WriteTextColumn(g, new List<string> { "T:" + FormatOne.Ticket, "P:" + FormatOne.Pin }, item.Size, item.FontStyle, item.Aligment);
+                                            
                                             break;
 
                                         case 2:
                                             var FormatTwo = loteriaTicketPin.FirstOrDefault();
-                                            WriteText(g, FormatTwo.Loteria, item.Size, item.FontStyle, item.Aligment);
+                                            WriteText(g, "L:" + FormatTwo.Loteria, item.Size, item.FontStyle, item.Aligment);
                                             WriteTextColumn(g, new List<string> { "T:" + FormatTwo.Ticket, "P:" + FormatTwo.Pin }, item.Size, item.FontStyle, item.Aligment);
                                             break;
 
                                         default:
                                             var defaults = loteriaTicketPin.FirstOrDefault();
                                             WriteText(g, "L:" + defaults.Loteria, item.Size, item.FontStyle, item.Aligment);
-                                            WriteText(g, "T:" + defaults.Ticket, item.Size, item.FontStyle, item.Aligment);
-                                            WriteText(g, "P:" + defaults.Pin, item.Size, item.FontStyle, item.Aligment);
+                                            WriteTextColumn(g, new List<string> { "T:" + defaults.Ticket, "P:" + defaults.Pin }, item.Size, item.FontStyle, item.Aligment);
+                                            
                                             break;
                                     }
 
@@ -628,7 +625,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
                 //{
                 //    y.NombreResumidoLoteria = y.NombreResumidoLoteria.Substring(0, 8);
                 //}
-                WriteTextColumn(graphics, new List<string> { y.Jugada.Numeros, "$" + y.Jugada.Monto }, fontSize, fontStyle, alignment);
+                WriteTextColumn(graphics, new List<string> { y.Jugada.Numeros, "$" + y.Jugada.Monto.ToString("N2") }, fontSize, fontStyle, alignment);
             }
         }
 

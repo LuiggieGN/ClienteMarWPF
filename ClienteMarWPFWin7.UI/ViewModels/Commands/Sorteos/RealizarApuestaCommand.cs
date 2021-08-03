@@ -325,9 +325,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                         //var configuraciones = AgregarConfigDeSoloTextio();
                         string ImprimirTicketSrializado = JsonConvert.SerializeObject(PrintJobs.FromTicketNuevo(TICKET2, Autenticador, false));
                         //TicketValue ticketEnviar = new TicketValue() { BanNombre = "", AutorizacionHacienda = "", Direccion = "", FechaActual = "", Firma = "", Jugadas = new List<TicketJugadas>(), Logo = "", LoteriaTicketPin = new List<LoteriaTicketPin>(), Telefono = "", Texto = ImprimirTicketSrializado, Total = "" };
-                        TicketValue ticketEnviar = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = MarBetResponse.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = null, Total = "Total", AutorizacionHacienda = null, Logo = null };
+                        TicketValue ticketEnviar = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = MarBetResponse.StrFecha + " "+MarBetResponse.StrHora, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = null, Total = jugadasTicket.Sum(x => x.Jugada.Monto).ToString("N2"), AutorizacionHacienda = null, Logo = null };
                         TicketTemplateHelper.PrintTicket(ticketEnviar, listaConfiguraciones);
                         contadorTIcket = 0;
+                        loteriatickpin = new List<LoteriaTicketPin>();
                     }
                 }
                 if (ExistPrinterCOnfig == false)
@@ -495,9 +496,10 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
                         ]"
                          End If*/
                         //List<string[]> ImprimirTicket = PrintJobs.FromTicket(TICKET, Autenticador, false);
-                        TicketValue ticketEnviar = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = Headers.StrFecha, Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = null, Total = "Total", AutorizacionHacienda = null, Logo = null };
+                        TicketValue ticketEnviar = new TicketValue() { BanNombre = Autenticador.BancaConfiguracion.BancaDto.BanNombre, Direccion = Autenticador.BancaConfiguracion.BancaDto.BanDireccion, FechaActual = Headers.StrFecha +" "+Convert.ToDateTime(Headers.StrHora).ToString("hh:mm tt"), Telefono = Autenticador.BancaConfiguracion.BancaDto.BanTelefono, Jugadas = jugadasTicket, LoteriaTicketPin = loteriatickpin, Firma = firma, Texto = null, Total = (jugadasTicket.Sum(x => x.Jugada.Monto) *  loteriatickpin.Count()).ToString("N2"), AutorizacionHacienda = null, Logo = null };
                         TicketTemplateHelper.PrintTicket(ticketEnviar, listaConfiguraciones);
                         contadorTIcket = 0;
+                        loteriatickpin = new List<LoteriaTicketPin>();
                     }
                 }
                 if (ExistPrinterCOnfig == false)
