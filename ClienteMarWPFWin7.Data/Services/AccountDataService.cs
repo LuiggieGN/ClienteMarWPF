@@ -11,6 +11,7 @@ using ClienteMarWPFWin7.Domain.Services.AccountService;
 using ClienteMarWPFWin7.Data.Services.Helpers;
 
 using ClienteMarWPFWin7.Domain.MarPuntoVentaServiceReference;
+using System.Windows.Forms;
 
 namespace ClienteMarWPFWin7.Data.Services
 {
@@ -23,6 +24,7 @@ namespace ClienteMarWPFWin7.Data.Services
         {
             SoapClientesRepository = new SoapClientRepository();
             MarCliente = SoapClientesRepository.GetMarServiceClient(false);
+            SessionGlobals.cantidadPantallas = Screen.AllScreens.Length;
         }
 
         public CuentaDTO Logon2(string usuario, string clave, int bancaid, string ipaddress)
