@@ -52,7 +52,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Sorteos
 
                     ViewModel.ListadoTicketsPrecargados = result.OrderBy(x => x.Ticket).Reverse().ToList().ToObservableTicketDTO();
 
-                    string total = ViewModelPago.listaTicketsJugados.Where(x => x.Nulo == false).Sum(x => x.Costo).ToString("C", CultureInfo.CurrentCulture);
+                    string total = ViewModelPago.listaTicketsJugados.Where(x => x.Nulo == false).Sum(x => x.Costo).ToString("C", new CultureInfo("EN-US"));
 
                     ViewModelPago.TotalVentas = total;
                 }
