@@ -849,7 +849,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
             printData[1] = new string[] { printData[0][0].ToString() + "\r\n" + printData[1][0].ToString() };
             printData[0] = new string[] { "" };
 
-            TicketTemplateHelper.PrintTicket(printData);
+            //TicketTemplateHelper.PrintTicket(printData);
+            PrintOutHelper.SendToPrinter(printData);
         }
 
         private List<string[]> TemplateListaNumero(MAR_VentaNumero Reporte)
@@ -1251,6 +1252,7 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Reportes
                             ReportesGeneralesReportes reporte = new ReportesGeneralesReportes() { NombreReporte = "LISTADO DE NUMERO", Data = ListArray, FechaReporte = Convert.ToDateTime(Reporte.Fecha), Headers = arrayHeader, Totals = arrayTotals, Loteria = null };
                             List<string[,]> ImprimirListTicketGeneral = PrintJobs.PrintGeneralReportes(reporte, Autenticador);
                             ReporteTemplateHelper.PrintReporte(ImprimirListTicketGeneral, Autenticador, ViewModel);
+
                         }
                         else if (Reporte.Numeros.Count() == 0)
                         {

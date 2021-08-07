@@ -33,10 +33,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre, w) + Environment.NewLine;
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, w) + Environment.NewLine;
             printString += Center("TICKETS GANADORES", w) + Environment.NewLine;
-
-            printString += Center(
+            printString += Center(MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(ganadores.Dia), MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + ganadores.Hora, w) + Environment.NewLine;
+            printString += Center("Del Dia " +
                 FechaHelper.FormatFecha(Convert.ToDateTime(reporte.Fecha),
-                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine;
+                FechaHelper.FormatoEnum.FechaCortaDOW) , w) + Environment.NewLine;
 
             printString += Center("Loteria: " + reporte.Sorteo, w) + Environment.NewLine + Environment.NewLine;
 
@@ -445,18 +445,12 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
             if (w == 0) { w = 40; }
 
-            j.Add(new string[] { Center("SUMA DE VENTAS", w) });
+            
             j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w) });
-            j.Add(new string[] { Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), w) });
-            j.Add(new string[] { Center("FECHA DEL IMPRESION", w) });
-            j.Add(new string[] { Center(
-               FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
-                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w)});
-            j.Add(new string[] { Center("FECHA DEL REPORTE", w) });
-            j.Add(new string[] { Center(
-               FechaHelper.FormatFecha(Convert.ToDateTime(theSumaVenta.Fecha),
-                FechaHelper.FormatoEnum.FechaCortaDOW), w)});
-
+            j.Add(new string[] { Center("SUMA DE VENTAS", w) });
+            j.Add(new string[] { Center(MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(theSumaVenta.Dia), MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + theSumaVenta.Hora, w) });
+            j.Add(new string[] { Center("Del Dia "+ FechaHelper.FormatFecha(Convert.ToDateTime(theSumaVenta.Fecha),FechaHelper.FormatoEnum.FechaCortaDOW), w)});
+            j.Add(new string[] { Center(" ", w) });
             j.Add(new string[] { Justify("Concepto".PadRight(4)+"Venta".PadLeft(8),"Comis.".PadRight(8)+"Saco".PadRight(6)+"Balan.".PadLeft(6), w) });
 
             double comision = 0, venta = 0, resultado = 0, saco = 0;
@@ -604,9 +598,10 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), w) + Environment.NewLine;
             printString += Center("REPORTE DE VENTA", w) + Environment.NewLine;
-            printString += Center(
+            printString += Center(MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(venta.Dia), MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " "+venta.Hora, w) + Environment.NewLine;
+            printString += Center("Del Dia "+
                 MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(venta.Fecha),
-                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine;
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW), w) + Environment.NewLine;
 
             printString += Center("Loteria: "+sorteo, w) + Environment.NewLine;
 
@@ -730,12 +725,13 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre,w) + Environment.NewLine;
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion,w) + Environment.NewLine;
             printString += Center("LISTADO DE PINES", w) + Environment.NewLine;
-            printString += Center(
+            printString += Center(MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(thePines.Dia), MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + thePines.Hora, w) + Environment.NewLine;
+            printString += Center("Del Dia "+
                 FechaHelper.FormatFecha(Convert.ToDateTime(thePines.Fecha),
-                FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 40) + Environment.NewLine + Environment.NewLine;
+                FechaHelper.FormatoEnum.FechaCortaDOW) , w) + Environment.NewLine + Environment.NewLine;
 
 
-            printString += Justify("Suplidor   Hora ","Precio".PadRight(14)+      "Serie".PadRight(4), 40) + Environment.NewLine;
+            printString += Justify("Suplidor   Hora ","Precio".PadRight(14)+      "Serie".PadRight(4), w) + Environment.NewLine;
 
 
 
@@ -756,7 +752,7 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             }
             else
             {
-                printString += Center("NO HAY DATA DISPONIBLE", 22) + Environment.NewLine;
+                printString += Center("NO HAY DATA DISPONIBLE", w) + Environment.NewLine;
             }
             
             j.Add(new string[] { printString });
@@ -776,9 +772,11 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre, w) + Environment.NewLine;
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion, w) + Environment.NewLine;
             printString += Center("LISTADO DE TICKETS", w) + Environment.NewLine;
-            printString += Center(
+            printString += Center(MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(theTickets.Dia), MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + theTickets.Hora, w) + Environment.NewLine;
+
+            printString += Center("Del Dia "+
                    FechaHelper.FormatFecha(Convert.ToDateTime(theTickets.Fecha),
-                   FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine;
+                   FechaHelper.FormatoEnum.FechaCortaDOW), w) + Environment.NewLine;
 
             printString += Center("Loteria: " + loter, w) + Environment.NewLine + Environment.NewLine;
 
@@ -898,11 +896,12 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
 
 
             printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre,w) + Environment.NewLine;
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion,w) + Environment.NewLine;
             printString += Center("TICKETS PAGADOS REMOTAMENTE",w) + Environment.NewLine;
-            printString += Center(
+            printString += Center(MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(ganadores.Dia), MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + ganadores.Hora, w) + Environment.NewLine;
+
+            printString += Center("Del Dia "+
                  FechaHelper.FormatFecha(Convert.ToDateTime(fecha),
-                 FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), w) + Environment.NewLine + Environment.NewLine;
+                 FechaHelper.FormatoEnum.FechaCortaDOW) , w) + Environment.NewLine + Environment.NewLine;
 
 
             if (ganadores.Tickets.Any())
@@ -1462,25 +1461,23 @@ namespace ClienteMarWPFWin7.UI.State.PinterConfig
         internal static List<string[]> FromImprimirRecarga(RecargasIndexRecarga recarga, IAuthenticator autenticador)
         {
             var j = new List<string[]>();
+            var w = autenticador.CurrentAccount.MAR_Setting2.Sesion.PrinterSize;
+            if (w == 0) { w = 40; }
 
             string printString = "";
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper().Length) + Environment.NewLine;
+            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanNombre.ToUpper(), w) + Environment.NewLine;
 
-            printString += Center(autenticador.BancaConfiguracion.BancaDto.BanDireccion.ToUpper(), autenticador.BancaConfiguracion.BancaDto.BanDireccion.Length) + Environment.NewLine;
             printString += Center(
                 MAR.AppLogic.MARHelpers.FechaHelper.FormatFecha(Convert.ToDateTime(DateTime.Now),
-                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"), 35) + Environment.NewLine;
-
-            printString += Center("Recarga ", "Recarga".Length) + Environment.NewLine;
+                MAR.AppLogic.MARHelpers.FechaHelper.FormatoEnum.FechaCortaDOW) + " " + DateTime.Now.ToString("t"),w) + Environment.NewLine;
+            printString += Center("Recarga ", w) + Environment.NewLine;
             printString += Environment.NewLine;
-            printString += Justify("Numero: ".PadRight(0) + recarga.Numero + ("  Monto: " + recarga.Monto.ToString("C0")), "", 30) + Environment.NewLine;
+            printString += Justify("Numero: ".PadRight(0) + recarga.Numero , "  Monto: " + recarga.Monto.ToString("C0"), w) + Environment.NewLine;
             printString += Environment.NewLine;
-            printString += Justify("Serie: ".PadRight(0) + recarga.Serie, "", recarga.Serie.Length) + Environment.NewLine;
-
+            printString += Justify("Serie: ".PadRight(0) + recarga.Serie, "", w) + Environment.NewLine;
             j.Add(new string[] { printString });
-            j.Add(new string[] { " " });
-            j.Add(new string[] { Center("-------------------------------", "-------------------------------".Length) });
+            j.Add(new string[] { "-".PadRight(w, '-'), "2" });
             return j;
 
         }

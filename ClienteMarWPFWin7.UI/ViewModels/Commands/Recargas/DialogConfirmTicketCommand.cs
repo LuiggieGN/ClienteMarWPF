@@ -31,7 +31,8 @@ namespace ClienteMarWPFWin7.UI.ViewModels.Commands.Recargas
             try {
                 _recargaService.ConfirmRecarga(_autenticador.CurrentAccount.MAR_Setting2.Sesion);
                 List<string[]> impresionRecargas = PrintJobs.FromImprimirRecarga(datosRecargas, _autenticador);
-                TicketTemplateHelper.PrintTicket(impresionRecargas);
+                PrintOutHelper.SendToPrinter(impresionRecargas);
+                //TicketTemplateHelper.PrintTicket(impresionRecargas);
                 new CerrarDialogoImprimirTicketCommand(_viewModel);
                 Thread.Sleep(700);
                 _viewModel.CerrarDialogoInicioCommand.Execute(null);
